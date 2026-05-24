@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chinnic — Your Health is Our Priority</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans for premium typography feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons for high-fidelity clinical icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        },
+                        accent: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                        }
+                    },
+                    borderRadius: {
+                        'brand': '2rem',
+                    },
+                    boxShadow: {
+                        'premium': '0 10px 40px -10px rgba(59, 130, 246, 0.06), 0 1px 3px rgba(0, 0, 0, 0.02)',
+                        'glow': '0 20px 50px -12px rgba(59, 130, 246, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #fafbfc;
+        }
+        /* Custom scrollbar to keep layout clean */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="font-sans text-slate-800 antialiased overflow-x-hidden">
+
+    <!-- Top Soft Glowing Ambient Blobs (Visual Vibe Matching) -->
+    <div class="absolute top-0 right-0 w-[50vw] h-[50vw] bg-gradient-to-bl from-blue-100/40 via-emerald-100/30 to-transparent rounded-full blur-[120px] pointer-events-none -z-10"></div>
+    <div class="absolute top-[30vh] left-0 w-[40vw] h-[40vw] bg-gradient-to-tr from-emerald-50/40 via-blue-50/30 to-transparent rounded-full blur-[100px] pointer-events-none -z-10"></div>
+
+    <!-- NAVBAR -->
+    <header class="sticky top-0 z-40 bg-white/70 backdrop-blur-xl border-b border-slate-100/80 transition-all duration-300">
+        <nav class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-2.5 group">
+                <div class="w-10 h-10 rounded-xl bg-brand-600 flex items-center justify-center text-white shadow-md shadow-brand-500/20 group-hover:scale-105 transition-transform duration-300">
+                    <svg class="w-5.5 h-5.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                    </svg>
+                </div>
+                <span class="text-xl font-extrabold tracking-tight text-brand-900">Chinnic</span>
+            </a>
+
+            <!-- Navigation Links -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#services" class="text-sm font-semibold text-slate-600 hover:text-brand-600 transition-colors">Services</a>
+                <a href="#doctors" class="text-sm font-semibold text-slate-600 hover:text-brand-600 transition-colors">Our Doctors</a>
+                <a href="#about" class="text-sm font-semibold text-slate-600 hover:text-brand-600 transition-colors">Why Chinnic</a>
+                <div class="relative group">
+                    <button class="flex items-center gap-1 text-sm font-semibold text-slate-600 hover:text-brand-600 transition-colors">
+                        Resources
+                        <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <div class="absolute left-0 mt-2 w-48 bg-white border border-slate-100 rounded-2xl shadow-premium opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-1 group-hover:translate-y-0 z-50">
+                        <div class="p-2">
+                            <a href="#" class="block px-4 py-2.5 text-xs font-semibold text-slate-600 hover:text-brand-600 hover:bg-brand-50/50 rounded-xl transition-all">Health Blog</a>
+                            <a href="#" class="block px-4 py-2.5 text-xs font-semibold text-slate-600 hover:text-brand-600 hover:bg-brand-50/50 rounded-xl transition-all">Patient Guide</a>
+                            <a href="#" class="block px-4 py-2.5 text-xs font-semibold text-slate-600 hover:text-brand-600 hover:bg-brand-50/50 rounded-xl transition-all">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA & Contact -->
+            <div class="flex items-center gap-4">
+                <a href="#book-appointment" class="hidden sm:inline-flex items-center justify-center px-6 py-3 rounded-full bg-brand-600 text-sm font-bold text-white hover:bg-brand-700 hover:shadow-lg hover:shadow-brand-500/20 active:scale-[0.98] transition-all">
+                    Book Consultation
+                </a>
+                <button onclick="toggleMobileMenu()" class="p-2.5 text-slate-600 hover:bg-slate-50 rounded-full md:hidden transition-colors">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden border-b border-slate-100 bg-white/95 backdrop-blur-lg px-6 py-6 space-y-4 md:hidden">
+            <a href="#services" class="block text-base font-semibold text-slate-600 hover:text-brand-600">Services</a>
+            <a href="#doctors" class="block text-base font-semibold text-slate-600 hover:text-brand-600">Our Doctors</a>
+            <a href="#about" class="block text-base font-semibold text-slate-600 hover:text-brand-600">Why Chinnic</a>
+            <a href="#book-appointment" class="block text-center py-3 rounded-full bg-brand-600 text-base font-bold text-white">Book Consultation</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-8 pb-20 md:py-24 max-w-7xl mx-auto px-6 overflow-hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <!-- Left Hero Content -->
+            <div class="lg:col-span-6 space-y-8 text-left">
+                <!-- Highlight Pill Tag -->
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-100/50 border border-brand-200/40 text-brand-700 text-xs font-bold tracking-wide">
+                    <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+                    24/7 Digital Health Companion
+                </div>
+
+                <h1 class="text-4xl sm:text-5xl lg:text-[4rem] font-extrabold tracking-tight leading-[1.1] text-brand-900">
+                    Your health is <br class="hidden sm:inline">
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-emerald-600">our priority</span>
+                </h1>
+
+                <p class="text-slate-500 text-base sm:text-lg max-w-xl leading-relaxed">
+                    Access expert online healthcare consultations, customized patient treatment frameworks, and around-the-clock diagnostic reports directly from clinical specialists.
+                </p>
+
+                <!-- Interactive Hero CTA & Trust Segment -->
+                <div class="flex flex-wrap items-center gap-4 pt-2">
+                    <a href="#book-appointment" class="inline-flex items-center gap-2.5 px-8 py-4.5 rounded-full bg-brand-600 text-base font-extrabold text-white hover:bg-brand-700 hover:shadow-lg hover:shadow-brand-500/25 active:scale-[0.98] transition-all">
+                        <i data-lucide="calendar" class="w-5 h-5"></i>
+                        Find Doctor Now
+                    </a>
+                    <a href="#services" class="inline-flex items-center gap-2 px-6 py-4.5 rounded-full bg-white border border-slate-200 text-slate-700 text-base font-bold hover:bg-slate-50 transition-colors">
+                        Explore Services
+                    </a>
+                </div>
+
+                <!-- Live Metrics Badge -->
+                <div class="flex items-center gap-6 pt-4 border-t border-slate-100">
+                    <div class="flex -space-x-3">
+                        <img class="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=150" alt="Doctor avatar">
+                        <img class="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=150" alt="Doctor avatar">
+                        <img class="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1594824813573-246434e33963?auto=format&fit=crop&q=80&w=150" alt="Doctor avatar">
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-1">
+                            <span class="text-slate-800 font-extrabold text-lg">99.8%</span>
+                            <div class="flex text-amber-400">
+                                <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                            </div>
+                        </div>
+                        <p class="text-slate-400 text-xs font-semibold">Positive patient feedback score</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Hero Visual Card (Matching exact styling format) -->
+            <div class="lg:col-span-6 flex justify-center relative">
+                <!-- Gradient glow rings in backdrop -->
+                <div class="absolute -top-10 -right-10 w-72 h-72 bg-emerald-300/20 rounded-full blur-[80px] pointer-events-none"></div>
+                <div class="absolute -bottom-10 -left-10 w-72 h-72 bg-brand-300/20 rounded-full blur-[80px] pointer-events-none"></div>
+
+                <!-- Composite Clinical Illustration Card -->
+                <div class="relative w-full max-w-[500px]">
+                    <!-- Rounded organic container for doctor photo -->
+                    <div class="aspect-[4/5] rounded-brand bg-gradient-to-tr from-brand-100 via-emerald-100 to-blue-50 overflow-hidden shadow-premium relative border border-white/60">
+                        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=600" 
+                             alt="Primary Clinic Doctor" 
+                             class="absolute bottom-0 left-1/2 -translate-x-1/2 h-[95%] w-auto object-cover transform hover:scale-[1.03] transition-transform duration-500">
+                        
+                        <!-- Mini Active Badge -->
+                        <div class="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-emerald-500 shadow-md">
+                            <i data-lucide="activity" class="w-5 h-5 animate-pulse"></i>
+                        </div>
+                    </div>
+
+                    <!-- Left floating micro-card (Matches the little visual details) -->
+                    <div class="absolute top-1/3 -left-8 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-premium border border-slate-100 max-w-[180px] hover:translate-y-[-4px] transition-transform duration-300 hidden sm:block">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-xl bg-brand-50 flex items-center justify-center text-brand-600">
+                                <i data-lucide="check-circle" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-extrabold text-slate-800">100% Secure</h4>
+                                <p class="text-[10px] text-slate-400">HIPAA Compliant</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom floating consultation schedule card -->
+                    <div class="absolute -bottom-6 right-6 left-6 sm:left-auto sm:right-[-20px] sm:w-72 bg-white/95 backdrop-blur-md p-5 rounded-2xl shadow-premium border border-slate-100/90 hover:translate-y-[-4px] transition-transform duration-300">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-3">
+                            <div class="flex items-center gap-3">
+                                <img class="w-9 h-9 rounded-full object-cover" src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=150" alt="Doctor">
+                                <div>
+                                    <h4 class="text-xs font-extrabold text-slate-800">Dr. Adrian Hayes</h4>
+                                    <p class="text-[10px] text-emerald-600 font-bold">Online Now</p>
+                                </div>
+                            </div>
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                        </div>
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="text-slate-400">Available Session</span>
+                            <span class="font-extrabold text-brand-600 bg-brand-50 px-2 py-1 rounded-lg">Today, 4:30 PM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRIPLE FEATURE / INTRO DOCK (Matches 3 elements row in inspiration image) -->
+    <section id="services" class="max-w-7xl mx-auto px-6 py-16">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Card 1: Visual Professional Badge -->
+            <div class="bg-white rounded-brand border border-slate-100 p-8 shadow-premium flex flex-col justify-between group hover:border-brand-100 hover:shadow-glow transition-all duration-300">
+                <div class="space-y-4">
+                    <div class="w-12 h-12 rounded-2xl bg-brand-50 flex items-center justify-center text-brand-600 group-hover:scale-110 transition-transform">
+                        <i data-lucide="shield-alert" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-extrabold text-slate-800">Immediate Clinical Response</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        No appointment necessary for instant chat assistance. Resolve basic medical doubts instantly with qualified general practitioners.
+                    </p>
+                </div>
+                <div class="pt-6">
+                    <a href="#book-appointment" class="inline-flex items-center gap-2 text-xs font-extrabold text-brand-600 hover:text-brand-700">
+                        Initiate Chat
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 2: Interactive Service Hub Features -->
+            <div class="bg-gradient-to-br from-brand-600 to-brand-700 text-white rounded-brand p-8 shadow-glow flex flex-col justify-between group hover:-translate-y-1 transition-all duration-300">
+                <div class="space-y-4">
+                    <div class="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center text-white">
+                        <i data-lucide="stethoscope" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-extrabold">Virtual Diagnostics</h3>
+                    <p class="text-blue-100 text-sm leading-relaxed">
+                        Utilize state of the art tele-health frameworks to consult, receive prescription updates, and track wellness metrics cleanly.
+                    </p>
+                </div>
+                <div class="pt-6">
+                    <a href="#book-appointment" class="inline-flex items-center gap-2 text-xs font-extrabold text-brand-100 hover:text-white transition-colors">
+                        Reserve Video Call
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 3: Interactive Doctor Stats & Custom Quick Action Dock -->
+            <div class="bg-white rounded-brand border border-slate-100 p-8 shadow-premium flex flex-col justify-between hover:border-brand-100 hover:shadow-glow transition-all duration-300">
+                <div class="space-y-5">
+                    <h4 class="text-xs font-bold tracking-wider text-slate-400 uppercase">Live Medical Resources</h4>
+                    
+                    <!-- Grid of mini circular action buttons -->
+                    <div class="grid grid-cols-4 gap-3">
+                        <button class="aspect-square rounded-2xl bg-slate-50 hover:bg-brand-50 flex flex-col items-center justify-center text-slate-600 hover:text-brand-600 transition-colors" title="Cardiology">
+                            <i data-lucide="heart" class="w-5 h-5"></i>
+                        </button>
+                        <button class="aspect-square rounded-2xl bg-slate-50 hover:bg-emerald-50 flex flex-col items-center justify-center text-slate-600 hover:text-emerald-600 transition-colors" title="Diagnostics">
+                            <i data-lucide="dna" class="w-5 h-5"></i>
+                        </button>
+                        <button class="aspect-square rounded-2xl bg-slate-50 hover:bg-amber-50 flex flex-col items-center justify-center text-slate-600 hover:text-amber-50 transition-colors" title="Neurology">
+                            <i data-lucide="activity" class="w-5 h-5"></i>
+                        </button>
+                        <button class="aspect-square rounded-2xl bg-slate-50 hover:bg-purple-50 flex flex-col items-center justify-center text-slate-600 hover:text-purple-50 transition-colors" title="Prescriptions">
+                            <i data-lucide="pill" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+
+                    <div class="pt-2">
+                        <div class="flex items-center justify-between text-xs text-slate-500 mb-1">
+                            <span>Clinical Staff Online</span>
+                            <span class="font-bold text-slate-800">18 Available</span>
+                        </div>
+                        <!-- Micro progress bar -->
+                        <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                            <div class="bg-brand-600 h-full rounded-full" style="width: 82%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-6">
+                    <span class="text-xs font-bold text-slate-400 block">Need custom assistance?</span>
+                    <a href="#book-appointment" class="text-xs font-extrabold text-emerald-600 hover:text-emerald-700 inline-flex items-center gap-1 mt-1">
+                        Contact Support desk <i data-lucide="chevron-right" class="w-3 h-3"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PREMIUM DOCTOR PROFILES & SEARCH FILTER -->
+    <section id="doctors" class="max-w-7xl mx-auto px-6 py-16">
+        <div class="text-center max-w-2xl mx-auto mb-12 space-y-3">
+            <span class="text-xs font-bold uppercase tracking-widest text-brand-600 bg-brand-50 px-3 py-1 rounded-full">Our Team</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-900">Highly qualified experts</h2>
+            <p class="text-slate-400 text-sm sm:text-base">Filter physicians by specialized clinical practices to book appropriate treatment pathways.</p>
+        </div>
+
+        <!-- Filter Tab Buttons -->
+        <div class="flex flex-wrap justify-center gap-2 mb-10">
+            <button onclick="filterDoctors('all')" class="doctor-filter-btn px-6 py-2.5 rounded-full text-xs font-bold border transition-all bg-brand-600 text-white border-brand-600 shadow-sm" data-category="all">
+                All Specialities
+            </button>
+            <button onclick="filterDoctors('Cardiology')" class="doctor-filter-btn px-6 py-2.5 rounded-full text-xs font-bold border transition-all bg-white text-slate-600 border-slate-200 hover:bg-slate-50" data-category="Cardiology">
+                Cardiology
+            </button>
+            <button onclick="filterDoctors('Neurology')" class="doctor-filter-btn px-6 py-2.5 rounded-full text-xs font-bold border transition-all bg-white text-slate-600 border-slate-200 hover:bg-slate-50" data-category="Neurology">
+                Neurology
+            </button>
+            <button onclick="filterDoctors('Pediatrics')" class="doctor-filter-btn px-6 py-2.5 rounded-full text-xs font-bold border transition-all bg-white text-slate-600 border-slate-200 hover:bg-slate-50" data-category="Pediatrics">
+                Pediatrics
+            </button>
+        </div>
+
+        <!-- Doctors Cards Grid -->
+        <div id="doctors-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Doctor Card 1 -->
+            <div class="doctor-card bg-white rounded-brand border border-slate-100 p-6 shadow-premium hover:shadow-glow hover:-translate-y-1 transition-all duration-300" data-category="Cardiology">
+                <div class="relative rounded-2xl overflow-hidden aspect-[4/3] bg-slate-100 mb-6">
+                    <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=400" alt="Dr. Eliana Ross" class="w-full h-full object-cover">
+                    <span class="absolute top-4 left-4 px-3 py-1 bg-white/90 backdrop-blur-md rounded-full text-[10px] font-bold text-slate-800 flex items-center gap-1">
+                        <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                        4.9 (124 reviews)
+                    </span>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-lg font-extrabold text-slate-800">Dr. Eliana Ross</h3>
+                            <p class="text-xs font-semibold text-slate-400">Senior Cardiologist</p>
+                        </div>
+                        <span class="px-2.5 py-1 bg-emerald-50 text-emerald-700 text-[10px] font-bold rounded-lg uppercase">Remote Enabled</span>
+                    </div>
+                    <div class="flex justify-between items-center text-xs pt-4 border-t border-slate-50">
+                        <div>
+                            <p class="text-slate-400">Availability</p>
+                            <p class="font-bold text-slate-700">Mon - Wed</p>
+                        </div>
+                        <button onclick="selectDoctorAndScroll('Dr. Eliana Ross', 'Cardiology')" class="px-4 py-2 bg-brand-50 hover:bg-brand-100 text-brand-700 text-xs font-bold rounded-full transition-colors">
+                            Book Slot
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Doctor Card 2 -->
+            <div class="doctor-card bg-white rounded-brand border border-slate-100 p-6 shadow-premium hover:shadow-glow hover:-translate-y-1 transition-all duration-300" data-category="Neurology">
+                <div class="relative rounded-2xl overflow-hidden aspect-[4/3] bg-slate-100 mb-6">
+                    <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=400" alt="Dr. Adrian Hayes" class="w-full h-full object-cover">
+                    <span class="absolute top-4 left-4 px-3 py-1 bg-white/90 backdrop-blur-md rounded-full text-[10px] font-bold text-slate-800 flex items-center gap-1">
+                        <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                        4.8 (98 reviews)
+                    </span>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-lg font-extrabold text-slate-800">Dr. Adrian Hayes</h3>
+                            <p class="text-xs font-semibold text-slate-400">Neurosurgeon</p>
+                        </div>
+                        <span class="px-2.5 py-1 bg-brand-50 text-brand-700 text-[10px] font-bold rounded-lg uppercase">In-Clinic</span>
+                    </div>
+                    <div class="flex justify-between items-center text-xs pt-4 border-t border-slate-50">
+                        <div>
+                            <p class="text-slate-400">Availability</p>
+                            <p class="font-bold text-slate-700">Tue - Fri</p>
+                        </div>
+                        <button onclick="selectDoctorAndScroll('Dr. Adrian Hayes', 'Neurology')" class="px-4 py-2 bg-brand-50 hover:bg-brand-100 text-brand-700 text-xs font-bold rounded-full transition-colors">
+                            Book Slot
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Doctor Card 3 -->
+            <div class="doctor-card bg-white rounded-brand border border-slate-100 p-6 shadow-premium hover:shadow-glow hover:-translate-y-1 transition-all duration-300" data-category="Pediatrics">
+                <div class="relative rounded-2xl overflow-hidden aspect-[4/3] bg-slate-100 mb-6">
+                    <img src="https://images.unsplash.com/photo-1594824813573-246434e33963?auto=format&fit=crop&q=80&w=400" alt="Dr. Sofia Ramirez" class="w-full h-full object-cover">
+                    <span class="absolute top-4 left-4 px-3 py-1 bg-white/90 backdrop-blur-md rounded-full text-[10px] font-bold text-slate-800 flex items-center gap-1">
+                        <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                        5.0 (142 reviews)
+                    </span>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-lg font-extrabold text-slate-800">Dr. Sofia Ramirez</h3>
+                            <p class="text-xs font-semibold text-slate-400">Senior Pediatrician</p>
+                        </div>
+                        <span class="px-2.5 py-1 bg-emerald-50 text-emerald-700 text-[10px] font-bold rounded-lg uppercase">Remote Enabled</span>
+                    </div>
+                    <div class="flex justify-between items-center text-xs pt-4 border-t border-slate-50">
+                        <div>
+                            <p class="text-slate-400">Availability</p>
+                            <p class="font-bold text-slate-700">Mon - Fri</p>
+                        </div>
+                        <button onclick="selectDoctorAndScroll('Dr. Sofia Ramirez', 'Pediatrics')" class="px-4 py-2 bg-brand-50 hover:bg-brand-100 text-brand-700 text-xs font-bold rounded-full transition-colors">
+                            Book Slot
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE SECTION: APPOINTMENT SCHEDULER & VALUE POINTS -->
+    <section id="book-appointment" class="max-w-7xl mx-auto px-6 py-16 scroll-mt-24">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <!-- Left Info Cards / Process Segment -->
+            <div class="lg:col-span-5 space-y-6">
+                <span class="text-xs font-bold uppercase tracking-widest text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">Patient Dashboard</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-900 leading-tight">Book an expert reservation in seconds</h2>
+                <p class="text-slate-400 text-sm">Follow our streamlined workflow to reserve critical clinical checkups with ease. HIPAA secure data transmission.</p>
+
+                <!-- Step Elements -->
+                <div class="space-y-4 pt-4">
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 rounded-full bg-brand-50 border border-brand-100 flex items-center justify-center text-brand-600 font-extrabold text-xs shrink-0">1</div>
+                        <div>
+                            <h4 class="text-sm font-extrabold text-slate-800">Choose Medical Specialty</h4>
+                            <p class="text-xs text-slate-400">Select standard cardiac, general neuro, pediatric, or comprehensive wellness checkups.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 rounded-full bg-brand-50 border border-brand-100 flex items-center justify-center text-brand-600 font-extrabold text-xs shrink-0">2</div>
+                        <div>
+                            <h4 class="text-sm font-extrabold text-slate-800">Reserve Date & Time</h4>
+                            <p class="text-xs text-slate-400">Choose online consultations or physical clinical visits from calendar slots.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 rounded-full bg-brand-50 border border-brand-100 flex items-center justify-center text-brand-600 font-extrabold text-xs shrink-0">3</div>
+                        <div>
+                            <h4 class="text-sm font-extrabold text-slate-800">Instant Digital Confirmation</h4>
+                            <p class="text-xs text-slate-400">Receive text notifications and clinical instructions directly to your device.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Interactive Form Block (Exactly styling from inspiration image) -->
+            <div class="lg:col-span-7">
+                <div class="bg-white rounded-brand border border-slate-100 p-8 shadow-premium relative overflow-hidden">
+                    <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-brand-500 to-emerald-400"></div>
+                    <div class="mb-6">
+                        <h3 class="text-xl font-extrabold text-slate-800">Appointment Reservation</h3>
+                        <p class="text-xs text-slate-400">Fill out your diagnostic needs below for instant booking slot allocation.</p>
+                    </div>
+
+                    <!-- Appointment Form -->
+                    <form id="appointment-form" onsubmit="handleAppointmentSubmit(event)" class="space-y-5">
+                        <!-- Select Department -->
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold text-slate-500">Medical Specialty</label>
+                            <div class="relative">
+                                <select id="form-dept" onchange="updateDoctorsDropdown()" class="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-700 focus:outline-none focus:border-brand-500 focus:bg-white transition-colors appearance-none">
+                                    <option value="" disabled selected>Select Department</option>
+                                    <option value="Cardiology">Cardiology</option>
+                                    <option value="Neurology">Neurology</option>
+                                    <option value="Pediatrics">Pediatrics</option>
+                                </select>
+                                <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                                    <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Select Doctor -->
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold text-slate-500">Assigned Practitioner</label>
+                            <div class="relative">
+                                <select id="form-doctor" class="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-700 focus:outline-none focus:border-brand-500 focus:bg-white transition-colors appearance-none" disabled>
+                                    <option value="" disabled selected>Please select a department first</option>
+                                </select>
+                                <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                                    <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Date and Time Picker Grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <label class="text-xs font-bold text-slate-500">Preferred Date</label>
+                                <input type="date" id="form-date" class="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-700 focus:outline-none focus:border-brand-500 focus:bg-white transition-colors" required>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-xs font-bold text-slate-500">Preferred Time Slot</label>
+                                <div class="relative">
+                                    <select id="form-time" class="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-700 focus:outline-none focus:border-brand-500 focus:bg-white transition-colors appearance-none" required>
+                                        <option value="" disabled selected>Select Time</option>
+                                        <option value="09:00 AM">09:00 AM</option>
+                                        <option value="11:30 AM">11:30 AM</option>
+                                        <option value="02:00 PM">02:00 PM</option>
+                                        <option value="04:30 PM">04:30 PM</option>
+                                    </select>
+                                    <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                                        <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit CTA -->
+                        <button type="submit" class="w-full py-4 px-6 bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-sm rounded-xl hover:shadow-lg hover:shadow-brand-500/20 active:scale-[0.99] transition-all flex items-center justify-center gap-2">
+                            <i data-lucide="check" class="w-4.5 h-4.5"></i>
+                            Confirm Appointment
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section class="max-w-7xl mx-auto px-6 py-16">
+        <div class="bg-gradient-to-tr from-brand-900 to-slate-900 rounded-brand p-8 md:p-14 text-white relative overflow-hidden shadow-glow">
+            <!-- Background lights inside testimonial card -->
+            <div class="absolute -top-10 -right-10 w-96 h-96 bg-brand-500/20 rounded-full blur-[100px] pointer-events-none"></div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center relative z-10">
+                <div class="lg:col-span-5 space-y-5">
+                    <span class="text-[10px] font-extrabold tracking-widest uppercase px-3 py-1 bg-white/10 rounded-full inline-block">Real Feedback</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold leading-tight">What patients say about Chinnic</h2>
+                    <p class="text-slate-300 text-sm leading-relaxed">Hear from individuals who replaced stressful clinic wait times with rapid, high-quality professional consultations.</p>
+                </div>
+
+                <div class="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Feedback card 1 -->
+                    <div class="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-2xl space-y-4">
+                        <div class="flex items-center gap-1 text-amber-400">
+                            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                        </div>
+                        <p class="text-slate-200 text-xs leading-relaxed">"The digital card system allowed me to easily consult a neurosurgeon in minutes without driving back and forth."</p>
+                        <div class="flex items-center gap-3 pt-2">
+                            <img class="w-8 h-8 rounded-full object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100" alt="Marcus Thompson">
+                            <div>
+                                <h4 class="text-xs font-bold">Marcus Thompson</h4>
+                                <p class="text-[10px] text-slate-400">Patient since 2024</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feedback card 2 -->
+                    <div class="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-2xl space-y-4">
+                        <div class="flex items-center gap-1 text-amber-400">
+                            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                        </div>
+                        <p class="text-slate-200 text-xs leading-relaxed">"Booking our pediatric slot took under 30 seconds. Dr. Ramirez resolved all our safety concerns clearly."</p>
+                        <div class="flex items-center gap-3 pt-2">
+                            <img class="w-8 h-8 rounded-full object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100" alt="Sarah Jenkins">
+                            <div>
+                                <h4 class="text-xs font-bold">Sarah Jenkins</h4>
+                                <p class="text-[10px] text-slate-400">Parent of two</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER SECTION -->
+    <footer class="bg-white border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-6 py-12 md:py-16">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <!-- Branding column -->
+                <div class="space-y-4">
+                    <a href="#" class="flex items-center gap-2 group">
+                        <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                            </svg>
+                        </div>
+                        <span class="text-lg font-bold text-brand-900">Chinnic</span>
+                    </a>
+                    <p class="text-slate-400 text-xs leading-relaxed max-w-xs">Connecting clinical healthcare and direct tele-consultancy in modern visual packages.</p>
+                </div>
+
+                <!-- Footer Column 2 -->
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold text-slate-800 uppercase tracking-widest">Medical Services</h4>
+                    <ul class="space-y-2 text-xs text-slate-500 font-semibold">
+                        <li><a href="#" class="hover:text-brand-600 transition-colors">Cardiology Clinics</a></li>
+                        <li><a href="#" class="hover:text-brand-600 transition-colors">Emergency Neurology</a></li>
+                        <li><a href="#" class="hover:text-brand-600 transition-colors">General Diagnostics</a></li>
+                        <li><a href="#" class="hover:text-brand-600 transition-colors">Prescriptions & Testing</a></li>
+                    </ul>
+                </div>
+
+                <!-- Footer Column 3 -->
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold text-slate-800 uppercase tracking-widest">Patients</h4>
+                    <ul class="space-y-2 text-xs text-slate-500 font-semibold">
+                        <li><a href="#" class="hover:text-brand-600 transition-colors">Virtual Portal Login</a></li>
+                        <li><a href="#" class="hover:text-brand-600 transition-colors">Emergency Contacts</a></li>
+                        <li><a href="#" class="hover:text-brand-600 transition-colors">HIPAA Compliance Act</a></li>
+                    </ul>
+                </div>
+
+                <!-- Footer Column 4 (Newsletter/Contact) -->
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold text-slate-800 uppercase tracking-widest">Updates</h4>
+                    <p class="text-xs text-slate-400">Subscribe for medical updates & clinical reports.</p>
+                    <div class="flex gap-2">
+                        <input type="email" placeholder="Your email" class="px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-brand-500 w-full">
+                        <button onclick="alertNotification('Thank you for subscribing to our newsletter updates!')" class="p-2.5 bg-brand-600 text-white rounded-xl hover:bg-brand-700 transition-all">
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-between items-center pt-8 border-t border-slate-100 gap-4 text-xs text-slate-400">
+                <p>&copy; 2026 Chinnic Healthcare Inc. All rights reserved.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-slate-600">Privacy Policy</a>
+                    <a href="#" class="hover:text-slate-600">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE SUCCESS NOTIFICATION / TOAST (No Alert rule) -->
+    <div id="custom-toast" class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-5 py-4 rounded-2xl shadow-xl flex items-center gap-3.5 border border-white/10 opacity-0 pointer-events-none transform translate-y-2 transition-all duration-300">
+        <div class="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center text-white shrink-0">
+            <i data-lucide="check" class="w-4.5 h-4.5"></i>
+        </div>
+        <div>
+            <h4 class="text-xs font-extrabold" id="toast-title">Success</h4>
+            <p class="text-[10px] text-slate-300" id="toast-message">Operation successful!</p>
+        </div>
+        <button onclick="closeToast()" class="text-slate-400 hover:text-white ml-2">
+            <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+    </div>
+
+    <!-- JAVASCRIPT FOR INTERACTIVE LOGIC -->
+    <script>
+        // Initialize Lucide Icons
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+
+        // Toggle mobile menu visibility
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Filter medical professionals interactively
+        function filterDoctors(category) {
+            // Update filter button styling
+            const buttons = document.querySelectorAll('.doctor-filter-btn');
+            buttons.forEach(btn => {
+                if (btn.getAttribute('data-category') === category) {
+                    btn.className = 'doctor-filter-btn px-6 py-2.5 rounded-full text-xs font-bold border transition-all bg-brand-600 text-white border-brand-600 shadow-sm';
+                } else {
+                    btn.className = 'doctor-filter-btn px-6 py-2.5 rounded-full text-xs font-bold border transition-all bg-white text-slate-600 border-slate-200 hover:bg-slate-50';
+                }
+            });
+
+            // Filter actual cards
+            const cards = document.querySelectorAll('.doctor-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'block';
+                    // Trigger simple reflow to re-enable entry animations if needed
+                    card.classList.add('animate-fade-in');
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Select a Doctor from list and update appointment form directly
+        const doctorsByDept = {
+            'Cardiology': ['Dr. Eliana Ross'],
+            'Neurology': ['Dr. Adrian Hayes'],
+            'Pediatrics': ['Dr. Sofia Ramirez']
+        };
+
+        function selectDoctorAndScroll(docName, deptName) {
+            // Set Department
+            const deptSelect = document.getElementById('form-dept');
+            deptSelect.value = deptName;
+            
+            // Re-populate doctors select
+            updateDoctorsDropdown();
+
+            // Set Doctor
+            const docSelect = document.getElementById('form-doctor');
+            docSelect.value = docName;
+
+            // Scroll to form smoothly
+            document.getElementById('book-appointment').scrollIntoView({ behavior: 'smooth' });
+
+            // Display feedback
+            triggerToast('Doctor Selected', `${docName} has been loaded in your scheduler.`);
+        }
+
+        // Dynamically update Doctor Dropdown based on Department Select
+        function updateDoctorsDropdown() {
+            const deptSelect = document.getElementById('form-dept');
+            const docSelect = document.getElementById('form-doctor');
+            const selectedDept = deptSelect.value;
+
+            // Clear previous options
+            docSelect.innerHTML = '';
+
+            if (selectedDept && doctorsByDept[selectedDept]) {
+                docSelect.disabled = false;
+                
+                // Add initial selection prompt
+                const selectOption = document.createElement('option');
+                selectOption.value = '';
+                selectOption.disabled = true;
+                selectOption.selected = true;
+                selectOption.textContent = 'Select Specialist';
+                docSelect.appendChild(selectOption);
+
+                // Add specialists
+                doctorsByDept[selectedDept].forEach(doctor => {
+                    const option = document.createElement('option');
+                    option.value = doctor;
+                    option.textContent = doctor;
+                    docSelect.appendChild(option);
+                });
+            } else {
+                docSelect.disabled = true;
+                const option = document.createElement('option');
+                option.value = '';
+                option.textContent = 'Please select a department first';
+                docSelect.appendChild(option);
+            }
+        }
+
+        // Submit appointment trigger custom toast (No Alert rule)
+        function handleAppointmentSubmit(event) {
+            event.preventDefault();
+            
+            const dept = document.getElementById('form-dept').value;
+            const doctor = document.getElementById('form-doctor').value;
+            const date = document.getElementById('form-date').value;
+            const time = document.getElementById('form-time').value;
+
+            if (!dept || !doctor || !date || !time) {
+                triggerToast('Incomplete Form', 'Please enter all department and schedule credentials.', true);
+                return;
+            }
+
+            // Success feedback
+            triggerToast(
+                'Slot Reserved Successfully!', 
+                `Your appointment with ${doctor} for ${date} at ${time} has been scheduled.`
+            );
+
+            // Reset form
+            document.getElementById('appointment-form').reset();
+            updateDoctorsDropdown();
+        }
+
+        // Custom alert/notification system to avoid native browser popups
+        function alertNotification(text) {
+            triggerToast('Notification Update', text);
+        }
+
+        // Toast Trigger Core Logic
+        let toastTimeout;
+        function triggerToast(title, msg, isError = false) {
+            const toast = document.getElementById('custom-toast');
+            const toastTitle = document.getElementById('toast-title');
+            const toastMsg = document.getElementById('toast-message');
+
+            toastTitle.textContent = title;
+            toastMsg.textContent = msg;
+
+            // Simple visual indicator if error
+            const iconContainer = toast.querySelector('.rounded-full');
+            if (isError) {
+                iconContainer.classList.remove('bg-emerald-500');
+                iconContainer.classList.add('bg-rose-500');
+            } else {
+                iconContainer.classList.remove('bg-rose-500');
+                iconContainer.classList.add('bg-emerald-500');
+            }
+
+            // Show Toast
+            toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-2');
+            toast.classList.add('opacity-100', 'translate-y-0');
+
+            // Clear previous timeouts
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                closeToast();
+            }, 6000);
+        }
+
+        function closeToast() {
+            const toast = document.getElementById('custom-toast');
+            toast.classList.remove('opacity-100', 'translate-y-0');
+            toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-2');
+        }
+    </script>
+</body>
+</html>
+I7

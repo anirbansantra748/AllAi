@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STUTTERHEIM — Premium Rainwear & Carryall</title>
+    <!-- Google Fonts for Editorial Luxury Feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            sageDark: '#b9c0ae',    // Rich warm sage (left hero split)
+                            sageLight: '#d5d9cc',   // Lighter pale sage/sand (right hero split)
+                            sandBg: '#e5e8df',      // Base website sand canvas
+                            sandCard: '#ecefe7',    // Slightly lighter sand for container card contrast
+                            charcoal: '#141712',    // Softer than pure black for organic look
+                            mutedText: '#656c5e',   // Olive-toned muted gray text
+                            terracotta: '#e65c2b',  // Vibrant signature orange accent
+                            terracottaHover: '#cd4a1d',
+                            cream: '#f4f6f1',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    letterSpacing: {
+                        widest: '.2em',
+                        luxury: '.15em',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Premium Micro-interactions */
+        ::selection {
+            background-color: #e65c2b;
+            color: white;
+        }
+        
+        /* Custom Scrollbar for Luxury Websites */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e5e8df;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #b9c0ae;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #141712;
+        }
+
+        /* Smooth Custom Transitions */
+        .color-transition {
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .text-vertical {
+            writing-mode: vertical-rl;
+            text-combine-upright: all;
+        }
+
+        /* Ambient subtle pulse */
+        @keyframes subtlePulse {
+            0%, 100% { transform: scale(1); opacity: 0.95; }
+            50% { transform: scale(1.02); opacity: 1; }
+        }
+        .ambient-bag {
+            animation: subtlePulse 8s ease-in-out infinite;
+        }
+
+        /* Custom hotspots pulse */
+        @keyframes pulseHotspot {
+            0% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(230, 92, 43, 0.7); }
+            70% { transform: scale(1.15); opacity: 0.8; box-shadow: 0 0 0 10px rgba(230, 92, 43, 0); }
+            100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(230, 92, 43, 0); }
+        }
+        .hotspot-ring {
+            animation: pulseHotspot 2s infinite;
+        }
+    </style>
+</head>
+<body class="bg-brand-sandBg text-brand-charcoal font-sans antialiased selection:bg-brand-terracotta selection:text-white overflow-x-hidden">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-brand-charcoal text-brand-cream text-[10px] tracking-[0.25em] uppercase py-2.5 px-6 flex justify-between items-center z-50 relative border-b border-brand-charcoal/10">
+        <span>Complimentary Worldwide Standard Shipping on Bags</span>
+        <div class="hidden md:flex gap-6">
+            <a href="#" class="hover:underline opacity-80 hover:opacity-100 transition-opacity">Sustainability Report</a>
+            <a href="#" class="hover:underline opacity-80 hover:opacity-100 transition-opacity">Stockists</a>
+        </div>
+    </div>
+
+    <!-- MAIN NAVIGATION -->
+    <header class="sticky top-0 w-full z-40 transition-all duration-300 bg-brand-sandBg/90 backdrop-blur-md border-b border-brand-charcoal/5">
+        <div class="max-w-[1600px] mx-auto px-6 lg:px-12 py-5 flex justify-between items-center">
+            
+            <!-- Left Side: Brand Logo and Burger menu -->
+            <div class="flex items-center gap-8">
+                <a href="#hero" class="flex items-center gap-3 group">
+                    <span class="bg-brand-charcoal text-white font-bold px-3.5 py-1.5 text-lg tracking-widest transition-transform group-hover:scale-105 duration-300">S</span>
+                    <span class="text-xs uppercase font-semibold tracking-[0.3em] hidden sm:inline-block">STUTTERHEIM</span>
+                </a>
+                
+                <nav class="hidden lg:flex items-center gap-8 text-xs font-medium tracking-[0.15em] uppercase text-brand-mutedText">
+                    <a href="#collections" class="hover:text-brand-charcoal transition-colors relative py-1 group">
+                        Collections
+                        <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-brand-charcoal transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#specs" class="hover:text-brand-charcoal transition-colors relative py-1 group">
+                        Technical Specs
+                        <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-brand-charcoal transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#values" class="hover:text-brand-charcoal transition-colors relative py-1 group">
+                        Heritage
+                        <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-brand-charcoal transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Right Side: Lang, Search, Cart -->
+            <div class="flex items-center gap-6 text-xs font-semibold tracking-[0.15em] uppercase">
+                <div class="hidden sm:flex items-center gap-2 cursor-pointer hover:opacity-75 transition-opacity">
+                    <i class="fa-solid fa-earth-americas text-xs text-brand-mutedText"></i>
+                    <span>ENG</span>
+                </div>
+                
+                <button onclick="toggleSearch()" class="hover:text-brand-terracotta transition-colors p-2" aria-label="Search">
+                    <i class="fa-solid fa-magnifying-glass text-sm"></i>
+                </button>
+
+                <button onclick="toggleWishlist()" class="relative hover:text-brand-terracotta transition-colors p-2" aria-label="Favorites">
+                    <i class="fa-regular fa-heart text-sm"></i>
+                    <span id="wishlist-badge" class="absolute top-0 right-0 bg-brand-charcoal text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold hidden">0</span>
+                </button>
+
+                <!-- Cart Button -->
+                <button onclick="toggleCart()" class="relative flex items-center gap-2 border border-brand-charcoal/20 hover:border-brand-charcoal bg-white/40 px-3.5 py-2 transition-all group">
+                    <i class="fa-solid fa-bag-shopping text-sm group-hover:text-brand-terracotta transition-colors"></i>
+                    <span class="hidden sm:inline text-[10px] tracking-widest font-bold">BAG</span>
+                    <span id="cart-count" class="bg-brand-terracotta text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">1</span>
+                </button>
+
+                <!-- Mobile Menu Toggle -->
+                <button class="lg:hidden p-2 text-brand-charcoal" onclick="toggleMobileMenu()" aria-label="Menu">
+                    <i class="fa-solid fa-bars-staggered text-lg"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MOBILE NAVIGATION MENU -->
+    <div id="mobile-menu" class="fixed inset-0 bg-brand-sandBg z-50 flex flex-col justify-between p-8 transform translate-x-full transition-transform duration-500 ease-in-out">
+        <div>
+            <div class="flex justify-between items-center mb-12">
+                <span class="bg-brand-charcoal text-white font-bold px-3 py-1 text-lg tracking-widest">S</span>
+                <button onclick="toggleMobileMenu()" class="text-2xl p-2"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <nav class="flex flex-col gap-6 text-2xl font-light tracking-wide text-brand-charcoal">
+                <a href="#collections" onclick="toggleMobileMenu()" class="hover:text-brand-terracotta transition-colors">Collections</a>
+                <a href="#specs" onclick="toggleMobileMenu()" class="hover:text-brand-terracotta transition-colors">Technical Specs</a>
+                <a href="#values" onclick="toggleMobileMenu()" class="hover:text-brand-terracotta transition-colors">Heritage</a>
+                <a href="#newsletter" onclick="toggleMobileMenu()" class="hover:text-brand-terracotta transition-colors">Newsletter</a>
+            </nav>
+        </div>
+        <div class="border-t border-brand-charcoal/10 pt-6">
+            <p class="text-xs uppercase tracking-widest text-brand-mutedText mb-4">Stockholm, Sweden</p>
+            <div class="flex gap-6 text-sm">
+                <a href="#" class="hover:text-brand-terracotta transition-colors">INSTAGRAM</a>
+                <a href="#" class="hover:text-brand-terracotta transition-colors">FACEBOOK</a>
+                <a href="#" class="hover:text-brand-terracotta transition-colors">PINTEREST</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN IMMERSIVE HERO SECTION (Directly inspired by image visuals with extreme premium touch) -->
+    <section id="hero" class="relative overflow-hidden border-b border-brand-charcoal/10">
+        
+        <!-- Two-column background split directly mimicking the visual system of the uploaded image -->
+        <div class="absolute inset-0 flex flex-col md:flex-row pointer-events-none">
+            <div id="hero-left-bg" class="w-full md:w-[50%] h-[50%] md:h-full bg-brand-sageDark color-transition"></div>
+            <div id="hero-right-bg" class="w-full md:w-[50%] h-[50%] md:h-full bg-brand-sageLight color-transition"></div>
+        </div>
+
+        <div class="max-w-[1600px] mx-auto min-h-[calc(100vh-100px)] flex flex-col justify-between relative z-10 p-6 lg:p-12">
+            
+            <!-- Hero Top Info (Aligning exactly with the image feel) -->
+            <div class="flex justify-between items-start w-full">
+                <div>
+                    <!-- Serial number placeholder in small elegant sans-serif -->
+                    <span id="hero-serial" class="text-xs font-mono tracking-widest text-brand-charcoal/50 block mb-1">089</span>
+                    <span class="text-[10px] tracking-[0.25em] uppercase text-brand-charcoal/60 font-semibold">CARRYALL COLLECTION</span>
+                </div>
+                
+                <!-- Quick features badge -->
+                <div class="hidden md:flex flex-col items-end text-right text-brand-charcoal/70">
+                    <span class="text-xs font-bold tracking-widest uppercase">STUTTERHEIM CORE</span>
+                    <span class="text-[11px] font-medium opacity-80 mt-1">100% Waterproof Rubberized Cotton Canvas</span>
+                </div>
+            </div>
+
+            <!-- Central Content Display: Interactive Configurator -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-4 items-center my-auto py-8">
+                
+                <!-- Hero Left: Text Content -->
+                <div class="lg:col-span-4 z-10 flex flex-col justify-center text-left space-y-6">
+                    <div>
+                        <h1 id="hero-title" class="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-brand-charcoal font-sans leading-none mb-4">
+                            Green<br>backpack
+                        </h1>
+                        <p id="hero-desc" class="text-sm lg:text-base text-brand-mutedText/90 font-light max-w-sm leading-relaxed">
+                            Crafted from rubberized cotton with heavy-duty straps and sand-toned leather details. Built for Nordic rains and city life.
+                        </p>
+                    </div>
+
+                    <!-- Configurator Presets -->
+                    <div class="space-y-3">
+                        <span class="text-[10px] font-bold tracking-widest text-brand-charcoal uppercase block">CHOOSE COLOR SYSTEM</span>
+                        <div class="flex gap-3">
+                            <!-- Sage / Terracotta (Active Preset) -->
+                            <button onclick="setBackpackPreset('sage')" id="btn-preset-sage" class="w-9 h-9 rounded-full border-2 border-brand-charcoal p-0.5 transition-all focus:outline-none" title="Sage & Terracotta">
+                                <span class="block w-full h-full rounded-full bg-gradient-to-tr from-[#b9c0ae] via-[#b9c0ae] to-[#e65c2b]"></span>
+                            </button>
+                            <!-- Sand / Charcoal -->
+                            <button onclick="setBackpackPreset('sand')" id="btn-preset-sand" class="w-9 h-9 rounded-full border-2 border-transparent p-0.5 hover:border-brand-charcoal/30 transition-all focus:outline-none" title="Sand & Charcoal">
+                                <span class="block w-full h-full rounded-full bg-gradient-to-tr from-[#ecefe7] via-[#ecefe7] to-[#141712]"></span>
+                            </button>
+                            <!-- Ocean Blue / Muted Mustard -->
+                            <button onclick="setBackpackPreset('ocean')" id="btn-preset-ocean" class="w-9 h-9 rounded-full border-2 border-transparent p-0.5 hover:border-brand-charcoal/30 transition-all focus:outline-none" title="Ocean & Ochre">
+                                <span class="block w-full h-full rounded-full bg-gradient-to-tr from-[#7c95a3] via-[#7c95a3] to-[#dca543]"></span>
+                            </button>
+                            <!-- Obsidian Black -->
+                            <button onclick="setBackpackPreset('obsidian')" id="btn-preset-obsidian" class="w-9 h-9 rounded-full border-2 border-transparent p-0.5 hover:border-brand-charcoal/30 transition-all focus:outline-none" title="Obsidian Black">
+                                <span class="block w-full h-full rounded-full bg-gradient-to-tr from-[#2d2e2c] via-[#2d2e2c] to-[#141712]"></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                        <button onclick="addHeroToBag()" class="bg-brand-charcoal text-white hover:bg-brand-terracotta transition-colors duration-300 font-bold text-xs tracking-[0.2em] uppercase py-4 px-8 flex items-center justify-center gap-3">
+                            <span>ADD TO BAG</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                        <button onclick="addToWishlist('Stutterheim Backpack', 133)" class="border border-brand-charcoal/30 hover:border-brand-charcoal transition-all text-brand-charcoal font-bold text-xs tracking-[0.2em] uppercase py-4 px-6 flex items-center justify-center gap-2 bg-white/20">
+                            <i class="fa-regular fa-heart"></i>
+                            <span>WISHLIST</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Hero Center: Scalable, Custom-Color SVG Interactive Backpack (Ensures stunning rendering & performance) -->
+                <div class="lg:col-span-5 flex justify-center items-center relative py-6">
+                    <!-- Drop Shadow Ambient Element for perfect depth matching -->
+                    <div class="absolute w-[80%] h-[15px] bg-brand-charcoal/20 rounded-full blur-xl bottom-8 left-10% pointer-events-none"></div>
+                    
+                    <div class="relative w-full max-w-[380px] sm:max-w-[420px] ambient-bag">
+                        <!-- Custom vector-drawn modular backpack, allows precise dynamic CSS fill styling for premium finish -->
+                        <svg id="svg-backpack" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 600" class="w-full h-auto drop-shadow-2xl">
+                            <!-- Background shadow glow -->
+                            <ellipse cx="250" cy="565" rx="140" ry="12" fill="rgba(20,23,18,0.18)" />
+                            
+                            <!-- Main Bag Body Canvas (Sage default) -->
+                            <path id="bp-body" class="color-transition" d="M 160 160 Q 250 150 340 160 L 370 500 Q 250 515 130 500 Z" fill="#717a6a" />
+                            
+                            <!-- Bottom base support panel (Beige / Tan default) -->
+                            <path id="bp-bottom" class="color-transition" d="M 130 500 Q 250 515 370 500 L 375 520 Q 250 545 125 520 Z" fill="#bfae98" />
+                            
+                            <!-- Front Pocket Panel (Signature Terracotta default) -->
+                            <path id="bp-pocket" class="color-transition" d="M 180 300 Q 250 295 320 300 L 330 480 Q 250 495 170 480 Z" fill="#e65c2b" />
+                            
+                            <!-- Roll Top Section Main (Sage/Muted default) -->
+                            <path id="bp-rolltop" class="color-transition" d="M 160 160 Q 250 150 340 160 Q 380 140 375 125 L 125 125 Q 120 140 160 160 Z" fill="#586152" />
+                            
+                            <!-- Strap Loops at top -->
+                            <path d="M 215 125 L 215 105 Q 250 95 285 105 L 285 125" fill="none" stroke="#2a2e26" stroke-width="12" stroke-linecap="round" />
+                            
+                            <!-- Shoulder Straps backing preview -->
+                            <path d="M 150 160 L 120 250" fill="none" stroke="#1c2018" stroke-width="14" stroke-linecap="round" />
+                            <path d="M 350 160 L 380 250" fill="none" stroke="#1c2018" stroke-width="14" stroke-linecap="round" />
+                            
+                            <!-- Buckle Strap going down the front middle -->
+                            <rect id="bp-center-strap" class="color-transition" x="242" y="110" width="16" height="150" fill="#dfd0c0" rx="4" />
+                            
+                            <!-- Front pocket vertical stylish zipper line -->
+                            <line x1="200" y1="330" x2="200" y2="440" stroke="#141712" stroke-width="5" stroke-linecap="round" stroke-dasharray="1 10" />
+                            <!-- Zipper handle color-accent -->
+                            <path id="bp-zipper-pull" class="color-transition" d="M 197 325 L 203 325 L 202 345 L 198 345 Z" fill="#bfae98" />
+
+                            <!-- Premium central buckle assembly -->
+                            <rect x="235" y="170" width="30" height="25" fill="#2a2f25" rx="4" />
+                            <rect x="239" y="174" width="22" height="17" fill="#dfd0c0" rx="2" />
+                            <!-- Metallic hook clasp -->
+                            <path d="M 243 180 L 257 180 L 250 198 Z" fill="#e5e8df" />
+                            
+                            <!-- Leather patch label "Stutterheim" custom replica detail -->
+                            <rect x="282" y="440" width="25" height="18" fill="#bfae98" rx="2" />
+                            <rect x="285" y="443" width="19" height="12" fill="none" stroke="#8d7d65" stroke-width="1" />
+                        </svg>
+                        
+                        <!-- Floating interactive hotspots info -->
+                        <div class="absolute top-[24%] left-[10%] group cursor-pointer">
+                            <span class="absolute inline-flex h-4 w-4 rounded-full bg-brand-terracotta opacity-75 hotspot-ring"></span>
+                            <span class="relative inline-flex rounded-full h-4 w-4 bg-brand-terracotta"></span>
+                            <div class="absolute left-6 top-1/2 -translate-y-1/2 bg-white text-brand-charcoal text-[11px] font-bold px-3 py-1.5 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none shadow-md tracking-wider border border-brand-charcoal/10">
+                                Rubberized Waterproof Canvas
+                            </div>
+                        </div>
+
+                        <div class="absolute top-[48%] right-[14%] group cursor-pointer">
+                            <span class="absolute inline-flex h-4 w-4 rounded-full bg-brand-terracotta opacity-75 hotspot-ring"></span>
+                            <span class="relative inline-flex rounded-full h-4 w-4 bg-brand-terracotta"></span>
+                            <div class="absolute right-6 top-1/2 -translate-y-1/2 bg-white text-brand-charcoal text-[11px] font-bold px-3 py-1.5 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none shadow-md tracking-wider border border-brand-charcoal/10">
+                                Double-welded seam technology
+                            </div>
+                        </div>
+
+                        <div class="absolute bottom-[24%] left-[46%] group cursor-pointer">
+                            <span class="absolute inline-flex h-4 w-4 rounded-full bg-brand-terracotta opacity-75 hotspot-ring"></span>
+                            <span class="relative inline-flex rounded-full h-4 w-4 bg-brand-terracotta"></span>
+                            <div class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-white text-brand-charcoal text-[11px] font-bold px-3 py-1.5 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none shadow-md tracking-wider border border-brand-charcoal/10">
+                                Signature contrast pocket
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Right: Dynamic Stats / Highlights -->
+                <div class="lg:col-span-3 lg:pl-8 space-y-8 flex flex-col justify-center">
+                    <!-- Price Tag inspired directly by layout -->
+                    <div class="border-l-2 border-brand-charcoal pl-4">
+                        <span class="text-[10px] tracking-widest text-brand-charcoal/60 uppercase font-bold block">RETAIL PRICE</span>
+                        <div class="flex items-baseline gap-2">
+                            <span id="hero-price" class="text-4xl font-semibold font-mono text-brand-charcoal">€133</span>
+                            <span class="text-xs text-brand-mutedText line-through font-mono">€180</span>
+                        </div>
+                        <span class="text-[10px] text-brand-terracotta font-semibold mt-1 block">Limited Run Release</span>
+                    </div>
+
+                    <!-- Material Highlights list -->
+                    <div class="space-y-4">
+                        <div class="flex gap-4 items-start">
+                            <span class="bg-brand-charcoal/5 p-2 rounded text-brand-charcoal">
+                                <i class="fa-solid fa-umbrella text-sm"></i>
+                            </span>
+                            <div>
+                                <h4 class="text-xs font-bold uppercase tracking-wider">IPX6 Waterproof</h4>
+                                <p class="text-xs text-brand-mutedText">Withstands severe rain & torrential downpours.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 items-start">
+                            <span class="bg-brand-charcoal/5 p-2 rounded text-brand-charcoal">
+                                <i class="fa-solid fa-feather-pointed text-sm"></i>
+                            </span>
+                            <div>
+                                <h4 class="text-xs font-bold uppercase tracking-wider">Ergonomic Fit</h4>
+                                <p class="text-xs text-brand-mutedText">Specially cushioned straps and breathable canvas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Bottom Navigation bar elements aligning with image -->
+            <div class="flex justify-between items-center w-full border-t border-brand-charcoal/10 pt-6">
+                <!-- Branding footer inside visual -->
+                <span class="text-xs font-bold tracking-[0.2em] text-brand-charcoal uppercase">STUTTERHEIM</span>
+                
+                <!-- Pagination Dots indicating multi-option sliders -->
+                <div class="flex gap-3 items-center">
+                    <span id="p-dot-1" class="w-2.5 h-2.5 rounded-full bg-brand-charcoal cursor-pointer transition-all"></span>
+                    <span id="p-dot-2" class="w-1.5 h-1.5 rounded-full bg-brand-charcoal/30 cursor-pointer hover:bg-brand-charcoal transition-all"></span>
+                    <span id="p-dot-3" class="w-1.5 h-1.5 rounded-full bg-brand-charcoal/30 cursor-pointer hover:bg-brand-charcoal transition-all"></span>
+                </div>
+
+                <!-- Social Handles -->
+                <div class="hidden md:flex gap-6 text-[10px] font-bold tracking-widest text-brand-charcoal">
+                    <a href="https://instagram.com" target="_blank" class="hover:text-brand-terracotta transition-colors">IN</a>
+                    <a href="https://facebook.com" target="_blank" class="hover:text-brand-terracotta transition-colors">FB</a>
+                    <a href="https://youtube.com" target="_blank" class="hover:text-brand-terracotta transition-colors">YT</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Float vertical button on the right edge exactly like the 'Next' visual from image -->
+        <button onclick="scrollNext()" class="absolute right-0 top-1/2 -translate-y-1/2 bg-white hover:bg-brand-charcoal hover:text-white text-brand-charcoal border-l border-t border-b border-brand-charcoal/15 py-8 px-4 text-xs font-bold tracking-[0.25em] text-vertical uppercase transition-all duration-300 shadow-lg z-20 flex items-center justify-center gap-2">
+            <span>Next Collection</span>
+            <i class="fa-solid fa-chevron-down text-[9px] mt-1"></i>
+        </button>
+    </section>
+
+    <!-- SECTION 2: EDITORIAL HERITAGE STORY & SUSTAINABILITY (Adding narrative depth) -->
+    <section id="values" class="bg-brand-cream py-20 lg:py-32 px-6 lg:px-12 border-b border-brand-charcoal/10">
+        <div class="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-center">
+            
+            <!-- Story visual (Minimalist sand-toned card block with organic layout) -->
+            <div class="lg:col-span-5 relative">
+                <!-- Outer minimal decorative border box -->
+                <div class="absolute -inset-4 border border-brand-charcoal/10 rounded pointer-events-none"></div>
+                
+                <div class="bg-brand-sageDark/60 p-8 sm:p-12 text-center relative overflow-hidden group">
+                    <span class="text-xs uppercase font-mono text-brand-charcoal/40 block mb-6">EST. 2010 STOCKHOLM</span>
+                    <span class="text-[120px] font-serif italic text-brand-charcoal/5 leading-none select-none absolute top-10 left-1/2 -translate-x-1/2">Melancholy</span>
+                    <h3 class="text-3xl font-serif text-brand-charcoal mb-4 relative z-10">Swedish Melancholy at its driest.</h3>
+                    <p class="text-xs text-brand-mutedText leading-relaxed max-w-sm mx-auto mb-6 relative z-10">
+                        Our raincoats and carryalls are designed in Stockholm, inspired by the beautiful Swede tradition of embracing rain instead of running from it.
+                    </p>
+                    <div class="w-16 h-[1px] bg-brand-charcoal/30 mx-auto"></div>
+                </div>
+            </div>
+
+            <!-- Narrative copy -->
+            <div class="lg:col-span-7 space-y-8">
+                <span class="text-xs font-bold tracking-[0.3em] text-brand-terracotta uppercase block">OUR PHILOSOPHY</span>
+                <h2 class="text-3xl sm:text-5xl font-serif text-brand-charcoal leading-tight max-w-xl">
+                    Waterproof designs shouldn't compromise structural art.
+                </h2>
+                <div class="h-[1px] bg-brand-charcoal/10 w-full"></div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 text-sm text-brand-mutedText">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-brand-charcoal text-xs uppercase tracking-wider">Premium Rubberized Canvas</h4>
+                        <p class="font-light leading-relaxed">
+                            Rather than using flimsy synthetics, we employ heavy-duty rubberized cotton weave. It offers a structured posture that age beautifully over a decade of use.
+                        </p>
+                    </div>
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-brand-charcoal text-xs uppercase tracking-wider">Zero Chemical Coating Run-Off</h4>
+                        <p class="font-light leading-relaxed">
+                            Unlike traditional water repellent sprays, our rubber-infused matrix is completely unified with the yarn, eliminating chemical flaking.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: TECHNICAL SPECIFICATIONS & INTERACTIVE EXPLORATION (Deep Dive) -->
+    <section id="specs" class="py-20 lg:py-32 px-6 lg:px-12 bg-brand-sandBg">
+        <div class="max-w-[1400px] mx-auto">
+            
+            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 mb-16">
+                <div>
+                    <span class="text-xs font-bold tracking-[0.3em] text-brand-mutedText uppercase block mb-2">ANATOMY OF A BAG</span>
+                    <h2 class="text-3xl sm:text-4xl font-serif text-brand-charcoal">Precision engineered for the worst downpours.</h2>
+                </div>
+                <p class="text-sm text-brand-mutedText max-w-md font-light">
+                    Every seam, buckle, and thread is designed to keep external wetness out while providing comfortable carry options through structured support.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Left Details list -->
+                <div class="lg:col-span-4 space-y-6 order-2 lg:order-1">
+                    <!-- Technical point 1 -->
+                    <div class="bg-brand-sandCard hover:bg-brand-cream border border-brand-charcoal/5 p-6 rounded transition-all cursor-pointer group" onclick="highlightSpec(1)">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-mono text-brand-terracotta">01 / WEATHER SHIELD</span>
+                            <i class="fa-solid fa-chevron-right text-[10px] text-brand-mutedText group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-brand-charcoal mb-2">Double-Welded Seams</h3>
+                        <p class="text-xs text-brand-mutedText leading-relaxed font-light">
+                            Instead of standard thread stitching, high frequency heat welding bonds fabric layers into a singular impenetrable membrane.
+                        </p>
+                    </div>
+
+                    <!-- Technical point 2 -->
+                    <div class="bg-brand-sandCard hover:bg-brand-cream border border-brand-charcoal/5 p-6 rounded transition-all cursor-pointer group" onclick="highlightSpec(2)">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-mono text-brand-terracotta">02 / INTERNALS</span>
+                            <i class="fa-solid fa-chevron-right text-[10px] text-brand-mutedText group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-brand-charcoal mb-2">Padded Tech Sleeve</h3>
+                        <p class="text-xs text-brand-mutedText leading-relaxed font-light">
+                            An internal floating pocket holds up to a 16-inch laptop securely, keeping it raised away from the bottom bag base.
+                        </p>
+                    </div>
+
+                    <!-- Technical point 3 -->
+                    <div class="bg-brand-sandCard hover:bg-brand-cream border border-brand-charcoal/5 p-6 rounded transition-all cursor-pointer group" onclick="highlightSpec(3)">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-mono text-brand-terracotta">03 / COMFORT</span>
+                            <i class="fa-solid fa-chevron-right text-[10px] text-brand-mutedText group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-brand-charcoal mb-2">Breathable Organic Harness</h3>
+                        <p class="text-xs text-brand-mutedText leading-relaxed font-light">
+                            High-density cotton canvas webbing shoulder straps ensure weight is distributed across the shoulders without chafing.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Center Interactive Interactive Diagram Showcase -->
+                <div class="lg:col-span-5 flex justify-center order-1 lg:order-2">
+                    <div class="relative bg-brand-cream/80 border border-brand-charcoal/10 p-8 rounded-lg w-full max-w-[420px] aspect-square flex items-center justify-center">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-brand-sageDark/20 to-transparent pointer-events-none"></div>
+                        
+                        <!-- Minimal outline of bag for clean technical drawing -->
+                        <div class="w-[80%] opacity-90 transition-all duration-500" id="spec-diagram-target">
+                            <!-- Inner spec visualization changes based on user selection -->
+                            <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
+                                <!-- Base Grid Background -->
+                                <defs>
+                                    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                                        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(20,23,18,0.04)" stroke-width="1" />
+                                    </pattern>
+                                </defs>
+                                <rect width="100%" height="100%" fill="url(#grid)" />
+                                
+                                <!-- Core Blueprint Outline of Bag -->
+                                <path d="M 130 110 Q 200 100 270 110 L 295 340 Q 200 355 105 340 Z" fill="none" stroke="#656c5e" stroke-width="3" stroke-dasharray="2 2" />
+                                <path d="M 140 200 L 260 200 L 260 320 L 140 320 Z" fill="none" stroke="#e65c2b" stroke-width="1.5" id="spec-highlight-pocket" class="transition-all duration-300 opacity-40" />
+                                
+                                <!-- Floating tech lines showing construction -->
+                                <g id="tech-indicator-line">
+                                    <line x1="105" y1="200" x2="200" y2="200" stroke="#141712" stroke-width="1.5" stroke-dasharray="4 4"/>
+                                    <circle cx="200" cy="200" r="4" fill="#141712" />
+                                </g>
+
+                                <text x="10" y="30" class="text-[10px] font-mono fill-brand-charcoal tracking-wider">SCHEMATIC V.42</text>
+                            </svg>
+                        </div>
+
+                        <!-- Technical Spec Overlay Notification -->
+                        <div id="spec-info-card" class="absolute bottom-4 left-4 right-4 bg-brand-charcoal text-brand-cream text-xs p-4 rounded-md shadow-lg transition-all transform translate-y-0 opacity-100">
+                            <span class="font-mono text-brand-terracotta block uppercase text-[10px] mb-1">CURRENTLY VIEWING</span>
+                            <h4 id="spec-info-title" class="font-bold mb-1">Double-Welded Seams</h4>
+                            <p id="spec-info-desc" class="opacity-80 text-[11px]">Industrial-grade high frequency sonic welding yields unmatched water resistance.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Quick Specifications Box -->
+                <div class="lg:col-span-3 space-y-8 order-3">
+                    <div class="border-t border-brand-charcoal/15 pt-6">
+                        <span class="text-[10px] font-bold tracking-widest text-brand-charcoal uppercase block mb-3">DIMENSIONS</span>
+                        <div class="space-y-2 text-xs">
+                            <div class="flex justify-between border-b border-brand-charcoal/5 py-1">
+                                <span class="text-brand-mutedText">Height:</span>
+                                <span class="font-bold">48 cm (63 cm unrolled)</span>
+                            </div>
+                            <div class="flex justify-between border-b border-brand-charcoal/5 py-1">
+                                <span class="text-brand-mutedText">Width:</span>
+                                <span class="font-bold">32 cm</span>
+                            </div>
+                            <div class="flex justify-between border-b border-brand-charcoal/5 py-1">
+                                <span class="text-brand-mutedText">Depth:</span>
+                                <span class="font-bold">14 cm</span>
+                            </div>
+                            <div class="flex justify-between py-1">
+                                <span class="text-brand-mutedText">Capacity:</span>
+                                <span class="font-bold">22 Liters</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-brand-charcoal/15 pt-6">
+                        <span class="text-[10px] font-bold tracking-widest text-brand-charcoal uppercase block mb-3">MATERIALS</span>
+                        <div class="space-y-2 text-xs">
+                            <div class="flex justify-between border-b border-brand-charcoal/5 py-1">
+                                <span class="text-brand-mutedText">Face Fabric:</span>
+                                <span class="font-bold">PVC-free PU / Cotton</span>
+                            </div>
+                            <div class="flex justify-between border-b border-brand-charcoal/5 py-1">
+                                <span class="text-brand-mutedText">Hardware:</span>
+                                <span class="font-bold">Zinc alloy clip / Matte</span>
+                            </div>
+                            <div class="flex justify-between py-1">
+                                <span class="text-brand-mutedText">Straps:</span>
+                                <span class="font-bold">High-durability webbing</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: INTERACTIVE SHOWCASE OF CURATED PRODUCTS -->
+    <section id="collections" class="py-20 lg:py-32 px-6 lg:px-12 bg-brand-cream border-t border-b border-brand-charcoal/10">
+        <div class="max-w-[1400px] mx-auto">
+            
+            <!-- Collection Filter Section Header -->
+            <div class="flex flex-col md:flex-row justify-between items-baseline gap-6 mb-16 border-b border-brand-charcoal/10 pb-6">
+                <div>
+                    <span class="text-xs font-bold tracking-[0.3em] text-brand-mutedText uppercase block mb-2">CURATED SERIES</span>
+                    <h2 class="text-3xl sm:text-5xl font-serif text-brand-charcoal">The Waterproof Carryalls</h2>
+                </div>
+                
+                <!-- Category Filter Pills -->
+                <div class="flex flex-wrap gap-2 text-xs font-bold tracking-wider uppercase">
+                    <button onclick="filterProducts('all')" class="bg-brand-charcoal text-white py-2 px-5 transition-all">All Objects</button>
+                    <button onclick="filterProducts('bags')" class="border border-brand-charcoal/20 hover:border-brand-charcoal py-2 px-5 transition-all">Bags</button>
+                    <button onclick="filterProducts('apparel')" class="border border-brand-charcoal/20 hover:border-brand-charcoal py-2 px-5 transition-all">Apparel</button>
+                </div>
+            </div>
+
+            <!-- Dynamic Grid Items -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="product-grid">
+                
+                <!-- Product Card 1: Rain Jacket matching visual palette -->
+                <div class="product-item group bg-brand-sandBg p-6 border border-brand-charcoal/5 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:border-brand-charcoal/15" data-category="apparel">
+                    <div class="relative w-full aspect-[4/5] bg-brand-sageDark/30 rounded flex items-center justify-center p-8 overflow-hidden">
+                        <span class="absolute top-4 left-4 bg-brand-charcoal text-white text-[9px] px-2.5 py-1 tracking-widest uppercase">Best Seller</span>
+                        
+                        <!-- Visual representation of rain jacket via high-end responsive SVG -->
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-[70%] h-auto group-hover:scale-105 transition-transform duration-500">
+                            <path d="M 50 40 L 150 40 L 170 140 L 150 180 L 100 185 L 50 180 L 30 140 Z" fill="#b9c0ae" />
+                            <path d="M 100 40 L 100 185" stroke="#141712" stroke-width="2" />
+                            <!-- Collar -->
+                            <path d="M 80 40 Q 100 60 120 40" fill="none" stroke="#141712" stroke-width="3" />
+                            <!-- Pockets -->
+                            <rect x="60" y="110" width="25" height="25" fill="#141712" rx="2" />
+                            <rect x="115" y="110" width="25" height="25" fill="#141712" rx="2" />
+                        </svg>
+
+                        <!-- Hover quick view -->
+                        <button onclick="openProductQuickview('Mosebacke Raincoat', 250, 'Muted Sage', 'The classic A-line raincoat silhouette designed specifically for a drape and structural defense against persistent rain.')" class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm text-brand-charcoal text-[11px] font-bold py-3 uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-md">
+                            Quick View
+                        </button>
+                    </div>
+                    <div class="pt-6 flex justify-between items-start">
+                        <div>
+                            <span class="text-xs text-brand-mutedText uppercase font-mono tracking-widest">001 / COATS</span>
+                            <h3 class="font-bold text-brand-charcoal mt-1 group-hover:text-brand-terracotta transition-colors">Mosebacke Raincoat</h3>
+                            <span class="text-xs text-brand-mutedText">Muted Sage</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="font-mono font-bold text-sm block">€250</span>
+                            <button onclick="addProductToBag('Mosebacke Raincoat', 250, '#b9c0ae')" class="text-[10px] text-brand-terracotta hover:underline font-bold mt-2 uppercase tracking-wider block">Add +</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 2: Rolltop Pack variant -->
+                <div class="product-item group bg-brand-sandBg p-6 border border-brand-charcoal/5 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:border-brand-charcoal/15" data-category="bags">
+                    <div class="relative w-full aspect-[4/5] bg-brand-sageDark/30 rounded flex items-center justify-center p-8 overflow-hidden">
+                        <span class="absolute top-4 left-4 bg-brand-terracotta text-white text-[9px] px-2.5 py-1 tracking-widest uppercase">Iconic</span>
+                        
+                        <!-- Visual representation of rain jacket via high-end responsive SVG -->
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-[60%] h-auto group-hover:scale-105 transition-transform duration-500">
+                            <path d="M 60 50 Q 100 40 140 50 L 155 160 Q 100 170 45 160 Z" fill="#2d2e2c" />
+                            <rect x="80" y="80" width="40" height="50" fill="#e65c2b" />
+                            <line x1="100" y1="40" x2="100" y2="160" stroke="#141712" stroke-width="2" />
+                        </svg>
+
+                        <!-- Hover quick view -->
+                        <button onclick="openProductQuickview('Rain Backpack Mini', 133, 'Obsidian Rust', 'The compact version of our premium roll-top commuter system, offering a tight minimalist fit ideal for urban bike transits.')" class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm text-brand-charcoal text-[11px] font-bold py-3 uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-md">
+                            Quick View
+                        </button>
+                    </div>
+                    <div class="pt-6 flex justify-between items-start">
+                        <div>
+                            <span class="text-xs text-brand-mutedText uppercase font-mono tracking-widest">002 / LUGGAGE</span>
+                            <h3 class="font-bold text-brand-charcoal mt-1 group-hover:text-brand-terracotta transition-colors">Rain Backpack Mini</h3>
+                            <span class="text-xs text-brand-mutedText">Obsidian & Rust</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="font-mono font-bold text-sm block">€133</span>
+                            <button onclick="addProductToBag('Rain Backpack Mini', 133, '#e65c2b')" class="text-[10px] text-brand-terracotta hover:underline font-bold mt-2 uppercase tracking-wider block">Add +</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 3: Chelsea Rain Boots matching palette -->
+                <div class="product-item group bg-brand-sandBg p-6 border border-brand-charcoal/5 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:border-brand-charcoal/15" data-category="apparel">
+                    <div class="relative w-full aspect-[4/5] bg-brand-sageDark/30 rounded flex items-center justify-center p-8 overflow-hidden">
+                        
+                        <!-- Visual representation of rain boot via high-end responsive SVG -->
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-[65%] h-auto group-hover:scale-105 transition-transform duration-500">
+                            <!-- Minimal boot silhouette -->
+                            <path d="M 60 50 L 100 50 L 100 120 L 150 145 L 145 160 L 50 160 L 50 90 Z" fill="#141712" />
+                            <path d="M 50 150 L 148 150" stroke="#e65c2b" stroke-width="4" />
+                        </g>
+                        </svg>
+
+                        <!-- Hover quick view -->
+                        <button onclick="openProductQuickview('Chelsea Rain Boots', 160, 'Obsidian Black', 'Classic silhouette redefined with thick organic natural rubber and vulcanized tread block sole patterns.')" class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm text-brand-charcoal text-[11px] font-bold py-3 uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-md">
+                            Quick View
+                        </button>
+                    </div>
+                    <div class="pt-6 flex justify-between items-start">
+                        <div>
+                            <span class="text-xs text-brand-mutedText uppercase font-mono tracking-widest">003 / FOOTWEAR</span>
+                            <h3 class="font-bold text-brand-charcoal mt-1 group-hover:text-brand-terracotta transition-colors">Chelsea Rain Boots</h3>
+                            <span class="text-xs text-brand-mutedText">Obsidian Black</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="font-mono font-bold text-sm block">€160</span>
+                            <button onclick="addProductToBag('Chelsea Rain Boots', 160, '#141712')" class="text-[10px] text-brand-terracotta hover:underline font-bold mt-2 uppercase tracking-wider block">Add +</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: CUSTOMER EDITORIAL PROOF & REVIEWS -->
+    <section class="py-20 lg:py-32 px-6 lg:px-12 bg-brand-charcoal text-brand-cream relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-tr from-brand-sageDark/10 to-transparent pointer-events-none"></div>
+        
+        <div class="max-w-[1200px] mx-auto text-center space-y-12 relative z-10">
+            <span class="text-xs font-bold tracking-[0.3em] text-brand-terracotta uppercase block">GLOBAL RECOGNITION</span>
+            
+            <blockquote class="text-2xl sm:text-4xl lg:text-5xl font-serif max-w-4xl mx-auto leading-snug">
+                "Stutterheim manages to take the functional and practical rain gear and elevate it to a minimalist architectural sculpture."
+            </blockquote>
+
+            <div class="w-16 h-[1.5px] bg-brand-terracotta mx-auto"></div>
+
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-8 sm:gap-16 text-xs tracking-widest uppercase">
+                <div class="text-center">
+                    <span class="text-brand-terracotta font-mono font-bold text-xl block mb-2">9.8 / 10</span>
+                    <span class="opacity-60">Highsnobiety</span>
+                </div>
+                <div class="text-center">
+                    <span class="text-brand-terracotta font-mono font-bold text-xl block mb-2">GOLD WINNER</span>
+                    <span class="opacity-60">Swedish Design Award</span>
+                </div>
+                <div class="text-center">
+                    <span class="text-brand-terracotta font-mono font-bold text-xl block mb-2">100% GREEN</span>
+                    <span class="opacity-60">OEKO-TEX Certified</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: PREMIUM CTA & NEWSLETTER (The visual signoff) -->
+    <section id="newsletter" class="py-20 lg:py-32 px-6 lg:px-12 bg-brand-sandBg">
+        <div class="max-w-[1200px] mx-auto border-t border-brand-charcoal/15 pt-20">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-6 space-y-4">
+                    <span class="text-[10px] font-bold tracking-[0.3em] text-brand-mutedText uppercase block">SUBSCRIBE FOR RELEASES</span>
+                    <h2 class="text-3xl sm:text-4xl font-serif text-brand-charcoal">Join the inner circle of Nordic design.</h2>
+                    <p class="text-xs text-brand-mutedText font-light max-w-md leading-relaxed">
+                        Get advanced warning on curated small-batch bag designs, collaborative rainwear items, and our archival end-of-season drops. No noise, just heritage.
+                    </p>
+                </div>
+
+                <!-- Premium inputs matching luxury aesthetics -->
+                <div class="lg:col-span-6">
+                    <form onsubmit="handleSubscribe(event)" class="space-y-4">
+                        <div class="flex flex-col sm:flex-row gap-2">
+                            <input type="email" placeholder="YOUR EMAIL ADDRESS" required class="flex-grow bg-white border border-brand-charcoal/15 focus:border-brand-charcoal focus:outline-none p-4 text-xs tracking-wider placeholder:text-brand-mutedText/60">
+                            <button type="submit" class="bg-brand-charcoal hover:bg-brand-terracotta text-white font-bold text-xs tracking-[0.2em] uppercase py-4 px-8 transition-colors duration-300">
+                                JOIN
+                            </button>
+                        </div>
+                        <p class="text-[10px] text-brand-mutedText/75">
+                            By subscribing, you agree to our privacy conditions. You can withdraw anytime.
+                        </p>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-cream py-16 px-6 lg:px-12 border-t border-brand-charcoal/10 text-brand-mutedText">
+        <div class="max-w-[1600px] mx-auto grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12">
+            
+            <div class="col-span-2 space-y-4">
+                <span class="bg-brand-charcoal text-white font-bold px-3 py-1.5 text-lg tracking-widest inline-block">S</span>
+                <p class="text-xs font-light max-w-xs leading-relaxed">
+                    Stutterheim rainwear is crafted utilizing the highest quality Swedish engineering, offering structural minimalist items built to stand testing environments.
+                </p>
+                <p class="text-[11px] opacity-75">&copy; 2026 STUTTERHEIM. All Rights Reserved.</p>
+            </div>
+
+            <div class="space-y-3">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-brand-charcoal">Collections</h4>
+                <ul class="space-y-2 text-xs font-light">
+                    <li><a href="#" class="hover:text-brand-charcoal transition-colors">Raincoats</a></li>
+                    <li><a href="#" class="hover:text-brand-charcoal transition-colors">Roll-Top Bags</a></li>
+                    <li><a href="#" class="hover:text-brand-charcoal transition-colors">Waterproof Hats</a></li>
+                    <li><a href="#" class="hover:text-brand-charcoal transition-colors">The Stockholm Classic</a></li>
+                </ul>
+            </div>
+
+            <div class="space-y-3">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-brand-charcoal">Support</h4>
+                <ul class="space-y-2 text-xs font-light">
+                    <li><a href="#" class="hover:text-brand-charcoal transition-colors">Shipping & Returns</a></li>
+                    <li><a href="#" class="hover:text-brand-charcoal transition-colors">Garment Care</a></li>
+                    <li><a href="#" class="hover:text-brand-charcoal transition-colors">Warranty & Repairs</a></li>
+                    <li><a href="#" class="hover:text-brand-charcoal transition-colors">Contact Service</a></li>
+                </ul>
+            </div>
+
+            <div class="space-y-3">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-brand-charcoal">HQ Address</h4>
+                <p class="text-xs font-light leading-relaxed">
+                    Stutterheim Ateljé<br>
+                    Södermalmsallén 36<br>
+                    118 28 Stockholm<br>
+                    Sweden
+                </p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- INTERACTIVE CART DRAWER (Slide Out Panel) -->
+    <div id="cart-drawer" class="fixed inset-y-0 right-0 w-full max-w-md bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-500 ease-in-out flex flex-col justify-between border-l border-brand-charcoal/10">
+        <!-- Cart Header -->
+        <div class="p-6 border-b border-brand-charcoal/10 flex justify-between items-center bg-brand-cream">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-bag-shopping text-brand-charcoal text-lg"></i>
+                <h3 class="font-bold text-xs uppercase tracking-[0.2em] text-brand-charcoal">YOUR CARRYALL BAG</h3>
+            </div>
+            <button onclick="toggleCart()" class="text-brand-charcoal hover:text-brand-terracotta p-2" aria-label="Close Cart">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+
+        <!-- Cart Items container -->
+        <div class="flex-grow overflow-y-auto p-6 space-y-6" id="cart-items-container">
+            <!-- Dynamically populated cart items go here -->
+            <div class="flex gap-4 border-b border-brand-charcoal/5 pb-4">
+                <div class="w-16 h-16 bg-brand-sageDark/30 rounded flex items-center justify-center">
+                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-10 h-auto">
+                        <path d="M 60 50 Q 100 40 140 50 L 155 160 Q 100 170 45 160 Z" fill="#717a6a" />
+                    </svg>
+                </div>
+                <div class="flex-grow">
+                    <div class="flex justify-between font-bold text-xs uppercase tracking-wider">
+                        <span>Green Backpack (Sage)</span>
+                        <span>€133</span>
+                    </div>
+                    <p class="text-[11px] text-brand-mutedText mt-1 font-mono">Qty: 1 — Standard Variant</p>
+                    <button class="text-[10px] text-red-500 hover:underline mt-2 uppercase tracking-widest font-bold">Remove</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cart Footer -->
+        <div class="p-6 bg-brand-cream border-t border-brand-charcoal/10 space-y-4">
+            <div class="flex justify-between text-xs font-bold uppercase tracking-wider">
+                <span>ESTIMATED TOTAL</span>
+                <span id="cart-total" class="font-mono text-sm">€133</span>
+            </div>
+            <p class="text-[10px] text-brand-mutedText">Taxes and free shipping computed at the checkout panel.</p>
+            <button onclick="triggerCheckout()" class="w-full bg-brand-charcoal hover:bg-brand-terracotta text-white font-bold text-xs tracking-[0.25em] py-4 uppercase transition-colors duration-300">
+                PROCEED TO CHECKOUT
+            </button>
+        </div>
+    </div>
+
+
+    <!-- PRODUCT QUICK VIEW MODAL (Minimalist Pop-up) -->
+    <div id="quickview-modal" class="fixed inset-0 bg-brand-charcoal/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300">
+        <div class="bg-brand-sandBg max-w-2xl w-full border border-brand-charcoal/20 relative rounded-md overflow-hidden shadow-2xl flex flex-col md:flex-row">
+            <!-- Modal Close -->
+            <button onclick="closeQuickview()" class="absolute top-4 right-4 text-brand-charcoal hover:text-brand-terracotta p-2 z-10">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <!-- Product visual -->
+            <div class="md:w-1/2 bg-brand-sageDark/40 flex items-center justify-center p-8">
+                <div id="modal-svg-container" class="w-[75%]">
+                    <!-- Target dynamic SVG graphic -->
+                </div>
+            </div>
+
+            <!-- Product Details -->
+            <div class="md:w-1/2 p-8 flex flex-col justify-between">
+                <div class="space-y-4">
+                    <span id="modal-subtitle" class="text-xs uppercase font-mono tracking-widest text-brand-mutedText">001 / COATS</span>
+                    <h3 id="modal-title" class="text-2xl font-serif text-brand-charcoal">Mosebacke Raincoat</h3>
+                    <div id="modal-price" class="text-lg font-mono font-bold text-brand-charcoal">€250</div>
+                    <p id="modal-desc" class="text-xs text-brand-mutedText font-light leading-relaxed">
+                        The signature A-line silhouette that resists downpours effortlessly while holding classic style structure.
+                    </p>
+                </div>
+
+                <div class="pt-6 space-y-3">
+                    <button onclick="addModalProductToCart()" class="w-full bg-brand-charcoal hover:bg-brand-terracotta text-white font-bold text-xs tracking-[0.2em] py-3 uppercase transition-colors">
+                        Add to bag
+                    </button>
+                    <button onclick="closeQuickview()" class="w-full border border-brand-charcoal/20 hover:border-brand-charcoal text-brand-charcoal font-bold text-[10px] tracking-[0.2em] py-2 uppercase transition-all bg-white/40">
+                        Continue browsing
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- TOAST POP-UP (In-frame user message indicator) -->
+    <div id="toast" class="fixed bottom-6 left-6 bg-brand-charcoal text-white text-xs px-6 py-4 shadow-2xl z-50 border border-brand-terracotta/20 transform translate-y-12 opacity-0 pointer-events-none transition-all duration-300 flex items-center gap-3">
+        <i class="fa-solid fa-circle-check text-brand-terracotta"></i>
+        <span id="toast-message" class="tracking-wider">Product added to carryall bag.</span>
+    </div>
+
+    <!-- MAIN JAVASCRIPT APP LOGIC & DESIGN CONTROLLER -->
+    <script>
+        // Reactive App State
+        let currentPreset = 'sage';
+        let cart = [
+            { id: 'Stutterheim Green Backpack', title: 'Green backpack', price: 133, color: 'Sage & Terracotta', qty: 1, svgColor: '#717a6a' }
+        ];
+        let wishlist = [];
+        let mobileMenuOpen = false;
+        let cartOpen = false;
+        let activeModalProduct = null;
+
+        // Interactive Design Configurator presets
+        const presets = {
+            sage: {
+                title: "Green<br>backpack",
+                desc: "Crafted from rubberized cotton with heavy-duty straps and sand-toned leather details. Built for Nordic rains and city life.",
+                serial: "089",
+                price: "€133",
+                bgLeft: "#b9c0ae", // Warm olive sage
+                bgRight: "#d5d9cc", // Pale sage grey
+                // Backpack SVG fills
+                bpBody: "#717a6a",
+                bpBottom: "#bfae98",
+                bpPocket: "#e65c2b",
+                bpCenterStrap: "#dfd0c0",
+                bpZipperPull: "#bfae98"
+            },
+            sand: {
+                title: "Sand<br>backpack",
+                desc: "Natural sand elements blended with high-frequency welded charcoal seams. Beautifully subtle, highly functional commuting block.",
+                serial: "102",
+                price: "€145",
+                bgLeft: "#ecefe7", // Bright Sand gray
+                bgRight: "#b9c0ae", // Sage contrast
+                // Backpack SVG fills
+                bpBody: "#ecefe7",
+                bpBottom: "#2d2e2c",
+                bpPocket: "#141712",
+                bpCenterStrap: "#e65c2b",
+                bpZipperPull: "#ecefe7"
+            },
+            ocean: {
+                title: "Nordic<br>Ocean pack",
+                desc: "Inspired by the deeper Baltic Sea hues. Complemented by muted mustard ochre details for a high-contrast vintage nautical appearance.",
+                serial: "145",
+                price: "€150",
+                bgLeft: "#7c95a3", // Ocean Blue
+                bgRight: "#e5e8df", // Calm sand
+                // Backpack SVG fills
+                bpBody: "#536d7e",
+                bpBottom: "#dca543",
+                bpPocket: "#253440",
+                bpCenterStrap: "#dca543",
+                bpZipperPull: "#536d7e"
+            },
+            obsidian: {
+                title: "Obsidian<br>Blackout",
+                desc: "Complete stealth waterproof design. Featuring matte vulcanized elements for zero reflection in harsh conditions.",
+                serial: "020",
+                price: "€160",
+                bgLeft: "#2d2e2c", // Very dark charcoal
+                bgRight: "#141712", // Pure soft dark
+                // Backpack SVG fills
+                bpBody: "#141712",
+                bpBottom: "#2d2e2c",
+                bpPocket: "#212220",
+                bpCenterStrap: "#2d2e2c",
+                bpZipperPull: "#141712"
+            }
+        };
+
+        // Initialize state on load
+        window.addEventListener('load', () => {
+            setBackpackPreset('sage');
+            updateCartUI();
+        });
+
+        // Configures the hero backpack SVG and background colors
+        function setBackpackPreset(key) {
+            currentPreset = key;
+            const data = presets[key];
+            if (!data) return;
+
+            // Animate backgrounds smoothly
+            document.getElementById('hero-left-bg').style.backgroundColor = data.bgLeft;
+            document.getElementById('hero-right-bg').style.backgroundColor = data.bgRight;
+
+            // Change copy with fade transition
+            const titleEl = document.getElementById('hero-title');
+            const descEl = document.getElementById('hero-desc');
+            const serialEl = document.getElementById('hero-serial');
+            const priceEl = document.getElementById('hero-price');
+
+            titleEl.style.opacity = 0;
+            descEl.style.opacity = 0;
+            
+            setTimeout(() => {
+                titleEl.innerHTML = data.title;
+                descEl.innerText = data.desc;
+                serialEl.innerText = data.serial;
+                priceEl.innerText = data.price;
+
+                titleEl.style.opacity = 1;
+                descEl.style.opacity = 1;
+            }, 250);
+
+            // Set specific parts on the SVG illustration with transition properties
+            document.getElementById('bp-body').setAttribute('fill', data.bpBody);
+            document.getElementById('bp-bottom').setAttribute('fill', data.bpBottom);
+            document.getElementById('bp-pocket').setAttribute('fill', data.bpPocket);
+            document.getElementById('bp-center-strap').setAttribute('fill', data.bpCenterStrap);
+            document.getElementById('bp-zipper-pull').setAttribute('fill', data.bpZipperPull);
+
+            // Update selector button active state indicator borders
+            const presetButtons = ['sage', 'sand', 'ocean', 'obsidian'];
+            presetButtons.forEach(p => {
+                const btn = document.getElementById(`btn-preset-${p}`);
+                if (p === key) {
+                    btn.classList.add('border-brand-charcoal');
+                    btn.classList.remove('border-transparent');
+                } else {
+                    btn.classList.remove('border-brand-charcoal');
+                    btn.classList.add('border-transparent');
+                }
+            });
+
+            // Update page pagination dots
+            document.getElementById('p-dot-1').className = `w-2.5 h-2.5 rounded-full cursor-pointer transition-all ${key === 'sage' ? 'bg-brand-charcoal' : 'bg-brand-charcoal/30'}`;
+            document.getElementById('p-dot-2').className = `w-2.5 h-2.5 rounded-full cursor-pointer transition-all ${key === 'sand' ? 'bg-brand-charcoal' : 'bg-brand-charcoal/30'}`;
+            document.getElementById('p-dot-3').className = `w-2.5 h-2.5 rounded-full cursor-pointer transition-all ${key === 'ocean' || key === 'obsidian' ? 'bg-brand-charcoal' : 'bg-brand-charcoal/30'}`;
+        }
+
+        // Add configured Hero product directly into shopping cart
+        function addHeroToBag() {
+            const data = presets[currentPreset];
+            const cleanPrice = parseInt(data.price.replace('€', ''));
+            const name = `${currentPreset.charAt(0).toUpperCase() + currentPreset.slice(1)} Backpack`;
+            
+            addProductToBag(name, cleanPrice, data.bpBody);
+        }
+
+        // Push item into functional dynamic cart array
+        function addProductToBag(title, price, fill) {
+            const id = `Stutterheim-${title}`;
+            const existing = cart.find(item => item.id === id);
+
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({
+                    id,
+                    title,
+                    price,
+                    color: currentPreset,
+                    qty: 1,
+                    svgColor: fill
+                });
+            }
+
+            updateCartUI();
+            showToast(`Added ${title} to your Carryall Bag!`);
+            // Highlight dynamic cart open
+            setTimeout(() => { toggleCart(true); }, 500);
+        }
+
+        // Redraw dynamic cart items
+        function updateCartUI() {
+            const container = document.getElementById('cart-items-container');
+            const countBadge = document.getElementById('cart-count');
+            const totalEl = document.getElementById('cart-total');
+
+            container.innerHTML = '';
+            let total = 0;
+            let totalCount = 0;
+
+            cart.forEach(item => {
+                total += (item.price * item.qty);
+                totalCount += item.qty;
+
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'flex gap-4 border-b border-brand-charcoal/5 pb-4';
+                itemDiv.innerHTML = `
+                    <div class="w-16 h-16 bg-brand-sageDark/20 rounded flex items-center justify-center p-2">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-10 h-auto">
+                            <rect width="200" height="200" fill="transparent" />
+                            <circle cx="100" cy="100" r="75" fill="${item.svgColor || '#717a6a'}" />
+                        </svg>
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between font-bold text-xs uppercase tracking-wider">
+                            <span>${item.title}</span>
+                            <span>€${item.price}</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-2">
+                            <p class="text-[11px] text-brand-mutedText font-mono">Qty: ${item.qty}</p>
+                            <button onclick="removeFromCart('${item.id}')" class="text-[10px] text-brand-terracotta hover:underline font-semibold uppercase tracking-wider">Remove</button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(itemDiv);
+            });
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-brand-mutedText">
+                        <i class="fa-solid fa-box-open text-3xl mb-4 opacity-30"></i>
+                        <p class="text-xs uppercase tracking-widest">Your bag is currently empty</p>
+                    </div>
+                `;
+            }
+
+            countBadge.innerText = totalCount;
+            totalEl.innerText = `€${total}`;
+        }
+
+        // Removals from cart
+        function removeFromCart(itemId) {
+            cart = cart.filter(item => item.id !== itemId);
+            updateCartUI();
+            showToast("Item removed from bag.");
+        }
+
+        // Trigger dynamic action banner notification toast
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').innerText = message;
+            toast.className = "fixed bottom-6 left-6 bg-brand-charcoal text-white text-xs px-6 py-4 shadow-2xl z-50 border border-brand-terracotta/20 transform translate-y-0 opacity-100 transition-all duration-300 flex items-center gap-3";
+            
+            setTimeout(() => {
+                toast.className = "fixed bottom-6 left-6 bg-brand-charcoal text-white text-xs px-6 py-4 shadow-2xl z-50 border border-brand-terracotta/20 transform translate-y-12 opacity-0 pointer-events-none transition-all duration-300 flex items-center gap-3";
+            }, 3000);
+        }
+
+        // Open/Close Cart Drawer Panel
+        function toggleCart(forceState = null) {
+            const drawer = document.getElementById('cart-drawer');
+            if (forceState !== null) {
+                cartOpen = forceState;
+            } else {
+                cartOpen = !cartOpen;
+            }
+
+            if (cartOpen) {
+                drawer.classList.remove('translate-x-full');
+            } else {
+                drawer.classList.add('translate-x-full');
+            }
+        }
+
+        // Open/Close Mobile Overlay Navigation Menu
+        function toggleMobileMenu() {
+            mobileMenuOpen = !mobileMenuOpen;
+            const menu = document.getElementById('mobile-menu');
+            if (mobileMenuOpen) {
+                menu.classList.remove('translate-x-full');
+            } else {
+                menu.classList.add('translate-x-full');
+            }
+        }
+
+        // Dynamic Filtering on Collections (Bags vs Apparel)
+        function filterProducts(category) {
+            const items = document.querySelectorAll('.product-item');
+            items.forEach(item => {
+                if (category === 'all' || item.dataset.category === category) {
+                    item.style.display = 'flex';
+                    item.style.opacity = '1';
+                } else {
+                    item.style.display = 'none';
+                    item.style.opacity = '0';
+                }
+            });
+
+            // Toggle category active buttons aesthetics
+            const filterButtons = document.querySelectorAll('#collections button');
+            filterButtons.forEach(btn => {
+                if (btn.innerText.toLowerCase().includes(category)) {
+                    btn.className = "bg-brand-charcoal text-white py-2 px-5 transition-all";
+                } else {
+                    btn.className = "border border-brand-charcoal/20 hover:border-brand-charcoal py-2 px-5 transition-all";
+                }
+            });
+        }
+
+        // Open product details in modal popup window
+        function openProductQuickview(title, price, color, desc) {
+            activeModalProduct = { title, price, color, desc };
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-price').innerText = `€${price}`;
+            document.getElementById('modal-subtitle').innerText = `STUTTERHEIM / ${color.toUpperCase()}`;
+            document.getElementById('modal-desc').innerText = desc;
+
+            // Generate clean representative dynamic SVG element based on product context
+            let innerSvg = "";
+            if (title.includes('Raincoat')) {
+                innerSvg = `
+                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
+                        <path d="M 50 40 L 150 40 L 170 140 L 150 180 L 100 185 L 50 180 Z" fill="#b9c0ae" />
+                        <path d="M 100 40 L 100 185" stroke="#141712" stroke-width="2" />
+                    </svg>
+                `;
+            } else if (title.includes('Backpack')) {
+                innerSvg = `
+                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
+                        <path d="M 60 50 Q 100 40 140 50 L 155 160 Q 100 170 45 160 Z" fill="#141712" />
+                        <rect x="80" y="80" width="40" height="50" fill="#e65c2b" />
+                    </svg>
+                `;
+            } else {
+                innerSvg = `
+                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
+                        <path d="M 60 50 L 100 50 L 100 120 L 150 145 L 145 160 L 50 160 L 50 90 Z" fill="#141712" />
+                        <path d="M 50 150 L 148 150" stroke="#e65c2b" stroke-width="4" />
+                    </svg>
+                `;
+            }
+
+            document.getElementById('modal-svg-container').innerHTML = innerSvg;
+
+            const modal = document.getElementById('quickview-modal');
+            modal.classList.remove('pointer-events-none', 'opacity-0');
+            modal.classList.add('opacity-100');
+        }
+
+        // Close product details modal popup window
+        function closeQuickview() {
+            const modal = document.getElementById('quickview-modal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.classList.remove('opacity-100');
+        }
+
+        // Add currently viewed modal product into standard shopping cart
+        function addModalProductToCart() {
+            if (activeModalProduct) {
+                addProductToBag(activeModalProduct.title, activeModalProduct.price, '#717a6a');
+                closeQuickview();
+            }
+        }
+
+        // Add item to custom floating wishlist array
+        function addToWishlist(itemName, itemPrice) {
+            const itemExists = wishlist.find(item => item === itemName);
+            if (!itemExists) {
+                wishlist.push(itemName);
+                document.getElementById('wishlist-badge').innerText = wishlist.length;
+                document.getElementById('wishlist-badge').classList.remove('hidden');
+                showToast(`Saved "${itemName}" to your luxury wishlist!`);
+            } else {
+                showToast(`"${itemName}" is already saved.`);
+            }
+        }
+
+        // Simulate checkout response popup
+        function triggerCheckout() {
+            if (cart.length === 0) {
+                showToast("Please add carryalls to checkout.");
+                return;
+            }
+            toggleCart(false);
+            showToast("Redirecting securely to Scandinavian checkout hub...");
+        }
+
+        // Handle newsletter feedback with premium mock action
+        function handleSubscribe(e) {
+            e.preventDefault();
+            showToast("Välkommen! Premium design digest sent shortly.");
+            e.target.reset();
+        }
+
+        // Direct interactive anatomical spec detail highlighter function
+        const specDetails = {
+            1: {
+                title: "Double-Welded Seams",
+                desc: "High-frequency sonic thermal fusion binds textile membranes perfectly, eliminating structural leak vectors completely.",
+                outlineClass: "opacity-100 stroke-[#e65c2b]"
+            },
+            2: {
+                title: "Internal Protective Sleeve",
+                desc: "Secure neoprene protective chamber holds a standard 16-inch laptop completely separate from wet outerwear panels.",
+                outlineClass: "opacity-80 stroke-[#e65c2b] fill-[#e65c2b]/10"
+            },
+            3: {
+                title: "Organic Cotton Harness",
+                desc: "Heavy-duty dual layered dense organic weave strap anchors spread weight evenly across broad shoulder segments.",
+                outlineClass: "opacity-100 stroke-brand-charcoal"
+            }
+        };
+
+        function highlightSpec(id) {
+            const details = specDetails[id];
+            if (!details) return;
+
+            const title = document.getElementById('spec-info-title');
+            const desc = document.getElementById('spec-info-desc');
+            const box = document.getElementById('spec-info-card');
+
+            // Slide feedback animation transition
+            box.style.transform = "translateY(10px)";
+            box.style.opacity = 0;
+
+            setTimeout(() => {
+                title.innerText = details.title;
+                desc.innerText = details.desc;
+                box.style.transform = "translateY(0px)";
+                box.style.opacity = 1;
+
+                // Highlight target drawing SVG layers
+                const outline = document.getElementById('spec-highlight-pocket');
+                if (id === 1) {
+                    outline.setAttribute('stroke', '#e65c2b');
+                    outline.setAttribute('stroke-width', '3');
+                } else if (id === 2) {
+                    outline.setAttribute('stroke', '#141712');
+                    outline.setAttribute('stroke-width', '1');
+                } else {
+                    outline.setAttribute('stroke', '#b9c0ae');
+                }
+            }, 250);
+        }
+
+        // Smooth scroll next action trigger for floating action navigation panel
+        function scrollNext() {
+            const el = document.getElementById('collections');
+            el.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
+9

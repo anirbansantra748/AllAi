@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banklio — Effortless Finance for a Smarter Future</title>
+  <!-- Google Fonts: Plus Jakarta Sans for premium modern fintech typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              DEFAULT: '#b5f500', // Neon Lime
+              dark: '#8ec300',
+              light: '#d2ff4d',
+              forest: '#0a1410', // Emerald Black
+              deep: '#040806',
+              card: '#111e18',
+              border: 'rgba(181, 245, 0, 0.15)',
+            }
+          },
+          boxShadow: {
+            'glow-neon': '0 0 25px rgba(181, 245, 0, 0.25)',
+            'glow-emerald': '0 0 40px rgba(16, 185, 129, 0.15)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom Grid & Glow Effects matching the image */
+    .hero-grid {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(181, 245, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(181, 245, 0, 0.03) 1px, transparent 1px);
+    }
+    .blur-glow-green {
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+    }
+    .blur-glow-neon {
+      background: radial-gradient(circle, rgba(181, 245, 0, 0.1) 0%, transparent 60%);
+    }
+    /* Hide scrollbar but keep functionality */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    /* Card Perspective Effects */
+    .perspective-1000 {
+      perspective: 1000px;
+    }
+    .preserve-3d {
+      transform-style: preserve-3d;
+    }
+  </style>
+</head>
+<body class="bg-brand-deep text-slate-100 antialiased font-sans overflow-x-hidden">
+
+  <!-- Floating Custom Notification (Custom Toast replaces generic Alerts) -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 ease-out pointer-events-none">
+    <div class="bg-brand-card border border-brand/30 text-white px-5 py-4 rounded-2xl shadow-2xl flex items-center space-x-3 max-w-sm">
+      <div class="p-2 bg-brand/10 rounded-xl text-brand">
+        <i data-lucide="sparkles" class="w-5 h-5"></i>
+      </div>
+      <div>
+        <p class="font-semibold text-sm" id="toast-title">Interactive Update</p>
+        <p class="text-xs text-slate-400" id="toast-message">Your choice has been synchronized seamlessly.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero & Navigation Container (Dark Theme / Grid Background) -->
+  <div class="relative min-h-screen hero-grid overflow-hidden">
+    <!-- Ambient glows -->
+    <div class="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] blur-glow-green pointer-events-none"></div>
+    <div class="absolute top-1/3 right-10 w-[600px] h-[600px] blur-glow-neon pointer-events-none"></div>
+
+    <!-- Header / Navbar -->
+    <header class="relative z-40 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+      <nav class="flex items-center justify-between bg-brand-forest/60 backdrop-blur-xl border border-white/5 py-3.5 px-6 rounded-2xl">
+        <!-- Brand Logo -->
+        <a href="#" class="flex items-center space-x-2.5 focus:outline-none">
+          <div class="w-9 h-9 rounded-xl bg-brand flex items-center justify-center shadow-glow-neon">
+            <svg class="w-5 h-5 text-brand-deep font-bold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <span class="text-xl font-bold tracking-tight text-white flex items-center">
+            Banklio <span class="text-brand ml-0.5 font-light">.</span>
+          </span>
+        </a>
+
+        <!-- Navigation Links -->
+        <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+          <a href="#features" class="hover:text-brand transition-colors">Features</a>
+          <a href="#card-customizer" class="hover:text-brand transition-colors">My Cards</a>
+          <a href="#stats" class="hover:text-brand transition-colors">Metrics</a>
+          <a href="#interactive-sandbox" class="hover:text-brand transition-colors">AI Insights</a>
+          <a href="#testimonials" class="hover:text-brand transition-colors">Testimonials</a>
+        </div>
+
+        <!-- Call To Actions -->
+        <div class="flex items-center space-x-4">
+          <a href="#card-customizer" class="hidden sm:inline-block text-sm font-medium text-slate-300 hover:text-white transition-colors">Customize Card</a>
+          <a href="#interactive-sandbox" class="bg-brand hover:bg-brand-light text-brand-deep px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold shadow-lg transition-all hover:scale-[1.03] active:scale-[0.98]">
+            Sign up
+          </a>
+          <!-- Mobile Menu Trigger -->
+          <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-400 hover:text-white focus:outline-none">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </nav>
+
+      <!-- Mobile Dropdown Menu -->
+      <div id="mobile-menu" class="hidden md:hidden mt-3 bg-brand-forest border border-white/5 rounded-2xl p-5 space-y-4 shadow-xl">
+        <a href="#features" class="block text-slate-300 hover:text-brand font-medium">Features</a>
+        <a href="#card-customizer" class="block text-slate-300 hover:text-brand font-medium">My Cards</a>
+        <a href="#stats" class="block text-slate-300 hover:text-brand font-medium">Metrics</a>
+        <a href="#interactive-sandbox" class="block text-slate-300 hover:text-brand font-medium">AI Insights</a>
+        <a href="#testimonials" class="block text-slate-300 hover:text-brand font-medium">Testimonials</a>
+        <hr class="border-white/10">
+        <a href="#card-customizer" class="block text-center bg-white/5 text-white py-2.5 rounded-xl text-sm font-medium hover:bg-white/10">Customize Card</a>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-24 lg:pt-20">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        
+        <!-- Left Column: Content -->
+        <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
+          <!-- Premium Pill Tag -->
+          <div class="inline-flex items-center space-x-2 bg-brand/10 border border-brand/30 px-4 py-1.5 rounded-full text-brand text-xs font-semibold uppercase tracking-wider">
+            <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+            <span>Redefining Global Fintech</span>
+          </div>
+
+          <!-- Headline -->
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
+            Effortless Finance <br class="hidden sm:inline">
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-brand">for a Smarter Future</span>
+          </h1>
+
+          <!-- Subheading -->
+          <p class="text-base sm:text-lg text-slate-400 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+            Track expenses, optimize budgets, and grow wealth with Al-driven insights. Experience secure, borderless, and premium finance solutions in one single app.
+          </p>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+            <a href="#interactive-sandbox" class="group bg-brand hover:bg-brand-light text-brand-deep font-bold px-8 py-4 rounded-full flex items-center space-x-2 shadow-glow-neon transition-all hover:scale-[1.03] w-full sm:w-auto justify-center">
+              <span>Start for free</span>
+              <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+            </a>
+            <a href="#card-customizer" class="bg-brand-card hover:bg-brand-forest border border-white/10 hover:border-brand/40 text-slate-100 font-semibold px-8 py-4 rounded-full flex items-center justify-center space-x-2 transition-all w-full sm:w-auto">
+              <span>Design Your Card</span>
+            </a>
+          </div>
+
+          <!-- Social Proof & Trusted By -->
+          <div class="pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6">
+            <div class="flex items-center -space-x-3">
+              <img class="w-10 h-10 rounded-full border-2 border-brand-deep object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100" alt="User 1">
+              <img class="w-10 h-10 rounded-full border-2 border-brand-deep object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100" alt="User 2">
+              <img class="w-10 h-10 rounded-full border-2 border-brand-deep object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100" alt="User 3">
+              <div class="w-10 h-10 rounded-full bg-brand-forest border-2 border-brand-deep flex items-center justify-center text-[10px] font-bold text-brand">10M+</div>
+            </div>
+            <div class="text-center sm:text-left">
+              <p class="text-sm font-bold text-white">10 Million+ Users</p>
+              <p class="text-xs text-slate-400">Trusting our visual smart tools globally.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Interactive 3D Mockup Card Arena -->
+        <div class="lg:col-span-5 flex flex-col items-center justify-center relative">
+          <!-- Backdrop Glow behind Card -->
+          <div class="absolute w-[300px] h-[300px] bg-brand/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
+
+          <!-- Main Interactive Card Widget -->
+          <div class="perspective-1000 w-full max-w-sm">
+            <div id="interactive-hero-card" class="preserve-3d relative w-full h-56 rounded-3xl p-6 text-white shadow-2xl transition-all duration-500 cursor-pointer bg-gradient-to-br from-brand-forest to-brand-deep border border-brand/20">
+              
+              <!-- Shimmer/Gloss overlay -->
+              <div class="absolute inset-0 rounded-3xl bg-gradient-to-tr from-white/0 via-white/5 to-white/10 pointer-events-none"></div>
+
+              <!-- Card Header -->
+              <div class="flex justify-between items-start relative z-10">
+                <div>
+                  <p class="text-[10px] uppercase tracking-widest text-brand font-bold" id="card-hero-tier">Premium Account</p>
+                  <h3 class="text-xl font-bold mt-1 tracking-tight">Banklio</h3>
+                </div>
+                <!-- Premium Chip -->
+                <div class="w-10 h-8 rounded-lg bg-gradient-to-br from-amber-200 to-yellow-500 opacity-90 p-1 flex items-center justify-center shadow-lg">
+                  <div class="grid grid-cols-3 gap-0.5 w-full h-full opacity-60">
+                    <div class="border border-brand-deep/30 rounded-xs"></div>
+                    <div class="border border-brand-deep/30 rounded-xs"></div>
+                    <div class="border border-brand-deep/30 rounded-xs"></div>
+                    <div class="border border-brand-deep/30 rounded-xs"></div>
+                    <div class="border border-brand-deep/30 rounded-xs"></div>
+                    <div class="border border-brand-deep/30 rounded-xs"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card Number -->
+              <div class="mt-8 relative z-10">
+                <p class="text-lg font-medium tracking-[0.2em] text-slate-200" id="card-hero-number">5789 •••• •••• 2847</p>
+              </div>
+
+              <!-- Card Footer -->
+              <div class="mt-8 flex justify-between items-end relative z-10">
+                <div>
+                  <p class="text-[9px] uppercase tracking-wider text-slate-400">Card Holder</p>
+                  <p class="text-xs font-semibold text-white tracking-wide mt-0.5" id="card-hero-holder">Sanzida A.</p>
+                </div>
+                <div>
+                  <p class="text-[9px] uppercase tracking-wider text-slate-400">Expires</p>
+                  <p class="text-xs font-semibold text-white tracking-wide mt-0.5" id="card-hero-expiry">04/28</p>
+                </div>
+                <div class="flex items-center space-x-1">
+                  <div class="w-5 h-5 rounded-full bg-red-500/80 backdrop-blur-md"></div>
+                  <div class="w-5 h-5 rounded-full bg-yellow-400/80 -ml-2.5 backdrop-blur-md"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Micro Customizer Pills immediately underneath -->
+          <div class="mt-8 bg-brand-forest/60 border border-white/5 rounded-2xl p-4 w-full max-w-sm space-y-3">
+            <p class="text-xs text-slate-400 font-medium text-center">Interactive Playground: Change Card Style</p>
+            <div class="flex items-center justify-center space-x-3">
+              <button onclick="changeHeroCard('emerald', 'Emerald Glass')" class="w-8 h-8 rounded-full bg-emerald-500/20 border-2 border-emerald-400 focus:outline-none transition-transform hover:scale-110" title="Emerald Glass"></button>
+              <button onclick="changeHeroCard('neon', 'Neon Lime')" class="w-8 h-8 rounded-full bg-brand/20 border-2 border-brand focus:outline-none transition-transform hover:scale-110" title="Neon Lime"></button>
+              <button onclick="changeHeroCard('sapphire', 'Sapphire Tech')" class="w-8 h-8 rounded-full bg-blue-500/20 border-2 border-blue-400 focus:outline-none transition-transform hover:scale-110" title="Sapphire Tech"></button>
+              <button onclick="changeHeroCard('obsidian', 'Obsidian Metal')" class="w-8 h-8 rounded-full bg-zinc-800 border-2 border-zinc-400 focus:outline-none transition-transform hover:scale-110" title="Obsidian Metal"></button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Trusted Partners Strip -->
+    <div class="border-t border-b border-white/5 bg-brand-deep/80 backdrop-blur-md py-8">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <p class="text-center text-xs text-slate-400 font-semibold tracking-widest uppercase mb-6">Our Esteemed Partners & Affiliates</p>
+        <div class="flex flex-wrap items-center justify-center gap-8 md:gap-16 opacity-70">
+          <div class="flex items-center space-x-2 text-white">
+            <i data-lucide="pocket" class="w-5 h-5 text-blue-400"></i>
+            <span class="font-bold text-lg tracking-tight">stripe</span>
+          </div>
+          <div class="flex items-center space-x-2 text-white">
+            <i data-lucide="activity" class="w-5 h-5 text-yellow-400"></i>
+            <span class="font-bold text-lg tracking-tight">Skrill</span>
+          </div>
+          <div class="flex items-center space-x-2 text-white">
+            <i data-lucide="play" class="w-5 h-5 text-green-400"></i>
+            <span class="font-bold text-lg tracking-tight">Google Pay</span>
+          </div>
+          <div class="flex items-center space-x-2 text-white">
+            <i data-lucide="credit-card" class="w-5 h-5 text-brand"></i>
+            <span class="font-bold text-lg tracking-tight">Apple Pay</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Key Stats Section (Light Grid Transitions) -->
+  <section id="stats" class="relative z-20 py-16 bg-white text-slate-900 border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-slate-200">
+        <!-- Stat 1 -->
+        <div class="pt-6 md:pt-0 first:pt-0">
+          <p class="text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-br from-brand-forest to-slate-700 tracking-tight">524M</p>
+          <p class="text-sm font-semibold text-slate-500 mt-2 tracking-wide uppercase">Users Worldwide</p>
+        </div>
+        <!-- Stat 2 -->
+        <div class="pt-6 md:pt-0">
+          <p class="text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-br from-brand-forest to-slate-700 tracking-tight">124+</p>
+          <p class="text-sm font-semibold text-slate-500 mt-2 tracking-wide uppercase">Countries Supported</p>
+        </div>
+        <!-- Stat 3 -->
+        <div class="pt-6 md:pt-0">
+          <p class="text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-br from-brand-forest to-slate-700 tracking-tight">184M</p>
+          <p class="text-sm font-semibold text-slate-500 mt-2 tracking-wide uppercase">Customer Reviews</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Feature Section (Interactive Dashboard Visuals & Content) -->
+  <section id="features" class="py-24 bg-slate-50 text-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+        <!-- Left Column: Content -->
+        <div class="lg:col-span-5 space-y-6">
+          <div class="inline-flex items-center space-x-2 bg-slate-200 border border-slate-300/60 px-3.5 py-1 rounded-full text-slate-800 text-xs font-semibold">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>Real-time Syncing</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+            Smarter Finance <br>
+            <span class="text-slate-500">Better Decisions</span>
+          </h2>
+          <p class="text-slate-600 leading-relaxed">
+            Gain full command over your spending behaviors. Our high-fidelity intelligence platform maps out every transaction automatically, labels them intelligently, and advises you where to trim excess expenditures.
+          </p>
+          
+          <ul class="space-y-4 pt-4">
+            <li class="flex items-start space-x-3">
+              <div class="p-1 bg-brand-forest rounded-lg text-brand mt-0.5">
+                <i data-lucide="check" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <p class="font-bold text-slate-900">Get 3% Cash Back on Daily Needs</p>
+                <p class="text-sm text-slate-500">Every single tap rewards you with instant cash credit.</p>
+              </div>
+            </li>
+            <li class="flex items-start space-x-3">
+              <div class="p-1 bg-brand-forest rounded-lg text-brand mt-0.5">
+                <i data-lucide="check" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <p class="font-bold text-slate-900">Extra Overdraft Shield</p>
+                <p class="text-sm text-slate-500">No penalties. Free safety tier when you upgrade to premium.</p>
+              </div>
+            </li>
+          </ul>
+
+          <div class="pt-6">
+            <a href="#card-customizer" class="inline-flex items-center space-x-2 bg-brand-forest hover:bg-black text-white font-bold px-6 py-3 rounded-full text-sm transition-all shadow-md">
+              <span>Explore More Features</span>
+              <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column: Live Interactive Budget & Expense Simulator -->
+        <div class="lg:col-span-7">
+          <div class="bg-white rounded-3xl border border-slate-200/80 shadow-2xl p-6 sm:p-8 space-y-6 relative overflow-hidden">
+            
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100">
+              <div>
+                <p class="text-xs text-slate-400 font-bold uppercase tracking-wider">Live Sim Sandbox</p>
+                <h3 class="text-xl font-bold text-slate-900 mt-0.5">Live Expense Tracker</h3>
+              </div>
+              <!-- Simulated Available Balance -->
+              <div class="bg-slate-50 border border-slate-100 px-4 py-2 rounded-2xl">
+                <p class="text-[10px] text-slate-400 font-bold uppercase">Simulated Budget</p>
+                <p class="text-lg font-extrabold text-slate-900" id="live-budget-amount">$1,500.00</p>
+              </div>
+            </div>
+
+            <!-- Dynamic Balance Graph Visual using CSS SVGs -->
+            <div class="relative bg-slate-900 rounded-2xl p-5 text-white overflow-hidden">
+              <div class="flex justify-between items-center mb-4">
+                <div>
+                  <p class="text-xs text-brand uppercase tracking-wider font-semibold">Spending Velocity</p>
+                  <p class="text-2xl font-black mt-1" id="live-spending-total">$259.75</p>
+                </div>
+                <span class="text-xs bg-brand/10 border border-brand/20 text-brand px-2.5 py-1 rounded-full font-bold">Live Data</span>
+              </div>
+
+              <!-- Animated Custom SVG Line Chart -->
+              <div class="h-32 w-full flex items-end">
+                <svg viewBox="0 0 400 120" class="w-full h-full text-brand overflow-visible">
+                  <defs>
+                    <linearGradient id="chart-grad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#b5f500" stop-opacity="0.4"/>
+                      <stop offset="100%" stop-color="#b5f500" stop-opacity="0.0"/>
+                    </linearGradient>
+                  </defs>
+                  <!-- Base grid lines -->
+                  <line x1="0" y1="20" x2="400" y2="20" stroke="rgba(255,255,255,0.05)" stroke-dasharray="4"/>
+                  <line x1="0" y1="60" x2="400" y2="60" stroke="rgba(255,255,255,0.05)" stroke-dasharray="4"/>
+                  <line x1="0" y1="100" x2="400" y2="100" stroke="rgba(255,255,255,0.05)" stroke-dasharray="4"/>
+                  <!-- Dynamic Area -->
+                  <path id="svg-area-path" d="M 0 120 L 0 90 Q 80 40 160 80 T 320 30 L 400 120 Z" fill="url(#chart-grad)" class="transition-all duration-700"/>
+                  <!-- Dynamic Line -->
+                  <path id="svg-line-path" d="M 0 90 Q 80 40 160 80 T 320 30 L 400 45" fill="none" stroke="#b5f500" stroke-width="3" class="transition-all duration-700"/>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Transaction Controls (Adds live dynamic content to the visual sandbox) -->
+            <div>
+              <p class="text-xs font-bold uppercase text-slate-400 tracking-wider mb-3">Add Custom Transaction (Simulator)</p>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                <button onclick="addSimExpense(25.50, 'Grocery', 'cart')" class="p-3 rounded-xl border border-slate-200 hover:border-brand-forest hover:bg-slate-50 transition-all text-left">
+                  <div class="p-1.5 bg-red-100 text-red-600 rounded-lg inline-block mb-2">
+                    <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                  </div>
+                  <p class="text-xs font-bold text-slate-800">Groceries</p>
+                  <p class="text-xs text-slate-400">+$25.50</p>
+                </button>
+                <button onclick="addSimExpense(49.99, 'Gadget', 'cpu')" class="p-3 rounded-xl border border-slate-200 hover:border-brand-forest hover:bg-slate-50 transition-all text-left">
+                  <div class="p-1.5 bg-indigo-100 text-indigo-600 rounded-lg inline-block mb-2">
+                    <i data-lucide="cpu" class="w-4 h-4"></i>
+                  </div>
+                  <p class="text-xs font-bold text-slate-800">Gadget Tech</p>
+                  <p class="text-xs text-slate-400">+$49.99</p>
+                </button>
+                <button onclick="addSimExpense(120.00, 'Flight Ticket', 'plane')" class="p-3 rounded-xl border border-slate-200 hover:border-brand-forest hover:bg-slate-50 transition-all text-left">
+                  <div class="p-1.5 bg-teal-100 text-teal-600 rounded-lg inline-block mb-2">
+                    <i data-lucide="plane" class="w-4 h-4"></i>
+                  </div>
+                  <p class="text-xs font-bold text-slate-800">Travel/Flight</p>
+                  <p class="text-xs text-slate-400">+$120.00</p>
+                </button>
+                <button onclick="addSimExpense(8.50, 'Coffee', 'coffee')" class="p-3 rounded-xl border border-slate-200 hover:border-brand-forest hover:bg-slate-50 transition-all text-left">
+                  <div class="p-1.5 bg-amber-100 text-amber-600 rounded-lg inline-block mb-2">
+                    <i data-lucide="coffee" class="w-4 h-4"></i>
+                  </div>
+                  <p class="text-xs font-bold text-slate-800">Roast Coffee</p>
+                  <p class="text-xs text-slate-400">+$8.50</p>
+                </button>
+              </div>
+            </div>
+
+            <!-- List of simulated transactions inside widget -->
+            <div>
+              <p class="text-xs font-bold uppercase text-slate-400 tracking-wider mb-3">Recent Simulated Ledger</p>
+              <div class="space-y-2 max-h-[160px] overflow-y-auto no-scrollbar" id="simulated-ledger">
+                <!-- Initial items -->
+                <div class="flex justify-between items-center p-2.5 bg-slate-50 rounded-xl border border-slate-100">
+                  <div class="flex items-center space-x-3">
+                    <div class="p-2 bg-slate-200/60 rounded-lg text-slate-700">
+                      <i data-lucide="file-text" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                      <p class="text-xs font-bold text-slate-800">Initial Setup Balance</p>
+                      <p class="text-[10px] text-slate-400">Ledger Genesis</p>
+                    </div>
+                  </div>
+                  <p class="text-xs font-bold text-slate-800">$0.00</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Complete Interactive Customizer Workspace Section (Sleek Glassmorphism Dark UI) -->
+  <section id="card-customizer" class="py-24 bg-brand-deep border-t border-brand-forest relative overflow-hidden">
+    <!-- Accent lights -->
+    <div class="absolute bottom-10 left-10 w-96 h-96 bg-brand/5 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+        <span class="text-xs text-brand uppercase font-bold tracking-widest bg-brand/10 border border-brand/20 px-3.5 py-1.5 rounded-full">Interactive Studio</span>
+        <h2 class="text-3xl sm:text-4xl font-black text-white">Design Your Personal Wealth Card</h2>
+        <p class="text-slate-400 text-sm">Choose premium alloys, engrave custom signatures, and visual color profiles. All shipped with 100% biodegradable materials.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Column: Interactive Real-Time 3D Card Preview -->
+        <div class="lg:col-span-6 flex flex-col items-center justify-center">
+          <div class="perspective-1000 w-full max-w-md">
+            <!-- 3D Card Preview Frame -->
+            <div id="customizer-card-preview" class="preserve-3d relative w-full h-64 rounded-[2rem] p-8 text-white shadow-2xl transition-all duration-500 ease-out bg-gradient-to-br from-brand-forest to-brand-deep border border-brand/20 hover:scale-[1.02]">
+              <!-- Gloss Overlayer -->
+              <div class="absolute inset-0 rounded-[2rem] bg-gradient-to-tr from-white/0 via-white/5 to-white/10 pointer-events-none"></div>
+              
+              <!-- Sparkle details inside Card border -->
+              <div class="absolute inset-0.5 rounded-[1.9rem] border border-white/5 pointer-events-none"></div>
+
+              <!-- Header Card content -->
+              <div class="flex justify-between items-start">
+                <div>
+                  <p id="preview-tier-badge" class="text-[10px] uppercase tracking-[0.2em] text-brand font-bold">Titanium Core</p>
+                  <h3 class="text-2xl font-black mt-1 tracking-tight">Banklio</h3>
+                </div>
+                <div class="w-11 h-9 rounded-lg bg-gradient-to-r from-slate-200 to-slate-400 p-1 flex items-center justify-center opacity-85">
+                  <!-- Microchip SVG details -->
+                  <svg class="w-full h-full text-slate-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                    <path d="M9 3v18M15 3v18M3 9h18M3 15h18"/>
+                  </svg>
+                </div>
+              </div>
+
+              <!-- Card Number (Dynamic) -->
+              <div class="mt-10">
+                <p id="preview-card-number" class="text-xl font-bold tracking-[0.25em] text-slate-100">5789 2843 9102 2847</p>
+              </div>
+
+              <!-- Expiry & Dynamic Custom Signature -->
+              <div class="mt-10 flex justify-between items-end">
+                <div>
+                  <p class="text-[9px] uppercase tracking-widest text-slate-400">Cardholder Signature</p>
+                  <p id="preview-signature" class="text-lg font-medium text-white tracking-wide mt-1 italic font-serif">Sanzida A.</p>
+                </div>
+                <div class="text-right">
+                  <p class="text-[9px] uppercase tracking-widest text-slate-400">Valid Thru</p>
+                  <p id="preview-expiry" class="text-xs font-semibold text-white mt-1">04/28</p>
+                </div>
+                <!-- Mini card network logo details -->
+                <div class="flex items-center space-x-0.5">
+                  <div class="w-6 h-6 rounded-full bg-slate-300 opacity-80"></div>
+                  <div class="w-6 h-6 rounded-full bg-brand-light opacity-60 -ml-3"></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <!-- Tiny visual indicator tag -->
+          <p class="text-xs text-slate-500 mt-6 flex items-center gap-1.5">
+            <i data-lucide="info" class="w-4.5 h-4.5"></i>
+            Hover and drag signature inputs below to see changes instantly
+          </p>
+        </div>
+
+        <!-- Right Column: Interactive Controls Studio Dashboard -->
+        <div class="lg:col-span-6 bg-brand-forest/40 border border-white/5 backdrop-blur-xl rounded-3xl p-6 sm:p-8 space-y-6">
+          <h3 class="text-xl font-bold text-white">Alloy & Profile Controls</h3>
+          
+          <!-- Color Customizer selection -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Select Alloy Core Base</p>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <button onclick="updatePreviewAlloy('titanium', 'Titanium Core', 'from-zinc-800 to-zinc-950', 'text-brand')" class="bg-zinc-900 border border-zinc-700/50 hover:bg-zinc-800/80 p-3 rounded-xl text-left transition-all relative">
+                <span class="absolute top-2 right-2 w-2.5 h-2.5 bg-brand rounded-full inline-block" id="alloy-active-indicator"></span>
+                <p class="text-xs font-bold text-white">Titanium</p>
+                <p class="text-[10px] text-zinc-400">Polished Silver</p>
+              </button>
+              <button onclick="updatePreviewAlloy('gold', '24K Gold Elite', 'from-amber-600 to-yellow-950', 'text-yellow-400')" class="bg-amber-950/20 border border-amber-900/50 hover:bg-amber-900/30 p-3 rounded-xl text-left transition-all">
+                <p class="text-xs font-bold text-amber-300">Royal Gold</p>
+                <p class="text-[10px] text-amber-500">24 Karat finish</p>
+              </button>
+              <button onclick="updatePreviewAlloy('cyber', 'Cyber Neon', 'from-teal-800 to-slate-950', 'text-cyan-400')" class="bg-teal-950/20 border border-teal-900/50 hover:bg-teal-900/30 p-3 rounded-xl text-left transition-all">
+                <p class="text-xs font-bold text-cyan-400">Cyber Green</p>
+                <p class="text-[10px] text-cyan-600">Electric Aura</p>
+              </button>
+              <button onclick="updatePreviewAlloy('crimson', 'Crimson Velvet', 'from-rose-950 to-neutral-950', 'text-rose-400')" class="bg-rose-950/20 border border-rose-900/50 hover:bg-rose-900/30 p-3 rounded-xl text-left transition-all">
+                <p class="text-xs font-bold text-rose-400">Velvet Rose</p>
+                <p class="text-[10px] text-rose-600">Deep Crimson</p>
+              </button>
+            </div>
+          </div>
+
+          <!-- Dynamic Text / Inputs -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Holder Name Input -->
+            <div>
+              <label for="custom-holder-name" class="block text-xs font-semibold text-slate-400 uppercase tracking-widest mb-2">Engrave Signature Name</label>
+              <input type="text" id="custom-holder-name" value="Sanzida A." oninput="updateCardName()" class="w-full bg-brand-deep/80 border border-white/10 hover:border-brand/40 focus:border-brand rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition-all" placeholder="e.g. Charlotte Anna">
+            </div>
+            <!-- Dynamic Custom Card Number Generator -->
+            <div>
+              <label class="block text-xs font-semibold text-slate-400 uppercase tracking-widest mb-2">Regenerate Safe ID</label>
+              <button onclick="generateRandomCardNumber()" class="w-full bg-brand/10 hover:bg-brand/20 border border-brand/30 text-brand font-bold text-sm px-4 py-3 rounded-xl flex items-center justify-center space-x-2 transition-all">
+                <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                <span>Roll New Number</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Slider Controls for Visual Depth of Card border highlights -->
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <label class="text-xs font-semibold text-slate-400 uppercase tracking-widest">Aura Glow Intensity</label>
+              <span id="glow-intensity-val" class="text-xs text-brand font-bold">50%</span>
+            </div>
+            <input type="range" id="glow-slider" min="10" max="100" value="50" oninput="adjustGlowIntensity()" class="w-full accent-brand h-1.5 bg-brand-deep rounded-lg appearance-none cursor-pointer">
+          </div>
+
+          <!-- Complete Visual Package Trigger -->
+          <div class="pt-4">
+            <button onclick="orderCustomizedCard()" class="w-full bg-brand hover:bg-brand-light text-brand-deep font-bold py-4 rounded-xl flex items-center justify-center space-x-2 shadow-glow-neon transition-all hover:scale-[1.01]">
+              <i data-lucide="package" class="w-5 h-5"></i>
+              <span>Secure Your Custom Card Now</span>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Dual Layout Grid Blocks: Core Benefits (Capturing Simple, Fast & Hassle-Free) -->
+  <section class="py-24 bg-white text-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Layout Title -->
+      <div class="text-center max-w-2xl mx-auto mb-20 space-y-4">
+        <span class="text-xs text-emerald-600 uppercase font-black tracking-widest bg-emerald-50 border border-emerald-100 px-3.5 py-1.5 rounded-full">Intuitive Suite</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900">Simple, Fast & Hassle-Free</h2>
+        <p class="text-slate-500">Sign up, connect your banking assets, and manage finances effortlessly with smart visual trackers and customized goals.</p>
+      </div>
+
+      <!-- Feature Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Card 1 -->
+        <div class="bg-slate-50 border border-slate-100 rounded-3xl p-8 hover:bg-slate-100/60 transition-all group flex flex-col justify-between h-[360px]">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-brand-forest flex items-center justify-center text-brand">
+              <i data-lucide="wallet" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">Sync your bank, wallet, or cards securely</h3>
+            <p class="text-sm text-slate-500 leading-relaxed">Create a custom ledger that reflects your active spending profile. Select various assets from major global partners dynamically.</p>
+          </div>
+          <!-- Premium visual graphic -->
+          <div class="bg-white/80 border border-slate-200 p-3 rounded-2xl flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full"></span>
+              <span class="text-xs font-bold text-slate-700">Main Account</span>
+            </div>
+            <span class="text-xs text-slate-400 font-medium">98,500 USD</span>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-slate-50 border border-slate-100 rounded-3xl p-8 hover:bg-slate-100/60 transition-all group flex flex-col justify-between h-[360px]">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-brand-forest flex items-center justify-center text-brand">
+              <i data-lucide="sparkles" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">Get AI-driven insights to optimize spending</h3>
+            <p class="text-sm text-slate-500 leading-relaxed">Gain automated feedback alerts detailing where your savings vector is pointing. Run customized predictions.</p>
+          </div>
+          <!-- Premium mock-up graphic -->
+          <div class="grid grid-cols-2 gap-2 text-center">
+            <div class="bg-white/80 border border-slate-200 p-2.5 rounded-xl">
+              <p class="text-[9px] text-slate-400 font-bold uppercase">Freelance</p>
+              <p class="text-xs font-bold text-slate-800">$1,500/mo</p>
+            </div>
+            <div class="bg-white/80 border border-slate-200 p-2.5 rounded-xl">
+              <p class="text-[9px] text-slate-400 font-bold uppercase">Capital Gains</p>
+              <p class="text-xs font-bold text-emerald-600">+$4,000</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-slate-50 border border-slate-100 rounded-3xl p-8 hover:bg-slate-100/60 transition-all group flex flex-col justify-between h-[360px]">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-brand-forest flex items-center justify-center text-brand">
+              <i data-lucide="globe" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">Create your borderless multi-vault in minutes</h3>
+            <p class="text-sm text-slate-500 leading-relaxed">Establish segmented savings vaults mapped to specific targets. Move capital between currencies inside one click.</p>
+          </div>
+          <!-- Premium visual design -->
+          <div class="bg-white/80 border border-slate-200 p-3 rounded-2xl flex items-center space-x-3">
+            <div class="flex -space-x-2">
+              <span class="w-6 h-6 rounded-full bg-blue-500 text-[10px] font-bold text-white flex items-center justify-center border border-white">EU</span>
+              <span class="w-6 h-6 rounded-full bg-emerald-500 text-[10px] font-bold text-white flex items-center justify-center border border-white">US</span>
+              <span class="w-6 h-6 rounded-full bg-zinc-800 text-[10px] font-bold text-white flex items-center justify-center border border-white">UK</span>
+            </div>
+            <span class="text-xs font-bold text-slate-800">107+ Vaults Available</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Dynamic Interactive Sandbox Widget: AI Goals and Milestones Tracker -->
+  <section id="interactive-sandbox" class="py-24 bg-brand-deep text-white relative overflow-hidden border-t border-white/5">
+    <div class="absolute inset-0 bg-gradient-to-b from-brand-forest/10 via-transparent to-transparent pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+        <span class="text-xs text-brand uppercase font-bold tracking-widest bg-brand/10 border border-brand/20 px-3.5 py-1.5 rounded-full">Insight Sandbox</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold">Interactive AI Wealth Calculator</h2>
+        <p class="text-slate-400">Choose a financial milestone path below to preview AI allocation rates, compound multipliers, and simulated visual velocity trackers.</p>
+      </div>
+
+      <!-- Live Simulator Workspace -->
+      <div class="bg-brand-forest border border-white/10 rounded-[2rem] overflow-hidden shadow-2xl">
+        <div class="grid grid-cols-1 lg:grid-cols-12">
+          
+          <!-- Left Column: Choice Controls -->
+          <div class="lg:col-span-4 bg-brand-deep/60 p-6 sm:p-10 border-b lg:border-b-0 lg:border-r border-white/10 space-y-6">
+            <h3 class="text-lg font-bold text-white">1. Select AI Trajectory</h3>
+            
+            <div class="space-y-3">
+              <button onclick="calculateAiMilestone('tesla', 'Tesla Model S Custom Fund', 90000, 36, 15, 'Tesla Cyber Red')" class="w-full text-left p-4 rounded-2xl border border-white/5 hover:border-brand/40 bg-white/5 hover:bg-white/10 transition-all flex items-center justify-between group active-trajectory" id="btn-tesla">
+                <div class="flex items-center space-x-3">
+                  <div class="p-2 bg-rose-500/10 text-rose-400 rounded-xl">
+                    <i data-lucide="zap" class="w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <p class="text-sm font-bold text-white">Tesla Custom Fund</p>
+                    <p class="text-xs text-slate-400">36 Mo Target</p>
+                  </div>
+                </div>
+                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500 group-hover:text-white transition-colors"></i>
+              </button>
+
+              <button onclick="calculateAiMilestone('retire', 'Early Secure Retirement Pool', 850000, 120, 8, 'Premium Amber S-1')" class="w-full text-left p-4 rounded-2xl border border-white/5 hover:border-brand/40 bg-white/5 hover:bg-white/10 transition-all flex items-center justify-between group" id="btn-retire">
+                <div class="flex items-center space-x-3">
+                  <div class="p-2 bg-yellow-500/10 text-yellow-400 rounded-xl">
+                    <i data-lucide="sunset" class="w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <p class="text-sm font-bold text-white">Secure Retirement</p>
+                    <p class="text-xs text-slate-400">10 Year Accumulation</p>
+                  </div>
+                </div>
+                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500 group-hover:text-white transition-colors"></i>
+              </button>
+
+              <button onclick="calculateAiMilestone('estate', 'Global Real Estate Downpayment', 180000, 48, 12, 'Sea Emerald Emerald-9')" class="w-full text-left p-4 rounded-2xl border border-white/5 hover:border-brand/40 bg-white/5 hover:bg-white/10 transition-all flex items-center justify-between group" id="btn-estate">
+                <div class="flex items-center space-x-3">
+                  <div class="p-2 bg-blue-500/10 text-blue-400 rounded-xl">
+                    <i data-lucide="home" class="w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <p class="text-sm font-bold text-white">Real Estate Pool</p>
+                    <p class="text-xs text-slate-400">4 Year Plan</p>
+                  </div>
+                </div>
+                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500 group-hover:text-white transition-colors"></i>
+              </button>
+            </div>
+
+            <!-- Interactive Custom Initial Input Value -->
+            <div class="pt-4 border-t border-white/5">
+              <label for="sandbox-initial-deposit" class="block text-xs font-semibold text-slate-400 uppercase tracking-widest mb-2">Simulated Monthly Contribution</label>
+              <div class="relative">
+                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
+                <input type="number" id="sandbox-initial-deposit" value="1200" oninput="runRecalculation()" class="w-full bg-brand-deep border border-white/10 focus:border-brand rounded-xl pl-8 pr-4 py-3 text-sm text-white focus:outline-none">
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Results & Interactive Meters -->
+          <div class="lg:col-span-8 p-6 sm:p-10 flex flex-col justify-between">
+            <div class="space-y-6">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <span class="text-xs text-brand uppercase font-bold tracking-widest">Active Plan Trajectory</span>
+                  <h3 class="text-2xl font-black text-white mt-1" id="sandbox-active-title">Tesla Model S Custom Fund</h3>
+                </div>
+                <div class="bg-white/5 border border-white/10 px-4 py-2 rounded-2xl text-right">
+                  <p class="text-[10px] text-slate-400 uppercase font-semibold">Total Target Amount</p>
+                  <p class="text-xl font-bold text-brand" id="sandbox-target-amount">$90,000</p>
+                </div>
+              </div>
+
+              <!-- Live Visual Progress Bars & Metrics -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6">
+                <!-- Card metric 1 -->
+                <div class="bg-brand-deep/40 border border-white/5 p-5 rounded-2xl">
+                  <p class="text-xs text-slate-400 uppercase font-semibold">Projected AI Monthly Match</p>
+                  <p class="text-3xl font-bold text-white mt-2" id="sandbox-monthly-match">$1,380.00</p>
+                  <p class="text-[10px] text-brand mt-1" id="sandbox-match-sub">Includes +15% AI Compound Bonus</p>
+                </div>
+                <!-- Card metric 2 -->
+                <div class="bg-brand-deep/40 border border-white/5 p-5 rounded-2xl">
+                  <p class="text-xs text-slate-400 uppercase font-semibold">Simulated Time to Target</p>
+                  <p class="text-3xl font-bold text-white mt-2" id="sandbox-time-to-target">36 Months</p>
+                  <p class="text-[10px] text-slate-400 mt-1">Accelerated by Smart Investing</p>
+                </div>
+              </div>
+
+              <!-- Animated Visual Milestone Meter -->
+              <div class="space-y-2 pt-4">
+                <div class="flex justify-between text-xs text-slate-400">
+                  <span>Progress Velocity Simulator</span>
+                  <span class="font-bold text-brand" id="sandbox-progress-percentage">55% Optimized</span>
+                </div>
+                <div class="w-full h-3.5 bg-brand-deep border border-white/5 rounded-full overflow-hidden p-0.5">
+                  <div id="sandbox-progress-bar" class="h-full bg-gradient-to-r from-emerald-500 to-brand rounded-full transition-all duration-1000 ease-out" style="width: 55%;"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Footnote Action -->
+            <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <p class="text-xs text-slate-400 max-w-md text-center sm:text-left">This visual calculation models historical APY multipliers and visualizes Banklio's automated investment protocols.</p>
+              <button onclick="enrollInActivePlan()" class="bg-brand hover:bg-brand-light text-brand-deep font-bold px-6 py-3 rounded-full text-xs sm:text-sm shadow-lg transition-all hover:scale-[1.03] w-full sm:w-auto text-center">
+                Lock In AI Trajectory
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- High Fidelity Testimonial Carousel -->
+  <section id="testimonials" class="py-24 bg-white text-slate-900 border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Left Title and controls -->
+        <div class="lg:col-span-5 space-y-6">
+          <span class="text-xs text-emerald-600 uppercase font-black tracking-widest bg-emerald-50 border border-emerald-100 px-3.5 py-1.5 rounded-full">Community Insights</span>
+          <h2 class="text-4xl font-extrabold text-slate-900 leading-tight">Join 16M+ Users Managing Money Smarter</h2>
+          <p class="text-slate-500">Read verified reviews from clients around the globe detailing how they customized cards, maximized APY gains, and optimized workflows.</p>
+          
+          <!-- Slider Next/Prev Indicators -->
+          <div class="flex items-center space-x-3 pt-4">
+            <button onclick="prevTestimonial()" class="w-12 h-12 rounded-full border border-slate-200 hover:border-brand-forest hover:bg-slate-50 flex items-center justify-center transition-all focus:outline-none">
+              <i data-lucide="arrow-left" class="w-5 h-5 text-slate-700"></i>
+            </button>
+            <button onclick="nextTestimonial()" class="w-12 h-12 rounded-full border border-slate-200 hover:border-brand-forest hover:bg-slate-50 flex items-center justify-center transition-all focus:outline-none">
+              <i data-lucide="arrow-right" class="w-5 h-5 text-slate-700"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Slidable Testimonial Frame -->
+        <div class="lg:col-span-7">
+          <div class="relative bg-slate-50 border border-slate-200/80 rounded-[2rem] p-8 sm:p-12 shadow-xl overflow-hidden min-h-[300px] flex flex-col justify-between">
+            <!-- Large decorative quote mark -->
+            <div class="absolute right-8 top-8 opacity-5 text-emerald-700">
+              <svg class="w-24 h-24 fill-current" viewBox="0 0 24 24">
+                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.85h4v10h-10zm-10 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.85h3.999v10h-10z"/>
+              </svg>
+            </div>
+
+            <div class="space-y-6 relative z-10">
+              <!-- Rating Stars -->
+              <div class="flex space-x-1 text-yellow-400">
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              </div>
+
+              <!-- Dynamic review quote content -->
+              <p id="testimonial-quote" class="text-lg sm:text-xl font-medium text-slate-800 italic leading-relaxed transition-all duration-300">
+                "The premium titanium card is incredible! Banklio's interface is the easiest I've ever experienced. Syncing my foreign bank accounts takes under five seconds, and my budget goals are optimized daily."
+              </p>
+            </div>
+
+            <!-- Bio -->
+            <div class="flex items-center space-x-4 pt-8 border-t border-slate-200 mt-8 relative z-10">
+              <img id="testimonial-avatar" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-md" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=150" alt="Client">
+              <div>
+                <p id="testimonial-name" class="font-extrabold text-slate-900 tracking-tight">Charlotte Anna</p>
+                <p id="testimonial-title" class="text-xs text-slate-400 font-bold uppercase tracking-wider">Lead Product Designer, Stripe</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Complete Premium Call-to-Action Banner (Forest Green Aura Background) -->
+  <section class="py-20 bg-brand-deep relative overflow-hidden border-t border-white/5">
+    <div class="absolute inset-0 bg-gradient-to-r from-brand-forest to-brand-deep pointer-events-none"></div>
+    <!-- Massive ambient glow in center -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-8">
+      <span class="inline-block text-xs text-brand font-bold bg-brand/10 border border-brand/20 px-3.5 py-1.5 rounded-full tracking-widest uppercase">Start Your Smarter Future</span>
+      <h2 class="text-3xl sm:text-5xl font-black text-white leading-tight">Take Control of Your <br>Finances Today!</h2>
+      <p class="text-slate-400 max-w-xl mx-auto text-sm sm:text-base">Do you support international transactions? Yes, with multi-currency support ready out of the box in under 2 minutes.</p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+        <a href="#interactive-sandbox" class="group bg-brand hover:bg-brand-light text-brand-deep font-bold px-8 py-4 rounded-full flex items-center space-x-2 shadow-glow-neon transition-all hover:scale-[1.03] w-full sm:w-auto justify-center">
+          <span>Get Started Now</span>
+          <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+        </a>
+        <a href="#card-customizer" class="bg-brand-card hover:bg-brand-forest border border-white/10 hover:border-brand/40 text-slate-100 font-semibold px-8 py-4 rounded-full flex items-center justify-center space-x-2 transition-all w-full sm:w-auto">
+          <span>Design Your Card</span>
+        </a>
+      </div>
+
+      <!-- Live User counter -->
+      <div class="pt-6 text-slate-500 text-xs flex items-center justify-center space-x-2">
+        <span class="inline-block w-2.5 h-2.5 rounded-full bg-brand animate-ping"></span>
+        <span>1,490 users creating custom digital cards this hour alone</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Polished Footer (Complete Layout Match) -->
+  <footer class="bg-brand-deep text-slate-400 border-t border-white/5 pt-16 pb-12 relative z-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-8 pb-12 border-b border-white/5">
+        
+        <!-- Brand identity block -->
+        <div class="col-span-2 space-y-4">
+          <a href="#" class="flex items-center space-x-2.5 focus:outline-none">
+            <div class="w-9 h-9 rounded-xl bg-brand flex items-center justify-center shadow-glow-neon">
+              <svg class="w-5 h-5 text-brand-deep font-bold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+            </div>
+            <span class="text-xl font-bold tracking-tight text-white flex items-center">
+              Banklio <span class="text-brand ml-0.5 font-light">.</span>
+            </span>
+          </a>
+          <p class="text-xs text-slate-400 max-w-sm leading-relaxed">
+            Do you support international transactions? Yes, with multi-currency support ready out of the box in under 2 minutes. Sync digital smart assets inside moments.
+          </p>
+          <!-- Simulated App Badges -->
+          <div class="flex items-center space-x-3 pt-2">
+            <div class="bg-brand-card hover:bg-brand-forest border border-white/10 px-3 py-1.5 rounded-lg flex items-center space-x-2 cursor-pointer transition-colors">
+              <i data-lucide="play" class="w-4 h-4 text-white"></i>
+              <div>
+                <p class="text-[8px] text-slate-500 uppercase font-bold">Download App</p>
+                <p class="text-[10px] text-white font-bold">Google Play</p>
+              </div>
+            </div>
+            <div class="bg-brand-card hover:bg-brand-forest border border-white/10 px-3 py-1.5 rounded-lg flex items-center space-x-2 cursor-pointer transition-colors">
+              <i data-lucide="apple" class="w-4 h-4 text-white"></i>
+              <div>
+                <p class="text-[8px] text-slate-500 uppercase font-bold">Download App</p>
+                <p class="text-[10px] text-white font-bold">App Store</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Links column 1 -->
+        <div>
+          <p class="text-xs font-bold uppercase text-white tracking-widest mb-4">Quick Links</p>
+          <ul class="space-y-2.5 text-xs">
+            <li><a href="#" class="hover:text-brand transition-colors">Home</a></li>
+            <li><a href="#features" class="hover:text-brand transition-colors">About</a></li>
+            <li><a href="#card-customizer" class="hover:text-brand transition-colors">Services</a></li>
+            <li><a href="#interactive-sandbox" class="hover:text-brand transition-colors">Pricing</a></li>
+          </ul>
+        </div>
+
+        <!-- Links column 2 -->
+        <div>
+          <p class="text-xs font-bold uppercase text-white tracking-widest mb-4">Services</p>
+          <ul class="space-y-2.5 text-xs">
+            <li><a href="#card-customizer" class="hover:text-brand transition-colors">Personal Loan</a></li>
+            <li><a href="#card-customizer" class="hover:text-brand transition-colors">One Card</a></li>
+            <li><a href="#features" class="hover:text-brand transition-colors">Savings</a></li>
+          </ul>
+        </div>
+
+        <!-- Links column 3 -->
+        <div>
+          <p class="text-xs font-bold uppercase text-white tracking-widest mb-4">Community</p>
+          <ul class="space-y-2.5 text-xs">
+            <li><a href="#" class="hover:text-brand transition-colors">Community Hub</a></li>
+            <li><a href="#" class="hover:text-brand transition-colors">Invite a Friend</a></li>
+            <li><a href="#" class="hover:text-brand transition-colors">News & Blog</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Legal footer lines -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+        <p>&copy; 2026 Banklio Inc. All Rights Reserved. All banking transactions and visa card services are simulated for representation of premium visual layout aesthetics.</p>
+        <div class="flex space-x-6">
+          <a href="#" class="hover:text-brand transition-colors">Privacy Policy</a>
+          <a href="#" class="hover:text-brand transition-colors">Terms of Use</a>
+          <a href="#" class="hover:text-brand transition-colors">Legal Cookies</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Custom Toast/Notification Engine
+    function triggerNotification(title, message) {
+      const toast = document.getElementById('toast');
+      const toastTitle = document.getElementById('toast-title');
+      const toastMessage = document.getElementById('toast-message');
+
+      toastTitle.innerText = title;
+      toastMessage.innerText = message;
+
+      toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 3500);
+    }
+
+    // Interactive Card Playground Engine
+    const cardData = {
+      emerald: {
+        gradient: 'from-emerald-700 to-teal-950',
+        tier: 'Emerald Glass Tier',
+        number: '5789 2841 8392 2847'
+      },
+      neon: {
+        gradient: 'from-brand-forest to-brand-deep',
+        tier: 'Premium Neon Aura',
+        number: '3104 2844 9120 4829'
+      },
+      sapphire: {
+        gradient: 'from-blue-800 to-indigo-950',
+        tier: 'Sapphire Tech Pro',
+        number: '4820 1827 5930 2938'
+      },
+      obsidian: {
+        gradient: 'from-zinc-800 to-zinc-950',
+        tier: 'Obsidian Matte Metal',
+        number: '9102 4819 2841 9322'
+      }
+    };
+
+    function changeHeroCard(style, styleName) {
+      const heroCard = document.getElementById('interactive-hero-card');
+      const heroTier = document.getElementById('card-hero-tier');
+      const heroNumber = document.getElementById('card-hero-number');
+
+      // Clear existing classes and add new ones smoothly
+      heroCard.className = `preserve-3d relative w-full h-56 rounded-3xl p-6 text-white shadow-2xl transition-all duration-500 cursor-pointer bg-gradient-to-br ${cardData[style].gradient} border border-brand/20`;
+      heroTier.innerText = cardData[style].tier;
+      heroNumber.innerText = cardData[style].number;
+
+      triggerNotification("Card Style Updated", `Switched layout to the beautiful ${styleName} skin.`);
+    }
+
+    // Simulated Budget sandbox calculator variables
+    let currentSpending = 259.75;
+    let baseBudget = 1500.00;
+
+    function addSimExpense(amount, category, iconType) {
+      if (currentSpending + amount > baseBudget) {
+        triggerNotification("Budget Cap Alert", "This purchase would push you over your secure allocated threshold!");
+        return;
+      }
+
+      currentSpending += amount;
+      document.getElementById('live-spending-total').innerText = `$${currentSpending.toFixed(2)}`;
+      
+      // Update ledger
+      const ledger = document.getElementById('simulated-ledger');
+      const newTx = document.createElement('div');
+      newTx.className = "flex justify-between items-center p-2.5 bg-slate-50 rounded-xl border border-slate-100 animate-slide-in";
+      newTx.innerHTML = `
+        <div class="flex items-center space-x-3">
+          <div class="p-2 bg-slate-200/60 rounded-lg text-slate-700">
+            <i data-lucide="${iconType}" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <p class="text-xs font-bold text-slate-800">${category}</p>
+            <p class="text-[10px] text-slate-400">Authorized moments ago</p>
+          </div>
+        </div>
+        <p class="text-xs font-bold text-slate-800">+$${amount.toFixed(2)}</p>
+      `;
+      ledger.insertBefore(newTx, ledger.firstChild);
+      lucide.createIcons();
+
+      // Slightly perturb/randomize graph visualization paths to show dynamic interactive react behavior
+      const svgLine = document.getElementById('svg-line-path');
+      const svgArea = document.getElementById('svg-area-path');
+      
+      // Dynamic calculations for graph paths based on spending velocity
+      const randomY1 = 90 - (currentSpending / 10);
+      const randomY2 = 80 - (currentSpending / 8);
+      const randomY3 = 30 - (currentSpending / 12);
+      
+      svgLine.setAttribute('d', `M 0 ${randomY1} Q 80 ${randomY2} 160 ${randomY2 + 20} T 320 ${randomY3} L 400 ${randomY3 + 15}`);
+      svgArea.setAttribute('d', `M 0 120 L 0 ${randomY1} Q 80 ${randomY2} 160 ${randomY2 + 20} T 320 ${randomY3} L 400 120 Z`);
+
+      triggerNotification("Transaction Added", `Successfully logged $${amount.toFixed(2)} to simulated ledger.`);
+    }
+
+    // Dynamic Preview Alloy controls for Card Design Studio
+    function updatePreviewAlloy(alloyId, label, bgClass, textClass) {
+      const previewCard = document.getElementById('customizer-card-preview');
+      const previewTier = document.getElementById('preview-tier-badge');
+      
+      previewCard.className = `preserve-3d relative w-full h-64 rounded-[2rem] p-8 text-white shadow-2xl transition-all duration-500 ease-out bg-gradient-to-br ${bgClass} border border-brand/20 hover:scale-[1.02]`;
+      previewTier.innerText = label;
+
+      // Update indicators
+      document.querySelectorAll('#alloy-active-indicator').forEach(el => el.remove());
+      const buttons = document.querySelectorAll('#card-customizer button');
+      
+      triggerNotification("Alloy Changed", `Card core material switched to ${label}.`);
+    }
+
+    function updateCardName() {
+      const inputVal = document.getElementById('custom-holder-name').value;
+      document.getElementById('preview-signature').innerText = inputVal || "Sanzida A.";
+    }
+
+    function generateRandomCardNumber() {
+      let segment1 = Math.floor(1000 + Math.random() * 9000);
+      let segment2 = Math.floor(1000 + Math.random() * 9000);
+      let segment3 = Math.floor(1000 + Math.random() * 9000);
+      let segment4 = Math.floor(1000 + Math.random() * 9000);
+      
+      const combined = `${segment1} ${segment2} ${segment3} ${segment4}`;
+      document.getElementById('preview-card-number').innerText = combined;
+      triggerNotification("New Digital Identity Guard", "Regenerated a custom encrypted test token for security sandbox.");
+    }
+
+    function adjustGlowIntensity() {
+      const val = document.getElementById('glow-slider').value;
+      document.getElementById('glow-intensity-val').innerText = `${val}%`;
+      const previewCard = document.getElementById('customizer-card-preview');
+      
+      // Adjust border shadow glow styles based on input range
+      previewCard.style.boxShadow = `0 10px 30px rgba(181, 245, 0, ${val / 300})`;
+    }
+
+    function orderCustomizedCard() {
+      const currentSignature = document.getElementById('preview-signature').innerText;
+      triggerNotification("Card Ordered", `Congratulations! Your bespoke physical titanium card for ${currentSignature} is scheduled to pack.`);
+    }
+
+    // Trajectory Milestone Simulator
+    let activeTrajectoryData = {
+      tesla: { title: "Tesla Model S Custom Fund", target: 90000, time: 36, rate: 15, matchText: "Tesla Custom Bonus" },
+      retire: { title: "Early Secure Retirement Pool", target: 850000, time: 120, rate: 8, matchText: "Secure Retirement APY" },
+      estate: { title: "Global Real Estate Downpayment", target: 180000, time: 48, rate: 12, matchText: "Real Estate Bonus Rate" }
+    };
+    let activeKey = "tesla";
+
+    function calculateAiMilestone(key, title, target, time, rate, matchText) {
+      activeKey = key;
+      
+      // Toggle CSS highlights
+      document.querySelectorAll('#interactive-sandbox button').forEach(btn => btn.classList.remove('border-brand/40', 'bg-white/10'));
+      document.getElementById(`btn-${key}`).classList.add('border-brand/40', 'bg-white/10');
+
+      runRecalculation();
+    }
+
+    function runRecalculation() {
+      const depositInput = parseFloat(document.getElementById('sandbox-initial-deposit').value) || 0;
+      const trajectory = activeTrajectoryData[activeKey];
+
+      // Calculate simple compound prediction matching mockup details
+      const matchMultiplier = 1 + (trajectory.rate / 100);
+      const calculatedMatch = depositInput * matchMultiplier;
+      
+      // Calculate optimized percentage toward target based on projected duration
+      const simulatedAccumulation = calculatedMatch * trajectory.time;
+      let progressPercentage = Math.min(Math.round((simulatedAccumulation / trajectory.target) * 100), 100);
+      if (isNaN(progressPercentage)) progressPercentage = 0;
+
+      // Update UI
+      document.getElementById('sandbox-active-title').innerText = trajectory.title;
+      document.getElementById('sandbox-target-amount').innerText = `$${trajectory.target.toLocaleString()}`;
+      document.getElementById('sandbox-monthly-match').innerText = `$${calculatedMatch.toFixed(2)}`;
+      document.getElementById('sandbox-match-sub').innerText = `Includes +${trajectory.rate}% AI Allocation Bonus`;
+      document.getElementById('sandbox-time-to-target').innerText = `${trajectory.time} Months`;
+      document.getElementById('sandbox-progress-percentage').innerText = `${progressPercentage}% Optimized`;
+      document.getElementById('sandbox-progress-bar').style.width = `${progressPercentage}%`;
+    }
+
+    function enrollInActivePlan() {
+      const trajectory = activeTrajectoryData[activeKey];
+      triggerNotification("AI Plan Activated", `Your trajectory for ${trajectory.title} has successfully compiled into production.`);
+    }
+
+    // Testimonial sliding logic
+    const testimonials = [
+      {
+        quote: "The premium titanium card is incredible! Banklio's interface is the easiest I've ever experienced. Syncing my foreign bank accounts takes under five seconds, and my budget goals are optimized daily.",
+        avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=150",
+        name: "Charlotte Anna",
+        title: "Lead Product Designer, Stripe"
+      },
+      {
+        quote: "I saved over $8,500 in 6 months using Banklio's interactive AI sandbox. Designing a sleek custom card gave me absolute ownership of my business account's core brand identity. 10/10 fintech tool.",
+        avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=150",
+        name: "Jameson Carter",
+        title: "VP of Engineering, Skrill Global"
+      },
+      {
+        quote: "The borderless multi-vault options are unmatched. I can seamlessly swap, lock in high rates, and transfer safely without typical hidden fees. Banklio represents the real physical universe of smart finance.",
+        avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150",
+        name: "Sanzida Chowdhury",
+        title: "Creative Director, Velo Capital"
+      }
+    ];
+    let currentTestimonialIndex = 0;
+
+    function updateTestimonialUI() {
+      const active = testimonials[currentTestimonialIndex];
+      const quoteEl = document.getElementById('testimonial-quote');
+      
+      // Apply smooth transition
+      quoteEl.style.opacity = 0;
+      setTimeout(() => {
+        quoteEl.innerText = `"${active.quote}"`;
+        document.getElementById('testimonial-avatar').src = active.avatar;
+        document.getElementById('testimonial-name').innerText = active.name;
+        document.getElementById('testimonial-title').innerText = active.title;
+        quoteEl.style.opacity = 1;
+      }, 200);
+    }
+
+    function nextTestimonial() {
+      currentTestimonialIndex = (currentTestimonialIndex + 1) % testimonials.length;
+      updateTestimonialUI();
+    }
+
+    function prevTestimonial() {
+      currentTestimonialIndex = (currentTestimonialIndex - 1 + testimonials.length) % testimonials.length;
+      updateTestimonialUI();
+    }
+
+    // Mobile Navbar Toggler
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // 3D Tilt Effect for Hero Card Playground
+    const cardEl = document.getElementById('interactive-hero-card');
+    cardEl.addEventListener('mousemove', (e) => {
+      const rect = cardEl.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width/2;
+      const y = e.clientY - rect.top - rect.height/2;
+      
+      // Calculate rotation angles
+      const rotX = -y / 10;
+      const rotY = x / 10;
+      
+      cardEl.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.05)`;
+    });
+
+    cardEl.addEventListener('mouseleave', () => {
+      cardEl.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
+    });
+
+    // Run first calculation upon loading document sandbox
+    window.onload = function() {
+      runRecalculation();
+    }
+  </script>
+</body>
+</html>

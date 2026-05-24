@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DJI Phantom 4 Pro - View Smartly</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Inter Font for premium typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+          },
+          colors: {
+            brandDark: '#1a1a1a',
+            brandDarker: '#111111',
+            brandLight: '#f4f4f4',
+            brandGray: '#8e8e93',
+            brandBorder: '#e5e5e5',
+          },
+          animation: {
+            'float-slow': 'float 6s ease-in-out infinite',
+            'spin-slow': 'spin 20s linear infinite',
+            'pulse-subtle': 'pulseSubtle 3s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+              '50%': { transform: 'translateY(-12px) rotate(1deg)' },
+            },
+            pulseSubtle: {
+              '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+              '50%': { opacity: '.7', transform: 'scale(1.05)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Premium custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f4f4f4;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #a8a8a8;
+    }
+    .text-watermark {
+      user-select: none;
+      pointer-events: none;
+      font-size: 11vw;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      opacity: 0.03;
+      line-height: 1;
+    }
+    .text-watermark-dark {
+      user-select: none;
+      pointer-events: none;
+      font-size: 11vw;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      opacity: 0.05;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body class="bg-[#f0f0f2] font-sans antialiased text-brandDark overflow-x-hidden">
+
+  <!-- TOP MARQUEE/BANNER -->
+  <div class="w-full bg-brandDark text-white text-[11px] tracking-[0.2em] uppercase py-2.5 px-4 text-center font-medium border-b border-neutral-800">
+    <span>Free Express Delivery & Premium Warranty Included On All Orders This Week</span>
+  </div>
+
+  <!-- NAVIGATION HEADER -->
+  <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-neutral-200 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <!-- DJI Custom SVG Logo -->
+      <a href="#" class="flex items-center gap-2 group">
+        <svg class="h-6 w-auto text-brandDark transition-transform duration-300 group-hover:scale-105" viewBox="0 0 120 40" fill="currentColor">
+          <path d="M12 8c-3.3 0-6 2.7-6 6v12c0 3.3 2.7 6 6 6h12c3.3 0 6-2.7 6-6V14c0-3.3-2.7-6-6-6H12zm10 18H14V14h8v12z M38 8h-4v24h8c4.4 0 8-3.6 8-8v-8c0-4.4-3.6-8-8-8zm4 16c0 2.2-1.8 4-4 4h-4V12h4c2.2 0 4 1.8 4 4v8z M56 8h4v24h-4z M70 8h12c2.2 0 4 1.8 4 4s-1.8 4-4 4h-8v4h8c2.2 0 4 1.8 4 4s-1.8 4-4 4H70V8z M94 14h-6v-2h12v2h-6v18h-4V14z" />
+          <rect x="108" y="8" width="4" height="24" rx="2" />
+        </svg>
+      </a>
+
+      <!-- Menu Items -->
+      <nav class="hidden md:flex items-center gap-10 text-[13px] font-medium tracking-wider text-brandDark/70 uppercase">
+        <a href="#hero" class="hover:text-brandDark transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-black after:transition-all hover:after:w-full">Home</a>
+        <a href="#configurator" class="hover:text-brandDark transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-black after:transition-all hover:after:w-full">Customize</a>
+        <a href="#features" class="hover:text-brandDark transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-black after:transition-all hover:after:w-full">Specs</a>
+        <a href="#gallery" class="hover:text-brandDark transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-black after:transition-all hover:after:w-full">Gallery</a>
+        <a href="#support" class="hover:text-brandDark transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-black after:transition-all hover:after:w-full">Support</a>
+      </nav>
+
+      <!-- Utility Icons -->
+      <div class="flex items-center gap-6">
+        <button class="hover:opacity-60 transition-opacity" aria-label="Search">
+          <svg class="w-5 h-5 text-brandDark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        </button>
+        <button class="hover:opacity-60 transition-opacity relative" aria-label="Cart">
+          <svg class="w-5 h-5 text-brandDark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+          <span id="cart-dot" class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-neutral-900 rounded-full border border-white hidden"></span>
+        </button>
+        <button class="md:hidden hover:opacity-60 transition-opacity" id="mobile-menu-btn" aria-label="Toggle menu">
+          <svg class="w-6 h-6 text-brandDark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-neutral-100 bg-white/95 backdrop-blur-md px-6 py-4 flex flex-col gap-4 text-sm font-semibold tracking-wider uppercase">
+      <a href="#hero" class="py-2 border-b border-neutral-100">Home</a>
+      <a href="#configurator" class="py-2 border-b border-neutral-100">Customize</a>
+      <a href="#features" class="py-2 border-b border-neutral-100">Specs</a>
+      <a href="#gallery" class="py-2 border-b border-neutral-100">Gallery</a>
+      <a href="#support" class="py-2">Support</a>
+    </div>
+  </header>
+
+  <!-- MAIN HERO CONTAINER (Echoing the exact split presentation, frame, & spacing) -->
+  <main class="max-w-[1440px] mx-auto px-4 md:px-8 py-6 md:py-12" id="hero">
+    <div class="bg-white rounded-3xl shadow-xl overflow-hidden relative border border-white/20 flex flex-col">
+      
+      <!-- Top Layout Grid - Echoes the visual split of the image -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 min-h-[640px]">
+        
+        <!-- LEFT HALF: The White/Light Gray Presentation (Lg: 8 cols) -->
+        <div class="lg:col-span-8 p-8 md:p-16 flex flex-col justify-between relative overflow-hidden bg-brandLight/50">
+          <!-- Big Background Typography watermark "PHANTOM" -->
+          <div class="absolute inset-0 flex items-center justify-start pl-8 z-0 pointer-events-none select-none">
+            <span class="text-watermark font-extrabold text-neutral-200">PHANTOM</span>
+          </div>
+
+          <!-- Top Brand Label -->
+          <div class="z-10 flex items-center gap-3">
+            <span class="w-1.5 h-1.5 rounded-full bg-brandDark"></span>
+            <span class="text-[11px] font-bold tracking-[0.3em] uppercase text-brandDark/50">PROFESSIONAL SERIES</span>
+          </div>
+
+          <!-- Product Hero Text -->
+          <div class="z-10 my-16 max-w-xl">
+            <h1 class="text-4xl sm:text-6xl md:text-[5.5rem] font-extrabold tracking-tight text-brandDark uppercase leading-[1.05] transition-all duration-300">
+              PHANTOM <span class="font-light text-neutral-400">4 PRO</span>
+            </h1>
+            <p class="text-md sm:text-lg text-brandGray mt-6 font-medium tracking-wide">
+              View smartly with ultra-stabilized intelligent flight systems.
+            </p>
+            <div class="mt-8 flex flex-wrap gap-4">
+              <a href="#configurator" class="group flex items-center gap-3 bg-white border border-brandDark/15 px-6 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-brandDark hover:text-white hover:border-brandDark transition-all duration-300 shadow-sm">
+                <span>Learn more</span>
+                <svg class="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+              </a>
+              <a href="#configurator" class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-brandDark/60 hover:text-brandDark transition-colors px-4 py-3.5">
+                View 3D Demo
+              </a>
+            </div>
+          </div>
+
+          <!-- Technical Specs Metadata Block -->
+          <div class="z-10 grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8 border-t border-neutral-200">
+            <div>
+              <div class="text-2xl sm:text-3xl font-extrabold text-brandDark">4K</div>
+              <div class="text-[9px] font-bold tracking-widest text-brandDark/40 uppercase mt-1">Camera Type</div>
+            </div>
+            <div class="border-l border-neutral-200/60 pl-4 sm:pl-6">
+              <div class="text-2xl sm:text-3xl font-extrabold text-brandDark">7 <span class="text-lg font-medium text-brandGray">km</span></div>
+              <div class="text-[9px] font-bold tracking-widest text-brandDark/40 uppercase mt-1">Comm Range</div>
+            </div>
+            <div class="border-l border-neutral-200/60 pl-4 sm:pl-6">
+              <div class="text-2xl sm:text-3xl font-extrabold text-brandDark">72 <span class="text-lg font-medium text-brandGray">kph</span></div>
+              <div class="text-[9px] font-bold tracking-widest text-brandDark/40 uppercase mt-1">Max Speed</div>
+            </div>
+            <div class="border-l border-neutral-200/60 pl-4 sm:pl-6">
+              <div class="text-2xl sm:text-3xl font-extrabold text-brandDark">30 <span class="text-lg font-medium text-brandGray">min</span></div>
+              <div class="text-[9px] font-bold tracking-widest text-brandDark/40 uppercase mt-1">Max Flight Time</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- RIGHT HALF: The Dark Graphic Frame (Lg: 4 cols) -->
+        <div class="lg:col-span-4 bg-[#3d3d3d] p-8 md:p-12 text-white flex flex-col justify-between relative overflow-hidden">
+          
+          <!-- Subtle watermark behind the controller -->
+          <div class="absolute inset-y-0 right-0 flex items-center justify-end z-0 pointer-events-none select-none">
+            <span class="text-watermark-dark text-white/5 uppercase select-none font-black rotate-90 origin-right translate-x-4">AERO</span>
+          </div>
+
+          <!-- Header Utility inside dark side -->
+          <div class="z-10 flex justify-between items-center">
+            <span class="text-[10px] tracking-[0.25em] text-white/40 uppercase font-bold">In-Stock Ready</span>
+            <div class="flex gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse-subtle"></span>
+            </div>
+          </div>
+
+          <!-- Controller & Interactive Display -->
+          <div class="z-10 my-12 flex flex-col items-center">
+            <!-- Custom Controller SVG graphic -->
+            <div class="w-36 h-36 mb-6 hover:scale-105 transition-transform duration-300">
+              <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Main Body -->
+                <rect x="18" y="32" width="64" height="48" rx="14" fill="#1e1e1e" />
+                <rect x="20" y="34" width="60" height="44" rx="12" fill="#2d2d2d" stroke="#444" stroke-width="1.5" />
+                <!-- Screen Mount -->
+                <rect x="42" y="16" width="16" height="16" rx="3" fill="#1e1e1e" />
+                <rect x="40" y="24" width="20" height="4" fill="#3a3a3a" />
+                <path d="M47 16 L47 8 L53 8 L53 16 Z" fill="#1a1a1a" />
+                <!-- Joysticks -->
+                <circle cx="34" cy="50" r="10" fill="#1a1a1a" stroke="#444" stroke-width="1" />
+                <circle cx="34" cy="50" r="4" fill="#ffffff" />
+                <circle cx="66" cy="50" r="10" fill="#1a1a1a" stroke="#444" stroke-width="1" />
+                <circle cx="66" cy="50" r="4" fill="#ffffff" />
+                <!-- Status LEDs -->
+                <circle cx="50" cy="42" r="1.5" fill="#4ade80" />
+                <circle cx="46" cy="42" r="1" fill="#4ade80" opacity="0.6" />
+                <circle cx="54" cy="42" r="1" fill="#4ade80" opacity="0.6" />
+                <!-- Grip Inlays -->
+                <rect x="22" y="58" width="6" height="16" rx="2" fill="#1a1a1a" opacity="0.5" />
+                <rect x="72" y="58" width="6" height="16" rx="2" fill="#1a1a1a" opacity="0.5" />
+              </svg>
+            </div>
+            
+            <h3 class="text-md font-bold tracking-wider uppercase text-center mb-1">Standard Remote Controller</h3>
+            <p class="text-xs text-white/50 text-center max-w-[200px] leading-relaxed">Included screen-mount variant with low-latency link</p>
+          </div>
+
+          <!-- THE DESIGNER CTA GRID: Dynamic Buy Action -->
+          <div class="z-10">
+            <a href="#configurator" class="group block w-full bg-[#1e1e1e] hover:bg-[#111111] transition-all duration-300 border border-neutral-700/50 p-6 rounded-2xl flex items-center justify-between shadow-2xl">
+              <div>
+                <span class="block text-[10px] tracking-[0.2em] uppercase text-white/40 font-bold">Aero Complete Package</span>
+                <span class="block text-lg font-bold tracking-wide mt-0.5">BUY NOW</span>
+                <span class="text-xs font-mono text-neutral-400" id="hero-price">USD $1,599</span>
+              </div>
+              <div class="w-10 h-10 rounded-full bg-white text-brandDark flex items-center justify-center transform group-hover:translate-x-1.5 transition-transform duration-300">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+              </div>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ABSOLUTE CENTERPIECE: Floating Immersive Interactive Drone Vector Graphics (Bridging Left/Right splits) -->
+      <!-- Positioned absolutely above the split background on desktop for that unified design energy -->
+      <div class="lg:absolute lg:top-1/2 lg:right-[20%] lg:-translate-y-1/2 lg:translate-x-12 w-full lg:w-[48%] h-72 lg:h-[450px] flex items-center justify-center pointer-events-auto z-20 py-8 lg:py-0">
+        
+        <!-- Interactive Product Frame -->
+        <div class="relative w-full h-full flex flex-col justify-center items-center">
+          
+          <!-- Subtle glow circle in background -->
+          <div class="absolute w-[280px] h-[280px] rounded-full bg-neutral-200/30 blur-3xl -z-10"></div>
+          
+          <!-- Master Drone SVG - Reactive to interactive toggles -->
+          <svg id="drone-svg" class="w-[85%] max-w-[420px] h-auto drop-shadow-[0_25px_30px_rgba(0,0,0,0.15)] animate-float-slow transition-all duration-700" viewBox="0 0 500 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+            
+            <!-- Propeller Shadows & Rotors Background (Spinning vibe) -->
+            <ellipse class="animate-pulse" cx="120" cy="110" rx="90" ry="8" fill="#111" opacity="0.06"/>
+            <ellipse class="animate-pulse" cx="380" cy="110" rx="90" ry="8" fill="#111" opacity="0.06"/>
+
+            <!-- Propulsion Motor Pod Left Rear -->
+            <rect x="140" y="140" width="16" height="25" rx="3" fill="#2d2d2d" />
+            <circle cx="148" cy="140" r="8" fill="#444" />
+
+            <!-- Propulsion Motor Pod Right Rear -->
+            <rect x="344" y="140" width="16" height="25" rx="3" fill="#2d2d2d" />
+            <circle cx="352" cy="140" r="8" fill="#444" />
+
+            <!-- Left Legs structure -->
+            <path d="M210 240 L160 300 L160 315 L230 315 L220 300" stroke="#aaa" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="drone-legs-metal"/>
+            <!-- Right Legs structure -->
+            <path d="M290 240 L340 300 L340 315 L270 315 L280 300" stroke="#aaa" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="drone-legs-metal"/>
+
+            <!-- Left Diagonal Arm (Chassis) -->
+            <path d="M200 200 L110 140 L120 130 L210 180 Z" fill="#d8d8d8" class="drone-body-shell" />
+            <!-- Right Diagonal Arm (Chassis) -->
+            <path d="M300 200 L390 140 L380 130 L290 180 Z" fill="#d8d8d8" class="drone-body-shell" />
+
+            <!-- Front Arm Left (Chassis) -->
+            <path d="M220 210 L150 250 L140 240 L210 200 Z" fill="#cfcfcf" class="drone-body-shell-dark" />
+            <!-- Front Arm Right (Chassis) -->
+            <path d="M280 210 L350 250 L360 240 L290 200 Z" fill="#cfcfcf" class="drone-body-shell-dark" />
+
+            <!-- Propulsion Motor Pod Left Front -->
+            <rect x="104" y="120" width="22" height="30" rx="5" fill="#3a3a3a" />
+            <circle cx="115" cy="120" r="10" fill="#222" />
+            <line x1="115" y1="120" x2="115" y2="135" stroke="#999" stroke-width="2"/>
+
+            <!-- Propulsion Motor Pod Right Front -->
+            <rect x="374" y="120" width="22" height="30" rx="5" fill="#3a3a3a" />
+            <circle cx="385" cy="120" r="10" fill="#222" />
+            <line x1="385" y1="120" x2="385" y2="135" stroke="#999" stroke-width="2"/>
+
+            <!-- Landing Skids Under-runners -->
+            <rect x="140" y="312" width="105" height="6" rx="3" fill="#1e1e1e" class="drone-skid" />
+            <rect x="255" y="312" width="105" height="6" rx="3" fill="#1e1e1e" class="drone-skid" />
+
+            <!-- Central Fusion Core (Main Shell Body) -->
+            <path d="M190 160 C190 130, 310 130, 310 160 L320 220 C320 240, 180 240, 180 220 Z" fill="#e8e8e8" class="drone-body-shell" />
+            
+            <!-- Battery Compartment Line detail -->
+            <path d="M210 155 L290 155" stroke="#ccc" stroke-width="1.5" stroke-linecap="round" class="drone-panel-lines" />
+            <path d="M200 180 L300 180" stroke="#ccc" stroke-width="1.5" stroke-linecap="round" class="drone-panel-lines" />
+
+            <!-- Core Brand Logo Accent on Core -->
+            <rect x="235" y="145" width="30" height="4" rx="2" fill="#1a1a1a" class="drone-accent" />
+            
+            <!-- Camera Gimbal System Assembly -->
+            <!-- Arm link -->
+            <path d="M240 230 L240 260 L260 260" stroke="#888" stroke-width="3" stroke-linecap="round"/>
+            <!-- Camera Cylinder -->
+            <rect x="230" y="260" width="40" height="28" rx="8" fill="#1c1c1c" />
+            <!-- Camera Lens ring (facing somewhat forward-left) -->
+            <ellipse cx="250" cy="274" rx="14" ry="10" fill="#111" stroke="#444" stroke-width="1.5" />
+            <circle cx="250" cy="274" r="6" fill="#0d2c3f" /> <!-- Glass/lens bluish reflection -->
+            <circle cx="248" cy="271" r="2" fill="#fff" opacity="0.7" /> <!-- Reflection dot -->
+
+            <!-- Propellers Spinning Indicators (Light blurred circular paths) -->
+            <ellipse cx="115" cy="116" rx="75" ry="5" fill="#ffffff" stroke="#e0e0e0" stroke-width="1.5" stroke-dasharray="10, 4" class="drone-prop-blur" />
+            <ellipse cx="385" cy="116" rx="75" ry="5" fill="#ffffff" stroke="#e0e0e0" stroke-width="1.5" stroke-dasharray="10, 4" class="drone-prop-blur" />
+          </svg>
+
+          <!-- Interactive Carousel Selectors Under Product -->
+          <div class="flex items-center gap-5 mt-4 z-30">
+            <button onclick="setDroneStyle('silver')" class="group flex items-center justify-center w-8 h-8 rounded-full border-2 border-brandDark transition-all bg-white" id="btn-silver">
+              <span class="w-4 h-4 rounded-full bg-neutral-300"></span>
+            </button>
+            <button onclick="setDroneStyle('obsidian')" class="group flex items-center justify-center w-8 h-8 rounded-full border-2 border-transparent hover:border-neutral-400 transition-all bg-white" id="btn-obsidian">
+              <span class="w-4 h-4 rounded-full bg-neutral-800"></span>
+            </button>
+            <span class="text-[11px] font-bold tracking-widest text-brandDark/40 uppercase uppercase ml-2 select-none">
+              SWAP STYLE
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- COLLABORATIVE / COMMUNITY ANCHOR: The Technical Exploded Spec Hotspots -->
+  <section class="max-w-[1440px] mx-auto px-4 md:px-8 py-12" id="hotspots">
+    <div class="bg-brandDark text-white rounded-3xl p-8 md:p-16 relative overflow-hidden shadow-xl border border-neutral-800">
+      
+      <!-- Grid Header -->
+      <div class="relative z-10 max-w-3xl mb-12">
+        <span class="text-xs font-bold tracking-[0.3em] uppercase text-white/40">EXPLODE DIAGRAM</span>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight uppercase text-white mt-3">
+          Precision Engineering. <br><span class="font-light text-neutral-400">Inside and out.</span>
+        </h2>
+        <p class="text-neutral-400 mt-4 max-w-lg text-sm md:text-base leading-relaxed">
+          Hover or tap on the active structural nodes to inspect the deep tech that allows autonomous flight control.
+        </p>
+      </div>
+
+      <!-- Exploded Hotspot Container -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+        
+        <!-- Left 7 cols: SVG Diagram with Hotspots -->
+        <div class="lg:col-span-7 flex justify-center relative">
+          <!-- Main Tech Wireframe Drone -->
+          <svg class="w-full max-w-[450px] h-auto text-white/20 opacity-90 transition-all duration-300" viewBox="0 0 500 400" fill="none" stroke="currentColor" stroke-width="1">
+            <!-- Drone outline path representation -->
+            <path d="M250 120 C180 120, 150 180, 150 200 L160 210 L120 150 L110 160 L140 220 L250 240" stroke-dasharray="4,4"/>
+            <path d="M250 120 C320 120, 350 180, 350 200 L340 210 L380 150 L390 160 L360 220 L250 240" stroke-dasharray="4,4"/>
+            <circle cx="120" cy="150" r="12" />
+            <circle cx="380" cy="150" r="12" />
+            <!-- Gimbal Wireframe -->
+            <rect x="225" y="240" width="50" height="35" rx="5" stroke-dasharray="2,2" />
+            <circle cx="250" cy="290" r="18" />
+            <!-- Landing gear Wireframe -->
+            <path d="M200 240 L170 320 L230 320 L210 240" />
+            <path d="M300 240 L330 320 L270 320 L290 240" />
+          </svg>
+
+          <!-- INTERACTIVE HOTSPOT PIN 1: Camera Gimbal -->
+          <button onclick="activateHotspot(1)" class="absolute top-[68%] left-[50%] -translate-x-1/2 -translate-y-1/2 group flex items-center justify-center" aria-label="Gimbal Detail">
+            <span class="absolute inline-flex h-8 w-8 rounded-full bg-white/20 animate-ping"></span>
+            <span class="relative inline-flex rounded-full h-5 w-5 bg-white items-center justify-center border-2 border-brandDark shadow-md transition-transform group-hover:scale-125">
+              <span class="w-1.5 h-1.5 rounded-full bg-brandDark"></span>
+            </span>
+          </button>
+
+          <!-- INTERACTIVE HOTSPOT PIN 2: Left Rotor (Propulsion) -->
+          <button onclick="activateHotspot(2)" class="absolute top-[35%] left-[24%] -translate-x-1/2 -translate-y-1/2 group flex items-center justify-center" aria-label="Propulsion Detail">
+            <span class="absolute inline-flex h-8 w-8 rounded-full bg-white/20 animate-ping"></span>
+            <span class="relative inline-flex rounded-full h-5 w-5 bg-white items-center justify-center border-2 border-brandDark shadow-md transition-transform group-hover:scale-125">
+              <span class="w-1.5 h-1.5 rounded-full bg-brandDark"></span>
+            </span>
+          </button>
+
+          <!-- INTERACTIVE HOTSPOT PIN 3: Obstacle Guidance sensor -->
+          <button onclick="activateHotspot(3)" class="absolute top-[48%] left-[50%] -translate-x-1/2 -translate-y-1/2 group flex items-center justify-center" aria-label="Sensor Detail">
+            <span class="absolute inline-flex h-8 w-8 rounded-full bg-white/20 animate-ping"></span>
+            <span class="relative inline-flex rounded-full h-5 w-5 bg-white items-center justify-center border-2 border-brandDark shadow-md transition-transform group-hover:scale-125">
+              <span class="w-1.5 h-1.5 rounded-full bg-brandDark"></span>
+            </span>
+          </button>
+
+          <!-- INTERACTIVE HOTSPOT PIN 4: Power Unit -->
+          <button onclick="activateHotspot(4)" class="absolute top-[35%] left-[76%] -translate-x-1/2 -translate-y-1/2 group flex items-center justify-center" aria-label="Battery Detail">
+            <span class="absolute inline-flex h-8 w-8 rounded-full bg-white/20 animate-ping"></span>
+            <span class="relative inline-flex rounded-full h-5 w-5 bg-white items-center justify-center border-2 border-brandDark shadow-md transition-transform group-hover:scale-125">
+              <span class="w-1.5 h-1.5 rounded-full bg-brandDark"></span>
+            </span>
+          </button>
+        </div>
+
+        <!-- Right 5 cols: Detail Display Box -->
+        <div class="lg:col-span-5 bg-neutral-900 border border-neutral-800 p-8 rounded-2xl flex flex-col justify-between min-h-[320px]">
+          <div>
+            <span class="text-[10px] uppercase tracking-[0.25em] text-neutral-400 font-bold block mb-2" id="hotspot-label">COMPONENTS</span>
+            <h3 class="text-2xl font-bold tracking-tight uppercase text-white" id="hotspot-title">Tap an active node</h3>
+            <p class="text-neutral-400 mt-4 text-sm leading-relaxed" id="hotspot-description">
+              Select one of the glowing target circles on the wireframe design to examine materials, mechanical design, and functional specs.
+            </p>
+          </div>
+          
+          <div class="pt-6 border-t border-neutral-800 flex items-center justify-between text-xs text-neutral-500 font-mono">
+            <span>DIAGRAM STATE: READY</span>
+            <span id="hotspot-number">0/4 SELECTED</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- INTERACTIVE CONFIGURATOR (DYNAMIC CUSTOMIZE & BUILD) -->
+  <section class="max-w-[1440px] mx-auto px-4 md:px-8 py-12" id="configurator">
+    <div class="bg-white rounded-3xl p-8 md:p-16 shadow-lg border border-neutral-200 grid grid-cols-1 lg:grid-cols-12 gap-12">
+      
+      <!-- Left Configurator Column: Render Output -->
+      <div class="lg:col-span-6 flex flex-col justify-between">
+        <div>
+          <span class="text-xs font-bold tracking-[0.3em] text-brandDark/40 uppercase">LIVE CONFIGURATOR</span>
+          <h2 class="text-3xl md:text-5xl font-black tracking-tight text-brandDark uppercase mt-2">
+            Build Your Aero
+          </h2>
+          <p class="text-sm text-brandGray mt-3">
+            Construct your custom kit with premium payload additions, backup batteries, and protective frames.
+          </p>
+        </div>
+
+        <!-- Render Box -->
+        <div class="my-8 bg-brandLight rounded-2xl p-8 border border-neutral-100 flex flex-col items-center justify-center min-h-[280px] relative">
+          <!-- Tiny active parameters preview -->
+          <div class="absolute top-4 left-4 text-[10px] font-mono uppercase text-brandDark/50 tracking-wider flex flex-col gap-1">
+            <span>EDITION: <strong id="spec-preview-edition" class="text-brandDark">STANDARD</strong></span>
+            <span>COLOR: <strong id="spec-preview-color" class="text-brandDark">ARCTIC SILVER</strong></span>
+          </div>
+
+          <!-- Dynamic SVG Canvas for preview -->
+          <div class="w-full max-w-[280px]">
+            <svg viewBox="0 0 100 100" fill="none" class="w-full h-auto drop-shadow-lg">
+              <!-- Basic Core Frame -->
+              <rect x="25" y="45" width="50" height="20" rx="10" fill="#dedede" id="config-svg-core" />
+              <!-- Diagonal Arm Left -->
+              <line x1="30" y1="50" x2="10" y2="30" stroke="#cccccc" stroke-width="6" stroke-linecap="round" id="config-svg-arm1" />
+              <!-- Diagonal Arm Right -->
+              <line x1="70" y1="50" x2="90" y2="30" stroke="#cccccc" stroke-width="6" stroke-linecap="round" id="config-svg-arm2" />
+              <!-- Motors -->
+              <rect x="5" y="22" width="10" height="10" rx="2" fill="#3a3a3a" />
+              <rect x="85" y="22" width="10" height="10" rx="2" fill="#3a3a3a" />
+              <!-- Props (Static Indicator) -->
+              <line x1="0" y1="22" x2="20" y2="22" stroke="#555" stroke-width="2" />
+              <line x1="80" y1="22" x2="100" y2="22" stroke="#555" stroke-width="2" />
+              <!-- Camera Lens -->
+              <circle cx="50" cy="72" r="14" fill="#1c1c1c" />
+              <circle cx="50" cy="72" r="7" fill="#0d2c3f" />
+              <!-- Smart Controller Addon Indicator (Visible if checked) -->
+              <rect x="35" y="8" width="30" height="18" rx="2" fill="#2d2d2d" stroke="#555" stroke-width="1.5" id="config-svg-controller" class="hidden" />
+              <!-- Lens Filter Indicator (Visible if checked) -->
+              <circle cx="50" cy="72" r="16" stroke="#4ade80" stroke-width="2" id="config-svg-lens" class="hidden" />
+            </svg>
+          </div>
+
+          <div class="mt-4 text-center">
+            <span class="text-xs uppercase tracking-widest text-brandDark/50 font-semibold">PREVIEW SCHEMATIC</span>
+          </div>
+        </div>
+
+        <div class="text-xs text-brandGray font-medium">
+          * Each customize build is assembled and flight-calibrated by a master technician prior to dispatch.
+        </div>
+      </div>
+
+      <!-- Right Configurator Column: Dynamic Controllers & Options -->
+      <div class="lg:col-span-6 flex flex-col justify-between">
+        
+        <!-- Step 1: Base Flight Edition -->
+        <div class="mb-8">
+          <span class="text-[11px] font-bold tracking-widest text-brandDark/40 uppercase block mb-3">01 / Choose Edition</span>
+          <div class="grid grid-cols-2 gap-4">
+            <label class="border-2 border-brandDark rounded-xl p-4 flex flex-col justify-between cursor-pointer hover:bg-neutral-50/50 transition-colors" id="label-edition-std">
+              <input type="radio" name="edition" value="std" checked class="sr-only" onchange="updateConfigurator()">
+              <span class="text-sm font-bold tracking-wider uppercase text-brandDark">Standard</span>
+              <span class="text-xs text-brandGray mt-1">Ready to Fly build</span>
+              <span class="text-md font-extrabold text-brandDark mt-4">$1,599</span>
+            </label>
+            <label class="border border-neutral-200 rounded-xl p-4 flex flex-col justify-between cursor-pointer hover:bg-neutral-50/50 transition-colors" id="label-edition-pro">
+              <input type="radio" name="edition" value="pro" class="sr-only" onchange="updateConfigurator()">
+              <span class="text-sm font-bold tracking-wider uppercase text-brandDark">Pro Pack</span>
+              <span class="text-xs text-brandGray mt-1">Advanced Cine kit</span>
+              <span class="text-md font-extrabold text-brandDark mt-4">$2,199</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Step 2: Chassis Finish Color Swatch -->
+        <div class="mb-8">
+          <span class="text-[11px] font-bold tracking-widest text-brandDark/40 uppercase block mb-3">02 / Color Finish</span>
+          <div class="flex gap-4">
+            <button onclick="setConfigColor('silver')" class="px-5 py-3 rounded-full border-2 border-brandDark text-xs font-semibold uppercase tracking-wider bg-white shadow-sm flex items-center gap-2" id="config-btn-silver">
+              <span class="w-3.5 h-3.5 rounded-full bg-neutral-300 inline-block border border-neutral-400"></span>
+              Arctic Silver
+            </button>
+            <button onclick="setConfigColor('obsidian')" class="px-5 py-3 rounded-full border border-neutral-200 text-xs font-semibold uppercase tracking-wider bg-white shadow-sm flex items-center gap-2" id="config-btn-obsidian">
+              <span class="w-3.5 h-3.5 rounded-full bg-neutral-800 inline-block border border-neutral-900"></span>
+              Obsidian
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3: Payload & Accessories Integration -->
+        <div class="mb-8">
+          <span class="text-[11px] font-bold tracking-widest text-brandDark/40 uppercase block mb-3">03 / Optional Payload Upgrades</span>
+          <div class="flex flex-col gap-3">
+            <label class="flex items-center justify-between p-4 border border-neutral-200 rounded-xl hover:bg-neutral-50/50 cursor-pointer transition-colors" id="addon-item-controller">
+              <div class="flex items-center gap-3">
+                <input type="checkbox" id="addon-controller" class="rounded border-neutral-300 text-brandDark focus:ring-brandDark w-4 h-4" onchange="updateConfigurator()">
+                <div>
+                  <span class="text-sm font-bold tracking-wide uppercase block text-brandDark">Smart Ultra-Link Remote</span>
+                  <span class="text-xs text-brandGray">Upgrades transmitter with integrated ultra-bright 5.5" screen</span>
+                </div>
+              </div>
+              <span class="text-sm font-bold text-brandDark">+$250</span>
+            </label>
+            
+            <label class="flex items-center justify-between p-4 border border-neutral-200 rounded-xl hover:bg-neutral-50/50 cursor-pointer transition-colors" id="addon-item-lens">
+              <div class="flex items-center gap-3">
+                <input type="checkbox" id="addon-lens" class="rounded border-neutral-300 text-brandDark focus:ring-brandDark w-4 h-4" onchange="updateConfigurator()">
+                <div>
+                  <span class="text-sm font-bold tracking-wide uppercase block text-brandDark">Pro Polarized Glass Kit</span>
+                  <span class="text-xs text-brandGray">ND8, ND16, and ND32 optical polarized lens array</span>
+                </div>
+              </div>
+              <span class="text-sm font-bold text-brandDark">+$120</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Bottom Dynamic Summary panel -->
+        <div class="bg-brandDark text-white p-6 rounded-2xl flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+          <div>
+            <span class="text-[9px] uppercase tracking-[0.25em] text-white/40 block font-bold">Total Investment Estimate</span>
+            <span class="text-3xl font-extrabold tracking-wide block mt-1" id="config-total-price">$1,599</span>
+          </div>
+          <button onclick="addToCartTrigger()" class="bg-white hover:bg-neutral-100 text-brandDark transition-colors px-8 py-4 rounded-xl text-xs font-bold tracking-widest uppercase shadow-lg text-center">
+            ADD TO BASKET
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FEATURES BENTO GRID (Highly intentional, stylized, clean aesthetic) -->
+  <section class="max-w-[1440px] mx-auto px-4 md:px-8 py-12" id="features">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <span class="text-xs font-bold tracking-[0.3em] text-brandDark/40 uppercase">EXCEPTIONAL CAPABILITIES</span>
+      <h2 class="text-3xl md:text-5xl font-black tracking-tight uppercase mt-3">The New Standard</h2>
+      <p class="text-sm md:text-base text-brandGray mt-4">
+        Every detail and component is engineered to provide extreme durability and high performance telemetry.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      
+      <!-- Card 1: Obstacle Avoidance -->
+      <div class="bg-white rounded-2xl p-8 border border-neutral-200 hover:border-neutral-400 transition-all duration-300 flex flex-col justify-between group">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-neutral-100 flex items-center justify-center text-brandDark group-hover:scale-105 transition-transform duration-300">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+          </div>
+          <h3 class="text-lg font-bold uppercase tracking-wide mt-6 mb-2 text-brandDark">5-Directional Obstacle Sensing</h3>
+          <p class="text-xs text-brandGray leading-relaxed">
+            Consisting of dual stereo vision sensors, infrared mapping, and ultrasonic positioning arrays to detect objects up to 30 meters ahead.
+          </p>
+        </div>
+        <div class="mt-8 text-[11px] font-bold uppercase tracking-widest text-brandDark/40 group-hover:text-brandDark transition-colors">
+          Explore Avionics &rarr;
+        </div>
+      </div>
+
+      <!-- Card 2: Camera Gimbal Payload -->
+      <div class="bg-white rounded-2xl p-8 border border-neutral-200 hover:border-neutral-400 transition-all duration-300 flex flex-col justify-between group">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-neutral-100 flex items-center justify-center text-brandDark group-hover:scale-105 transition-transform duration-300">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><circle cx="12" cy="13" r="3"></circle></svg>
+          </div>
+          <h3 class="text-lg font-bold uppercase tracking-wide mt-6 mb-2 text-brandDark">1-Inch 20MP Exmor Sensor</h3>
+          <p class="text-xs text-brandGray leading-relaxed">
+            Shoots beautiful 4K ultra-stabilized video at 60fps, capturing unmatched dynamic range with an adjustable aperture diaphragm.
+          </p>
+        </div>
+        <div class="mt-8 text-[11px] font-bold uppercase tracking-widest text-brandDark/40 group-hover:text-brandDark transition-colors">
+          View Optical Specs &rarr;
+        </div>
+      </div>
+
+      <!-- Card 3: Dynamic Controller Link -->
+      <div class="bg-white rounded-2xl p-8 border border-neutral-200 hover:border-neutral-400 transition-all duration-300 flex flex-col justify-between group">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-neutral-100 flex items-center justify-center text-brandDark group-hover:scale-105 transition-transform duration-300">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071a10.5 10.5 0 0114.14 0M1.414 8.414a16.25 16.25 0 0121.172 0"></path></svg>
+          </div>
+          <h3 class="text-lg font-bold uppercase tracking-wide mt-6 mb-2 text-brandDark">Lightbridge Video Link</h3>
+          <p class="text-xs text-brandGray leading-relaxed">
+            Automatic multi-channel frequency swapping ensures low latency live feedback and highly resilient radio communication even in built-up urban centers.
+          </p>
+        </div>
+        <div class="mt-8 text-[11px] font-bold uppercase tracking-widest text-brandDark/40 group-hover:text-brandDark transition-colors">
+          Signal Mapping &rarr;
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MINIMAL EDITORIAL QUOTE / TESTIMONIAL (Aesthetic Depth) -->
+  <section class="max-w-[1440px] mx-auto px-4 md:px-8 py-12" id="gallery">
+    <div class="bg-brandLight rounded-3xl p-8 md:p-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center border border-neutral-200">
+      
+      <!-- Typography Side -->
+      <div class="lg:col-span-7">
+        <svg class="w-10 h-10 text-brandDark/10 mb-6" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.748-9.762 9-10.961v1.244c-3.777 1.103-6 4.099-6 7.428h5v10h-8zm-11 0v-7.391c0-5.704 3.748-9.762 9-10.961v1.244c-3.777 1.103-6 4.099-6 7.428h5v10h-8z"/></svg>
+        <blockquote class="text-2xl sm:text-3xl md:text-4xl font-serif tracking-tight leading-relaxed text-brandDark">
+          "The stability is completely game-changing. We put this aircraft up in gale-force mountain winds, and the camera feeds came back looking like it was locked down on a studio tripod."
+        </blockquote>
+        <div class="mt-8">
+          <p class="text-sm font-bold uppercase tracking-widest text-brandDark">Marcus Cole</p>
+          <p class="text-xs text-brandGray mt-1">Avionics Director, High-Angle Media Works</p>
+        </div>
+      </div>
+
+      <!-- Minimal Visual Gallery Card Side -->
+      <div class="lg:col-span-5 flex flex-col gap-4">
+        <div class="bg-white p-4 rounded-2xl border border-neutral-200/60 shadow-sm flex items-center gap-4">
+          <div class="w-20 h-20 bg-neutral-900 rounded-xl overflow-hidden flex-shrink-0 relative">
+            <svg class="absolute inset-0 w-full h-full text-white/10" viewBox="0 0 100 100" fill="currentColor">
+              <rect x="10" y="20" width="80" height="60" rx="4" />
+              <circle cx="50" cy="50" r="15" />
+            </svg>
+          </div>
+          <div>
+            <span class="text-[9px] tracking-[0.2em] uppercase font-bold text-brandDark/40">FEATURED CAPTURE</span>
+            <h4 class="text-sm font-bold uppercase tracking-wider text-brandDark mt-0.5">High Alpine Glaciers</h4>
+            <p class="text-[11px] text-brandGray mt-1">Shot at 4,200m elevation in Swiss Alps using standard mechanical shutter.</p>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-2xl border border-neutral-200/60 shadow-sm flex items-center gap-4">
+          <div class="w-20 h-20 bg-neutral-900 rounded-xl overflow-hidden flex-shrink-0 relative">
+            <svg class="absolute inset-0 w-full h-full text-white/10" viewBox="0 0 100 100" fill="currentColor">
+              <rect x="10" y="20" width="80" height="60" rx="4" />
+              <circle cx="50" cy="50" r="15" />
+            </svg>
+          </div>
+          <div>
+            <span class="text-[9px] tracking-[0.2em] uppercase font-bold text-brandDark/40">FEATURED CAPTURE</span>
+            <h4 class="text-sm font-bold uppercase tracking-wider text-brandDark mt-0.5">Urban Horizon</h4>
+            <p class="text-[11px] text-brandGray mt-1">Shot using Smart HDR mode with precise dynamic aperture settings.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SUPPORT & FAQ (Clean, expandable lists) -->
+  <section class="max-w-[1440px] mx-auto px-4 md:px-8 py-12" id="support">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-12">
+        <span class="text-xs font-bold tracking-[0.3em] text-brandDark/40 uppercase">EXPERT SERVICES</span>
+        <h2 class="text-2xl sm:text-4xl font-black uppercase tracking-tight text-brandDark mt-2">Ownership &amp; Flight Support</h2>
+      </div>
+
+      <div class="space-y-4">
+        <!-- FAQ Item 1 -->
+        <div class="border border-neutral-200 rounded-xl bg-white transition-all overflow-hidden">
+          <button onclick="toggleFaq(1)" class="w-full text-left p-6 flex justify-between items-center hover:bg-neutral-50 transition-colors">
+            <span class="font-bold text-sm sm:text-base tracking-wide uppercase text-brandDark">What is included in the premium warranty pack?</span>
+            <svg id="faq-icon-1" class="w-5 h-5 text-brandDark transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div id="faq-content-1" class="hidden px-6 pb-6 text-xs sm:text-sm text-brandGray leading-relaxed border-t border-neutral-100 pt-4 bg-neutral-50/50">
+            Our premium flight warranty covers two accidental replacement components within the first year, 24/7 tele-support with experienced drone operators, and free return shipping on all dynamic recalibrations.
+          </div>
+        </div>
+
+        <!-- FAQ Item 2 -->
+        <div class="border border-neutral-200 rounded-xl bg-white transition-all overflow-hidden">
+          <button onclick="toggleFaq(2)" class="w-full text-left p-6 flex justify-between items-center hover:bg-neutral-50 transition-colors">
+            <span class="font-bold text-sm sm:text-base tracking-wide uppercase text-brandDark">Can I operate the Phantom 4 Pro with smartphone apps?</span>
+            <svg id="faq-icon-2" class="w-5 h-5 text-brandDark transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div id="faq-content-2" class="hidden px-6 pb-6 text-xs sm:text-sm text-brandGray leading-relaxed border-t border-neutral-100 pt-4 bg-neutral-50/50">
+            Yes, using the DJI GO 4 application, you can pair the transmitter with any modern iOS or Android device. Alternatively, upgrading to our Pro Controller integrates a dedicated ultra-bright 5.5-inch panel directly.
+          </div>
+        </div>
+
+        <!-- FAQ Item 3 -->
+        <div class="border border-neutral-200 rounded-xl bg-white transition-all overflow-hidden">
+          <button onclick="toggleFaq(3)" class="w-full text-left p-6 flex justify-between items-center hover:bg-neutral-50 transition-colors">
+            <span class="font-bold text-sm sm:text-base tracking-wide uppercase text-brandDark">What is the wind tolerance rating of the structural chassis?</span>
+            <svg id="faq-icon-3" class="w-5 h-5 text-brandDark transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div id="faq-content-3" class="hidden px-6 pb-6 text-xs sm:text-sm text-brandGray leading-relaxed border-t border-neutral-100 pt-4 bg-neutral-50/50">
+            The titanium-magnesium alloy layout offers high aerodynamic rigidity. The propulsion systems can dynamically correct rotor velocity to remain perfectly stabilized in steady winds up to 36 kph (22 mph).
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- NEWSLETTER SIGN UP BLOCK -->
+  <section class="max-w-[1440px] mx-auto px-4 md:px-8 py-12">
+    <div class="bg-brandDark text-white p-8 md:p-16 rounded-3xl relative overflow-hidden border border-neutral-800 text-center">
+      <div class="relative z-10 max-w-xl mx-auto">
+        <span class="text-xs font-bold tracking-[0.3em] uppercase text-white/40">INTELLIGENCE FLIGHT DIRECTORY</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold uppercase mt-3 mb-4">Stay in the Loop</h2>
+        <p class="text-xs sm:text-sm text-neutral-400 leading-relaxed mb-8">
+          Get first access to firmware update notes, global aerospace regulation changes, and newly developed camera payloads.
+        </p>
+        <div id="newsletter-form" class="flex flex-col sm:flex-row gap-3">
+          <input type="email" id="newsletter-email" placeholder="ENTER YOUR EMAIL" class="flex-grow bg-neutral-900 border border-neutral-800 focus:outline-none focus:border-neutral-500 rounded-xl px-5 py-4 text-xs tracking-wider uppercase text-white font-mono placeholder-neutral-500">
+          <button onclick="subscribeNewsletter()" class="bg-white text-brandDark hover:bg-neutral-100 transition-colors px-8 py-4 rounded-xl text-xs font-bold tracking-widest uppercase">
+            SUBSCRIBE
+          </button>
+        </div>
+        <p id="newsletter-success" class="text-green-400 text-xs mt-3 hidden font-semibold">Thank you! Your email has been registered for flight notices.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MONOCHROMATIC PREMIUM FOOTER -->
+  <footer class="bg-brandDark text-white border-t border-neutral-800 pt-16 pb-12 px-6">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
+      
+      <!-- Brand column -->
+      <div class="lg:col-span-2">
+        <svg class="h-6 w-auto text-white mb-6" viewBox="0 0 120 40" fill="currentColor">
+          <path d="M12 8c-3.3 0-6 2.7-6 6v12c0 3.3 2.7 6 6 6h12c3.3 0 6-2.7 6-6V14c0-3.3-2.7-6-6-6H12zm10 18H14V14h8v12z M38 8h-4v24h8c4.4 0 8-3.6 8-8v-8c0-4.4-3.6-8-8-8zm4 16c0 2.2-1.8 4-4 4h-4V12h4c2.2 0 4 1.8 4 4v8z M56 8h4v24h-4z M70 8h12c2.2 0 4 1.8 4 4s-1.8 4-4 4h-8v4h8c2.2 0 4 1.8 4 4s-1.8 4-4 4H70V8z M94 14h-6v-2h12v2h-6v18h-4V14z" />
+          <rect x="108" y="8" width="4" height="24" rx="2" />
+        </svg>
+        <p class="text-xs text-neutral-400 leading-relaxed max-w-sm mb-6">
+          DJI is the global leader in commercial and civilian drone technology. Our Phantom flight layout defines the visual language of modern aerial videography.
+        </p>
+        <div class="flex gap-4">
+          <a href="#" class="w-8 h-8 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-white/60 hover:text-white hover:border-neutral-700 transition-colors" aria-label="Social">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+          </a>
+          <a href="#" class="w-8 h-8 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-white/60 hover:text-white hover:border-neutral-700 transition-colors" aria-label="Social">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.31 1.914c-3.21 0-6.1.01-8.54.12A11.16 11.16 0 001.03 5.06a11.15 11.15 0 00-3.03 3.03A11.23 11.23 0 00.12 11.1c-.11 2.44-.12 5.33-.12 8.54 0 3.21.01 6.1.12 8.54a11.16 11.16 0 003.03 3.03 11.15 11.15 0 003.03 3.03c2.44.11 5.33.12 8.54.12s6.1-.01 8.54-.12a11.16 11.16 0 003.03-3.03 11.15 11.15 0 003.03-3.03c.11-2.44.12-5.33.12-8.54s-.01-6.1-.12-8.54a11.16 11.16 0 00-3.03-3.03 11.15 11.15 0 00-3.03-3.03c-2.44-.11-5.33-.12-8.54-.12zm-4.7 4.7h9.4c1.25 0 2.27 1.02 2.27 2.27v9.4a2.27 2.27 0 01-2.27 2.27H7.61a2.27 2.27 0 01-2.27-2.27v-9.4c0-1.25 1.02-2.27 2.27-2.27zm4.7 2.84a4.26 4.26 0 100 8.52 4.26 4.26 0 000-8.52zm0 1.42a2.84 2.84 0 110 5.68 2.84 2.84 0 010-5.68zm5.2-1.92a1.04 1.04 0 100 2.08 1.04 1.04 0 000-2.08z"/></svg>
+          </a>
+          <a href="#" class="w-8 h-8 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-white/60 hover:text-white hover:border-neutral-700 transition-colors" aria-label="Social">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Links Column 1 -->
+      <div>
+        <h4 class="text-xs font-bold uppercase tracking-widest text-neutral-400 mb-6">AVIONICS</h4>
+        <ul class="space-y-4 text-xs font-medium text-neutral-400">
+          <li><a href="#" class="hover:text-white transition-colors uppercase">Phantom Series</a></li>
+          <li><a href="#" class="hover:text-white transition-colors uppercase">Inspire Cinema</a></li>
+          <li><a href="#" class="hover:text-white transition-colors uppercase">Mavic Foldable</a></li>
+          <li><a href="#" class="hover:text-white transition-colors uppercase">Matrice Heavy-Payload</a></li>
+        </ul>
+      </div>
+
+      <!-- Links Column 2 -->
+      <div>
+        <h4 class="text-xs font-bold uppercase tracking-widest text-neutral-400 mb-6">COMPONENTS</h4>
+        <ul class="space-y-4 text-xs font-medium text-neutral-400">
+          <li><a href="#" class="hover:text-white transition-colors uppercase">Intelligent Batteries</a></li>
+          <li><a href="#" class="hover:text-white transition-colors uppercase">Quick-Release Propellers</a></li>
+          <li><a href="#" class="hover:text-white transition-colors uppercase">Gimbal Hardware</a></li>
+          <li><a href="#" class="hover:text-white transition-colors uppercase">Signal Extenders</a></li>
+        </ul>
+      </div>
+
+      <!-- Links Column 3 -->
+      <div>
+        <h4 class="text-xs font-bold uppercase tracking-widest text-neutral-400 mb-6">LEGAL & SAFETY</h4>
+        <ul class="space-y-4 text-xs font-medium text-neutral-400">
+          <li><a href="#" class="hover:text-white transition-colors uppercase">FAA Compliance</a></li>
+          <li><a href="#" class="hover:text-white transition-colors uppercase">Flight Maps & No-Fly Zones</a></li>
+          <li><a href="#" class="hover:text-white transition-colors uppercase">Registration Support</a></li>
+          <li><a href="#" class="hover:text-white transition-colors uppercase">Privacy Terms</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom copyright / region selector -->
+    <div class="max-w-7xl mx-auto border-t border-neutral-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-neutral-500 font-medium">
+      <p>&copy; 2026 DJI. Designed in alignment with premium aerospace standards. All rights reserved.</p>
+      <div class="flex gap-6 uppercase">
+        <a href="#" class="hover:text-white transition-colors">United States / English</a>
+        <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+        <a href="#" class="hover:text-white transition-colors">Terms of Use</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CUSTOM FEEDBACK NOTIFICATION DRAWER (Replaces system alerts) -->
+  <div id="toast-notif" class="fixed bottom-6 right-6 z-50 bg-brandDark text-white border border-neutral-800 px-6 py-4 rounded-xl shadow-2xl flex items-center gap-4 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse-subtle"></div>
+    <div>
+      <p id="toast-text" class="text-xs font-bold uppercase tracking-wider">Item Added To Basket</p>
+    </div>
+  </div>
+
+  <!-- INTERACTION ENGINE (VANILLA JS CONTROLLER) -->
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+    });
+
+    // Drone Hero Color Switcher
+    function setDroneStyle(color) {
+      const droneSvg = document.getElementById('drone-svg');
+      const shells = document.querySelectorAll('.drone-body-shell');
+      const shellsDark = document.querySelectorAll('.drone-body-shell-dark');
+      const legs = document.querySelectorAll('.drone-legs-metal');
+      
+      const btnSilver = document.getElementById('btn-silver');
+      const btnObsidian = document.getElementById('btn-obsidian');
+
+      if (color === 'obsidian') {
+        // Change colors of main SVG vectors
+        shells.forEach(el => el.setAttribute('fill', '#262626'));
+        shellsDark.forEach(el => el.setAttribute('fill', '#1a1a1a'));
+        legs.forEach(el => el.setAttribute('stroke', '#555555'));
+        
+        // Update UI Selector Ring
+        btnObsidian.classList.add('border-brandDark');
+        btnObsidian.classList.remove('border-transparent');
+        btnSilver.classList.remove('border-brandDark');
+        btnSilver.classList.add('border-transparent');
+        
+        // Synchronize and fire smooth notification
+        showToast("Switched Style To Obsidian Edition");
+      } else {
+        // Change back to classic silver
+        shells.forEach(el => el.setAttribute('fill', '#e8e8e8'));
+        shellsDark.forEach(el => el.setAttribute('fill', '#cfcfcf'));
+        legs.forEach(el => el.setAttribute('stroke', '#aaaaaa'));
+
+        // Update UI Selector Ring
+        btnSilver.classList.add('border-brandDark');
+        btnSilver.classList.remove('border-transparent');
+        btnObsidian.classList.remove('border-brandDark');
+        btnObsidian.classList.add('border-transparent');
+
+        showToast("Switched Style To Arctic Silver Edition");
+      }
+    }
+
+    // Dynamic Hotspot Exploded Spec system
+    const hotspotData = {
+      1: {
+        title: "Mechanical 3-Axis Gimbal",
+        desc: "A custom high-precision brushless gimbal stabilization assembly guarantees frictionless dampening of aircraft pitch, yaw, and roll up to +/- 0.01 degrees.",
+        num: "1/4 SELECTED",
+        label: "OPTICAL PAYLOAD"
+      },
+      2: {
+        title: "Brushless Motor Drive",
+        desc: "Equipped with high-frequency ESC control boards and rapid release structural propellers, yielding high thrust-to-weight responses and top speeds of 72 kph.",
+        num: "2/4 SELECTED",
+        label: "PROPULSION ENGINE"
+      },
+      3: {
+        title: "Steric Flight Sensors",
+        desc: "Rearward, forward, and bottom stereo vision cameras scan local terrain in real-time to compute automatic return-to-home path guidance and escape danger zones.",
+        num: "3/4 SELECTED",
+        label: "COLLISION DETECTION"
+      },
+      4: {
+        title: "Intelligent Power Grid",
+        desc: "A proprietary 5870mAh High Density LiPo battery system with thermal safety triggers, communicating real-time state parameters back to the main pilot HUD.",
+        num: "4/4 SELECTED",
+        label: "CELL DEPLOYMENT"
+      }
+    };
+
+    function activateHotspot(id) {
+      const data = hotspotData[id];
+      if (!data) return;
+
+      document.getElementById('hotspot-title').textContent = data.title;
+      document.getElementById('hotspot-description').textContent = data.desc;
+      document.getElementById('hotspot-number').textContent = data.num;
+      document.getElementById('hotspot-label').textContent = data.label;
+
+      showToast(`Inspecting Component: ${data.title}`);
+    }
+
+    // Dynamic Configurator Calculations
+    let selectedColor = 'silver';
+
+    function setConfigColor(color) {
+      selectedColor = color;
+      
+      const btnSilver = document.getElementById('config-btn-silver');
+      const btnObsidian = document.getElementById('config-btn-obsidian');
+
+      const coreSvg = document.getElementById('config-svg-core');
+      const arm1Svg = document.getElementById('config-svg-arm1');
+      const arm2Svg = document.getElementById('config-svg-arm2');
+
+      if (color === 'obsidian') {
+        btnObsidian.className = "px-5 py-3 rounded-full border-2 border-brandDark text-xs font-semibold uppercase tracking-wider bg-white shadow-sm flex items-center gap-2";
+        btnSilver.className = "px-5 py-3 rounded-full border border-neutral-200 text-xs font-semibold uppercase tracking-wider bg-white shadow-sm flex items-center gap-2";
+        
+        // Update schematic colors
+        coreSvg.setAttribute('fill', '#2d2d2d');
+        arm1Svg.setAttribute('stroke', '#444444');
+        arm2Svg.setAttribute('stroke', '#444444');
+
+        document.getElementById('spec-preview-color').textContent = "OBSIDIAN GRAPHITE";
+      } else {
+        btnSilver.className = "px-5 py-3 rounded-full border-2 border-brandDark text-xs font-semibold uppercase tracking-wider bg-white shadow-sm flex items-center gap-2";
+        btnObsidian.className = "px-5 py-3 rounded-full border border-neutral-200 text-xs font-semibold uppercase tracking-wider bg-white shadow-sm flex items-center gap-2";
+        
+        // Update schematic colors
+        coreSvg.setAttribute('fill', '#dedede');
+        arm1Svg.setAttribute('stroke', '#cccccc');
+        arm2Svg.setAttribute('stroke', '#cccccc');
+
+        document.getElementById('spec-preview-color').textContent = "ARCTIC SILVER";
+      }
+
+      updateConfigurator();
+    }
+
+    function updateConfigurator() {
+      const isStd = document.querySelector('input[name="edition"][value="std"]').checked;
+      const labelStd = document.getElementById('label-edition-std');
+      const labelPro = document.getElementById('label-edition-pro');
+      
+      let basePrice = isStd ? 1599 : 2199;
+      
+      if (isStd) {
+        labelStd.className = "border-2 border-brandDark rounded-xl p-4 flex flex-col justify-between cursor-pointer hover:bg-neutral-50/50 transition-colors bg-neutral-50/20";
+        labelPro.className = "border border-neutral-200 rounded-xl p-4 flex flex-col justify-between cursor-pointer hover:bg-neutral-50/50 transition-colors";
+        document.getElementById('spec-preview-edition').textContent = "STANDARD";
+      } else {
+        labelPro.className = "border-2 border-brandDark rounded-xl p-4 flex flex-col justify-between cursor-pointer hover:bg-neutral-50/50 transition-colors bg-neutral-50/20";
+        labelStd.className = "border border-neutral-200 rounded-xl p-4 flex flex-col justify-between cursor-pointer hover:bg-neutral-50/50 transition-colors";
+        document.getElementById('spec-preview-edition').textContent = "PRO AVIONICS";
+      }
+
+      // Addons
+      const controllerAddon = document.getElementById('addon-controller').checked;
+      const lensAddon = document.getElementById('addon-lens').checked;
+
+      const cardController = document.getElementById('addon-item-controller');
+      const cardLens = document.getElementById('addon-item-lens');
+
+      const svgController = document.getElementById('config-svg-controller');
+      const svgLens = document.getElementById('config-svg-lens');
+
+      if (controllerAddon) {
+        basePrice += 250;
+        cardController.classList.add('border-brandDark', 'bg-neutral-50/20');
+        svgController.classList.remove('hidden');
+      } else {
+        cardController.classList.remove('border-brandDark', 'bg-neutral-50/20');
+        svgController.classList.add('hidden');
+      }
+
+      if (lensAddon) {
+        basePrice += 120;
+        cardLens.classList.add('border-brandDark', 'bg-neutral-50/20');
+        svgLens.classList.remove('hidden');
+      } else {
+        cardLens.classList.remove('border-brandDark', 'bg-neutral-50/20');
+        svgLens.classList.add('hidden');
+      }
+
+      // Smooth count-up/re-evaluation update in DOM
+      document.getElementById('config-total-price').textContent = `$${basePrice.toLocaleString()}`;
+    }
+
+    // Interactive Toast Notification
+    let toastTimeout;
+    function showToast(message) {
+      const toast = document.getElementById('toast-notif');
+      const text = document.getElementById('toast-text');
+      text.textContent = message.toUpperCase();
+
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 3000);
+    }
+
+    // Add to cart action with indicator feedback
+    function addToCartTrigger() {
+      document.getElementById('cart-dot').classList.remove('hidden');
+      showToast("Configuration Saved & Added to Basket");
+    }
+
+    // FAQ Accordion Interaction
+    function toggleFaq(id) {
+      const content = document.getElementById(`faq-content-${id}`);
+      const icon = document.getElementById(`faq-icon-${id}`);
+
+      if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+        icon.classList.add('rotate-180');
+      } else {
+        content.classList.add('hidden');
+        icon.classList.remove('rotate-180');
+      }
+    }
+
+    // Newsletter Signup Action
+    function subscribeNewsletter() {
+      const email = document.getElementById('newsletter-email').value;
+      if (!email || !email.includes('@')) {
+        showToast("Please enter a valid email");
+        return;
+      }
+      document.getElementById('newsletter-form').classList.add('hidden');
+      document.getElementById('newsletter-success').classList.remove('hidden');
+      showToast("Subscription successful!");
+    }
+  </script>
+</body>
+</html>

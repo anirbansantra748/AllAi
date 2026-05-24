@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earth Day 2030 — Protecting Our Planet for Future Generations</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for Ultra-Premium Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            navy: '#152238',      // Rich, deep lithic navy
+                            navylight: '#1c2e4a', // Lighter tone for navy containers
+                            cream: '#f4f1eb',     // Textured sand/cream background
+                            creamdark: '#eae5da', // Darker cream for borders/cards
+                            charcoal: '#1a1a1a',  // Deep dramatic charcoal
+                            accent: '#cf5a47',    // Terracotta earth highlight
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Archivo Black', 'sans-serif'],
+                        condensed: ['Oswald', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #152238;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #eae5da;
+            border-radius: 4px;
+        }
+        
+        /* Grainy texture overlay */
+        .grain-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Star twinkling animation */
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 4s infinite ease-in-out;
+        }
+
+        /* Earth Halftone Wave Visual effect */
+        .earth-halftone {
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(21,34,56,0) 70%);
+        }
+
+        /* Image hover zooms */
+        .hover-zoom img {
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hover-zoom:hover img {
+            transform: scale(1.04) rotate(-0.5deg);
+        }
+
+        /* Custom glow effects */
+        .glow-accent {
+            box-shadow: 0 0 40px rgba(207, 90, 71, 0.25);
+        }
+        .glow-planet-mono {
+            box-shadow: 0 0 60px rgba(255, 255, 255, 0.08);
+        }
+        .glow-planet-ir {
+            box-shadow: 0 0 60px rgba(207, 90, 71, 0.3);
+        }
+        .glow-planet-co2 {
+            box-shadow: 0 0 60px rgba(59, 130, 246, 0.25);
+        }
+
+        /* Smooth tab transition */
+        .telemetry-transition {
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+    </style>
+</head>
+<body class="bg-brand-cream text-brand-navy font-sans antialiased overflow-x-hidden">
+
+    <!-- Paper Grain Texture applied globally -->
+    <div class="grain-overlay"></div>
+
+    <!-- MAIN EXQUISITE HEADER -->
+    <header class="border-b border-brand-navy/20 sticky top-0 bg-brand-cream/90 backdrop-blur-md z-50 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-8">
+                <!-- Branding logo -->
+                <a href="#" class="font-display text-lg tracking-wider hover:opacity-80 transition-opacity">
+                    EARTH DAY <span class="text-brand-accent">2030</span>
+                </a>
+                <span class="text-xs uppercase tracking-widest text-brand-navy/40 hidden md:inline">Protecting Our Planet</span>
+            </div>
+            
+            <!-- Mid-Nav Menu -->
+            <nav class="hidden lg:flex items-center gap-10 font-condensed uppercase tracking-wider text-sm">
+                <a href="#manifesto" class="hover:text-brand-accent transition-colors">Manifesto</a>
+                <a href="#deck-preview" class="hover:text-brand-accent transition-colors">Presentation Deck</a>
+                <a href="#challenges" class="hover:text-brand-accent transition-colors">The Challenges</a>
+                <a href="#history" class="hover:text-brand-accent transition-colors">The History</a>
+                <a href="#action-hub" class="hover:text-brand-accent transition-colors">Action Hub</a>
+            </nav>
+
+            <!-- CTA/Status controls -->
+            <div class="flex items-center gap-4">
+                <div class="hidden sm:flex flex-col items-end text-[10px] uppercase font-mono tracking-widest text-brand-navy/60">
+                    <div>DATE DECLARED: 22/04/2030</div>
+                    <div>STATUS: CRITICAL ACTIONS ACTIVE</div>
+                </div>
+                <a href="#action-hub" class="bg-brand-navy text-brand-cream font-condensed uppercase tracking-wider text-xs px-5 py-2.5 hover:bg-brand-accent hover:text-white transition-all duration-300 flex items-center gap-2">
+                    Act Now
+                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- OVERHAULED PREMIUM HERO SECTION: THE 2030 MONUMENTAL COVER -->
+    <section id="manifesto" class="relative bg-brand-navy text-brand-cream min-h-screen flex flex-col justify-between overflow-hidden px-6 py-8 border-b border-brand-navy">
+        
+        <!-- Deep Space Cosmic Backdrop -->
+        <div id="hero-stars" class="absolute inset-0 pointer-events-none opacity-80"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-[#0a111e]/60 via-transparent to-brand-navy pointer-events-none"></div>
+
+        <!-- Upper Technical Print Margins (From original presentation slide headers) -->
+        <div class="max-w-7xl mx-auto w-full flex justify-between items-center text-[10px] font-mono tracking-widest text-brand-cream/30 border-b border-brand-cream/10 pb-4 relative z-20">
+            <div>@REALLYGREATSITE</div>
+            <div class="hidden md:flex items-center gap-4">
+                <span>COORD: 45.1097° N, 130.1202° W</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-accent animate-ping"></span>
+                <span class="text-brand-cream/60">SYSTEM STATUS: NOMINAL</span>
+            </div>
+            <div>PRESENTATION +</div>
+        </div>
+
+        <!-- Main Immersive Poster Workspace -->
+        <div class="max-w-7xl mx-auto w-full flex-grow flex flex-col justify-center items-center relative z-10 py-8">
+            
+            <!-- Left-Floating Asymmetric Date Block -->
+            <div class="absolute left-0 top-1/4 hidden lg:flex flex-col items-start font-mono text-brand-cream/90 z-20">
+                <div class="text-[10px] tracking-widest text-brand-cream/40 mb-2 uppercase flex items-center gap-1.5">
+                    <span class="w-2 h-0.5 bg-brand-accent"></span> GLOBAL TIMESTAMP
+                </div>
+                <div class="font-condensed text-4xl font-bold tracking-widest text-brand-cream leading-tight">
+                    22 \ 04 \
+                </div>
+                <div class="font-condensed text-4xl font-bold tracking-widest text-brand-accent">
+                    2030
+                </div>
+                <div class="text-[9px] tracking-widest text-brand-cream/40 mt-4 max-w-[150px] leading-relaxed uppercase">
+                    ESTABLISHED MILITARY-GRADE TARGET HORIZON
+                </div>
+            </div>
+
+            <!-- Interactive Planet Visual Assembly -->
+            <div class="relative w-80 h-80 md:w-[480px] md:h-[480px] select-none group flex items-center justify-center transition-transform duration-700 hover:scale-[1.02]">
+                
+                <!-- Atmosphere / Shadow Mask Ring -->
+                <div id="planet-glow" class="absolute inset-0 rounded-full glow-planet-mono telemetry-transition"></div>
+
+                <!-- Custom High-Contrast Detailed Earth Canvas/SVG Stack -->
+                <div class="absolute inset-4 rounded-full overflow-hidden bg-[#0a101d] border border-brand-cream/15 relative">
+                    
+                    <!-- Dynamic Interactive Ocean Grid & Continents Layer -->
+                    <svg id="planet-svg" class="w-full h-full animate-[spin_120s_linear_infinite] opacity-95 transition-all duration-700" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <!-- Color Mappings for Spectra Analytics Toggles -->
+                            <filter id="thermal-glow">
+                                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                                <feMerge>
+                                    <feMergeNode in="coloredBlur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                        </defs>
+                        
+                        <!-- Grid Lines -->
+                        <circle cx="250" cy="250" r="235" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+                        <circle cx="250" cy="250" r="190" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                        <circle cx="250" cy="250" r="130" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                        <line x1="250" y1="10" x2="250" y2="490" stroke="rgba(255,255,255,0.08)" stroke-dasharray="2 3"/>
+                        <line x1="10" y1="250" x2="490" y2="250" stroke="rgba(255,255,255,0.08)" stroke-dasharray="2 3"/>
+                        
+                        <!-- High Fidelity Handcrafted World Contours (Monochromatic Base) -->
+                        <!-- North & Central Americas -->
+                        <path id="land-na" class="telemetry-transition" d="M120 140 C140 120, 190 130, 205 160 C220 190, 185 220, 195 245 C200 255, 175 270, 160 250 C145 230, 150 210, 135 190 C120 170, 110 155, 120 140 Z" fill="rgba(244, 241, 235, 0.9)"/>
+                        <!-- South America -->
+                        <path id="land-sa" class="telemetry-transition" d="M195 250 C210 260, 230 280, 220 320 C210 360, 175 420, 160 400 C150 380, 165 340, 150 320 C140 300, 170 280, 195 250 Z" fill="rgba(244, 241, 235, 0.8)"/>
+                        <!-- Eurasia / Africa -->
+                        <path id="land-eur" class="telemetry-transition" d="M290 140 C320 100, 360 80, 390 110 C420 140, 380 180, 420 210 C400 240, 360 230, 330 250 C310 270, 315 320, 290 350 C280 320, 260 280, 270 240 C280 200, 265 170, 290 140 Z" fill="rgba(244, 241, 235, 0.85)"/>
+                        <path id="land-afr" class="telemetry-transition" d="M280 240 C310 240, 350 250, 345 290 C340 330, 300 370, 280 350 C265 330, 260 280, 280 240 Z" fill="rgba(244, 241, 235, 0.75)"/>
+                        <!-- Australia -->
+                        <path id="land-aus" class="telemetry-transition" d="M380 320 C410 320, 430 340, 410 370 C390 390, 370 360, 380 320 Z" fill="rgba(244, 241, 235, 0.7)"/>
+
+                        <!-- Custom Analytical Visual Overlays (Toggled by user selection) -->
+                        <g id="grid-overlay" class="opacity-100 transition-opacity duration-500">
+                            <!-- Latitudinal lines -->
+                            <ellipse cx="250" cy="250" rx="210" ry="70" stroke="rgba(255,255,255,0.12)" stroke-width="0.75" fill="none"/>
+                            <ellipse cx="250" cy="250" rx="210" ry="140" stroke="rgba(255,255,255,0.08)" stroke-width="0.75" fill="none"/>
+                        </g>
+                    </svg>
+
+                    <!-- Shadow Overlay to create authentic high-contrast half-lit sphere -->
+                    <div class="absolute inset-0 rounded-full shadow-[inset_-30px_-30px_80px_rgba(0,0,0,0.95),inset_30px_30px_60px_rgba(255,255,255,0.15)] pointer-events-none"></div>
+
+                    <!-- Target Telemetry Hotspots -->
+                    <div class="absolute inset-0 z-30 pointer-events-auto">
+                        <!-- Hotspot 1: Arctic Melt -->
+                        <div class="absolute top-[20%] left-[45%] group/spot cursor-pointer" onclick="showHotspot('arctic')">
+                            <span class="absolute inline-flex h-3 w-3 rounded-full bg-brand-accent opacity-75 animate-ping"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-brand-accent"></span>
+                            <div class="absolute left-4 top-1/2 -translate-y-1/2 bg-brand-navy/95 border border-brand-cream/20 text-[9px] font-mono p-2 whitespace-nowrap rounded hidden group-hover/spot:block shadow-xl">
+                                <span class="text-brand-accent font-bold">ARC-01:</span> ARCTIC ALBEDO COLLAPSE
+                            </div>
+                        </div>
+
+                        <!-- Hotspot 2: Amazon Deforestation -->
+                        <div class="absolute top-[60%] left-[36%] group/spot cursor-pointer" onclick="showHotspot('amazon')">
+                            <span class="absolute inline-flex h-3 w-3 rounded-full bg-emerald-500 opacity-75 animate-ping"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                            <div class="absolute left-4 top-1/2 -translate-y-1/2 bg-brand-navy/95 border border-brand-cream/20 text-[9px] font-mono p-2 whitespace-nowrap rounded hidden group-hover/spot:block shadow-xl">
+                                <span class="text-emerald-400 font-bold">AMZ-04:</span> BIO-MASS STABILIZATION MARGIN
+                            </div>
+                        </div>
+
+                        <!-- Hotspot 3: Coral Reef Bleaching -->
+                        <div class="absolute top-[65%] left-[75%] group/spot cursor-pointer" onclick="showHotspot('barrier')">
+                            <span class="absolute inline-flex h-3 w-3 rounded-full bg-blue-400 opacity-75 animate-ping"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-400"></span>
+                            <div class="absolute left-4 top-1/2 -translate-y-1/2 bg-brand-navy/95 border border-brand-cream/20 text-[9px] font-mono p-2 whitespace-nowrap rounded hidden group-hover/spot:block shadow-xl">
+                                <span class="text-blue-400 font-bold">GBR-12:</span> ACIDIFICATION CRITICAL LIMIT
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Live Dynamic Telemetry Box inside the Hero -->
+                <div id="telemetry-toast" class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-brand-navy/90 border border-brand-cream/15 px-4 py-2.5 rounded-md text-center max-w-xs w-full backdrop-blur-md z-40 shadow-2xl transition-all duration-300 opacity-0 pointer-events-none">
+                    <div class="text-[9px] font-mono text-brand-accent uppercase tracking-wider font-bold mb-0.5" id="telemetry-title">SATELLITE NODE ACTIVED</div>
+                    <div class="text-[11px] font-mono text-brand-cream/80" id="telemetry-desc">Tuning spectral feeds for climate matrix calibration.</div>
+                </div>
+
+            </div>
+
+            <!-- Interactive Spectroscopic Dashboard Controls (Directly below Earth) -->
+            <div class="flex flex-wrap justify-center items-center gap-2 mt-6 relative z-20">
+                <button onclick="setSpectra('mono')" id="btn-spectra-mono" class="px-3 py-1.5 border-2 border-brand-cream text-brand-cream bg-brand-cream/10 font-mono text-[9px] tracking-widest uppercase transition-all duration-300">
+                    SATELLITE (MONO)
+                </button>
+                <button onclick="setSpectra('thermal')" id="btn-spectra-thermal" class="px-3 py-1.5 border border-brand-cream/20 text-brand-cream/60 hover:text-brand-cream font-mono text-[9px] tracking-widest uppercase transition-all duration-300">
+                    THERMAL (IR)
+                </button>
+                <button onclick="setSpectra('co2')" id="btn-spectra-co2" class="px-3 py-1.5 border border-brand-cream/20 text-brand-cream/60 hover:text-brand-cream font-mono text-[9px] tracking-widest uppercase transition-all duration-300">
+                    CARBON FEED (CO2)
+                </button>
+                <button onclick="toggleGrid()" id="btn-spectra-grid" class="px-3 py-1.5 border border-brand-cream/20 text-brand-cream/60 hover:text-brand-cream font-mono text-[9px] tracking-widest uppercase transition-all duration-300">
+                    TOGGLE GRID [ON]
+                </button>
+            </div>
+
+            <p class="font-mono text-xs uppercase tracking-[0.4em] text-brand-accent mt-10 mb-2 font-bold select-none text-center">
+                PROTECTING OUR PLANET FOR FUTURE GENERATIONS
+            </p>
+            
+            <!-- Monumental, Intersecting Poster Title -->
+            <h1 class="font-display text-6xl sm:text-7xl md:text-9xl tracking-tighter leading-none text-brand-cream uppercase select-none text-center relative z-20 -mt-2">
+                EARTH DAY
+            </h1>
+
+            <div class="max-w-xl mx-auto text-center mt-4">
+                <p class="text-xs sm:text-sm text-brand-cream/70 leading-relaxed font-light">
+                    An uncompromising climate command architecture constructed to mobilize direct local networks against ecological degradation. Target year threshold active.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Lower Technical Print Footer (From original cover structure) -->
+        <div class="max-w-7xl mx-auto w-full border-t border-brand-cream/10 pt-4 flex flex-col sm:flex-row justify-between items-center text-[10px] font-mono tracking-widest text-brand-cream/30 gap-4 relative z-20">
+            <div>TARGET FRAME: DECARBONIZATION 2030</div>
+            <a href="#deck-preview" class="flex items-center gap-6 group hover:text-brand-accent transition-colors">
+                <span>SCROLL OR CLICK TO EXPLORE SYSTEM</span>
+                <svg class="w-4 h-4 animate-bounce text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+                </svg>
+            </a>
+            <div>AUTHENTIC MANIFESTO DECREE // SECURE</div>
+        </div>
+    </section>
+
+    <!-- SECTION: THE EDITORIAL SLIDE DECK (CAROUSEL) -->
+    <!-- Mimics the exact layout of the 8 slides shown in the image but lets user interact, read, and step through them -->
+    <section id="deck-preview" class="py-24 px-6 bg-brand-cream">
+        <div class="max-w-7xl mx-auto">
+            
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-brand-navy/20 pb-8 mb-12 gap-4">
+                <div>
+                    <span class="font-mono text-xs uppercase tracking-widest text-brand-accent font-bold">THE CORE MANIFESTO</span>
+                    <h2 class="font-display text-4xl md:text-5xl uppercase tracking-tight mt-1">THE INTERACTIVE DECK</h2>
+                </div>
+                <p class="max-w-md text-sm text-brand-navy/70 leading-relaxed font-light">
+                    Step through the high-fidelity presentation structures adapted from the 2030 Global Earth Summit. Each card holds architectural ecological parameters.
+                </p>
+            </div>
+
+            <!-- Slide Canvas Stage -->
+            <div class="relative bg-brand-navy text-brand-cream p-6 md:p-12 border-2 border-brand-navy shadow-2xl overflow-hidden min-h-[550px] flex flex-col justify-between transition-all duration-500 rounded-lg">
+                
+                <!-- Inner Decorative Details -->
+                <div class="absolute inset-0 pointer-events-none opacity-40" id="deck-slide-stars"></div>
+                <div class="flex justify-between items-center border-b border-brand-cream/10 pb-4 mb-6 z-10">
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-brand-cream/40" id="slide-author">@REALLYGREATSITE</span>
+                    <span class="font-condensed text-xs uppercase tracking-widest text-brand-cream/60 bg-white/10 px-3 py-1" id="slide-num-label">SLIDE 01 / 08</span>
+                </div>
+
+                <!-- Slide Content Node (Dynamically Updated by JS) -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center my-auto z-10" id="slide-dynamic-content">
+                    <!-- Standard placeholder content that will be hot-swapped seamlessly -->
+                </div>
+
+                <!-- Slide Control Panel footer -->
+                <div class="border-t border-brand-cream/10 pt-6 mt-8 flex flex-col sm:flex-row justify-between items-center gap-4 z-10">
+                    <div class="flex items-center gap-2">
+                        <!-- Navigation dots indicator -->
+                        <div class="flex gap-1.5" id="slide-indicators">
+                            <!-- Injected dynamically -->
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 font-condensed tracking-wider text-sm">
+                        <button onclick="changeSlide(-1)" class="group flex items-center gap-2 border border-brand-cream/20 px-4 py-2 hover:bg-brand-cream hover:text-brand-navy transition-all">
+                            <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                            </svg>
+                            PREVIOUS
+                        </button>
+                        <button onclick="changeSlide(1)" class="group flex items-center gap-2 bg-brand-cream text-brand-navy px-5 py-2 hover:bg-brand-accent hover:text-white transition-all">
+                            NEXT
+                            <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION: ENVIRONMENTAL CHALLENGES (ASYNCHRONOUS EXPLORER) -->
+    <!-- High fidelity representation of Slide 2 layout with advanced exploration interaction -->
+    <section id="challenges" class="py-24 px-6 bg-brand-cream border-t border-brand-navy/10 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                
+                <!-- Left Sticky Block with Title -->
+                <div class="lg:col-span-5 lg:sticky lg:top-28">
+                    <span class="font-mono text-xs uppercase tracking-widest text-brand-accent font-bold">THE SYSTEM FALLOUT</span>
+                    <h2 class="font-display text-4xl md:text-5xl uppercase tracking-tight mt-2 mb-6">ENVIRONMENTAL<br>CHALLENGES<br>WE FACE</h2>
+                    <p class="text-brand-navy/70 leading-relaxed font-light mb-8 max-w-md">
+                        Our ecosystems are reaching critical atmospheric tipping points. Choose an ecological sector below to analyze the real-time breakdown.
+                    </p>
+
+                    <!-- Large stylized challenge indicators -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div onclick="selectChallenge(1)" id="ch-btn-1" class="challenge-tab-btn cursor-pointer p-4 border border-brand-navy bg-brand-navy text-brand-cream transition-all duration-300 hover:border-brand-navy">
+                            <span class="font-mono text-xs block opacity-60 mb-1">01</span>
+                            <span class="font-condensed text-md uppercase font-bold tracking-wider leading-none">CLIMATE & WARMING</span>
+                        </div>
+                        <div onclick="selectChallenge(2)" id="ch-btn-2" class="challenge-tab-btn cursor-pointer p-4 border border-brand-navy/20 hover:border-brand-navy transition-all duration-300">
+                            <span class="font-mono text-xs block opacity-60 mb-1">02</span>
+                            <span class="font-condensed text-md uppercase font-bold tracking-wider leading-none">POLLUTION & LANDS</span>
+                        </div>
+                        <div onclick="selectChallenge(3)" id="ch-btn-3" class="challenge-tab-btn cursor-pointer p-4 border border-brand-navy/20 hover:border-brand-navy transition-all duration-300">
+                            <span class="font-mono text-xs block opacity-60 mb-1">03</span>
+                            <span class="font-condensed text-md uppercase font-bold tracking-wider leading-none">DEFORESTATION & FIRES</span>
+                        </div>
+                        <div onclick="selectChallenge(4)" id="ch-btn-4" class="challenge-tab-btn cursor-pointer p-4 border border-brand-navy/20 hover:border-brand-navy transition-all duration-300">
+                            <span class="font-mono text-xs block opacity-60 mb-1">04</span>
+                            <span class="font-condensed text-md uppercase font-bold tracking-wider leading-none">LOSS OF BIODIVERSITY</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Interactive Display Panel -->
+                <div class="lg:col-span-7 bg-white p-6 md:p-10 border border-brand-navy/20 shadow-xl transition-all duration-500 rounded" id="challenge-display-panel">
+                    <!-- Dynamic Graphic & Text loaded via JS -->
+                    <div class="animate-fade-in">
+                        <div class="relative w-full h-80 overflow-hidden mb-6 bg-brand-navy hover-zoom rounded">
+                            <img id="challenge-img" src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=1200" alt="Environmental Challenge" class="w-full h-full object-cover grayscale brightness-90">
+                            <div class="absolute inset-0 bg-brand-navy/30 mix-blend-multiply"></div>
+                            <div class="absolute bottom-4 left-4 font-mono text-xs text-brand-cream bg-brand-navy/80 px-3 py-1 tracking-wider uppercase" id="challenge-tag">
+                                ACTIVE HAZARD // ZONE 01
+                            </div>
+                        </div>
+
+                        <h3 class="font-display text-2xl uppercase tracking-tight mb-4" id="challenge-title">Climate Change & Global Warming</h3>
+                        <p class="text-brand-navy/80 text-sm leading-relaxed mb-6 font-light" id="challenge-desc">
+                            Rising greenhouse gas concentrations are trapping heat, raising ocean surface temperatures, and precipitating extreme weather phenomena internationally. Rapid fossil fuel phase-outs are strictly mandatory.
+                        </p>
+
+                        <!-- Nested micro metrics -->
+                        <div class="border-t border-brand-navy/10 pt-6 grid grid-cols-3 gap-4">
+                            <div>
+                                <span class="block text-brand-accent font-mono text-xl font-bold" id="challenge-stat-1">+1.5°C</span>
+                                <span class="text-[10px] uppercase text-brand-navy/60 font-mono tracking-wider" id="challenge-label-1">LIMIT OFFSET</span>
+                            </div>
+                            <div>
+                                <span class="block text-brand-navy font-mono text-xl font-bold" id="challenge-stat-2">421 ppm</span>
+                                <span class="text-[10px] uppercase text-brand-navy/60 font-mono tracking-wider" id="challenge-label-2">CO2 LEVEL</span>
+                            </div>
+                            <div>
+                                <span class="block text-brand-navy font-mono text-xl font-bold" id="challenge-stat-3">12%</span>
+                                <span class="text-[10px] uppercase text-brand-navy/60 font-mono tracking-wider" id="challenge-label-3">ALBEDO LOSS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE SECTION: STATS & CITIZENS MONITOR -->
+    <section class="py-20 px-6 bg-brand-navy text-brand-cream border-y border-brand-navy relative">
+        <div id="stats-stars" class="absolute inset-0 pointer-events-none opacity-40"></div>
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 divide-y md:divide-y-0 md:divide-x divide-brand-cream/10 text-center md:text-left">
+                <div class="pt-6 md:pt-0">
+                    <span class="block text-5xl md:text-6xl font-display text-brand-accent tracking-tighter">193+</span>
+                    <span class="block text-xs font-mono uppercase tracking-widest mt-2 text-brand-cream/60">COUNTRIES COMMITTED</span>
+                    <p class="text-xs text-brand-cream/40 mt-1">Bound to net-zero reduction standards.</p>
+                </div>
+                <div class="pt-6 md:pt-0 md:pl-8">
+                    <span class="block text-5xl md:text-6xl font-display text-brand-cream tracking-tighter">8.7M</span>
+                    <span class="block text-xs font-mono uppercase tracking-widest mt-2 text-brand-cream/60">SPECIES PROTECTED</span>
+                    <p class="text-xs text-brand-cream/40 mt-1">Expanding biological sanctuary bounds.</p>
+                </div>
+                <div class="pt-6 md:pt-0 md:pl-8">
+                    <span class="block text-5xl md:text-6xl font-display text-brand-cream tracking-tighter">45%</span>
+                    <span class="block text-xs font-mono uppercase tracking-widest mt-2 text-brand-cream/60">RENEWABLES GRID</span>
+                    <p class="text-xs text-brand-cream/40 mt-1">Global average target metric for 2030.</p>
+                </div>
+                <div class="pt-6 md:pt-0 md:pl-8">
+                    <span class="block text-5xl md:text-6xl font-display text-brand-accent tracking-tighter">0.0s</span>
+                    <span class="block text-xs font-mono uppercase tracking-widest mt-2 text-brand-cream/60">TIME TO SPARE</span>
+                    <p class="text-xs text-brand-cream/40 mt-1">Decisive micro-actions required immediately.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE SYSTEMIC HISTORIAN (HISTORY TIMELINE) -->
+    <!-- Matches Slide 4 styling - Elegant, large grayscale photography blocks and sequential timelines -->
+    <section id="history" class="py-24 px-6 bg-brand-cream">
+        <div class="max-w-7xl mx-auto">
+            
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-brand-navy/20 pb-8 mb-16 gap-4">
+                <div>
+                    <span class="font-mono text-xs uppercase tracking-widest text-brand-accent font-bold">HISTORICAL EVOLUTION</span>
+                    <h2 class="font-display text-4xl md:text-5xl uppercase tracking-tight mt-1">THE HISTORICAL CHRONOLOGY</h2>
+                </div>
+                <p class="max-w-md text-sm text-brand-navy/70 leading-relaxed font-light">
+                    How decades of international pressure, policy milestones, and persistent civil outcries forged our current structural roadmap.
+                </p>
+            </div>
+
+            <!-- Horizontal Timeline Scroller -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Era 1 -->
+                <div class="bg-white border border-brand-navy/15 p-6 flex flex-col justify-between hover:shadow-lg transition-all duration-300 rounded group">
+                    <div>
+                        <div class="relative w-full h-48 overflow-hidden mb-6 bg-neutral-900 rounded">
+                            <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=800" alt="Industrial Revolution era environmentalism" class="w-full h-full object-cover grayscale brightness-75 group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <span class="font-mono text-xs text-brand-accent font-bold tracking-wider uppercase block mb-1">FOUNDATION ERA // 1970</span>
+                        <h3 class="font-display text-xl uppercase tracking-tight text-brand-navy mb-3">The Genesis of Protest</h3>
+                        <p class="text-xs text-brand-navy/70 leading-relaxed font-light">
+                            Over 20 million Americans took to the streets on April 22, 1970, mobilizing against industrial smog, toxic waste disposal, and biodiversity collapses. This established the inaugural global Earth Day.
+                        </p>
+                    </div>
+                    <div class="border-t border-brand-navy/10 pt-4 mt-6 flex justify-between items-center text-[10px] font-mono tracking-widest text-brand-navy/50">
+                        <span>STAGE 01</span>
+                        <span>ORIGINAL DECREE</span>
+                    </div>
+                </div>
+
+                <!-- Era 2 -->
+                <div class="bg-white border border-brand-navy/15 p-6 flex flex-col justify-between hover:shadow-lg transition-all duration-300 rounded group">
+                    <div>
+                        <div class="relative w-full h-48 overflow-hidden mb-6 bg-neutral-900 rounded">
+                            <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&q=80&w=800" alt="Paris Climate Agreement" class="w-full h-full object-cover grayscale brightness-75 group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <span class="font-mono text-xs text-brand-accent font-bold tracking-wider uppercase block mb-1">Milestone Decree // 2015</span>
+                        <h3 class="font-display text-xl uppercase tracking-tight text-brand-navy mb-3">The Paris Climate Accord</h3>
+                        <p class="text-xs text-brand-navy/70 leading-relaxed font-light">
+                            Delegates from 196 nations unified to execute a binding treaty targeting global average warming ceilings well below 2.0°C. This revolutionized localized corporate policy-making benchmarks.
+                        </p>
+                    </div>
+                    <div class="border-t border-brand-navy/10 pt-4 mt-6 flex justify-between items-center text-[10px] font-mono tracking-widest text-brand-navy/50">
+                        <span>STAGE 02</span>
+                        <span>INTER-GOVERNMENTAL</span>
+                    </div>
+                </div>
+
+                <!-- Era 3 -->
+                <div class="bg-white border border-brand-navy/15 p-6 flex flex-col justify-between hover:shadow-lg transition-all duration-300 rounded group">
+                    <div>
+                        <div class="relative w-full h-48 overflow-hidden mb-6 bg-neutral-900 rounded">
+                            <img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&q=80&w=800" alt="Wind Turbines sustainable energy" class="w-full h-full object-cover grayscale brightness-75 group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <span class="font-mono text-xs text-brand-accent font-bold tracking-wider uppercase block mb-1">Horizon Year // 2030</span>
+                        <h3 class="font-display text-xl uppercase tracking-tight text-brand-navy mb-3">Decentralized Direct Action</h3>
+                        <p class="text-xs text-brand-navy/70 leading-relaxed font-light">
+                            Communities take control directly, relying on autonomous smart grids, strict hyper-local carbon quotas, and real-time open-source ledger monitoring of multinational corporations.
+                        </p>
+                    </div>
+                    <div class="border-t border-brand-navy/10 pt-4 mt-6 flex justify-between items-center text-[10px] font-mono tracking-widest text-brand-navy/50">
+                        <span>STAGE 03</span>
+                        <span>GLOBAL SYSTEM SYSTEM</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- INTERACTIVE GAME CHANGER: GET INVOLVED (ACTION HUB) -->
+    <!-- Recreates the feel of Slide 7 with an interactive tool where users can customize their Earth Day Action Plan -->
+    <section id="action-hub" class="py-24 px-6 bg-brand-navy text-brand-cream relative">
+        <div id="action-stars" class="absolute inset-0 pointer-events-none opacity-40"></div>
+        <div class="max-w-5xl mx-auto relative z-10">
+            
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="font-mono text-xs uppercase tracking-widest text-brand-accent font-bold">TAKE SYSTEM RESPONSES</span>
+                <h2 class="font-display text-4xl md:text-5xl uppercase tracking-tight mt-2 mb-4">GET INVOLVED TODAY</h2>
+                <p class="text-sm text-brand-cream/70 leading-relaxed font-light">
+                    Generate an immediately executable sustainability action template tailored to your current ecosystem status.
+                </p>
+            </div>
+
+            <!-- Interactivity Frame -->
+            <div class="bg-brand-navylight border border-brand-cream/20 p-6 md:p-10 rounded-lg shadow-2xl">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
+                    
+                    <!-- Form Selection Column -->
+                    <div class="md:col-span-5 flex flex-col justify-between gap-6">
+                        <div>
+                            <label class="block font-condensed uppercase tracking-wider text-xs text-brand-cream/60 mb-2">1. SELECT YOUR SECTOR</label>
+                            <div class="space-y-2">
+                                <button onclick="selectActionSector('individual')" id="sec-individual" class="sector-btn w-full text-left p-3.5 border-2 border-brand-accent bg-brand-accent/10 text-brand-cream transition-all flex items-center justify-between">
+                                    <span class="font-bold text-sm tracking-wide">INDIVIDUAL CITIZEN</span>
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                    </svg>
+                                </button>
+                                <button onclick="selectActionSector('business')" id="sec-business" class="sector-btn w-full text-left p-3.5 border border-brand-cream/20 hover:border-brand-cream/60 transition-all flex items-center justify-between">
+                                    <span class="font-bold text-sm tracking-wide">ENTERPRISE / BUSINESS</span>
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                                    </svg>
+                                </button>
+                                <button onclick="selectActionSector('educator')" id="sec-educator" class="sector-btn w-full text-left p-3.5 border border-brand-cream/20 hover:border-brand-cream/60 transition-all flex items-center justify-between">
+                                    <span class="font-bold text-sm tracking-wide">EDUCATOR / LEADER</span>
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block font-condensed uppercase tracking-wider text-xs text-brand-cream/60 mb-2" id="slider-intensity-label">2. ACTION INTENSITY (MEDIUM)</label>
+                            <input type="range" min="1" max="3" value="2" oninput="changeActionIntensity(this.value)" class="w-full accent-brand-accent cursor-pointer bg-brand-navy h-1.5 rounded-lg appearance-none">
+                            <div class="flex justify-between text-[10px] font-mono tracking-widest text-brand-cream/40 mt-1">
+                                <span>MINIMAL</span>
+                                <span>MODERATE</span>
+                                <span>RADICAL</span>
+                            </div>
+                        </div>
+
+                        <button onclick="generateCustomPlan()" class="w-full bg-brand-cream text-brand-navy py-4 font-condensed font-bold uppercase tracking-wider text-sm hover:bg-brand-accent hover:text-white transition-all duration-300 flex items-center justify-center gap-2 shadow-lg">
+                            GENERATE ACTION PROTOCOLS
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Output Action Frame -->
+                    <div class="md:col-span-7 bg-brand-navy p-6 border-2 border-brand-cream/15 flex flex-col justify-between relative overflow-hidden rounded">
+                        <div class="absolute top-0 right-0 p-2 opacity-5 font-mono text-8xl font-bold select-none" id="watermark-sector">INDIV</div>
+                        
+                        <div class="relative z-10">
+                            <div class="flex items-center gap-3 border-b border-brand-cream/10 pb-4 mb-4">
+                                <span class="w-2.5 h-2.5 rounded-full bg-brand-accent animate-ping"></span>
+                                <span class="font-mono text-xs tracking-widest text-brand-cream/60" id="output-header-sector">ACTIVE REGISTERED DIRECTIVE</span>
+                            </div>
+
+                            <h3 class="font-display text-xl uppercase tracking-tight text-brand-cream mb-4" id="output-action-title">COMMUNITY REFUSE REDIRECTION</h3>
+                            
+                            <ul class="space-y-4 text-xs font-light text-brand-cream/80" id="output-action-steps">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-brand-accent font-bold font-mono">01.</span>
+                                    <span>Initiate immediate source segregation protocols for multi-layered plastics inside domestic nodes.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-brand-accent font-bold font-mono">02.</span>
+                                    <span>Adopt composting channels for structural biomass recycling, mitigating local methane escape indexes.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-brand-accent font-bold font-mono">03.</span>
+                                    <span>Decline physical packaging dependencies by enforcing zero-waste raw goods vendor relationships.</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="border-t border-brand-cream/10 pt-4 mt-6 flex justify-between items-center text-[10px] font-mono tracking-widest text-brand-cream/40 z-10">
+                            <span id="output-serial">SERIAL ID: ACT-IND-MID</span>
+                            <button onclick="copyActionPlan()" class="text-brand-accent font-bold hover:underline">EXTRACT PDF TO CLIPBOARD</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION: THE CRUCIAL COLLABORATION (BUSINESS & GOVERNMENT) -->
+    <!-- Mimics Slide 5 styling, but in a grid format with structural clarity -->
+    <section class="py-24 px-6 bg-brand-cream border-t border-brand-navy/15">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-6 relative hover-zoom overflow-hidden border border-brand-navy/10 rounded">
+                    <!-- Dramatic rocky coast with powerful waves -->
+                    <img src="https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&q=80&w=1200" alt="Dramatic natural ocean cliffs" class="w-full h-[450px] object-cover grayscale brightness-90">
+                    <div class="absolute inset-0 bg-brand-navy/20 mix-blend-multiply"></div>
+                    <div class="absolute bottom-6 left-6 font-mono text-xs text-brand-cream bg-brand-navy px-4 py-2 uppercase tracking-widest border border-brand-cream/10">
+                        ECOLOGICAL BARRIER // SECURED
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6">
+                    <span class="font-mono text-xs uppercase tracking-widest text-brand-accent font-bold">STRUCTURAL SYSTEM RESPONSIBILITY</span>
+                    <h2 class="font-display text-4xl md:text-5xl uppercase tracking-tight mt-2 mb-6">THE DUAL ALLIANCE:<br>BUSINESS & STATE</h2>
+                    <p class="text-brand-navy/80 text-sm leading-relaxed mb-6 font-light">
+                        Corporate supply chains and legislative actions must operate in systematic tandem. Voluntary pledges are no longer sufficient; binding ecological mandates represent the baseline architecture.
+                    </p>
+
+                    <div class="space-y-6">
+                        <div class="flex gap-4 items-start border-l-2 border-brand-accent pl-4">
+                            <div>
+                                <h4 class="font-condensed text-lg uppercase font-bold tracking-wider text-brand-navy">01 \ CARBON TAX SYSTEMS</h4>
+                                <p class="text-xs text-brand-navy/60 leading-relaxed font-light mt-1">
+                                    Enforcing steep fiscal implications on industrial scope-3 emission metrics.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 items-start border-l-2 border-brand-navy/30 pl-4">
+                            <div>
+                                <h4 class="font-condensed text-lg uppercase font-bold tracking-wider text-brand-navy">02 \ GREEN INFRASTRUCTURE BONDS</h4>
+                                <p class="text-xs text-brand-navy/60 leading-relaxed font-light mt-1">
+                                    Funneling government capital reserves directly into continental high-speed electrified transit matrices.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 items-start border-l-2 border-brand-navy/30 pl-4">
+                            <div>
+                                <h4 class="font-condensed text-lg uppercase font-bold tracking-wider text-brand-navy">03 \ BIOLOGICAL LAND IMMUNITY</h4>
+                                <p class="text-xs text-brand-navy/60 leading-relaxed font-light mt-1">
+                                    Codifying standard state-level defense barriers for threatened forests, restricting all corporate expansion.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: COMMUNITY PACT AND NEWSLETTER -->
+    <section class="py-24 px-6 bg-brand-navy text-brand-cream relative">
+        <div id="newsletter-stars" class="absolute inset-0 pointer-events-none opacity-40"></div>
+        <div class="max-w-4xl mx-auto relative z-10 text-center">
+            
+            <span class="font-mono text-xs uppercase tracking-widest text-brand-accent font-bold">STAY SYNCHRONIZED</span>
+            <h2 class="font-display text-4xl md:text-6xl uppercase tracking-tighter mt-2 mb-6">JOIN THE PLANETARY DISPATCH</h2>
+            <p class="max-w-xl mx-auto text-sm text-brand-cream/70 leading-relaxed font-light mb-8">
+                Subscribe to structural briefings, local policy mobilizations, and real-time planetary health telemetry direct from the source.
+            </p>
+
+            <form onsubmit="handleSubscribe(event)" class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto border border-brand-cream/20 p-2 bg-brand-navylight rounded">
+                <input type="email" placeholder="ENTER DESIRED COMMUNICATIONS NODE" required class="flex-grow bg-transparent px-4 py-3 text-xs font-mono text-brand-cream uppercase tracking-wider outline-none border-b sm:border-b-0 border-brand-cream/20">
+                <button type="submit" class="bg-brand-cream text-brand-navy font-condensed font-bold uppercase tracking-widest text-xs px-6 py-3.5 hover:bg-brand-accent hover:text-white transition-all duration-300">
+                    SUBSCRIBE
+                </button>
+            </form>
+
+            <p id="subscribe-message" class="text-xs font-mono mt-4 text-brand-accent hidden">COMMUNICATIONS NODE REGISTRATION COMPLETE // STAY ALERT</p>
+        </div>
+    </section>
+
+    <!-- FOOTER ARCHITECTURE -->
+    <footer class="bg-brand-cream border-t border-brand-navy/20 text-brand-navy py-16 px-6 relative">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12">
+            
+            <!-- Logo column -->
+            <div class="md:col-span-4 space-y-4">
+                <span class="font-display text-xl tracking-wider text-brand-navy block">
+                    EARTH DAY <span class="text-brand-accent">2030</span>
+                </span>
+                <p class="text-xs text-brand-navy/60 leading-relaxed font-light">
+                    The 2030 Earth Day initiative represents an uncompromising design layout built specifically to catalyze high-frequency physical planetary rescue operations.
+                </p>
+                <div class="font-mono text-[10px] tracking-wider text-brand-navy/40">
+                    © 2030 EARTH DAY ALLIANCE. ALL MANIFESTOS PROTECTED UNDER INTER-STATES LAWS.
+                </div>
+            </div>
+
+            <!-- Link columns -->
+            <div class="md:col-span-2 space-y-3 text-xs">
+                <span class="font-mono font-bold tracking-wider text-[10px] uppercase text-brand-navy/50 block">GLOBAL SYSTEMS</span>
+                <a href="#manifesto" class="block hover:text-brand-accent hover:underline">MANIFESTO DIRECTIVE</a>
+                <a href="#deck-preview" class="block hover:text-brand-accent hover:underline">SLIDE BLUEPRINT</a>
+                <a href="#challenges" class="block hover:text-brand-accent hover:underline">CLIMATE METRICS</a>
+                <a href="#action-hub" class="block hover:text-brand-accent hover:underline">COMMUNITY HUBS</a>
+            </div>
+
+            <div class="md:col-span-2 space-y-3 text-xs">
+                <span class="font-mono font-bold tracking-wider text-[10px] uppercase text-brand-navy/50 block">DOCUMENT DECREES</span>
+                <a href="#" class="block hover:text-brand-accent hover:underline">TERMS OF MOBILIZATION</a>
+                <a href="#" class="block hover:text-brand-accent hover:underline">DATA PRIVACY DIRECTS</a>
+                <a href="#" class="block hover:text-brand-accent hover:underline">GLOBAL ACCORD DETAILS</a>
+            </div>
+
+            <div class="md:col-span-4 space-y-4 text-xs">
+                <span class="font-mono font-bold tracking-wider text-[10px] uppercase text-brand-navy/50 block">COORDINATION NODE</span>
+                <p class="text-brand-navy/60 leading-relaxed font-light">
+                    Initiative coordinated from unified international eco-stations. Submissions and partnerships monitored dynamically.
+                </p>
+                <div class="flex gap-4">
+                    <span class="font-mono text-[10px] text-brand-accent font-bold">TEL: +1-2030-PLANET</span>
+                    <span class="font-mono text-[10px] text-brand-accent font-bold">EMAIL: DIRECTIVE@EARTHDAY.INT</span>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE ENGINE SCRIPT -->
+    <script>
+        // Starfield rendering parameters to mimic celestial backgrounds
+        function createStars(containerId, count) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = '';
+            for (let i = 0; i < count; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const size = Math.random() * 2 + 1; // 1px to 3px
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                container.appendChild(star);
+            }
+        }
+
+        // Initialize Starfields
+        window.addEventListener('DOMContentLoaded', () => {
+            createStars('hero-stars', 80); // Increased density for deeper cosmic look
+            createStars('deck-slide-stars', 30);
+            createStars('stats-stars', 40);
+            createStars('action-stars', 35);
+            createStars('newsletter-stars', 30);
+            
+            // Build slides indicators
+            renderIndicators();
+            // Load initial slide
+            renderSlide();
+        });
+
+        // -------------------------
+        // HERO INTERACTIVE SPECTRA FEEDS
+        // -------------------------
+        let activeSpectra = 'mono';
+        
+        function setSpectra(mode) {
+            activeSpectra = mode;
+            const glow = document.getElementById('planet-glow');
+            const na = document.getElementById('land-na');
+            const sa = document.getElementById('land-sa');
+            const eur = document.getElementById('land-eur');
+            const afr = document.getElementById('land-afr');
+            const aus = document.getElementById('land-aus');
+
+            // Reset tab button states
+            ['mono', 'thermal', 'co2'].forEach(m => {
+                const btn = document.getElementById(`btn-spectra-${m}`);
+                btn.className = "px-3 py-1.5 border border-brand-cream/20 text-brand-cream/60 hover:text-brand-cream font-mono text-[9px] tracking-widest uppercase transition-all duration-300";
+            });
+
+            // Set active state
+            document.getElementById(`btn-spectra-${mode}`).className = "px-3 py-1.5 border-2 border-brand-cream text-brand-cream bg-brand-cream/10 font-mono text-[9px] tracking-widest uppercase transition-all duration-300";
+
+            if (mode === 'mono') {
+                glow.className = "absolute inset-0 rounded-full glow-planet-mono telemetry-transition";
+                na.setAttribute('fill', 'rgba(244, 241, 235, 0.9)');
+                sa.setAttribute('fill', 'rgba(244, 241, 235, 0.8)');
+                eur.setAttribute('fill', 'rgba(244, 241, 235, 0.85)');
+                afr.setAttribute('fill', 'rgba(244, 241, 235, 0.75)');
+                aus.setAttribute('fill', 'rgba(244, 241, 235, 0.7)');
+                showToast("MONO PHOTOGRAPHIC SENSING ACTIVE", "Rendering natural landscape contours using visual spectrum telemetry.");
+            } else if (mode === 'thermal') {
+                glow.className = "absolute inset-0 rounded-full glow-planet-ir telemetry-transition bg-red-950/20";
+                na.setAttribute('fill', '#cf5a47');
+                sa.setAttribute('fill', '#e27461');
+                eur.setAttribute('fill', '#cf5a47');
+                afr.setAttribute('fill', '#a83c2a');
+                aus.setAttribute('fill', '#e27461');
+                showToast("THERMAL SPECTRAL (IR) ACTIVE", "Showing intense surface heating. Warning: Alpine zones registering critical anomaly values.");
+            } else if (mode === 'co2') {
+                glow.className = "absolute inset-0 rounded-full glow-planet-co2 telemetry-transition bg-blue-950/20";
+                na.setAttribute('fill', '#3b82f6');
+                sa.setAttribute('fill', '#60a5fa');
+                eur.setAttribute('fill', '#1d4ed8');
+                afr.setAttribute('fill', '#1e40af');
+                aus.setAttribute('fill', '#3b82f6');
+                showToast("ATMOSPHERIC CO2 CONCENTRATION", "Mapping parts-per-million dense overlays. Industrial corridors exceed 421ppm thresholds.");
+            }
+        }
+
+        let gridVisible = true;
+        function toggleGrid() {
+            gridVisible = !gridVisible;
+            const grid = document.getElementById('grid-overlay');
+            const btn = document.getElementById('btn-spectra-grid');
+            if (gridVisible) {
+                grid.style.opacity = '1';
+                btn.innerText = "TOGGLE GRID [ON]";
+                btn.className = "px-3 py-1.5 border border-brand-cream/20 text-brand-cream hover:text-brand-cream font-mono text-[9px] tracking-widest uppercase transition-all duration-300";
+            } else {
+                grid.style.opacity = '0';
+                btn.innerText = "TOGGLE GRID [OFF]";
+                btn.className = "px-3 py-1.5 border border-brand-cream/20 text-brand-cream/40 hover:text-brand-cream font-mono text-[9px] tracking-widest uppercase transition-all duration-300";
+            }
+        }
+
+        function showHotspot(zone) {
+            if (zone === 'arctic') {
+                showToast("HOTSPOT ACTIVED: ARCTIC ZONE", "Cryosphere reporting 12% albedo reduction this seasonal transition. Sea ice density critical.");
+            } else if (zone === 'amazon') {
+                showToast("HOTSPOT ACTIVED: AMAZON BASIN", "Carbon capture margin reduced by localized biomass burning. Fire detection active.");
+            } else if (zone === 'barrier') {
+                showToast("HOTSPOT ACTIVED: REEF BARRIER", "Sea surface warming anomalies triggering localized acidification bleaching sequence.");
+            }
+        }
+
+        let toastTimer;
+        function showToast(title, desc) {
+            const toast = document.getElementById('telemetry-toast');
+            document.getElementById('telemetry-title').innerText = title;
+            document.getElementById('telemetry-desc').innerText = desc;
+            toast.style.opacity = '1';
+            toast.style.transform = 'translate(-50%, -10px)';
+
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translate(-50%, 0)';
+            }, 6000);
+        }
+
+        // -------------------------
+        // INTERACTIVE SLIDE DECK SYSTEM
+        // -------------------------
+        const slides = [
+            {
+                number: "01",
+                title: "ENVIRONMENTAL CHALLENGES WE FACE",
+                desc: "An outline of systemic breakdowns, resource depletions, and active regional atmospheric instabilities requiring coordinated community oversight.",
+                bullet1: "CLIMATE CHANGE & INTENSE HEATING",
+                bullet2: "PLASTIC CONCENTRATION & POLLUTION",
+                bullet3: "DEFORESTATION & FIRES",
+                bullet4: "BIODIVERSITY ERADICATION",
+                image: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&q=80&w=800",
+                imgCaption: "BIOLOGICAL BARRIER ZONE"
+            },
+            {
+                number: "02",
+                title: "THE IMPORTANCE OF EARTH DAY",
+                desc: "Every single ecological action is integrated. Without a unified annual check-point to shift economic patterns, state policies risk total stagnation.",
+                bullet1: "CATALYZING GREEN LEGISLATION",
+                bullet2: "MUNICIPAL RESOURCE ALLOCATION",
+                bullet3: "INDIVIDUAL BEHAVIOR SHIFTS",
+                bullet4: "CORPORATE ACCOUNTABILITY MONITOR",
+                image: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&q=80&w=800",
+                imgCaption: "EVALUATED LANDSCAPE // VERIFIED"
+            },
+            {
+                number: "03",
+                title: "SIMPLE WAYS TO MAKE A DIFFERENCE",
+                desc: "Micro-commitments systematically aggregate to yield robust systemic changes. Scale your environmental footprint starting today.",
+                bullet1: "REDUCE, REUSE & LOCAL RECYCLING",
+                bullet2: "COMMUNITY WATER RECLAMATION",
+                bullet3: "PLANT FORESTRY RESTORATION",
+                bullet4: "SUPPORT SUSTAINABLE BRANDS",
+                image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=800",
+                imgCaption: "RECLAMATION AREA // DIRECT"
+            },
+            {
+                number: "04",
+                title: "THE HISTORY AND EVOLUTION",
+                desc: "Forged in the structural protests of the late 20th century, Earth Day has expanded from localized rallies into an international planetary treaty framework.",
+                bullet1: "1970 THE ORIGINAL MANIFESTO",
+                bullet2: "1990 EXPANSION TO 141 COUNTRIES",
+                bullet3: "2015 LINK TO PARIS CLIMATE ACCORD",
+                bullet4: "2030 DECENTRALIZED COOP GOVERNANCE",
+                image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=800",
+                imgCaption: "HISTORICAL SURVEY POINT"
+            },
+            {
+                number: "05",
+                title: "BUSINESS & GOVERNMENT RESPONSES",
+                desc: "How structured entities are forced to reconstruct standard practices. The era of unchecked carbon emissions is legally and economically closing.",
+                bullet1: "STRICT SCOPE-3 EMISSIONS QUOTAS",
+                bullet2: "RENEWABLE ENERGY PROCUREMENT",
+                bullet3: "RECIRCULATION IN DESIGN FLOWS",
+                bullet4: "STATE-ENFORCED NATURE SANCTUARIES",
+                image: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&q=80&w=800",
+                imgCaption: "SYSTEM POWER GRID // ALT"
+            },
+            {
+                number: "06",
+                title: "THE IMPACT OF CLIMATE CHANGE",
+                desc: "Analyzing extreme global heat anomalies, desertification thresholds, and real-time continental water stress patterns.",
+                bullet1: "+2.0°C CRITICAL WARP MARGIN",
+                bullet2: "GLACIER VOLUME DECOMPOSITION",
+                bullet3: "AGRICULTURAL HARVEST DECLINES",
+                bullet4: "DISPLACED COASTAL POPULATIONS",
+                image: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&q=80&w=800",
+                imgCaption: "WARMING SURVEY RADAR"
+            },
+            {
+                number: "07",
+                title: "GET INVOLVED TODAY",
+                desc: "Our current portal connects direct local action squads to coordinate organic waste handling, localized power collection, and protective measures.",
+                bullet1: "NEIGHBORHOOD CLEANUP SQUADS",
+                bullet2: "MICRO-GRID PARTICIPATION",
+                bullet3: "RESTORATIVE LAND SEEDING",
+                bullet4: "ADVOCATE LEGISLATIVE LOBBYING",
+                image: "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&q=80&w=800",
+                imgCaption: "ACTIVE RESTORATION SITE"
+            },
+            {
+                number: "08",
+                title: "HOW EARTH DAY INSPIRES ACTION",
+                desc: "More than a commemoration—it is an engine of systemic progress that reshapes human relations with nature permanently.",
+                bullet1: "EMPOWERING NEXT-GEN ADVOCATES",
+                bullet2: "REDEFINING PRODUCT SOURCING",
+                bullet3: "COALESCING GLOBAL ALLIANCES",
+                bullet4: "RESTABLISHING HARMONIOUS BASELINES",
+                image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&q=80&w=800",
+                imgCaption: "VERDANT SANCTUARY ZONE"
+            }
+        ];
+
+        let currentSlideIndex = 0;
+
+        function renderIndicators() {
+            const container = document.getElementById('slide-indicators');
+            if (!container) return;
+            container.innerHTML = '';
+            slides.forEach((_, idx) => {
+                const indicator = document.createElement('button');
+                indicator.onclick = () => jumpToSlide(idx);
+                indicator.className = `w-8 h-1.5 transition-all ${idx === currentSlideIndex ? 'bg-brand-accent' : 'bg-brand-cream/20 hover:bg-brand-cream/50'}`;
+                container.appendChild(indicator);
+            });
+        }
+
+        function renderSlide() {
+            const slide = slides[currentSlideIndex];
+            
+            // Set slide marker label
+            const labelNode = document.getElementById('slide-num-label');
+            if (labelNode) labelNode.innerText = `SLIDE ${slide.number} / 08`;
+            
+            const contentNode = document.getElementById('slide-dynamic-content');
+            if (!contentNode) return;
+            
+            // Smoothly insert slide layouts to match the presentation aesthetic of the uploaded slide styles
+            contentNode.innerHTML = `
+                <!-- Left text column of slide layout -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div>
+                        <span class="font-mono text-xs uppercase tracking-widest text-brand-accent font-bold">SECTION ${slide.number} // THE DIRECTIVES</span>
+                        <h3 class="font-display text-3xl md:text-4xl uppercase tracking-tight mt-1 text-brand-cream leading-tight">${slide.title}</h3>
+                    </div>
+                    <p class="text-sm text-brand-cream/70 leading-relaxed font-light">${slide.desc}</p>
+                    
+                    <!-- Asymmetric numbered bullet lists inside slide -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-brand-cream/10">
+                        <div class="flex items-center gap-3">
+                            <span class="font-mono text-xs text-brand-accent font-bold">01</span>
+                            <span class="font-condensed text-xs uppercase tracking-wider text-brand-cream/90">${slide.bullet1}</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="font-mono text-xs text-brand-accent font-bold">02</span>
+                            <span class="font-condensed text-xs uppercase tracking-wider text-brand-cream/90">${slide.bullet2}</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="font-mono text-xs text-brand-accent font-bold">03</span>
+                            <span class="font-condensed text-xs uppercase tracking-wider text-brand-cream/90">${slide.bullet3}</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="font-mono text-xs text-brand-accent font-bold">04</span>
+                            <span class="font-condensed text-xs uppercase tracking-wider text-brand-cream/90">${slide.bullet4}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right premium monochrome-styled visual column -->
+                <div class="lg:col-span-5 relative hover-zoom overflow-hidden border border-brand-cream/20 bg-neutral-900 rounded">
+                    <img src="${slide.image}" alt="${slide.title}" class="w-full h-64 md:h-80 object-cover grayscale brightness-90 contrast-100">
+                    <div class="absolute inset-0 bg-brand-navy/30 mix-blend-multiply"></div>
+                    <div class="absolute bottom-4 left-4 font-mono text-[10px] text-brand-cream bg-brand-navy/90 px-3 py-1 tracking-wider uppercase border border-brand-cream/15">
+                        ${slide.imgCaption}
+                    </div>
+                </div>
+            `;
+
+            // Update dots
+            renderIndicators();
+        }
+
+        function changeSlide(direction) {
+            currentSlideIndex += direction;
+            if (currentSlideIndex >= slides.length) currentSlideIndex = 0;
+            if (currentSlideIndex < 0) currentSlideIndex = slides.length - 1;
+            renderSlide();
+        }
+
+        function jumpToSlide(index) {
+            currentSlideIndex = index;
+            renderSlide();
+        }
+
+        // -------------------------
+        // CHALLENGE EXPLORER TAB ENGINE
+        // -------------------------
+        const challengeData = {
+            1: {
+                title: "Climate Change & Global Warming",
+                desc: "Rising greenhouse gas concentrations are trapping heat, raising ocean surface temperatures, and precipitating extreme weather phenomena internationally. Rapid fossil fuel phase-outs are strictly mandatory.",
+                img: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=1200",
+                tag: "ACTIVE HAZARD // ZONE 01",
+                stat1: "+1.5°C",
+                lbl1: "LIMIT OFFSET",
+                stat2: "421 ppm",
+                lbl2: "CO2 LEVEL",
+                stat3: "12%",
+                lbl3: "ALBEDO LOSS"
+            },
+            2: {
+                title: "Pollution & Waste Proliferation",
+                desc: "Microplastics have entered remote ocean trenches and rainwater cycles alike. Mismanaged chemical runoff has rendered key continental riverbeds biologically sterile.",
+                img: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=1200",
+                tag: "HAZARDOUS RUNOFF // ZONE 02",
+                stat1: "150MT",
+                lbl1: "OCEAN PLASTIC",
+                stat2: "78%",
+                lbl2: "LAND POLLUTED",
+                stat3: "9.1M",
+                lbl3: "ANNUAL DEATHS"
+            },
+            3: {
+                title: "Deforestation & Structural Burning",
+                desc: "Primary jungle networks inside global rainforests are cleared at historic margins for livestock and mining, wiping natural carbon sinks off global maps permanently.",
+                img: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&q=80&w=1200",
+                tag: "CANOPY LOSS // ZONE 03",
+                stat1: "10Mha",
+                lbl1: "DEEP LOSS/YR",
+                stat2: "22%",
+                lbl2: "O2 CONTRIBUTION",
+                stat3: "1.2B",
+                lbl3: "SPECIES RISK"
+            },
+            4: {
+                title: "Systemic Loss of Biodiversity",
+                desc: "The anthropocene extinction sequence has reached unprecedented speeds. Thousands of keystone pollinators and apex species collapse daily due to habitat fragmentation.",
+                img: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&q=80&w=1200",
+                tag: "EXTINCTION MARGIN // ZONE 04",
+                stat1: "10,000x",
+                lbl1: "ACCEL SPEED",
+                stat2: "1M+",
+                lbl2: "AT RISK NOW",
+                stat3: "40%",
+                lbl3: "INSECT DECLINE"
+            }
+        };
+
+        function selectChallenge(id) {
+            // Update active states of tab buttons
+            document.querySelectorAll('.challenge-tab-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-navy', 'text-brand-cream');
+                btn.classList.add('border-brand-navy/20');
+            });
+            
+            const activeBtn = document.getElementById(`ch-btn-${id}`);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-brand-navy', 'text-brand-cream');
+                activeBtn.classList.remove('border-brand-navy/20');
+            }
+
+            // Swap visual card content with fade animation
+            const panel = document.getElementById('challenge-display-panel');
+            if (!panel) return;
+            panel.classList.add('opacity-0', 'transform', 'translate-y-2');
+
+            setTimeout(() => {
+                const data = challengeData[id];
+                document.getElementById('challenge-img').src = data.img;
+                document.getElementById('challenge-tag').innerText = data.tag;
+                document.getElementById('challenge-title').innerText = data.title;
+                document.getElementById('challenge-desc').innerText = data.desc;
+                
+                document.getElementById('challenge-stat-1').innerText = data.stat1;
+                document.getElementById('challenge-label-1').innerText = data.lbl1;
+                document.getElementById('challenge-stat-2').innerText = data.stat2;
+                document.getElementById('challenge-label-2').innerText = data.lbl2;
+                document.getElementById('challenge-stat-3').innerText = data.stat3;
+                document.getElementById('challenge-label-3').innerText = data.lbl3;
+
+                panel.classList.remove('opacity-0', 'transform', 'translate-y-2');
+            }, 300);
+        }
+
+        // -------------------------
+        // ACTION HUB DYNAMIC SYSTEM
+        // -------------------------
+        let activeActionSector = 'individual';
+        let actionIntensity = 2; // Medium
+
+        const plans = {
+            individual: {
+                watermark: "INDIV",
+                1: {
+                    title: "MINIMAL FOOTPRINT RESET",
+                    steps: [
+                        "Divert household trash to proper compost streams, saving landfill mass.",
+                        "Audit utility systems to reduce idle load consumption by 15%.",
+                        "Adopt meatless meal routines twice a week to shrink agricultural impact."
+                    ],
+                    serial: "ACT-IND-MIN"
+                },
+                2: {
+                    title: "COMMUNITY REFUSE REDIRECTION",
+                    steps: [
+                        "Initiate source segregation protocols for multi-layered plastics inside domestic nodes.",
+                        "Adopt composting channels for structural biomass recycling, mitigating local methane escape indexes.",
+                        "Decline physical packaging dependencies by enforcing zero-waste raw goods vendor relationships."
+                    ],
+                    serial: "ACT-IND-MID"
+                },
+                3: {
+                    title: "RADICAL AUTONOMOUS CONSERVATION",
+                    steps: [
+                        "Convert domestic energy inputs completely to grid-tied personal solar arrays.",
+                        "Cease personal vehicle usage, shifting entirely to public transit, cycling, or shared EVs.",
+                        "Establish urban rainwater harvesting systems supplying 100% of non-drinking water requirements."
+                    ],
+                    serial: "ACT-IND-RAD"
+                }
+            },
+            business: {
+                watermark: "CORP",
+                1: {
+                    title: "BASELINE COMPLIANCE UPDATE",
+                    steps: [
+                        "Ban all single-use plastics across office premises and physical facilities.",
+                        "Set climate control limits to optimize energy use across operations.",
+                        "Switch corporate web hosts to certified carbon-neutral server networks."
+                    ],
+                    serial: "ACT-BUS-MIN"
+                },
+                2: {
+                    title: "SUSTAINABLE RESOURCE INTEGRATION",
+                    steps: [
+                        "Audit supply chain paths to remove partners violating eco-preservation standards.",
+                        "Ensure 50% of logistical fuel demands rely on clean electric distribution networks.",
+                        "Adopt circular packaging models allowing clients to return containers for sterilizing and reuse."
+                    ],
+                    serial: "ACT-BUS-MID"
+                },
+                3: {
+                    title: "NET-ZERO CARBON SUPREMACY",
+                    steps: [
+                        "Implement strict internal carbon pricing of $100 per metric ton on all operations.",
+                        "Finance local solar or wind installations to offset 100% of grid power usage.",
+                        "Redesign the entire product catalog to use clean, biodegradable materials that leave zero residue."
+                    ],
+                    serial: "ACT-BUS-RAD"
+                }
+            },
+            educator: {
+                watermark: "LEAD",
+                1: {
+                    title: "CURRICULUM ECO-INTEGRATION",
+                    steps: [
+                        "Devote weekly learning modules to structural climate solutions and ecosystem stability.",
+                        "Set up local compost setups to teach students clean waste recycling firsthand.",
+                        "Lead tree-planting outings in local neighborhoods to foster community action."
+                    ],
+                    serial: "ACT-EDU-MIN"
+                },
+                2: {
+                    title: "COMMUNITY ENGAGEMENT NETWORKS",
+                    steps: [
+                        "Organize monthly forums linking city planners, climate experts, and residents together.",
+                        "Set up school gardens to supply fresh produce while teaching food production cycles.",
+                        "Coordinate trash collections across local water resources and public forests."
+                    ],
+                    serial: "ACT-EDU-MID"
+                },
+                3: {
+                    title: "RECONSTRUCTIVE ADVOCACY CAMPAIGNS",
+                    steps: [
+                        "Form a youth-led climate committee to pitch local sustainability bills directly to city leaders.",
+                        "Launch comprehensive recycling, tool-sharing, and repair systems across neighborhoods.",
+                        "Organize peaceful boycotts targeting local businesses with poor eco-policies."
+                    ],
+                    serial: "ACT-EDU-RAD"
+                }
+            }
+        };
+
+        function selectActionSector(sector) {
+            activeActionSector = sector;
+            
+            // Toggle classes
+            document.querySelectorAll('.sector-btn').forEach(btn => {
+                btn.className = "sector-btn w-full text-left p-3.5 border border-brand-cream/20 hover:border-brand-cream/60 transition-all flex items-center justify-between";
+            });
+
+            const activeBtn = document.getElementById(`sec-${sector}`);
+            if (activeBtn) {
+                activeBtn.className = "sector-btn w-full text-left p-3.5 border-2 border-brand-accent bg-brand-accent/10 text-brand-cream transition-all flex items-center justify-between";
+            }
+            
+            generateCustomPlan();
+        }
+
+        function changeActionIntensity(val) {
+            actionIntensity = parseInt(val);
+            const intensities = ["MINIMAL", "MODERATE", "RADICAL"];
+            const label = document.getElementById('slider-intensity-label');
+            if (label) label.innerText = `2. ACTION INTENSITY (${intensities[actionIntensity - 1]})`;
+            generateCustomPlan();
+        }
+
+        function generateCustomPlan() {
+            const data = plans[activeActionSector][actionIntensity];
+            
+            // Update output node with slick transition
+            const titleNode = document.getElementById('output-action-title');
+            const stepsNode = document.getElementById('output-action-steps');
+            const serialNode = document.getElementById('output-serial');
+            const watermarkNode = document.getElementById('watermark-sector');
+
+            if (watermarkNode) watermarkNode.innerText = plans[activeActionSector].watermark;
+            if (titleNode) titleNode.innerText = data.title;
+            if (serialNode) serialNode.innerText = `SERIAL ID: ${data.serial}`;
+
+            if (stepsNode) {
+                stepsNode.innerHTML = '';
+                data.steps.forEach((step, idx) => {
+                    const li = document.createElement('li');
+                    li.className = "flex items-start gap-2 animate-fade-in";
+                    li.innerHTML = `
+                        <span class="text-brand-accent font-bold font-mono">0${idx+1}.</span>
+                        <span>${step}</span>
+                    `;
+                    stepsNode.appendChild(li);
+                });
+            }
+        }
+
+        function copyActionPlan() {
+            const title = document.getElementById('output-action-title')?.innerText || '';
+            const serial = document.getElementById('output-serial')?.innerText || '';
+            const steps = Array.from(document.querySelectorAll('#output-action-steps li'))
+                               .map(li => li.innerText)
+                               .join('\n');
+            
+            const textToCopy = `=== EARTH DAY 2030 PLAN ===\n${title}\n${serial}\n\n${steps}`;
+            
+            // Clipboard copying implementation per instructions
+            const textarea = document.createElement('textarea');
+            textarea.value = textToCopy;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            // Toast / success indicator
+            const btn = document.querySelector('[onclick="copyActionPlan()"]');
+            if (btn) {
+                const orig = btn.innerText;
+                btn.innerText = "COPIED SUCCESSFULLY!";
+                setTimeout(() => {
+                    btn.innerText = orig;
+                }, 2000);
+            }
+        }
+
+        // -------------------------
+        // NEWSLETTER DISPATCH FORM
+        // -------------------------
+        function handleSubscribe(e) {
+            e.preventDefault();
+            const message = document.getElementById('subscribe-message');
+            if (message) {
+                message.classList.remove('hidden');
+                e.target.reset();
+                setTimeout(() => {
+                    message.classList.add('hidden');
+                }, 6000);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CuraCare — Premium Personalized Health</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Plus Jakarta Sans Font for that premium editorial/tech hybrid feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        forest: {
+                            DEFAULT: '#163925',
+                            light: '#1e4c33',
+                            dark: '#0e2417',
+                            soft: '#2a5a40'
+                        },
+                        cream: {
+                            DEFAULT: '#f8f5ee',
+                            light: '#fdfbfa',
+                            dark: '#eee8dd',
+                            accent: '#f2eae1'
+                        },
+                        ochre: {
+                            DEFAULT: '#e5b25d',
+                            light: '#ebd09e',
+                            dark: '#c48f39'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'premium': '0 25px 50px -12px rgba(22, 57, 37, 0.08)',
+                        '3d-light': '0 10px 30px -5px rgba(22, 57, 37, 0.06), 0 1px 3px rgba(0, 0, 0, 0.02)',
+                        '3d-dark': '0 20px 40px -10px rgba(14, 36, 23, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.15)',
+                        'glow-gold': '0 10px 25px -5px rgba(229, 178, 93, 0.4)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Smooth scrolling and premium custom scrollbar */
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8f5ee;
+            color: #163925;
+            overflow-x: hidden;
+        }
+        /* Custom scrollbar matching forest theme */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f8f5ee;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #163925;
+            border-radius: 5px;
+            border: 2px solid #f8f5ee;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1e4c33;
+        }
+
+        /* 3D claymorphic wave custom clipping */
+        .wave-bottom {
+            clip-path: ellipse(80% 60% at 50% 40%);
+        }
+
+        /* Subtle float animation for hero 3D visuals */
+        @keyframes float-gentle {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(1deg); }
+        }
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-6px) scale(1.02); }
+        }
+        @keyframes pulse-glowing {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+        .animate-float {
+            animation: float-gentle 6s ease-in-out infinite;
+        }
+        .animate-float-slow {
+            animation: float-slow 8s ease-in-out infinite;
+        }
+        .animate-pulse-glow {
+            animation: pulse-glowing 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="selection:bg-ochre selection:text-forest-dark">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-forest-dark text-cream-light text-center py-2 px-4 text-xs tracking-wider font-semibold border-b border-forest-light/30 flex items-center justify-center gap-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-ochre animate-ping"></span>
+        <span>NOW INTRODUCING PERSONALIZED LONGEVITY THERAPY PIPELINES.</span>
+        <button onclick="scrollToDiagnostic()" class="underline hover:text-ochre transition-all ml-1 font-bold">START ASSESSMENT &rarr;</button>
+    </div>
+
+    <!-- MAIN NAVBAR -->
+    <nav class="sticky top-0 z-50 bg-cream/95 backdrop-blur-md border-b border-cream-dark/40 py-4 px-6 md:px-12 transition-all">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- Logo area mimicking the "1048" design style with neat geometric icon -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-forest flex items-center justify-center text-ochre shadow-3d-light group-hover:scale-105 transition-transform duration-300">
+                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="4" y="4" width="6" height="6" rx="2" fill="currentColor"/>
+                        <rect x="14" y="4" width="6" height="6" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <rect x="4" y="14" width="6" height="6" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <circle cx="17" cy="17" r="3" fill="currentColor"/>
+                    </svg>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-tight text-forest block leading-none">CuraCare</span>
+                    <span class="text-[10px] tracking-[0.2em] font-bold text-ochre uppercase">Studio 1048</span>
+                </div>
+            </a>
+
+            <!-- Central Nav Links with minimalist pill styling -->
+            <div class="hidden md:flex items-center gap-1 bg-cream-accent/60 p-1.5 rounded-full border border-cream-dark/60">
+                <a href="#services" class="px-5 py-2 rounded-full text-sm font-semibold text-forest hover:bg-cream-light hover:text-forest transition-all">Services</a>
+                <a href="#specialists" class="px-5 py-2 rounded-full text-sm font-semibold text-forest hover:bg-cream-light hover:text-forest transition-all">Specialists</a>
+                <a href="#diagnostic" class="px-5 py-2 rounded-full text-sm font-semibold text-forest hover:bg-cream-light hover:text-forest transition-all">Diagnostic Tool</a>
+                <a href="#preview" class="px-5 py-2 rounded-full text-sm font-semibold text-forest hover:bg-cream-light hover:text-forest transition-all">Mobile Portal</a>
+            </div>
+
+            <!-- Header Action Buttons -->
+            <div class="flex items-center gap-3">
+                <a href="#diagnostic" class="hidden sm:inline-flex px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-cream-dark text-forest hover:bg-cream-accent border border-cream-dark transition-all">
+                    Patient Portal
+                </a>
+                <button onclick="openBookingModal()" class="px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-ochre hover:bg-ochre-dark text-forest-dark shadow-glow-gold hover:shadow-lg transition-all duration-300 transform active:scale-95">
+                    Consult Now
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION (Incorporates the custom wavy background and dual pane visual balance) -->
+    <header class="relative bg-forest pt-12 pb-24 md:pb-36 px-6 md:px-12 text-cream-light overflow-hidden">
+        <!-- Background decorative vectors mimicking the rounded fluid universe -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" class="absolute -top-1/4 -right-1/4 w-3/4 animate-pulse-glow">
+                <circle cx="400" cy="400" r="350" fill="url(#grad1)" />
+                <defs>
+                    <radialGradient id="grad1" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#e5b25d" />
+                        <stop offset="100%" stop-color="transparent" />
+                    </radialGradient>
+                </defs>
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10">
+            <!-- Left Grid: Headline, Concept intro, Beautiful Pill Actions -->
+            <div class="lg:col-span-6 space-y-8">
+                <!-- Glowing Premium Tag -->
+                <div class="inline-flex items-center gap-2 bg-forest-light/80 border border-forest-soft/60 px-4 py-2 rounded-full shadow-3d-dark">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse-glow"></span>
+                    <span class="text-xs uppercase tracking-widest font-bold text-cream-light/90">E-Healthcare Redefined</span>
+                </div>
+
+                <!-- Forest green style premium typography -->
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] text-cream-light">
+                    Your Path to <br>
+                    <span class="text-ochre">Premium Organic</span><br>
+                    Clinical Care.
+                </h1>
+
+                <p class="text-cream-light/80 text-lg leading-relaxed max-w-lg">
+                    CuraCare blends advanced diagnostic technology with premium organic therapies to construct customized health pathways tailored for longevity, recovery, and daily peace of mind.
+                </p>
+
+                <!-- Dual Action Capsule Buttons matching reference -->
+                <div class="flex flex-wrap items-center gap-4 pt-2">
+                    <button onclick="scrollToDiagnostic()" class="px-8 py-4 rounded-full bg-ochre text-forest-dark font-bold text-sm tracking-wider uppercase shadow-glow-gold hover:bg-ochre-light hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                        Select Care Pathway
+                    </button>
+                    <a href="#services" class="px-8 py-4 rounded-full border border-cream-light/20 bg-forest-light/40 hover:bg-forest-light/80 transition-all font-bold text-sm tracking-wider uppercase text-cream-light">
+                        Discover Benefits
+                    </a>
+                </div>
+
+                <!-- Small Trust Indicator with organic shapes -->
+                <div class="pt-6 border-t border-forest-light/40 flex items-center gap-8 text-cream-light/70 text-sm">
+                    <div>
+                        <span class="block text-2xl font-black text-ochre">99.4%</span>
+                        <span>Patient Trust Score</span>
+                    </div>
+                    <div class="w-px h-8 bg-forest-light/60"></div>
+                    <div>
+                        <span class="block text-2xl font-black text-ochre">12 Min</span>
+                        <span>Average Response Time</span>
+                    </div>
+                    <div class="w-px h-8 bg-forest-light/60"></div>
+                    <div>
+                        <span class="block text-2xl font-black text-ochre">24/7</span>
+                        <span>Doctor Availability</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Grid: 3D-styled doctor avatar visual mimicking the reference setup -->
+            <div class="lg:col-span-6 flex flex-col items-center justify-center relative">
+                
+                <!-- Main organic golden frame hosting a 3D claymorphic styled representation -->
+                <div class="relative w-full max-w-md bg-forest-light/40 border border-forest-soft/40 p-6 rounded-[2.5rem] shadow-3d-dark animate-float">
+                    
+                    <!-- Top Floating Pill Counter -->
+                    <div class="absolute -top-4 -left-4 bg-ochre text-forest-dark text-xs font-bold px-4 py-2 rounded-full shadow-lg flex items-center gap-1.5 border-2 border-forest">
+                        <i data-lucide="shield-check" class="w-4 h-4"></i> Certified Expert
+                    </div>
+
+                    <!-- Interactive status dot -->
+                    <div class="absolute -top-3 -right-3 bg-forest px-4 py-1.5 rounded-full border border-forest-soft/50 text-xs text-emerald-400 flex items-center gap-1.5 shadow-md">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Live Specialist
+                    </div>
+
+                    <!-- 3D Avatar Area constructed with clean high-end CSS gradients & SVGs -->
+                    <div class="relative h-80 rounded-[2rem] overflow-hidden bg-gradient-to-b from-forest-soft to-forest-dark flex items-end justify-center border border-forest-soft/50">
+                        <!-- Custom CSS SVG Male Doctor Representation in 3D Minimalist style -->
+                        <svg class="w-64 h-64 drop-shadow-2xl translate-y-2 transition-transform duration-500 hover:scale-105" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Background Aura Glow -->
+                            <circle cx="100" cy="100" r="70" fill="url(#avatarGlow)" opacity="0.4"/>
+                            <defs>
+                                <radialGradient id="avatarGlow" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stop-color="#e5b25d"/>
+                                    <stop offset="100%" stop-color="transparent"/>
+                                </radialGradient>
+                            </defs>
+                            
+                            <!-- Body Coat -->
+                            <path d="M50 160C50 135 68 120 100 120C132 120 150 135 150 160V190H50V160Z" fill="#e2e8f0"/>
+                            <!-- Inner Scrub / Shirt -->
+                            <path d="M85 120C85 135 115 135 115 120H85Z" fill="#0f766e"/>
+                            <!-- Stethoscope -->
+                            <path d="M78 120C78 145 122 145 122 120" stroke="#94a3b8" stroke-width="6" stroke-linecap="round"/>
+                            <!-- Neck -->
+                            <rect x="88" y="98" width="24" height="25" rx="6" fill="#fbcfe8"/>
+                            <!-- Head with Claymorphic shading style -->
+                            <rect x="75" y="45" width="50" height="60" rx="20" fill="#fbcfe8"/>
+                            <circle cx="75" cy="45" r="10" fill="#fbcfe8"/> <!-- Ears -->
+                            <circle cx="125" cy="45" r="10" fill="#fbcfe8"/>
+                            <!-- Hair -->
+                            <path d="M72 48C72 30 82 25 100 25C118 25 128 30 128 48C128 48 123 38 115 38C100 38 100 45 85 45C77 45 72 48 72 48Z" fill="#1e293b"/>
+                            <!-- Cheerful Minimal Facial Features -->
+                            <circle cx="90" cy="72" r="3.5" fill="#1e293b"/> <!-- Eyes -->
+                            <circle cx="110" cy="72" r="3.5" fill="#1e293b"/>
+                            <path d="M92 84C92 90 108 90 108 84" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/> <!-- Smile -->
+                            <rect x="94" y="55" width="12" height="4" rx="2" fill="#334155"/> <!-- Specs bridge (if subtle styling is needed, let's keep clean & professional) -->
+                        </svg>
+
+                        <!-- Float Overlay Icons mimicking the original learning atmosphere -->
+                        <!-- Heart Rate Overlay -->
+                        <div class="absolute bottom-6 left-6 bg-cream-light text-forest p-3 rounded-2xl shadow-premium border border-cream-dark flex items-center gap-2 animate-float-slow">
+                            <span class="w-8 h-8 rounded-xl bg-red-100 flex items-center justify-center text-red-500">
+                                <i data-lucide="heart-pulse" class="w-4 h-4"></i>
+                            </span>
+                            <div>
+                                <span class="block text-[10px] text-gray-400 font-bold uppercase tracking-wider">Pulse Rate</span>
+                                <span class="font-extrabold text-xs text-forest">72 BPM (Optimal)</span>
+                            </div>
+                        </div>
+
+                        <!-- Pill tracker overlay -->
+                        <div class="absolute top-20 right-4 bg-cream-light text-forest p-3 rounded-2xl shadow-premium border border-cream-dark flex items-center gap-2 animate-float">
+                            <span class="w-8 h-8 rounded-xl bg-teal-100 flex items-center justify-center text-teal-600">
+                                <i data-lucide="droplet" class="w-4 h-4"></i>
+                            </span>
+                            <div>
+                                <span class="block text-[10px] text-gray-400 font-bold uppercase tracking-wider">Hydration</span>
+                                <span class="font-extrabold text-xs text-forest">94% Hydrated</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Meta text below Doctor Card matching Reference Layout exactly -->
+                    <div class="mt-6 flex items-center justify-between">
+                        <div>
+                            <h3 class="font-extrabold text-lg text-cream-light">Dr. Gabriel Benetiun</h3>
+                            <p class="text-xs text-ochre font-semibold">Chief Medical Director • Integrative Longevity</p>
+                        </div>
+                        <button onclick="openBookingModal()" class="px-5 py-2.5 rounded-full bg-cream-light text-forest text-xs font-bold hover:bg-ochre hover:text-forest-dark transition-all">
+                            Book Slot
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Circular organic badges floating in space to frame the 3D grid layout -->
+                <div class="absolute bottom-10 -right-8 bg-forest-light border border-forest-soft p-4 rounded-full shadow-3d-dark text-center animate-bounce duration-[4000ms] hidden xl:block">
+                    <span class="block text-xl font-black text-ochre">98%</span>
+                    <span class="text-[9px] uppercase tracking-wider font-extrabold text-cream-light/60">Efficacy Rate</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Custom Claymorphic Curved Wave Waveform separating header from body -->
+        <div class="absolute bottom-0 left-0 right-0 h-12 md:h-20 bg-cream" style="clip-path: ellipse(70% 100% at 50% 100%);"></div>
+    </header>
+
+    <!-- TRUSTED CLINICAL BRANDS BAR -->
+    <section class="bg-cream py-6 border-b border-cream-dark/30">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <p class="text-[11px] font-bold uppercase tracking-[0.25em] text-forest/50 mb-4">Empowering Premium Care Ecosystems</p>
+            <div class="flex flex-wrap items-center justify-center gap-8 md:gap-16 opacity-60">
+                <span class="font-extrabold tracking-widest text-forest/70 text-lg uppercase">BioLoom Lab</span>
+                <span class="font-extrabold tracking-widest text-forest/70 text-lg uppercase">PharmaCura</span>
+                <span class="font-extrabold tracking-widest text-forest/70 text-lg uppercase">HealTech AI</span>
+                <span class="font-extrabold tracking-widest text-forest/70 text-lg uppercase">Aura Clinical</span>
+                <span class="font-extrabold tracking-widest text-forest/70 text-lg uppercase">Veris Medical</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- CLINICAL SERVICES SECTION (The "Featured Course" equivalent with custom content density) -->
+    <section id="services" class="bg-cream py-16 md:py-24 px-6 md:px-12">
+        <div class="max-w-7xl mx-auto">
+            
+            <!-- Section Header -->
+            <div class="max-w-xl space-y-3 mb-12">
+                <span class="text-xs font-extrabold uppercase tracking-[0.2em] text-ochre bg-cream-accent px-4 py-1.5 rounded-full border border-cream-dark">What We Excel In</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-forest tracking-tight">Personalized Clinical Pathways Designed For Longevity</h2>
+                <p class="text-forest/70 text-sm">Our modern healthcare ecosystem integrates certified primary physicians with functional health plans, enabling proactive prevention instead of reactive treatments.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service Card 1 -->
+                <div class="group bg-cream-light border border-cream-dark/60 p-8 rounded-[2rem] shadow-3d-light hover:shadow-premium hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-forest text-ochre flex items-center justify-center mb-6 shadow-3d-light">
+                            <i data-lucide="video" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-forest mb-3">On-Demand Telehealth</h3>
+                        <p class="text-sm text-forest/70 leading-relaxed">
+                            Connect immediately with our network of premier internal medicine specialists within minutes. Fully integrated digital prescription renewals and medical note issuance.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-cream-dark/60 flex items-center justify-between">
+                        <span class="text-xs font-extrabold uppercase text-forest tracking-wider">Premium Care Tier</span>
+                        <span class="text-xs font-bold text-ochre flex items-center gap-1 group-hover:translate-x-1 transition-transform">Learn more <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></span>
+                    </div>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div class="group bg-forest text-cream-light border border-forest-soft p-8 rounded-[2rem] shadow-premium hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
+                    <div class="absolute -right-8 -top-8 w-24 h-24 rounded-full bg-forest-light opacity-30"></div>
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-ochre text-forest-dark flex items-center justify-center mb-6 shadow-glow-gold">
+                            <i data-lucide="dna" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-cream-light mb-3">Biometric Longevity Plans</h3>
+                        <p class="text-sm text-cream-light/80 leading-relaxed">
+                            Unlock DNA and deep metabolic sequencing pipelines. We configure optimized nutrition, hormonal balancing schedules, and cellular health protocols just for you.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-forest-light/60 flex items-center justify-between">
+                        <span class="text-xs font-extrabold uppercase text-ochre tracking-wider">Elite Longevity Tier</span>
+                        <span class="text-xs font-bold text-ochre flex items-center gap-1 group-hover:translate-x-1 transition-transform">Learn more <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></span>
+                    </div>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div class="group bg-cream-light border border-cream-dark/60 p-8 rounded-[2rem] shadow-3d-light hover:shadow-premium hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-forest text-ochre flex items-center justify-center mb-6 shadow-3d-light">
+                            <i data-lucide="shield-alert" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-forest mb-3">Preventative Cardio Care</h3>
+                        <p class="text-sm text-forest/70 leading-relaxed">
+                            Proactive cardiovascular risk mapping utilizing AI-driven diagnostics, smart monitoring partnerships, and holistic daily cardiovascular therapy schedules.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-cream-dark/60 flex items-center justify-between">
+                        <span class="text-xs font-extrabold uppercase text-forest tracking-wider">Clinical Care Tier</span>
+                        <span class="text-xs font-bold text-ochre flex items-center gap-1 group-hover:translate-x-1 transition-transform">Learn more <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPECIALIST GRID (Equivalent to the right hand 3D cards in the inspiration visual) -->
+    <section id="specialists" class="bg-cream-accent/40 py-16 md:py-24 px-6 md:px-12 border-t border-b border-cream-dark/50">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                <div class="max-w-xl space-y-3">
+                    <span class="text-xs font-extrabold uppercase tracking-[0.2em] text-ochre bg-cream-light px-4 py-1.5 rounded-full border border-cream-dark/50">Renowned Clinicians</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-forest tracking-tight">Consult With Our Clinical Visionaries</h2>
+                    <p class="text-forest/70 text-sm">Each specialist undergoes rigorous functional medicine boarding to offer comprehensive organic and traditional care pipelines.</p>
+                </div>
+                <!-- Mini Pill Badge Navigation matching the simple sub-headers in inspiration -->
+                <div class="flex items-center gap-2">
+                    <span class="px-4 py-2 bg-forest text-cream-light rounded-full text-xs font-bold cursor-pointer">All Experts</span>
+                    <span class="px-4 py-2 hover:bg-cream-dark text-forest rounded-full text-xs font-bold cursor-pointer transition-all">Longevity</span>
+                    <span class="px-4 py-2 hover:bg-cream-dark text-forest rounded-full text-xs font-bold cursor-pointer transition-all">Therapy</span>
+                </div>
+            </div>
+
+            <!-- Custom 3D Styled Specialist Cards Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Specialist Card 1 -->
+                <div class="bg-cream-light rounded-[2rem] p-6 border border-cream-dark/60 shadow-3d-light hover:shadow-premium transition-all duration-300">
+                    <div class="relative bg-gradient-to-br from-cream-dark to-cream-accent rounded-2xl h-64 flex items-end justify-center overflow-hidden border border-cream-dark">
+                        <!-- Custom vector claymorphic avatar illustration -->
+                        <svg class="w-48 h-48 drop-shadow-lg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="50" y="150" width="100" height="50" rx="10" fill="#0f766e"/>
+                            <rect x="85" y="100" width="30" height="50" fill="#fed7aa"/>
+                            <!-- Head -->
+                            <circle cx="100" cy="80" r="30" fill="#fed7aa"/>
+                            <!-- Hair -->
+                            <path d="M70 80C70 60 80 50 100 50C120 50 130 60 130 80H70Z" fill="#78350f"/>
+                            <circle cx="92" cy="78" r="3" fill="#1e293b"/>
+                            <circle cx="108" cy="78" r="3" fill="#1e293b"/>
+                            <path d="M94 92C94 95 106 95 106 92" stroke="#1e293b" stroke-width="2"/>
+                        </svg>
+                        <div class="absolute bottom-3 left-3 bg-forest text-cream-light text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-full">
+                            Cardiologist
+                        </div>
+                    </div>
+                    <div class="mt-6 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-lg font-bold text-forest">Dr. Sophia Mercer</h3>
+                            <div class="flex items-center gap-1 text-ochre">
+                                <i data-lucide="star" class="w-4 h-4 fill-ochre text-ochre"></i>
+                                <span class="text-xs font-bold text-forest">4.9</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-forest/70">12+ Years Experience • Oxford Clinical Research Lead</p>
+                        <div class="pt-4 flex items-center gap-2">
+                            <span class="text-xs font-semibold bg-cream px-3 py-1.5 rounded-full border border-cream-dark">Telehealth</span>
+                            <span class="text-xs font-semibold bg-cream px-3 py-1.5 rounded-full border border-cream-dark">In-Person</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Specialist Card 2 -->
+                <div class="bg-cream-light rounded-[2rem] p-6 border border-cream-dark/60 shadow-3d-light hover:shadow-premium transition-all duration-300">
+                    <div class="relative bg-gradient-to-br from-cream-dark to-cream-accent rounded-2xl h-64 flex items-end justify-center overflow-hidden border border-cream-dark">
+                        <!-- Custom vector claymorphic avatar illustration -->
+                        <svg class="w-48 h-48 drop-shadow-lg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="50" y="150" width="100" height="50" rx="10" fill="#163925"/>
+                            <rect x="85" y="100" width="30" height="50" fill="#fbcfe8"/>
+                            <circle cx="100" cy="80" r="30" fill="#fbcfe8"/>
+                            <path d="M70 70C70 45 130 45 130 70H70Z" fill="#111827"/>
+                            <circle cx="92" cy="78" r="3" fill="#1e293b"/>
+                            <circle cx="108" cy="78" r="3" fill="#1e293b"/>
+                            <path d="M94 92C94 95 106 95 106 92" stroke="#1e293b" stroke-width="2"/>
+                        </svg>
+                        <div class="absolute bottom-3 left-3 bg-forest text-cream-light text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-full">
+                            Longevity & DNA
+                        </div>
+                    </div>
+                    <div class="mt-6 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-lg font-bold text-forest">Dr. Marcus Vance</h3>
+                            <div class="flex items-center gap-1 text-ochre">
+                                <i data-lucide="star" class="w-4 h-4 fill-ochre text-ochre"></i>
+                                <span class="text-xs font-bold text-forest">5.0</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-forest/70">8+ Years Experience • Chief Genetics Researcher</p>
+                        <div class="pt-4 flex items-center gap-2">
+                            <span class="text-xs font-semibold bg-cream px-3 py-1.5 rounded-full border border-cream-dark">Telehealth Only</span>
+                            <span class="text-xs font-semibold bg-cream px-3 py-1.5 rounded-full border border-cream-dark">VIP Cohort</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Specialist Card 3 -->
+                <div class="bg-cream-light rounded-[2rem] p-6 border border-cream-dark/60 shadow-3d-light hover:shadow-premium transition-all duration-300">
+                    <div class="relative bg-gradient-to-br from-cream-dark to-cream-accent rounded-2xl h-64 flex items-end justify-center overflow-hidden border border-cream-dark">
+                        <!-- Custom vector claymorphic avatar illustration -->
+                        <svg class="w-48 h-48 drop-shadow-lg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="50" y="150" width="100" height="50" rx="10" fill="#4b5563"/>
+                            <rect x="85" y="100" width="30" height="50" fill="#ffedd5"/>
+                            <circle cx="100" cy="80" r="30" fill="#ffedd5"/>
+                            <path d="M70 75C70 50 85 40 100 40C115 40 130 50 130 75H70Z" fill="#b45309"/>
+                            <circle cx="92" cy="78" r="3" fill="#1e293b"/>
+                            <circle cx="108" cy="78" r="3" fill="#1e293b"/>
+                            <path d="M94 92C94 95 106 95 106 92" stroke="#1e293b" stroke-width="2"/>
+                        </svg>
+                        <div class="absolute bottom-3 left-3 bg-forest text-cream-light text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-full">
+                            Psychiatry & Wellness
+                        </div>
+                    </div>
+                    <div class="mt-6 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-lg font-bold text-forest">Dr. Elena Rostova</h3>
+                            <div class="flex items-center gap-1 text-ochre">
+                                <i data-lucide="star" class="w-4 h-4 fill-ochre text-ochre"></i>
+                                <span class="text-xs font-bold text-forest">4.8</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-forest/70">15+ Years Experience • Holistic Mental Wellbeing Advisor</p>
+                        <div class="pt-4 flex items-center gap-2">
+                            <span class="text-xs font-semibold bg-cream px-3 py-1.5 rounded-full border border-cream-dark">Telehealth</span>
+                            <span class="text-xs font-semibold bg-cream px-3 py-1.5 rounded-full border border-cream-dark">Group Therapy</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE CLINICAL PATHWAY DIAGNOSTIC TOOL -->
+    <section id="diagnostic" class="bg-forest py-20 md:py-28 px-6 md:px-12 text-cream-light relative overflow-hidden">
+        <!-- Organic wavy separator on top -->
+        <div class="absolute top-0 left-0 right-0 h-10 bg-cream" style="clip-path: ellipse(60% 100% at 50% 0%);"></div>
+
+        <div class="max-w-4xl mx-auto relative z-10 pt-8">
+            <div class="text-center space-y-4 mb-12">
+                <span class="text-xs font-extrabold uppercase tracking-[0.25em] text-ochre bg-forest-light border border-forest-soft/80 px-4 py-2 rounded-full">Interactive Session Builder</span>
+                <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight">Interactive Care Matcher</h2>
+                <p class="text-cream-light/70 text-sm max-w-xl mx-auto">Answer three rapid criteria inputs to dynamically discover your targeted organic diagnostic pathway and custom medical experts.</p>
+            </div>
+
+            <!-- Interactivity Box mimicking rich 3D layout -->
+            <div class="bg-forest-light/90 border border-forest-soft p-8 md:p-12 rounded-[2.5rem] shadow-3d-dark">
+                <!-- Step Indicator Pill -->
+                <div class="flex items-center justify-between mb-8 border-b border-forest-soft/60 pb-6">
+                    <span class="text-xs font-extrabold uppercase tracking-widest text-ochre" id="stepIndicator">Step 1 of 3</span>
+                    <div class="flex gap-1">
+                        <span class="w-6 h-1.5 rounded-full bg-ochre" id="dot1"></span>
+                        <span class="w-6 h-1.5 rounded-full bg-forest" id="dot2"></span>
+                        <span class="w-6 h-1.5 rounded-full bg-forest" id="dot3"></span>
+                    </div>
+                </div>
+
+                <!-- STEP 1: Focus Area -->
+                <div id="step1Content" class="space-y-6 transition-all duration-300">
+                    <h3 class="text-xl md:text-2xl font-bold">What is your primary clinical health focus?</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <button onclick="setFocus('Longevity & Anti-aging')" class="focus-btn p-5 rounded-2xl bg-forest border border-forest-soft/60 text-left hover:bg-forest-soft hover:border-ochre hover:scale-[1.02] active:scale-[0.98] transition-all duration-300">
+                            <span class="w-10 h-10 rounded-xl bg-ochre/10 text-ochre flex items-center justify-center mb-4"><i data-lucide="infinity" class="w-5 h-5"></i></span>
+                            <span class="block font-bold">Longevity & Anti-aging</span>
+                            <span class="text-xs text-cream-light/60">Cellular regeneration pipelines</span>
+                        </button>
+                        <button onclick="setFocus('Daily Health & Prevention')" class="focus-btn p-5 rounded-2xl bg-forest border border-forest-soft/60 text-left hover:bg-forest-soft hover:border-ochre hover:scale-[1.02] active:scale-[0.98] transition-all duration-300">
+                            <span class="w-10 h-10 rounded-xl bg-ochre/10 text-ochre flex items-center justify-center mb-4"><i data-lucide="activity" class="w-5 h-5"></i></span>
+                            <span class="block font-bold">Daily Wellness</span>
+                            <span class="text-xs text-cream-light/60">Comprehensive primary prevention</span>
+                        </button>
+                        <button onclick="setFocus('Cardio & Fitness Optimization')" class="focus-btn p-5 rounded-2xl bg-forest border border-forest-soft/60 text-left hover:bg-forest-soft hover:border-ochre hover:scale-[1.02] active:scale-[0.98] transition-all duration-300">
+                            <span class="w-10 h-10 rounded-xl bg-ochre/10 text-ochre flex items-center justify-center mb-4"><i data-lucide="heart" class="w-5 h-5"></i></span>
+                            <span class="block font-bold">Cardio & Physical</span>
+                            <span class="text-xs text-cream-light/60">Metabolic & performance mapping</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- STEP 2: Delivery Medium -->
+                <div id="step2Content" class="hidden space-y-6 transition-all duration-300">
+                    <h3 class="text-xl md:text-2xl font-bold">Preferred care consult environment?</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <button onclick="setMedium('Pure Virtual Telehealth')" class="medium-btn p-6 rounded-2xl bg-forest border border-forest-soft/60 text-left hover:bg-forest-soft hover:border-ochre hover:scale-[1.02] active:scale-[0.98] transition-all duration-300">
+                            <span class="w-10 h-10 rounded-xl bg-ochre/10 text-ochre flex items-center justify-center mb-4"><i data-lucide="video" class="w-5 h-5"></i></span>
+                            <span class="block font-bold text-lg">On-Demand Telehealth</span>
+                            <span class="text-xs text-cream-light/60">Video consultations, quick medication dispatch</span>
+                        </button>
+                        <button onclick="setMedium('Hybrid In-person & Digital')" class="medium-btn p-6 rounded-2xl bg-forest border border-forest-soft/60 text-left hover:bg-forest-soft hover:border-ochre hover:scale-[1.02] active:scale-[0.98] transition-all duration-300">
+                            <span class="w-10 h-10 rounded-xl bg-ochre/10 text-ochre flex items-center justify-center mb-4"><i data-lucide="home" class="w-5 h-5"></i></span>
+                            <span class="block font-bold text-lg">Hybrid Premium Clinic</span>
+                            <span class="text-xs text-cream-light/60">Comprehensive home diagnostics with video backups</span>
+                        </button>
+                    </div>
+                    <button onclick="prevStep(1)" class="mt-4 text-xs font-extrabold tracking-widest text-ochre hover:underline uppercase flex items-center gap-1"><i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Back to Focus Area</button>
+                </div>
+
+                <!-- STEP 3: Timeline expectation -->
+                <div id="step3Content" class="hidden space-y-6 transition-all duration-300">
+                    <h3 class="text-xl md:text-2xl font-bold">When would you like to launch your pathway?</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <button onclick="submitDiagnostic('Urgent Consultation')" class="time-btn p-5 rounded-2xl bg-forest border border-forest-soft/60 text-left hover:bg-forest-soft hover:border-ochre hover:scale-[1.02] transition-all duration-300">
+                            <span class="block font-bold text-lg text-ochre">ASAP</span>
+                            <span class="text-xs text-cream-light/60">Within next 24 Hours</span>
+                        </button>
+                        <button onclick="submitDiagnostic('Standard Schedule')" class="time-btn p-5 rounded-2xl bg-forest border border-forest-soft/60 text-left hover:bg-forest-soft hover:border-ochre hover:scale-[1.02] transition-all duration-300">
+                            <span class="block font-bold text-lg text-cream-light">This Week</span>
+                            <span class="text-xs text-cream-light/60">Standard Onboarding window</span>
+                        </button>
+                        <button onclick="submitDiagnostic('Preventative Exploration')" class="time-btn p-5 rounded-2xl bg-forest border border-forest-soft/60 text-left hover:bg-forest-soft hover:border-ochre hover:scale-[1.02] transition-all duration-300">
+                            <span class="block font-bold text-lg text-cream-light">Exploratory</span>
+                            <span class="text-xs text-cream-light/60">Receiving informational packets only</span>
+                        </button>
+                    </div>
+                    <button onclick="prevStep(2)" class="mt-4 text-xs font-extrabold tracking-widest text-ochre hover:underline uppercase flex items-center gap-1"><i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Back to Consul Environment</button>
+                </div>
+
+                <!-- RESULTS / OUTPUT PANEL -->
+                <div id="resultsContent" class="hidden space-y-6 transition-all duration-300">
+                    <div class="bg-forest-dark border-2 border-ochre/30 p-6 rounded-2xl space-y-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-xl bg-ochre/10 text-ochre flex items-center justify-center">
+                                <i data-lucide="sparkles" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <span class="text-[10px] uppercase font-bold text-ochre tracking-widest">Recommended Pathway Found</span>
+                                <h4 class="text-lg font-bold" id="pathwayTitle">Precision Longevity Protocol</h4>
+                            </div>
+                        </div>
+                        <p class="text-sm text-cream-light/80" id="pathwayDescription">Based on your anti-aging goals and digital delivery preference, your recommended route features automated cellular assessments paired with virtual appointments.</p>
+                        
+                        <div class="pt-4 border-t border-forest-soft flex flex-wrap items-center justify-between gap-4">
+                            <div>
+                                <span class="block text-xs text-cream-light/50">Primary Matched Specialist</span>
+                                <span class="font-bold text-ochre" id="matchedDoctor">Dr. Marcus Vance (Genetics Lead)</span>
+                            </div>
+                            <button onclick="openBookingModal()" class="px-6 py-2.5 rounded-full bg-ochre text-forest-dark font-bold text-xs uppercase tracking-wider hover:bg-ochre-light shadow-glow-gold transition-all">
+                                Confirm Direct Booking
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <button onclick="resetDiagnostic()" class="text-xs font-extrabold tracking-widest text-ochre hover:underline uppercase flex items-center gap-1"><i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Retake Pathway Assessment</button>
+                        <span class="text-xs text-cream-light/40">Secure & Confidential Clinical Output</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRIPLE PHONE PREVIEW PORTAL (Recreating the realistic interactive mockups from bottom of reference) -->
+    <section id="preview" class="bg-cream py-20 md:py-28 px-6 md:px-12 border-t border-cream-dark/50 overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+            
+            <div class="text-center max-w-2xl mx-auto space-y-4 mb-16">
+                <span class="text-xs font-extrabold uppercase tracking-[0.25em] text-ochre bg-cream-accent px-4 py-1.5 rounded-full border border-cream-dark">Intuitive Tech Integration</span>
+                <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-forest">The Clinical Universe in Your Pocket</h2>
+                <p class="text-forest/70 text-sm">Experience our premium telehealth system. Use the interactive phones below to preview actual dashboard pipelines and medical logs.</p>
+            </div>
+
+            <!-- Triple Phone Grid with high depth shadows -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center justify-center">
+                
+                <!-- Phone Card 1: Live Patient File -->
+                <div class="bg-cream-light border border-cream-dark/80 p-6 rounded-[2.5rem] shadow-premium transform hover:-translate-y-2 transition-transform duration-500">
+                    <span class="text-xs font-extrabold text-ochre uppercase tracking-wider mb-4 block">Interactive Screens</span>
+                    <!-- Realistic Phone Border Container -->
+                    <div class="relative mx-auto max-w-[280px] rounded-[2.2rem] border-[8px] border-forest bg-cream overflow-hidden shadow-3d-light aspect-[9/18]">
+                        <!-- Camera Notch Mockup -->
+                        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-28 h-4 bg-forest rounded-b-xl z-20 flex items-center justify-center">
+                            <span class="w-2 h-2 rounded-full bg-gray-800"></span>
+                        </div>
+                        
+                        <!-- Internal App UI Screen -->
+                        <div class="p-4 pt-8 space-y-4 h-full flex flex-col justify-between">
+                            <div class="space-y-4">
+                                <!-- Top profile bar -->
+                                <div class="flex items-center gap-2 border-b border-cream-dark/60 pb-3">
+                                    <div class="w-8 h-8 rounded-full bg-forest text-ochre flex items-center justify-center text-xs font-bold">JD</div>
+                                    <div>
+                                        <h5 class="text-xs font-extrabold text-forest">Patient Folder</h5>
+                                        <span class="text-[9px] text-gray-400">ID: #883-201</span>
+                                    </div>
+                                </div>
+
+                                <!-- Current Treatment Bio-Pill -->
+                                <div class="bg-cream-accent p-3 rounded-xl space-y-1 border border-cream-dark/80">
+                                    <span class="text-[9px] uppercase tracking-wider font-extrabold text-forest/60">Active Pathway</span>
+                                    <span class="block font-bold text-xs text-forest">Longevity Cellular Plan</span>
+                                    <span class="block text-[10px] text-emerald-600 font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Active Diagnostics</span>
+                                </div>
+
+                                <!-- Checklist diagnostics -->
+                                <div class="space-y-2">
+                                    <span class="text-[10px] font-bold text-forest/70 uppercase">Weekly Milestones</span>
+                                    <div class="flex items-center justify-between p-2 rounded-lg bg-cream-light border border-cream-dark/40 text-[10px] font-semibold">
+                                        <span>Metabolic DNA Swap</span>
+                                        <span class="text-emerald-600 font-bold">COMPLETED</span>
+                                    </div>
+                                    <div class="flex items-center justify-between p-2 rounded-lg bg-cream-light border border-cream-dark/40 text-[10px] font-semibold">
+                                        <span>Initial Cardiac Scan</span>
+                                        <span class="text-ochre font-bold">PENDING</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Screen button -->
+                            <button onclick="openBookingModal()" class="w-full py-2 bg-forest text-cream-light rounded-xl font-bold text-xs uppercase tracking-wider">
+                                View Profile
+                            </button>
+                        </div>
+                    </div>
+                    <div class="text-center mt-6">
+                        <h4 class="font-bold text-lg text-forest">Digital Health Dossier</h4>
+                        <p class="text-xs text-forest/70 mt-1">Real-time telemetry reports updated daily by lab technicians.</p>
+                    </div>
+                </div>
+
+                <!-- Phone Card 2: Interactive Video Consult simulator -->
+                <div class="bg-forest text-cream-light p-6 rounded-[2.5rem] shadow-premium transform hover:-translate-y-2 transition-transform duration-500">
+                    <span class="text-xs font-extrabold text-ochre uppercase tracking-wider mb-4 block">Interactive Screens</span>
+                    <!-- Phone Frame -->
+                    <div class="relative mx-auto max-w-[280px] rounded-[2.2rem] border-[8px] border-forest-soft bg-forest-dark overflow-hidden shadow-3d-dark aspect-[9/18]">
+                        <!-- Camera Notch Mockup -->
+                        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-28 h-4 bg-forest-soft rounded-b-xl z-20"></div>
+
+                        <!-- Video Call interface simulated -->
+                        <div class="relative h-full flex flex-col justify-between p-4 pt-8">
+                            <!-- Call Timer -->
+                            <div class="flex items-center justify-between text-white z-10 bg-forest-light/60 backdrop-blur-md p-2 rounded-xl">
+                                <span class="text-[10px] font-extrabold tracking-widest uppercase">Consultation</span>
+                                <span class="text-[10px] font-mono bg-red-500/80 px-2 py-0.5 rounded text-white animate-pulse">09:14</span>
+                            </div>
+
+                            <!-- Big simulated Doctor Image (Simulated in stylized SVG) -->
+                            <div class="absolute inset-0 z-0 flex items-center justify-center opacity-70">
+                                <svg class="w-full h-full" viewBox="0 0 200 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="200" height="400" fill="#1e293b"/>
+                                    <circle cx="100" cy="180" r="45" fill="#fbcfe8"/>
+                                    <!-- Hair -->
+                                    <path d="M70 180C70 140 130 140 130 180H70Z" fill="#1e293b"/>
+                                    <path d="M40 340C40 280 160 280 160 340V400H40V340Z" fill="#0f766e"/>
+                                    <!-- Smile -->
+                                    <path d="M96 195C96 198 104 198 104 195" stroke="#1e293b" stroke-width="2"/>
+                                </svg>
+                            </div>
+
+                            <!-- Patient Self View Mini-window -->
+                            <div class="absolute bottom-16 right-4 w-16 h-24 rounded-lg bg-cream border border-forest-soft z-10 overflow-hidden shadow-lg">
+                                <div class="w-full h-full bg-slate-400 flex items-center justify-center text-[8px] font-bold text-forest uppercase">You</div>
+                            </div>
+
+                            <!-- Action bar -->
+                            <div class="z-10 bg-forest-light/95 backdrop-blur-md p-3 rounded-2xl flex items-center justify-around border border-forest-soft/40">
+                                <span class="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center text-white cursor-pointer hover:scale-105 active:scale-95 transition-transform"><i data-lucide="phone-off" class="w-4 h-4"></i></span>
+                                <span class="w-8 h-8 rounded-full bg-forest-soft flex items-center justify-center text-white cursor-pointer hover:scale-105 active:scale-95 transition-transform"><i data-lucide="mic" class="w-4 h-4"></i></span>
+                                <span class="w-8 h-8 rounded-full bg-forest-soft flex items-center justify-center text-white cursor-pointer hover:scale-105 active:scale-95 transition-transform"><i data-lucide="message-square" class="w-4 h-4"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-6">
+                        <h4 class="font-bold text-lg text-cream-light">High-Definition Telehealth</h4>
+                        <p class="text-xs text-cream-light/70 mt-1">Zero latency video integrations connected right to your practitioner.</p>
+                    </div>
+                </div>
+
+                <!-- Phone Card 3: Prescription Delivery tracking -->
+                <div class="bg-cream-light border border-cream-dark/80 p-6 rounded-[2.5rem] shadow-premium transform hover:-translate-y-2 transition-transform duration-500">
+                    <span class="text-xs font-extrabold text-ochre uppercase tracking-wider mb-4 block">Interactive Screens</span>
+                    <!-- Phone Frame -->
+                    <div class="relative mx-auto max-w-[280px] rounded-[2.2rem] border-[8px] border-forest bg-cream overflow-hidden shadow-3d-light aspect-[9/18]">
+                        <!-- Camera Notch Mockup -->
+                        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-28 h-4 bg-forest rounded-b-xl z-20"></div>
+
+                        <!-- Delivery tracking UI -->
+                        <div class="p-4 pt-8 space-y-4 h-full flex flex-col justify-between">
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between border-b border-cream-dark/60 pb-3">
+                                    <h5 class="text-xs font-extrabold text-forest">Prescription Hub</h5>
+                                    <span class="text-[9px] font-bold text-ochre">TRACKING</span>
+                                </div>
+
+                                <!-- Logistics Pipeline layout representation -->
+                                <div class="space-y-4 relative pl-4 border-l border-cream-dark">
+                                    <div class="relative">
+                                        <span class="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                                        <span class="block text-[11px] font-bold text-forest">Dispatched from Apothecary</span>
+                                        <span class="block text-[9px] text-gray-400">Today at 1:40 PM</span>
+                                    </div>
+                                    <div class="relative opacity-60">
+                                        <span class="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-cream-dark"></span>
+                                        <span class="block text-[11px] font-bold text-forest">En route to Residence</span>
+                                        <span class="block text-[9px] text-gray-400">ETA: 45 Minutes</span>
+                                    </div>
+                                </div>
+
+                                <!-- Pill details card -->
+                                <div class="bg-cream-accent p-3 rounded-xl border border-cream-dark/80 flex items-center gap-2">
+                                    <span class="w-8 h-8 rounded-lg bg-ochre/10 text-ochre flex items-center justify-center"><i data-lucide="pill" class="w-4 h-4"></i></span>
+                                    <div>
+                                        <span class="block text-[10px] font-bold text-forest leading-none">Liposomal Multi-Complex</span>
+                                        <span class="text-[9px] text-gray-400">Custom Formulation ID #4928</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button onclick="openBookingModal()" class="w-full py-2 bg-forest text-cream-light rounded-xl font-bold text-xs uppercase tracking-wider">
+                                Track Delivery
+                            </button>
+                        </div>
+                    </div>
+                    <div class="text-center mt-6">
+                        <h4 class="font-bold text-lg text-forest">Custom Apothecary Dispatch</h4>
+                        <p class="text-xs text-forest/70 mt-1">Same-day secure shipping of custom formulated compounds directly to you.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PROVEN RESULTS STATS SECTION -->
+    <section class="bg-forest py-20 px-6 md:px-12 text-cream-light relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-forest-dark to-forest opacity-80"></div>
+        <div class="max-w-7xl mx-auto relative z-10 grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+            <div class="p-6 space-y-2">
+                <span class="block text-5xl font-black text-ochre tracking-tight">240K+</span>
+                <span class="text-xs font-bold uppercase tracking-wider text-cream-light/60">Resolved Patient Consults</span>
+            </div>
+            <div class="p-6 space-y-2">
+                <span class="block text-5xl font-black text-ochre tracking-tight">140+</span>
+                <span class="text-xs font-bold uppercase tracking-wider text-cream-light/60">Premium Active Specialists</span>
+            </div>
+            <div class="p-6 space-y-2">
+                <span class="block text-5xl font-black text-ochre tracking-tight">94.8%</span>
+                <span class="text-xs font-bold uppercase tracking-wider text-cream-light/60">Reversed Cardiovascular Markers</span>
+            </div>
+            <div class="p-6 space-y-2">
+                <span class="block text-5xl font-black text-ochre tracking-tight">30 Min</span>
+                <span class="text-xs font-bold uppercase tracking-wider text-cream-light/60">Apothecary Dispatch Times</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- PREMIUM FAQ SECTION -->
+    <section class="bg-cream py-16 md:py-24 px-6 md:px-12 border-t border-cream-dark/50">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center space-y-4 mb-12">
+                <span class="text-xs font-extrabold uppercase tracking-[0.25em] text-ochre bg-cream-accent px-4 py-1.5 rounded-full border border-cream-dark">Knowledge Center</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-forest tracking-tight">Frequently Asked Queries</h2>
+                <p class="text-forest/70 text-sm">Have inquiries regarding pricing, insurance parameters, or specialist certifications?</p>
+            </div>
+
+            <!-- Accordion items -->
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <div class="bg-cream-light border border-cream-dark rounded-2xl overflow-hidden transition-all">
+                    <button onclick="toggleFaq(1)" class="w-full text-left p-6 font-bold text-forest flex items-center justify-between hover:bg-cream-accent/40">
+                        <span>How does the Organic Care model differ from standard clinics?</span>
+                        <i id="faq-icon-1" data-lucide="plus" class="w-5 h-5 text-ochre transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-content-1" class="hidden p-6 pt-0 text-sm text-forest/70 leading-relaxed border-t border-cream-dark/30">
+                        Traditional clinics treat illness retroactively. CuraCare couples certified primary care physicians with functional nutrition, genetics, and preventative cellular tracking to isolate concerns months before physical biomarkers change.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="bg-cream-light border border-cream-dark rounded-2xl overflow-hidden transition-all">
+                    <button onclick="toggleFaq(2)" class="w-full text-left p-6 font-bold text-forest flex items-center justify-between hover:bg-cream-accent/40">
+                        <span>Are the clinical procedures eligible for standard insurance?</span>
+                        <i id="faq-icon-2" data-lucide="plus" class="w-5 h-5 text-ochre transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-content-2" class="hidden p-6 pt-0 text-sm text-forest/70 leading-relaxed border-t border-cream-dark/30">
+                        All traditional telehealth services and board-certified physician consults are covered under standard PPO/HSA parameters. Specialized anti-aging longevity panels are billed privately as custom clinical therapies.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="bg-cream-light border border-cream-dark rounded-2xl overflow-hidden transition-all">
+                    <button onclick="toggleFaq(3)" class="w-full text-left p-6 font-bold text-forest flex items-center justify-between hover:bg-cream-accent/40">
+                        <span>How quickly are prescription pharmaceuticals dispatched?</span>
+                        <i id="faq-icon-3" data-lucide="plus" class="w-5 h-5 text-ochre transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-content-3" class="hidden p-6 pt-0 text-sm text-forest/70 leading-relaxed border-t border-cream-dark/30">
+                        Once cleared during video consults, standard prescriptions are sent digitally to your local apothecary immediately. Custom organic compounds are formulated inside Studio 1048 and shipped directly to your door in 24 hours.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SLIDER SECTION (Premium layout matching the clean design system) -->
+    <section class="bg-cream-accent/20 py-16 md:py-24 px-6 md:px-12 border-t border-cream-dark/40">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left grid text introductory block -->
+                <div class="lg:col-span-4 space-y-4">
+                    <span class="text-xs font-extrabold uppercase tracking-[0.25em] text-ochre bg-cream-light px-4 py-1.5 rounded-full border border-cream-dark">Patient Narratives</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-forest tracking-tight">Restored Wellness Stories</h2>
+                    <p class="text-forest/70 text-sm">Read how families and executive cohorts rebuilt their metabolic baselines using our longevity modules.</p>
+                </div>
+
+                <!-- Right grid showing clean quotes block -->
+                <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="bg-cream-light p-8 rounded-[2rem] border border-cream-dark/60 shadow-3d-light space-y-4">
+                        <div class="flex gap-1 text-ochre">
+                            <i data-lucide="star" class="w-4 h-4 fill-ochre"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-ochre"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-ochre"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-ochre"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-ochre"></i>
+                        </div>
+                        <p class="text-sm text-forest/85 italic leading-relaxed">
+                            "The longevity pathways redesigned my daily routine. My energy has completely rebounded, and knowing Dr. Vance's team is available 24/7 is pure reassurance."
+                        </p>
+                        <div class="pt-4 border-t border-cream-dark/60">
+                            <h5 class="font-extrabold text-forest text-sm">Sarah Jenkins</h5>
+                            <span class="text-[10px] uppercase tracking-wider text-ochre font-bold">Client Pathway • Longevity Plan</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-cream-light p-8 rounded-[2rem] border border-cream-dark/60 shadow-3d-light space-y-4">
+                        <div class="flex gap-1 text-ochre">
+                            <i data-lucide="star" class="w-4 h-4 fill-ochre"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-ochre"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-ochre"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-ochre"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-ochre"></i>
+                        </div>
+                        <p class="text-sm text-forest/85 italic leading-relaxed">
+                            "The direct virtual consultation with Dr. Mercer solved my high-blood-pressure anxiety in one morning. The digital prescription dispatch took under an hour."
+                        </p>
+                        <div class="pt-4 border-t border-cream-dark/60">
+                            <h5 class="font-extrabold text-forest text-sm">Alexander Dupont</h5>
+                            <span class="text-[10px] uppercase tracking-wider text-ochre font-bold">Client Pathway • Cardio Care</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PREMIUM CONTACT & BOOKING FORM IN THE FOOTER REGION -->
+    <section class="bg-forest pt-20 pb-12 px-6 md:px-12 text-cream-light relative overflow-hidden">
+        <!-- Floating shapes mimicking the reference layout background -->
+        <div class="absolute -right-16 -bottom-16 w-64 h-64 rounded-full bg-forest-soft/30 blur-2xl"></div>
+        <div class="absolute -left-16 -top-16 w-64 h-64 rounded-full bg-forest-dark/50 blur-2xl"></div>
+
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-16 border-b border-forest-light/60">
+                
+                <!-- Footer Info / Branding column mimicking Studio 1048 -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-cream text-forest flex items-center justify-center text-ochre shadow-lg">
+                            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="4" y="4" width="6" height="6" rx="2" fill="currentColor"/>
+                                <circle cx="17" cy="17" r="3" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="text-xl font-black tracking-tight text-cream-light block">CuraCare</span>
+                            <span class="text-[10px] tracking-[0.2em] font-bold text-ochre uppercase">Studio 1048</span>
+                        </div>
+                    </div>
+                    
+                    <p class="text-cream-light/70 text-sm max-w-sm leading-relaxed">
+                        Setting global benchmarks in longevity-focused telemedicine. We believe optimal vitality is the foundation of all clinical breakthroughs.
+                    </p>
+
+                    <div class="space-y-2 text-xs">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="map-pin" class="w-4 h-4 text-ochre"></i>
+                            <span>748 Premium Orchard Avenue, Suite 100, California</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="mail" class="w-4 h-4 text-ochre"></i>
+                            <span>support@curacare1048.clinic</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="phone" class="w-4 h-4 text-ochre"></i>
+                            <span>+1 (800) 555-CURA (2872)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fast Links Grid -->
+                <div class="lg:col-span-3 grid grid-cols-2 gap-4">
+                    <div class="space-y-3">
+                        <h4 class="text-xs font-extrabold uppercase tracking-widest text-ochre">Pathways</h4>
+                        <ul class="space-y-2 text-xs text-cream-light/70">
+                            <li><a href="#" class="hover:text-cream-light hover:underline">Longevity DNA</a></li>
+                            <li><a href="#" class="hover:text-cream-light hover:underline">Daily Recovery</a></li>
+                            <li><a href="#" class="hover:text-cream-light hover:underline">Cardiovascular</a></li>
+                            <li><a href="#" class="hover:text-cream-light hover:underline">Nutrient Drops</a></li>
+                        </ul>
+                    </div>
+                    <div class="space-y-3">
+                        <h4 class="text-xs font-extrabold uppercase tracking-widest text-ochre">Clinical</h4>
+                        <ul class="space-y-2 text-xs text-cream-light/70">
+                            <li><a href="#" class="hover:text-cream-light hover:underline">Our Doctors</a></li>
+                            <li><a href="#" class="hover:text-cream-light hover:underline">Lab Facilities</a></li>
+                            <li><a href="#" class="hover:text-cream-light hover:underline">FAQ Centers</a></li>
+                            <li><a href="#" class="hover:text-cream-light hover:underline">Portals</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Modern Newsletter Signup Area mimicking reference elegance -->
+                <div class="lg:col-span-4 space-y-4">
+                    <h4 class="text-xs font-extrabold uppercase tracking-widest text-ochre">Clinical Notifications</h4>
+                    <p class="text-xs text-cream-light/70">Sign up to receive our monthly organic metabolic research papers.</p>
+                    <div class="flex items-center bg-forest-light border border-forest-soft p-1 rounded-full">
+                        <input type="email" placeholder="Email Address" class="bg-transparent pl-4 pr-2 py-2 text-xs text-cream-light focus:outline-none w-full">
+                        <button onclick="alert('Thank you for subscribing to CuraCare research updates.')" class="bg-ochre hover:bg-ochre-dark text-forest-dark px-4 py-2 rounded-full text-[10px] font-extrabold uppercase tracking-wider transition-all">
+                            Notify
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Footer Bottom legal details -->
+            <div class="mt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] text-cream-light/50 gap-4">
+                <span>&copy; 2026 CuraCare Telehealth Studio 1048 Inc. All rights reserved.</span>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="hover:underline">Privacy Charter</a>
+                    <a href="#" class="hover:underline">Clinical Terms of Service</a>
+                    <a href="#" class="hover:underline">FDA Disclaimers</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FLOATING INTERACTIVE TELEHEALTH LIVE CHAT WIDGET (Bottom Right) -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <!-- Interactive Chat button with soft notification ping -->
+        <button id="chatToggle" onclick="toggleChatWindow()" class="relative w-14 h-14 rounded-full bg-ochre hover:bg-ochre-dark text-forest-dark flex items-center justify-center shadow-glow-gold hover:scale-105 active:scale-95 transition-all">
+            <i data-lucide="message-square" class="w-6 h-6"></i>
+            <span class="absolute top-0 right-0 w-4 h-4 rounded-full bg-red-500 border-2 border-cream text-[9px] font-black text-white flex items-center justify-center">1</span>
+        </button>
+
+        <!-- Simulated Premium Chat Window -->
+        <div id="chatWindow" class="hidden absolute bottom-18 right-0 w-80 bg-cream-light border border-cream-dark/80 rounded-[2rem] shadow-premium overflow-hidden z-50 flex flex-col justify-between">
+            <!-- Header bar with doctor meta details -->
+            <div class="bg-forest text-cream-light p-4 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-ochre text-forest-dark flex items-center justify-center text-xs font-bold">CC</div>
+                    <div>
+                        <h6 class="text-xs font-extrabold">CuraCare Live Desk</h6>
+                        <span class="text-[9px] text-emerald-400 font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Online Now</span>
+                    </div>
+                </div>
+                <button onclick="toggleChatWindow()" class="text-cream-light/60 hover:text-white"><i data-lucide="x" class="w-4 h-4"></i></button>
+            </div>
+
+            <!-- Chat Content area -->
+            <div class="p-4 space-y-4 max-h-60 overflow-y-auto" id="chatMessages">
+                <div class="bg-cream-accent/50 p-3 rounded-2xl rounded-tl-none text-xs text-forest/90">
+                    Hello! Welcome to Studio 1048 Support. I can help map your wellness pathway immediately. How should we proceed?
+                </div>
+            </div>
+
+            <!-- Quick replies -->
+            <div class="px-4 pb-2 flex flex-wrap gap-1.5">
+                <button onclick="sendQuickReply('Schedule with Dr. Gabriel')" class="text-[10px] bg-cream border border-cream-dark/60 text-forest px-2 py-1 rounded-full hover:bg-cream-dark transition-all">Schedule with Dr. Gabriel</button>
+                <button onclick="sendQuickReply('Longevity Pricing')" class="text-[10px] bg-cream border border-cream-dark/60 text-forest px-2 py-1 rounded-full hover:bg-cream-dark transition-all">Longevity Pricing</button>
+            </div>
+
+            <!-- Message write line -->
+            <div class="p-3 border-t border-cream-dark/60 flex items-center bg-cream-light gap-2">
+                <input type="text" id="chatInput" placeholder="Write query..." class="bg-cream-accent/40 rounded-full py-1.5 px-4 text-xs text-forest focus:outline-none w-full border border-cream-dark/40" onkeypress="handleChatPress(event)">
+                <button onclick="sendMessage()" class="w-8 h-8 rounded-full bg-forest text-cream-light flex items-center justify-center"><i data-lucide="send" class="w-3.5 h-3.5"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOOKING APPOINTMENT DIALOG MODAL -->
+    <div id="bookingModal" class="hidden fixed inset-0 bg-forest/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+        <div class="bg-cream-light border-2 border-ochre/40 w-full max-w-lg rounded-[2.5rem] shadow-premium overflow-hidden transform transition-all duration-300">
+            <!-- Modal header -->
+            <div class="bg-forest p-6 text-cream-light flex items-center justify-between border-b border-forest-light">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="calendar" class="w-5 h-5 text-ochre"></i>
+                    <h3 class="text-lg font-bold">Confirm Instant Consult Slot</h3>
+                </div>
+                <button onclick="closeBookingModal()" class="text-cream-light/60 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+
+            <!-- Modal body form -->
+            <div class="p-8 space-y-6">
+                <p class="text-sm text-forest/70">Enter your core credentials to reserve an instant on-demand telehealth consultation.</p>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs uppercase font-extrabold text-forest/60 mb-1.5">Full Name</label>
+                        <input type="text" id="bookingName" placeholder="e.g. Eleanor Vance" class="w-full bg-cream border border-cream-dark/80 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-ochre text-forest">
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs uppercase font-extrabold text-forest/60 mb-1.5">Phone Number</label>
+                            <input type="tel" id="bookingPhone" placeholder="+1 (555) 000-0000" class="w-full bg-cream border border-cream-dark/80 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-ochre text-forest">
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase font-extrabold text-forest/60 mb-1.5">Consult Specialty</label>
+                            <select id="bookingSpecialty" class="w-full bg-cream border border-cream-dark/80 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-ochre text-forest">
+                                <option>Anti-aging Longevity</option>
+                                <option>Preventative Cardiovascular</option>
+                                <option>Mental Wellness & Therapy</option>
+                                <option>Urgent Telehealth Consultation</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-4 bg-cream border border-cream-dark rounded-xl flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-full bg-ochre/15 text-ochre flex items-center justify-center"><i data-lucide="info" class="w-4 h-4"></i></span>
+                    <span class="text-[11px] text-forest/70">Your secure patient connection remains fully HIPPA & PIPEDA compliant.</span>
+                </div>
+
+                <div class="flex items-center justify-between gap-4 pt-4 border-t border-cream-dark/60">
+                    <button onclick="closeBookingModal()" class="px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wider text-forest/60 hover:text-forest">Cancel</button>
+                    <button onclick="submitBooking()" class="px-8 py-3 rounded-full bg-ochre hover:bg-ochre-dark text-forest-dark font-bold text-xs uppercase tracking-wider shadow-glow-gold">Book Consultation</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- CLIENT SIDE INTERACTIVE SCRIPTS -->
+    <script>
+        // Start Lucide Icons replacements
+        window.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+
+        // Interactive Diagnostic Tool Logic (Step-by-step custom wizard)
+        let focusArea = '';
+        let careMedium = '';
+        let timeline = '';
+
+        function setFocus(val) {
+            focusArea = val;
+            document.getElementById('step1Content').classList.add('hidden');
+            document.getElementById('step2Content').classList.remove('hidden');
+            
+            // Adjust dots and text indicator
+            document.getElementById('stepIndicator').innerText = "Step 2 of 3";
+            document.getElementById('dot2').classList.replace('bg-forest', 'bg-ochre');
+        }
+
+        function setMedium(val) {
+            careMedium = val;
+            document.getElementById('step2Content').classList.add('hidden');
+            document.getElementById('step3Content').classList.remove('hidden');
+
+            document.getElementById('stepIndicator').innerText = "Step 3 of 3";
+            document.getElementById('dot3').classList.replace('bg-forest', 'bg-ochre');
+        }
+
+        function prevStep(step) {
+            if (step === 1) {
+                document.getElementById('step2Content').classList.add('hidden');
+                document.getElementById('step1Content').classList.remove('hidden');
+                document.getElementById('stepIndicator').innerText = "Step 1 of 3";
+                document.getElementById('dot2').classList.replace('bg-ochre', 'bg-forest');
+            } else if (step === 2) {
+                document.getElementById('step3Content').classList.add('hidden');
+                document.getElementById('step2Content').classList.remove('hidden');
+                document.getElementById('stepIndicator').innerText = "Step 2 of 3";
+                document.getElementById('dot3').classList.replace('bg-ochre', 'bg-forest');
+            }
+        }
+
+        function submitDiagnostic(val) {
+            timeline = val;
+            document.getElementById('step3Content').classList.add('hidden');
+            document.getElementById('resultsContent').classList.remove('hidden');
+            document.getElementById('stepIndicator').innerText = "Results Generated";
+
+            // Configure custom matching parameters dynamically
+            let title = '';
+            let desc = '';
+            let doctor = '';
+
+            if (focusArea.includes('Longevity')) {
+                title = 'Cellular Gene Sequencing & Recovery Plan';
+                desc = `Based on your chosen delivery medium (${careMedium}), you have been matched with Dr. Vance. Your initial intake packet includes testing kits dispatched by apothecary within ${timeline === 'Urgent Consultation' ? '2 hours' : '24 hours'}.`;
+                doctor = 'Dr. Marcus Vance (Genetics Lead)';
+            } else if (focusArea.includes('Daily')) {
+                title = 'Primary Core Integrative Health Program';
+                desc = `Your ${timeline} schedule features daily biome telemetry trackers synchronizing instantly with your patient portal for on-demand consultations.`;
+                doctor = 'Dr. Elena Rostova (Wellness Advisor)';
+            } else {
+                title = 'Vascular Biometric Risk Evaluation';
+                desc = `Focuses on stress optimization, ECG telemetries, and hybrid testing. Scheduled onboarding prioritized via: ${timeline}.`;
+                doctor = 'Dr. Sophia Mercer (Oxford Clinical Lead)';
+            }
+
+            document.getElementById('pathwayTitle').innerText = title;
+            document.getElementById('pathwayDescription').innerText = desc;
+            document.getElementById('matchedDoctor').innerText = doctor;
+        }
+
+        function resetDiagnostic() {
+            focusArea = '';
+            careMedium = '';
+            timeline = '';
+
+            document.getElementById('resultsContent').classList.add('hidden');
+            document.getElementById('step1Content').classList.remove('hidden');
+            document.getElementById('stepIndicator').innerText = "Step 1 of 3";
+            
+            document.getElementById('dot2').classList.replace('bg-ochre', 'bg-forest');
+            document.getElementById('dot3').classList.replace('bg-ochre', 'bg-forest');
+        }
+
+        // Scroll helper
+        function scrollToDiagnostic() {
+            document.getElementById('diagnostic').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Accordion FAQs toggle logic
+        function toggleFaq(id) {
+            const content = document.getElementById(`faq-content-${id}`);
+            const icon = document.getElementById(`faq-icon-${id}`);
+
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(45deg)';
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Chat widget logic
+        function toggleChatWindow() {
+            const win = document.getElementById('chatWindow');
+            win.classList.toggle('hidden');
+        }
+
+        function handleChatPress(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const val = input.value.trim();
+            if (!val) return;
+
+            addChatMessage(val, true);
+            input.value = '';
+
+            // Simulated response
+            setTimeout(() => {
+                addChatMessage("Understood. I will pass your notes onto Dr. Gabriel's administrative team. Your assessment is flagged for follow up.", false);
+            }, 1000);
+        }
+
+        function sendQuickReply(val) {
+            addChatMessage(val, true);
+            setTimeout(() => {
+                if (val.includes('Dr. Gabriel')) {
+                    addChatMessage("Opening direct booking slots now...", false);
+                    setTimeout(() => {
+                        openBookingModal();
+                    }, 500);
+                } else {
+                    addChatMessage("Longevity therapy pathways start at $149/mo. We'll mail detailed information packets to your default address.", false);
+                }
+            }, 1000);
+        }
+
+        function addChatMessage(msg, isUser) {
+            const container = document.getElementById('chatMessages');
+            const div = document.createElement('div');
+            
+            if (isUser) {
+                div.className = "bg-forest text-cream-light p-3 rounded-2xl rounded-tr-none text-xs text-right ml-auto max-w-[80%]";
+            } else {
+                div.className = "bg-cream-accent/50 p-3 rounded-2xl rounded-tl-none text-xs text-forest/90 mr-auto max-w-[80%]";
+            }
+            div.innerText = msg;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Booking Modal triggers
+        function openBookingModal() {
+            document.getElementById('bookingModal').classList.remove('hidden');
+        }
+
+        function closeBookingModal() {
+            document.getElementById('bookingModal').classList.add('hidden');
+        }
+
+        function submitBooking() {
+            const name = document.getElementById('bookingName').value.trim();
+            const phone = document.getElementById('bookingPhone').value.trim();
+            const specialty = document.getElementById('bookingSpecialty').value;
+
+            if (!name || !phone) {
+                alert("Please fill out your name and primary contact details.");
+                return;
+            }
+
+            alert(`Appointment requested successfully for ${name} under [${specialty}]. Our concierge coordinator will dial ${phone} shortly.`);
+            closeBookingModal();
+        }
+    </script>
+</body>
+</html>
+I8

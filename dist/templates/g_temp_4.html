@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE ARCHIVAL PORTFOLIO — Master Etchings & Ink Lithography</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for Editorial Sophistication -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Courier+Prime&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        display: ['"Cinzel"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        mono: ['"Courier Prime"', 'monospace'],
+                    },
+                    colors: {
+                        parchment: {
+                            50: '#FAF9F5',
+                            100: '#F5F2EA',
+                            200: '#EDE9DC',
+                            300: '#E2DBC9',
+                            DEFAULT: '#F8F6F0',
+                        },
+                        charcoal: {
+                            50: '#2A2A2A',
+                            100: '#202020',
+                            200: '#171717',
+                            DEFAULT: '#0D0D0D',
+                        },
+                        sepia: '#5C5446',
+                    },
+                    backgroundImage: {
+                        'paper-texture': "url('data:image/svg+xml,%3Csvg viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cfilter id=\"noiseFilter\"%3E%3CfeTurbulence type=\"fractalNoise\" baseFrequency=\"0.8\" numOctaves=\"3\" stitchTiles=\"stitch\"/%3E%3C/filter%3E%3Crect width=\"100%25\" height=\"100%25\" filter=\"url(%23noiseFilter)\" opacity=\"0.04\"/%3E%3C/svg%3E')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Smooth Custom Transitions */
+        .fade-in-slide {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .fade-in-slide.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Custom Fine Art Framing Mockup shadows */
+        .framed-shadow {
+            box-shadow: 0 30px 60px -15px rgba(0,0,0,0.35), 0 0 0 1px rgba(0,0,0,0.05);
+        }
+        /* High-fidelity print hatch pattern style overrides */
+        .hatch-bg {
+            background-image: repeating-linear-gradient(45deg, rgba(0,0,0,0.08) 0px, rgba(0,0,0,0.08) 1px, transparent 1px, transparent 8px);
+        }
+        .hatch-bg-dark {
+            background-image: repeating-linear-gradient(-45deg, rgba(0,0,0,0.15) 0px, rgba(0,0,0,0.15) 1px, transparent 1px, transparent 6px);
+        }
+    </style>
+</head>
+<body class="bg-parchment text-charcoal font-sans selection:bg-charcoal selection:text-parchment relative min-h-screen overflow-x-hidden bg-paper-texture">
+
+    <!-- Global SVG Definitions for Advanced Etching & Cross-Hatching Styles -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="hidden">
+        <defs>
+            <!-- Fine Diagonal Cross Hatch Pattern -->
+            <pattern id="etchHatch1" width="10" height="10" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+                <line x1="0" y1="0" x2="0" y2="10" stroke="#0d0d0d" stroke-width="1.2" />
+            </pattern>
+            <pattern id="etchHatch2" width="6" height="6" patternTransform="rotate(-45 0 0)" patternUnits="userSpaceOnUse">
+                <line x1="0" y1="0" x2="0" y2="6" stroke="#222222" stroke-width="0.8" />
+            </pattern>
+            <pattern id="etchCrossHatch" width="8" height="8" patternTransform="rotate(30 0 0)" patternUnits="userSpaceOnUse">
+                <line x1="0" y1="0" x2="0" y2="8" stroke="#111111" stroke-width="0.9" />
+                <line x1="0" y1="0" x2="8" y2="0" stroke="#111111" stroke-width="0.9" />
+            </pattern>
+            <pattern id="stipplePattern" width="4" height="4" patternUnits="userSpaceOnUse">
+                <circle cx="2" cy="2" r="0.6" fill="#1a1a1a" />
+            </pattern>
+        </defs>
+    </svg>
+
+    <!-- Elegant Floating Navigation Bar -->
+    <nav class="fixed top-0 left-0 w-full z-50 border-b border-charcoal/10 bg-parchment/95 backdrop-blur-sm transition-all duration-300 py-4 px-6 md:px-12 flex justify-between items-center bg-paper-texture">
+        <div class="flex items-center space-x-3">
+            <span class="font-display text-lg tracking-[0.3em] font-semibold text-charcoal">MONO·GRAFT</span>
+            <span class="h-1.5 w-1.5 bg-charcoal rounded-full"></span>
+            <span class="font-mono text-[9px] tracking-widest text-charcoal/50 uppercase hidden sm:inline">Folio Edition 01</span>
+        </div>
+        
+        <div class="hidden md:flex space-x-12 items-center">
+            <a href="#plates" class="font-sans text-xs tracking-[0.2em] uppercase font-medium hover:text-charcoal/60 transition-colors">The Plates</a>
+            <a href="#atelier" class="font-sans text-xs tracking-[0.2em] uppercase font-medium hover:text-charcoal/60 transition-colors">The Atelier</a>
+            <a href="#configurator" class="font-sans text-xs tracking-[0.2em] uppercase font-medium hover:text-charcoal/60 transition-colors">Framing Studio</a>
+            <a href="#process" class="font-sans text-xs tracking-[0.2em] uppercase font-medium hover:text-charcoal/60 transition-colors">Craftsmanship</a>
+        </div>
+
+        <div class="flex items-center space-x-6">
+            <!-- Audio Ambience Controller Toggle -->
+            <button id="soundscapeToggle" class="group flex items-center space-x-2 text-charcoal/70 hover:text-charcoal transition-all text-left" title="Toggle Archival Ambient Audio">
+                <div class="relative w-5 h-5 flex items-center justify-center">
+                    <span id="soundOnIcon" class="hidden">
+                        <svg class="w-4 h-4 text-charcoal animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /></svg>
+                    </span>
+                    <span id="soundOffIcon">
+                        <svg class="w-4 h-4 text-charcoal/40 group-hover:text-charcoal transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" /></svg>
+                    </span>
+                </div>
+                <span class="font-mono text-[9px] tracking-widest uppercase hidden lg:inline text-charcoal/50 group-hover:text-charcoal transition-colors">Atelier Soundscape</span>
+            </button>
+            
+            <a href="#configurator" class="px-5 py-2.5 bg-charcoal text-parchment font-mono text-[10px] tracking-widest uppercase hover:bg-charcoal/90 transition-all rounded-sm flex items-center space-x-2">
+                <span>Acquire Plate</span>
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero / Masterpiece Introduction Section -->
+    <header class="relative pt-32 pb-24 md:py-40 px-6 md:px-12 flex flex-col items-center justify-center min-h-[95vh] border-b border-charcoal/10 overflow-hidden">
+        <!-- Floating Design Grids resembling architectural layouts -->
+        <div class="absolute inset-0 grid grid-cols-4 pointer-events-none opacity-20">
+            <div class="border-r border-charcoal/10 h-full"></div>
+            <div class="border-r border-charcoal/10 h-full"></div>
+            <div class="border-r border-charcoal/10 h-full"></div>
+            <div class="h-full"></div>
+        </div>
+        
+        <div class="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+            
+            <!-- Left: Poetic Manifest / Typographic Intro -->
+            <div class="lg:col-span-5 flex flex-col justify-center text-left space-y-8 order-2 lg:order-1">
+                <div class="space-y-4">
+                    <span class="font-mono text-[11px] tracking-[0.3em] text-charcoal/60 uppercase block">Monochrome Hand-Etched Archival Prints</span>
+                    
+                    <!-- Title with custom Ink Brushstroke Label -->
+                    <div class="relative inline-block py-2 select-none pr-4">
+                        <svg class="absolute -inset-x-6 inset-y-0 w-full h-full text-charcoal opacity-95 pointer-events-none" viewBox="0 0 350 70" fill="currentColor" preserveAspectRatio="none">
+                            <path d="M 5,35 C 45,15 155,10 335,22 C 315,48 195,65 105,58 C 55,54 15,46 5,35 Z M 20,38 C 65,18 165,13 325,25 C 305,51 185,62 100,56 C 50,52 25,47 20,38 Z" />
+                        </svg>
+                        <h2 class="relative font-display text-white text-base md:text-lg tracking-[0.4em] uppercase z-10 px-4">
+                            The Ink Chronicles
+                        </h2>
+                    </div>
+
+                    <h1 class="font-serif text-5xl md:text-6xl xl:text-7xl font-extralight tracking-tight leading-none text-charcoal pt-4">
+                        Etched in <span class="italic font-normal">Silence.</span><br>Preserved in Paper.
+                    </h1>
+                </div>
+                
+                <p class="font-serif text-lg text-charcoal/80 leading-relaxed max-w-lg">
+                    A limited-edition collection of handcrafted physical lithographs and fine-art plates. Each design is meticulously carved, hatched, and pressed onto 310gsm textured mulberry cotton paper to preserve humanity's grandest monument architectural silhouettes.
+                </p>
+
+                <!-- Editorial Meta Grid -->
+                <div class="grid grid-cols-2 gap-6 border-t border-b border-charcoal/15 py-6">
+                    <div>
+                        <span class="font-mono text-[9px] tracking-[0.2em] text-charcoal/50 uppercase block">Atelier Run</span>
+                        <span class="font-serif text-lg font-medium text-charcoal">99 Signature Folios</span>
+                    </div>
+                    <div>
+                        <span class="font-mono text-[9px] tracking-[0.2em] text-charcoal/50 uppercase block">Material Baseline</span>
+                        <span class="font-serif text-lg font-medium text-charcoal">Hahnemühle 310gsm</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#plates" class="px-8 py-4 bg-charcoal text-parchment font-mono text-xs tracking-widest uppercase hover:bg-charcoal/80 transition-all text-center rounded-sm">
+                        Explore Plates
+                    </a>
+                    <a href="#atelier" class="px-8 py-4 border border-charcoal/20 text-charcoal font-mono text-xs tracking-widest uppercase hover:bg-charcoal hover:text-parchment transition-all text-center rounded-sm">
+                        Atelier Interactive Canvas
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right: Captivating SVG Engraving Hero Element representing an iconic Pagoda Sketch -->
+            <div class="lg:col-span-7 flex justify-center order-1 lg:order-2">
+                <div class="relative w-full max-w-md lg:max-w-xl aspect-[3/4] bg-[#F4EFEB] p-6 border border-charcoal/10 rounded-sm framed-shadow flex flex-col justify-between overflow-hidden bg-paper-texture">
+                    <!-- Subtle paper fold line in center to simulate beautiful physical book spine -->
+                    <div class="absolute inset-y-0 left-0 w-[1px] bg-charcoal/5 shadow-2xl"></div>
+                    
+                    <!-- Decorative corner layout markings -->
+                    <div class="absolute top-4 left-4 font-mono text-[9px] text-charcoal/30">FOLIO 01 / PLATE I</div>
+                    <div class="absolute top-4 right-4 font-mono text-[9px] text-charcoal/30">50.23° N, 12.01° E</div>
+
+                    <!-- Master SVG Archival Engraving -->
+                    <div class="w-full h-full flex items-center justify-center py-6">
+                        <svg class="w-4/5 h-4/5 text-charcoal" viewBox="0 0 200 240" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Background sketch guidelines (light construction grid) -->
+                            <g stroke-width="0.3" stroke="rgba(13,13,13,0.15)">
+                                <line x1="100" y1="10" x2="100" y2="230" stroke-dasharray="2,2"/>
+                                <line x1="20" y1="210" x2="180" y2="210" />
+                                <line x1="20" y1="170" x2="180" y2="170" stroke-dasharray="1,2"/>
+                                <line x1="20" y1="130" x2="180" y2="130" stroke-dasharray="1,2"/>
+                                <line x1="20" y1="90" x2="180" y2="90" stroke-dasharray="1,2"/>
+                                <circle cx="100" cy="110" r="80" stroke-dasharray="4,4" />
+                            </g>
+
+                            <!-- The Base / Pagoda Stone Platform with Etch patterns -->
+                            <path d="M 40,210 L 160,210 L 150,195 L 50,195 Z" fill="url(#etchHatch1)" stroke="currentColor" stroke-width="1.2"/>
+                            <rect x="60" y="180" width="80" height="15" fill="url(#etchCrossHatch)" stroke="currentColor" stroke-width="1.2"/>
+                            
+                            <!-- Middle Columns & Roof Section -->
+                            <path d="M 45,180 L 155,180 L 165,160 L 35,160 Z" fill="url(#etchHatch2)" stroke="currentColor" stroke-width="1.2" />
+                            <rect x="70" y="145" width="60" height="15" fill="none" stroke="currentColor" stroke-width="1"/>
+                            <!-- Hatch overlay for shade -->
+                            <rect x="100" y="145" width="30" height="15" fill="url(#etchHatch1)"/>
+
+                            <!-- Top Tier roof & finial -->
+                            <path d="M 55,145 L 145,145 L 150,125 L 50,125 Z" fill="url(#etchHatch1)" stroke="currentColor" stroke-width="1"/>
+                            <path d="M 80,125 L 120,125 L 125,95 L 75,95 Z" fill="url(#etchCrossHatch)" stroke="currentColor" stroke-width="1"/>
+                            
+                            <line x1="100" y1="95" x2="100" y2="55" stroke="currentColor" stroke-width="1.5" />
+                            <circle cx="100" cy="75" r="5" fill="currentColor" />
+                            <circle cx="100" cy="65" r="3" fill="currentColor" />
+
+                            <!-- Artistic "Hand Sketch" Overflow / Scratchy Lines -->
+                            <path d="M 30,212 C 40,218 80,215 100,216 C 130,217 165,213 170,214" stroke="rgba(13,13,13,0.4)" stroke-width="0.8"/>
+                            <path d="M 38,209 C 50,211 120,208 162,210" stroke="rgba(13,13,13,0.3)" stroke-width="0.6"/>
+                            <!-- Sun outline with cross-hatching detail -->
+                            <path d="M 130,50 A 20,20 0 1,1 170,50" stroke="rgba(13,13,13,0.25)" stroke-width="0.8" stroke-dasharray="2,2"/>
+                        </svg>
+                    </div>
+
+                    <!-- Bottom Plate Meta Text to emulate layout of physical art pages -->
+                    <div class="flex justify-between items-end">
+                        <div class="space-y-1">
+                            <h4 class="font-serif text-sm font-semibold tracking-wider text-charcoal">THE BULGUKSA PAGODA</h4>
+                            <p class="font-mono text-[9px] text-charcoal/50">Gyeongju, South Korea • Plate No. 1</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="font-mono text-[10px] text-charcoal border-t border-charcoal/30 pt-1 px-1">PLATE I/IX</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Interactive Portfolio Section (The Core Plates) -->
+    <section id="plates" class="py-24 md:py-32 border-b border-charcoal/10 relative">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            
+            <!-- Section Title & Narrative -->
+            <div class="max-w-3xl mb-16 md:mb-24 space-y-6">
+                <span class="font-mono text-xs tracking-[0.3em] text-charcoal/60 uppercase block">Curated Catalogue</span>
+                
+                <div class="relative inline-block py-2 pr-6">
+                    <svg class="absolute -inset-x-4 inset-y-0 w-full h-full text-charcoal opacity-95 pointer-events-none" viewBox="0 0 350 70" fill="currentColor" preserveAspectRatio="none">
+                        <path d="M 8,32 C 48,12 158,8 338,20 C 318,46 198,63 108,56 C 58,52 18,44 8,32 Z" />
+                    </svg>
+                    <h2 class="relative font-display text-white text-base tracking-[0.4em] uppercase z-10 px-4">
+                        The Master Archival Plates
+                    </h2>
+                </div>
+
+                <p class="font-serif text-2xl font-light text-charcoal/90 leading-relaxed">
+                    Scroll through our collection of premium, hand-carved lithographs. Select any plate to toggle between the intricate <strong class="font-semibold">final black ink layer</strong> or the artist's structural <strong class="italic">pencil architecture guidelines</strong>.
+                </p>
+            </div>
+
+            <!-- Asymmetric Grid of Archival Plates to perfectly mirror the custom layout in the image -->
+            <div class="space-y-32">
+                
+                <!-- PLATE 1: Gyeongbokgung Main Gate (Layout A: Left Sketch, Right Details) -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center fade-in-slide">
+                    <!-- Left Side: Interactive Print Frame View -->
+                    <div class="lg:col-span-7">
+                        <div class="relative bg-[#FAF8F5] p-8 md:p-12 border border-charcoal/10 rounded-sm framed-shadow flex flex-col justify-between overflow-hidden bg-paper-texture">
+                            <div class="absolute inset-y-0 left-0 w-[1px] bg-charcoal/5"></div>
+                            
+                            <!-- Plate Selector Controls -->
+                            <div class="flex justify-between items-center mb-6 z-10">
+                                <span class="font-mono text-[9px] text-charcoal/40">ARCHIVAL PLATE II</span>
+                                <div class="flex bg-charcoal/5 p-0.5 rounded-sm">
+                                    <button onclick="togglePlateLayer('plate1', 'ink')" id="btn-plate1-ink" class="px-3 py-1 bg-charcoal text-parchment font-mono text-[8px] tracking-widest uppercase rounded-sm transition-all">Ink Press</button>
+                                    <button onclick="togglePlateLayer('plate1', 'pencil')" id="btn-plate1-pencil" class="px-3 py-1 text-charcoal/70 font-mono text-[8px] tracking-widest uppercase rounded-sm transition-all hover:text-charcoal">Draft Grid</button>
+                                </div>
+                            </div>
+
+                            <!-- Interactive SVG Sketch Render Frame -->
+                            <div class="w-full aspect-[4/3] flex items-center justify-center my-4 relative">
+                                <!-- Ink Press Layer -->
+                                <svg id="plate1-ink-svg" class="w-5/6 h-5/6 text-charcoal transition-all duration-700" viewBox="0 0 300 200" fill="none" stroke="currentColor">
+                                    <!-- Heavily detailed fortress gate simulation -->
+                                    <path d="M 20,180 L 280,180 L 270,140 L 30,140 Z" fill="url(#etchCrossHatch)" stroke="currentColor" stroke-width="1.2"/>
+                                    <!-- Gate Archway -->
+                                    <path d="M 115,180 C 115,150 185,150 185,180 Z" fill="#F8F6F0" stroke="currentColor" stroke-width="1.5"/>
+                                    <!-- Archway Cross Hatching -->
+                                    <path d="M 115,180 C 115,150 185,150 185,180 Z" fill="url(#etchHatch2)" opacity="0.3"/>
+                                    
+                                    <!-- Upper wooden pavilion structure -->
+                                    <rect x="50" y="110" width="200" height="30" fill="url(#etchHatch1)" stroke="currentColor" stroke-width="1.2" />
+                                    <!-- Columns -->
+                                    <g stroke="currentColor" stroke-width="1.5">
+                                        <line x1="65" y1="110" x2="65" y2="140" />
+                                        <line x1="100" y1="110" x2="100" y2="140" />
+                                        <line x1="150" y1="110" x2="150" y2="140" />
+                                        <line x1="200" y1="110" x2="200" y2="140" />
+                                        <line x1="235" y1="110" x2="235" y2="140" />
+                                    </g>
+                                    
+                                    <!-- Traditional Sweeping Roof -->
+                                    <path d="M 30,110 C 100,105 200,105 270,110 L 250,90 L 50,90 Z" fill="url(#etchCrossHatch)" stroke="currentColor" stroke-width="1.2"/>
+                                    <path d="M 100,90 C 120,80 180,80 200,90 L 190,75 L 110,75 Z" fill="currentColor" />
+                                    
+                                    <!-- Sky cross hatch clouds -->
+                                    <path d="M 200,40 Q 230,20 260,35" stroke="rgba(13,13,13,0.2)" stroke-width="0.8" stroke-dasharray="4,4" />
+                                </svg>
+
+                                <!-- Draft Pencil Layer (Hidden by default, styled like drafting lines) -->
+                                <svg id="plate1-pencil-svg" class="w-5/6 h-5/6 text-[#2B4C7E] opacity-0 absolute transition-all duration-700 pointer-events-none" viewBox="0 0 300 200" fill="none" stroke="currentColor">
+                                    <!-- Blueprint layout, circles, measurements and horizon line -->
+                                    <line x1="10" y1="180" x2="290" y2="180" stroke-width="0.5" />
+                                    <line x1="150" y1="10" x2="150" y2="190" stroke-width="0.5" stroke-dasharray="4,4" />
+                                    <!-- Perspective lines -->
+                                    <line x1="10" y1="40" x2="290" y2="180" stroke-width="0.3" />
+                                    <line x1="290" y1="40" x2="10" y2="180" stroke-width="0.3" />
+                                    <circle cx="150" cy="115" r="75" stroke-width="0.5" stroke-dasharray="1,2" />
+                                    <!-- Geometric blueprint boxes of the gate -->
+                                    <rect x="20" y="140" width="260" height="40" stroke-width="0.5" stroke-dasharray="2,2"/>
+                                    <rect x="50" y="110" width="200" height="30" stroke-width="0.5" stroke-dasharray="2,2"/>
+                                    <path d="M 30,110 Q 150,95 270,110" stroke-width="0.5"/>
+                                </svg>
+                            </div>
+
+                            <!-- Page identifier details -->
+                            <div class="flex justify-between items-end border-t border-charcoal/5 pt-4">
+                                <span class="font-mono text-[9px] text-charcoal/50">PLATENUMBER: 02</span>
+                                <span class="font-mono text-[9px] text-charcoal/50">COORDS: 37.57° N, 126.97° E</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Side: Beautiful Editorial Copy -->
+                    <div class="lg:col-span-5 space-y-6 pl-0 lg:pl-10">
+                        <div class="inline-block bg-charcoal text-white font-mono text-[9px] tracking-widest uppercase px-4 py-1.5 rounded-sm">
+                            SEOUL ARCHIVE
+                        </div>
+                        <h3 class="font-serif text-3xl md:text-4xl font-light text-charcoal tracking-tight">
+                            The Gwanghwamun Citadel Gate
+                        </h3>
+                        <p class="font-serif text-base text-charcoal/80 leading-relaxed">
+                            A historical study capturing the sweeping grandeur of Joseon dynasty roof architectures. Hand-etched over 120 block-carving hours, translating heavy, massive stone fortifications and sweeping pine wood framing into incredibly dense cross-hatch strokes.
+                        </p>
+                        
+                        <!-- Archival Specs List -->
+                        <ul class="space-y-3 font-mono text-[11px] text-charcoal/70 border-t border-charcoal/10 pt-6">
+                            <li class="flex justify-between"><span class="text-charcoal/40">YEAR OF ORIGINAL CARVING</span><span>2024</span></li>
+                            <li class="flex justify-between"><span class="text-charcoal/40">ENGRAVING MEDIUM</span><span>Copperplate Lithography</span></li>
+                            <li class="flex justify-between"><span class="text-charcoal/40">AVAILABLE PRINTS</span><span>12 / 99 Remaining</span></li>
+                        </ul>
+
+                        <div class="pt-4">
+                            <button onclick="selectConfigPlate('Gwanghwamun Citadel Gate', 220)" class="group flex items-center space-x-3 font-mono text-xs tracking-widest text-charcoal uppercase hover:text-charcoal/60 transition-colors">
+                                <span>Preview Frame Customization</span>
+                                <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PLATE 2: Mont Saint-Michel (Layout B: Right Sketch, Left Details) -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center fade-in-slide">
+                    <!-- Left Side: Editorial Details -->
+                    <div class="lg:col-span-5 order-2 lg:order-1 space-y-6 pr-0 lg:pr-10">
+                        <div class="inline-block bg-charcoal text-white font-mono text-[9px] tracking-widest uppercase px-4 py-1.5 rounded-sm">
+                            EUROPEAN HERITAGE
+                        </div>
+                        <h3 class="font-serif text-3xl md:text-4xl font-light text-charcoal tracking-tight">
+                            Mont Saint-Michel Abbey
+                        </h3>
+                        <p class="font-serif text-base text-charcoal/80 leading-relaxed">
+                            Rising dramatically from sea mists, this master engraving explores the extreme density of gothic spires colliding with ancient coastal rock structures. Notice the shifting water textures, built using extremely fine parallel horizontal score-lines.
+                        </p>
+                        
+                        <!-- Archival Specs List -->
+                        <ul class="space-y-3 font-mono text-[11px] text-charcoal/70 border-t border-charcoal/10 pt-6">
+                            <li class="flex justify-between"><span class="text-charcoal/40">YEAR OF ORIGINAL CARVING</span><span>2023</span></li>
+                            <li class="flex justify-between"><span class="text-charcoal/40">ENGRAVING MEDIUM</span><span>Zinc Plate Etching</span></li>
+                            <li class="flex justify-between"><span class="text-charcoal/40">AVAILABLE PRINTS</span><span>8 / 99 Remaining</span></li>
+                        </ul>
+
+                        <div class="pt-4">
+                            <button onclick="selectConfigPlate('Mont Saint-Michel Abbey', 245)" class="group flex items-center space-x-3 font-mono text-xs tracking-widest text-charcoal uppercase hover:text-charcoal/60 transition-colors">
+                                <span>Preview Frame Customization</span>
+                                <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right Side: Interactive Print Frame View -->
+                    <div class="lg:col-span-7 order-1 lg:order-2">
+                        <div class="relative bg-[#FAF8F5] p-8 md:p-12 border border-charcoal/10 rounded-sm framed-shadow flex flex-col justify-between overflow-hidden bg-paper-texture">
+                            <div class="absolute inset-y-0 left-0 w-[1px] bg-charcoal/5"></div>
+                            
+                            <!-- Plate Selector Controls -->
+                            <div class="flex justify-between items-center mb-6 z-10">
+                                <span class="font-mono text-[9px] text-charcoal/40">ARCHIVAL PLATE IV</span>
+                                <div class="flex bg-charcoal/5 p-0.5 rounded-sm">
+                                    <button onclick="togglePlateLayer('plate2', 'ink')" id="btn-plate2-ink" class="px-3 py-1 bg-charcoal text-parchment font-mono text-[8px] tracking-widest uppercase rounded-sm transition-all">Ink Press</button>
+                                    <button onclick="togglePlateLayer('plate2', 'pencil')" id="btn-plate2-pencil" class="px-3 py-1 text-charcoal/70 font-mono text-[8px] tracking-widest uppercase rounded-sm transition-all hover:text-charcoal">Draft Grid</button>
+                                </div>
+                            </div>
+
+                            <!-- Interactive SVG Sketch Render Frame -->
+                            <div class="w-full aspect-[4/3] flex items-center justify-center my-4 relative">
+                                <!-- Ink Press Layer -->
+                                <svg id="plate2-ink-svg" class="w-5/6 h-5/6 text-charcoal transition-all duration-700" viewBox="0 0 300 200" fill="none" stroke="currentColor">
+                                    <!-- Island Profile -->
+                                    <path d="M 40,165 C 100,160 200,160 260,165 L 240,180 L 60,180 Z" fill="url(#etchCrossHatch)" stroke="currentColor" stroke-width="1.2"/>
+                                    <!-- Abbey Spires Climbing -->
+                                    <path d="M 120,165 L 125,120 L 140,70 L 150,30 L 160,70 L 175,120 L 180,165 Z" fill="url(#etchHatch1)" stroke="currentColor" stroke-width="1.2"/>
+                                    <!-- St. Michel Statue top -->
+                                    <line x1="150" y1="30" x2="150" y2="15" stroke="currentColor" stroke-width="1.5" />
+                                    <!-- Surrounding buildings & ramparts -->
+                                    <rect x="100" y="145" width="40" height="20" fill="url(#stipplePattern)" stroke="currentColor" stroke-width="1"/>
+                                    <rect x="160" y="140" width="45" height="25" fill="url(#stipplePattern)" stroke="currentColor" stroke-width="1"/>
+                                    <path d="M 80,165 L 220,165 L 210,150 L 90,150 Z" fill="url(#etchHatch2)" stroke="currentColor" stroke-width="1"/>
+                                    
+                                    <!-- Ocean waves texture lines -->
+                                    <g stroke="rgba(13,13,13,0.3)" stroke-width="0.7">
+                                        <line x1="20" y1="185" x2="280" y2="185" />
+                                        <line x1="40" y1="190" x2="260" y2="190" stroke-dasharray="20,10,30,5" />
+                                        <line x1="10" y1="178" x2="290" y2="178" stroke-dasharray="5,15,5,5" />
+                                    </g>
+                                </svg>
+
+                                <!-- Draft Pencil Layer -->
+                                <svg id="plate2-pencil-svg" class="w-5/6 h-5/6 text-[#2B4C7E] opacity-0 absolute transition-all duration-700 pointer-events-none" viewBox="0 0 300 200" fill="none" stroke="currentColor">
+                                    <line x1="10" y1="165" x2="290" y2="165" stroke-width="0.5" stroke-dasharray="8,2" />
+                                    <line x1="150" y1="10" x2="150" y2="190" stroke-width="0.5"/>
+                                    <!-- Golden ratio spirals/triangles indicating design layout symmetry -->
+                                    <path d="M 40,165 L 150,30 L 260,165" stroke-width="0.4" stroke-dasharray="2,2"/>
+                                    <circle cx="150" cy="110" r="55" stroke-width="0.4" stroke-dasharray="1,5" />
+                                </svg>
+                            </div>
+
+                            <!-- Page identifier details -->
+                            <div class="flex justify-between items-end border-t border-charcoal/5 pt-4">
+                                <span class="font-mono text-[9px] text-charcoal/50">PLATENUMBER: 04</span>
+                                <span class="font-mono text-[9px] text-charcoal/50">COORDS: 48.636° N, 1.511° W</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Atelier Sketchpad Section (The "Value-Add" drawing sensory simulation) -->
+    <section id="atelier" class="py-24 md:py-32 bg-charcoal text-parchment relative overflow-hidden border-b border-charcoal/10 bg-paper-texture">
+        <!-- Slightly inverse styling: Dark paper theme -->
+        <div class="absolute inset-0 bg-charcoal/95 pointer-events-none"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left: Artistic control deck -->
+                <div class="lg:col-span-5 space-y-8">
+                    <span class="font-mono text-xs tracking-[0.3em] text-parchment/60 uppercase block">Atelier Lab</span>
+                    
+                    <div class="relative inline-block py-2 pr-4">
+                        <svg class="absolute -inset-x-4 inset-y-0 w-full h-full text-parchment opacity-95 pointer-events-none" viewBox="0 0 350 70" fill="currentColor" preserveAspectRatio="none">
+                            <path d="M 8,32 C 48,12 158,8 338,20 C 318,46 198,63 108,56 C 58,52 18,44 8,32 Z" />
+                        </svg>
+                        <h2 class="relative font-display text-charcoal text-base tracking-[0.4em] uppercase z-10 px-4">
+                            Interactive Atelier Canvas
+                        </h2>
+                    </div>
+
+                    <p class="font-serif text-lg text-parchment/80 leading-relaxed">
+                        Experience the direct sensory feedback of traditional ink rendering on rough mulberry pulp. Drag your cursor or finger over the canvas on the right to manually "press" a beautiful monument draft out of raw paper, complete with authentic calligraphic ink dispersion.
+                    </p>
+
+                    <!-- Brush physics customization settings -->
+                    <div class="space-y-6 border-t border-parchment/10 pt-6">
+                        <div>
+                            <div class="flex justify-between font-mono text-[10px] tracking-wider uppercase mb-2 text-parchment/60">
+                                <span>Ink Feed Pressure (Opacity)</span>
+                                <span id="pressureVal">75%</span>
+                            </div>
+                            <input type="range" id="inkPressure" min="20" max="100" value="75" class="w-full accent-parchment bg-parchment/20 h-1 rounded-lg appearance-none cursor-pointer">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between font-mono text-[10px] tracking-wider uppercase mb-2 text-parchment/60">
+                                <span>Brush Nib Profile</span>
+                                <span id="nibVal">Medium Etcher</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-2">
+                                <button onclick="selectNib(2, 'Fine Needle')" class="px-3 py-2 border border-parchment/20 font-mono text-[8px] uppercase tracking-widest hover:bg-parchment hover:text-charcoal transition-all">Fine</button>
+                                <button onclick="selectNib(5, 'Medium Etcher')" class="px-3 py-2 border border-parchment bg-parchment text-charcoal font-mono text-[8px] uppercase tracking-widest transition-all">Medium</button>
+                                <button onclick="selectNib(12, 'Calligraphy Wedge')" class="px-3 py-2 border border-parchment/20 font-mono text-[8px] uppercase tracking-widest hover:bg-parchment hover:text-charcoal transition-all">Wedge</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex space-x-4">
+                        <button onclick="clearAtelierCanvas()" class="px-6 py-3 border border-parchment/20 font-mono text-xs tracking-widest uppercase hover:bg-parchment hover:text-charcoal transition-all rounded-sm">
+                            Reset Paper Sheet
+                        </button>
+                        <button onclick="triggerAutoDraft()" class="px-6 py-3 bg-parchment text-charcoal font-mono text-xs tracking-widest uppercase hover:bg-parchment/80 transition-all rounded-sm flex items-center space-x-2">
+                            <span>Auto-Draft Pagoda</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right: The HTML5 Interactive Canvas Container -->
+                <div class="lg:col-span-7 flex flex-col items-center">
+                    <div class="relative w-full aspect-[4/3] bg-[#EAE4DC] border border-parchment/10 rounded-sm overflow-hidden flex flex-col justify-between p-4 cursor-crosshair shadow-2xl transition-all duration-300 bg-paper-texture" id="canvasFrame">
+                        
+                        <!-- Archival layout borders inside the canvas viewport -->
+                        <div class="absolute inset-4 border border-charcoal/5 pointer-events-none z-10"></div>
+                        <div class="absolute top-6 left-6 font-mono text-[8px] text-charcoal/40 pointer-events-none z-10">SHEET 09 / CUSTOM ETCH ENGINE</div>
+                        <div class="absolute top-6 right-6 font-mono text-[8px] text-charcoal/40 pointer-events-none z-10" id="drawStatus">STATUS: BLANK PRESS</div>
+
+                        <!-- Active Canvas -->
+                        <canvas id="etchCanvas" class="w-full h-full object-cover relative z-0"></canvas>
+
+                        <!-- Invisible Audio Source for Sketching FX -->
+                        <audio id="etchAudio" loop src="https://assets.mixkit.co/active_storage/sfx/2568/2568-84.wav" class="hidden"></audio>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom Framing Studio & Configurator (Interactive Store/Product Visualizer) -->
+    <section id="configurator" class="py-24 md:py-32 border-b border-charcoal/10 relative">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left: Interactive Framed Render Mockup inside Custom Art Room Environment -->
+                <div class="lg:col-span-7 flex flex-col justify-center items-center">
+                    <span class="font-mono text-[10px] tracking-[0.2em] text-charcoal/40 uppercase mb-4">ARCHIVAL GALLERY PRESENTATION</span>
+                    
+                    <!-- Interactive Art Room Mockup Backdrop -->
+                    <div class="w-full aspect-[4/3] bg-[#E2DBC9] rounded-sm relative flex items-center justify-center overflow-hidden p-8 border border-charcoal/10 bg-paper-texture">
+                        <!-- Simulated Elegant Studio Wall Lighting Gradient -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-white/10 pointer-events-none"></div>
+                        
+                        <!-- Dynamic Framed Masterpiece -->
+                        <div id="mockupFrame" class="w-2/3 aspect-[3/4] bg-[#FAF8F5] p-6 transition-all duration-500 flex flex-col justify-between relative bg-paper-texture" style="box-shadow: 0 40px 80px -20px rgba(13,13,13,0.4);">
+                            <!-- Outer Frame Border (Custom materials mapped in JS) -->
+                            <div id="frameBorder" class="absolute -inset-4 border-[16px] border-[#1c1c1c] shadow-inner transition-all duration-500"></div>
+                            
+                            <!-- Inside Print Passepartout Matting -->
+                            <div id="mattingBoard" class="absolute inset-0 border-[20px] border-[#F2EDE2] pointer-events-none transition-all duration-300"></div>
+
+                            <!-- Vector Art representation inside configured frame -->
+                            <div class="w-full h-full flex flex-col justify-between py-2 relative z-10">
+                                <div class="flex justify-between items-center text-[7px] font-mono text-charcoal/40">
+                                    <span>PLATE NO. II</span>
+                                    <span>LIMITED PRE-RELEASE</span>
+                                </div>
+
+                                <!-- Art Display Area -->
+                                <div class="w-full h-4/5 flex items-center justify-center">
+                                    <svg id="configArtSvg" class="w-4/5 h-4/5 text-charcoal" viewBox="0 0 200 240" fill="none" stroke="currentColor">
+                                        <!-- Dynamic monument graphic swaps here depending on chosen selection -->
+                                        <g id="svgArtContent">
+                                            <!-- Standard Gyeongbokgung silhouette etched -->
+                                            <path d="M 40,200 L 160,200 L 150,185 L 50,185 Z" fill="url(#etchHatch1)" stroke="currentColor" stroke-width="1.2"/>
+                                            <rect x="60" y="165" width="80" height="20" fill="url(#etchCrossHatch)" stroke="currentColor" stroke-width="1"/>
+                                            <path d="M 45,165 L 155,165 L 165,145 L 35,145 Z" fill="url(#etchHatch2)" stroke="currentColor" stroke-width="1.2" />
+                                            <line x1="100" y1="145" x2="100" y2="100" stroke="currentColor" stroke-width="1.5" />
+                                            <circle cx="100" cy="120" r="5" fill="currentColor" />
+                                        </g>
+                                    </svg>
+                                </div>
+
+                                <!-- Signature/Etching Plate Text -->
+                                <div class="flex justify-between items-end text-[7px] font-mono text-charcoal/70">
+                                    <div>
+                                        <p id="configArtTitle" class="font-serif font-bold uppercase tracking-wider text-xs">Gwanghwamun Citadel Gate</p>
+                                        <p class="text-[7px] text-charcoal/40">310gsm Cotton Rag Washi Lithograph</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="font-serif italic border-t border-charcoal/20">MonoGraft Atelier</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Configurator Control Deck -->
+                <div class="lg:col-span-5 space-y-8">
+                    <span class="font-mono text-xs tracking-[0.3em] text-charcoal/60 uppercase block">Atelier Customizer</span>
+                    
+                    <div class="relative inline-block py-2 pr-6">
+                        <svg class="absolute -inset-x-4 inset-y-0 w-full h-full text-charcoal opacity-95 pointer-events-none" viewBox="0 0 350 70" fill="currentColor" preserveAspectRatio="none">
+                            <path d="M 8,32 C 48,12 158,8 338,20 C 318,46 198,63 108,56 C 58,52 18,44 8,32 Z" />
+                        </svg>
+                        <h2 class="relative font-display text-white text-base tracking-[0.4em] uppercase z-10 px-4">
+                            Archival Print Studio
+                        </h2>
+                    </div>
+
+                    <p class="font-serif text-lg text-charcoal/80 leading-relaxed">
+                        Design a tailored physical display statement for your gallery. Select museum-grade wooden frames and fine archival mount margins.
+                    </p>
+
+                    <!-- Selection Parameters -->
+                    <div class="space-y-6 border-t border-charcoal/10 pt-6">
+                        
+                        <!-- Parameter 1: Select Plate -->
+                        <div>
+                            <label class="font-mono text-[10px] tracking-widest uppercase text-charcoal/60 block mb-2">1. Select Portfolio Plate</label>
+                            <select id="configPlateSelect" onchange="updateConfigPlate()" class="w-full bg-parchment border border-charcoal/20 text-charcoal font-serif text-sm p-3 rounded-sm outline-none focus:border-charcoal transition-all">
+                                <option value="Gwanghwamun Citadel Gate" data-price="220">Plate II: Gwanghwamun Citadel Gate</option>
+                                <option value="Mont Saint-Michel Abbey" data-price="245">Plate IV: Mont Saint-Michel Abbey</option>
+                                <option value="Bulguksa Pagoda" data-price="195">Plate I: Bulguksa Pagoda</option>
+                            </select>
+                        </div>
+
+                        <!-- Parameter 2: Select Wood Frame Material -->
+                        <div>
+                            <label class="font-mono text-[10px] tracking-widest uppercase text-charcoal/60 block mb-2">2. Hand-Milled Wood Frame</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <button onclick="selectFrame('charcoal', '#121212', 45, 'Charcoal Oak')" id="frame-charcoal" class="px-2 py-3 border-2 border-charcoal bg-charcoal text-parchment font-mono text-[9px] uppercase tracking-wider rounded-sm transition-all text-center">
+                                    Charcoal Oak
+                                </button>
+                                <button onclick="selectFrame('ash', '#5C5446', 60, 'Smoked Ash')" id="frame-ash" class="px-2 py-3 border border-charcoal/20 hover:border-charcoal font-mono text-[9px] uppercase tracking-wider rounded-sm transition-all text-center">
+                                    Smoked Ash
+                                </button>
+                                <button onclick="selectFrame('maple', '#D2C3B1', 75, 'Bleached Maple')" id="frame-maple" class="px-2 py-3 border border-charcoal/20 hover:border-charcoal font-mono text-[9px] uppercase tracking-wider rounded-sm transition-all text-center">
+                                    Bleached Maple
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Parameter 3: Passepartout Matboard Margin -->
+                        <div>
+                            <div class="flex justify-between font-mono text-[10px] tracking-widest uppercase text-charcoal/60 mb-2">
+                                <span>3. Archival Matting Margin</span>
+                                <span id="mattingVal">20mm</span>
+                            </div>
+                            <input type="range" id="mattingSlider" min="0" max="40" value="20" oninput="updateMatting(this.value)" class="w-full accent-charcoal bg-charcoal/10 h-1 rounded-lg appearance-none cursor-pointer">
+                        </div>
+
+                    </div>
+
+                    <!-- Instant Checkout Summary -->
+                    <div class="bg-charcoal/5 p-6 rounded-sm space-y-4 border border-charcoal/10">
+                        <div class="flex justify-between items-center">
+                            <span class="font-serif text-sm italic text-charcoal/70">Custom Archival Configuration</span>
+                            <span id="finalPrice" class="font-mono text-xl text-charcoal font-semibold">$265.00</span>
+                        </div>
+                        <p class="font-mono text-[9px] text-charcoal/50 leading-normal uppercase tracking-wider">
+                            Includes signed certificate of authenticity, numbered registration plaque, and bespoke crated art freight.
+                        </p>
+                        <button onclick="triggerOrderModal()" class="w-full py-4 bg-charcoal text-parchment font-mono text-xs tracking-widest uppercase hover:bg-charcoal/80 transition-all rounded-sm">
+                            Acquire Limited Edition
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Atelier Craftsmanship & Steps Section -->
+    <section id="process" class="py-24 md:py-32 bg-charcoal text-parchment relative overflow-hidden bg-paper-texture">
+        <div class="absolute inset-0 bg-charcoal/95 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+            
+            <div class="max-w-3xl mb-16 md:mb-24 space-y-6 text-center mx-auto">
+                <span class="font-mono text-xs tracking-[0.3em] text-parchment/60 uppercase block">The Lithograph Process</span>
+                
+                <div class="relative inline-block py-2 pr-4">
+                    <svg class="absolute -inset-x-4 inset-y-0 w-full h-full text-parchment opacity-95 pointer-events-none" viewBox="0 0 350 70" fill="currentColor" preserveAspectRatio="none">
+                        <path d="M 8,32 C 48,12 158,8 338,20 C 318,46 198,63 108,56 C 58,52 18,44 8,32 Z" />
+                    </svg>
+                    <h2 class="relative font-display text-charcoal text-base tracking-[0.4em] uppercase z-10 px-4">
+                        Handcrafted From Stone To Ink
+                    </h2>
+                </div>
+
+                <p class="font-serif text-xl font-light text-parchment/80 leading-relaxed">
+                    How traditional stone-carving lithography and manual paper press systems merge to manifest timeless monochrome textures.
+                </p>
+            </div>
+
+            <!-- Steps Progress Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                
+                <div class="border-t border-parchment/20 pt-6 space-y-4">
+                    <span class="font-mono text-[10px] tracking-widest text-parchment/40 uppercase block">01 / FIELD STUDY</span>
+                    <h4 class="font-serif text-lg text-parchment font-semibold">Architectural Draft</h4>
+                    <p class="font-serif text-sm text-parchment/70 leading-relaxed">
+                        Drawn on location using raw charcoal pencils. We chart the geometric silhouettes and shadow coordinates of grand physical monuments.
+                    </p>
+                </div>
+
+                <div class="border-t border-parchment/20 pt-6 space-y-4">
+                    <span class="font-mono text-[10px] tracking-widest text-parchment/40 uppercase block">02 / PLATE SCORING</span>
+                    <h4 class="font-serif text-lg text-parchment font-semibold">Copper & Limestone Carving</h4>
+                    <p class="font-serif text-sm text-parchment/70 leading-relaxed">
+                        Using steel needles and acid compounds, the negative spaces are meticulously score-etched into heavy, raw Bavaria limestone plates.
+                    </p>
+                </div>
+
+                <div class="border-t border-parchment/20 pt-6 space-y-4">
+                    <span class="font-mono text-[10px] tracking-widest text-parchment/40 uppercase block">03 / INKING DISPERSAL</span>
+                    <h4 class="font-serif text-lg text-parchment font-semibold">Atelier Linseed Press</h4>
+                    <p class="font-serif text-sm text-parchment/70 leading-relaxed">
+                        Deep soot carbon ink is mixed with aged linseed oil and carefully rolled over the stone plate to collect perfectly in scored lines.
+                    </p>
+                </div>
+
+                <div class="border-t border-parchment/20 pt-6 space-y-4">
+                    <span class="font-mono text-[10px] tracking-widest text-parchment/40 uppercase block">04 / THE PRESS</span>
+                    <h4 class="font-serif text-lg text-parchment font-semibold">Hand-Cracked Pressing</h4>
+                    <p class="font-serif text-sm text-parchment/70 leading-relaxed">
+                        Textured cotton paper sheets are laid down by hand and cranked through a heavy iron flatbed press, merging fiber and deep charcoal ink.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Art Collector Testimonials -->
+    <section class="py-24 md:py-32 border-b border-charcoal/10 relative">
+        <div class="max-w-5xl mx-auto px-6 md:px-12 space-y-12 text-center">
+            <span class="font-mono text-xs tracking-[0.3em] text-charcoal/60 uppercase block">Exhibition Echoes</span>
+            
+            <div class="font-serif text-3xl md:text-4xl italic font-light text-charcoal/90 leading-snug">
+                “In an age of hyper-saturated pixels, these hand-carved monochrome prints offer a physical grounding, a return to the tactile sensory language of real fine-art paper and deep carbon ink.”
+            </div>
+
+            <div class="space-y-1">
+                <p class="font-mono text-xs tracking-widest uppercase font-semibold text-charcoal">EVELYN ROCHEFORT</p>
+                <p class="font-mono text-[9px] text-charcoal/50 uppercase tracking-[0.2em]">Lead Curator, Paris Archival Prints Exhibition</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Editorial Premium Footer -->
+    <footer class="bg-charcoal text-parchment py-16 px-6 md:px-12 relative overflow-hidden bg-paper-texture">
+        <div class="absolute inset-0 bg-charcoal/95 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto relative z-10 grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-parchment/10 pb-16">
+            
+            <div class="space-y-4">
+                <span class="font-display text-xl tracking-[0.3em] font-semibold text-parchment">MONO·GRAFT</span>
+                <p class="font-serif text-sm text-parchment/60 leading-relaxed">
+                    Celebrating historical architectural wonders through the tactile medium of handcrafted monochrome ink lithography.
+                </p>
+            </div>
+
+            <div class="space-y-4">
+                <span class="font-mono text-[10px] tracking-widest uppercase text-parchment/40 block">The Collection</span>
+                <ul class="space-y-2 font-mono text-xs text-parchment/70">
+                    <li><a href="#plates" class="hover:text-parchment transition-colors">Archival Plates</a></li>
+                    <li><a href="#atelier" class="hover:text-parchment transition-colors">Atelier Workspace</a></li>
+                    <li><a href="#configurator" class="hover:text-parchment transition-colors">Framing Studio</a></li>
+                </ul>
+            </div>
+
+            <div class="space-y-4">
+                <span class="font-mono text-[10px] tracking-widest uppercase text-parchment/40 block">Atelier Details</span>
+                <ul class="space-y-2 font-mono text-xs text-parchment/70">
+                    <li>Gyeongju, South Korea Atelier</li>
+                    <li>Bavaria, Germany Limestone Quarry</li>
+                    <li>Kyoto, Japan Paper Mill</li>
+                </ul>
+            </div>
+
+            <div class="space-y-4">
+                <span class="font-mono text-[10px] tracking-widest uppercase text-parchment/40 block">Archival Updates</span>
+                <p class="font-serif text-xs text-parchment/60 leading-relaxed">Subscribe to receive exclusive print release announcements and artist journals.</p>
+                <div class="flex">
+                    <input type="email" placeholder="Your email" class="bg-parchment/10 text-parchment border border-parchment/20 p-2.5 text-xs outline-none focus:border-parchment flex-grow rounded-l-sm font-sans">
+                    <button class="bg-parchment text-charcoal px-4 py-2 text-xs font-mono tracking-widest uppercase hover:bg-parchment/80 transition-all rounded-r-sm">Join</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="max-w-7xl mx-auto relative z-10 pt-8 flex flex-col md:flex-row justify-between items-center text-parchment/40 font-mono text-[10px]">
+            <p>© 2026 MONO-GRAFT FOLIO COLLECTIVE. ALL RIGHTS PRESERVED.</p>
+            <div class="flex space-x-6 mt-4 md:mt-0">
+                <a href="#" class="hover:text-parchment transition-colors">Terms of Fine Art Acquisition</a>
+                <a href="#" class="hover:text-parchment transition-colors">Provenance Ledger</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Custom Purchase/Reservation Modal UI (Replaces generic alert) -->
+    <div id="orderModal" class="fixed inset-0 bg-charcoal/80 z-50 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 backdrop-blur-sm">
+        <div class="bg-parchment p-8 md:p-12 max-w-lg w-full rounded-sm border border-charcoal/20 framed-shadow relative bg-paper-texture">
+            <button onclick="closeOrderModal()" class="absolute top-4 right-4 text-charcoal/60 hover:text-charcoal transition-colors">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+            
+            <div class="space-y-6 text-center">
+                <span class="font-mono text-[10px] tracking-widest text-charcoal/50 uppercase block">Archival Registry</span>
+                <h3 class="font-serif text-3xl font-light text-charcoal tracking-tight">Plate Reservation Secured</h3>
+                
+                <p class="font-serif text-base text-charcoal/80 leading-relaxed">
+                    You have selected a limited-edition museum-grade framing of the <strong id="modalPlateName" class="font-semibold"></strong> with <strong id="modalFrameName"></strong> framing.
+                </p>
+
+                <div class="bg-charcoal/5 p-4 rounded-sm border border-charcoal/10 flex justify-between items-center text-left">
+                    <div>
+                        <span class="font-mono text-[8px] tracking-widest text-charcoal/40 uppercase block">Atelier Allotted Price</span>
+                        <span id="modalFinalPrice" class="font-mono text-lg text-charcoal font-semibold"></span>
+                    </div>
+                    <div class="text-right">
+                        <span class="font-mono text-[8px] tracking-widest text-charcoal/40 uppercase block">Status</span>
+                        <span class="font-mono text-[10px] text-[#2B4C7E] font-semibold uppercase">Holding Frame</span>
+                    </div>
+                </div>
+
+                <p class="font-serif text-sm text-charcoal/60 leading-normal">
+                    An atelier assistant will contact you in person within 24 hours to coordinate secure premium transit shipping and hand-signed ledger provenance records.
+                </p>
+
+                <button onclick="closeOrderModal()" class="w-full py-4 bg-charcoal text-parchment font-mono text-xs tracking-widest uppercase hover:bg-charcoal/80 transition-all rounded-sm">
+                    Confirm Reservation
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Page Level Interactions JavaScript -->
+    <script>
+        // Interactive state management
+        const activeLayers = {
+            plate1: 'ink',
+            plate2: 'ink'
+        };
+
+        // Plate Layer toggler (Ink Press / Pencil Guidelines)
+        function togglePlateLayer(plateId, layer) {
+            if (activeLayers[plateId] === layer) return;
+            
+            activeLayers[plateId] = layer;
+            const inkSvg = document.getElementById(`${plateId}-ink-svg`);
+            const pencilSvg = document.getElementById(`${plateId}-pencil-svg`);
+            const btnInk = document.getElementById(`btn-${plateId}-ink`);
+            const btnPencil = document.getElementById(`btn-${plateId}-pencil`);
+
+            if (layer === 'ink') {
+                inkSvg.style.opacity = '1';
+                inkSvg.style.pointerEvents = 'auto';
+                pencilSvg.style.opacity = '0';
+                pencilSvg.style.pointerEvents = 'none';
+
+                btnInk.className = "px-3 py-1 bg-charcoal text-parchment font-mono text-[8px] tracking-widest uppercase rounded-sm transition-all";
+                btnPencil.className = "px-3 py-1 text-charcoal/70 font-mono text-[8px] tracking-widest uppercase rounded-sm transition-all hover:text-charcoal";
+            } else {
+                inkSvg.style.opacity = '0';
+                inkSvg.style.pointerEvents = 'none';
+                pencilSvg.style.opacity = '1';
+                pencilSvg.style.pointerEvents = 'auto';
+
+                btnInk.className = "px-3 py-1 text-charcoal/70 font-mono text-[8px] tracking-widest uppercase rounded-sm transition-all hover:text-charcoal";
+                btnPencil.className = "px-3 py-1 bg-charcoal text-parchment font-mono text-[8px] tracking-widest uppercase rounded-sm transition-all";
+            }
+        }
+
+        // Configurator state parameters
+        let selectedPlatePrice = 220;
+        let selectedFramePrice = 45;
+        let selectedPlateTitle = "Gwanghwamun Citadel Gate";
+        let selectedFrameTitle = "Charcoal Oak";
+
+        // Framing Wood Selection
+        function selectFrame(frameId, colorHex, price, title) {
+            selectedFramePrice = price;
+            selectedFrameTitle = title;
+            
+            // Highlight chosen buttons
+            const ids = ['charcoal', 'ash', 'maple'];
+            ids.forEach(id => {
+                const btn = document.getElementById(`frame-${id}`);
+                if (id === frameId) {
+                    btn.className = "px-2 py-3 border-2 border-charcoal bg-charcoal text-parchment font-mono text-[9px] uppercase tracking-wider rounded-sm transition-all text-center";
+                } else {
+                    btn.className = "px-2 py-3 border border-charcoal/20 hover:border-charcoal font-mono text-[9px] uppercase tracking-wider rounded-sm transition-all text-center";
+                }
+            });
+
+            // Apply style dynamically to outer border of mockup
+            const borderEl = document.getElementById('frameBorder');
+            borderEl.style.borderColor = colorHex;
+            
+            updateTotalPrice();
+        }
+
+        // Matting margin slide controller
+        function updateMatting(val) {
+            document.getElementById('mattingVal').innerText = `${val}mm`;
+            const matBoard = document.getElementById('mattingBoard');
+            matBoard.style.borderWidth = `${val}px`;
+        }
+
+        // Interactive Art Dropdown configuration controller
+        function updateConfigPlate() {
+            const selectEl = document.getElementById('configPlateSelect');
+            const selectedOption = selectEl.options[selectEl.selectedIndex];
+            selectedPlatePrice = parseFloat(selectedOption.getAttribute('data-price'));
+            selectedPlateTitle = selectedOption.value;
+
+            document.getElementById('configArtTitle').innerText = selectedPlateTitle;
+
+            // Dynamically alter mockup vector art SVG depending on selection
+            const svgContent = document.getElementById('svgArtContent');
+            if (selectedPlateTitle === "Mont Saint-Michel Abbey") {
+                svgContent.innerHTML = `
+                    <path d="M 40,165 C 100,160 200,160 260,165 L 240,180 L 60,180 Z" fill="url(#etchCrossHatch)" stroke="currentColor" stroke-width="1.2"/>
+                    <path d="M 120,165 L 125,120 L 140,70 L 150,30 L 160,70 L 175,120 L 180,165 Z" fill="url(#etchHatch1)" stroke="currentColor" stroke-width="1.2"/>
+                    <line x1="150" y1="30" x2="150" y2="15" stroke="currentColor" stroke-width="1.5" />
+                    <rect x="100" y="145" width="40" height="20" fill="url(#stipplePattern)" stroke="currentColor" stroke-width="1"/>
+                `;
+            } else if (selectedPlateTitle === "Bulguksa Pagoda") {
+                svgContent.innerHTML = `
+                    <path d="M 40,210 L 160,210 L 150,195 L 50,195 Z" fill="url(#etchHatch1)" stroke="currentColor" stroke-width="1.2"/>
+                    <rect x="60" y="180" width="80" height="15" fill="url(#etchCrossHatch)" stroke="currentColor" stroke-width="1.2"/>
+                    <path d="M 45,180 L 155,180 L 165,160 L 35,160 Z" fill="url(#etchHatch2)" stroke="currentColor" stroke-width="1.2" />
+                    <line x1="100" y1="145" x2="100" y2="55" stroke="currentColor" stroke-width="1.5" />
+                    <circle cx="100" cy="75" r="5" fill="currentColor" />
+                `;
+            } else {
+                // Gwanghwamun Gate defaults
+                svgContent.innerHTML = `
+                    <path d="M 40,200 L 160,200 L 150,185 L 50,185 Z" fill="url(#etchHatch1)" stroke="currentColor" stroke-width="1.2"/>
+                    <rect x="60" y="165" width="80" height="20" fill="url(#etchCrossHatch)" stroke="currentColor" stroke-width="1"/>
+                    <path d="M 45,165 L 155,165 L 165,145 L 35,145 Z" fill="url(#etchHatch2)" stroke="currentColor" stroke-width="1.2" />
+                    <line x1="100" y1="145" x2="100" y2="100" stroke="currentColor" stroke-width="1.5" />
+                    <circle cx="100" cy="120" r="5" fill="currentColor" />
+                `;
+            }
+
+            updateTotalPrice();
+        }
+
+        // Bridge helper to select dynamic plates inside configurator from catalog page buttons
+        function selectConfigPlate(title, price) {
+            const selectEl = document.getElementById('configPlateSelect');
+            selectEl.value = title;
+            updateConfigPlate();
+
+            // Auto scroll smoothly to interactive configurator view
+            document.getElementById('configurator').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function updateTotalPrice() {
+            const total = selectedPlatePrice + selectedFramePrice;
+            document.getElementById('finalPrice').innerText = `$${total.toFixed(2)}`;
+        }
+
+        // Order Modal Toggles
+        function triggerOrderModal() {
+            const total = selectedPlatePrice + selectedFramePrice;
+            document.getElementById('modalPlateName').innerText = selectedPlateTitle;
+            document.getElementById('modalFrameName').innerText = selectedFrameTitle;
+            document.getElementById('modalFinalPrice').innerText = `$${total.toFixed(2)}`;
+
+            const modal = document.getElementById('orderModal');
+            modal.style.opacity = '1';
+            modal.style.pointerEvents = 'auto';
+        }
+
+        function closeOrderModal() {
+            const modal = document.getElementById('orderModal');
+            modal.style.opacity = '0';
+            modal.style.pointerEvents = 'none';
+        }
+
+
+        /* ==========================================
+           INTERACTIVE HTML5 ATELIER CANVAS LOGIC
+           ========================================== */
+        const canvas = document.getElementById('etchCanvas');
+        const ctx = canvas.getContext('2d');
+        const drawStatus = document.getElementById('drawStatus');
+        const inkSlider = document.getElementById('inkPressure');
+        const pressureVal = document.getElementById('pressureVal');
+        const etchAudio = document.getElementById('etchAudio');
+
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+        let brushSize = 5;
+        let brushOpacity = 0.75;
+        let userHasDrawn = false;
+
+        // Custom Resize Canvas keeping proportions intact
+        function resizeCanvas() {
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+            
+            // Clear default canvas background layer
+            ctx.lineJoin = 'round';
+            ctx.lineCap = 'round';
+            
+            if (!userHasDrawn) {
+                renderPlaceholderGuide();
+            }
+        }
+
+        // Render basic graphite line to outline starting guides
+        function renderPlaceholderGuide() {
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            ctx.strokeStyle = 'rgba(13,13,13,0.1)';
+            ctx.lineWidth = 0.8;
+            ctx.setLineDash([4, 4]);
+
+            // Center drafting guidelines
+            ctx.beginPath();
+            ctx.moveTo(canvas.width / 2, 20);
+            ctx.lineTo(canvas.width / 2, canvas.height - 20);
+            ctx.moveTo(20, canvas.height / 2);
+            ctx.lineTo(canvas.width - 20, canvas.height / 2);
+            ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        // Sketch mechanics
+        function startDrawing(e) {
+            isDrawing = true;
+            userHasDrawn = true;
+            drawStatus.innerText = "STATUS: ENGRAVING SHEET";
+            drawStatus.classList.add('text-[#2B4C7E]');
+
+            const rect = canvas.getBoundingClientRect();
+            // Map touch / desktop mouse coordinates perfectly
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            
+            lastX = clientX - rect.left;
+            lastY = clientY - rect.top;
+
+            // Trigger sketch sensory sound feedback safely
+            if (audioEnabled) {
+                etchAudio.play().catch(() => {});
+            }
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            e.preventDefault();
+
+            const rect = canvas.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+            const currentX = clientX - rect.left;
+            const currentY = clientY - rect.top;
+
+            // Simulate custom charcoal stroke dispersion
+            ctx.strokeStyle = `rgba(13, 13, 13, ${brushOpacity})`;
+            ctx.lineWidth = brushSize;
+
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(currentX, currentY);
+            ctx.stroke();
+
+            // Apply fine carbon ink spray dispersion dots to simulate mulberry bleeding
+            if (Math.random() > 0.4) {
+                ctx.fillStyle = `rgba(13, 13, 13, ${brushOpacity * 0.4})`;
+                ctx.beginPath();
+                ctx.arc(currentX + (Math.random() * 6 - 3), currentY + (Math.random() * 6 - 3), Math.random() * 2, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            lastX = currentX;
+            lastY = currentY;
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+            etchAudio.pause();
+        }
+
+        // Clear canvas functionality
+        function clearAtelierCanvas() {
+            userHasDrawn = false;
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            renderPlaceholderGuide();
+            drawStatus.innerText = "STATUS: BLANK PRESS";
+            drawStatus.classList.remove('text-[#2B4C7E]');
+        }
+
+        // Custom auto-drafting vector tracer simulating classic pagoda
+        function triggerAutoDraft() {
+            clearAtelierCanvas();
+            userHasDrawn = true;
+            drawStatus.innerText = "STATUS: MASTER ENGRAVING RUN";
+            
+            const steps = [];
+            const midX = canvas.width / 2;
+            const h = canvas.height;
+
+            // Pre-calculate beautiful architectural vector trace lines for instant animated drawing
+            // Base
+            steps.push({x1: midX - 80, y1: h - 30, x2: midX + 80, y2: h - 30});
+            steps.push({x1: midX - 60, y1: h - 30, x2: midX - 50, y2: h - 45});
+            steps.push({x1: midX + 60, y1: h - 30, x2: midX + 50, y2: h - 45});
+            steps.push({x1: midX - 50, y1: h - 45, x2: midX + 50, y2: h - 45});
+            
+            // Tier 1 Columns
+            steps.push({x1: midX - 40, y1: h - 45, x2: midX - 40, y2: h - 80});
+            steps.push({x1: midX + 40, y1: h - 45, x2: midX + 40, y2: h - 80});
+            steps.push({x1: midX, y1: h - 45, x2: midX, y2: h - 80});
+            
+            // Tier 1 Roof
+            steps.push({x1: midX - 55, y1: h - 80, x2: midX + 55, y2: h - 80});
+            steps.push({x1: midX - 55, y1: h - 80, x2: midX - 45, y2: h - 95});
+            steps.push({x1: midX + 55, y1: h - 80, x2: midX + 45, y2: h - 95});
+            steps.push({x1: midX - 45, y1: h - 95, x2: midX + 45, y2: h - 95});
+
+            // Tier 2 Body
+            steps.push({x1: midX - 30, y1: h - 95, x2: midX - 30, y2: h - 130});
+            steps.push({x1: midX + 30, y1: h - 95, x2: midX + 30, y2: h - 130});
+            
+            // Tier 2 Roof
+            steps.push({x1: midX - 45, y1: h - 130, x2: midX + 45, y2: h - 130});
+            steps.push({x1: midX - 45, y1: h - 130, x2: midX - 35, y2: h - 145});
+            steps.push({x1: midX + 45, y1: h - 130, x2: midX + 35, y2: h - 145});
+            steps.push({x1: midX - 35, y1: h - 145, x2: midX + 35, y2: h - 145});
+
+            // Spire
+            steps.push({x1: midX, y1: h - 145, x2: midX, y2: h - 190});
+
+            let currentStepIndex = 0;
+            
+            function animateLine() {
+                if (currentStepIndex >= steps.length) {
+                    drawStatus.innerText = "STATUS: MASTERPIECE COMPLETE";
+                    return;
+                }
+
+                const line = steps[currentStepIndex];
+                ctx.strokeStyle = `rgba(13, 13, 13, ${brushOpacity})`;
+                ctx.lineWidth = brushSize * 0.8;
+                ctx.beginPath();
+                ctx.moveTo(line.x1, line.y1);
+                ctx.lineTo(line.x2, line.y2);
+                ctx.stroke();
+
+                currentStepIndex++;
+                setTimeout(animateLine, 80);
+            }
+
+            animateLine();
+        }
+
+        // Nib Profile Selector update
+        function selectNib(size, name) {
+            brushSize = size;
+            document.getElementById('nibVal').innerText = name;
+        }
+
+        // Canvas Events
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseleave', stopDrawing);
+
+        canvas.addEventListener('touchstart', startDrawing);
+        canvas.addEventListener('touchmove', draw);
+        canvas.addEventListener('touchend', stopDrawing);
+
+        // Pressure input slider tracker
+        inkSlider.addEventListener('input', (e) => {
+            const val = e.target.value;
+            brushOpacity = val / 100;
+            pressureVal.innerText = `${val}%`;
+        });
+
+        // Initialize Canvas Resize
+        window.addEventListener('resize', resizeCanvas);
+        window.addEventListener('load', () => {
+            resizeCanvas();
+            updateTotalPrice();
+        });
+
+
+        /* ==========================================
+           WEBAUDIO ATELIER SOUNDSCAPE BACKGROUND
+           ========================================== */
+        let audioCtx;
+        let ambientOscillator;
+        let audioEnabled = false;
+
+        document.getElementById('soundscapeToggle').addEventListener('click', () => {
+            if (!audioEnabled) {
+                // Initialize clean, ambient, soothing white-noise space sounds via WebAudio API synthesized room waves
+                try {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    
+                    // Create subtle ambient room tone oscillator simulating hollow museum halls
+                    const filter = audioCtx.createBiquadFilter();
+                    filter.type = 'lowpass';
+                    filter.frequency.setValueAtTime(100, audioCtx.currentTime);
+
+                    const noise = audioCtx.createOscillator();
+                    noise.type = 'sawtooth';
+                    noise.frequency.setValueAtTime(55, audioCtx.currentTime); // Low deep drone
+
+                    const gainNode = audioCtx.createGain();
+                    gainNode.gain.setValueAtTime(0.015, audioCtx.currentTime); // Soft background whisper
+
+                    noise.connect(filter);
+                    filter.connect(gainNode);
+                    gainNode.connect(audioCtx.destination);
+                    noise.start();
+                    
+                    ambientOscillator = noise;
+                } catch(e) {
+                    console.log("WebAudio setup deferred.");
+                }
+
+                audioEnabled = true;
+                document.getElementById('soundOnIcon').classList.remove('hidden');
+                document.getElementById('soundOffIcon').classList.add('hidden');
+            } else {
+                if (ambientOscillator) {
+                    try { ambientOscillator.stop(); } catch(e){}
+                }
+                audioEnabled = false;
+                document.getElementById('soundOnIcon').classList.add('hidden');
+                document.getElementById('soundOffIcon').classList.remove('hidden');
+            }
+        });
+
+
+        /* ==========================================
+           SCROLL INTERSECTION ANIMATION CONTROLLER
+           ========================================== */
+        const animatedElements = document.querySelectorAll('.fade-in-slide');
+        
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        animatedElements.forEach(el => observer.observe(el));
+
+    </script>
+</body>
+</html>

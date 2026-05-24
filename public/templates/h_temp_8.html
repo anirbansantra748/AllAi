@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PHLOX - Wireless Premium Electronics</title>
+  <!-- Google Fonts: Montserrat & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['Montserrat', 'sans-serif'],
+          },
+          colors: {
+            brandRed: '#f42c37',
+            brandYellow: '#fdbd10',
+            brandGreen: '#2dcc6f',
+            brandBlue: '#1376f8',
+            brandDark: '#191919',
+            brandLightGray: '#f4f4f4',
+          },
+          boxShadow: {
+            premium: '0 25px 50px -12px rgba(0, 0, 0, 0.08)',
+            accentRed: '0 20px 40px -10px rgba(244, 44, 55, 0.3)',
+            accentYellow: '0 20px 40px -10px rgba(253, 189, 16, 0.3)',
+            accentGreen: '0 20px 40px -10px rgba(45, 204, 111, 0.3)',
+            accentBlue: '0 20px 40px -10px rgba(19, 118, 248, 0.3)',
+            accentDark: '0 20px 40px -10px rgba(25, 25, 25, 0.3)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom Keyframes & Animations */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-15px) rotate(1deg); }
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.05); }
+    }
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+    .animate-glow {
+      animation: pulseGlow 4s ease-in-out infinite;
+    }
+    .text-watermark {
+      font-size: clamp(4rem, 12vw, 11rem);
+      font-weight: 900;
+      line-height: 0.8;
+      letter-spacing: -0.04em;
+    }
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
+  </style>
+</head>
+<body class="bg-[#fafafa] text-brandDark font-sans overflow-x-hidden">
+
+  <!-- ================= HEADER / NAVIGATION ================= -->
+  <header class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-neutral-100 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#" class="flex items-center space-x-2">
+        <span class="font-heading font-extrabold text-2xl tracking-widest text-brandRed">PHLOX</span>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-neutral-600">
+        <a href="#" class="text-brandDark font-semibold transition-colors">Home</a>
+        <a href="#shop" class="hover:text-brandRed transition-colors">Shop</a>
+        <a href="#categories" class="hover:text-brandRed transition-colors">Categories</a>
+        <a href="#features" class="hover:text-brandRed transition-colors">Features</a>
+        <a href="#new-arrival" class="hover:text-brandRed transition-colors">Deals</a>
+      </nav>
+
+      <!-- Utility Icons -->
+      <div class="flex items-center space-x-5">
+        <!-- Search Button -->
+        <button onclick="toggleSearch()" class="p-2 hover:bg-neutral-100 rounded-full transition-colors text-neutral-700" aria-label="Search">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </button>
+        <!-- Shopping Cart Button with Badge -->
+        <button onclick="toggleCart()" class="relative p-2 hover:bg-neutral-100 rounded-full transition-colors text-neutral-700" aria-label="Cart">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+          <span id="cart-count" class="absolute -top-1 -right-1 bg-brandRed text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full scale-90">0</span>
+        </button>
+        <!-- Dynamic Login/Account Indicator -->
+        <button onclick="openToast('Welcome back, Premium Guest! Premium features are active.')" class="hidden sm:inline-flex items-center space-x-1.5 px-4 py-2 hover:bg-neutral-100 rounded-full text-xs font-semibold uppercase tracking-wider text-neutral-700 transition-colors">
+          <span>Login</span>
+        </button>
+        <!-- Mobile Menu Toggle -->
+        <button onclick="toggleMobileMenu()" class="md:hidden p-2 hover:bg-neutral-100 rounded-full text-neutral-700" aria-label="Toggle menu">
+          <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu Drawer -->
+  <div id="mobile-menu" class="fixed inset-y-0 left-0 z-50 w-full max-w-xs bg-white shadow-2xl transform -translate-x-full transition-transform duration-300 ease-in-out md:hidden flex flex-col p-6 justify-between">
+    <div>
+      <div class="flex items-center justify-between mb-8">
+        <span class="font-heading font-extrabold text-2xl tracking-widest text-brandRed">PHLOX</span>
+        <button onclick="toggleMobileMenu()" class="p-2 hover:bg-neutral-100 rounded-full text-neutral-700">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <nav class="flex flex-col space-y-6 text-lg font-medium text-neutral-700">
+        <a href="#" onclick="toggleMobileMenu()" class="hover:text-brandRed transition-colors">Home</a>
+        <a href="#shop" onclick="toggleMobileMenu()" class="hover:text-brandRed transition-colors">Shop</a>
+        <a href="#categories" onclick="toggleMobileMenu()" class="hover:text-brandRed transition-colors">Categories</a>
+        <a href="#features" onclick="toggleMobileMenu()" class="hover:text-brandRed transition-colors">Features</a>
+        <a href="#new-arrival" onclick="toggleMobileMenu()" class="hover:text-brandRed transition-colors">Deals</a>
+      </nav>
+    </div>
+    <div class="border-t pt-6">
+      <button onclick="toggleMobileMenu(); openToast('Welcome back, Premium Guest!')" class="w-full py-3 bg-brandDark text-white font-bold rounded-xl hover:bg-brandRed transition-all">Sign In</button>
+    </div>
+  </div>
+  <div id="mobile-menu-overlay" onclick="toggleMobileMenu()" class="fixed inset-0 bg-black/40 z-45 hidden md:hidden"></div>
+
+
+  <!-- ================= HERO SECTION ================= -->
+  <section class="relative min-h-[85vh] bg-neutral-100 flex items-center overflow-hidden py-12 px-6">
+    <!-- Premium background elements -->
+    <div class="absolute inset-0 z-0">
+      <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brandRed/5 rounded-full blur-3xl animate-glow"></div>
+      <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-brandYellow/5 rounded-full blur-3xl animate-glow" style="animation-delay: 2s;"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+      <!-- Hero Left Text Block -->
+      <div class="lg:col-span-5 flex flex-col justify-center items-start space-y-4">
+        <span class="text-lg md:text-xl font-semibold tracking-wider text-neutral-800">Beats Solo</span>
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-heading font-black tracking-tight text-brandDark leading-none">
+          Wireless<br>
+          <span class="text-neutral-400 opacity-20">HEADPHONE</span>
+        </h1>
+        <div class="pt-6">
+          <button onclick="openProductModal('Beats Solo Wireless', 299, 'beats-hero', 'Redefining acoustic performance with incredible adaptive noise cancelling and premium lightweight comfort.')" class="px-8 py-4 bg-brandRed text-white font-semibold text-sm uppercase tracking-wider rounded-full hover:bg-brandDark transition-all duration-300 shadow-accentRed hover:shadow-xl hover:-translate-y-1 transform">
+            Shop By Category
+          </button>
+        </div>
+      </div>
+
+      <!-- Hero Middle Feature Render (SVG Illustration) -->
+      <div class="lg:col-span-5 flex justify-center items-center relative">
+        <!-- Huge Watermark Layer -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0">
+          <h2 class="text-white text-watermark select-none tracking-tight leading-none text-center">ONE</h2>
+        </div>
+        
+        <!-- Large Floating Headphone SVG -->
+        <div class="relative z-10 w-full max-w-[380px] sm:max-w-[450px] animate-float drop-shadow-[0_35px_35px_rgba(0,0,0,0.18)]">
+          <svg class="w-full h-auto" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Sleek shadow ring base -->
+            <ellipse cx="250" cy="460" rx="140" ry="20" fill="rgba(0,0,0,0.06)" />
+            <!-- Headband Outer -->
+            <path d="M120 280C120 160 180 100 250 100C320 100 380 160 380 280" stroke="#1c1c1c" stroke-width="28" stroke-linecap="round"/>
+            <!-- Headband Inner Accent Liner -->
+            <path d="M132 280C132 172 185 114 250 114C315 114 368 172 368 280" stroke="#f42c37" stroke-width="6" stroke-linecap="round"/>
+            <!-- Left Hinge Mount -->
+            <rect x="104" y="270" width="32" height="50" rx="6" fill="#f42c37" />
+            <rect x="110" y="280" width="20" height="30" rx="3" fill="#1c1c1c" />
+            <!-- Right Hinge Mount -->
+            <rect x="364" y="270" width="32" height="50" rx="6" fill="#f42c37" />
+            <rect x="370" y="280" width="20" height="30" rx="3" fill="#1c1c1c" />
+            
+            <!-- Left Ear Cup Housing -->
+            <rect x="80" y="310" width="80" height="110" rx="40" fill="#1c1c1c" />
+            <ellipse cx="120" cy="365" rx="32" ry="48" fill="#151515" />
+            <!-- Red Ring Accent on Left Cup -->
+            <ellipse cx="120" cy="365" rx="25" ry="38" stroke="#f42c37" stroke-width="4" fill="none" />
+            
+            <!-- Right Ear Cup Housing -->
+            <rect x="340" y="310" width="80" height="110" rx="40" fill="#1c1c1c" />
+            <ellipse cx="380" cy="365" rx="32" ry="48" fill="#151515" />
+            <!-- Red Ring Accent on Right Cup -->
+            <ellipse cx="380" cy="365" rx="25" ry="38" stroke="#f42c37" stroke-width="4" fill="none" />
+            
+            <!-- Cushion details -->
+            <rect x="68" y="330" width="16" height="70" rx="8" fill="#2a2a2a" />
+            <rect x="416" y="330" width="16" height="70" rx="8" fill="#2a2a2a" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Hero Right Context/Description -->
+      <div class="lg:col-span-2 flex flex-col justify-end lg:items-end text-left lg:text-right space-y-4">
+        <h4 class="text-xs font-bold uppercase tracking-widest text-neutral-800">Description</h4>
+        <p class="text-sm text-neutral-500 leading-relaxed max-w-xs">
+          There are many variations passages of Lorem Ipsum available, but the majority have suffered alteration in some form.
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================= DYNAMIC PRODUCT MODAL ================= -->
+  <div id="product-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden transition-opacity duration-300">
+    <div class="bg-white rounded-3xl w-full max-w-4xl max-h-[90vh] overflow-y-auto no-scrollbar shadow-2xl relative transform scale-95 transition-transform duration-300 flex flex-col lg:flex-row">
+      <!-- Close button -->
+      <button onclick="closeProductModal()" class="absolute top-6 right-6 p-2 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 rounded-full transition-colors z-10" aria-label="Close">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <!-- Modal Graphics / Left Column -->
+      <div id="modal-left-panel" class="w-full lg:w-1/2 p-8 flex items-center justify-center min-h-[300px] lg:min-h-[450px]">
+        <!-- Dynamic content will load here (SVGs based on choice) -->
+      </div>
+
+      <!-- Modal Info / Right Column -->
+      <div class="w-full lg:w-1/2 p-8 lg:p-12 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-neutral-100">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-brandRed mb-1 block">Premium Collection</span>
+          <h2 id="modal-product-title" class="text-3xl font-heading font-black text-brandDark mb-3">Product Title</h2>
+          
+          <!-- Stars & Reviews -->
+          <div class="flex items-center space-x-2 mb-6">
+            <div class="flex text-brandYellow">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+            </div>
+            <span class="text-xs text-neutral-500 font-medium">(4.9 out of 5 - 128 Reviews)</span>
+          </div>
+
+          <p id="modal-product-desc" class="text-sm text-neutral-500 leading-relaxed mb-6">
+            Detailed descriptive paragraph goes here. Dynamic description of features, battery life, premium sound signature, or smart controls depending on product clicked.
+          </p>
+
+          <!-- Core specifications (Mocked) -->
+          <div class="grid grid-cols-2 gap-4 mb-8">
+            <div class="p-3 bg-neutral-50 rounded-xl">
+              <span class="text-[10px] uppercase tracking-wider text-neutral-400 block">Battery / Power</span>
+              <span class="text-xs font-semibold text-neutral-700">Up to 40 Hours</span>
+            </div>
+            <div class="p-3 bg-neutral-50 rounded-xl">
+              <span class="text-[10px] uppercase tracking-wider text-neutral-400 block">Connectivity</span>
+              <span class="text-xs font-semibold text-neutral-700">Bluetooth 5.2 / LE</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <!-- Price and Actions -->
+          <div class="flex items-center justify-between mb-6">
+            <div>
+              <span class="text-xs text-neutral-400 block">Instant Price</span>
+              <span id="modal-product-price" class="text-3xl font-heading font-black text-brandDark">$0.00</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <span class="text-xs px-2.5 py-1 bg-brandRed/10 text-brandRed rounded-full font-bold">In Stock</span>
+              <span class="text-xs px-2.5 py-1 bg-neutral-100 text-neutral-600 rounded-full font-bold">Free Shipping</span>
+            </div>
+          </div>
+
+          <!-- Add to Cart Button -->
+          <button id="modal-add-to-cart-btn" class="w-full py-4 bg-brandDark text-white font-bold text-sm uppercase tracking-wider rounded-xl hover:bg-brandRed transition-all duration-300 transform active:scale-95 shadow-lg">
+            Add To Cart
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================= GRID OF ACCENT CARDS ================= -->
+  <section id="categories" class="max-w-7xl mx-auto px-6 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <!-- Card 1: Black/Dark Grey with Red accents -->
+      <div class="relative overflow-hidden bg-gradient-to-br from-brandDark to-neutral-800 rounded-[2.5rem] p-8 h-[380px] flex flex-col justify-between group transition-all duration-500 hover:shadow-accentDark hover:-translate-y-2">
+        <!-- Text watermark -->
+        <span class="absolute right-4 bottom-4 text-white/5 text-[5rem] font-heading font-black tracking-tighter select-none pointer-events-none uppercase transition-all duration-500 group-hover:scale-110">BUDS</span>
+        
+        <div class="relative z-10">
+          <span class="text-xs font-bold tracking-wider text-brandRed uppercase">Enjoy</span>
+          <h3 class="text-2xl font-heading font-black text-white mt-1">With<br>Earphone</h3>
+        </div>
+        
+        <!-- Product Visual SVG -->
+        <div class="absolute right-2 top-20 w-[160px] h-[160px] transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6">
+          <svg viewBox="0 0 200 200" fill="none" class="w-full h-full drop-shadow-[0_15px_15px_rgba(0,0,0,0.5)]">
+            <!-- Left Bud -->
+            <path d="M60 70C60 45 85 40 100 65C115 90 90 120 70 110C50 100 60 95 60 70Z" fill="#151515" />
+            <path d="M55 70C55 50 75 45 85 65" stroke="#f42c37" stroke-width="4" stroke-linecap="round" />
+            <circle cx="85" cy="85" r="10" fill="#f42c37" />
+            
+            <!-- Charging Case back layout shadow -->
+            <rect x="70" y="90" width="75" height="75" rx="20" fill="#222" transform="rotate(15 70 90)" />
+            <rect x="75" y="95" width="65" height="65" rx="15" fill="#f42c37" transform="rotate(15 70 90)" opacity="0.8" />
+            <rect x="77" y="97" width="61" height="61" rx="13" fill="#151515" transform="rotate(15 70 90)" />
+          </svg>
+        </div>
+
+        <div class="relative z-10">
+          <button onclick="openProductModal('Premium Wireless Earphones', 129, 'earphone', 'Engineered for absolute fidelity, our sports earphone delivers precision-tuned acoustics and ultra-stable custom locks.')" class="px-6 py-2.5 bg-brandRed text-white text-xs font-bold uppercase tracking-wider rounded-full hover:bg-white hover:text-brandDark transition-all duration-300">
+            Browse
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 2: Warm Golden Yellow -->
+      <div class="relative overflow-hidden bg-gradient-to-br from-brandYellow to-yellow-500 rounded-[2.5rem] p-8 h-[380px] flex flex-col justify-between group transition-all duration-500 hover:shadow-accentYellow hover:-translate-y-2">
+        <span class="absolute right-4 bottom-4 text-white/10 text-[5rem] font-heading font-black tracking-tighter select-none pointer-events-none uppercase transition-all duration-500 group-hover:scale-110">WATCH</span>
+        
+        <div class="relative z-10">
+          <span class="text-xs font-bold tracking-wider text-white uppercase">New</span>
+          <h3 class="text-2xl font-heading font-black text-white mt-1">Wear<br>Gadget</h3>
+        </div>
+
+        <!-- Smart Watch SVG -->
+        <div class="absolute right-4 top-20 w-[150px] h-[150px] transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6">
+          <svg viewBox="0 0 200 200" fill="none" class="w-full h-full drop-shadow-[0_15px_15px_rgba(0,0,0,0.15)]">
+            <!-- Straps -->
+            <path d="M100 20V180" stroke="#fdbd10" stroke-width="44" stroke-linecap="round" />
+            <!-- Active highlights inside band -->
+            <path d="M100 25V55" stroke="#ffffff" stroke-width="6" stroke-linecap="round" opacity="0.3" />
+            <path d="M100 145V175" stroke="#ffffff" stroke-width="6" stroke-linecap="round" opacity="0.3" />
+            <!-- Watch Core Body -->
+            <rect x="68" y="68" width="64" height="64" rx="16" fill="#1c1c1c" />
+            <rect x="72" y="72" width="56" height="56" rx="12" fill="#2d2d2d" />
+            <!-- Ring UI Display -->
+            <circle cx="100" cy="100" r="18" stroke="#fdbd10" stroke-width="4" fill="none" />
+            <circle cx="100" cy="100" r="12" stroke="#2dcc6f" stroke-width="3" fill="none" stroke-dasharray="40 10" />
+            <!-- Little crown button -->
+            <rect x="132" y="90" width="4" height="20" rx="2" fill="#fdbd10" />
+          </svg>
+        </div>
+
+        <div class="relative z-10">
+          <button onclick="openProductModal('Phlox Wear SmartWatch', 199, 'watch', 'A beautiful high-performance smartwatch with integrated biometric health tracking, 14-day battery reserve, and AMOLED visual luxury.')" class="px-6 py-2.5 bg-white text-brandYellow text-xs font-bold uppercase tracking-wider rounded-full hover:bg-brandDark hover:text-white transition-all duration-300">
+            Browse
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 3: Large Red Card (Takes 2 Columns on Desktop) -->
+      <div class="relative overflow-hidden bg-gradient-to-br from-brandRed to-red-600 rounded-[2.5rem] p-8 h-[380px] md:col-span-2 flex flex-col justify-between group transition-all duration-500 hover:shadow-accentRed hover:-translate-y-2">
+        <span class="absolute right-8 bottom-4 text-white/5 text-[7rem] font-heading font-black tracking-tighter select-none pointer-events-none uppercase transition-all duration-500 group-hover:scale-105">LAPTOP</span>
+        
+        <div class="relative z-10">
+          <span class="text-xs font-bold tracking-wider text-red-100 uppercase">Trend</span>
+          <h3 class="text-3xl font-heading font-black text-white mt-1">Devices<br>Laptop</h3>
+        </div>
+
+        <!-- Sleek Laptop SVG -->
+        <div class="absolute right-6 top-16 w-[260px] md:w-[320px] transition-transform duration-500 group-hover:scale-105 group-hover:translate-x-2">
+          <svg viewBox="0 0 300 200" fill="none" class="w-full h-auto drop-shadow-[0_20px_25px_rgba(0,0,0,0.25)]">
+            <!-- Screen Lid (Opened) -->
+            <rect x="50" y="30" width="200" height="120" rx="8" fill="#1c1c1c" />
+            <!-- Screen Display Glare -->
+            <rect x="56" y="36" width="188" height="108" rx="4" fill="#0c0c0c" />
+            <!-- Glowing aesthetic vector on screen -->
+            <path d="M80 144 C120 70, 180 80, 244 144" fill="none" stroke="#fdbd10" stroke-width="4" opacity="0.6"/>
+            <path d="M56 144 C100 100, 160 50, 244 144" fill="none" stroke="#f42c37" stroke-width="6" opacity="0.4"/>
+            <!-- Front Camera Dot -->
+            <circle cx="150" cy="33" r="1.5" fill="#555" />
+            
+            <!-- Laptop Hinge & Base -->
+            <path d="M40 150H260" stroke="#a1a1a1" stroke-width="4" stroke-linecap="round" />
+            <path d="M20 152 L30 162 H270 L280 152 Z" fill="#e5e5e5" />
+            <!-- Trackpad -->
+            <rect x="135" y="155" width="30" height="5" rx="1" fill="#c4c4c4" />
+          </svg>
+        </div>
+
+        <div class="relative z-10">
+          <button onclick="openProductModal('Phlox Pro Ultra Laptop', 1299, 'laptop', 'Unleash extreme computational power. Features the latest multi-core processor, an ultrabright liquid retinal display, and gorgeous carbon finish.')" class="px-6 py-2.5 bg-white text-brandRed text-xs font-bold uppercase tracking-wider rounded-full hover:bg-brandDark hover:text-white transition-all duration-300">
+            Browse
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 4: Light Gray Console Card (Takes 2 Columns on Desktop) -->
+      <div class="relative overflow-hidden bg-gradient-to-br from-white to-neutral-100 rounded-[2.5rem] p-8 h-[380px] md:col-span-2 flex flex-col justify-between group border border-neutral-200/50 transition-all duration-500 hover:shadow-premium hover:-translate-y-2">
+        <span class="absolute right-8 bottom-4 text-brandDark/[0.03] text-[7rem] font-heading font-black tracking-tighter select-none pointer-events-none uppercase transition-all duration-500 group-hover:scale-105">CONSOLE</span>
+        
+        <div class="relative z-10">
+          <span class="text-xs font-bold tracking-wider text-brandRed uppercase">Best</span>
+          <h3 class="text-3xl font-heading font-black text-brandDark mt-1">Gaming<br>Console</h3>
+        </div>
+
+        <!-- Console & Controller SVG -->
+        <div class="absolute right-6 top-14 w-[240px] md:w-[280px] transition-transform duration-500 group-hover:scale-105">
+          <svg viewBox="0 0 300 200" fill="none" class="w-full h-auto drop-shadow-[0_20px_20px_rgba(0,0,0,0.1)]">
+            <!-- Sleek Upright PS5-like Console -->
+            <!-- Back Panel wing shadow -->
+            <path d="M80 30 L60 170 H90 L110 30 Z" fill="#1c1c1c" />
+            <!-- White Wing Plates -->
+            <path d="M75 25 L55 165 C65 175, 95 175, 105 165 L85 25 Z" fill="#fafafa" stroke="#e5e5e5" stroke-width="2" />
+            <!-- Inside neon blue strip -->
+            <path d="M78 30 L58 160" stroke="#1376f8" stroke-width="2.5" opacity="0.8" />
+            
+            <!-- Controller in Foreground -->
+            <g transform="translate(110, 80)">
+              <!-- Outer Shadow -->
+              <rect x="0" y="0" width="130" height="90" rx="30" fill="rgba(0,0,0,0.02)" />
+              <!-- Controller Body -->
+              <path d="M30 20 C40 10, 90 10, 100 20 C115 30, 125 70, 115 85 C105 95, 90 80, 80 75 H50 C40 80, 25 95, 15 85 C5 70, 15 30, 30 20 Z" fill="#ffffff" stroke="#e5e5e5" stroke-width="2" />
+              <!-- Grip details (Black accent layout) -->
+              <path d="M38 35 C42 30, 88 30, 92 35 C95 45, 90 65, 80 65 H50 C40 65, 35 45, 38 35 Z" fill="#1c1c1c" />
+              <!-- Joysticks -->
+              <circle cx="53" cy="53" r="11" fill="#333" />
+              <circle cx="77" cy="53" r="11" fill="#333" />
+              <!-- D-Pad -->
+              <path d="M30 38H38V46H30Z" fill="#e5e5e5" />
+              <!-- Face Buttons -->
+              <circle cx="98" cy="42" r="3" fill="#f42c37" />
+              <circle cx="104" cy="38" r="3" fill="#1376f8" />
+            </g>
+          </svg>
+        </div>
+
+        <div class="relative z-10">
+          <button onclick="openProductModal('Phlox Edition Console', 499, 'console', 'Immersive true 4K high-frame-rate rendering, liquid metal cooling system, and an ultra-low latency controller response layout.')" class="px-6 py-2.5 bg-brandRed text-white text-xs font-bold uppercase tracking-wider rounded-full hover:bg-brandDark hover:text-white transition-all duration-300">
+            Browse
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 5: Bright Green Card -->
+      <div class="relative overflow-hidden bg-gradient-to-br from-brandGreen to-emerald-600 rounded-[2.5rem] p-8 h-[380px] flex flex-col justify-between group transition-all duration-500 hover:shadow-accentGreen hover:-translate-y-2">
+        <span class="absolute right-4 bottom-4 text-white/5 text-[5rem] font-heading font-black tracking-tighter select-none pointer-events-none uppercase transition-all duration-500 group-hover:scale-110">OCULUS</span>
+        
+        <div class="relative z-10">
+          <span class="text-xs font-bold tracking-wider text-emerald-100 uppercase">Play</span>
+          <h3 class="text-2xl font-heading font-black text-white mt-1">Game<br>Oculus</h3>
+        </div>
+
+        <!-- VR Headset SVG -->
+        <div class="absolute right-4 top-20 w-[150px] h-[150px] transition-transform duration-500 group-hover:scale-110 group-hover:translate-y-2">
+          <svg viewBox="0 0 200 200" fill="none" class="w-full h-full drop-shadow-[0_15px_15px_rgba(0,0,0,0.2)]">
+            <!-- Visor Front Shield -->
+            <rect x="40" y="70" width="120" height="60" rx="20" fill="#1c1c1c" />
+            <!-- Soft ergonomic curve -->
+            <path d="M60 130 C80 135, 120 135, 140 130" stroke="#151515" stroke-width="4" />
+            <!-- Glowing visor accent ring -->
+            <rect x="44" y="74" width="112" height="52" rx="16" stroke="#2dcc6f" stroke-width="3" fill="none" opacity="0.8" />
+            <!-- Head Strap -->
+            <path d="M40 95 C20 95, 20 105, 40 105" stroke="#444" stroke-width="12" stroke-linecap="round" />
+            <path d="M160 95 C180 95, 180 105, 160 105" stroke="#444" stroke-width="12" stroke-linecap="round" />
+          </svg>
+        </div>
+
+        <div class="relative z-10">
+          <button onclick="openProductModal('Phlox VR headset', 399, 'oculus', 'Step effortlessly into infinite meta-dimensions. Fully standalone tracking, active ergonomic facial cushioning, and high-fidelity sound fields.')" class="px-6 py-2.5 bg-white text-brandGreen text-xs font-bold uppercase tracking-wider rounded-full hover:bg-brandDark hover:text-white transition-all duration-300">
+            Browse
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 6: Bright Blue Card -->
+      <div class="relative overflow-hidden bg-gradient-to-br from-brandBlue to-blue-700 rounded-[2.5rem] p-8 h-[380px] flex flex-col justify-between group transition-all duration-500 hover:shadow-accentBlue hover:-translate-y-2">
+        <span class="absolute right-4 bottom-4 text-white/5 text-[5rem] font-heading font-black tracking-tighter select-none pointer-events-none uppercase transition-all duration-500 group-hover:scale-110">SPEAKER</span>
+        
+        <div class="relative z-10">
+          <span class="text-xs font-bold tracking-wider text-blue-100 uppercase">New</span>
+          <h3 class="text-2xl font-heading font-black text-white mt-1">Amazon<br>Speaker</h3>
+        </div>
+
+        <!-- Smart Speaker SVG -->
+        <div class="absolute right-6 top-20 w-[140px] h-[140px] transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
+          <svg viewBox="0 0 200 200" fill="none" class="w-full h-full drop-shadow-[0_20px_20px_rgba(0,0,0,0.3)]">
+            <!-- Cylinder Body -->
+            <rect x="60" y="40" width="80" height="120" rx="40" fill="#151515" />
+            <!-- Mesh Texture Simulator -->
+            <line x1="70" y1="60" x2="130" y2="60" stroke="#252525" stroke-width="2" stroke-dasharray="2 4" />
+            <line x1="70" y1="80" x2="130" y2="80" stroke="#252525" stroke-width="2" stroke-dasharray="2 4" />
+            <line x1="70" y1="100" x2="130" y2="100" stroke="#252525" stroke-width="2" stroke-dasharray="2 4" />
+            <line x1="70" y1="120" x2="130" y2="120" stroke="#252525" stroke-width="2" stroke-dasharray="2 4" />
+            <line x1="70" y1="140" x2="130" y2="140" stroke="#252525" stroke-width="2" stroke-dasharray="2 4" />
+            
+            <!-- Glowing Blue Light Ring on Top -->
+            <ellipse cx="100" cy="44" rx="30" ry="10" fill="#1376f8" opacity="0.6" />
+            <ellipse cx="100" cy="44" rx="20" ry="6" fill="#60a5fa" />
+          </svg>
+        </div>
+
+        <div class="relative z-10">
+          <button onclick="openProductModal('Amazon Smart Speaker', 149, 'speaker', 'The smarter acoustic core. Exceptional 360-degree omnidirectional dynamic range and complete voice activation responsiveness.')" class="px-6 py-2.5 bg-white text-brandBlue text-xs font-bold uppercase tracking-wider rounded-full hover:bg-brandDark hover:text-white transition-all duration-300">
+            Browse
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================= FEATURES RIBBON ================= -->
+  <section id="features" class="max-w-7xl mx-auto px-6 py-12 border-y border-neutral-100 bg-white rounded-3xl my-10 shadow-sm">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+      
+      <!-- Feature 1 -->
+      <div class="flex items-center space-x-4">
+        <div class="p-3 bg-brandRed/10 rounded-2xl text-brandRed">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
+        </div>
+        <div>
+          <h4 class="font-bold text-sm text-brandDark">Free Shipping</h4>
+          <p class="text-xs text-neutral-500">Free Shipping On All Orders</p>
+        </div>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="flex items-center space-x-4">
+        <div class="p-3 bg-brandYellow/10 rounded-2xl text-brandYellow">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+        </div>
+        <div>
+          <h4 class="font-bold text-sm text-brandDark">Money Guarantee</h4>
+          <p class="text-xs text-neutral-500">30 Day Money Back Policy</p>
+        </div>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="flex items-center space-x-4">
+        <div class="p-3 bg-brandGreen/10 rounded-2xl text-brandGreen">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+        </div>
+        <div>
+          <h4 class="font-bold text-sm text-brandDark">Online Support 24/7</h4>
+          <p class="text-xs text-neutral-500">Technical Support 24/7</p>
+        </div>
+      </div>
+
+      <!-- Feature 4 -->
+      <div class="flex items-center space-x-4">
+        <div class="p-3 bg-brandBlue/10 rounded-2xl text-brandBlue">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        </div>
+        <div>
+          <h4 class="font-bold text-sm text-brandDark">Secure Payment</h4>
+          <p class="text-xs text-neutral-500">All Major Cards Accepted</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================= BANNER CTA (SUMMER SALE) ================= -->
+  <section id="new-arrival" class="max-w-7xl mx-auto px-6 py-10">
+    <div class="bg-gradient-to-br from-brandRed to-[#e01d27] rounded-[3rem] p-10 md:p-16 relative overflow-hidden flex flex-col lg:flex-row items-center justify-between shadow-accentRed">
+      <!-- Watermark background text -->
+      <span class="absolute left-8 bottom-0 text-white/5 text-[10rem] font-heading font-black select-none pointer-events-none tracking-tight uppercase">SMILE</span>
+      
+      <!-- Banner left details -->
+      <div class="relative z-10 flex flex-col space-y-3 mb-10 lg:mb-0">
+        <span class="text-sm font-semibold tracking-widest text-white/90 uppercase">20% OFF</span>
+        <h2 class="text-4xl md:text-6xl font-heading font-black tracking-tight text-white leading-none">
+          FINE<br>SMILE
+        </h2>
+        <span class="text-xs font-semibold text-white/70">15 Nov To 7 Dec</span>
+      </div>
+
+      <!-- Banner Middle Render (SVG headphone layered overlay) -->
+      <div class="relative w-full max-w-[300px] h-[250px] flex items-center justify-center animate-float">
+        <svg viewBox="0 0 300 300" fill="none" class="w-full h-full drop-shadow-[0_25px_30px_rgba(0,0,0,0.3)]">
+          <!-- Glossy Headband -->
+          <path d="M70 170C70 80 110 40 150 40C190 40 230 80 230 170" stroke="#f42c37" stroke-width="20" stroke-linecap="round"/>
+          <path d="M70 170C70 80 110 40 150 40C190 40 230 80 230 170" stroke="#111" stroke-width="8" stroke-linecap="round"/>
+          
+          <!-- Hinge points -->
+          <rect x="58" y="160" width="24" height="40" rx="4" fill="#ffffff" />
+          <rect x="218" y="160" width="24" height="40" rx="4" fill="#ffffff" />
+
+          <!-- Left ear cup -->
+          <rect x="40" y="190" width="60" height="80" rx="30" fill="#ffffff" />
+          <rect x="45" y="195" width="50" height="70" rx="25" fill="#111" />
+          <circle cx="70" cy="230" r="14" fill="#f42c37" />
+
+          <!-- Right ear cup -->
+          <rect x="200" y="190" width="60" height="80" rx="30" fill="#ffffff" />
+          <rect x="205" y="195" width="50" height="70" rx="25" fill="#111" />
+          <circle cx="230" cy="230" r="14" fill="#f42c37" />
+        </svg>
+      </div>
+
+      <!-- Banner right action context -->
+      <div class="relative z-10 flex flex-col space-y-4 lg:text-right lg:items-end max-w-xs">
+        <span class="text-sm font-semibold tracking-wider text-white/95 uppercase">Beats Solo Air</span>
+        <h3 class="text-2xl md:text-3xl font-heading font-black text-white">Summer Sale</h3>
+        <p class="text-xs text-white/80 leading-relaxed">
+          Company that's grown from 270 to 480 employees in the last 12 months.
+        </p>
+        <div class="pt-2">
+          <button onclick="openProductModal('Beats Solo Air Special Edition', 249, 'beats-banner', 'Engineered to withstand heavy use while providing ultra-pure sound fidelity and high-performance noise isolation.')" class="px-8 py-3 bg-white text-brandRed font-bold text-xs uppercase tracking-wider rounded-full hover:bg-brandDark hover:text-white transition-all duration-300">
+            Shop Now
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================= BEST SELLER PRODUCTS / SHOP SECTION ================= -->
+  <section id="shop" class="max-w-7xl mx-auto px-6 py-16">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-heading font-black text-brandDark">Best Seller Products</h2>
+      <p class="text-sm text-neutral-500 mt-2">There are many variations of premium electronics available</p>
+      
+      <!-- Interactive Category Filter Tabs -->
+      <div class="flex flex-wrap items-center justify-center gap-3 mt-8">
+        <button onclick="filterProducts('all')" id="tab-all" class="filter-tab px-6 py-2 bg-brandDark text-white font-medium text-xs rounded-full transition-all">All Products</button>
+        <button onclick="filterProducts('audio')" id="tab-audio" class="filter-tab px-6 py-2 bg-white hover:bg-neutral-100 text-neutral-600 font-medium text-xs rounded-full border border-neutral-200 transition-all">Audio Gear</button>
+        <button onclick="filterProducts('wearable')" id="tab-wearable" class="filter-tab px-6 py-2 bg-white hover:bg-neutral-100 text-neutral-600 font-medium text-xs rounded-full border border-neutral-200 transition-all">Wearables</button>
+        <button onclick="filterProducts('gaming')" id="tab-gaming" class="filter-tab px-6 py-2 bg-white hover:bg-neutral-100 text-neutral-600 font-medium text-xs rounded-full border border-neutral-200 transition-all">Gaming</button>
+      </div>
+    </div>
+
+    <!-- Products Grid -->
+    <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      
+      <!-- Product Card 1 -->
+      <div class="product-card group bg-white border border-neutral-100 rounded-3xl p-6 transition-all duration-300 hover:shadow-premium hover:-translate-y-1" data-category="audio">
+        <div class="bg-neutral-100 rounded-2xl h-56 flex items-center justify-center p-4 relative overflow-hidden">
+          <span class="absolute top-3 left-3 bg-brandRed text-white font-bold text-[10px] uppercase px-2 py-1 rounded-full z-10">Trending</span>
+          <div class="w-36 h-36 transform transition-transform duration-500 group-hover:scale-110 drop-shadow-md">
+            <svg viewBox="0 0 100 100" fill="none" class="w-full h-full">
+              <path d="M30 65C30 40 45 30 50 30C55 30 70 40 70 65" stroke="#1c1c1c" stroke-width="8" stroke-linecap="round"/>
+              <rect x="24" y="60" width="12" height="20" rx="4" fill="#f42c37" />
+              <rect x="64" y="60" width="12" height="20" rx="4" fill="#f42c37" />
+            </g>
+            </svg>
+          </div>
+          <!-- Hover Quick-Add Action -->
+          <div class="absolute inset-0 bg-brandDark/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+            <button onclick="openProductModal('Beats Pro Active', 199, 'beats-pro', 'Legendary studio audio sound quality featuring adaptive dynamic equalizers, ultra plush foam cushions and durable construction.')" class="p-3 bg-white hover:bg-brandRed hover:text-white rounded-full transition-colors text-brandDark shadow">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            </button>
+            <button onclick="addToCart('Beats Pro Active', 199, 'Beats Pro Active')" class="p-3 bg-brandRed hover:bg-brandDark text-white rounded-full transition-all shadow">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="mt-4 flex justify-between items-start">
+          <div>
+            <h3 class="font-heading font-bold text-brandDark text-base group-hover:text-brandRed transition-colors">Beats Pro Active</h3>
+            <span class="text-xs text-neutral-400">Audio Gear</span>
+          </div>
+          <span class="font-heading font-black text-brandDark">$199</span>
+        </div>
+      </div>
+
+      <!-- Product Card 2 -->
+      <div class="product-card group bg-white border border-neutral-100 rounded-3xl p-6 transition-all duration-300 hover:shadow-premium hover:-translate-y-1" data-category="wearable">
+        <div class="bg-neutral-100 rounded-2xl h-56 flex items-center justify-center p-4 relative overflow-hidden">
+          <span class="absolute top-3 left-3 bg-brandYellow text-brandDark font-bold text-[10px] uppercase px-2 py-1 rounded-full z-10">Popular</span>
+          <div class="w-36 h-36 transform transition-transform duration-500 group-hover:scale-110 drop-shadow-md">
+            <svg viewBox="0 0 100 100" fill="none" class="w-full h-full">
+              <rect x="42" y="10" width="16" height="80" rx="4" fill="#333" />
+              <rect x="30" y="30" width="40" height="40" rx="10" fill="#2dcc6f" />
+              <circle cx="50" cy="50" r="10" fill="#ffffff" opacity="0.3" />
+            </svg>
+          </div>
+          <!-- Hover Action -->
+          <div class="absolute inset-0 bg-brandDark/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+            <button onclick="openProductModal('Neon FitBand Pro', 89, 'fitband', 'Your dynamic sports companion. Deep heart-rate feedback, continuous oxygen logging, and immediate sweatproof integrity.')" class="p-3 bg-white hover:bg-brandRed hover:text-white rounded-full transition-colors text-brandDark shadow">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            </button>
+            <button onclick="addToCart('Neon FitBand Pro', 89, 'Neon FitBand Pro')" class="p-3 bg-brandRed hover:bg-brandDark text-white rounded-full transition-all shadow">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="mt-4 flex justify-between items-start">
+          <div>
+            <h3 class="font-heading font-bold text-brandDark text-base group-hover:text-brandRed transition-colors">Neon FitBand Pro</h3>
+            <span class="text-xs text-neutral-400">Wearables</span>
+          </div>
+          <span class="font-heading font-black text-brandDark">$89</span>
+        </div>
+      </div>
+
+      <!-- Product Card 3 -->
+      <div class="product-card group bg-white border border-neutral-100 rounded-3xl p-6 transition-all duration-300 hover:shadow-premium hover:-translate-y-1" data-category="gaming">
+        <div class="bg-neutral-100 rounded-2xl h-56 flex items-center justify-center p-4 relative overflow-hidden">
+          <span class="absolute top-3 left-3 bg-brandBlue text-white font-bold text-[10px] uppercase px-2 py-1 rounded-full z-10">Best Seller</span>
+          <div class="w-36 h-36 transform transition-transform duration-500 group-hover:scale-110 drop-shadow-md">
+            <svg viewBox="0 0 100 100" fill="none" class="w-full h-full">
+              <rect x="25" y="35" width="50" height="30" rx="8" fill="#1376f8" />
+              <circle cx="38" cy="50" r="4" fill="#fff" />
+              <circle cx="62" cy="50" r="4" fill="#fff" />
+            </svg>
+          </div>
+          <!-- Hover Action -->
+          <div class="absolute inset-0 bg-brandDark/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+            <button onclick="openProductModal('Elite Retro Controller', 59, 'controller', 'Perfect ergonomics meet nostalgic aesthetics. Compatible across all devices, featuring ultra sensitive analog inputs.')" class="p-3 bg-white hover:bg-brandRed hover:text-white rounded-full transition-colors text-brandDark shadow">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            </button>
+            <button onclick="addToCart('Elite Retro Controller', 59, 'Elite Retro Controller')" class="p-3 bg-brandRed hover:bg-brandDark text-white rounded-full transition-all shadow">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="mt-4 flex justify-between items-start">
+          <div>
+            <h3 class="font-heading font-bold text-brandDark text-base group-hover:text-brandRed transition-colors">Elite Retro Controller</h3>
+            <span class="text-xs text-neutral-400">Gaming</span>
+          </div>
+          <span class="font-heading font-black text-brandDark">$59</span>
+        </div>
+      </div>
+
+      <!-- Product Card 4 -->
+      <div class="product-card group bg-white border border-neutral-100 rounded-3xl p-6 transition-all duration-300 hover:shadow-premium hover:-translate-y-1" data-category="audio">
+        <div class="bg-neutral-100 rounded-2xl h-56 flex items-center justify-center p-4 relative overflow-hidden">
+          <div class="w-36 h-36 transform transition-transform duration-500 group-hover:scale-110 drop-shadow-md">
+            <svg viewBox="0 0 100 100" fill="none" class="w-full h-full">
+              <circle cx="50" cy="50" r="28" fill="#1c1c1c" />
+              <circle cx="50" cy="50" r="18" fill="#1376f8" opacity="0.8" />
+              <circle cx="50" cy="50" r="10" fill="#ffffff" />
+            </svg>
+          </div>
+          <!-- Hover Action -->
+          <div class="absolute inset-0 bg-brandDark/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+            <button onclick="openProductModal('Phlox Studio Monitor', 179, 'monitor', 'Pristine sound reproduction built directly into a compact home studio design. High fidelity bass drivers and dynamic room adaptation.')" class="p-3 bg-white hover:bg-brandRed hover:text-white rounded-full transition-colors text-brandDark shadow">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            </button>
+            <button onclick="addToCart('Phlox Studio Monitor', 179, 'Phlox Studio Monitor')" class="p-3 bg-brandRed hover:bg-brandDark text-white rounded-full transition-all shadow">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="mt-4 flex justify-between items-start">
+          <div>
+            <h3 class="font-heading font-bold text-brandDark text-base group-hover:text-brandRed transition-colors">Phlox Studio Monitor</h3>
+            <span class="text-xs text-neutral-400">Audio Gear</span>
+          </div>
+          <span class="font-heading font-black text-brandDark">$179</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================= REAL-TIME CUSTOMIZATION INTERACTION ================= -->
+  <section class="max-w-7xl mx-auto px-6 py-16">
+    <div class="bg-neutral-100 rounded-[3rem] p-10 md:p-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <!-- Info Left Panel -->
+      <div class="lg:col-span-5 space-y-6">
+        <span class="text-xs font-bold uppercase tracking-widest text-brandRed">Interactive Lab</span>
+        <h2 class="text-4xl font-heading font-black text-brandDark leading-tight">Design Your Custom Wireless Beats</h2>
+        <p class="text-sm text-neutral-500 leading-relaxed">
+          Craft your personal aesthetic directly in our virtual canvas. Choose custom color combos for the outer headband and soft ear-cushions in real-time.
+        </p>
+        
+        <!-- Live Color Selectors -->
+        <div class="space-y-4 pt-4">
+          <div>
+            <span class="text-xs font-bold text-neutral-700 block mb-2">Headband Shield:</span>
+            <div class="flex space-x-3">
+              <button onclick="changeCustomHeadphoneColor('headband', '#f42c37')" class="w-8 h-8 rounded-full bg-brandRed border-2 border-white ring-2 ring-transparent hover:ring-brandDark transition-all" aria-label="Red headband"></button>
+              <button onclick="changeCustomHeadphoneColor('headband', '#1376f8')" class="w-8 h-8 rounded-full bg-brandBlue border-2 border-white ring-2 ring-transparent hover:ring-brandDark transition-all" aria-label="Blue headband"></button>
+              <button onclick="changeCustomHeadphoneColor('headband', '#fdbd10')" class="w-8 h-8 rounded-full bg-brandYellow border-2 border-white ring-2 ring-transparent hover:ring-brandDark transition-all" aria-label="Yellow headband"></button>
+              <button onclick="changeCustomHeadphoneColor('headband', '#191919')" class="w-8 h-8 rounded-full bg-brandDark border-2 border-white ring-2 ring-transparent hover:ring-brandDark transition-all" aria-label="Black headband"></button>
+            </div>
+          </div>
+          <div>
+            <span class="text-xs font-bold text-neutral-700 block mb-2">Ear Cushion Accents:</span>
+            <div class="flex space-x-3">
+              <button onclick="changeCustomHeadphoneColor('cushion', '#191919')" class="w-8 h-8 rounded-full bg-brandDark border-2 border-white ring-2 ring-transparent hover:ring-brandDark transition-all" aria-label="Black cushion"></button>
+              <button onclick="changeCustomHeadphoneColor('cushion', '#f42c37')" class="w-8 h-8 rounded-full bg-brandRed border-2 border-white ring-2 ring-transparent hover:ring-brandDark transition-all" aria-label="Red cushion"></button>
+              <button onclick="changeCustomHeadphoneColor('cushion', '#2dcc6f')" class="w-8 h-8 rounded-full bg-brandGreen border-2 border-white ring-2 ring-transparent hover:ring-brandDark transition-all" aria-label="Green cushion"></button>
+              <button onclick="changeCustomHeadphoneColor('cushion', '#f4f4f4')" class="w-8 h-8 rounded-full bg-neutral-300 border-2 border-white ring-2 ring-transparent hover:ring-brandDark transition-all" aria-label="Light gray cushion"></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-4">
+          <button onclick="addCustomHeadphoneToCart()" class="px-8 py-3.5 bg-brandDark hover:bg-brandRed text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all duration-300 transform active:scale-95 shadow-md">
+            Order Custom Edition ($349)
+          </button>
+        </div>
+      </div>
+
+      <!-- Live Preview Right Panel -->
+      <div class="lg:col-span-7 flex justify-center items-center relative h-[350px] lg:h-[450px]">
+        <div class="absolute inset-0 bg-white rounded-3xl opacity-60"></div>
+        <div class="relative z-10 w-full max-w-[340px] md:max-w-[380px] drop-shadow-2xl">
+          <svg class="w-full h-auto" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="250" cy="460" rx="130" ry="15" fill="rgba(0,0,0,0.05)" />
+            <!-- Headband Outer Frame (Changeable color) -->
+            <path id="custom-headband" d="M120 280C120 160 180 100 250 100C320 100 380 160 380 280" stroke="#f42c37" stroke-width="28" stroke-linecap="round" class="transition-all duration-500" />
+            <path d="M132 280C132 172 185 114 250 114C315 114 368 172 368 280" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity="0.4"/>
+            <!-- Hinges -->
+            <rect x="104" y="270" width="32" height="50" rx="6" fill="#1c1c1c" />
+            <rect x="364" y="270" width="32" height="50" rx="6" fill="#1c1c1c" />
+            
+            <!-- Ear Cups Outer -->
+            <rect x="80" y="310" width="80" height="110" rx="40" fill="#1c1c1c" />
+            <rect x="340" y="310" width="80" height="110" rx="40" fill="#1c1c1c" />
+
+            <!-- Ear Cups Inner Cushion Trim (Changeable color) -->
+            <ellipse id="custom-left-cushion" cx="120" cy="365" rx="32" ry="48" fill="#191919" class="transition-all duration-500" />
+            <ellipse id="custom-right-cushion" cx="380" cy="365" rx="32" ry="48" fill="#191919" class="transition-all duration-500" />
+            
+            <circle cx="120" cy="365" r="10" fill="#ffffff" opacity="0.1" />
+            <circle cx="380" cy="365" r="10" fill="#ffffff" opacity="0.1" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================= LUXURY BRAND STATEMENT ================= -->
+  <section class="max-w-7xl mx-auto px-6 py-12 text-center relative overflow-hidden">
+    <!-- Overlay watermark -->
+    <h2 class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-neutral-200/20 font-heading font-black text-[6rem] md:text-[14rem] select-none pointer-events-none tracking-tight">PHLOX</h2>
+    <div class="relative z-10 max-w-2xl mx-auto space-y-6">
+      <span class="text-xs font-bold tracking-widest text-brandRed uppercase">The Philosophy</span>
+      <h3 class="text-3xl md:text-5xl font-heading font-black text-brandDark tracking-tight leading-tight">Hear Every Dimension. Feel Absolute Pure Clarity.</h3>
+      <p class="text-sm text-neutral-500 leading-relaxed">
+        Phlox premium electronics aren't just gadgets. They are finely engineered extensions of your sonic consciousness. Each curve, acoustic chamber, and digital processor is crafted to achieve complete dimensional sound excellence.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ================= INTERACTIVE NEWSLETTER FORM ================= -->
+  <section class="max-w-7xl mx-auto px-6 py-10">
+    <div class="bg-brandDark rounded-[3rem] p-10 md:p-16 text-center space-y-6 relative overflow-hidden shadow-2xl">
+      <div class="absolute inset-0 z-0">
+        <div class="absolute -top-40 -left-40 w-96 h-96 bg-brandRed/10 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-brandBlue/10 rounded-full blur-3xl"></div>
+      </div>
+      
+      <div class="relative z-10 max-w-lg mx-auto space-y-4">
+        <span class="text-xs font-bold tracking-widest text-brandRed uppercase">Stay Connected</span>
+        <h2 class="text-3xl md:text-5xl font-heading font-black text-white leading-tight">Get Secret Early VIP Drop Codes</h2>
+        <p class="text-sm text-neutral-400 leading-relaxed">
+          Sign up to get the earliest announcements on limited premium item releases, special community sale prices, and updates.
+        </p>
+
+        <form onsubmit="handleNewsletter(event)" class="pt-6 flex flex-col sm:flex-row gap-3">
+          <input type="email" required placeholder="Enter premium email address..." class="w-full px-6 py-4 rounded-xl bg-white/10 text-white placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-brandRed text-sm border border-white/10" aria-label="Email address">
+          <button type="submit" class="sm:w-auto px-8 py-4 bg-brandRed text-white font-bold text-xs uppercase tracking-wider rounded-xl hover:bg-white hover:text-brandDark transition-all duration-300">
+            Subscribe
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================= PREMIUM TOAST NOTIFICATION CONTAINER ================= -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col space-y-3 pointer-events-none"></div>
+
+
+  <!-- ================= CART DRAWER SLIDER ================= -->
+  <div id="cart-drawer" class="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-white shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col justify-between">
+    <!-- Cart Header -->
+    <div class="p-6 border-b border-neutral-100 flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <svg class="w-5 h-5 text-neutral-700" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+        <h3 class="font-heading font-black text-lg text-brandDark">Your Premium Cart</h3>
+      </div>
+      <button onclick="toggleCart()" class="p-2 hover:bg-neutral-100 rounded-full text-neutral-700" aria-label="Close cart">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <!-- Cart Items Scroll list -->
+    <div id="cart-items-list" class="flex-1 overflow-y-auto p-6 space-y-6 no-scrollbar">
+      <!-- Empty State View -->
+      <div id="cart-empty-view" class="h-full flex flex-col items-center justify-center text-center space-y-4">
+        <div class="w-16 h-16 bg-neutral-100 text-neutral-400 rounded-full flex items-center justify-center">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+        </div>
+        <div>
+          <h4 class="font-bold text-sm text-brandDark">Cart is Empty</h4>
+          <p class="text-xs text-neutral-400 mt-1">Browse our categories and add high-end electronics.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cart Footer Calculations & Checkout -->
+    <div id="cart-footer" class="p-6 border-t border-neutral-100 bg-neutral-50 hidden">
+      <div class="space-y-3 mb-6">
+        <div class="flex items-center justify-between text-xs text-neutral-500">
+          <span>Subtotal</span>
+          <span id="cart-subtotal" class="font-semibold text-neutral-800">$0.00</span>
+        </div>
+        <div class="flex items-center justify-between text-xs text-neutral-500">
+          <span>Premium Courier Delivery</span>
+          <span class="font-semibold text-emerald-600">FREE</span>
+        </div>
+        <div class="flex items-center justify-between border-t border-neutral-200/60 pt-3">
+          <span class="text-sm font-bold text-brandDark">Total Amount</span>
+          <span id="cart-total" class="text-xl font-heading font-black text-brandDark">$0.00</span>
+        </div>
+      </div>
+
+      <button onclick="checkoutSimulate()" class="w-full py-4 bg-brandDark hover:bg-brandRed text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all duration-300">
+        Proceed To Checkout
+      </button>
+    </div>
+  </div>
+  <!-- Cart Backdrop Overlay -->
+  <div id="cart-overlay" onclick="toggleCart()" class="fixed inset-0 bg-black/40 z-45 hidden"></div>
+
+
+  <!-- ================= INTERACTIVE SEARCH OVERLAY ================= -->
+  <div id="search-overlay" class="fixed inset-0 bg-brandDark/95 backdrop-blur-md z-50 flex flex-col items-center justify-center p-6 hidden transition-opacity duration-300">
+    <button onclick="toggleSearch()" class="absolute top-6 right-6 p-2 bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors" aria-label="Close search">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+    <div class="w-full max-w-2xl space-y-4 text-center">
+      <label for="search-input" class="text-xs font-bold uppercase tracking-wider text-brandRed">Virtual Catalogue Search</label>
+      <input type="text" id="search-input" oninput="runCatalogSearch()" placeholder="Type to search e.g. headphones, watch, console..." class="w-full bg-transparent text-center text-3xl sm:text-4xl font-heading font-black text-white focus:outline-none placeholder-white/20" autofocus>
+      <div class="h-0.5 w-full bg-neutral-800 relative">
+        <div class="absolute inset-y-0 left-1/3 right-1/3 bg-brandRed"></div>
+      </div>
+      <!-- Real-time live Search Results List -->
+      <div id="search-results-box" class="max-h-60 overflow-y-auto py-4 space-y-3 text-left hidden"></div>
+    </div>
+  </div>
+
+
+  <!-- ================= PREMIUM FOOTER ================= -->
+  <footer class="bg-white border-t border-neutral-100 pt-16 pb-12">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+      <!-- Footer Brand Column -->
+      <div class="lg:col-span-2 space-y-4">
+        <a href="#" class="font-heading font-extrabold text-2xl tracking-widest text-brandRed">PHLOX</a>
+        <p class="text-sm text-neutral-500 leading-relaxed max-w-sm">
+          Crafting pristine high fidelity premium audio, elegant modern wearables, and immersive virtual reality electronics with custom high-contrast styling details.
+        </p>
+        <div class="flex space-x-4 pt-2">
+          <!-- Mock Social Icons -->
+          <a href="#" class="p-2.5 bg-neutral-50 hover:bg-brandRed hover:text-white text-neutral-600 rounded-full transition-all" aria-label="Instagram">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+          <a href="#" class="p-2.5 bg-neutral-50 hover:bg-brandRed hover:text-white text-neutral-600 rounded-full transition-all" aria-label="Twitter">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+          </a>
+          <a href="#" class="p-2.5 bg-neutral-50 hover:bg-brandRed hover:text-white text-neutral-600 rounded-full transition-all" aria-label="LinkedIn">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Footer Columns -->
+      <div>
+        <h4 class="font-bold text-xs uppercase tracking-widest text-brandDark mb-4">Explore</h4>
+        <ul class="space-y-3 text-sm text-neutral-500">
+          <li><a href="#" class="hover:text-brandRed transition-colors">Home Base</a></li>
+          <li><a href="#shop" class="hover:text-brandRed transition-colors">VIP Shop</a></li>
+          <li><a href="#categories" class="hover:text-brandRed transition-colors">Categories Grid</a></li>
+          <li><a href="#new-arrival" class="hover:text-brandRed transition-colors">Dynamic Deals</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-xs uppercase tracking-widest text-brandDark mb-4">Support</h4>
+        <ul class="space-y-3 text-sm text-neutral-500">
+          <li><a href="#" class="hover:text-brandRed transition-colors">Secure Ordering</a></li>
+          <li><a href="#" class="hover:text-brandRed transition-colors">Returns & Refunds</a></li>
+          <li><a href="#" class="hover:text-brandRed transition-colors">Premium Concierge</a></li>
+          <li><a href="#" class="hover:text-brandRed transition-colors">Terms of Service</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-xs uppercase tracking-widest text-brandDark mb-4">Location</h4>
+        <p class="text-sm text-neutral-500 leading-relaxed">
+          Premium Electronics Hub<br>
+          Bhadreswar, West Bengal, India<br>
+          <span class="text-xs text-brandRed mt-2 block font-medium">hub@phloxpremium.com</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Footer Copyright Bottom bar -->
+    <div class="max-w-7xl mx-auto px-6 border-t border-neutral-100 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-neutral-400">
+      <p>&copy; 2026 PHLOX Inc. All premium visual components preserved.</p>
+      <div class="flex space-x-6 mt-4 sm:mt-0">
+        <a href="#" class="hover:text-brandDark transition-colors">Privacy Policy</a>
+        <a href="#" class="hover:text-brandDark transition-colors">Cookie Controls</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ================= MASTER JAVASCRIPT ================= -->
+  <script>
+    // In-memory Shopping Cart State
+    let cart = [];
+
+    // Master Catalog Data for Search
+    const catalogData = [
+      { id: 'beats-pro', title: 'Beats Pro Active', price: 199, category: 'audio', desc: 'Legendary studio audio sound quality featuring adaptive dynamic equalizers, ultra plush foam cushions and durable construction.' },
+      { id: 'fitband', title: 'Neon FitBand Pro', price: 89, category: 'wearable', desc: 'Your dynamic sports companion. Deep heart-rate feedback, continuous oxygen logging, and immediate sweatproof integrity.' },
+      { id: 'controller', title: 'Elite Retro Controller', price: 59, category: 'gaming', desc: 'Perfect ergonomics meet nostalgic aesthetics. Compatible across all devices, featuring ultra sensitive analog inputs.' },
+      { id: 'monitor', title: 'Phlox Studio Monitor', price: 179, category: 'audio', desc: 'Pristine sound reproduction built directly into a compact home studio design. High fidelity bass drivers and dynamic room adaptation.' },
+      { id: 'earphone', title: 'Premium Wireless Earphones', price: 129, category: 'audio', desc: 'Engineered for absolute fidelity, our sports earphone delivers precision-tuned acoustics and ultra-stable custom locks.' },
+      { id: 'watch', title: 'Phlox Wear SmartWatch', price: 199, category: 'wearable', desc: 'A beautiful high-performance smartwatch with integrated biometric health tracking, 14-day battery reserve, and AMOLED visual luxury.' },
+      { id: 'laptop', title: 'Phlox Pro Ultra Laptop', price: 1299, category: 'office', desc: 'Unleash extreme computational power. Features the latest multi-core processor, an ultrabright liquid retinal display, and gorgeous carbon finish.' },
+      { id: 'console', title: 'Phlox Edition Console', price: 499, category: 'gaming', desc: 'Immersive true 4K high-frame-rate rendering, liquid metal cooling system, and an ultra-low latency controller response layout.' },
+      { id: 'oculus', title: 'Phlox VR headset', price: 399, category: 'gaming', desc: 'Step effortlessly into infinite meta-dimensions. Fully standalone tracking, active ergonomic facial cushioning, and high-fidelity sound fields.' },
+      { id: 'speaker', title: 'Amazon Smart Speaker', price: 149, category: 'audio', desc: 'The smarter acoustic core. Exceptional 360-degree omnidirectional dynamic range and complete voice activation responsiveness.' }
+    ];
+
+    // SVG illustrations mapped by key
+    const svgMap = {
+      'beats-hero': `
+        <svg class="w-64 h-64 mx-auto animate-float" viewBox="0 0 500 500" fill="none">
+          <ellipse cx="250" cy="460" rx="140" ry="20" fill="rgba(0,0,0,0.06)" />
+          <path d="M120 280C120 160 180 100 250 100C320 100 380 160 380 280" stroke="#1c1c1c" stroke-width="28" stroke-linecap="round"/>
+          <path d="M132 280C132 172 185 114 250 114C315 114 368 172 368 280" stroke="#f42c37" stroke-width="6" stroke-linecap="round"/>
+          <rect x="104" y="270" width="32" height="50" rx="6" fill="#f42c37" />
+          <rect x="364" y="270" width="32" height="50" rx="6" fill="#f42c37" />
+          <rect x="80" y="310" width="80" height="110" rx="40" fill="#1c1c1c" />
+          <rect x="340" y="310" width="80" height="110" rx="40" fill="#1c1c1c" />
+        </svg>
+      `,
+      'beats-banner': `
+        <svg class="w-64 h-64 mx-auto animate-float" viewBox="0 0 300 300" fill="none">
+          <path d="M70 170C70 80 110 40 150 40C190 40 230 80 230 170" stroke="#f42c37" stroke-width="20" stroke-linecap="round"/>
+          <path d="M70 170C70 80 110 40 150 40C190 40 230 80 230 170" stroke="#111" stroke-width="8" stroke-linecap="round"/>
+          <rect x="58" y="160" width="24" height="40" rx="4" fill="#ffffff" />
+          <rect x="218" y="160" width="24" height="40" rx="4" fill="#ffffff" />
+          <rect x="40" y="190" width="60" height="80" rx="30" fill="#ffffff" />
+          <rect x="200" y="190" width="60" height="80" rx="30" fill="#ffffff" />
+        </svg>
+      `,
+      'beats-pro': `
+        <svg class="w-56 h-56 mx-auto" viewBox="0 0 100 100" fill="none">
+          <path d="M30 65C30 40 45 30 50 30C55 30 70 40 70 65" stroke="#1c1c1c" stroke-width="8" stroke-linecap="round"/>
+          <rect x="24" y="60" width="12" height="20" rx="4" fill="#f42c37" />
+          <rect x="64" y="60" width="12" height="20" rx="4" fill="#f42c37" />
+        </svg>
+      `,
+      'fitband': `
+        <svg class="w-56 h-56 mx-auto" viewBox="0 0 100 100" fill="none">
+          <rect x="42" y="10" width="16" height="80" rx="4" fill="#333" />
+          <rect x="30" y="30" width="40" height="40" rx="10" fill="#2dcc6f" />
+          <circle cx="50" cy="50" r="10" fill="#ffffff" opacity="0.3" />
+        </svg>
+      `,
+      'controller': `
+        <svg class="w-56 h-56 mx-auto" viewBox="0 0 100 100" fill="none">
+          <rect x="25" y="35" width="50" height="30" rx="8" fill="#1376f8" />
+          <circle cx="38" cy="50" r="4" fill="#fff" />
+          <circle cx="62" cy="50" r="4" fill="#fff" />
+        </svg>
+      `,
+      'monitor': `
+        <svg class="w-56 h-56 mx-auto" viewBox="0 0 100 100" fill="none">
+          <circle cx="50" cy="50" r="28" fill="#1c1c1c" />
+          <circle cx="50" cy="50" r="18" fill="#1376f8" opacity="0.8" />
+          <circle cx="50" cy="50" r="10" fill="#ffffff" />
+        </svg>
+      `,
+      'earphone': `
+        <svg viewBox="0 0 200 200" fill="none" class="w-56 h-56 mx-auto">
+          <path d="M60 70C60 45 85 40 100 65C115 90 90 120 70 110C50 100 60 95 60 70Z" fill="#151515" />
+          <path d="M55 70C55 50 75 45 85 65" stroke="#f42c37" stroke-width="4" stroke-linecap="round" />
+          <circle cx="85" cy="85" r="10" fill="#f42c37" />
+          <rect x="70" y="90" width="75" height="75" rx="20" fill="#222" transform="rotate(15 70 90)" />
+          <rect x="77" y="97" width="61" height="61" rx="13" fill="#151515" transform="rotate(15 70 90)" />
+        </svg>
+      `,
+      'watch': `
+        <svg viewBox="0 0 200 200" fill="none" class="w-56 h-56 mx-auto">
+          <path d="M100 20V180" stroke="#fdbd10" stroke-width="44" stroke-linecap="round" />
+          <rect x="68" y="68" width="64" height="64" rx="16" fill="#1c1c1c" />
+          <rect x="72" y="72" width="56" height="56" rx="12" fill="#2d2d2d" />
+          <circle cx="100" cy="100" r="18" stroke="#fdbd10" stroke-width="4" fill="none" />
+          <circle cx="100" cy="100" r="12" stroke="#2dcc6f" stroke-width="3" fill="none" />
+        </svg>
+      `,
+      'laptop': `
+        <svg viewBox="0 0 300 200" fill="none" class="w-64 h-64 mx-auto">
+          <rect x="50" y="30" width="200" height="120" rx="8" fill="#1c1c1c" />
+          <rect x="56" y="36" width="188" height="108" rx="4" fill="#0c0c0c" />
+          <path d="M80 144 C120 70, 180 80, 244 144" fill="none" stroke="#fdbd10" stroke-width="4" opacity="0.6"/>
+          <path d="M40 150H260" stroke="#a1a1a1" stroke-width="4" stroke-linecap="round" />
+          <path d="M20 152 L30 162 H270 L280 152 Z" fill="#e5e5e5" />
+        </svg>
+      `,
+      'console': `
+        <svg viewBox="0 0 300 200" fill="none" class="w-64 h-64 mx-auto">
+          <path d="M80 30 L60 170 H90 L110 30 Z" fill="#1c1c1c" />
+          <path d="M75 25 L55 165 C65 175, 95 175, 105 165 L85 25 Z" fill="#fafafa" stroke="#e5e5e5" stroke-width="2" />
+          <path d="M78 30 L58 160" stroke="#1376f8" stroke-width="2.5" opacity="0.8" />
+        </g>
+        </svg>
+      `,
+      'oculus': `
+        <svg viewBox="0 0 200 200" fill="none" class="w-56 h-56 mx-auto">
+          <rect x="40" y="70" width="120" height="60" rx="20" fill="#1c1c1c" />
+          <rect x="44" y="74" width="112" height="52" rx="16" stroke="#2dcc6f" stroke-width="3" fill="none" />
+          <path d="M40 95 C20 95, 20 105, 40 105" stroke="#444" stroke-width="12" stroke-linecap="round" />
+          <path d="M160 95 C180 95, 180 105, 160 105" stroke="#444" stroke-width="12" stroke-linecap="round" />
+        </svg>
+      `,
+      'speaker': `
+        <svg viewBox="0 0 200 200" fill="none" class="w-56 h-56 mx-auto">
+          <rect x="60" y="40" width="80" height="120" rx="40" fill="#151515" />
+          <line x1="70" y1="60" x2="130" y2="60" stroke="#252525" stroke-width="2" stroke-dasharray="2 4" />
+          <line x1="70" y1="90" x2="130" y2="90" stroke="#252525" stroke-width="2" stroke-dasharray="2 4" />
+          <ellipse cx="100" cy="44" rx="20" ry="6" fill="#60a5fa" />
+        </svg>
+      `
+    };
+
+    // Global Interactive Color Customizer State
+    let customHeadbandColor = '#f42c37';
+    let customCushionColor = '#191919';
+
+    function changeCustomHeadphoneColor(target, colorValue) {
+      if (target === 'headband') {
+        customHeadbandColor = colorValue;
+        document.getElementById('custom-headband').setAttribute('stroke', colorValue);
+        openToast(`Headband color adjusted: ${colorValue}`);
+      } else if (target === 'cushion') {
+        customCushionColor = colorValue;
+        document.getElementById('custom-left-cushion').setAttribute('fill', colorValue);
+        document.getElementById('custom-right-cushion').setAttribute('fill', colorValue);
+        openToast(`Ear cushion color adjusted: ${colorValue}`);
+      }
+    }
+
+    function addCustomHeadphoneToCart() {
+      addToCart('Custom Beats Edition', 349, 'custom-beats');
+      openToast('Custom Beats successfully compiled and added to your cart!');
+    }
+
+
+    // Dynamic TOAST notification generator
+    function openToast(message) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = "bg-brandDark text-white text-xs font-semibold px-5 py-4 rounded-2xl shadow-2xl flex items-center justify-between space-x-4 animate-bounce pointer-events-auto border border-neutral-800 transform translate-y-2 opacity-0 transition-all duration-300";
+      toast.innerHTML = `
+        <div class="flex items-center space-x-2">
+          <span class="w-2 h-2 rounded-full bg-brandRed animate-ping"></span>
+          <span>${message}</span>
+        </div>
+        <button onclick="this.parentElement.remove()" class="text-neutral-400 hover:text-white font-bold">&times;</button>
+      `;
+      container.appendChild(toast);
+      
+      // Animate entry
+      setTimeout(() => {
+        toast.classList.remove('translate-y-2', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+      }, 50);
+
+      // Self destroy
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 4000);
+    }
+
+    // Toggle Mobile Navigation Menu
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const overlay = document.getElementById('mobile-menu-overlay');
+      const isClosed = menu.classList.contains('-translate-x-full');
+      
+      if (isClosed) {
+        menu.classList.remove('-translate-x-full');
+        overlay.classList.remove('hidden');
+      } else {
+        menu.classList.add('-translate-x-full');
+        overlay.classList.add('hidden');
+      }
+    }
+
+    // Toggle Shopping Cart Slideout Drawer
+    function toggleCart() {
+      const drawer = document.getElementById('cart-drawer');
+      const overlay = document.getElementById('cart-overlay');
+      const isClosed = drawer.classList.contains('translate-x-full');
+      
+      if (isClosed) {
+        drawer.classList.remove('translate-x-full');
+        overlay.classList.remove('hidden');
+      } else {
+        drawer.classList.add('translate-x-full');
+        overlay.classList.add('hidden');
+      }
+    }
+
+    // Toggle Large Fullscreen Search Bar overlay
+    function toggleSearch() {
+      const overlay = document.getElementById('search-overlay');
+      const isHidden = overlay.classList.contains('hidden');
+      if (isHidden) {
+        overlay.classList.remove('hidden');
+        document.getElementById('search-input').focus();
+      } else {
+        overlay.classList.add('hidden');
+        document.getElementById('search-input').value = "";
+        document.getElementById('search-results-box').classList.add('hidden');
+      }
+    }
+
+    // Live Instant catalog search engine
+    function runCatalogSearch() {
+      const value = document.getElementById('search-input').value.toLowerCase().trim();
+      const resultsBox = document.getElementById('search-results-box');
+      
+      if (value.length === 0) {
+        resultsBox.classList.add('hidden');
+        resultsBox.innerHTML = "";
+        return;
+      }
+
+      const matched = catalogData.filter(item => 
+        item.title.toLowerCase().includes(value) || 
+        item.desc.toLowerCase().includes(value)
+      );
+
+      if (matched.length > 0) {
+        resultsBox.classList.remove('hidden');
+        resultsBox.innerHTML = matched.map(item => `
+          <div onclick="openProductModal('${item.title}', ${item.price}, '${item.id}', '${item.desc}'); toggleSearch();" class="p-3 bg-white/5 hover:bg-white/10 rounded-xl cursor-pointer transition-colors flex items-center justify-between text-white">
+            <div>
+              <h4 class="font-bold text-sm text-white">${item.title}</h4>
+              <p class="text-xs text-neutral-400 line-clamp-1">${item.desc}</p>
+            </div>
+            <span class="font-black text-brandRed text-sm">$${item.price}</span>
+          </div>
+        `).join('');
+      } else {
+        resultsBox.classList.remove('hidden');
+        resultsBox.innerHTML = `<p class="text-xs text-neutral-400 py-3 text-center">No high-end devices match "${value}"</p>`;
+      }
+    }
+
+    // Dynamic Filter Categories for Best Seller section
+    function filterProducts(category) {
+      // Update Active Tab styles
+      const tabs = document.querySelectorAll('.filter-tab');
+      tabs.forEach(tab => {
+        tab.classList.remove('bg-brandDark', 'text-white');
+        tab.classList.add('bg-white', 'text-neutral-600', 'border', 'border-neutral-200');
+      });
+
+      const activeTab = document.getElementById(`tab-${category}`);
+      if (activeTab) {
+        activeTab.classList.remove('bg-white', 'text-neutral-600', 'border', 'border-neutral-200');
+        activeTab.classList.add('bg-brandDark', 'text-white');
+      }
+
+      // Filter product cards
+      const cards = document.querySelectorAll('.product-card');
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    // Cart Management Core Functions
+    function addToCart(title, price, imageKey) {
+      // Check if product exists in cart
+      const existing = cart.find(item => item.title === title);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ title, price, imageKey, quantity: 1 });
+      }
+      updateCartUI();
+      openToast(`Added ${title} to your premium cart.`);
+    }
+
+    function removeFromCart(title) {
+      cart = cart.filter(item => item.title !== title);
+      updateCartUI();
+      openToast(`Removed ${title} from cart.`);
+    }
+
+    function updateCartQuantity(title, change) {
+      const item = cart.find(i => i.title === title);
+      if (item) {
+        item.quantity += change;
+        if (item.quantity <= 0) {
+          removeFromCart(title);
+          return;
+        }
+      }
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const countBadge = document.getElementById('cart-count');
+      const itemsList = document.getElementById('cart-items-list');
+      const footer = document.getElementById('cart-footer');
+      const emptyView = document.getElementById('cart-empty-view');
+      const subtotalEl = document.getElementById('cart-subtotal');
+      const totalEl = document.getElementById('cart-total');
+
+      const totalItemsCount = cart.reduce((acc, item) => acc + item.quantity, 0);
+      countBadge.textContent = totalItemsCount;
+
+      if (cart.length === 0) {
+        emptyView.classList.remove('hidden');
+        footer.classList.add('hidden');
+        itemsList.innerHTML = "";
+        itemsList.appendChild(emptyView);
+      } else {
+        emptyView.classList.add('hidden');
+        footer.classList.remove('hidden');
+
+        let html = '<div class="space-y-4">';
+        let subtotal = 0;
+
+        cart.forEach(item => {
+          const itemTotal = item.price * item.quantity;
+          subtotal += itemTotal;
+
+          html += `
+            <div class="flex items-center justify-between border-b border-neutral-100 pb-4">
+              <div class="flex items-center space-x-4">
+                <div class="w-12 h-12 bg-neutral-100 rounded-xl flex items-center justify-center text-brandDark">
+                  <!-- Fallback small dynamic icon indicator -->
+                  <svg class="w-6 h-6 text-neutral-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>
+                </div>
+                <div>
+                  <h4 class="font-bold text-xs text-brandDark">${item.title}</h4>
+                  <span class="text-[10px] text-neutral-400">$${item.price} each</span>
+                </div>
+              </div>
+              <div class="flex items-center space-x-3">
+                <div class="flex items-center bg-neutral-100 rounded-lg overflow-hidden border border-neutral-200">
+                  <button onclick="updateCartQuantity('${item.title}', -1)" class="px-2 py-1 text-xs hover:bg-neutral-200 text-neutral-700 font-bold">-</button>
+                  <span class="px-2 text-xs font-semibold text-neutral-800">${item.quantity}</span>
+                  <button onclick="updateCartQuantity('${item.title}', 1)" class="px-2 py-1 text-xs hover:bg-neutral-200 text-neutral-700 font-bold">+</button>
+                </div>
+                <button onclick="removeFromCart('${item.title}')" class="text-neutral-400 hover:text-brandRed" aria-label="Remove item">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                </button>
+              </div>
+            </div>
+          `;
+        });
+
+        html += '</div>';
+        itemsList.innerHTML = html;
+
+        subtotalEl.textContent = `$${subtotal.toLocaleString()}`;
+        totalEl.textContent = `$${subtotal.toLocaleString()}`;
+      }
+    }
+
+    // Checkout Simulation Action
+    function checkoutSimulate() {
+      toggleCart();
+      openToast("Preparing secure payment gateways... Processing simulated premium orders!");
+      // Simulate successful dynamic checkout after a short wait
+      setTimeout(() => {
+        cart = [];
+        updateCartUI();
+        openToast("Premium Order successful! Thank you for purchasing from PHLOX.");
+      }, 2000);
+    }
+
+    // Dynamic Product Detail Modal
+    function openProductModal(title, price, imageKey, description) {
+      const modal = document.getElementById('product-modal');
+      const titleEl = document.getElementById('modal-product-title');
+      const descEl = document.getElementById('modal-product-desc');
+      const priceEl = document.getElementById('modal-product-price');
+      const leftPanel = document.getElementById('modal-left-panel');
+      const addToCartBtn = document.getElementById('modal-add-to-cart-btn');
+
+      titleEl.textContent = title;
+      descEl.textContent = description;
+      priceEl.textContent = `$${price.toLocaleString()}`;
+
+      // Populate SVG illustration
+      leftPanel.innerHTML = svgMap[imageKey] || `
+        <div class="w-40 h-40 bg-neutral-100 rounded-full flex items-center justify-center">
+          <svg class="w-16 h-16 text-neutral-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>
+        </div>
+      `;
+
+      // Set Add to Cart Click Action inside Modal
+      addToCartBtn.onclick = function() {
+        addToCart(title, price, imageKey);
+        closeProductModal();
+      };
+
+      // Show Modal
+      modal.classList.remove('hidden');
+      document.body.style.overflow = "hidden"; // Prevent body scrolling
+    }
+
+    function closeProductModal() {
+      const modal = document.getElementById('product-modal');
+      modal.classList.add('hidden');
+      document.body.style.overflow = "auto";
+    }
+
+    // Handle Newsletter form submits
+    function handleNewsletter(event) {
+      event.preventDefault();
+      const email = event.target.querySelector('input').value;
+      openToast(`VIP Code has been queued for dispatch to: ${email}`);
+      event.target.reset();
+    }
+  </script>
+</body>
+</html>
+9

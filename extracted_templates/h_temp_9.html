@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grado Botanicals — Premium Minimalist Botanics</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cormorant Garamond (Premium Serif) & Plus Jakarta Sans (Clean Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind Configuration for Custom Palette -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            cream: '#FAF4EE',         /* Warm off-white sand background */
+                            peach: '#F9E2D2',         /* Soft muted secondary peach */
+                            salmon: '#EC9D87',        /* Signature soft warm terracotta/salmon */
+                            salmonLight: '#F5BEB0',   /* Soft highlight salmon */
+                            slate: '#243232',         /* Deep architectural contrast tone */
+                            slateLight: '#394E4E',    /* Lighter slate for depth and text */
+                            sage: '#7C938F',          /* Muted dusty sage green for plants */
+                            sageLight: '#9FB2AE',
+                        }
+                    },
+                    boxShadow: {
+                        'premium': '0 20px 50px -12px rgba(36, 50, 50, 0.08)',
+                        'premium-hover': '0 30px 60px -10px rgba(36, 50, 50, 0.15)',
+                        'soft-glow': '0 10px 30px rgba(236, 157, 135, 0.25)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #FAF4EE;
+            color: #243232;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Smooth custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF4EE;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #EC9D87;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D5816A;
+        }
+
+        /* Ribbed textures mimicking the pots in the image */
+        .ribbed-texture {
+            background: repeating-linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0.1),
+                rgba(255, 255, 255, 0.1) 4px,
+                rgba(0, 0, 0, 0.05) 4px,
+                rgba(0, 0, 0, 0.05) 8px
+            );
+        }
+
+        .ribbed-texture-slate {
+            background: repeating-linear-gradient(
+                90deg,
+                rgba(36, 50, 50, 0.03),
+                rgba(36, 50, 50, 0.03) 3px,
+                rgba(255, 255, 255, 0.03) 3px,
+                rgba(255, 255, 255, 0.03) 6px
+            );
+        }
+
+        /* Smooth custom transition speeds */
+        .transition-premium {
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+    </style>
+</head>
+<body class="selection:bg-brand-salmon selection:text-white">
+
+    <!-- Premium Navigation Bar -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-brand-cream/80 backdrop-blur-md border-b border-brand-salmon/10 px-6 py-4 md:px-12 transition-premium">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-brand-salmon flex items-center justify-center text-brand-cream shadow-soft-glow group-hover:scale-105 transition-premium">
+                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 2C11.5 5 9 8 6 9C3 10 2 12 2 15C2 18 4.5 21 8 21C11.5 21 12 18 12 18C12 18 12.5 21 16 21C19.5 21 22 18 22 15C22 12 21 10 18 9C15 8 12.5 5 12 2Z" fill="currentColor"/>
+                    </svg>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-serif text-xl font-semibold tracking-wider uppercase text-brand-slate leading-none">GRADO</span>
+                    <span class="text-[9px] tracking-widest uppercase text-brand-salmon font-bold">BOTANICALS</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center gap-10 text-sm font-medium text-brand-slate/80">
+                <a href="#hero" class="hover:text-brand-salmon transition-colors">Curated Space</a>
+                <a href="#collections" class="hover:text-brand-salmon transition-colors">Collections</a>
+                <a href="#designer" class="hover:text-brand-salmon transition-colors">Oasis Designer</a>
+                <a href="#editorial" class="hover:text-brand-salmon transition-colors">Editorial</a>
+                <a href="#craft" class="hover:text-brand-salmon transition-colors">Our Craft</a>
+            </nav>
+
+            <!-- CTA Actions -->
+            <div class="flex items-center gap-4">
+                <button onclick="toggleCart()" class="relative p-2.5 text-brand-slate hover:text-brand-salmon transition-colors rounded-full hover:bg-brand-peach/30">
+                    <svg class="w-5.5 h-5.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                    </svg>
+                    <span id="cart-badge" class="absolute top-1 right-1 w-4 h-4 bg-brand-salmon text-brand-cream text-[10px] font-bold rounded-full flex items-center justify-center scale-0 transition-transform duration-300">0</span>
+                </button>
+                <a href="#designer" class="hidden sm:inline-block px-5 py-2.5 text-xs font-semibold tracking-wider uppercase bg-brand-slate hover:bg-brand-salmon text-brand-cream hover:text-brand-slate rounded-full shadow-premium transition-premium">
+                    Design Your Space
+                </a>
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-brand-slate hover:text-brand-salmon">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="fixed inset-y-0 right-0 w-80 bg-brand-cream z-50 shadow-2xl translate-x-full transition-premium p-8 flex flex-col justify-between">
+        <div>
+            <div class="flex items-center justify-between mb-12">
+                <span class="font-serif text-xl tracking-wider text-brand-slate uppercase font-bold">GRADO</span>
+                <button onclick="toggleMobileMenu()" class="p-2 text-brand-slate hover:text-brand-salmon">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            <nav class="flex flex-col gap-6 text-lg font-medium text-brand-slate">
+                <a href="#hero" onclick="toggleMobileMenu()" class="hover:text-brand-salmon transition-colors">Curated Space</a>
+                <a href="#collections" onclick="toggleMobileMenu()" class="hover:text-brand-salmon transition-colors">Collections</a>
+                <a href="#designer" onclick="toggleMobileMenu()" class="hover:text-brand-salmon transition-colors">Oasis Designer</a>
+                <a href="#editorial" onclick="toggleMobileMenu()" class="hover:text-brand-salmon transition-colors">Editorial</a>
+                <a href="#craft" onclick="toggleMobileMenu()" class="hover:text-brand-salmon transition-colors">Our Craft</a>
+            </nav>
+        </div>
+        <div class="border-t border-brand-salmon/20 pt-6">
+            <a href="#designer" onclick="toggleMobileMenu()" class="block w-full text-center py-4 bg-brand-slate text-brand-cream rounded-full font-semibold uppercase tracking-wider text-xs">
+                Design Your Space
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Hero Section (Vibe-Matched Layout) -->
+    <section id="hero" class="relative min-h-screen pt-28 pb-16 px-6 md:px-12 flex items-center justify-center">
+        <!-- Floating organic decorative circular elements -->
+        <div class="absolute top-1/4 left-10 w-48 h-48 rounded-full bg-brand-peach/40 blur-3xl -z-10 animate-pulse"></div>
+        <div class="absolute bottom-10 right-1/4 w-72 h-72 rounded-full bg-brand-salmon/20 blur-3xl -z-10"></div>
+
+        <div class="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            
+            <!-- Left Narrative & Text -->
+            <div class="lg:col-span-5 flex flex-col justify-center z-10 text-center lg:text-left">
+                <div class="inline-flex items-center justify-center lg:justify-start gap-2 px-3 py-1.5 rounded-full bg-brand-peach/50 border border-brand-salmon/20 w-fit mx-auto lg:mx-0 mb-6">
+                    <span class="w-1.5 h-1.5 rounded-full bg-brand-salmon animate-ping"></span>
+                    <span class="text-[10px] tracking-widest uppercase font-bold text-brand-slate/80">THE ART OF BOTANICAL LIVING</span>
+                </div>
+                
+                <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl text-brand-slate font-light leading-[1.1] mb-6">
+                    Minimalist clay meets <br class="hidden sm:inline">
+                    <span class="font-serif italic text-brand-salmon">sculptural flora.</span>
+                </h1>
+                
+                <p class="text-sm md:text-base text-brand-slateLight leading-relaxed mb-8 max-w-lg mx-auto lg:mx-0">
+                    Curated slow-grown architectural cacti paired beautifully with artisan-ribbed ceramic vessels. Created for spaces that appreciate quiet luxury, raw natural forms, and delicate peach-tinted gradients.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                    <a href="#designer" class="w-full sm:w-auto px-8 py-4 bg-brand-slate hover:bg-brand-salmon text-brand-cream hover:text-brand-slate rounded-full font-semibold uppercase tracking-wider text-xs text-center shadow-premium hover:shadow-premium-hover transition-premium">
+                        Create Your Composition
+                    </a>
+                    <a href="#collections" class="w-full sm:w-auto px-8 py-4 bg-brand-peach/40 hover:bg-brand-peach/80 text-brand-slate rounded-full font-semibold uppercase tracking-wider text-xs text-center border border-brand-salmon/10 transition-premium">
+                        Browse Gallery
+                    </a>
+                </div>
+
+                <!-- Subtle Specs -->
+                <div class="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-brand-salmon/20">
+                    <div>
+                        <span class="block text-2xl font-serif text-brand-slate">100%</span>
+                        <span class="text-[10px] tracking-wider uppercase text-brand-slateLight/70">Artisan Crafted</span>
+                    </div>
+                    <div>
+                        <span class="block text-2xl font-serif text-brand-slate">24+</span>
+                        <span class="text-[10px] tracking-wider uppercase text-brand-slateLight/70">Sculptural Varieties</span>
+                    </div>
+                    <div>
+                        <span class="block text-2xl font-serif text-brand-slate">Rome</span>
+                        <span class="text-[10px] tracking-wider uppercase text-brand-slateLight/70">Design Studio</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Visual Canvas (Matching the Hero of Inspiration Image) -->
+            <div class="lg:col-span-7 relative h-[500px] md:h-[620px] w-full rounded-3xl bg-brand-salmon overflow-hidden shadow-premium group">
+                <!-- Inner curved architectural frame -->
+                <div class="absolute inset-2 rounded-[2.5rem] border border-brand-cream/30 pointer-events-none z-10"></div>
+                
+                <!-- Background Gradient resembling the soft warm coral wall -->
+                <div class="absolute inset-0 bg-gradient-to-tr from-brand-salmon via-brand-salmon to-brand-peach/80 opacity-90"></div>
+
+                <!-- Ribbed design elements inside the graphic -->
+                <div class="absolute bottom-0 inset-x-0 h-44 bg-brand-slate/10 backdrop-blur-[1px] ribbed-texture-slate"></div>
+
+                <!-- Dynamic CSS-illustrated cacti arrangements inside premium ceramic pots (inspired by image) -->
+                <div class="absolute inset-0 flex items-end justify-center pb-12 gap-6 px-4 md:px-8">
+                    
+                    <!-- Left Pot: Round, cream clay with beautiful multi-armed succulent cactus -->
+                    <div class="flex flex-col items-center transform hover:scale-105 transition-premium duration-500 w-1/3 max-w-[180px]">
+                        <!-- Cactus illustration -->
+                        <div class="relative w-28 h-28 mb-[-12px] z-10 drop-shadow-lg">
+                            <!-- Main central pad -->
+                            <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-14 h-20 rounded-t-full bg-brand-sage border-2 border-brand-cream/30 flex justify-between px-2 pt-4">
+                                <span class="w-1 h-1 bg-brand-cream/50 rounded-full"></span>
+                                <span class="w-1 h-1 bg-brand-cream/50 rounded-full"></span>
+                            </div>
+                            <!-- Left arm -->
+                            <div class="absolute bottom-6 left-2 w-10 h-10 rounded-full bg-brand-sage border-2 border-brand-cream/30"></div>
+                            <!-- Right arm -->
+                            <div class="absolute bottom-10 right-2 w-12 h-12 rounded-full bg-brand-sage border-2 border-brand-cream/30"></div>
+                            <!-- Small spines -->
+                            <div class="absolute top-1 left-1/2 w-0.5 h-1.5 bg-brand-cream"></div>
+                            <div class="absolute top-4 left-4 w-1.5 h-0.5 bg-brand-cream"></div>
+                            <div class="absolute top-6 right-4 w-1.5 h-0.5 bg-brand-cream"></div>
+                        </div>
+                        <!-- Ribbed cream clay pot -->
+                        <div class="w-full h-24 bg-brand-cream rounded-b-2xl rounded-t-lg relative shadow-xl overflow-hidden">
+                            <div class="absolute inset-0 ribbed-texture opacity-30"></div>
+                            <div class="absolute top-0 inset-x-0 h-1 bg-brand-slate/10"></div>
+                        </div>
+                    </div>
+
+                    <!-- Center Pot: Deep slate architectural cylindrical pot with delicate segmented tall cacti -->
+                    <div class="flex flex-col items-center transform hover:scale-110 transition-premium duration-500 w-1/3 max-w-[200px] z-20">
+                        <!-- Tall cacti group -->
+                        <div class="relative w-24 h-44 mb-[-10px] z-10 flex justify-center gap-1.5 drop-shadow-xl">
+                            <!-- Tall stem 1 -->
+                            <div class="w-5 h-40 rounded-t-full bg-gradient-to-t from-brand-slateLight to-brand-sage border-l border-brand-cream/20 relative">
+                                <div class="absolute top-4 inset-x-0 flex flex-col items-center gap-3 text-[5px] text-brand-cream opacity-60"><span>•</span><span>•</span><span>•</span></div>
+                            </div>
+                            <!-- Tall stem 2 (tallest) -->
+                            <div class="w-6 h-44 rounded-t-full bg-gradient-to-t from-brand-slate to-brand-sage border-l border-brand-cream/20 relative">
+                                <div class="absolute top-6 inset-x-0 flex flex-col items-center gap-4 text-[5px] text-brand-cream opacity-60"><span>•</span><span>•</span><span>•</span><span>•</span></div>
+                            </div>
+                            <!-- Small stem 3 -->
+                            <div class="w-5 h-28 rounded-t-full bg-gradient-to-t from-brand-slateLight to-brand-sage/80 border-l border-brand-cream/20 relative self-end">
+                                <div class="absolute top-2 inset-x-0 flex flex-col items-center gap-2 text-[5px] text-brand-cream opacity-60"><span>•</span><span>•</span></div>
+                            </div>
+                        </div>
+                        <!-- Sleek architectural slate pot -->
+                        <div class="w-full h-28 bg-brand-slate rounded-b-2xl rounded-t-md relative shadow-2xl flex items-center justify-center">
+                            <div class="absolute top-0 inset-x-0 h-1.5 bg-white/5"></div>
+                            <!-- Minimal metallic brand plate -->
+                            <div class="w-8 h-1 bg-brand-salmon/40 rounded-full mt-4"></div>
+                        </div>
+                    </div>
+
+                    <!-- Right Pot: Fluted salmon-pink spherical ceramic with structured dark cacti -->
+                    <div class="flex flex-col items-center transform hover:scale-105 transition-premium duration-500 w-1/3 max-w-[180px]">
+                        <!-- Minimal spiky structured cacti -->
+                        <div class="relative w-20 h-24 mb-[-8px] z-10 drop-shadow-lg flex items-end justify-center">
+                            <!-- Dark spiky succulent leaves -->
+                            <div class="absolute bottom-0 w-8 h-20 bg-brand-slateLight rounded-t-full rotate-[-15deg] origin-bottom border-r border-brand-cream/10"></div>
+                            <div class="absolute bottom-0 w-8 h-22 bg-brand-slate rounded-t-full rotate-[10deg] origin-bottom border-l border-brand-cream/10"></div>
+                            <div class="absolute bottom-0 w-6 h-16 bg-brand-sage rounded-t-full rotate-[-45deg] origin-bottom"></div>
+                            <div class="absolute bottom-0 w-6 h-18 bg-brand-sage/90 rounded-t-full rotate-[35deg] origin-bottom"></div>
+                        </div>
+                        <!-- Fluted salmon sphere pot -->
+                        <div class="w-24 h-24 bg-brand-peach rounded-full relative shadow-xl overflow-hidden flex items-center justify-center">
+                            <div class="absolute inset-0 ribbed-texture opacity-20"></div>
+                            <!-- Dirt rim shadow -->
+                            <div class="absolute top-0 w-12 h-3 rounded-full bg-brand-slate/20"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Decorative floating spec-label in hero graphic -->
+                <div class="absolute top-8 right-8 bg-brand-cream/90 backdrop-blur-md p-4 rounded-2xl shadow-lg border border-white/40 hidden md:flex items-center gap-3 hover:translate-y-[-4px] transition-premium">
+                    <div class="w-3 h-3 rounded-full bg-[#EC9D87]"></div>
+                    <div class="text-left">
+                        <p class="text-[10px] uppercase tracking-wider text-brand-slate font-bold">Featured Setup</p>
+                        <p class="text-xs font-serif italic text-brand-slateLight">Oasis Trio in Pale Sand</p>
+                    </div>
+                </div>
+
+                <!-- Left text element reminiscent of abstract editorial style -->
+                <div class="absolute bottom-8 left-8 text-white/50 text-[10px] tracking-widest uppercase hidden md:block select-none">
+                    Studio Collection — Vol. IV
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Visual Divider Segment -->
+    <div class="bg-brand-peach/25 py-8 border-y border-brand-salmon/15">
+        <div class="max-w-7xl mx-auto px-6 overflow-hidden">
+            <div class="flex items-center justify-between gap-8 whitespace-nowrap text-brand-slateLight/60 font-medium text-xs tracking-widest uppercase">
+                <div class="flex items-center gap-2"><i class="fa-solid fa-circle text-[6px] text-brand-salmon"></i> Natural Materials</div>
+                <div class="hidden sm:flex items-center gap-2"><i class="fa-solid fa-circle text-[6px] text-brand-salmon"></i> Hand-Finished Ceramics</div>
+                <div class="flex items-center gap-2"><i class="fa-solid fa-circle text-[6px] text-brand-salmon"></i> Low-Maintenance Sculptures</div>
+                <div class="hidden md:flex items-center gap-2"><i class="fa-solid fa-circle text-[6px] text-brand-salmon"></i> Free Continental Shipping</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured Curated Grid Section (Inspired by mid-section cards) -->
+    <section id="collections" class="py-24 px-6 md:px-12 max-w-7xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+            <span class="text-xs tracking-widest uppercase text-brand-salmon font-bold">CHOOSE YOUR FOCUS</span>
+            <h2 class="font-serif text-3xl md:text-5xl text-brand-slate font-light mt-2 mb-4">Curated Living Spaces</h2>
+            <p class="text-sm md:text-base text-brand-slateLight">Every plant is carefully matched with a hand-selected ceramic form. Select a space vibe to begin integrating sculpture into your environment.</p>
+        </div>
+
+        <!-- 2-Column Offset Premium Card Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-stretch">
+            
+            <!-- Card 1: Warm Peach Soft Oasis Container -->
+            <div class="group bg-brand-peach/30 rounded-[2.5rem] p-8 md:p-12 flex flex-col justify-between transition-premium hover:shadow-premium hover:-translate-y-2 border border-brand-salmon/10 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-48 h-48 bg-brand-salmon/10 rounded-full blur-2xl"></div>
+                
+                <div>
+                    <!-- Badge / Interactive marker -->
+                    <div class="flex justify-between items-start mb-12">
+                        <span class="text-[11px] tracking-widest font-bold text-brand-salmon uppercase">DESIGN CATEGORY A</span>
+                        <div class="w-10 h-10 rounded-full bg-brand-cream flex items-center justify-center text-brand-salmon shadow-sm">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- CSS Illustrated botanical render matching card 1 -->
+                    <div class="h-64 flex items-end justify-center mb-8 relative">
+                        <div class="absolute bottom-0 w-40 h-40 bg-brand-cream/40 rounded-full blur-xl -z-10"></div>
+                        <!-- Beautiful columnar cactus with coral pot -->
+                        <div class="flex flex-col items-center">
+                            <!-- Columnar cactus -->
+                            <div class="relative w-16 h-44 mb-[-8px] z-10 drop-shadow-md">
+                                <div class="w-10 h-44 rounded-t-full bg-gradient-to-t from-brand-slateLight to-brand-sage border-l-2 border-brand-cream/30 relative">
+                                    <!-- Segments -->
+                                    <div class="absolute inset-y-0 left-3 w-1 bg-brand-cream/10"></div>
+                                    <div class="absolute inset-y-0 right-3 w-1 bg-brand-cream/10"></div>
+                                    <!-- Spines -->
+                                    <div class="absolute top-6 left-1/2 w-4 h-0.5 bg-brand-cream/60 -translate-x-1/2"></div>
+                                    <div class="absolute top-16 left-1/2 w-4 h-0.5 bg-brand-cream/60 -translate-x-1/2"></div>
+                                    <div class="absolute top-28 left-1/2 w-4 h-0.5 bg-brand-cream/60 -translate-x-1/2"></div>
+                                </div>
+                            </div>
+                            <!-- Coral ceramic container -->
+                            <div class="w-24 h-20 bg-brand-salmon rounded-b-2xl rounded-t-md relative shadow-lg overflow-hidden">
+                                <div class="absolute inset-0 ribbed-texture opacity-20"></div>
+                                <div class="absolute top-0 inset-x-0 h-1 bg-brand-slate/10"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-serif text-2xl md:text-3xl text-brand-slate mb-3">The Solitary Columnar</h3>
+                    <p class="text-xs md:text-sm text-brand-slateLight leading-relaxed mb-6">
+                        A majestic Pachycereus Pringlei housed inside a soft peach-tinted ribbed architectural vessel. Designed as a focal visual anchor for desks, high consoles, and sideboards.
+                    </p>
+                    <div class="flex items-center justify-between pt-4 border-t border-brand-salmon/20">
+                        <span class="font-serif text-xl text-brand-slate font-medium">$135.00</span>
+                        <button onclick="addToCart('Solitary Columnar', 135)" class="px-5 py-2.5 bg-brand-slate hover:bg-brand-salmon text-brand-cream hover:text-brand-slate rounded-full text-xs font-semibold uppercase tracking-wider transition-premium">
+                            Add to Sanctuary
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Pale Sand Soft Oasis Container (Offset layout) -->
+            <div class="group bg-brand-cream/90 rounded-[2.5rem] p-8 md:p-12 flex flex-col justify-between transition-premium hover:shadow-premium hover:-translate-y-2 border border-brand-salmon/15 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-48 h-48 bg-brand-peach/20 rounded-full blur-2xl"></div>
+
+                <div>
+                    <!-- Badge / Interactive marker -->
+                    <div class="flex justify-between items-start mb-12">
+                        <span class="text-[11px] tracking-widest font-bold text-brand-slateLight uppercase">DESIGN CATEGORY B</span>
+                        <div class="w-10 h-10 rounded-full bg-brand-salmon flex items-center justify-center text-brand-cream shadow-sm">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- CSS Illustrated botanical render matching card 2 -->
+                    <div class="h-64 flex items-end justify-center mb-8 relative">
+                        <div class="absolute bottom-0 w-40 h-40 bg-brand-salmon/10 rounded-full blur-xl -z-10"></div>
+                        <!-- Beautiful spiky cactus with charcoal slate pot -->
+                        <div class="flex flex-col items-center">
+                            <!-- Crown Spiky cactus -->
+                            <div class="relative w-24 h-24 mb-[-8px] z-10 drop-shadow-md">
+                                <div class="w-24 h-24 rounded-full bg-gradient-to-t from-brand-sage to-brand-sageLight border-2 border-brand-cream/30 relative overflow-hidden flex items-center justify-center">
+                                    <div class="absolute inset-0 ribbed-texture opacity-20"></div>
+                                    <!-- Spiky crown detailing -->
+                                    <div class="absolute top-2 w-1.5 h-1.5 bg-brand-salmon rounded-full animate-ping"></div>
+                                    <div class="absolute top-2 w-1.5 h-1.5 bg-brand-salmon rounded-full"></div>
+                                </div>
+                            </div>
+                            <!-- Slate pot -->
+                            <div class="w-28 h-20 bg-brand-slate rounded-b-2xl rounded-t-md relative shadow-lg overflow-hidden flex items-center justify-center">
+                                <div class="absolute top-0 inset-x-0 h-1 bg-white/10"></div>
+                                <span class="w-1.5 h-1.5 bg-brand-peach rounded-full"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-serif text-2xl md:text-3xl text-brand-slate mb-3">The Sculptural Globe</h3>
+                    <p class="text-xs md:text-sm text-brand-slateLight leading-relaxed mb-6">
+                        An exquisite specimen of Golden Barrel Cactus paired with our deep architectural slate pot. Perfectly balanced with a low, textured center of gravity for minimalist tabletops.
+                    </p>
+                    <div class="flex items-center justify-between pt-4 border-t border-brand-salmon/20">
+                        <span class="font-serif text-xl text-brand-slate font-medium">$155.00</span>
+                        <button onclick="addToCart('Sculptural Globe', 155)" class="px-5 py-2.5 bg-brand-slate hover:bg-brand-salmon text-brand-cream hover:text-brand-slate rounded-full text-xs font-semibold uppercase tracking-wider transition-premium">
+                            Add to Sanctuary
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Interactive Interactive Space Customizer / Configurator -->
+    <section id="designer" class="py-24 bg-brand-peach/20 border-y border-brand-salmon/15">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Details & Config Controls -->
+                <div class="lg:col-span-5">
+                    <span class="text-xs tracking-widest uppercase text-brand-salmon font-bold">LIVE SPACE PLAYGROUND</span>
+                    <h2 class="font-serif text-3xl md:text-5xl text-brand-slate font-light mt-2 mb-6">Build Your Oasis</h2>
+                    <p class="text-sm md:text-base text-brand-slateLight mb-8 leading-relaxed">
+                        Experiment with different sculptural combinations. Find the perfect harmony between the architectural form of the plant and the hand-finished color palette of the clay pot.
+                    </p>
+
+                    <!-- Configurator options -->
+                    <div class="space-y-6">
+                        <!-- Step 1: Select Plant Type -->
+                        <div>
+                            <span class="text-xs uppercase tracking-widest font-semibold text-brand-slate block mb-3">1. Select Sculptural Flora</span>
+                            <div class="grid grid-cols-3 gap-3">
+                                <button onclick="selectPlant('tall')" id="btn-plant-tall" class="px-4 py-3 rounded-xl bg-brand-cream border-2 border-brand-salmon text-brand-slate text-xs font-semibold uppercase tracking-wider transition-premium">
+                                    Tall Organ
+                                </button>
+                                <button onclick="selectPlant('globe')" id="btn-plant-globe" class="px-4 py-3 rounded-xl bg-brand-cream border-2 border-transparent hover:border-brand-salmon/30 text-brand-slate/80 text-xs font-semibold uppercase tracking-wider transition-premium">
+                                    Barrel Globe
+                                </button>
+                                <button onclick="selectPlant('spiky')" id="btn-plant-spiky" class="px-4 py-3 rounded-xl bg-brand-cream border-2 border-transparent hover:border-brand-salmon/30 text-brand-slate/80 text-xs font-semibold uppercase tracking-wider transition-premium">
+                                    Spiky Crown
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Select Pot Clay Finish -->
+                        <div>
+                            <span class="text-xs uppercase tracking-widest font-semibold text-brand-slate block mb-3">2. Choose Clay Finish</span>
+                            <div class="grid grid-cols-3 gap-3">
+                                <button onclick="selectPot('terracotta')" id="btn-pot-terracotta" class="px-4 py-3 rounded-xl bg-brand-cream border-2 border-brand-salmon text-brand-slate text-xs font-semibold uppercase tracking-wider transition-premium">
+                                    Terracotta
+                                </button>
+                                <button onclick="selectPot('slate')" id="btn-pot-slate" class="px-4 py-3 rounded-xl bg-brand-cream border-2 border-transparent hover:border-brand-salmon/30 text-brand-slate/80 text-xs font-semibold uppercase tracking-wider transition-premium">
+                                    Deep Slate
+                                </button>
+                                <button onclick="selectPot('sand')" id="btn-pot-sand" class="px-4 py-3 rounded-xl bg-brand-cream border-2 border-transparent hover:border-brand-salmon/30 text-brand-slate/80 text-xs font-semibold uppercase tracking-wider transition-premium">
+                                    Pale Sand
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Composition Spec Meta -->
+                    <div class="mt-8 p-4 bg-brand-cream rounded-2xl border border-brand-salmon/10 flex items-center justify-between">
+                        <div>
+                            <p class="text-[10px] tracking-widest uppercase font-bold text-brand-salmon">ESTIMATED COMPOSITION PRICE</p>
+                            <p id="composition-price" class="font-serif text-2xl text-brand-slate font-medium mt-1">$145.00</p>
+                        </div>
+                        <button onclick="addCustomToCart()" class="px-6 py-3 bg-brand-slate hover:bg-brand-salmon text-brand-cream hover:text-brand-slate rounded-full text-xs font-semibold uppercase tracking-wider transition-premium">
+                            Add Composition
+                        </button>
+                    </div>
+
+                </div>
+
+                <!-- Right Visual Configurator Live Preview -->
+                <div class="lg:col-span-7 flex flex-col items-center justify-center p-8 md:p-12 rounded-[2.5rem] bg-brand-cream relative min-h-[420px] shadow-premium border border-brand-salmon/10">
+                    <div class="absolute inset-x-0 top-6 text-center">
+                        <span class="text-[9px] tracking-widest uppercase text-brand-slateLight/60 font-bold">PREVIEWING COMPOSITION</span>
+                    </div>
+
+                    <!-- Simulated room backdrop depth line -->
+                    <div class="absolute bottom-16 inset-x-8 h-0.5 bg-brand-salmon/20"></div>
+                    
+                    <!-- Dynamic Preview Plant and Pot -->
+                    <div class="flex flex-col items-center z-10 transition-premium" id="live-render-container">
+                        
+                        <!-- Dynamic Cactus Render -->
+                        <div id="render-plant" class="relative transition-premium duration-500 min-h-[180px] flex items-end justify-center">
+                            <!-- Tall Organ Cactus Render (Default) -->
+                            <div id="plant-tall" class="relative w-16 h-40 mb-[-10px] z-10 drop-shadow-md transition-premium">
+                                <div class="w-10 h-40 rounded-t-full bg-gradient-to-t from-brand-slateLight to-brand-sage border-l-2 border-brand-cream/30 relative">
+                                    <div class="absolute inset-y-0 left-3 w-1 bg-brand-cream/10"></div>
+                                    <div class="absolute inset-y-0 right-3 w-1 bg-brand-cream/10"></div>
+                                    <div class="absolute top-6 left-1/2 w-4 h-0.5 bg-brand-cream/60 -translate-x-1/2"></div>
+                                    <div class="absolute top-16 left-1/2 w-4 h-0.5 bg-brand-cream/60 -translate-x-1/2"></div>
+                                    <div class="absolute top-28 left-1/2 w-4 h-0.5 bg-brand-cream/60 -translate-x-1/2"></div>
+                                </div>
+                            </div>
+
+                            <!-- Barrel Globe Cactus Render (Hidden by default) -->
+                            <div id="plant-globe" class="hidden relative w-24 h-24 mb-[-8px] z-10 drop-shadow-md transition-premium">
+                                <div class="w-24 h-24 rounded-full bg-gradient-to-t from-brand-sage to-brand-sageLight border-2 border-brand-cream/30 relative overflow-hidden flex items-center justify-center">
+                                    <div class="absolute inset-0 ribbed-texture opacity-20"></div>
+                                    <div class="absolute top-2 w-1.5 h-1.5 bg-brand-salmon rounded-full animate-ping"></div>
+                                    <div class="absolute top-2 w-1.5 h-1.5 bg-brand-salmon rounded-full"></div>
+                                </div>
+                            </div>
+
+                            <!-- Spiky Crown Cactus Render (Hidden by default) -->
+                            <div id="plant-spiky" class="hidden relative w-20 h-28 mb-[-8px] z-10 drop-shadow-lg flex items-end justify-center transition-premium">
+                                <div class="absolute bottom-0 w-8 h-24 bg-brand-slateLight rounded-t-full rotate-[-15deg] origin-bottom border-r border-brand-cream/10"></div>
+                                <div class="absolute bottom-0 w-8 h-26 bg-brand-slate rounded-t-full rotate-[10deg] origin-bottom border-l border-brand-cream/10"></div>
+                                <div class="absolute bottom-0 w-6 h-18 bg-brand-sage rounded-t-full rotate-[-45deg] origin-bottom"></div>
+                            </div>
+                        </div>
+
+                        <!-- Dynamic Pot Render -->
+                        <div id="render-pot" class="w-28 h-24 bg-brand-salmon rounded-b-2xl rounded-t-md relative shadow-lg overflow-hidden flex items-center justify-center transition-premium duration-500">
+                            <!-- Ribbed texture always overlayed slightly -->
+                            <div class="absolute inset-0 ribbed-texture opacity-20"></div>
+                            <div class="absolute top-0 inset-x-0 h-1 bg-brand-slate/10"></div>
+                            <!-- Minimal branding plate -->
+                            <div class="w-6 h-1 bg-brand-cream/30 rounded-full mt-4" id="pot-brand-plate"></div>
+                        </div>
+
+                    </div>
+
+                    <!-- Informational Spec Tags -->
+                    <div class="absolute bottom-4 flex items-center gap-6 text-[10px] tracking-widest text-brand-slateLight/60 font-medium">
+                        <span id="label-plant-spec">FLORA: Pachycereus Organ</span>
+                        <span id="label-pot-spec">POT: Ribbed Terracotta</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Visual Grid Showcase of Miniature Objects (Lower Section Grid) -->
+    <section class="py-24 px-6 md:px-12 max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row items-start md:items-end justify-between mb-16 gap-6">
+            <div>
+                <span class="text-xs tracking-widest uppercase text-brand-salmon font-bold">INDIVIDUAL PIECES</span>
+                <h2 class="font-serif text-3xl md:text-5xl text-brand-slate font-light mt-2">Miniature Sculptural Art</h2>
+            </div>
+            <p class="text-sm text-brand-slateLight max-w-md">
+                Our limited objects represent slow botanical craft. Cultivated over three years in our Rome greenhouse and paired exclusively with custom design-baked clay.
+            </p>
+        </div>
+
+        <!-- Beautiful 4-Column Balanced Grid -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            <!-- Miniature Item 1 -->
+            <div class="group bg-brand-peach/20 rounded-3xl p-6 border border-brand-salmon/10 flex flex-col justify-between hover:shadow-premium hover:-translate-y-1 transition-premium">
+                <div class="h-44 flex items-end justify-center mb-6 relative">
+                    <!-- CSS Mini Plant -->
+                    <div class="flex flex-col items-center">
+                        <div class="w-8 h-16 bg-brand-sage rounded-t-full mb-[-4px] z-10 border-l border-brand-cream/20"></div>
+                        <div class="w-14 h-12 bg-brand-slate rounded-b-xl rounded-t-sm shadow"></div>
+                    </div>
+                </div>
+                <div>
+                    <span class="text-[9px] tracking-widest uppercase text-brand-salmon font-bold block mb-1">CULTIVAR 01</span>
+                    <h4 class="font-serif text-lg text-brand-slate">The Sage Dwarf</h4>
+                    <p class="text-xs text-brand-slateLight/70 mb-4">A miniature desktop anchor.</p>
+                    <div class="flex items-center justify-between pt-3 border-t border-brand-salmon/10">
+                        <span class="font-semibold text-sm">$45.00</span>
+                        <button onclick="addToCart('Sage Dwarf', 45)" class="w-8 h-8 rounded-full bg-brand-slate hover:bg-brand-salmon text-brand-cream hover:text-brand-slate flex items-center justify-center transition-premium text-xs">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Miniature Item 2 -->
+            <div class="group bg-brand-cream/80 rounded-3xl p-6 border border-brand-salmon/15 flex flex-col justify-between hover:shadow-premium hover:-translate-y-1 transition-premium">
+                <div class="h-44 flex items-end justify-center mb-6 relative">
+                    <!-- CSS Mini Plant -->
+                    <div class="flex flex-col items-center">
+                        <div class="w-10 h-10 rounded-full bg-brand-sageLight mb-[-4px] z-10 border border-brand-cream/30"></div>
+                        <div class="w-12 h-14 bg-brand-salmon rounded-b-xl rounded-t-sm shadow"></div>
+                    </div>
+                </div>
+                <div>
+                    <span class="text-[9px] tracking-widest uppercase text-brand-salmon font-bold block mb-1">CULTIVAR 02</span>
+                    <h4 class="font-serif text-lg text-brand-slate">Coral Spherical</h4>
+                    <p class="text-xs text-brand-slateLight/70 mb-4">Compact textured sculpture.</p>
+                    <div class="flex items-center justify-between pt-3 border-t border-brand-salmon/10">
+                        <span class="font-semibold text-sm">$55.00</span>
+                        <button onclick="addToCart('Coral Spherical', 55)" class="w-8 h-8 rounded-full bg-brand-slate hover:bg-brand-salmon text-brand-cream hover:text-brand-slate flex items-center justify-center transition-premium text-xs">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Miniature Item 3 -->
+            <div class="group bg-brand-peach/20 rounded-3xl p-6 border border-brand-salmon/10 flex flex-col justify-between hover:shadow-premium hover:-translate-y-1 transition-premium">
+                <div class="h-44 flex items-end justify-center mb-6 relative">
+                    <!-- CSS Mini Plant -->
+                    <div class="flex flex-col items-center">
+                        <div class="w-12 h-14 bg-brand-slateLight rounded-t-full mb-[-4px] z-10"></div>
+                        <div class="w-16 h-10 bg-brand-peach rounded-b-xl rounded-t-sm shadow"></div>
+                    </div>
+                </div>
+                <div>
+                    <span class="text-[9px] tracking-widest uppercase text-brand-salmon font-bold block mb-1">CULTIVAR 03</span>
+                    <h4 class="font-serif text-lg text-brand-slate">Minimal Crest</h4>
+                    <p class="text-xs text-brand-slateLight/70 mb-4">Deep low-key design energy.</p>
+                    <div class="flex items-center justify-between pt-3 border-t border-brand-salmon/10">
+                        <span class="font-semibold text-sm">$65.00</span>
+                        <button onclick="addToCart('Minimal Crest', 65)" class="w-8 h-8 rounded-full bg-brand-slate hover:bg-brand-salmon text-brand-cream hover:text-brand-slate flex items-center justify-center transition-premium text-xs">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Miniature Item 4 -->
+            <div class="group bg-brand-cream/80 rounded-3xl p-6 border border-brand-salmon/15 flex flex-col justify-between hover:shadow-premium hover:-translate-y-1 transition-premium">
+                <div class="h-44 flex items-end justify-center mb-6 relative">
+                    <!-- CSS Mini Plant -->
+                    <div class="flex flex-col items-center">
+                        <div class="w-6 h-20 bg-brand-sage rounded-t-full mb-[-4px] z-10"></div>
+                        <div class="w-10 h-14 bg-brand-slateLight rounded-b-xl rounded-t-sm shadow"></div>
+                    </div>
+                </div>
+                <div>
+                    <span class="text-[9px] tracking-widest uppercase text-brand-salmon font-bold block mb-1">CULTIVAR 04</span>
+                    <h4 class="font-serif text-lg text-brand-slate">Spire Monument</h4>
+                    <p class="text-xs text-brand-slateLight/70 mb-4">Slender lines, deep balance.</p>
+                    <div class="flex items-center justify-between pt-3 border-t border-brand-salmon/10">
+                        <span class="font-semibold text-sm">$70.00</span>
+                        <button onclick="addToCart('Spire Monument', 70)" class="w-8 h-8 rounded-full bg-brand-slate hover:bg-brand-salmon text-brand-cream hover:text-brand-slate flex items-center justify-center transition-premium text-xs">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Editorial / Story Segment with Premium Typography -->
+    <section id="editorial" class="py-24 bg-brand-slate text-brand-cream relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-tr from-brand-slate via-brand-slate to-brand-slateLight opacity-50"></div>
+        <div class="absolute -top-24 -left-24 w-96 h-96 bg-brand-salmon/10 rounded-full blur-3xl"></div>
+
+        <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Narrative Column -->
+                <div class="lg:col-span-6">
+                    <span class="text-xs tracking-widest uppercase text-brand-salmon font-bold">EDITORIAL JOURNAL</span>
+                    <h2 class="font-serif text-3xl md:text-5xl font-light mt-2 mb-8 leading-[1.15]">
+                        "The presence of silent natural objects alters the architectural geometry of modern life."
+                    </h2>
+                    
+                    <div class="space-y-6 text-brand-cream/80 text-sm md:text-base leading-relaxed">
+                        <p>
+                            We build space items that celebrate slow craft. Our cacti require light and minimal attention; they represent a peaceful counter-narrative to digital pacing.
+                        </p>
+                        <p>
+                            Every single pot is thrown inside our Roman studio, allowed to solar-dry for three full days, and fired under a specific slow-temperature curve to produce that delicate peach gradient highlight.
+                        </p>
+                    </div>
+
+                    <div class="mt-8 flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full border border-brand-salmon/30 flex items-center justify-center text-brand-salmon font-serif italic text-lg">
+                            G
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold uppercase tracking-widest text-brand-cream">Edoardo Grado</p>
+                            <p class="text-[10px] tracking-wider uppercase text-brand-salmon">Lead Architect, Rome</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Visual Column (Large Premium Editorial Graphic) -->
+                <div class="lg:col-span-6 relative flex items-center justify-center p-8 bg-brand-cream/5 backdrop-blur-sm rounded-[2.5rem] border border-white/10 h-[480px]">
+                    <!-- Outer frame -->
+                    <div class="absolute inset-4 rounded-[2rem] border border-brand-salmon/20 pointer-events-none"></div>
+
+                    <!-- Inner CSS Plant Sculpture Display -->
+                    <div class="flex flex-col items-center">
+                        <div class="relative w-36 h-48 mb-[-16px] z-10 drop-shadow-2xl flex items-end justify-center">
+                            <!-- Gorgeous multiple organ cacti branches -->
+                            <div class="w-10 h-44 rounded-t-full bg-gradient-to-t from-brand-slate to-brand-sage border-l-2 border-brand-cream/20 relative"></div>
+                            <div class="w-8 h-32 rounded-t-full bg-gradient-to-t from-brand-slate to-brand-sageLight border-l-2 border-brand-cream/20 absolute bottom-0 left-[-20px] rotate-[-10deg]"></div>
+                            <div class="w-8 h-36 rounded-t-full bg-gradient-to-t from-brand-slate to-brand-sage absolute bottom-0 right-[-16px] rotate-[8deg]"></div>
+                        </div>
+                        <div class="w-48 h-28 bg-brand-cream rounded-b-[2rem] rounded-t-lg relative shadow-2xl overflow-hidden flex items-center justify-center">
+                            <!-- Delicate ribbed lines -->
+                            <div class="absolute inset-0 ribbed-texture opacity-30"></div>
+                            <div class="w-12 h-1.5 bg-brand-slate/15 rounded-full mt-4"></div>
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-8 right-8 text-right">
+                        <span class="block text-[10px] uppercase tracking-widest text-brand-salmon font-bold">EDITION 04</span>
+                        <span class="block font-serif italic text-xs text-brand-cream/60">"The Sanctuary Study"</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Client Testimonials Space -->
+    <section class="py-24 px-6 md:px-12 max-w-7xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+            <span class="text-xs tracking-widest uppercase text-brand-salmon font-bold">SPATIAL FEEDBACK</span>
+            <h2 class="font-serif text-3xl md:text-5xl text-brand-slate font-light mt-2">Integrating the Quiet</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <!-- Testimonial 1 -->
+            <div class="bg-brand-peach/15 rounded-3xl p-8 border border-brand-salmon/10 hover:shadow-premium transition-premium">
+                <div class="flex gap-1 text-brand-salmon mb-6">
+                    <i class="fa-solid fa-star text-xs"></i>
+                    <i class="fa-solid fa-star text-xs"></i>
+                    <i class="fa-solid fa-star text-xs"></i>
+                    <i class="fa-solid fa-star text-xs"></i>
+                    <i class="fa-solid fa-star text-xs"></i>
+                </div>
+                <p class="text-sm text-brand-slateLight leading-relaxed italic mb-8">
+                    "The ribbed container catches the afternoon sun in a way that feels incredibly warm and sculptural. The desert cactus looks absolutely pristine in my minimalist concrete office."
+                </p>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-brand-salmon/20 flex items-center justify-center text-brand-slate font-bold text-xs">
+                        AM
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold text-brand-slate">Alistair M.</p>
+                        <p class="text-[9px] tracking-wider uppercase text-brand-slateLight/60">London, UK</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="bg-brand-cream/80 rounded-3xl p-8 border border-brand-salmon/15 hover:shadow-premium transition-premium">
+                <div class="flex gap-1 text-brand-salmon mb-6">
+                    <i class="fa-solid fa-star text-xs"></i>
+                    <i class="fa-solid fa-star text-xs"></i>
+                    <i class="fa-solid fa-star text-xs"></i>
+                    <i class="fa-solid fa-star text-xs"></i>
+                    <i class="fa-solid fa-star text-xs"></i>
+                </div>
+                <p class="text-sm text-brand-slateLight leading-relaxed italic mb-8">
+                    "I ordered the Solitary Columnar composition. The clay surface feels rough, textured, and deeply natural. Truly elevated compared to generic modern botanicals."
+                </p>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-brand-slate text-brand-cream flex items-center justify-center font-bold text-xs">
+                        SK
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold text-brand-slate">Saffron K.</p>
+                        <p class="text-[9px] tracking-wider uppercase text-brand-slateLight/60">Milano, Italy</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="bg-brand-peach/15 rounded-3xl p-8 border border-brand-salmon/10 hover:shadow-premium transition-premium">
+                <div class="flex gap-1 text-brand-salmon mb-6">
+                    <i class="fa-solid fa-star text-xs"></i>
+                    <i class="fa-solid fa-star text-xs"></i>
+                    <i class="fa-solid fa-star text-xs"></i>
+                    <i class="fa-solid fa-star text-xs"></i>
+                    <i class="fa-solid fa-star text-xs"></i>
+                </div>
+                <p class="text-sm text-brand-slateLight leading-relaxed italic mb-8">
+                    "Packaging was incredibly safe and completely sustainable. The soil mix included granular Rome-sand that keeps my cactus thriving with basically zero maintenance."
+                </p>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-brand-salmon/20 flex items-center justify-center text-brand-slate font-bold text-xs">
+                        JB
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold text-brand-slate">Julian B.</p>
+                        <p class="text-[9px] tracking-wider uppercase text-brand-slateLight/60">Munich, Germany</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Soft CTA / Newsletter Section (Premium form) -->
+    <section class="py-20 px-6 md:px-12 bg-brand-peach/30 border-t border-brand-salmon/15">
+        <div class="max-w-4xl mx-auto text-center">
+            <span class="text-xs tracking-widest uppercase text-brand-salmon font-bold">SUBSCRIBE TO RELEASES</span>
+            <h2 class="font-serif text-3xl md:text-5xl text-brand-slate font-light mt-2 mb-4">Limited Cultivar drops</h2>
+            <p class="text-sm text-brand-slateLight mb-8 max-w-lg mx-auto">Join our private spatial ledger to receive custom release codes, direct design coordinates, and first access to our monthly botanical drops.</p>
+            
+            <form onsubmit="handleSubscribe(event)" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                <input type="email" required placeholder="Enter your spatial email..." class="w-full px-6 py-4 rounded-full bg-brand-cream/80 border border-brand-salmon/20 text-brand-slate placeholder:text-brand-slateLight/50 focus:outline-none focus:border-brand-salmon text-sm transition-premium">
+                <button type="submit" class="px-8 py-4 bg-brand-slate hover:bg-brand-salmon text-brand-cream hover:text-brand-slate rounded-full font-semibold uppercase tracking-wider text-xs whitespace-nowrap transition-premium">
+                    Request Entry
+                </button>
+            </form>
+            <p class="text-[10px] text-brand-slateLight/50 mt-4">We respect quiet visual environments. Never spam, unsubscribe with one click.</p>
+        </div>
+    </section>
+
+    <!-- Premium Footer matching the quiet mood of the original image -->
+    <footer class="bg-brand-slate text-brand-cream pt-20 pb-12 px-6 md:px-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <!-- Brand Info -->
+                <div class="md:col-span-1">
+                    <a href="#" class="flex items-center gap-3 mb-6">
+                        <div class="w-8 h-8 rounded-lg bg-brand-salmon flex items-center justify-center text-brand-cream">
+                            <i class="fa-solid fa-circle text-[10px]"></i>
+                        </div>
+                        <span class="font-serif text-lg tracking-wider text-brand-cream uppercase">GRADO</span>
+                    </a>
+                    <p class="text-xs text-brand-cream/60 leading-relaxed mb-6">
+                        Sculptural botanicals and hand-crafted ribbed ceramics. Slow design inspired by Mediterranean and Scandinavian balance.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-brand-cream/40 hover:text-brand-salmon transition-colors"><i class="fa-brands fa-instagram text-lg"></i></a>
+                        <a href="#" class="text-brand-cream/40 hover:text-brand-salmon transition-colors"><i class="fa-brands fa-pinterest text-lg"></i></a>
+                        <a href="#" class="text-brand-cream/40 hover:text-brand-salmon transition-colors"><i class="fa-brands fa-vimeo-v text-lg"></i></a>
+                    </div>
+                </div>
+
+                <!-- Nav Column 1 -->
+                <div>
+                    <h5 class="text-xs uppercase tracking-widest font-bold text-brand-salmon mb-6">Studio Space</h5>
+                    <ul class="space-y-4 text-xs text-brand-cream/70">
+                        <li><a href="#hero" class="hover:text-brand-salmon transition-colors">Curated Space</a></li>
+                        <li><a href="#collections" class="hover:text-brand-salmon transition-colors">Our Master Collections</a></li>
+                        <li><a href="#designer" class="hover:text-brand-salmon transition-colors">Oasis Spatial Tool</a></li>
+                        <li><a href="#editorial" class="hover:text-brand-salmon transition-colors">Studio Journal</a></li>
+                    </ul>
+                </div>
+
+                <!-- Nav Column 2 -->
+                <div>
+                    <h5 class="text-xs uppercase tracking-widest font-bold text-brand-salmon mb-6">Sanctuary Support</h5>
+                    <ul class="space-y-4 text-xs text-brand-cream/70">
+                        <li><a href="#" class="hover:text-brand-salmon transition-colors">Care Instructions</a></li>
+                        <li><a href="#" class="hover:text-brand-salmon transition-colors">Safe Delivery System</a></li>
+                        <li><a href="#" class="hover:text-brand-salmon transition-colors">Return Spatial Policies</a></li>
+                        <li><a href="#" class="hover:text-brand-salmon transition-colors">Bespoke Architectural Installations</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact / Info -->
+                <div>
+                    <h5 class="text-xs uppercase tracking-widest font-bold text-brand-salmon mb-6">Rome Studio</h5>
+                    <p class="text-xs text-brand-cream/70 leading-relaxed mb-4">
+                        Via dei Condotti, 84<br>
+                        00187 Roma, Italy
+                    </p>
+                    <p class="text-xs text-brand-cream/70 mb-2">
+                        <span class="text-brand-salmon">Email:</span> hello@gradobotanicals.com
+                    </p>
+                    <p class="text-xs text-brand-cream/70">
+                        <span class="text-brand-salmon">Phone:</span> +39 06 123 4567
+                    </p>
+                </div>
+            </div>
+
+            <!-- Copyright and Legal -->
+            <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between text-[10px] text-brand-cream/40 tracking-wider uppercase">
+                <p>&copy; 2026 GRADO BOTANICALS. ALL ARCHITECTURAL FORMS PROTECTED.</p>
+                <div class="flex gap-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-brand-salmon transition-colors">TERMS OF USE</a>
+                    <a href="#" class="hover:text-brand-salmon transition-colors">PRIVACY CODE</a>
+                    <a href="#" class="hover:text-brand-salmon transition-colors">COOKIES</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Slide-out Drawer (Functional Mock-up) -->
+    <div id="cart-drawer" class="fixed inset-y-0 right-0 w-96 bg-brand-cream z-50 shadow-2xl translate-x-full transition-premium p-8 flex flex-col justify-between border-l border-brand-salmon/10">
+        <div>
+            <div class="flex items-center justify-between mb-8 pb-4 border-b border-brand-salmon/10">
+                <h4 class="font-serif text-xl text-brand-slate uppercase tracking-wider font-semibold">Your Spatial Sanctuary</h4>
+                <button onclick="toggleCart()" class="p-2 text-brand-slate hover:text-brand-salmon">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            
+            <!-- Cart Items Container -->
+            <div id="cart-items" class="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
+                <!-- Empty state shown by default -->
+                <div id="cart-empty" class="text-center py-12 text-brand-slateLight/60">
+                    <i class="fa-solid fa-leaf text-2xl mb-3 text-brand-salmon/50"></i>
+                    <p class="text-xs uppercase tracking-wider font-semibold">Sanctuary is currently empty</p>
+                    <p class="text-[11px] mt-1">Select a composition to begin integration.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Checkout Pricing -->
+        <div id="cart-summary" class="hidden border-t border-brand-salmon/20 pt-6">
+            <div class="flex justify-between items-center mb-4 text-xs tracking-wider uppercase text-brand-slate font-semibold">
+                <span>Subtotal</span>
+                <span id="cart-subtotal">$0.00</span>
+            </div>
+            <button onclick="handleCheckout()" class="w-full py-4 bg-brand-slate hover:bg-brand-salmon text-brand-cream hover:text-brand-slate text-xs font-semibold uppercase tracking-wider rounded-full transition-premium">
+                Secure Spatial Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- Toast message box -->
+    <div id="toast" class="fixed bottom-6 left-6 bg-brand-slate text-brand-cream px-6 py-4 rounded-2xl shadow-premium border border-brand-salmon/20 z-50 flex items-center gap-3 translate-y-24 opacity-0 transition-premium">
+        <div class="w-2 h-2 rounded-full bg-brand-salmon"></div>
+        <p id="toast-text" class="text-xs uppercase tracking-widest font-semibold"></p>
+    </div>
+
+    <!-- Scripting for configuration & micro-interactions -->
+    <script>
+        // Global Cart State
+        let cart = [];
+
+        // Interactive Space Customizer State
+        let selectedPlantType = 'tall';
+        let selectedPotType = 'terracotta';
+        
+        // Item Prices map
+        const prices = {
+            plant: {
+                tall: 90,
+                globe: 110,
+                spiky: 100
+            },
+            pot: {
+                terracotta: 55,
+                slate: 75,
+                sand: 65
+            }
+        };
+
+        // UI Helpers
+        function showToast(text) {
+            const toast = document.getElementById('toast');
+            const toastText = document.getElementById('toast-text');
+            toastText.innerText = text;
+            
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3000);
+        }
+
+        // Toggle UI drawers
+        function toggleCart() {
+            const cartDrawer = document.getElementById('cart-drawer');
+            cartDrawer.classList.toggle('translate-x-full');
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('translate-x-full');
+        }
+
+        // Update Configuration Preview
+        function selectPlant(type) {
+            selectedPlantType = type;
+
+            // Update buttons styling
+            ['tall', 'globe', 'spiky'].forEach(p => {
+                const btn = document.getElementById(`btn-plant-${p}`);
+                if (p === type) {
+                    btn.classList.add('border-brand-salmon');
+                    btn.classList.remove('border-transparent');
+                } else {
+                    btn.classList.remove('border-brand-salmon');
+                    btn.classList.add('border-transparent');
+                }
+            });
+
+            // Update plant preview visual
+            ['tall', 'globe', 'spiky'].forEach(p => {
+                const el = document.getElementById(`plant-${p}`);
+                if (p === type) {
+                    el.classList.remove('hidden');
+                } else {
+                    el.classList.add('hidden');
+                }
+            });
+
+            // Update specs labels
+            const nameMap = { tall: 'Pachycereus Organ', globe: 'Barrel Globe', spiky: 'Spiky Crown' };
+            document.getElementById('label-plant-spec').innerText = `FLORA: ${nameMap[type]}`;
+
+            updateCompositionPrice();
+        }
+
+        function selectPot(type) {
+            selectedPotType = type;
+
+            // Update buttons styling
+            ['terracotta', 'slate', 'sand'].forEach(p => {
+                const btn = document.getElementById(`btn-pot-${p}`);
+                if (p === type) {
+                    btn.classList.add('border-brand-salmon');
+                    btn.classList.remove('border-transparent');
+                } else {
+                    btn.classList.remove('border-brand-salmon');
+                    btn.classList.add('border-transparent');
+                }
+            });
+
+            // Update pot preview colors
+            const potEl = document.getElementById('render-pot');
+            const plateEl = document.getElementById('pot-brand-plate');
+            
+            if (type === 'terracotta') {
+                potEl.style.backgroundColor = '#EC9D87'; // Salmon / Terracotta
+                plateEl.style.backgroundColor = 'rgba(250, 244, 238, 0.3)';
+                document.getElementById('label-pot-spec').innerText = 'POT: Ribbed Terracotta';
+            } else if (type === 'slate') {
+                potEl.style.backgroundColor = '#243232'; // Slate
+                plateEl.style.backgroundColor = '#EC9D87';
+                document.getElementById('label-pot-spec').innerText = 'POT: Ribbed Deep Slate';
+            } else if (type === 'sand') {
+                potEl.style.backgroundColor = '#FAF4EE'; // Sand
+                plateEl.style.backgroundColor = 'rgba(36, 50, 50, 0.2)';
+                document.getElementById('label-pot-spec').innerText = 'POT: Ribbed Pale Sand';
+            }
+
+            updateCompositionPrice();
+        }
+
+        function getCompositionTotal() {
+            return prices.plant[selectedPlantType] + prices.pot[selectedPotType];
+        }
+
+        function updateCompositionPrice() {
+            const price = getCompositionTotal();
+            document.getElementById('composition-price').innerText = `$${price}.00`;
+        }
+
+        // Cart Actions
+        function addToCart(title, price) {
+            cart.push({ title, price });
+            updateCartUI();
+            showToast(`Added ${title} to Sanctuary`);
+        }
+
+        function addCustomToCart() {
+            const nameMap = { tall: 'Pachycereus Organ', globe: 'Barrel Globe', spiky: 'Spiky Crown' };
+            const potMap = { terracotta: 'Terracotta', slate: 'Deep Slate', sand: 'Pale Sand' };
+            
+            const title = `${nameMap[selectedPlantType]} in ${potMap[selectedPotType]} pot`;
+            const price = getCompositionTotal();
+            
+            addToCart(title, price);
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const itemsContainer = document.getElementById('cart-items');
+            const badge = document.getElementById('cart-badge');
+            const emptyState = document.getElementById('cart-empty');
+            const summary = document.getElementById('cart-summary');
+            const subtotalEl = document.getElementById('cart-subtotal');
+
+            // Badge Count
+            if (cart.length > 0) {
+                badge.innerText = cart.length;
+                badge.classList.remove('scale-0');
+                badge.classList.add('scale-100');
+                emptyState.classList.add('hidden');
+                summary.classList.remove('hidden');
+            } else {
+                badge.classList.remove('scale-100');
+                badge.classList.add('scale-0');
+                emptyState.classList.remove('hidden');
+                summary.classList.add('hidden');
+            }
+
+            // Render items
+            itemsContainer.innerHTML = '';
+            if (cart.length === 0) {
+                itemsContainer.appendChild(emptyState);
+            } else {
+                let total = 0;
+                cart.forEach((item, index) => {
+                    total += item.price;
+                    const itemEl = document.createElement('div');
+                    itemEl.className = 'flex items-center justify-between p-4 bg-brand-peach/20 rounded-2xl border border-brand-salmon/10 animate-fade-in';
+                    itemEl.innerHTML = `
+                        <div>
+                            <p class="text-xs font-bold text-brand-slate uppercase leading-snug">${item.title}</p>
+                            <p class="text-xs text-brand-salmon font-serif mt-0.5">$${item.price}.00</p>
+                        </div>
+                        <button onclick="removeFromCart(${index})" class="p-2 text-brand-slateLight/60 hover:text-brand-salmon transition-colors">
+                            <i class="fa-solid fa-trash-can text-sm"></i>
+                        </button>
+                    `;
+                    itemsContainer.appendChild(itemEl);
+                });
+                subtotalEl.innerText = `$${total}.00`;
+            }
+        }
+
+        function handleSubscribe(e) {
+            e.preventDefault();
+            showToast("ACCESS GRANTED — WELCOME TO THE STUDY");
+            e.target.reset();
+        }
+
+        function handleCheckout() {
+            showToast("SECURE SANCTUARY CHECKOUT INITIATED");
+            setTimeout(() => {
+                cart = [];
+                updateCartUI();
+                toggleCart();
+                showToast("COMPOSITION ORDERED. PEACE DELIVERED.");
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
+I0

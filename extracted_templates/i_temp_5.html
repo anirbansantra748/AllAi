@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRAVEL - We Pursue a Relaxed Gaming Experience</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        space: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        night: {
+                            950: '#080711',
+                            900: '#0d0c1d',
+                            800: '#14122b',
+                            700: '#1c1a3a',
+                            600: '#26234e',
+                            purple: '#4c2e8c',
+                        },
+                        campfire: {
+                            gold: '#ffd166',
+                            orange: '#f77f00',
+                            red: '#ef476f',
+                            glow: 'rgba(247, 127, 0, 0.15)',
+                        }
+                    },
+                    boxShadow: {
+                        'glow-warm': '0 0 30px 10px rgba(247, 127, 0, 0.25)',
+                        'glow-warm-lg': '0 0 60px 20px rgba(247, 127, 0, 0.35)',
+                        'glow-purple': '0 0 30px 5px rgba(123, 44, 177, 0.3)',
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        /* Custom scrollbar for immersive night theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #080711;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #26234e;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f77f00;
+        }
+    </style>
+</head>
+<body class="bg-night-950 text-slate-100 font-sans overflow-x-hidden relative selection:bg-campfire-orange selection:text-white">
+
+    <!-- Ambient Sky & Stars -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" id="star-sky">
+        <div class="absolute inset-0 bg-gradient-to-b from-[#080711] via-[#0d0c1d] to-[#14122b]"></div>
+        <!-- Dynamic Stars will be injected here by JS -->
+    </div>
+
+    <!-- Soft glowing campfire backdrop layer -->
+    <div id="global-fire-glow" class="fixed bottom-1/4 left-1/2 -translate-x-1/2 w-[80vw] h-[80vw] max-w-[800px] max-h-[800px] rounded-full bg-gradient-to-r from-campfire-orange/10 to-campfire-gold/5 blur-[120px] pointer-events-none z-0 transition-all duration-700 ease-out"></div>
+
+    <!-- MAIN WRAPPER -->
+    <div class="relative z-10 min-h-screen flex flex-col justify-between">
+
+        <!-- HEADER / NAVIGATION -->
+        <header class="border-b border-night-600/30 backdrop-blur-md sticky top-0 z-50 transition-all duration-300">
+            <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+                <!-- Travel Cozy Logo Design -->
+                <a href="#hero" class="flex items-center space-x-3 group">
+                    <div class="relative flex items-center justify-center w-10 h-10 rounded-lg bg-night-800 border border-night-600 group-hover:border-campfire-orange transition-all duration-300 shadow-glow-purple group-hover:shadow-glow-warm">
+                        <span class="text-campfire-gold text-xl font-bold font-space">T</span>
+                        <div class="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-campfire-orange animate-pulse"></div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-space font-extrabold text-2xl tracking-widest text-slate-100 flex items-center">
+                            T<span class="text-campfire-orange">R</span>A<span class="relative">V<span class="absolute -top-1 left-1 w-1.5 h-1.5 bg-campfire-gold rounded-full"></span></span>EL
+                        </span>
+                        <span class="text-[9px] uppercase tracking-[0.2em] text-slate-400">Relaxed Gaming</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+                    <a href="#about" class="hover:text-campfire-gold transition-colors duration-200">The Universe</a>
+                    <a href="#experience" class="hover:text-campfire-gold transition-colors duration-200">Experiences</a>
+                    <a href="#campsite" class="hover:text-campfire-gold transition-colors duration-200">Interactive Campsite</a>
+                    <a href="#perks" class="hover:text-campfire-gold transition-colors duration-200">Relaxed Perks</a>
+                </nav>
+
+                <!-- Sound Control & Launch Panel -->
+                <div class="flex items-center space-x-4">
+                    <!-- Synthesized Ambient Audio Toggle -->
+                    <button id="synth-ambient-btn" onclick="toggleAmbientSound()" class="flex items-center space-x-2 px-3 py-1.5 rounded-full bg-night-800 hover:bg-night-700 border border-night-600 hover:border-campfire-gold text-slate-300 hover:text-campfire-gold transition-all duration-300 text-xs">
+                        <span id="ambient-icon-container" class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-slate-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-slate-500" id="sound-indicator"></span>
+                        </span>
+                        <span id="synth-btn-text">Play Campfire Sounds</span>
+                    </button>
+
+                    <a href="#portal" class="px-5 py-2 rounded-lg bg-gradient-to-r from-night-700 to-night-800 hover:from-campfire-orange hover:to-campfire-gold text-white font-space font-medium text-xs tracking-wider uppercase border border-night-600 hover:border-campfire-gold transition-all duration-500 shadow-lg">
+                        Enter Campfire
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- HERO SECTION -->
+        <section id="hero" class="relative min-h-[calc(100vh-80px)] flex flex-col justify-center py-12 px-6">
+            <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Hand Details (Vibe & Pitch) -->
+                <div class="lg:col-span-7 flex flex-col space-y-6 text-left relative z-20">
+                    <div class="inline-flex items-center space-x-2 bg-night-800/80 border border-night-600/50 backdrop-blur-md px-4 py-1.5 rounded-full text-xs text-campfire-gold tracking-wide max-w-max">
+                        <i data-lucide="sparkles" class="w-4.5 h-4.5 text-campfire-gold animate-spin" style="animation-duration: 8s;"></i>
+                        <span>WELCOME TO THE COZIEST DIGITAL SANCTUARY</span>
+                    </div>
+
+                    <h1 class="font-space font-extrabold text-4xl sm:text-5xl md:text-6xl tracking-tight leading-none text-slate-100">
+                        We pursue a <span class="bg-gradient-to-r from-campfire-gold via-campfire-orange to-campfire-red bg-clip-text text-transparent">relaxed</span> gaming experience.
+                    </h1>
+
+                    <p class="text-slate-300 text-base sm:text-lg max-w-xl leading-relaxed">
+                        Step away from high-stakes tension. Welcome to a low-poly night sky where your only mission is to stay warm, watch the stars, play gentle atmospheric micro-games, and rest with players worldwide.
+                    </p>
+
+                    <!-- Interactive campsite quick-metrics -->
+                    <div class="grid grid-cols-3 gap-4 py-4 max-w-md">
+                        <div class="bg-night-800/40 border border-night-700 p-3 rounded-xl backdrop-blur-sm hover:border-campfire-orange/40 transition-all duration-300">
+                            <span class="block text-xl font-bold font-space text-campfire-gold" id="campfire-heat-stat">85°C</span>
+                            <span class="text-xs text-slate-400">Fire Temperature</span>
+                        </div>
+                        <div class="bg-night-800/40 border border-night-700 p-3 rounded-xl backdrop-blur-sm hover:border-campfire-orange/40 transition-all duration-300">
+                            <span class="block text-xl font-bold font-space text-slate-100" id="active-campers-stat">1,402</span>
+                            <span class="text-xs text-slate-400">Active Campers</span>
+                        </div>
+                        <div class="bg-night-800/40 border border-night-700 p-3 rounded-xl backdrop-blur-sm hover:border-campfire-orange/40 transition-all duration-300">
+                            <span class="block text-xl font-bold font-space text-indigo-400" id="ambient-wind-stat">4 m/s</span>
+                            <span class="text-xs text-slate-400">Gentle Breeze</span>
+                        </div>
+                    </div>
+
+                    <!-- Call to action buttons -->
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
+                        <a href="#campsite" class="px-8 py-4 rounded-xl bg-gradient-to-r from-campfire-orange to-campfire-gold hover:from-campfire-gold hover:to-campfire-orange text-night-950 font-space font-bold tracking-wider text-center transition-all duration-300 shadow-glow-warm hover:shadow-glow-warm-lg">
+                            Go to Campsite Visualizer
+                        </a>
+                        <a href="#portal" class="px-8 py-4 rounded-xl bg-night-800/80 border border-night-600 hover:border-campfire-orange text-slate-200 hover:text-white font-space text-center transition-all duration-300 backdrop-blur-sm flex items-center justify-center space-x-2">
+                            <span>Access Traveler Portal</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Hand: Authentic Campsite UI & Sign Up (A tribute to your reference image) -->
+                <div class="lg:col-span-5 relative z-20 flex justify-center" id="portal">
+                    <!-- Frame mockup mimicking reference phone/tablet viewport perfectly -->
+                    <div class="relative w-full max-w-[420px] rounded-3xl border border-night-600 bg-night-900/90 shadow-2xl p-8 overflow-hidden backdrop-blur-md">
+                        
+                        <!-- Top status bar mock -->
+                        <div class="absolute top-0 inset-x-0 h-8 px-6 flex justify-between items-center text-[10px] text-slate-500 font-mono">
+                            <div class="flex items-center space-x-1.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                <span>TRAVEL_NET</span>
+                            </div>
+                            <span>9:41 AM</span>
+                            <div class="flex items-center space-x-1">
+                                <i data-lucide="wifi" class="w-3 h-3"></i>
+                                <span class="text-[8px]">100%</span>
+                            </div>
+                        </div>
+
+                        <!-- Inside content: The stylized Campsite Scene & Travel Identity -->
+                        <div class="mt-4 flex flex-col items-center text-center">
+                            
+                            <!-- Immersive Low Poly Campsite Illustration -->
+                            <div class="w-full h-48 bg-gradient-to-b from-night-950 to-night-800 rounded-2xl relative overflow-hidden border border-night-700/60 flex items-center justify-center mb-6">
+                                <!-- Mountains Silhouette -->
+                                <div class="absolute bottom-0 inset-x-0 h-16 flex items-end opacity-20 pointer-events-none">
+                                    <svg class="w-full h-full fill-slate-400" viewBox="0 0 100 100" preserveAspectRatio="none">
+                                        <polygon points="0,100 20,30 40,80 65,20 85,90 100,100"/>
+                                    </svg>
+                                </div>
+                                
+                                <!-- Low-poly pine trees SVG layout -->
+                                <div class="absolute bottom-2 left-6 w-10 h-16 opacity-40">
+                                    <svg viewBox="0 0 40 80" class="w-full h-full text-emerald-800 fill-current">
+                                        <polygon points="20,0 35,40 28,40 38,70 5,70 15,40 8,40"/>
+                                        <rect x="17" y="70" width="6" height="10" />
+                                    </svg>
+                                </div>
+                                <div class="absolute bottom-2 right-8 w-12 h-20 opacity-30">
+                                    <svg viewBox="0 0 40 80" class="w-full h-full text-emerald-700 fill-current">
+                                        <polygon points="20,0 35,45 27,45 38,75 5,75 16,45 8,45"/>
+                                        <rect x="17" y="75" width="6" height="5" />
+                                    </svg>
+                                </div>
+
+                                <!-- Low-poly Yellow Tent -->
+                                <div class="absolute bottom-2 right-16 w-16 h-12">
+                                    <svg viewBox="0 0 80 60" class="w-full h-full">
+                                        <!-- Main tent body (mustard yellow) -->
+                                        <polygon points="40,5 75,55 5,55" fill="#d97706" opacity="0.9"/>
+                                        <!-- Tent opening flap (lit yellow) -->
+                                        <polygon points="40,5 55,55 25,55" fill="#f59e0b"/>
+                                        <!-- Inside pitch black -->
+                                        <polygon points="40,15 48,55 32,55" fill="#080711"/>
+                                    </svg>
+                                </div>
+
+                                <!-- Cozy campfire SVG animation -->
+                                <div class="absolute bottom-2 left-1/2 -translate-x-1/2 w-16 h-16 flex flex-col items-center justify-end">
+                                    <!-- Logs -->
+                                    <div class="absolute bottom-1 w-8 h-2 bg-amber-900 rounded-full transform rotate-12"></div>
+                                    <div class="absolute bottom-1 w-8 h-2 bg-amber-950 rounded-full transform -rotate-12"></div>
+                                    
+                                    <!-- Dynamic animated flame -->
+                                    <div class="w-8 h-10 bg-gradient-to-t from-campfire-red via-campfire-orange to-campfire-gold rounded-t-full animate-pulse blur-[1px] transform origin-bottom" style="animation-duration: 0.8s;"></div>
+                                    
+                                    <!-- Campfire warm circle glow -->
+                                    <div class="absolute bottom-1 w-12 h-12 bg-campfire-orange/20 rounded-full filter blur-md animate-ping" style="animation-duration: 3s;"></div>
+                                </div>
+
+                                <!-- Moon in sky -->
+                                <div class="absolute top-4 right-8 w-8 h-8 rounded-full bg-slate-200/90 shadow-[0_0_15px_rgba(255,255,255,0.4)] flex items-center justify-center">
+                                    <!-- Moon crater simulation -->
+                                    <div class="w-1.5 h-1.5 rounded-full bg-slate-300 absolute top-2 left-2 opacity-55"></div>
+                                    <div class="w-2.5 h-2.5 rounded-full bg-slate-300 absolute bottom-2 right-2 opacity-40"></div>
+                                </div>
+
+                                <!-- Star trails -->
+                                <div class="absolute top-6 left-12 w-1.5 h-1.5 rounded-full bg-slate-300/80 animate-ping" style="animation-duration: 4s;"></div>
+                                <div class="absolute top-12 left-24 w-1 h-1 rounded-full bg-slate-100/60 animate-ping" style="animation-duration: 2.5s;"></div>
+                            </div>
+
+                            <!-- Styled Title (Matches Image) -->
+                            <div class="flex flex-col items-center mb-1">
+                                <span class="font-space font-extrabold text-3xl tracking-[0.3em] text-slate-100 flex items-center relative">
+                                    T<span class="text-campfire-orange">R</span>A<span class="relative">V<span class="absolute -top-1.5 left-1 w-2 h-2 bg-campfire-gold rounded-full"></span></span>EL
+                                </span>
+                                <div class="w-24 h-[2px] bg-campfire-orange rounded-full mt-1"></div>
+                            </div>
+                            
+                            <p class="text-[11px] uppercase tracking-widest text-slate-400 mt-2 font-space">
+                                We pursue a relaxed gaming experience
+                            </p>
+
+                            <!-- Authentically Styled Login Fields (Pure reference match) -->
+                            <form onsubmit="handleFormSubmit(event)" class="w-full mt-6 space-y-4">
+                                <div class="relative border-b border-night-600/60 py-2 group focus-within:border-campfire-gold transition-colors duration-300">
+                                    <input type="text" id="username" placeholder="Username" required class="w-full bg-transparent border-none text-slate-200 placeholder-slate-500 focus:outline-none text-sm pr-10 pl-2">
+                                    <div class="absolute right-2 top-2 text-night-purple/80 group-focus-within:text-campfire-gold transition-colors">
+                                        <i data-lucide="user" class="w-4 h-4"></i>
+                                    </div>
+                                </div>
+
+                                <div class="relative border-b border-night-600/60 py-2 group focus-within:border-campfire-gold transition-colors duration-300">
+                                    <input type="password" id="password" placeholder="Password" required class="w-full bg-transparent border-none text-slate-200 placeholder-slate-500 focus:outline-none text-sm pr-10 pl-2">
+                                    <div class="absolute right-2 top-2 text-night-purple/80 group-focus-within:text-campfire-gold transition-colors">
+                                        <i data-lucide="lock" class="w-4 h-4"></i>
+                                    </div>
+                                </div>
+
+                                <!-- Dual Buttons: Sign Up / Sign In (Reference Exact Match styling with custom enhancement) -->
+                                <div class="grid grid-cols-2 gap-4 pt-4">
+                                    <button type="submit" class="py-2.5 px-4 rounded-lg bg-transparent border border-campfire-gold/80 text-campfire-gold hover:bg-campfire-gold hover:text-night-950 font-space font-semibold text-xs tracking-wider uppercase transition-all duration-300">
+                                        Sign Up
+                                    </button>
+                                    <button type="button" onclick="toastAlert('Sign in activated. Welcome back traveler!')" class="py-2.5 px-4 rounded-lg bg-night-800 hover:bg-night-700 border border-night-600 hover:border-slate-400 text-slate-300 hover:text-white font-space font-semibold text-xs tracking-wider uppercase transition-all duration-300">
+                                        Sign In
+                                    </button>
+                                </div>
+
+                                <div class="text-center mt-4">
+                                    <a href="javascript:void(0)" onclick="toastAlert('We\'ll send password reset instructions to your registered email.')" class="text-xs text-slate-500 hover:text-slate-300 transition-colors">
+                                        Forgot Password?
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- THE UNIVERSE / ABOUT SECTION -->
+        <section id="about" class="py-24 px-6 relative border-t border-night-800/40 bg-night-900/40 backdrop-blur-sm">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <span class="text-campfire-orange text-xs font-bold tracking-[0.25em] uppercase block mb-3">Core Philosophy</span>
+                    <h2 class="font-space font-extrabold text-3xl sm:text-4xl text-slate-100">Designed to Heal & Decelerate</h2>
+                    <p class="text-slate-400 mt-4">Unlike modern games that demand relentless progression, TRAVEL invites you to wind down. Let's trade anxiety for cozy exploration.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Concept Card 1 -->
+                    <div class="bg-night-800/30 border border-night-700/60 p-8 rounded-2xl relative overflow-hidden group hover:border-campfire-gold/30 transition-all duration-500">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-campfire-gold/5 to-transparent pointer-events-none rounded-bl-full"></div>
+                        <div class="w-12 h-12 rounded-xl bg-night-700 flex items-center justify-center text-campfire-gold border border-night-600 mb-6 group-hover:scale-110 transition-transform">
+                            <i data-lucide="moon" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="font-space font-bold text-xl text-slate-100 mb-2">Realtime Dynamic Nights</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Our worlds sync with your local clock. Experience mesmerizing starry skies, low-poly mountain vistas, and cozy forest crackles right from your desk as dusk sets.
+                        </p>
+                    </div>
+
+                    <!-- Concept Card 2 -->
+                    <div class="bg-night-800/30 border border-night-700/60 p-8 rounded-2xl relative overflow-hidden group hover:border-campfire-orange/30 transition-all duration-500">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-campfire-orange/5 to-transparent pointer-events-none rounded-bl-full"></div>
+                        <div class="w-12 h-12 rounded-xl bg-night-700 flex items-center justify-center text-campfire-orange border border-night-600 mb-6 group-hover:scale-110 transition-transform">
+                            <i data-lucide="flame" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="font-space font-bold text-xl text-slate-100 mb-2">The Shared Hearth</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Sit with travelers in asynchronous, peaceful multiplayer lobbies. Share handwritten journal entries, trade resources, or play gentle collaborative card games.
+                        </p>
+                    </div>
+
+                    <!-- Concept Card 3 -->
+                    <div class="bg-night-800/30 border border-night-700/60 p-8 rounded-2xl relative overflow-hidden group hover:border-purple-500/30 transition-all duration-500">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-night-purple/10 to-transparent pointer-events-none rounded-bl-full"></div>
+                        <div class="w-12 h-12 rounded-xl bg-night-700 flex items-center justify-center text-purple-400 border border-night-600 mb-6 group-hover:scale-110 transition-transform">
+                            <i data-lucide="music" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="font-space font-bold text-xl text-slate-100 mb-2">Generative Night Soundscapes</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Our sound engine procedurally combines nature sounds, retro-cozy synth pads, and analog warmth that adapts beautifully to your gameplay activities and state.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- INTERACTIVE CAMPSITE VISUALIZER / PLAYGROUND -->
+        <section id="campsite" class="py-24 px-6 relative bg-gradient-to-b from-night-950 to-night-900 border-t border-night-800/50">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Left: Interactive Control Deck -->
+                    <div class="lg:col-span-5 flex flex-col space-y-6">
+                        <span class="text-campfire-gold text-xs font-bold tracking-[0.25em] uppercase block">Interactive Simulator</span>
+                        <h2 class="font-space font-extrabold text-3xl sm:text-4xl text-slate-100">Tend Your Fire, Shape Your Atmosphere</h2>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Interact with this live simulation panel to alter the visual universe's climate. Toss timber to fuel the flames, shift wind speeds, or adjust star density. Watch the whole page glowingly react.
+                        </p>
+
+                        <!-- Controls -->
+                        <div class="space-y-4 pt-2">
+                            <!-- Timber Log count button action -->
+                            <div class="bg-night-800/60 border border-night-700 rounded-xl p-4 flex flex-col space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs text-slate-400 uppercase font-mono tracking-wider">Fuel Level</span>
+                                    <span id="timber-count-label" class="text-xs text-campfire-gold font-bold">5 Logs in Hearth</span>
+                                </div>
+                                <div class="w-full bg-night-950 rounded-full h-2">
+                                    <div id="timber-bar" class="bg-gradient-to-r from-campfire-orange to-campfire-gold h-2 rounded-full transition-all duration-500" style="width: 50%;"></div>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button onclick="addTimber()" class="flex-1 py-2 rounded-lg bg-campfire-orange/10 hover:bg-campfire-orange/20 border border-campfire-orange/40 hover:border-campfire-orange text-campfire-gold text-xs font-space font-bold uppercase tracking-wider transition-colors">
+                                        + Toss Firewood Log
+                                    </button>
+                                    <button onclick="douseFire()" class="px-4 py-2 rounded-lg bg-night-700 hover:bg-night-600 border border-night-600 text-slate-400 hover:text-slate-200 text-xs transition-colors">
+                                        Douse
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Star Density Range slider -->
+                            <div class="bg-night-800/60 border border-night-700 rounded-xl p-4 flex flex-col space-y-2">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs text-slate-400 uppercase font-mono tracking-wider">Star Density</span>
+                                    <span id="star-count-label" class="text-xs text-slate-200">120 Stars</span>
+                                </div>
+                                <input type="range" id="star-slider" min="30" max="250" value="120" oninput="updateStarDensity(this.value)" class="w-full accent-campfire-gold bg-night-950 h-1 rounded-lg appearance-none cursor-pointer">
+                            </div>
+
+                            <!-- Wind Breeze Control -->
+                            <div class="bg-night-800/60 border border-night-700 rounded-xl p-4 flex flex-col space-y-2">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs text-slate-400 uppercase font-mono tracking-wider">Breeze Intensity</span>
+                                    <span id="wind-strength-label" class="text-xs text-slate-200">Gentle</span>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button onclick="setBreeze('calm')" class="flex-1 py-1 px-2 rounded bg-night-950 hover:bg-night-900 border border-night-700 text-xs hover:border-campfire-gold transition-all text-slate-400">Calm</button>
+                                    <button onclick="setBreeze('gentle')" class="flex-1 py-1 px-2 rounded bg-campfire-orange/20 border border-campfire-orange/40 text-xs text-campfire-gold">Gentle</button>
+                                    <button onclick="setBreeze('gusty')" class="flex-1 py-1 px-2 rounded bg-night-950 hover:bg-night-900 border border-night-700 text-xs hover:border-campfire-gold transition-all text-slate-400">Gusty</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Immersive Low Poly Animated Vector Campfire Landscape Panel -->
+                    <div class="lg:col-span-7 flex justify-center">
+                        <div class="w-full max-w-[550px] aspect-[4/3] rounded-3xl bg-gradient-to-b from-[#090818] via-[#0e0c24] to-[#141235] border border-night-700/60 overflow-hidden relative shadow-glow-purple flex items-end">
+                            
+                            <!-- Deep Mountain Backdrops -->
+                            <div class="absolute inset-0 opacity-40 pointer-events-none">
+                                <svg class="w-full h-full text-[#1d1a49] fill-current" viewBox="0 0 100 100" preserveAspectRatio="none">
+                                    <!-- High Peaks -->
+                                    <polygon points="0,100 15,40 35,90 60,35 80,85 100,100"/>
+                                    <!-- Mid-ground Peaks -->
+                                    <polygon points="0,100 25,60 50,85 75,55 100,100" class="text-[#2c286e]" opacity="0.6"/>
+                                </svg>
+                            </div>
+
+                            <!-- Cozy Interactive Glowing Moon -->
+                            <div class="absolute top-12 right-16 w-16 h-16 rounded-full bg-gradient-to-tr from-slate-200 to-white shadow-[0_0_30px_rgba(255,255,255,0.25)] flex items-center justify-center animate-pulse-slow">
+                                <!-- Subtle low-poly detailing on moon -->
+                                <svg viewBox="0 0 100 100" class="absolute inset-0 w-full h-full opacity-10">
+                                    <polygon points="20,20 40,15 35,35 15,30" fill="black"/>
+                                    <polygon points="70,50 85,60 75,75 60,65" fill="black"/>
+                                </svg>
+                            </div>
+
+                            <!-- Pine Trees Left & Right -->
+                            <div class="absolute bottom-8 left-8 flex space-x-1 items-end pointer-events-none opacity-80">
+                                <svg viewBox="0 0 40 80" class="w-8 h-16 text-[#173e2a] fill-current">
+                                    <polygon points="20,0 35,40 28,40 38,70 5,70 15,40 8,40"/>
+                                </svg>
+                                <svg viewBox="0 0 40 80" class="w-12 h-24 text-[#0f2d1d] fill-current">
+                                    <polygon points="20,0 35,40 28,40 38,70 5,70 15,40 8,40"/>
+                                </svg>
+                            </div>
+                            <div class="absolute bottom-8 right-8 flex space-x-1 items-end pointer-events-none opacity-80">
+                                <svg viewBox="0 0 40 80" class="w-10 h-20 text-[#0f2d1d] fill-current">
+                                    <polygon points="20,0 35,40 28,40 38,70 5,70 15,40 8,40"/>
+                                </svg>
+                                <svg viewBox="0 0 40 80" class="w-6 h-12 text-[#1c4b33] fill-current">
+                                    <polygon points="20,0 35,40 28,40 38,70 5,70 15,40 8,40"/>
+                                </svg>
+                            </div>
+
+                            <!-- Centered Low Poly Cozy Yellow/Orange Tent -->
+                            <div class="absolute bottom-8 left-16 w-24 h-20 pointer-events-none">
+                                <svg viewBox="0 0 100 80" class="w-full h-full drop-shadow-lg">
+                                    <!-- Back Flap -->
+                                    <polygon points="50,10 90,75 10,75" fill="#ca8a04"/>
+                                    <!-- Inside pitch shadows -->
+                                    <polygon points="50,10 70,75 30,75" fill="#f59e0b"/>
+                                    <!-- Opening glowing door -->
+                                    <polygon points="50,25 60,75 40,75" fill="#3f3f46"/>
+                                </svg>
+                            </div>
+
+                            <!-- Centered Interactive Fire pit & Ambient Glow -->
+                            <div class="absolute bottom-6 left-1/2 -translate-x-1/2 w-48 h-32 flex flex-col items-center justify-end z-20">
+                                <!-- Dynamic Radial Fire Light (Increases with timber logs) -->
+                                <div id="live-fire-radial-glow" class="absolute bottom-2 w-32 h-32 rounded-full bg-gradient-to-t from-campfire-orange/40 to-campfire-gold/10 filter blur-xl animate-pulse duration-1000"></div>
+
+                                <!-- Campfire Wood Log Base Structure -->
+                                <div class="relative w-24 h-6 flex items-center justify-center pointer-events-none">
+                                    <div class="absolute w-16 h-3 bg-amber-950 rounded-full transform rotate-12 origin-center"></div>
+                                    <div class="absolute w-16 h-3 bg-amber-900 rounded-full transform -rotate-12 origin-center"></div>
+                                    <div class="absolute w-12 h-2.5 bg-[#451a03] rounded-full bottom-0"></div>
+                                </div>
+
+                                <!-- Layered SVG Fire Particle Flames -->
+                                <div class="relative h-20 w-16 flex items-end justify-center">
+                                    <svg viewBox="0 0 60 100" class="w-full h-full pointer-events-none">
+                                        <!-- Fire outer layer -->
+                                        <path id="fire-outer" d="M 30,0 C 15,35 5,50 5,75 C 5,95 55,95 55,75 C 55,50 45,35 30,0 Z" fill="#dc2626" class="animate-pulse transform origin-bottom" style="animation-duration: 0.9s;" />
+                                        <!-- Fire middle layer -->
+                                        <path id="fire-mid" d="M 30,15 C 20,45 10,55 10,75 C 10,90 50,90 50,75 C 50,55 40,45 30,15 Z" fill="#ea580c" class="animate-pulse transform origin-bottom" style="animation-duration: 0.6s;" />
+                                        <!-- Fire inner core -->
+                                        <path id="fire-inner" d="M 30,30 C 23,52 18,60 18,75 C 18,85 42,85 42,75 C 42,60 37,52 30,30 Z" fill="#eab308" class="animate-pulse transform origin-bottom" style="animation-duration: 0.4s;" />
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Decorative Low Poly SUV / Cruiser (References the SUV/car in image) -->
+                            <div class="absolute bottom-8 right-24 w-28 h-16 pointer-events-none opacity-90">
+                                <svg viewBox="0 0 120 70" class="w-full h-full">
+                                    <!-- SUV Body with low-poly shades -->
+                                    <rect x="10" y="30" width="100" height="25" fill="#4b5563" rx="4"/>
+                                    <polygon points="35,10 80,10 95,30 20,30" fill="#6b7280"/>
+                                    <!-- Windows -->
+                                    <polygon points="38,13 56,13 56,27 30,27" fill="#1f2937"/>
+                                    <polygon points="60,13 78,13 88,27 60,27" fill="#1f2937"/>
+                                    <!-- Headlight glow -->
+                                    <polygon points="110,35 120,30 120,50 110,45" fill="#fef08a" opacity="0.3"/>
+                                    <!-- Tires -->
+                                    <circle cx="35" cy="55" r="12" fill="#111827"/>
+                                    <circle cx="35" cy="55" r="6" fill="#374151"/>
+                                    <circle cx="85" cy="55" r="12" fill="#111827"/>
+                                    <circle cx="85" cy="55" r="6" fill="#374151"/>
+                                    <!-- Wheel arches -->
+                                    <path d="M20,55 A15,15 0 0,1 50,55" stroke="#1f2937" stroke-width="3" fill="none"/>
+                                    <path d="M70,55 A15,15 0 0,1 100,55" stroke="#1f2937" stroke-width="3" fill="none"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GAME EXPERIENCES / MAP MODES -->
+        <section id="experience" class="py-24 px-6 relative bg-night-900 border-t border-night-800/40">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <span class="text-campfire-gold text-xs font-bold tracking-[0.25em] uppercase block mb-3">Our Relaxed Playlists</span>
+                    <h2 class="font-space font-extrabold text-3xl sm:text-4xl text-slate-100">Journey Across Slow-Paced Worlds</h2>
+                    <p class="text-slate-400 mt-4">Discover minimalist mini-games crafted purely to relieve tension and trigger relaxation.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Mode Card 1 -->
+                    <div class="bg-night-800/20 border border-night-700/50 rounded-2xl overflow-hidden group hover:border-campfire-gold/30 transition-all duration-300">
+                        <div class="h-48 bg-gradient-to-br from-indigo-950 to-night-900 relative flex items-center justify-center overflow-hidden">
+                            <!-- Vector constellation art inside map -->
+                            <svg viewBox="0 0 100 100" class="w-full h-full opacity-30 stroke-indigo-400 fill-none stroke-[0.5]">
+                                <circle cx="50" cy="50" r="3" fill="white"/>
+                                <circle cx="30" cy="30" r="2" fill="white"/>
+                                <circle cx="70" cy="40" r="2" fill="white"/>
+                                <circle cx="40" cy="70" r="2.5" fill="white"/>
+                                <line x1="50" y1="50" x2="30" y2="30"/>
+                                <line x1="50" y1="50" x2="70" y2="40"/>
+                                <line x1="50" y1="50" x2="40" y2="70"/>
+                            </svg>
+                            <span class="absolute bottom-4 left-4 bg-campfire-orange/10 border border-campfire-orange/30 px-3 py-1 rounded text-[10px] text-campfire-gold uppercase font-mono">Map Active</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-space font-bold text-lg text-slate-100 mb-2">Celestia Connection</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                                Connect bright geometric constellations under beautiful low-poly night skies to reveal cozy myths while listing to ambient acoustic guitar melodies.
+                            </p>
+                            <a href="javascript:void(0)" onclick="toastAlert('Launching Celestia Connection...')" class="text-xs text-campfire-gold font-bold tracking-widest uppercase hover:text-campfire-orange transition-colors">Start Stargazing &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Mode Card 2 -->
+                    <div class="bg-night-800/20 border border-night-700/50 rounded-2xl overflow-hidden group hover:border-campfire-orange/30 transition-all duration-300">
+                        <div class="h-48 bg-gradient-to-br from-[#121633] to-night-900 relative flex items-center justify-center overflow-hidden">
+                            <!-- Vector mountain and lake layout -->
+                            <svg viewBox="0 0 100 100" class="w-full h-full opacity-30 fill-none stroke-[0.5] stroke-teal-400">
+                                <polygon points="10,80 50,30 90,80" />
+                                <line x1="0" y1="80" x2="100" y2="80"/>
+                                <path d="M 20,85 Q 40,81 60,85 T 100,85"/>
+                            </svg>
+                            <span class="absolute bottom-4 left-4 bg-teal-500/10 border border-teal-500/30 px-3 py-1 rounded text-[10px] text-teal-300 uppercase font-mono">Solo Relax</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-space font-bold text-lg text-slate-100 mb-2">Silent Shorelines</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                                Pilot a simple digital wooden canoe through mist-shrouded canals, gathering glowing lily pads that build ambient synthesizer sound loops around you.
+                            </p>
+                            <a href="javascript:void(0)" onclick="toastAlert('Launching Silent Shorelines...')" class="text-xs text-campfire-gold font-bold tracking-widest uppercase hover:text-campfire-orange transition-colors">Sail Peacefully &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Mode Card 3 -->
+                    <div class="bg-night-800/20 border border-night-700/50 rounded-2xl overflow-hidden group hover:border-purple-500/30 transition-all duration-300">
+                        <div class="h-48 bg-gradient-to-br from-purple-950 to-night-900 relative flex items-center justify-center overflow-hidden">
+                            <!-- Wind spirals vector -->
+                            <svg viewBox="0 0 100 100" class="w-full h-full opacity-30 stroke-purple-400 fill-none stroke-1">
+                                <path d="M 10,50 Q 30,30 50,50 T 90,50" />
+                                <path d="M 20,60 Q 40,40 60,60 T 100,60" />
+                            </svg>
+                            <span class="absolute bottom-4 left-4 bg-purple-500/10 border border-purple-500/30 px-3 py-1 rounded text-[10px] text-purple-300 uppercase font-mono">Co-Op Lobby</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-space font-bold text-lg text-slate-100 mb-2">Campfire Chronology</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                                Sit around a shared fire, answering cozy writing prompts. Read inspiring stories written by travelers before you and leave your own notes in return.
+                            </p>
+                            <a href="javascript:void(0)" onclick="toastAlert('Accessing Campfire Chronology...')" class="text-xs text-campfire-gold font-bold tracking-widest uppercase hover:text-campfire-orange transition-colors">Join Hearth Stories &rarr;</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- STATS / AMBIENT METRICS -->
+        <section class="py-20 px-6 relative border-t border-night-800/40 bg-night-950">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+                    
+                    <div class="text-center p-6 border-r border-night-800 last:border-0">
+                        <span class="block text-4xl sm:text-5xl font-extrabold font-space text-campfire-gold" id="campfire-stat-1">120K</span>
+                        <span class="text-xs uppercase tracking-[0.2em] text-slate-400 block mt-2">Active Travelers</span>
+                    </div>
+
+                    <div class="text-center p-6 border-r border-night-800 last:border-0">
+                        <span class="block text-4xl sm:text-5xl font-extrabold font-space text-campfire-orange" id="campfire-stat-2">4.9/5</span>
+                        <span class="text-xs uppercase tracking-[0.2em] text-slate-400 block mt-2">Relaxation Score</span>
+                    </div>
+
+                    <div class="text-center p-6 border-r border-night-800 last:border-0">
+                        <span class="block text-4xl sm:text-5xl font-extrabold font-space text-slate-100" id="campfire-stat-3">8,542</span>
+                        <span class="text-xs uppercase tracking-[0.2em] text-slate-400 block mt-2">Campsites Planted</span>
+                    </div>
+
+                    <div class="text-center p-6 last:border-0">
+                        <span class="block text-4xl sm:text-5xl font-extrabold font-space text-indigo-400 animate-pulse" id="campfire-stat-4">12M+</span>
+                        <span class="text-xs uppercase tracking-[0.2em] text-slate-400 block mt-2">Stars Discovered</span>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS / GUESTBOOK -->
+        <section class="py-24 px-6 relative border-t border-night-800/50 bg-night-900/40">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <span class="text-campfire-orange text-xs font-bold tracking-[0.25em] uppercase block mb-3">Traveler Logbook</span>
+                    <h2 class="font-space font-extrabold text-3xl sm:text-4xl text-slate-100">Letters from the Campsite</h2>
+                    <p class="text-slate-400 mt-4">Read what travelers around the globe say about taking a pause in our low-poly sanctuary.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Log 1 -->
+                    <div class="bg-night-800/20 border border-night-700/60 p-6 rounded-2xl relative">
+                        <div class="flex items-center space-x-1 text-campfire-gold mb-3">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="text-slate-300 text-sm leading-relaxed italic mb-4">
+                            "This has completely replaced my evening doom-scrolling. I put on the synthesizer campfire noise, connect some stars, and feel completely present. A masterpiece of cozy design."
+                        </p>
+                        <div class="border-t border-night-700/50 pt-3 flex justify-between items-center text-xs text-slate-400">
+                            <span>Traveler @HearthWanderer</span>
+                            <span>Tokyo, JP</span>
+                        </div>
+                    </div>
+
+                    <!-- Log 2 -->
+                    <div class="bg-night-800/20 border border-night-700/60 p-6 rounded-2xl relative">
+                        <div class="flex items-center space-x-1 text-campfire-gold mb-3">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="text-slate-300 text-sm leading-relaxed italic mb-4">
+                            "The low-poly aesthetic is beautiful. It makes my modern high-refresh monitor look like a cozy animated campfire painting. Highly recommended for busy software engineers."
+                        </p>
+                        <div class="border-t border-night-700/50 pt-3 flex justify-between items-center text-xs text-slate-400">
+                            <span>Traveler @PinePixel</span>
+                            <span>San Francisco, US</span>
+                        </div>
+                    </div>
+
+                    <!-- Log 3 -->
+                    <div class="bg-night-800/20 border border-night-700/60 p-6 rounded-2xl relative">
+                        <div class="flex items-center space-x-1 text-campfire-gold mb-3">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="text-slate-300 text-sm leading-relaxed italic mb-4">
+                            "Playing this asynchronous multiplayer with my kids has been marvelous. We trade small flowers and check our digital campsites before bed. Beautiful atmosphere!"
+                        </p>
+                        <div class="border-t border-night-700/50 pt-3 flex justify-between items-center text-xs text-slate-400">
+                            <span>Traveler @NordicCozy</span>
+                            <span>Oslo, NO</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA SECTION -->
+        <section class="py-24 px-6 relative overflow-hidden bg-gradient-to-b from-night-900 to-night-950 border-t border-night-800/60">
+            <!-- Warm orange radial light backdrop -->
+            <div class="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-campfire-orange/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+            <div class="max-w-4xl mx-auto text-center relative z-10 flex flex-col items-center space-y-6">
+                <div class="inline-flex items-center space-x-2 bg-campfire-gold/10 border border-campfire-gold/30 px-3 py-1 rounded-full text-xs text-campfire-gold">
+                    <i data-lucide="compass" class="w-4 h-4 text-campfire-gold"></i>
+                    <span>YOUR EXPEDITION STARTS NOW</span>
+                </div>
+                
+                <h2 class="font-space font-extrabold text-3xl sm:text-5xl text-slate-100 tracking-tight leading-tight max-w-2xl">
+                    Ready to pitch your tent under the low-poly stars?
+                </h2>
+                
+                <p class="text-slate-300 text-sm sm:text-base max-w-xl leading-relaxed">
+                    Join the cozy community of thousands of calm explorers. Standard entry is free, asynchronous, and designed to relax your mind.
+                </p>
+
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 w-full justify-center max-w-md pt-4">
+                    <a href="#portal" class="px-8 py-4 rounded-xl bg-gradient-to-r from-campfire-orange to-campfire-gold text-night-950 font-space font-bold tracking-wider uppercase text-sm hover:scale-105 transition-all shadow-glow-warm">
+                        Get Campfire Access
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="border-t border-night-800 bg-night-950 py-12 px-6 relative z-10">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+                
+                <div class="flex items-center space-x-3">
+                    <div class="flex flex-col">
+                        <span class="font-space font-extrabold text-xl tracking-widest text-slate-100 flex items-center">
+                            T<span class="text-campfire-orange">R</span>A<span class="relative">V<span class="absolute -top-1 left-1 w-1 h-1 bg-campfire-gold rounded-full"></span></span>EL
+                        </span>
+                        <span class="text-[9px] uppercase tracking-[0.2em] text-slate-400">A Relaxed Gaming Experience</span>
+                    </div>
+                </div>
+
+                <p class="text-slate-500 text-xs">
+                    &copy; 2026 TRAVEL Universe Inc. Hand-crafted with cozy low-poly gradients.
+                </p>
+
+                <!-- Social icon links -->
+                <div class="flex items-center space-x-4">
+                    <a href="javascript:void(0)" onclick="toastAlert('Join our Discord! (Interactive demo alert)')" class="w-8 h-8 rounded-lg bg-night-800 border border-night-700 flex items-center justify-center text-slate-400 hover:text-campfire-gold hover:border-campfire-gold transition-colors">
+                        <i data-lucide="message-square" class="w-4 h-4"></i>
+                    </a>
+                    <a href="javascript:void(0)" onclick="toastAlert('Follow on Twitter! (Interactive demo alert)')" class="w-8 h-8 rounded-lg bg-night-800 border border-night-700 flex items-center justify-center text-slate-400 hover:text-campfire-gold hover:border-campfire-gold transition-colors">
+                        <i data-lucide="twitter" class="w-4 h-4"></i>
+                    </a>
+                    <a href="javascript:void(0)" onclick="toastAlert('Watch gameplay on YouTube! (Interactive demo alert)')" class="w-8 h-8 rounded-lg bg-night-800 border border-night-700 flex items-center justify-center text-slate-400 hover:text-campfire-gold hover:border-campfire-gold transition-colors">
+                        <i data-lucide="youtube" class="w-4 h-4"></i>
+                    </a>
+                </div>
+
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Cozy Modern Toast Container -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col space-y-3 pointer-events-none"></div>
+
+    <!-- APP CONTROLS & WEB AUDIO SYNTHESIZER JAVASCRIPT -->
+    <script>
+        // Init Lucide Icons
+        lucide.createIcons();
+
+        // 1. DYNAMIC STARRY SKY GENERATION
+        const sky = document.getElementById('star-sky');
+        const defaultStarCount = 120;
+        let starInstances = [];
+
+        function generateStars(count) {
+            // Remove previous stars
+            starInstances.forEach(star => star.remove());
+            starInstances = [];
+
+            for (let i = 0; i < count; i++) {
+                const star = document.createElement('div');
+                const size = Math.random() * 2 + 0.5; // size between 0.5px and 2.5px
+                const x = Math.random() * 100;
+                const y = Math.random() * 85; // keep them above the ground line mostly
+                const opacity = Math.random() * 0.7 + 0.3;
+                const duration = Math.random() * 4 + 2; // duration for fade animation
+
+                star.style.position = 'absolute';
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.backgroundColor = '#ffffff';
+                star.style.left = `${x}%`;
+                star.style.top = `${y}%`;
+                star.style.opacity = opacity;
+                star.style.borderRadius = '50%';
+                star.style.boxShadow = `0 0 ${size * 2}px #ffffff`;
+                
+                // Pure CSS inline fade keyframes
+                star.style.transition = `opacity ${duration}s ease-in-out`;
+                
+                sky.appendChild(star);
+                starInstances.push(star);
+            }
+
+            // Create starry twinkling effect loop
+            setInterval(() => {
+                starInstances.forEach(star => {
+                    if (Math.random() > 0.7) {
+                        star.style.opacity = Math.random() * 0.8 + 0.2;
+                    }
+                });
+            }, 1000);
+        }
+
+        // Initialize stars
+        generateStars(defaultStarCount);
+
+        // Update star density slider action
+        function updateStarDensity(val) {
+            document.getElementById('star-count-label').innerText = `${val} Stars`;
+            generateStars(val);
+        }
+
+        // 2. TIMBER FIREWOOD INTERACTIONS
+        let timberLogsCount = 5;
+        const liveFireRadialGlow = document.getElementById('live-fire-radial-glow');
+        const globalFireGlow = document.getElementById('global-fire-glow');
+        const fireOuter = document.getElementById('fire-outer');
+        const fireMid = document.getElementById('fire-mid');
+        const fireInner = document.getElementById('fire-inner');
+        const campfireHeatStat = document.getElementById('campfire-heat-stat');
+
+        function updateCampfireVisuals() {
+            // Determine scale factor based on timber quantity (1 to 10 logs)
+            const scaleFactor = 0.5 + (timberLogsCount * 0.15); // ranges roughly 0.65 to 2
+            
+            // Apply scale styles to flames
+            fireOuter.style.transform = `scaleY(${scaleFactor})`;
+            fireMid.style.transform = `scaleY(${scaleFactor * 0.95})`;
+            fireInner.style.transform = `scaleY(${scaleFactor * 0.9})`;
+
+            // Modify glowing backdrops
+            const fireIntensityPercent = Math.min(timberLogsCount * 10, 100);
+            document.getElementById('timber-bar').style.width = `${fireIntensityPercent}%`;
+            document.getElementById('timber-count-label').innerText = `${timberLogsCount} Logs in Hearth`;
+
+            // Adjust heat temperature stat
+            const heatTemp = 40 + (timberLogsCount * 9);
+            campfireHeatStat.innerText = `${heatTemp}°C`;
+
+            // Update radial backdrops
+            liveFireRadialGlow.style.opacity = `${0.2 + (timberLogsCount * 0.08)}`;
+            globalFireGlow.style.opacity = `${0.3 + (timberLogsCount * 0.06)}`;
+            
+            if (timberLogsCount <= 0) {
+                campfireHeatStat.innerText = `0°C (Cold)`;
+                liveFireRadialGlow.style.opacity = '0';
+                globalFireGlow.style.opacity = '0';
+                toastAlert('The campfire has burned out. Toss some timber to relight!');
+            }
+        }
+
+        function addTimber() {
+            if (timberLogsCount >= 10) {
+                toastAlert('The hearth is fully packed! Enjoy the roaring warmth.');
+                return;
+            }
+            timberLogsCount++;
+            updateCampfireVisuals();
+            toastAlert('🪵 Added fresh pine timber firewood to the hearth.');
+            
+            // Pitch up campfire sound crackle momentarily if playing
+            if (isSoundPlaying && synthGainNode) {
+                playCrackleBurst();
+            }
+        }
+
+        function douseFire() {
+            timberLogsCount = 0;
+            updateCampfireVisuals();
+            toastAlert('💧 Doused campfire with spring water.');
+        }
+
+        // Breeze intensity action
+        function setBreeze(type) {
+            const windLabel = document.getElementById('wind-strength-label');
+            const windStat = document.getElementById('ambient-wind-stat');
+            
+            // Reset button states
+            const buttons = event.currentTarget.parentElement.children;
+            for (let btn of buttons) {
+                btn.className = "flex-1 py-1 px-2 rounded bg-night-950 hover:bg-night-900 border border-night-700 text-xs hover:border-campfire-gold transition-all text-slate-400";
+            }
+
+            event.currentTarget.className = "flex-1 py-1 px-2 rounded bg-campfire-orange/20 border border-campfire-orange/40 text-xs text-campfire-gold";
+
+            if (type === 'calm') {
+                windLabel.innerText = "Calm";
+                windStat.innerText = "1 m/s";
+                if (isSoundPlaying) adjustWindVolume(0.1);
+            } else if (type === 'gentle') {
+                windLabel.innerText = "Gentle";
+                windStat.innerText = "4 m/s";
+                if (isSoundPlaying) adjustWindVolume(0.3);
+            } else if (type === 'gusty') {
+                windLabel.innerText = "Gusty Wind";
+                windStat.innerText = "12 m/s";
+                if (isSoundPlaying) adjustWindVolume(0.7);
+            }
+            toastAlert(`🍃 Wind atmosphere changed to: ${type}`);
+        }
+
+        // 3. TOAST MESSAGES EMITTER
+        function toastAlert(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            toast.className = "pointer-events-auto flex items-center space-x-3 px-4 py-3 bg-night-800 border border-night-600 text-slate-100 text-xs font-medium rounded-xl shadow-glow-purple transform translate-y-10 opacity-0 transition-all duration-300 max-w-sm";
+            toast.innerHTML = `
+                <div class="w-2 h-2 rounded-full bg-campfire-orange animate-ping"></div>
+                <span>${message}</span>
+            `;
+
+            container.appendChild(toast);
+
+            // Animate In
+            setTimeout(() => {
+                toast.classList.remove('translate-y-10', 'opacity-0');
+            }, 50);
+
+            // Animate Out & Remove
+            setTimeout(() => {
+                toast.classList.add('translate-y-[-10px]', 'opacity-0');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 4000);
+        }
+
+        // Form handler simulation
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            toastAlert(`🎉 Perfect, ${username}! Your campsite slot is now registered.`);
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+
+        // 4. ADVANCED AUDIO SYNTHESIZER (WEB AUDIO API)
+        // Creating fully synthesized procedurally generated relaxing soundscapes directly in-browser.
+        let audioCtx = null;
+        let isSoundPlaying = false;
+        let windNoiseNode = null;
+        let windGainNode = null;
+        let synthGainNode = null;
+
+        function toggleAmbientSound() {
+            if (!audioCtx) {
+                // Initialize context on user gesture
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+
+            if (isSoundPlaying) {
+                // Stop Synth
+                audioCtx.suspend().then(() => {
+                    isSoundPlaying = false;
+                    document.getElementById('synth-btn-text').innerText = "Play Campfire Sounds";
+                    document.getElementById('sound-indicator').className = "relative inline-flex rounded-full h-2 w-2 bg-slate-500";
+                    toastAlert('🔇 Muted forest camping sounds.');
+                });
+            } else {
+                // Start / Resume Synth
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                } else {
+                    setupForestCampfireSynthesizer();
+                }
+                isSoundPlaying = true;
+                document.getElementById('synth-btn-text').innerText = "Mute Ambient Sounds";
+                document.getElementById('sound-indicator').className = "relative inline-flex rounded-full h-2 w-2 bg-campfire-gold animate-pulse";
+                toastAlert('🔊 Immersive cozy synth campfire atmosphere started!');
+            }
+        }
+
+        function setupForestCampfireSynthesizer() {
+            // (A) GENERATE NIGHT WIND SOUNDSCAPE
+            // Creating white/pink noise for gentle background forest rustle
+            const bufferSize = 2 * audioCtx.sampleRate;
+            const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const output = noiseBuffer.getChannelData(0);
+            
+            for (let i = 0; i < bufferSize; i++) {
+                output[i] = Math.random() * 2 - 1;
+            }
+
+            windNoiseNode = audioCtx.createBufferSource();
+            windNoiseNode.buffer = noiseBuffer;
+            windNoiseNode.loop = true;
+
+            // Wind filtering to make it sound full and deep
+            const windFilter = audioCtx.createBiquadFilter();
+            windFilter.type = 'lowpass';
+            windFilter.frequency.setValueAtTime(320, audioCtx.currentTime);
+            windFilter.Q.setValueAtTime(3.0, audioCtx.currentTime);
+
+            // Modulating wind frequency slightly over time to simulate rustling breezes
+            const windLFO = audioCtx.createOscillator();
+            windLFO.frequency.setValueAtTime(0.08, audioCtx.currentTime); // very slow cycle
+            const windLFOGain = audioCtx.createGain();
+            windLFOGain.gain.setValueAtTime(120, audioCtx.currentTime); // intensity range
+
+            windLFO.connect(windLFOGain);
+            windLFOGain.connect(windFilter.frequency);
+            windLFO.start();
+
+            windGainNode = audioCtx.createGain();
+            windGainNode.gain.setValueAtTime(0.25, audioCtx.currentTime); // moderate wind volume
+
+            windNoiseNode.connect(windFilter);
+            windFilter.connect(windGainNode);
+            windGainNode.connect(audioCtx.destination);
+            windNoiseNode.start();
+
+            // (B) GENERATE COZY CAMPFIRE CRACKLES
+            // Procedurally trigger clicks, pops, and low fire rumbles
+            synthGainNode = audioCtx.createGain();
+            synthGainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            synthGainNode.connect(audioCtx.destination);
+
+            // Trigger random crackle loop
+            triggerCrackleLoop();
+        }
+
+        function triggerCrackleLoop() {
+            if (!isSoundPlaying) return;
+
+            // Generate instant randomized clicking crackle burst
+            playCrackleBurst();
+
+            // Set next randomized trigger delay
+            const nextTriggerTime = Math.random() * 250 + 80; // trigger every 80ms - 330ms
+            setTimeout(triggerCrackleLoop, nextTriggerTime);
+        }
+
+        function playCrackleBurst() {
+            if (!audioCtx || audioCtx.state === 'suspended') return;
+
+            // Generate high-frequency snapping click pop node
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(1000 + Math.random() * 3000, audioCtx.currentTime); // snapping pitch range
+
+            // Rapid click envelope
+            gain.gain.setValueAtTime(Math.random() * 0.12, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.015); // extremely fast decay
+
+            // Snap bandpass filter
+            const filter = audioCtx.createBiquadFilter();
+            filter.type = 'bandpass';
+            filter.frequency.setValueAtTime(2500, audioCtx.currentTime);
+
+            osc.connect(filter);
+            filter.connect(gain);
+            gain.connect(synthGainNode);
+
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.02);
+
+            // Occasionally add a deep bass pop rumble
+            if (Math.random() > 0.8) {
+                const rumbleOsc = audioCtx.createOscillator();
+                const rumbleGain = audioCtx.createGain();
+
+                rumbleOsc.type = 'triangle';
+                rumbleOsc.frequency.setValueAtTime(65 + Math.random() * 40, audioCtx.currentTime);
+
+                rumbleGain.gain.setValueAtTime(Math.random() * 0.4, audioCtx.currentTime);
+                rumbleGain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.1);
+
+                rumbleOsc.connect(rumbleGain);
+                rumbleGain.connect(synthGainNode);
+
+                rumbleOsc.start();
+                rumbleOsc.stop(audioCtx.currentTime + 0.12);
+            }
+        }
+
+        function adjustWindVolume(level) {
+            if (windGainNode && audioCtx) {
+                windGainNode.gain.linearRampToValueAtTime(level, audioCtx.currentTime + 1.0); // smooth volume ramp
+            }
+        }
+
+        // Initialize Campsite Stat Counters ticking dynamically to feel live
+        setInterval(() => {
+            const campers = document.getElementById('active-campers-stat');
+            const randomDelta = Math.floor(Math.random() * 5) - 2;
+            const currentVal = parseInt(campers.innerText.replace(/,/g, ''));
+            const newVal = currentVal + randomDelta;
+            campers.innerText = newVal.toLocaleString();
+        }, 5000);
+
+    </script>
+</body>
+</html>
+6

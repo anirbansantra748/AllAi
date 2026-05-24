@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BADASS+ CREATIVE | High-Octane Digital Production Studio</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Syncopate for headers, Inter for premium UI copy -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syncopate:wght@700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome for robust UI iconography -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Syncopate', 'sans-serif'],
+            mono: ['Space Grotesk', 'monospace'],
+          },
+          colors: {
+            brand: {
+              crimson: '#E13838',
+              crimsonDark: '#B12525',
+              crimsonLight: '#FF5454',
+              white: '#F8F9FA',
+              dark: '#0A0A0A',
+              slate: '#1E1E24',
+              grayBorder: '#E2E8F0',
+            }
+          },
+          animation: {
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float-slow': 'float 6s ease-in-out infinite',
+            'glimmer': 'glimmer 3s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            glimmer: {
+              '0%, 100%': { opacity: '0.8', filter: 'drop-shadow(0 0 4px currentColor)' },
+              '50%': { opacity: '1', filter: 'drop-shadow(0 0 16px currentColor)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Premium custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0A0A0A;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #E13838;
+      border-radius: 3px;
+    }
+    
+    /* Specific styling for background splits */
+    .bg-grid-pattern {
+      background-size: 40px 40px;
+      background-image: linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+    }
+    
+    .bg-grid-dark {
+      background-size: 50px 50px;
+      background-image: linear-gradient(to right, rgba(225, 56, 56, 0.04) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(225, 56, 56, 0.04) 1px, transparent 1px);
+    }
+
+    /* Sound visualizer bars animation */
+    .bar {
+      animation: soundBounce 1.2s ease-in-out infinite alternate;
+    }
+    @keyframes soundBounce {
+      0% { height: 4px; }
+      100% { height: 24px; }
+    }
+    .bar:nth-child(2) { animation-delay: 0.15s; }
+    .bar:nth-child(3) { animation-delay: 0.3s; }
+    .bar:nth-child(4) { animation-delay: 0.45s; }
+
+    /* Custom custom-cursor styling for high-end feel */
+    .custom-cursor {
+      pointer-events: none;
+      transition: transform 0.1s ease;
+    }
+  </style>
+</head>
+
+<body class="bg-brand-white text-brand-dark font-sans overflow-x-hidden relative selection:bg-brand-crimson selection:text-white">
+
+  <!-- SOUND / AUDIO EFFECTS (Embedded Web Audio API synthesizer for interactive audio feedback) -->
+  <script>
+    let audioEnabled = false;
+    let audioCtx = null;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    function playBeep(freq = 440, type = 'sine', duration = 0.08, volume = 0.1) {
+      if (!audioEnabled) return;
+      try {
+        initAudio();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        
+        gain.gain.setValueAtTime(volume, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+        
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {
+        console.log("Audio play failed, interacting first required.");
+      }
+    }
+
+    function toggleAudio() {
+      audioEnabled = !audioEnabled;
+      const indicator = document.getElementById('audio-status');
+      const visualizer = document.getElementById('audio-visualizer');
+      if (audioEnabled) {
+        initAudio();
+        indicator.textContent = 'SOUND: ON';
+        indicator.classList.add('text-brand-crimson');
+        visualizer.classList.remove('opacity-30');
+        playBeep(600, 'triangle', 0.15, 0.15);
+      } else {
+        indicator.textContent = 'SOUND: OFF';
+        indicator.classList.remove('text-brand-crimson');
+        visualizer.classList.add('opacity-30');
+      }
+    }
+  </script>
+
+  <!-- DYNAMIC MODAL LAYER (Notifications, Quick Brief Submission & Project Preview) -->
+  <div id="interactive-modal" class="fixed inset-0 bg-brand-dark/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
+    <div class="bg-brand-white text-brand-dark w-full max-w-lg rounded-none border-2 border-brand-dark relative p-8 shadow-[8px_8px_0px_#E13838]">
+      <button onclick="closeModal()" class="absolute top-4 right-4 text-brand-dark hover:text-brand-crimson text-xl transition-all">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div id="modal-content">
+        <!-- Dyn-loaded content -->
+      </div>
+    </div>
+  </div>
+
+  <!-- SEARCH OVERLAY BAR -->
+  <div id="search-overlay" class="fixed inset-0 bg-brand-dark/95 z-50 flex flex-col items-center justify-center p-6 transform translate-y-full transition-transform duration-500 ease-out">
+    <button onclick="toggleSearch()" class="absolute top-8 right-8 text-white hover:text-brand-crimson text-3xl transition-all">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="w-full max-w-3xl">
+      <label class="text-brand-crimson uppercase font-display text-sm tracking-wider block mb-4">What project or rebel action are you seeking?</label>
+      <input type="text" id="search-input" onkeyup="handleSearch(event)" placeholder="TYPE KEYWORD (e.g., 'Web3', 'Branding', 'Futurism') & PRESS ENTER..." class="w-full bg-transparent border-b-2 border-white/20 text-white font-mono text-2xl md:text-4xl focus:border-brand-crimson focus:outline-none pb-4 transition-all">
+      <p class="text-white/40 mt-4 text-sm font-mono">Press [ESC] to close. Search queries instantly filter our ecosystem.</p>
+      
+      <!-- Quick Results Recommendation -->
+      <div class="mt-12">
+        <span class="text-white/60 font-mono text-xs uppercase block mb-3">Suggested Quick Paths:</span>
+        <div class="flex flex-wrap gap-3">
+          <button onclick="setSearchValue('Branding')" class="px-3 py-1 bg-white/10 hover:bg-brand-crimson text-white text-xs font-mono transition-colors">#BRANDING</button>
+          <button onclick="setSearchValue('Motion')" class="px-3 py-1 bg-white/10 hover:bg-brand-crimson text-white text-xs font-mono transition-colors">#MOTION-GRAPHICS</button>
+          <button onclick="setSearchValue('Cyber')" class="px-3 py-1 bg-white/10 hover:bg-brand-crimson text-white text-xs font-mono transition-colors">#CYBER-SaaS</button>
+          <button onclick="setSearchValue('Brief')" class="px-3 py-1 bg-white/10 hover:bg-brand-crimson text-white text-xs font-mono transition-colors">#BRIEF-GENERATOR</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FIXED NAVIGATION SIDEBARS (Signature DNA Layout Elements) -->
+  
+  <!-- LEFT PANEL: Static Navigation Indexes & Logo Overlay -->
+  <div class="hidden lg:flex fixed left-0 top-0 h-screen w-20 flex-col justify-between items-center py-8 border-r border-brand-dark/10 bg-brand-white z-40">
+    <div class="flex flex-col items-center">
+      <a href="#hero" class="text-brand-dark hover:text-brand-crimson transition-colors group" onclick="playBeep(440, 'sine')">
+        <span class="font-display text-xl tracking-tighter text-center leading-none select-none block rotate-[-90deg] my-4">B+</span>
+      </a>
+    </div>
+    
+    <!-- Dynamic Slide Tracker / Indicator -->
+    <div class="flex flex-col gap-8 font-mono font-bold text-sm tracking-wider text-brand-dark/30">
+      <a href="#hero" onclick="setActiveSlide('01')" id="nav-idx-01" class="hover:text-brand-crimson transition-all relative block group py-1 active-idx text-brand-dark">
+        01 <span class="absolute -right-3 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-brand-crimson rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+      </a>
+      <a href="#showcase" onclick="setActiveSlide('02')" id="nav-idx-02" class="hover:text-brand-crimson transition-all relative block group py-1">
+        02 <span class="absolute -right-3 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-brand-crimson rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+      </a>
+      <a href="#brief-engine" onclick="setActiveSlide('03')" id="nav-idx-03" class="hover:text-brand-crimson transition-all relative block group py-1">
+        03 <span class="absolute -right-3 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-brand-crimson rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+      </a>
+      <a href="#pricing" onclick="setActiveSlide('04')" id="nav-idx-04" class="hover:text-brand-crimson transition-all relative block group py-1">
+        04 <span class="absolute -right-3 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-brand-crimson rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+      </a>
+    </div>
+    
+    <!-- Sound Activator Toggle -->
+    <button onclick="toggleAudio(); playBeep(520, 'sine')" class="text-brand-dark/50 hover:text-brand-crimson transition-colors flex flex-col items-center gap-2 group cursor-pointer" title="Toggle audio synthesizer">
+      <div id="audio-visualizer" class="flex items-end gap-0.5 h-6 opacity-30 transition-opacity">
+        <span class="w-1 bg-brand-crimson bar"></span>
+        <span class="w-1 bg-brand-crimson bar"></span>
+        <span class="w-1 bg-brand-crimson bar"></span>
+        <span class="w-1 bg-brand-crimson bar"></span>
+      </div>
+      <span id="audio-status" class="font-mono text-[9px] font-bold tracking-widest whitespace-nowrap">SOUND: OFF</span>
+    </button>
+  </div>
+
+  <!-- RIGHT PANEL: Social Verticals & External Anchors -->
+  <div class="hidden lg:flex fixed right-0 top-0 h-screen w-20 flex-col justify-between items-center py-8 border-l border-brand-dark/10 bg-brand-white z-40">
+    <div class="rotate-90 origin-center translate-y-8">
+      <span class="font-mono text-xs uppercase tracking-widest text-brand-dark/40">EST. 2026 // NEOPUNK</span>
+    </div>
+    
+    <!-- Social Handles & Platforms -->
+    <div class="flex flex-col gap-6 text-brand-dark/60">
+      <a href="https://behance.net" target="_blank" class="hover:text-brand-crimson transition-colors text-lg" onclick="playBeep(480, 'square')" title="Behance Showcase">
+        <i class="fa-brands fa-behance"></i>
+      </a>
+      <a href="https://dribbble.com" target="_blank" class="hover:text-brand-crimson transition-colors text-lg" onclick="playBeep(480, 'square')" title="Dribbble Layouts">
+        <i class="fa-brands fa-dribbble"></i>
+      </a>
+      <a href="https://instagram.com" target="_blank" class="hover:text-brand-crimson transition-colors text-lg" onclick="playBeep(480, 'square')" title="Instagram Stories">
+        <i class="fa-brands fa-instagram"></i>
+      </a>
+      <a href="https://linkedin.com" target="_blank" class="hover:text-brand-crimson transition-colors text-lg" onclick="playBeep(480, 'square')" title="LinkedIn Agency">
+        <i class="fa-brands fa-linkedin-in"></i>
+      </a>
+    </div>
+
+    <!-- Active Indicator Dot -->
+    <div class="w-2 h-2 rounded-full bg-brand-crimson animate-pulse"></div>
+  </div>
+
+
+  <!-- HEADER NAVIGATION (Matches premium top layout alignment) -->
+  <nav class="sticky top-0 w-full bg-brand-white/80 backdrop-blur-md border-b border-brand-dark/10 z-40 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 lg:px-24 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo / Wordmark -->
+      <a href="#hero" class="flex items-center gap-3 group" onclick="playBeep(330, 'sine')">
+        <div class="h-10 w-10 bg-brand-crimson text-white flex items-center justify-center font-display font-bold text-lg relative overflow-hidden transition-transform group-hover:scale-105">
+          B+
+          <span class="absolute inset-0 bg-brand-dark mix-blend-difference transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
+        </div>
+        <div>
+          <h1 class="font-display text-sm tracking-wider font-bold leading-none text-brand-dark group-hover:text-brand-crimson transition-colors">BADASS<span class="text-brand-crimson group-hover:text-brand-dark">+</span></h1>
+          <p class="font-mono text-[9px] tracking-widest text-brand-dark/40 uppercase">Creative Production Agency</p>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Centered -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#showcase" class="font-mono text-xs uppercase tracking-wider text-brand-dark/80 hover:text-brand-crimson font-medium transition-colors" onclick="playBeep(440, 'triangle')">Portfolio</a>
+        <a href="#about" class="font-mono text-xs uppercase tracking-wider text-brand-dark/80 hover:text-brand-crimson font-medium transition-colors" onclick="playBeep(440, 'triangle')">Philosophy</a>
+        <a href="#brief-engine" class="font-mono text-xs uppercase tracking-wider text-brand-dark/80 hover:text-brand-crimson font-medium transition-colors" onclick="playBeep(440, 'triangle')">Brief Creator</a>
+        <a href="#pricing" class="font-mono text-xs uppercase tracking-wider text-brand-dark/80 hover:text-brand-crimson font-medium transition-colors" onclick="playBeep(440, 'triangle')">Engage</a>
+      </div>
+
+      <!-- Right Hand CTA & Search Launcher -->
+      <div class="flex items-center gap-4">
+        <!-- Interactive Search Trigger -->
+        <button onclick="toggleSearch(); playBeep(520, 'sine')" class="p-2 text-brand-dark/80 hover:text-brand-crimson transition-colors focus:outline-none" title="Quick Search">
+          <i class="fa-solid fa-magnifying-glass text-lg"></i>
+        </button>
+
+        <a href="#brief-engine" class="hidden sm:inline-flex items-center gap-2 border border-brand-dark px-4 py-2 font-mono text-xs uppercase hover:bg-brand-crimson hover:text-white hover:border-brand-crimson transition-all duration-300 group" onclick="playBeep(550, 'sine')">
+          <span>HIT ME UP</span>
+          <i class="fa-solid fa-arrow-right text-[10px] transform group-hover:translate-x-1 transition-transform"></i>
+        </a>
+
+        <!-- Mobile Menu Hamburger -->
+        <button onclick="toggleMobileMenu(); playBeep(400, 'sine')" class="md:hidden text-brand-dark hover:text-brand-crimson focus:outline-none p-1">
+          <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden bg-brand-white border-b border-brand-dark/20 w-full px-6 py-8 flex-col gap-4 animate-fade-in">
+      <a href="#showcase" onclick="toggleMobileMenu()" class="font-mono text-base uppercase tracking-wider text-brand-dark py-2 border-b border-brand-dark/5">Portfolio</a>
+      <a href="#about" onclick="toggleMobileMenu()" class="font-mono text-base uppercase tracking-wider text-brand-dark py-2 border-b border-brand-dark/5">Philosophy</a>
+      <a href="#brief-engine" onclick="toggleMobileMenu()" class="font-mono text-base uppercase tracking-wider text-brand-dark py-2 border-b border-brand-dark/5">Brief Creator</a>
+      <a href="#pricing" onclick="toggleMobileMenu()" class="font-mono text-base uppercase tracking-wider text-brand-dark py-2">Engage</a>
+      
+      <div class="pt-4 flex justify-between items-center">
+        <button onclick="toggleAudio()" class="font-mono text-xs tracking-wider bg-brand-dark/5 text-brand-dark px-4 py-2 rounded-none">
+          Toggle SFX Synth
+        </button>
+        <div class="flex gap-4 text-brand-dark/60 text-lg">
+          <a href="#"><i class="fa-brands fa-behance"></i></a>
+          <a href="#"><i class="fa-brands fa-dribbble"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  
+  <!-- HERO SECTION (Asymmetrical split exactly imitating original canvas artwork) -->
+  <section id="hero" class="relative min-h-[calc(100vh-80px)] flex items-center justify-center py-12 md:py-20 lg:px-20 bg-grid-pattern overflow-hidden">
+    <div class="max-w-7xl w-full mx-auto px-4 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+      
+      <!-- Asymmetrical Left Panel: Solid block overlapping content -->
+      <div class="lg:col-span-5 relative z-20">
+        <!-- Floating Red Frame imitating the visual weight block in image -->
+        <div class="bg-brand-crimson text-white p-8 md:p-12 shadow-[12px_12px_0px_#0A0A0A] relative overflow-hidden group">
+          <!-- Background accent dynamic elements -->
+          <div class="absolute -right-8 -bottom-8 text-white/5 font-display text-9xl font-bold select-none transition-transform duration-700 group-hover:scale-110">B+</div>
+          
+          <div class="mb-8 font-mono text-xs tracking-widest text-white/80 flex items-center gap-2">
+            <span class="inline-block w-2 h-2 bg-white animate-pulse"></span>
+            WE ARE THE RIOT OF BRANDING
+          </div>
+          
+          <h2 class="font-display text-3xl md:text-4xl lg:text-5xl tracking-tighter uppercase font-bold leading-none mb-6">
+            BADASS+<br>
+            CREATIVE<br>
+            AGENCY
+          </h2>
+          
+          <p class="font-sans text-white/90 text-sm md:text-base leading-relaxed mb-8 font-light">
+            We shred standardized layouts and generic digital paradigms. We build premium, cinematic interactive platforms for brands that demand total digital dominance and raw character.
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
+            <a href="#brief-engine" class="bg-brand-dark text-white hover:bg-white hover:text-brand-crimson px-6 py-4 font-mono text-xs uppercase tracking-wider font-bold transition-all text-center flex items-center justify-center gap-2" onclick="playBeep(650, 'sine')">
+              <span>SHOW ME WHAT YOU GOT</span>
+              <i class="fa-solid fa-arrow-down text-[10px]"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Extra details row mimicking the coordinates from high-fashion portfolios -->
+        <div class="mt-6 flex items-center justify-between text-brand-dark/40 font-mono text-[10px] uppercase tracking-widest px-2">
+          <span>LAT 35.6762° N // LONG 139.6503° E</span>
+          <span class="text-brand-crimson">NEO-DECENTRALIZED // 2026</span>
+        </div>
+      </div>
+
+      <!-- Asymmetrical Center/Right Panel: Stylized Vector Sphynx Cat and Background elements -->
+      <div class="lg:col-span-7 relative flex items-center justify-center py-6">
+        <!-- Background absolute elements -->
+        <div class="absolute inset-0 bg-brand-crimson/5 rounded-full filter blur-3xl w-72 h-72 mx-auto pointer-events-none"></div>
+        <div class="absolute top-10 left-10 text-brand-dark/5 font-mono text-[18vw] font-bold tracking-tighter select-none pointer-events-none">REBEL</div>
+
+        <!-- The Responsive SVG Artwork Centerpiece -->
+        <div class="relative max-w-lg w-full transition-transform duration-500 hover:scale-[1.02] cursor-pointer" onclick="winkCatEyes()">
+          <!-- Inline custom SVG of Sphynx Cat with Interactive Dual Color Eyes -->
+          <svg viewBox="0 0 500 500" class="w-full h-auto drop-shadow-[0_25px_50px_rgba(0,0,0,0.12)]" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="skinGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFFFFF"/>
+                <stop offset="60%" stop-color="#EBEFF3"/>
+                <stop offset="100%" stop-color="#CBD5E1"/>
+              </linearGradient>
+              <radialGradient id="leftEyeGrad" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#00F0FF"/>
+                <stop offset="70%" stop-color="#0066FF"/>
+                <stop offset="100%" stop-color="#001F4D"/>
+              </radialGradient>
+              <radialGradient id="rightEyeGrad" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#FF2A4B"/>
+                <stop offset="70%" stop-color="#C1001F"/>
+                <stop offset="100%" stop-color="#400007"/>
+              </radialGradient>
+            </defs>
+
+            <!-- Background subtle geometric glow base -->
+            <circle cx="250" cy="250" r="160" fill="none" stroke="#E13838" stroke-width="1" stroke-dasharray="10 10" opacity="0.4"/>
+            <polygon points="250,50 420,380 80,380" fill="none" stroke="#000000" stroke-width="0.5" opacity="0.1"/>
+
+            <!-- Left Outer Ear -->
+            <path d="M 230,190 L 80,70 C 60,60 50,110 90,160 C 130,210 170,230 230,190 Z" fill="url(#skinGrad)" stroke="#1E1E24" stroke-width="3" stroke-linejoin="round"/>
+            <!-- Left Inner Ear Pink/Shadow Depth -->
+            <path d="M 210,185 L 100,95 C 90,90 85,115 110,150 C 135,185 165,200 210,185 Z" fill="#FCE7F3" opacity="0.8" stroke="#E13838" stroke-width="1" stroke-dasharray="2 2"/>
+
+            <!-- Right Outer Ear -->
+            <path d="M 270,190 L 420,70 C 440,60 450,110 410,160 C 370,210 330,230 270,190 Z" fill="url(#skinGrad)" stroke="#1E1E24" stroke-width="3" stroke-linejoin="round"/>
+            <!-- Right Inner Ear Pink/Shadow Depth -->
+            <path d="M 290,185 L 400,95 C 410,90 415,115 390,150 C 365,185 335,200 290,185 Z" fill="#FCE7F3" opacity="0.8" stroke="#E13838" stroke-width="1" stroke-dasharray="2 2"/>
+
+            <!-- Sphynx Fold/Wrinkle Lines (Extending upwards to forehead) -->
+            <g stroke="#1E1E24" stroke-width="2" fill="none" opacity="0.75" stroke-linecap="round">
+              <path d="M 220,130 Q 250,110 280,130" />
+              <path d="M 200,150 Q 250,130 300,150" />
+              <path d="M 190,175 Q 250,150 310,175" />
+              <path d="M 210,195 Q 250,175 290,195" />
+              <!-- Forehead deep ridges -->
+              <path d="M 235,120 Q 250,90 265,120" />
+              <path d="M 242,100 Q 250,80 258,100" />
+            </g>
+
+            <!-- Main Head Shape -->
+            <path d="M 170,220 C 140,260 140,310 170,360 C 190,390 220,410 250,420 C 280,410 310,390 330,360 C 360,310 360,260 330,220 C 290,200 210,200 170,220 Z" fill="url(#skinGrad)" stroke="#1E1E24" stroke-width="4" stroke-linejoin="round"/>
+
+            <!-- Cheeks and Chin -->
+            <path d="M 170,330 Q 250,380 330,330" fill="none" stroke="#1E1E24" stroke-width="2"/>
+            <path d="M 220,380 Q 250,430 280,380" fill="none" stroke="#1E1E24" stroke-width="2" stroke-linecap="round"/>
+
+            <!-- Left Eye Socket & Eye (Stunning Blue Pupil Glow) -->
+            <path d="M 170,270 Q 210,250 235,290 Q 195,310 170,270 Z" fill="#0A0A0A" stroke="#1E1E24" stroke-width="3" stroke-linejoin="round"/>
+            <ellipse id="left-eye-pupil" cx="205" cy="280" rx="14" ry="10" fill="url(#leftEyeGrad)" stroke="#00F0FF" stroke-width="1.5" class="animate-glimmer text-sky-400"/>
+            <!-- Cat Eye vertical slit -->
+            <line x1="205" y1="274" x2="205" y2="286" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+
+            <!-- Right Eye Socket & Eye (Stunning Crimson/Red Pupil Glow) -->
+            <path d="M 330,270 Q 290,250 265,290 Q 305,310 330,270 Z" fill="#0A0A0A" stroke="#1E1E24" stroke-width="3" stroke-linejoin="round"/>
+            <ellipse id="right-eye-pupil" cx="295" cy="280" rx="14" ry="10" fill="url(#rightEyeGrad)" stroke="#FF2A4B" stroke-width="1.5" class="animate-glimmer text-red-500"/>
+            <!-- Cat Eye vertical slit -->
+            <line x1="295" y1="274" x2="295" y2="286" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+
+            <!-- Custom Tear Tattoo under Right Eye (Mimicking the exact inspiration style) -->
+            <polygon points="325,302 331,316 321,316" fill="#1E1E24"/>
+            <circle cx="325" cy="302" r="1.5" fill="#1E1E24"/>
+
+            <!-- Wrinkles Under Eyes -->
+            <path d="M 175,295 Q 200,315 220,298" fill="none" stroke="#1E1E24" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+            <path d="M 325,295 Q 300,315 280,298" fill="none" stroke="#1E1E24" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+
+            <!-- Nose Bridge and Nose (Beautifully defined lines) -->
+            <path d="M 235,290 L 242,330 Q 250,335 258,330 L 265,290" fill="none" stroke="#1E1E24" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M 238,335 Q 250,345 262,335 L 250,345 Z" fill="#FDA4AF" stroke="#1E1E24" stroke-width="2"/>
+
+            <!-- Muzzle & Whiskers Pads -->
+            <path d="M 215,355 Q 235,360 250,345 Q 265,360 285,355 Q 295,380 250,380 Q 205,380 215,355 Z" fill="#F1F5F9" stroke="#1E1E24" stroke-width="2"/>
+            <circle cx="230" cy="362" r="1.5" fill="#1E1E24"/>
+            <circle cx="235" cy="365" r="1.5" fill="#1E1E24"/>
+            <circle cx="240" cy="361" r="1.5" fill="#1E1E24"/>
+            <circle cx="270" cy="362" r="1.5" fill="#1E1E24"/>
+            <circle cx="265" cy="365" r="1.5" fill="#1E1E24"/>
+            <circle cx="260" cy="361" r="1.5" fill="#1E1E24"/>
+
+            <!-- Futuristic Tribal Tattoos / Calligraphy on the neck (Mimicking the premium look) -->
+            <path d="M 225,410 Q 210,430 205,465 Q 215,455 220,440" fill="none" stroke="#E13838" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M 275,410 Q 290,430 295,465 Q 285,455 280,440" fill="none" stroke="#1E1E24" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- Crown graphic at center throat base -->
+            <path d="M 235,445 L 242,430 L 250,440 L 258,430 L 265,445 Z" fill="none" stroke="#E13838" stroke-width="2" stroke-linejoin="round"/>
+            <line x1="230" y1="450" x2="270" y2="450" stroke="#1E1E24" stroke-width="2"/>
+
+          </svg>
+
+          <!-- SVG Interaction hint -->
+          <div class="absolute bottom-1 right-2 bg-brand-dark text-white font-mono text-[9px] uppercase px-3 py-1 tracking-widest pointer-events-none opacity-80 border border-white/20">
+            TAP WORK TO INTERACT
+          </div>
+        </div>
+
+        <!-- Float Info Pill mimicking original presentation coordinates -->
+        <div class="absolute bottom-8 right-8 bg-brand-white p-4 border border-brand-dark/10 shadow-lg hidden sm:block max-w-[200px]" data-animate="slide-up">
+          <p class="font-mono text-[10px] text-brand-crimson font-bold uppercase mb-1">DOWNLOAD STATS</p>
+          <div class="flex flex-col gap-1 text-[11px] font-mono text-brand-dark/70">
+            <a href="#" class="hover:text-brand-crimson transition-colors flex items-center justify-between" onclick="triggerDownload('Brief')">
+              <span>Download Brief</span>
+              <i class="fa-solid fa-arrow-down-long"></i>
+            </a>
+            <a href="#" class="hover:text-brand-crimson transition-colors flex items-center justify-between" onclick="triggerDownload('Presentation')">
+              <span>Our Manifesto</span>
+              <i class="fa-solid fa-arrow-down-long"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- TRUSTED BRANDS CYBER CAROUSEL -->
+  <section class="bg-brand-dark text-white py-12 overflow-hidden border-y border-brand-crimson/20">
+    <div class="max-w-7xl mx-auto px-4 lg:px-24">
+      <p class="font-mono text-[10px] text-center tracking-widest text-brand-crimson uppercase mb-8">COMPANIES ENERGIZED BY OUR VISION</p>
+      
+      <div class="flex flex-wrap justify-center items-center gap-12 md:gap-20 opacity-75">
+        <div class="flex items-center gap-2 grayscale hover:grayscale-0 transition-all cursor-pointer">
+          <i class="fa-brands fa-ethereum text-2xl text-brand-crimson"></i>
+          <span class="font-display text-sm tracking-widest font-bold">ETH.LABS</span>
+        </div>
+        <div class="flex items-center gap-2 grayscale hover:grayscale-0 transition-all cursor-pointer">
+          <i class="fa-brands fa-hashnode text-2xl text-brand-crimson"></i>
+          <span class="font-display text-sm tracking-widest font-bold">NODE.CYBER</span>
+        </div>
+        <div class="flex items-center gap-2 grayscale hover:grayscale-0 transition-all cursor-pointer">
+          <i class="fa-brands fa-stripe-s text-2xl text-brand-crimson"></i>
+          <span class="font-display text-sm tracking-widest font-bold">STRIPE-REBEL</span>
+        </div>
+        <div class="flex items-center gap-2 grayscale hover:grayscale-0 transition-all cursor-pointer">
+          <i class="fa-brands fa-kickstarter text-2xl text-brand-crimson"></i>
+          <span class="font-display text-sm tracking-widest font-bold">RIOT.PUNK</span>
+        </div>
+        <div class="flex items-center gap-2 grayscale hover:grayscale-0 transition-all cursor-pointer">
+          <i class="fa-brands fa-digital-ocean text-2xl text-brand-crimson"></i>
+          <span class="font-display text-sm tracking-widest font-bold">OCEAN.X</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ABOUT & PHILOSOPHY SECTION (Deep conceptual typography layout) -->
+  <section id="about" class="py-24 bg-brand-white relative">
+    <div class="max-w-7xl mx-auto px-4 lg:px-24">
+      
+      <!-- Split structure -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div class="lg:col-span-4">
+          <span class="text-brand-crimson font-mono text-xs uppercase tracking-widest block mb-4">// CORE BELIEF SYSTEM</span>
+          <h3 class="font-display text-2xl md:text-3xl tracking-tight uppercase font-bold text-brand-dark leading-tight">
+            WHY REBELS BUILD SUPERIOR PLATFORMS.
+          </h3>
+          <div class="h-1 w-20 bg-brand-crimson mt-6"></div>
+        </div>
+
+        <div class="lg:col-span-8 flex flex-col gap-6">
+          <p class="font-sans text-brand-dark/80 text-lg leading-relaxed">
+            Most creative modern agencies play it safe. They use the same layouts, follow the same grid rules, and rely on safe color trends that blend in with the noise. <strong>We do the exact opposite.</strong>
+          </p>
+          <p class="font-sans text-brand-dark/70 text-base leading-relaxed">
+            Every pixel we drop serves as high-fidelity aesthetic combat. We combine raw visual attitude with bleeding-edge technology. When your customers visit your digital channels, they should feel like they are entering a high-concept universe designed exclusively for them.
+          </p>
+          
+          <!-- Key Pillars metrics -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-8">
+            <div class="p-6 border border-brand-dark/10 bg-brand-white hover:border-brand-crimson transition-all group">
+              <span class="font-display text-4xl font-bold text-brand-crimson block mb-2">99%</span>
+              <span class="font-mono text-xs uppercase tracking-wider text-brand-dark/70">Aesthetic Retention</span>
+            </div>
+            <div class="p-6 border border-brand-dark/10 bg-brand-white hover:border-brand-crimson transition-all group">
+              <span class="font-display text-4xl font-bold text-brand-crimson block mb-2">35+</span>
+              <span class="font-mono text-xs uppercase tracking-wider text-brand-dark/70">International Accolades</span>
+            </div>
+            <div class="p-6 border border-brand-dark/10 bg-brand-white hover:border-brand-crimson transition-all group">
+              <span class="font-display text-4xl font-bold text-brand-crimson block mb-2">1.8s</span>
+              <span class="font-mono text-xs uppercase tracking-wider text-brand-dark/70">Engine Reactivity</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- PORTFOLIO SHOWCASE SECTION (Multi-state filterable web block) -->
+  <section id="showcase" class="py-24 bg-brand-dark text-white relative bg-grid-dark">
+    <div class="max-w-7xl mx-auto px-4 lg:px-24">
+      
+      <!-- Header -->
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-4">
+        <div>
+          <span class="text-brand-crimson font-mono text-xs uppercase tracking-widest block mb-4">// SELECTION PROTOCOL</span>
+          <h2 class="font-display text-3xl md:text-4xl tracking-tight uppercase font-bold">PROJECT COMPENDIUM</h2>
+        </div>
+        
+        <!-- Filter Switcher Controls -->
+        <div class="flex flex-wrap gap-2 bg-white/5 p-1.5 border border-white/10">
+          <button onclick="filterWorks('all')" id="btn-filter-all" class="px-4 py-2 font-mono text-xs uppercase tracking-wider transition-all bg-brand-crimson text-white">
+            All Action
+          </button>
+          <button onclick="filterWorks('branding')" id="btn-filter-branding" class="px-4 py-2 font-mono text-xs uppercase tracking-wider transition-all text-white/60 hover:text-white">
+            Branding
+          </button>
+          <button onclick="filterWorks('saas')" id="btn-filter-saas" class="px-4 py-2 font-mono text-xs uppercase tracking-wider transition-all text-white/60 hover:text-white">
+            Neo-SaaS
+          </button>
+          <button onclick="filterWorks('motion')" id="btn-filter-motion" class="px-4 py-2 font-mono text-xs uppercase tracking-wider transition-all text-white/60 hover:text-white">
+            Cyber Motion
+          </button>
+        </div>
+      </div>
+
+      <!-- Works Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="works-container">
+        
+        <!-- Project Card 1: Branding -->
+        <div class="group border border-white/10 bg-brand-slate hover:border-brand-crimson transition-all duration-300 relative overflow-hidden" data-category="branding">
+          <div class="aspect-video w-full bg-brand-dark relative flex items-center justify-center overflow-hidden">
+            <!-- Custom Dynamic SVG Art Mockup to ensure zero external reliance -->
+            <svg viewBox="0 0 400 250" class="w-full h-full transition-transform duration-500 group-hover:scale-110">
+              <rect width="100%" height="100%" fill="#121214"/>
+              <circle cx="200" cy="125" r="70" fill="none" stroke="#E13838" stroke-width="2" stroke-dasharray="5 5" class="animate-spin" style="animation-duration: 20s; transform-origin: center;"/>
+              <text x="50%" y="53%" font-family="Syncopate" font-size="28" fill="#F8F9FA" text-anchor="middle" font-weight="bold">HELLCAT</text>
+              <line x1="50" y1="125" x2="350" y2="125" stroke="#FFFFFF" stroke-width="0.5" opacity="0.3"/>
+            </svg>
+            <span class="absolute top-4 left-4 bg-brand-crimson text-white font-mono text-[9px] uppercase tracking-widest px-2 py-1">2026 // PACKAGING</span>
+          </div>
+          <div class="p-6">
+            <span class="text-brand-crimson font-mono text-xs uppercase tracking-widest block mb-2">#Branding</span>
+            <h4 class="font-display text-lg uppercase font-bold mb-3 group-hover:text-brand-crimson transition-colors">HELLCAT WHISKEY BRAND</h4>
+            <p class="font-sans text-white/60 text-sm mb-6">High-character physical spirit brand development utilizing premium dark vector graphics and neon printing overlays.</p>
+            <button onclick="openProject('Hellcat Whiskey', 'Rebel Identity', 'Our mandate was to develop an aggressively modern whiskey package design targeting the next generation of rule-breakers. Built on premium matte-black bottles with raised crimson glass vectors.', 'branding')" class="font-mono text-xs uppercase tracking-wider text-white hover:text-brand-crimson flex items-center gap-2 transition-colors">
+              <span>DECONSTRUCT BRIEF</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Project Card 2: SaaS -->
+        <div class="group border border-white/10 bg-brand-slate hover:border-brand-crimson transition-all duration-300 relative overflow-hidden" data-category="saas">
+          <div class="aspect-video w-full bg-brand-dark relative flex items-center justify-center overflow-hidden">
+            <!-- Custom Dynamic SVG Art Mockup -->
+            <svg viewBox="0 0 400 250" class="w-full h-full transition-transform duration-500 group-hover:scale-110">
+              <rect width="100%" height="100%" fill="#08080A"/>
+              <rect x="60" y="50" width="280" height="150" fill="none" stroke="#FFFFFF" stroke-width="1" opacity="0.1"/>
+              <rect x="80" y="70" width="100" height="40" fill="#E13838" opacity="0.8"/>
+              <circle cx="270" cy="150" r="30" fill="#00F0FF" opacity="0.8"/>
+              <line x1="80" y1="160" x2="200" y2="160" stroke="#FFFFFF" stroke-width="2"/>
+            </svg>
+            <span class="absolute top-4 left-4 bg-[#00F0FF] text-brand-dark font-mono text-[9px] uppercase tracking-widest px-2 py-1">2026 // DEX ENGINE</span>
+          </div>
+          <div class="p-6">
+            <span class="text-brand-crimson font-mono text-xs uppercase tracking-widest block mb-2">#Neo-SaaS</span>
+            <h4 class="font-display text-lg uppercase font-bold mb-3 group-hover:text-brand-crimson transition-colors">VORTEX CRYPTO PROTOCOL</h4>
+            <p class="font-sans text-white/60 text-sm mb-6">Premium tactical UI design for a high-frequency trading application. Custom components with real-time reactive feedback.</p>
+            <button onclick="openProject('Vortex Protocol', 'Next-Gen FinTech', 'We delivered a completely custom-themed desktop terminal for crypto-arbitrageurs. Stripped of boilerplate designs and built entirely around low-latency screen response times.', 'saas')" class="font-mono text-xs uppercase tracking-wider text-white hover:text-brand-crimson flex items-center gap-2 transition-colors">
+              <span>DECONSTRUCT BRIEF</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Project Card 3: Motion -->
+        <div class="group border border-white/10 bg-brand-slate hover:border-brand-crimson transition-all duration-300 relative overflow-hidden" data-category="motion">
+          <div class="aspect-video w-full bg-brand-dark relative flex items-center justify-center overflow-hidden">
+            <!-- Custom Dynamic SVG Art Mockup -->
+            <svg viewBox="0 0 400 250" class="w-full h-full transition-transform duration-500 group-hover:scale-110">
+              <rect width="100%" height="100%" fill="#050505"/>
+              <path d="M50 180 Q120 40 200 180 T350 180" fill="none" stroke="#E13838" stroke-width="4"/>
+              <path d="M50 160 Q120 70 200 160 T350 160" fill="none" stroke="#00F0FF" stroke-width="2"/>
+              <circle cx="200" cy="110" r="10" fill="#FFFFFF"/>
+            </svg>
+            <span class="absolute top-4 left-4 bg-brand-crimson text-white font-mono text-[9px] uppercase tracking-widest px-2 py-1">2026 // MOTION ART</span>
+          </div>
+          <div class="p-6">
+            <span class="text-brand-crimson font-mono text-xs uppercase tracking-widest block mb-2">#Cyber Motion</span>
+            <h4 class="font-display text-lg uppercase font-bold mb-3 group-hover:text-brand-crimson transition-colors">NEO-METROPOLIS SIMULATION</h4>
+            <p class="font-sans text-white/60 text-sm mb-6">Cinematic 3D intro animation sequence for a dark science-fiction game concept. Advanced particle dynamics.</p>
+            <button onclick="openProject('Neo-Metropolis', 'Science Fiction Unreal Dev', 'Designed directly inside custom procedural node matrices to deliver a gritty, high-octane atmospheric teaser that secured funding goals in 48 hours.', 'motion')" class="font-mono text-xs uppercase tracking-wider text-white hover:text-brand-crimson flex items-center gap-2 transition-colors">
+              <span>DECONSTRUCT BRIEF</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- THE INTERACTIVE BRIEF ENGINE (The Digital Product Sandbox) -->
+  <section id="brief-engine" class="py-24 bg-brand-white relative">
+    <div class="max-w-7xl mx-auto px-4 lg:px-24">
+      
+      <!-- Split Headers -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16">
+        <div class="lg:col-span-5">
+          <span class="text-brand-crimson font-mono text-xs uppercase tracking-widest block mb-4">// AGGRESSIVE INTERACTIVE UTILITY</span>
+          <h2 class="font-display text-3xl md:text-4xl tracking-tight uppercase font-bold text-brand-dark">
+            THE BRIEF COMPILATION INTERFACE
+          </h2>
+        </div>
+        <div class="lg:col-span-7 flex items-center">
+          <p class="font-sans text-brand-dark/70 text-base">
+            Don't waste time on generic contact forms. Use our proprietary **Brief Compiling Engine** below. Configure your strategic targets, project tone, and estimated funding. Our system compiles a raw manifest that you can download instantly or dispatch directly to our design core.
+          </p>
+        </div>
+      </div>
+
+      <!-- Live Dynamic Constructor -->
+      <div class="bg-brand-dark text-white p-8 md:p-12 shadow-[12px_12px_0px_#E13838] border-2 border-brand-dark grid grid-cols-1 lg:grid-cols-12 gap-8 relative">
+        <div class="absolute top-4 right-4 text-brand-crimson/20 font-display text-6xl select-none font-bold">B+ CO</div>
+        
+        <!-- Left: Form Controls -->
+        <div class="lg:col-span-7 flex flex-col gap-6">
+          <h3 class="font-display text-lg uppercase tracking-wider text-brand-crimson mb-2 border-b border-white/10 pb-2">INPUT PARAMETERS</h3>
+          
+          <!-- Camp Style Selector -->
+          <div>
+            <label class="block font-mono text-xs uppercase tracking-widest mb-3 text-white/80">1. Campaign Archetype</label>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <button onclick="setBriefArchetype('Rebel Branding', 220, 'triangle')" id="arch-brand" class="px-3 py-2 border border-brand-crimson bg-brand-crimson text-white font-mono text-xs uppercase transition-all">Rebel Branding</button>
+              <button onclick="setBriefArchetype('Tactical Web3 UI', 440, 'triangle')" id="arch-ui" class="px-3 py-2 border border-white/20 hover:border-brand-crimson text-white/80 hover:text-white font-mono text-xs uppercase transition-all">Tactical Web3</button>
+              <button onclick="setBriefArchetype('Cyberpunk Motion Sequence', 660, 'triangle')" id="arch-motion" class="px-3 py-2 border border-white/20 hover:border-brand-crimson text-white/80 hover:text-white font-mono text-xs uppercase transition-all">Cyber Motion</button>
+            </div>
+          </div>
+
+          <!-- Slider: Visual Rebellion Level -->
+          <div>
+            <div class="flex justify-between font-mono text-xs uppercase tracking-widest mb-2 text-white/80">
+              <span>2. Aesthetic Intensity level</span>
+              <span id="rebellion-val" class="text-brand-crimson font-bold">75%</span>
+            </div>
+            <input type="range" id="rebellion-slider" min="10" max="100" value="75" oninput="updateBriefSlider(this.value)" class="w-full accent-brand-crimson bg-white/10 h-1 cursor-pointer">
+            <div class="flex justify-between text-[10px] font-mono text-white/40 mt-1">
+              <span>CORPORATE SAFE</span>
+              <span>EXPERIMENTAL</span>
+              <span>PURE RIOT INC.</span>
+            </div>
+          </div>
+
+          <!-- Input Fields -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block font-mono text-xs uppercase tracking-widest mb-2 text-white/80">Company Title</label>
+              <input type="text" id="brief-company" value="CyberRiot Corp" class="w-full bg-white/5 border border-white/10 focus:border-brand-crimson focus:outline-none px-4 py-3 font-mono text-sm text-white transition-colors" placeholder="e.g. Acme Tech">
+            </div>
+            <div>
+              <label class="block font-mono text-xs uppercase tracking-widest mb-2 text-white/80">Disposal Budget</label>
+              <select id="brief-budget" class="w-full bg-brand-slate border border-white/10 focus:border-brand-crimson focus:outline-none px-4 py-3 font-mono text-sm text-white transition-colors">
+                <option value="$15K - $30K">$15K - $30K (Cruiser Class)</option>
+                <option value="$30K - $60K" selected>$30K - $60K (Dreadnought Class)</option>
+                <option value="$60K+">$60K+ (Total Riot Class)</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-mono text-xs uppercase tracking-widest mb-2 text-white/80">Ultimate Campaign Objectives</label>
+            <textarea id="brief-objectives" rows="3" class="w-full bg-white/5 border border-white/10 focus:border-brand-crimson focus:outline-none p-4 font-mono text-sm text-white transition-all" placeholder="Tell our creative core what paradigm you wish to shatter..."></textarea>
+          </div>
+        </div>
+
+        <!-- Right: Generated Manifest Preview -->
+        <div class="lg:col-span-5 flex flex-col justify-between border-2 border-dashed border-white/15 p-6 bg-white/[0.02]">
+          <div>
+            <div class="flex justify-between items-center mb-4 pb-2 border-b border-white/10">
+              <span class="font-mono text-xs text-brand-crimson uppercase tracking-widest font-bold">MANIFEST COMPILE PREVIEW</span>
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            </div>
+            
+            <div class="font-mono text-xs text-white/70 space-y-3 whitespace-pre-line" id="compiled-brief-output">
+              <!-- Dynamically rendered manifest output -->
+              STAGING PRE-MANIFEST...
+            </div>
+          </div>
+
+          <div class="mt-8 pt-4 border-t border-white/10 flex flex-col gap-3">
+            <button onclick="triggerBriefSubmission(); playBeep(750, 'sine')" class="w-full bg-brand-crimson text-white hover:bg-white hover:text-brand-crimson font-mono text-xs uppercase font-bold py-3 tracking-wider transition-colors flex items-center justify-center gap-2">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+              <span>TRANSMIT BRIEF DIRECT</span>
+            </button>
+            <button onclick="downloadCompiledBrief(); playBeep(500, 'triangle')" class="w-full bg-white/10 text-white hover:bg-brand-crimson font-mono text-xs uppercase font-bold py-3 tracking-wider transition-colors flex items-center justify-center gap-2">
+              <i class="fa-solid fa-download"></i>
+              <span>DOWNLOAD SPEC FILE (.TXT)</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- TRANSPARENT COOPERATION SCHEME (Pricing/Options Layout) -->
+  <section id="pricing" class="py-24 bg-brand-dark text-white relative">
+    <div class="max-w-7xl mx-auto px-4 lg:px-24">
+      
+      <!-- Headers -->
+      <div class="mb-16 text-center">
+        <span class="text-brand-crimson font-mono text-xs uppercase tracking-widest block mb-4">// RAW COMMERCIAL AGREEMENT</span>
+        <h2 class="font-display text-3xl md:text-4xl uppercase font-bold tracking-tight">ENGAGEMENT ARCHE-TYPES</h2>
+        <p class="font-mono text-xs text-white/50 max-w-lg mx-auto mt-4">No hidden retainers. No bloated corporate account managers. Just direct extreme production.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+        
+        <!-- Option 1 -->
+        <div class="border border-white/10 bg-brand-slate/40 p-8 flex flex-col justify-between transition-all hover:border-white/30 relative">
+          <div>
+            <span class="font-mono text-[10px] uppercase text-brand-crimson tracking-widest block mb-1">01 // RECON CLASS</span>
+            <h3 class="font-display text-xl uppercase font-bold mb-4">TACTICAL IDENTITY</h3>
+            <p class="font-mono text-4xl font-bold text-white mb-6">$12,000<span class="text-xs text-white/40">/project</span></p>
+            
+            <p class="font-sans text-white/70 text-sm mb-8">Perfect for early-stage disruptive protocol startups demanding immediate visual authority in their sector.</p>
+            
+            <ul class="space-y-3 font-mono text-xs text-white/60 mb-8">
+              <li><i class="fa-solid fa-chevron-right text-brand-crimson mr-2"></i>Full Visual Brand Architecture</li>
+              <li><i class="fa-solid fa-chevron-right text-brand-crimson mr-2"></i>1 Dynamic Webpage Concept</li>
+              <li><i class="fa-solid fa-chevron-right text-brand-crimson mr-2"></i>Complete Vector Assets kit</li>
+              <li><i class="fa-solid fa-chevron-right text-brand-crimson mr-2"></i>14 Business Day Dispatch</li>
+            </ul>
+          </div>
+          <a href="#brief-engine" onclick="selectEngagementTier('Tactical Identity', '$12,000')" class="w-full bg-white/5 hover:bg-brand-crimson text-center text-white py-3 font-mono text-xs uppercase tracking-widest transition-colors block">INITIATE INQUIRY</a>
+        </div>
+
+        <!-- Option 2: Featured -->
+        <div class="border-2 border-brand-crimson bg-brand-slate p-8 flex flex-col justify-between transition-all relative transform md:-translate-y-2 shadow-[0_10px_30px_rgba(225,56,56,0.15)]">
+          <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-brand-crimson text-white font-mono text-[9px] font-bold uppercase tracking-widest px-3 py-1">MOST REQUESTED PROTOCOL</div>
+          <div>
+            <span class="font-mono text-[10px] uppercase text-brand-crimson tracking-widest block mb-1">02 // RAIDER CLASS</span>
+            <h3 class="font-display text-xl uppercase font-bold mb-4">COMPLETE ECOSYSTEM</h3>
+            <p class="font-mono text-4xl font-bold text-white mb-6">$28,000<span class="text-xs text-white/40">/project</span></p>
+            
+            <p class="font-sans text-white/70 text-sm mb-8">For premium products aiming to fully capture community attention with bespoke cinematic interactive features.</p>
+            
+            <ul class="space-y-3 font-mono text-xs text-white/80 mb-8">
+              <li><i class="fa-solid fa-chevron-right text-brand-crimson mr-2"></i>Brand Strategy & Bold Logo Matrix</li>
+              <li><i class="fa-solid fa-chevron-right text-brand-crimson mr-2"></i>Multi-page Tailored UI/UX Layout</li>
+              <li><i class="fa-solid fa-chevron-right text-brand-crimson mr-2"></i>Custom SVG Vector / WebGL Integration</li>
+              <li><i class="fa-solid fa-chevron-right text-brand-crimson mr-2"></i>Full Sound Design / Motion assets</li>
+              <li><i class="fa-solid fa-chevron-right text-brand-crimson mr-2"></i>Dynamic Launch assistance</li>
+            </ul>
+          </div>
+          <a href="#brief-engine" onclick="selectEngagementTier('Complete Ecosystem', '$28,000')" class="w-full bg-brand-crimson hover:bg-white hover:text-brand-crimson text-center text-white py-3 font-mono text-xs uppercase tracking-widest font-bold transition-all block">INITIATE INQUIRY</a>
+        </div>
+
+        <!-- Option 3 -->
+        <div class="border border-white/10 bg-brand-slate/40 p-8 flex flex-col justify-between transition-all hover:border-white/30 relative">
+          <div>
+            <span class="font-mono text-[10px] uppercase text-brand-crimson tracking-widest block mb-1">03 // DREADNOUGHT CLASS</span>
+            <h3 class="font-display text-xl uppercase font-bold mb-4">UNLIMITED DOMINANCE</h3>
+            <p class="font-mono text-4xl font-bold text-white mb-6">$65,000<span class="text-xs text-white/40">/project</span></p>
+            
+            <p class="font-sans text-white/70 text-sm mb-8">Full-suite cinematic creative engineering, tailor-made visual engines, and complete industry-shattering aesthetics.</p>
+            
+            <ul class="space-y-3 font-mono text-xs text-white/60 mb-8">
+              <li><i class="fa-solid fa-chevron-right text-brand-crimson mr-2"></i>Bespoke Unreal/WebGL immersive models</li>
+              <li><i class="fa-solid fa-chevron-right text-brand-crimson mr-2"></i>Dedicated Chief Rebellion Director</li>
+              <li><i class="fa-solid fa-chevron-right text-brand-crimson mr-2"></i>Unlimited custom components & revisioning</li>
+              <li><i class="fa-solid fa-chevron-right text-brand-crimson mr-2"></i>Full strategic takeover campaign</li>
+            </ul>
+          </div>
+          <a href="#brief-engine" onclick="selectEngagementTier('Unlimited Dominance', '$65,000')" class="w-full bg-white/5 hover:bg-brand-crimson text-center text-white py-3 font-mono text-xs uppercase tracking-widest transition-colors block">INITIATE INQUIRY</a>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- REBEL OPINIONS & REVIEWS (Interactive testimonial slider) -->
+  <section class="py-24 bg-brand-white relative">
+    <div class="max-w-7xl mx-auto px-4 lg:px-24">
+      
+      <!-- Layout split -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-5">
+          <span class="text-brand-crimson font-mono text-xs uppercase tracking-widest block mb-4">// ENDORSEMENTS</span>
+          <h2 class="font-display text-3xl uppercase font-bold tracking-tight text-brand-dark leading-tight">
+            WHAT THE RULE-BREAKERS PROCLAIM.
+          </h2>
+          <p class="font-sans text-brand-dark/60 text-sm mt-4">We do not accept anonymous reviews. Every single partner of BADASS+ stands tall with verifiable public signatures.</p>
+          
+          <!-- Testimonial Navigation controllers -->
+          <div class="flex gap-3 mt-8">
+            <button onclick="prevTestimonial(); playBeep(330, 'triangle')" class="w-12 h-12 border-2 border-brand-dark text-brand-dark hover:bg-brand-crimson hover:text-white hover:border-brand-crimson flex items-center justify-center transition-all">
+              <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <button onclick="nextTestimonial(); playBeep(330, 'triangle')" class="w-12 h-12 border-2 border-brand-dark text-brand-dark hover:bg-brand-crimson hover:text-white hover:border-brand-crimson flex items-center justify-center transition-all">
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 bg-brand-dark text-white p-8 md:p-12 shadow-[8px_8px_0px_#E13838] border-2 border-brand-dark relative min-h-[250px] flex flex-col justify-between">
+          <div class="absolute -top-3.5 -right-3 px-3 py-1 bg-brand-crimson font-mono text-[9px] uppercase tracking-widest">VERIFIED CONTRACT</div>
+          
+          <div class="mb-8">
+            <p id="testimonial-quote" class="font-mono text-sm md:text-base leading-relaxed italic text-white/90">
+              "Working with BADASS+ was like mainlining jet fuel into our web appearance. The Sphynx-themed brand alignment gave our digital layout the rebellious edge we needed to outperform stale legacy competitor tech."
+            </p>
+          </div>
+
+          <div class="flex items-center gap-4 border-t border-white/10 pt-4">
+            <div class="w-10 h-10 bg-brand-crimson text-white font-display font-bold text-xs flex items-center justify-center rounded-none" id="testimonial-avatar">
+              VR
+            </div>
+            <div>
+              <h4 id="testimonial-author" class="font-display text-xs uppercase font-bold tracking-wider">Vandemeer Ritchy</h4>
+              <p id="testimonial-role" class="font-mono text-[10px] text-brand-crimson uppercase">Co-Founder, Riot.Punk Dex</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- CRISIS MITIGATION INDEX (Premium FAQ Accordion) -->
+  <section class="py-24 bg-brand-dark text-white border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 lg:px-24">
+      <div class="mb-16 text-center">
+        <span class="text-brand-crimson font-mono text-xs uppercase tracking-widest block mb-4">// SYSTEM DEFENSE PROTOCOLS</span>
+        <h2 class="font-display text-3xl uppercase font-bold tracking-tight">CRISIS MITIGATION</h2>
+        <p class="font-mono text-xs text-white/50 mt-2">Honest, non-filtered technical responses to your underlying inquiries.</p>
+      </div>
+
+      <div class="max-w-3xl mx-auto flex flex-col gap-4">
+        
+        <!-- Accordion 1 -->
+        <div class="border border-white/10 bg-brand-slate/40 hover:border-brand-crimson transition-all">
+          <button onclick="toggleFaq(1); playBeep(280, 'sine')" class="w-full text-left p-6 flex justify-between items-center focus:outline-none">
+            <span class="font-display text-sm tracking-wide uppercase font-bold">What makes your creative process better than standard Figma-to-code agencies?</span>
+            <i class="fa-solid fa-chevron-down text-brand-crimson transition-transform duration-300" id="faq-chevron-1"></i>
+          </button>
+          <div id="faq-content-1" class="hidden px-6 pb-6 text-sm text-white/70 font-sans leading-relaxed">
+            Most agencies create pretty pictures in design software, then dump them onto generic web platforms that cannot support custom layout actions. We design directly for the browser, using premium vectors, tactile CSS/JS triggers, custom audio synthesizers, and real product layouts designed to convert and shock your audience.
+          </div>
+        </div>
+
+        <!-- Accordion 2 -->
+        <div class="border border-white/10 bg-brand-slate/40 hover:border-brand-crimson transition-all">
+          <button onclick="toggleFaq(2); playBeep(280, 'sine')" class="w-full text-left p-6 flex justify-between items-center focus:outline-none">
+            <span class="font-display text-sm tracking-wide uppercase font-bold">Can we supply our own custom visual direction?</span>
+            <i class="fa-solid fa-chevron-down text-brand-crimson transition-transform duration-300" id="faq-chevron-2"></i>
+          </button>
+          <div id="faq-content-2" class="hidden px-6 pb-6 text-sm text-white/70 font-sans leading-relaxed">
+            Yes. We treat your baseline assets and vision as the DNA. We expand it into a fully high-fidelity premium visual ecosystem, keeping 85%+ consistency with your core ideas while amplifying its cinematic parameters to award-winning levels.
+          </div>
+        </div>
+
+        <!-- Accordion 3 -->
+        <div class="border border-white/10 bg-brand-slate/40 hover:border-brand-crimson transition-all">
+          <button onclick="toggleFaq(3); playBeep(280, 'sine')" class="w-full text-left p-6 flex justify-between items-center focus:outline-none">
+            <span class="font-display text-sm tracking-wide uppercase font-bold">How does the Brief Compiling Engine assist us?</span>
+            <i class="fa-solid fa-chevron-down text-brand-crimson transition-transform duration-300" id="faq-chevron-3"></i>
+          </button>
+          <div id="faq-content-3" class="hidden px-6 pb-6 text-sm text-white/70 font-sans leading-relaxed">
+            The Interactive Brief Generator formats, scores, and packs your desired specifications directly into structured text files. This bypasses tedious exploratory calls, allowing our engineering leads to build accurate technical estimates within 4 hours.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FINAL HIGH-OCTANE CTA -->
+  <section class="py-24 bg-brand-crimson text-white relative overflow-hidden">
+    <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+    <!-- Distorted background title -->
+    <div class="absolute -bottom-10 -right-10 text-white/5 font-display text-[22vw] uppercase tracking-tighter select-none font-bold">
+      BADASS
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 lg:px-24 text-center relative z-10">
+      <span class="font-mono text-xs uppercase tracking-widest bg-brand-dark px-4 py-1.5 inline-block mb-6">EXECUTION IMMINENT</span>
+      <h2 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-tighter uppercase font-bold max-w-3xl mx-auto leading-none mb-8">
+        SHATTER THE STATUS QUO METRIC.
+      </h2>
+      <p class="font-sans text-white/80 max-w-lg mx-auto mb-10 text-sm md:text-base">
+        Don’t let your product look like a cloned template built by tired robots. Engage the BADASS+ creative core today.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <a href="#brief-engine" class="bg-brand-dark text-white hover:bg-white hover:text-brand-crimson px-8 py-5 font-mono text-sm uppercase tracking-wider font-bold transition-all w-full sm:w-auto text-center" onclick="playBeep(700, 'sine')">
+          COMPILE BRIEF manifest
+        </a>
+        <a href="#pricing" class="border-2 border-white hover:bg-white hover:text-brand-crimson px-8 py-[18px] font-mono text-sm uppercase tracking-wider font-bold transition-all w-full sm:w-auto text-center" onclick="playBeep(450, 'triangle')">
+          EXPLORE ENGAGEMENT CHANNELS
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer class="bg-brand-dark text-white/60 py-16 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 lg:px-24">
+      
+      <!-- Primary columns -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+        
+        <!-- Logo Col -->
+        <div class="md:col-span-1">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="h-8 w-8 bg-brand-crimson text-white flex items-center justify-center font-display font-bold text-sm">
+              B+
+            </div>
+            <span class="font-display text-sm tracking-wider font-bold text-white">BADASS+</span>
+          </div>
+          <p class="font-mono text-xs text-white/40 leading-relaxed uppercase">
+            EST. 2026 IN THE BRONZE CODES.<br>
+            HIGH-OCTANE CREATIVE STUDIO.
+          </p>
+        </div>
+
+        <!-- Navigation Map -->
+        <div>
+          <h4 class="font-mono text-xs text-brand-crimson font-bold uppercase tracking-wider mb-4">MAP INDEX</h4>
+          <ul class="space-y-2 font-mono text-xs text-white/50">
+            <li><a href="#hero" class="hover:text-white transition-colors">/HERO STAGING</a></li>
+            <li><a href="#showcase" class="hover:text-white transition-colors">/PROJECTS PORTFOLIO</a></li>
+            <li><a href="#about" class="hover:text-white transition-colors">/AGENCY CORE</a></li>
+            <li><a href="#brief-engine" class="hover:text-white transition-colors">/BRIEF INTERFACE</a></li>
+          </ul>
+        </div>
+
+        <!-- Social Channels -->
+        <div>
+          <h4 class="font-mono text-xs text-brand-crimson font-bold uppercase tracking-wider mb-4">OUTER PROTOCOLS</h4>
+          <ul class="space-y-2 font-mono text-xs text-white/50">
+            <li><a href="https://behance.net" class="hover:text-white transition-colors">BEHANCE PROFILES</a></li>
+            <li><a href="https://dribbble.com" class="hover:text-white transition-colors">DRIBBBLE WIREFRAMES</a></li>
+            <li><a href="https://instagram.com" class="hover:text-white transition-colors">INSTAGRAM VISUALS</a></li>
+            <li><a href="https://github.com" class="hover:text-white transition-colors">GITHUB DEV MATRIX</a></li>
+          </ul>
+        </div>
+
+        <!-- Newsletter / Dispatch -->
+        <div>
+          <h4 class="font-mono text-xs text-brand-crimson font-bold uppercase tracking-wider mb-4">SUBSCRIBE TO DESTRUCTION</h4>
+          <p class="font-sans text-xs text-white/40 mb-4">Get raw, unfiltered industry analysis directly to your mailbox once a month.</p>
+          <div class="flex">
+            <input type="email" id="newsletter-email" placeholder="Your Rebel Email..." class="bg-white/5 border border-white/10 text-white font-mono text-xs px-3 py-2 w-full focus:outline-none focus:border-brand-crimson transition-all">
+            <button onclick="handleNewsletter()" class="bg-brand-crimson hover:bg-white hover:text-brand-crimson text-white px-4 transition-colors">
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Legal bottom -->
+      <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs font-mono text-white/30 gap-4">
+        <div>
+          © 2026 BADASS+ CREATIVE AGENCY. ALL REGISTERED RIGHTS TO BE DEVIATED.
+        </div>
+        <div class="flex gap-6">
+          <a href="#" class="hover:text-white transition-colors" onclick="openModalText('Privacy Policy', 'Your private data is fully safe within our local memory grids. We do not transmit tracking metrics to external advertising monopolies.')">Local Grids Policy</a>
+          <a href="#" class="hover:text-white transition-colors" onclick="openModalText('Terms of Use', 'By navigating this platform, you agree to challenge standard digital interfaces and demand high-end design assets from all future service providers.')">Rebel Terms</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- JS LOGIC MATRIX -->
+  <script>
+    // Global active presentation indexes
+    let activeSlideIdx = '01';
+    
+    // Dynamic Testimonials pool
+    const testimonials = [
+      {
+        quote: "Working with BADASS+ was like mainlining jet fuel into our web appearance. The Sphynx-themed brand alignment gave our digital layout the rebellious edge we needed to outperform stale legacy competitor tech.",
+        author: "Vandemeer Ritchy",
+        role: "Co-Founder, Riot.Punk Dex",
+        avatar: "VR"
+      },
+      {
+        quote: "They designed our Web3 DEX platform. Standard layout agencies said our neon concept was 'too bright' and 'non-accessible'. BADASS+ made it visually aggressive and secured a 180% growth rate.",
+        author: "Sasha Novokov",
+        role: "Head of Design, ETH.LABS",
+        avatar: "SN"
+      },
+      {
+        quote: "Unbelievable layout design speed. Our brief compiled inside their interactive engine was directly translated into raw production in 14 business days.",
+        author: "Kenji Sato",
+        role: "Lead Producer, NEO-METROPOLIS INC",
+        avatar: "KS"
+      }
+    ];
+    let currentTestimonialIdx = 0;
+
+    // Custom brief generator initial state
+    let briefState = {
+      archetype: "Rebel Branding",
+      rebellionLevel: 75,
+      company: "CyberRiot Corp",
+      budget: "$30K - $60K",
+      objectives: "Create a complete industry disruption utilizing high-impact typography layout formats, neon light-red accents, and tactile visual state feedback."
+    };
+
+    // On Load Initializer
+    window.onload = function() {
+      compileBriefManifest();
+      
+      // Hook Escape Key to close search Overlay and Modals
+      window.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeModal();
+          // Hide Search
+          const search = document.getElementById('search-overlay');
+          search.classList.add('translate-y-full');
+        }
+      });
+    }
+
+    // Interactive Brief Compiler logic
+    function compileBriefManifest() {
+      const output = document.getElementById('compiled-brief-output');
+      if (!output) return;
+
+      const intensityLabel = briefState.rebellionLevel < 40 ? 'SAFE/CORPORATE' : briefState.rebellionLevel < 80 ? 'TACTICAL REBEL' : 'EXTREME RIOT INC.';
+
+      output.innerText = `[B+ CREATIVE SYSTEM BRIEF SPEC]
+=======================================
+ARCHETYPE : ${briefState.archetype.toUpperCase()}
+COMPANY   : ${briefState.company.toUpperCase()}
+FUNDING   : ${briefState.budget}
+INTENSITY : ${briefState.rebellionLevel}% [${intensityLabel}]
+
+OBJECTIVES DIRECTIVE:
+"${briefState.objectives}"
+
+COMPILE TIMESTEP: ${new Date().toISOString().substring(0, 10)}
+STATUS: VALID FOR TRANSMIT`;
+    }
+
+    function setBriefArchetype(type, beepFreq, soundType) {
+      briefState.archetype = type;
+      playBeep(beepFreq, soundType);
+      
+      // Update UI button indicators
+      const buttons = {
+        'Rebel Branding': 'arch-brand',
+        'Tactical Web3 UI': 'arch-ui',
+        'Cyberpunk Motion Sequence': 'arch-motion'
+      };
+      
+      Object.keys(buttons).forEach(key => {
+        const btn = document.getElementById(buttons[key]);
+        if (key === type) {
+          btn.className = "px-3 py-2 border border-brand-crimson bg-brand-crimson text-white font-mono text-xs uppercase transition-all";
+        } else {
+          btn.className = "px-3 py-2 border border-white/20 hover:border-brand-crimson text-white/80 hover:text-white font-mono text-xs uppercase transition-all";
+        }
+      });
+
+      compileBriefManifest();
+    }
+
+    function updateBriefSlider(val) {
+      briefState.rebellionLevel = parseInt(val);
+      document.getElementById('rebellion-val').innerText = `${val}%`;
+      compileBriefManifest();
+    }
+
+    // Listen to manual input edits on company/objectives to update preview
+    document.getElementById('brief-company').addEventListener('input', function(e) {
+      briefState.company = e.target.value;
+      compileBriefManifest();
+    });
+
+    document.getElementById('brief-budget').addEventListener('change', function(e) {
+      briefState.budget = e.target.value;
+      compileBriefManifest();
+    });
+
+    document.getElementById('brief-objectives').addEventListener('input', function(e) {
+      briefState.objectives = e.target.value;
+      compileBriefManifest();
+    });
+
+    function triggerBriefSubmission() {
+      // Direct aesthetic modal response - No Browser alert allowed!
+      const content = `
+        <div class="text-center py-6">
+          <div class="w-16 h-16 bg-brand-crimson text-white rounded-none flex items-center justify-center text-3xl mx-auto mb-6">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+          </div>
+          <h3 class="font-display text-xl uppercase font-bold mb-3">MANIFEST TRANSMITTED</h3>
+          <p class="font-sans text-brand-dark/70 text-sm mb-6 leading-relaxed">
+            Your customized rebellion manifest has been uploaded into our chief producer's active tactical dashboard. We have initialized a low-latency estimated dispatch breakdown. Expect response within 4 hours.
+          </p>
+          <button onclick="closeModal()" class="bg-brand-dark text-white hover:bg-brand-crimson px-6 py-3 font-mono text-xs uppercase tracking-wider transition-colors">
+            ACKNOWLEDGE DIRECTIVE
+          </button>
+        </div>
+      `;
+      openModal(content);
+    }
+
+    function downloadCompiledBrief() {
+      const manifestText = `[B+ CREATIVE SYSTEM BRIEF SPEC]\n=======================================\nARCHETYPE : ${briefState.archetype.toUpperCase()}\nCOMPANY   : ${briefState.company.toUpperCase()}\nFUNDING   : ${briefState.budget}\nINTENSITY : ${briefState.rebellionLevel}%\n\nOBJECTIVES DIRECTIVE:\n"${briefState.objectives}"\n\nCOMPILE TIMESTEP: ${new Date().toISOString()}\n\nAll design assets compiled on this manifest will align with the high-octane aesthetic. Generated via BADASS+ Brief Engine.`;
+      
+      const element = document.createElement('a');
+      element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(manifestText));
+      element.setAttribute('download', `${briefState.company.replace(/\s+/g, '_')}_rebellion_brief.txt`);
+      element.style.display = 'none';
+      document.body.appendChild(element);
+      element.click();
+      document.body.removeChild(element);
+    }
+
+
+    // Portfolio Project Modal Popups
+    function openProject(title, category, description, typeTag) {
+      playBeep(450, 'triangle');
+      const content = `
+        <div>
+          <span class="text-brand-crimson font-mono text-xs uppercase tracking-widest block mb-1">#${typeTag.toUpperCase()}</span>
+          <h3 class="font-display text-2xl uppercase font-bold text-brand-dark mb-4">${title}</h3>
+          
+          <div class="aspect-video w-full bg-brand-dark mb-6 flex items-center justify-center relative overflow-hidden">
+            <!-- Simulated wireframe based on dynamic category -->
+            <svg viewBox="0 0 400 220" class="w-full h-full">
+              <rect width="100%" height="100%" fill="#1E1E24"/>
+              <line x1="0" y1="0" x2="400" y2="220" stroke="#E13838" stroke-width="1" opacity="0.3"/>
+              <line x1="400" y1="0" x2="0" y2="220" stroke="#E13838" stroke-width="1" opacity="0.3"/>
+              <text x="50%" y="50%" font-family="Space Grotesk" font-size="16" fill="#FFFFFF" text-anchor="middle" font-weight="bold">DETAILED INTERFACE BLUEPRINT // ${category.toUpperCase()}</text>
+            </svg>
+          </div>
+
+          <p class="font-sans text-brand-dark/80 text-sm leading-relaxed mb-6">
+            ${description}
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-brand-dark/10">
+            <button onclick="closeModal(); document.getElementById('brief-engine').scrollIntoView();" class="bg-brand-crimson text-white hover:bg-brand-dark px-4 py-3 font-mono text-xs uppercase tracking-widest font-bold transition-all text-center">
+              BUILD INFLUENCED PROJECT
+            </button>
+            <button onclick="closeModal()" class="bg-brand-dark/5 hover:bg-brand-dark hover:text-white px-4 py-3 font-mono text-xs uppercase tracking-widest transition-all text-center">
+              CLOSE SPEC
+            </button>
+          </div>
+        </div>
+      `;
+      openModal(content);
+    }
+
+    // Modal Generic Controls
+    function openModal(htmlContent) {
+      const modal = document.getElementById('interactive-modal');
+      const container = document.getElementById('modal-content');
+      container.innerHTML = htmlContent;
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        modal.classList.remove('opacity-0');
+      }, 10);
+    }
+
+    function openModalText(title, text) {
+      playBeep(400, 'sine');
+      const content = `
+        <div>
+          <h3 class="font-display text-lg uppercase font-bold mb-4">${title}</h3>
+          <p class="font-sans text-brand-dark/70 text-sm leading-relaxed mb-6">${text}</p>
+          <button onclick="closeModal()" class="bg-brand-dark text-white hover:bg-brand-crimson px-5 py-2.5 font-mono text-xs uppercase tracking-wider transition-colors">
+            UNDERSTOOD
+          </button>
+        </div>
+      `;
+      openModal(content);
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('interactive-modal');
+      modal.classList.add('opacity-0');
+      setTimeout(() => {
+        modal.classList.add('hidden');
+      }, 300);
+    }
+
+
+    // Portfolio Interactive filter
+    function filterWorks(category) {
+      playBeep(420, 'sine');
+      
+      const cards = document.querySelectorAll('#works-container > div');
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.classList.remove('hidden');
+          // Smooth entry effect
+          card.classList.add('animate-fade-in');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      // Update Filter button aesthetics
+      const btns = ['all', 'branding', 'saas', 'motion'];
+      btns.forEach(btn => {
+        const el = document.getElementById(`btn-filter-${btn}`);
+        if (btn === category) {
+          el.className = "px-4 py-2 font-mono text-xs uppercase tracking-wider transition-all bg-brand-crimson text-white";
+        } else {
+          el.className = "px-4 py-2 font-mono text-xs uppercase tracking-wider transition-all text-white/60 hover:text-white";
+        }
+      });
+    }
+
+
+    // Navigation Sidebar active-dot indicator tracker
+    function setActiveSlide(slideId) {
+      activeSlideIdx = slideId;
+      playBeep(330, 'sine');
+      
+      const indexes = ['01', '02', '03', '04'];
+      indexes.forEach(idx => {
+        const el = document.getElementById(`nav-idx-${idx}`);
+        if (idx === slideId) {
+          el.classList.add('text-brand-dark', 'font-bold');
+          el.classList.remove('text-brand-dark/30');
+        } else {
+          el.classList.remove('text-brand-dark', 'font-bold');
+          el.classList.add('text-brand-dark/30');
+        }
+      });
+    }
+
+    // Toggle Search overlay UI
+    function toggleSearch() {
+      const overlay = document.getElementById('search-overlay');
+      if (overlay.classList.contains('translate-y-full')) {
+        overlay.classList.remove('translate-y-full');
+        document.getElementById('search-input').focus();
+      } else {
+        overlay.classList.add('translate-y-full');
+      }
+    }
+
+    function setSearchValue(val) {
+      const input = document.getElementById('search-input');
+      input.value = val;
+      playBeep(450, 'triangle');
+      handleSearch({ key: 'Enter' });
+    }
+
+    function handleSearch(event) {
+      if (event.key === 'Enter') {
+        const query = document.getElementById('search-input').value.toLowerCase();
+        toggleSearch(); // close search
+        
+        // Filter elements in page matching key terms
+        if (query.includes('brand')) {
+          filterWorks('branding');
+          document.getElementById('showcase').scrollIntoView();
+        } else if (query.includes('saas') || query.includes('cyber')) {
+          filterWorks('saas');
+          document.getElementById('showcase').scrollIntoView();
+        } else if (query.includes('motion')) {
+          filterWorks('motion');
+          document.getElementById('showcase').scrollIntoView();
+        } else if (query.includes('brief') || query.includes('generator')) {
+          document.getElementById('brief-engine').scrollIntoView();
+        } else {
+          // General search response modal
+          openModalText("SYSTEM SEARCH DEPLOYED", `We queried all system blocks for keywords matching "${query}". No direct raw match was found. Consider directing custom briefs or initiating our "Tactical Identity" roadmap query.`);
+        }
+      }
+    }
+
+
+    // Interactive pricing inquiry auto-selector hook
+    function selectEngagementTier(tierName, budgetEst) {
+      // Auto populate brief engine
+      briefState.archetype = tierName;
+      briefState.budget = budgetEst;
+      
+      // Update interactive sliders accordingly
+      if (tierName.includes('Identity')) {
+        updateBriefSlider(50);
+        setBriefArchetype('Rebel Branding', 220, 'triangle');
+      } else if (tierName.includes('Ecosystem')) {
+        updateBriefSlider(85);
+        setBriefArchetype('Tactical Web3 UI', 440, 'triangle');
+      } else {
+        updateBriefSlider(100);
+        setBriefArchetype('Cyberpunk Motion Sequence', 660, 'triangle');
+      }
+
+      compileBriefManifest();
+    }
+
+
+    // Testimonial Engine Rotators
+    function updateTestimonialUI() {
+      const data = testimonials[currentTestimonialIdx];
+      document.getElementById('testimonial-quote').innerText = `"${data.quote}"`;
+      document.getElementById('testimonial-author').innerText = data.author;
+      document.getElementById('testimonial-role').innerText = data.role;
+      document.getElementById('testimonial-avatar').innerText = data.avatar;
+    }
+
+    function nextTestimonial() {
+      currentTestimonialIdx = (currentTestimonialIdx + 1) % testimonials.length;
+      updateTestimonialUI();
+    }
+
+    function prevTestimonial() {
+      currentTestimonialIdx = (currentTestimonialIdx - 1 + testimonials.length) % testimonials.length;
+      updateTestimonialUI();
+    }
+
+
+    // FAQ accordion toggle logic
+    function toggleFaq(idx) {
+      const content = document.getElementById(`faq-content-${idx}`);
+      const chevron = document.getElementById(`faq-chevron-${idx}`);
+      
+      if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+        chevron.classList.add('rotate-180');
+      } else {
+        content.classList.add('hidden');
+        chevron.classList.remove('rotate-180');
+      }
+    }
+
+
+    // Manifest / Stats file triggers
+    function triggerDownload(type) {
+      playBeep(520, 'triangle');
+      const content = `
+        <div class="text-center">
+          <h3 class="font-display text-lg uppercase font-bold mb-4">PRE-PACKAGED MANIFEST DOWNLOAD</h3>
+          <p class="font-sans text-brand-dark/70 text-sm leading-relaxed mb-6">
+            We are packing the static **${type}** source pack for immediate offline audit. Please confirm compliance parameters to finalize extraction.
+          </p>
+          <div class="flex justify-center gap-3">
+            <button onclick="closeModal();" class="bg-brand-crimson text-white hover:bg-brand-dark px-6 py-2.5 font-mono text-xs uppercase tracking-wider font-bold transition-all">
+              EXTRACT NOW
+            </button>
+            <button onclick="closeModal()" class="bg-brand-dark/5 hover:bg-brand-dark hover:text-white px-5 py-2.5 font-mono text-xs uppercase tracking-wider transition-all">
+              CANCEL
+            </button>
+          </div>
+        </div>
+      `;
+      openModal(content);
+    }
+
+
+    // Mobile Menu Toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      if (menu.classList.contains('hidden')) {
+        menu.classList.remove('hidden');
+        menu.classList.add('flex');
+      } else {
+        menu.classList.remove('flex');
+        menu.classList.add('hidden');
+      }
+    }
+
+
+    // Interactive Wink on Sphynx artwork eyes
+    function winkCatEyes() {
+      playBeep(880, 'sine', 0.2, 0.25);
+      
+      const leftEye = document.getElementById('left-eye-pupil');
+      const rightEye = document.getElementById('right-eye-pupil');
+      
+      // Animate scaling of cat eyes to simulate organic reactiveness
+      leftEye.style.transition = 'transform 0.1s ease-out';
+      rightEye.style.transition = 'transform 0.1s ease-out';
+      
+      leftEye.style.transform = 'scaleY(0.1)';
+      rightEye.style.transform = 'scaleY(0.1)';
+      
+      setTimeout(() => {
+        leftEye.style.transform = 'scaleY(1)';
+        rightEye.style.transform = 'scaleY(1)';
+      }, 150);
+    }
+
+
+    // Footer Newsletter signup response
+    function handleNewsletter() {
+      const email = document.getElementById('newsletter-email').value;
+      if (!email || !email.includes('@')) {
+        playBeep(250, 'sawtooth');
+        openModalText("EMAIL REJECTED", "Your input email lacks standard system syntax. Please input a valid email coordinate.");
+        return;
+      }
+      playBeep(650, 'sine');
+      openModalText("SUBSCRIPTION SUCCESSFUL", `Welcome to the riot. We have logged "${email}" into our periodic aesthetic transmission matrices.`);
+      document.getElementById('newsletter-email').value = '';
+    }
+  </script>
+
+</body>
+</html>
+6

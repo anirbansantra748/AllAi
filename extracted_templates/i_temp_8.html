@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Howl's Moving Castle — Premium Editorial Showcase</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts for Editorial & Classic Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome for UI Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            indigoBrand: {
+              50: '#f0f4fa',
+              100: '#dbe5f5',
+              200: '#bdcfe9',
+              300: '#8da9c4', // Beautiful periwinkle-blue from the design
+              400: '#5c7fa8',
+              500: '#3e5f8a',
+              600: '#2e496d', // Rich signature blue
+              700: '#233753',
+              800: '#1a273b', // Deep background dark blue
+              900: '#0f1724', // Ultra deep space blue
+            },
+            parchment: {
+              DEFAULT: '#fbfbf9',
+              dark: '#f3f1eb',
+            }
+          },
+          fontFamily: {
+            serif: ['Playfair Display', 'serif'],
+            display: ['Cinzel Decorative', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          boxShadow: {
+            'book': '0 20px 40px -15px rgba(15, 23, 36, 0.4)',
+            'page': '5px 10px 30px rgba(0, 0, 0, 0.15)',
+            'glow-blue': '0 0 25px rgba(141, 169, 196, 0.35)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Premium Smooth Scroll & Custom Scrollbar */
+    html {
+      scroll-behavior: smooth;
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f1724;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #3e5f8a;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #8da9c4;
+    }
+
+    /* Wave Background Overlays & Decorative Arches */
+    .wave-bg {
+      background-image: radial-gradient(circle at 100% 150%, transparent 24%, #2e496d 24%, #2e496d 28%, transparent 28%, transparent);
+      background-size: 40px 40px;
+    }
+
+    /* Custom Organic Arches and Wave Dividers inspired by the book margins */
+    .arch-mask {
+      clip-path: ellipse(100% 100% at 50% 100%);
+    }
+    
+    .wave-cut {
+      clip-path: path('M0,32L120,42.7C240,53,480,75,720,74.7C960,75,1200,53,1320,42.7L1440,32L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z');
+    }
+
+    /* Soft Animated Glow mimicking magical starlight */
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.08); }
+    }
+    .magical-glow {
+      animation: pulseGlow 8s infinite ease-in-out;
+    }
+
+    /* Tactile Book Fold effect */
+    .book-spine {
+      background: linear-gradient(to right, rgba(0,0,0,0.15) 0%, rgba(255,255,255,0.15) 50%, rgba(0,0,0,0.15) 100%);
+    }
+
+    /* Floating animations for SVGs and UI elements */
+    @keyframes floating {
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(1deg); }
+      100% { transform: translateY(0px) rotate(0deg); }
+    }
+    .float-anim {
+      animation: floating 6s ease-in-out infinite;
+    }
+    
+    @keyframes subtle-pan {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .pan-bg {
+      background-size: 200% 200%;
+      animation: subtle-pan 20s ease infinite;
+    }
+  </style>
+</head>
+<body class="bg-indigoBrand-900 text-indigoBrand-50 font-sans overflow-x-hidden selection:bg-indigoBrand-300 selection:text-indigoBrand-900">
+
+  <!-- ================= HEADER & NAVIGATION ================= -->
+  <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-indigoBrand-900/90 backdrop-blur-md border-b border-indigoBrand-800/60" id="mainHeader">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <!-- Logo Branding with Monogram Design from Page Art -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-full border border-indigoBrand-300 flex items-center justify-center text-indigoBrand-300 font-display text-lg group-hover:bg-indigoBrand-300 group-hover:text-indigoBrand-900 transition-all duration-300 shadow-glow-blue">
+          H
+        </div>
+        <div>
+          <span class="font-display tracking-widest text-sm text-indigoBrand-100 group-hover:text-white transition-colors">ХОДЯЧИЙ ЗАМОК</span>
+          <span class="block text-[9px] font-sans uppercase tracking-[0.25em] text-indigoBrand-400">Concept Showcase</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu matching the design system -->
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="#concept" class="text-sm font-medium text-indigoBrand-300 hover:text-white transition-colors flex items-center gap-1.5">
+          <span class="text-[9px] opacity-60">01 //</span> Concept Design
+        </a>
+        <a href="#interactive-book" class="text-sm font-medium text-indigoBrand-300 hover:text-white transition-colors flex items-center gap-1.5">
+          <span class="text-[9px] opacity-60">02 //</span> Interactive Reader
+        </a>
+        <a href="#editorial-system" class="text-sm font-medium text-indigoBrand-300 hover:text-white transition-colors flex items-center gap-1.5">
+          <span class="text-[9px] opacity-60">03 //</span> Visual Language
+        </a>
+        <a href="#illustrations" class="text-sm font-medium text-indigoBrand-300 hover:text-white transition-colors flex items-center gap-1.5">
+          <span class="text-[9px] opacity-60">04 //</span> Art Gallery
+        </a>
+      </nav>
+
+      <!-- Action Button with Book Theme Styling -->
+      <div class="flex items-center gap-4">
+        <a href="#interactive-book" class="relative group overflow-hidden px-5 py-2.5 rounded-full border border-indigoBrand-300 text-xs font-semibold uppercase tracking-wider text-indigoBrand-100 hover:text-indigoBrand-900 transition-all duration-500">
+          <span class="absolute inset-0 bg-indigoBrand-300 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-0"></span>
+          <span class="relative z-10 flex items-center gap-2">
+            Open Book <i class="fa-solid fa-book-open text-[10px]"></i>
+          </span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= HERO SECTION (Premium Editorial Concept) ================= -->
+  <section class="relative min-h-screen flex items-center justify-center pt-24 pb-16 overflow-hidden bg-gradient-to-b from-indigoBrand-900 via-indigoBrand-800 to-indigoBrand-900" id="hero">
+    <!-- Starfield/Glow Decorative Background layers -->
+    <div class="absolute inset-0 z-0">
+      <div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-indigoBrand-600/10 rounded-full blur-[120px] magical-glow"></div>
+      <div class="absolute bottom-1/3 right-1/4 w-[600px] h-[600px] bg-indigoBrand-300/10 rounded-full blur-[140px] magical-glow" style="animation-delay: -3s;"></div>
+      <!-- Decorative wavy patterns inspired by book design page margins -->
+      <div class="absolute left-0 right-0 bottom-0 h-40 opacity-15 wave-bg"></div>
+    </div>
+
+    <!-- Main Content Container -->
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10 w-full">
+      
+      <!-- Text/Introductory Column -->
+      <div class="lg:col-span-5 space-y-8" data-aos="fade-right">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigoBrand-800/80 border border-indigoBrand-700/80">
+          <span class="w-1.5 h-1.5 rounded-full bg-indigoBrand-300 animate-pulse"></span>
+          <span class="text-[10px] font-sans uppercase tracking-widest text-indigoBrand-300">Editorial & Graphic Design Concept</span>
+        </div>
+
+        <div class="space-y-4">
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-white leading-tight">
+            ХОДЯЧИЙ <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigoBrand-300 via-indigoBrand-100 to-white">ЗАМОК</span>
+          </h1>
+          <p class="font-serif italic text-lg text-indigoBrand-200 border-l-2 border-indigoBrand-400 pl-4 py-1">
+            "An exquisite design proposal translating Diana Wynne Jones' masterwork into a luxurious, dual-tone tactile universe."
+          </p>
+        </div>
+
+        <p class="text-sm text-indigoBrand-300/90 leading-relaxed max-w-md">
+          Explore the balance of royal indigo inks, soft periwinkle screens, and pristine textured book-stock paper. This interactive concept transforms traditional print mechanics into digital editorial poetry.
+        </p>
+
+        <!-- CTAs mimicking classic book-binding labels -->
+        <div class="flex flex-wrap gap-4 pt-4">
+          <a href="#interactive-book" class="px-7 py-4 bg-indigoBrand-300 text-indigoBrand-900 font-semibold text-xs uppercase tracking-widest rounded-lg shadow-lg hover:bg-white hover:scale-105 transition-all duration-300 flex items-center gap-3">
+            <span>Begin Reading Experience</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="#editorial-system" class="px-7 py-4 bg-indigoBrand-800/60 text-indigoBrand-300 hover:text-white border border-indigoBrand-700/80 font-semibold text-xs uppercase tracking-widest rounded-lg hover:bg-indigoBrand-800 transition-all duration-300">
+            Design Blueprint
+          </a>
+        </div>
+
+        <!-- Mini stats / metadata -->
+        <div class="grid grid-cols-3 gap-6 pt-8 border-t border-indigoBrand-800/80">
+          <div>
+            <span class="block text-xl font-display text-white">DUAL</span>
+            <span class="text-[10px] uppercase tracking-wider text-indigoBrand-400">Tone Palette</span>
+          </div>
+          <div>
+            <span class="block text-xl font-display text-white">100%</span>
+            <span class="text-[10px] uppercase tracking-wider text-indigoBrand-400">Vector Art</span>
+          </div>
+          <div>
+            <span class="block text-xl font-display text-white">O.A.</span>
+            <span class="text-[10px] uppercase tracking-wider text-indigoBrand-400">Lead Artist</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Isometric Book Visualization Column (Matching the perspective render in the bottom of the upload) -->
+      <div class="lg:col-span-7 flex flex-col items-center justify-center relative py-12">
+        
+        <!-- Rotating background portal ring -->
+        <div class="absolute w-[360px] h-[360px] md:w-[480px] md:h-[480px] border border-indigoBrand-500/20 rounded-full animate-[spin_40s_linear_infinite] pointer-events-none flex items-center justify-center">
+          <div class="w-[90%] h-[90%] border border-dashed border-indigoBrand-400/10 rounded-full"></div>
+        </div>
+        
+        <!-- Shadow base for the floating book model -->
+        <div class="absolute bottom-10 w-[320px] h-[30px] bg-black/40 blur-xl rounded-full transform scale-x-125"></div>
+
+        <!-- The Immersive Virtual Book Container -->
+        <div class="relative float-anim max-w-full z-10">
+          
+          <!-- Mock Book Folder Mockup resembling bottom right layout of image -->
+          <div class="relative w-[340px] sm:w-[460px] aspect-[4/3] bg-indigoBrand-900 rounded-lg p-3 shadow-book border border-indigoBrand-700/50 flex flex-col justify-between overflow-hidden">
+            
+            <!-- Book paper layout preview -->
+            <div class="w-full h-full bg-parchment rounded border border-parchment-dark p-4 sm:p-6 flex gap-1 relative overflow-hidden text-indigoBrand-900">
+              
+              <!-- Spine fold separator -->
+              <div class="absolute inset-y-0 left-1/2 w-4 -ml-2 book-spine z-10"></div>
+              
+              <!-- Left Page (Chapter/Story Context) -->
+              <div class="w-1/2 pr-3 flex flex-col justify-between relative z-0">
+                <div class="space-y-2">
+                  <div class="text-[10px] uppercase tracking-widest text-indigoBrand-600 font-semibold">Глава первая</div>
+                  <h3 class="font-serif text-xs sm:text-sm font-bold leading-tight text-indigoBrand-800">В которой Софи беседует со шляпками</h3>
+                  <div class="h-[1px] bg-indigoBrand-200 w-8 my-1"></div>
+                  <p class="text-[7px] sm:text-[9px] text-indigoBrand-700/90 leading-relaxed font-serif">
+                    В стране Ингарии, где действительно водятся семимильные сапоги и плащи-невидимки, родиться старшим из троих детей...
+                  </p>
+                </div>
+                <!-- Mini Castle SVG illustration silhouette bottom of page -->
+                <div class="w-full flex justify-end">
+                  <svg class="w-8 h-8 text-indigoBrand-500 opacity-80" viewBox="0 0 100 100" fill="currentColor">
+                    <!-- Stylized mini outline of castle -->
+                    <path d="M20 90h60v-5H20zM30 80h10V45l-5-10-5 10zM60 80h10V35l-5-8-5 8zM45 80h10V20l-5-12-5 12z"/>
+                  </svg>
+                </div>
+              </div>
+              
+              <!-- Right Page (Beautiful Blue Ink Landscape Artwork) -->
+              <div class="w-1/2 pl-3 flex flex-col justify-between relative z-0 bg-indigoBrand-50/50 rounded p-2 border border-indigoBrand-100/40">
+                
+                <!-- Circular character profile cameo matching book layout -->
+                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-indigoBrand-300 mx-auto overflow-hidden relative flex items-center justify-center bg-indigoBrand-600 text-white shadow-md">
+                  <!-- Abstract SVG Silhouette of Howl -->
+                  <svg class="w-full h-full text-indigoBrand-100" viewBox="0 0 100 100" fill="currentColor">
+                    <path d="M50 20c-15 0-25 10-25 25 0 10 5 15 10 20l5 15h20l5-15c5-5 10-10 10-20 0-15-10-25-25-25z" opacity="0.8"/>
+                    <path d="M35 50s5-10 15-10 15 10 15 10S55 65 50 65s-15-15-15-15z" fill="#fff"/>
+                  </svg>
+                </div>
+
+                <div class="text-center space-y-1">
+                  <span class="text-[8px] sm:text-[10px] font-display uppercase tracking-widest block text-indigoBrand-800">Хаул</span>
+                  <p class="text-[6px] sm:text-[8px] text-indigoBrand-600 uppercase tracking-widest">Wizard of the Waste</p>
+                </div>
+
+                <!-- Custom decorative wave arches inside book -->
+                <div class="w-full h-6 border-t border-indigoBrand-300 opacity-60 relative overflow-hidden">
+                  <div class="absolute inset-0 bg-gradient-to-r from-transparent via-indigoBrand-200 to-transparent opacity-50"></div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Dynamic interactive control overlay bubble -->
+          <div class="absolute -bottom-6 -right-4 bg-indigoBrand-800/90 hover:bg-indigoBrand-700 text-white p-3 rounded-full shadow-lg border border-indigoBrand-600/50 flex items-center gap-3 text-xs backdrop-blur-sm cursor-pointer hover:scale-105 transition-all duration-300" onclick="scrollToReader()">
+            <span class="flex h-2 w-2 relative">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigoBrand-300 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-indigoBrand-300"></span>
+            </span>
+            <span class="font-semibold uppercase tracking-wider pr-1">Try Live Flip Reader</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Downward wavy arch page separator -->
+    <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-20">
+      <svg class="relative block w-full h-[60px]" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C26.9,8.75,57.05,18.3,90.13,27.93,188.66,56.62,263.48,64.21,321.39,56.44Z" fill="#181e29"></path>
+      </svg>
+    </div>
+  </section>
+
+
+  <!-- ================= CONCEPT DEEP DIVE SECTION ================= -->
+  <section class="py-24 bg-indigoBrand-800 text-white relative" id="concept">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <!-- Conceptual Heading -->
+      <div class="max-w-3xl space-y-4 mb-16">
+        <span class="text-xs font-semibold uppercase tracking-widest text-indigoBrand-300">01 // Architectural Project Blueprint</span>
+        <h2 class="text-3xl sm:text-5xl font-display font-bold leading-tight">
+          Translating Lit-Art <br>Into Premium Interfaces
+        </h2>
+        <div class="h-[2px] bg-indigoBrand-300 w-24"></div>
+      </div>
+
+      <!-- Feature Grid mirroring editorial panels of the book concept -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Card 1: Monochromatic Design Discipline -->
+        <div class="bg-indigoBrand-900/60 rounded-2xl p-8 border border-indigoBrand-700/60 hover:border-indigoBrand-300/40 transition-all duration-300 hover:shadow-glow-blue relative overflow-hidden group">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-indigoBrand-300/5 rounded-full blur-2xl transform translate-x-10 -translate-y-10 group-hover:bg-indigoBrand-300/10 transition-all"></div>
+          
+          <div class="w-12 h-12 rounded-xl bg-indigoBrand-800 border border-indigoBrand-600 flex items-center justify-center text-indigoBrand-300 text-lg mb-6 shadow-inner">
+            <i class="fa-solid fa-palette"></i>
+          </div>
+          
+          <h3 class="text-xl font-display font-bold mb-3 text-white">Monochromatic Blue</h3>
+          <p class="text-sm text-indigoBrand-300 leading-relaxed mb-6">
+            Relying entirely on custom layers of dark slate indigo, crisp sky blue, and textured stark whites to produce high cognitive elegance and premium publishing-level visual focus.
+          </p>
+          <div class="flex items-center gap-2">
+            <span class="h-4 w-12 rounded bg-indigoBrand-900 border border-indigoBrand-700"></span>
+            <span class="h-4 w-12 rounded bg-indigoBrand-600"></span>
+            <span class="h-4 w-12 rounded bg-indigoBrand-300"></span>
+            <span class="h-4 w-12 rounded bg-white"></span>
+          </div>
+        </div>
+
+        <!-- Card 2: Symmetric Editorial Geometry -->
+        <div class="bg-indigoBrand-900/60 rounded-2xl p-8 border border-indigoBrand-700/60 hover:border-indigoBrand-300/40 transition-all duration-300 hover:shadow-glow-blue relative overflow-hidden group">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-indigoBrand-300/5 rounded-full blur-2xl transform translate-x-10 -translate-y-10 group-hover:bg-indigoBrand-300/10 transition-all"></div>
+          
+          <div class="w-12 h-12 rounded-xl bg-indigoBrand-800 border border-indigoBrand-600 flex items-center justify-center text-indigoBrand-300 text-lg mb-6 shadow-inner">
+            <i class="fa-solid fa-compass-drafting"></i>
+          </div>
+          
+          <h3 class="text-xl font-display font-bold mb-3 text-white">Editorial Geometry</h3>
+          <p class="text-sm text-indigoBrand-300 leading-relaxed mb-6">
+            Drawing inspiration from the beautifully drafted physical book margins, curves, waves, and circular silhouette masks presented in the book layout pages of O.A.'s original design.
+          </p>
+          <div class="text-xs uppercase tracking-widest text-indigoBrand-400 font-mono font-bold flex items-center gap-2">
+            <i class="fa-solid fa-bezier-curve"></i> Fluid Vector Arches
+          </div>
+        </div>
+
+        <!-- Card 3: Intricate Silhouette Art -->
+        <div class="bg-indigoBrand-900/60 rounded-2xl p-8 border border-indigoBrand-700/60 hover:border-indigoBrand-300/40 transition-all duration-300 hover:shadow-glow-blue relative overflow-hidden group">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-indigoBrand-300/5 rounded-full blur-2xl transform translate-x-10 -translate-y-10 group-hover:bg-indigoBrand-300/10 transition-all"></div>
+          
+          <div class="w-12 h-12 rounded-xl bg-indigoBrand-800 border border-indigoBrand-600 flex items-center justify-center text-indigoBrand-300 text-lg mb-6 shadow-inner">
+            <i class="fa-solid fa-paintbrush"></i>
+          </div>
+          
+          <h3 class="text-xl font-display font-bold mb-3 text-white">Silhouette Vector Art</h3>
+          <p class="text-sm text-indigoBrand-300 leading-relaxed mb-6">
+            Using hand-curated vector graphics of the dynamic Moving Castle and character profiles to reflect the organic energy of high-concept modern art and classic literature.
+          </p>
+          <div class="text-xs uppercase tracking-widest text-indigoBrand-400 font-mono font-bold flex items-center gap-2">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> 100% Vector Rendering
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================= INTERACTIVE DUAL-PAGE BOOK READER SECTION ================= -->
+  <section class="py-24 bg-indigoBrand-900 relative" id="interactive-book">
+    <div class="absolute inset-0 opacity-5 pointer-events-none wave-bg"></div>
+
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      
+      <!-- Interactive Section Header -->
+      <div class="text-center space-y-4 mb-16">
+        <span class="text-xs font-semibold uppercase tracking-widest text-indigoBrand-300">02 // Editorial Experience</span>
+        <h2 class="text-3xl sm:text-5xl font-display font-bold text-white">The Interactive Reader</h2>
+        <p class="text-sm text-indigoBrand-300 max-w-xl mx-auto">
+          Immerse yourself in O.A.'s proposed book pages. Flip through Chapters, examine illustrations, and toggle visual modes to appreciate print precision in digital space.
+        </p>
+        <div class="h-[1px] bg-gradient-to-r from-transparent via-indigoBrand-400 to-transparent w-64 mx-auto"></div>
+      </div>
+
+      <!-- Live Virtual Book Container -->
+      <div class="max-w-5xl mx-auto">
+        
+        <!-- Book Utility Toolbar -->
+        <div class="bg-indigoBrand-800/80 border border-indigoBrand-700/60 rounded-t-2xl px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+          <!-- Chapter Selector tab style -->
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-indigoBrand-300 font-medium">Select Chapter:</span>
+            <div class="inline-flex rounded-lg bg-indigoBrand-950 p-1 border border-indigoBrand-800">
+              <button onclick="setChapter(1)" id="btn-chap-1" class="px-3 py-1.5 rounded-md text-xs font-medium transition-all duration-200 bg-indigoBrand-300 text-indigoBrand-900 shadow-md">
+                Chapter I
+              </button>
+              <button onclick="setChapter(2)" id="btn-chap-2" class="px-3 py-1.5 rounded-md text-xs font-medium text-indigoBrand-300 hover:text-white transition-all duration-200">
+                Chapter II
+              </button>
+              <button onclick="setChapter(3)" id="btn-chap-3" class="px-3 py-1.5 rounded-md text-xs font-medium text-indigoBrand-300 hover:text-white transition-all duration-200">
+                Chapter III
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Display options -->
+          <div class="flex items-center gap-4">
+            <!-- Theme toggle visual simulation -->
+            <button onclick="toggleColorReverse()" class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-indigoBrand-600/60 bg-indigoBrand-900/60 text-xs text-indigoBrand-300 hover:text-white transition-all">
+              <i class="fa-solid fa-circle-half-stroke"></i>
+              <span>Invert Art Colors</span>
+            </button>
+            <span class="text-xs text-indigoBrand-400 font-mono">Scale: 100% (High Fidelity)</span>
+          </div>
+        </div>
+
+        <!-- The Physical Book Mock Layout -->
+        <div class="relative bg-indigoBrand-950 p-4 sm:p-8 rounded-b-2xl border-x border-b border-indigoBrand-700/60 shadow-book">
+          
+          <!-- Inner Page Spread -->
+          <div class="relative bg-parchment rounded-xl shadow-page border border-parchment-dark p-6 sm:p-10 flex flex-col md:flex-row gap-8 md:gap-0 transition-colors duration-500" id="bookCanvas">
+            
+            <!-- Spine shadow fold in the absolute center for larger screens -->
+            <div class="hidden md:block absolute inset-y-0 left-1/2 w-8 -ml-4 book-spine z-10 pointer-events-none"></div>
+
+            <!-- ================= LEFT PAGE: CHAPTER TEXT ================= -->
+            <div class="w-full md:w-1/2 md:pr-10 flex flex-col justify-between text-indigoBrand-900 min-h-[460px] relative z-0">
+              
+              <!-- Content Section -->
+              <div class="space-y-6">
+                <!-- Chapter Header -->
+                <div class="space-y-2">
+                  <div class="flex items-center gap-2 text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-indigoBrand-500">
+                    <span class="h-[1px] w-4 bg-indigoBrand-400"></span>
+                    <span id="leftPageChapterNum">Глава первая</span>
+                  </div>
+                  <h3 class="font-serif text-2xl sm:text-3xl font-bold leading-tight text-indigoBrand-900 tracking-tight" id="leftPageTitle">
+                    В которой Софи беседует со шляпками
+                  </h3>
+                </div>
+
+                <!-- Stylized Paragraph Divider -->
+                <div class="flex items-center gap-3 py-1">
+                  <span class="h-[1px] bg-indigoBrand-300 flex-grow"></span>
+                  <div class="w-2.5 h-2.5 rounded-full border border-indigoBrand-500 flex items-center justify-center">
+                    <span class="w-1 h-1 rounded-full bg-indigoBrand-400"></span>
+                  </div>
+                  <span class="h-[1px] bg-indigoBrand-300 flex-grow"></span>
+                </div>
+
+                <!-- Rich Story Content with gorgeous dropshafts & decorative dropcap -->
+                <div class="font-serif text-sm sm:text-base leading-relaxed text-indigoBrand-800 space-y-4 text-justify" id="leftPageContent">
+                  <p>
+                    <span class="float-left text-5xl font-display font-extrabold text-indigoBrand-700 mr-2.5 mt-1 leading-none">В</span>
+                     стране Ингарии, где действительно водятся семимильные сапоги и плащи-невидимки, родиться старшим из троих детей считалось изрядным невезением. Всякий знал, что если трое братьев или сестер отправятся на поиски счастья, именно старшего ждет самый сокрушительный провал, даже если он отправится в путь первым.
+                  </p>
+                  <p>
+                    Софи Хаттер была старшей из трех сестер и жила в небольшом, но весьма процветающем городке Маркет-Чиппинг. Родители ее были не слишком богаты, но содержали отличную дамскую шляпную мастерскую, в которой сами же и работали.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Page Footer (Left) -->
+              <div class="pt-6 border-t border-indigoBrand-100 flex items-center justify-between text-xs text-indigoBrand-500 font-sans mt-8">
+                <span class="font-semibold">Ходячий замок</span>
+                <span class="font-mono">Page <span id="leftPageNum">03</span></span>
+              </div>
+            </div>
+
+
+            <!-- ================= RIGHT PAGE: HIGH-FIDELITY VECTOR ARTWORKS ================= -->
+            <div class="w-full md:w-1/2 md:pl-10 flex flex-col justify-between min-h-[460px] relative z-0">
+              
+              <!-- Artwork Area Container with Custom Arch Frame from visual blueprint -->
+              <div class="flex-grow flex flex-col items-center justify-center relative py-6" id="rightPageFrame">
+                
+                <!-- Dynamic Wave Frame Design inside Page (Simulating the blue vector framing of the character and castle) -->
+                <div class="w-full max-w-[340px] aspect-square rounded-2xl bg-indigoBrand-50 border border-indigoBrand-200/50 p-4 relative overflow-hidden flex flex-col items-center justify-center transition-all duration-500" id="artFrameBg">
+                  
+                  <!-- Abstract background waves within book layout -->
+                  <div class="absolute inset-0 opacity-10 pointer-events-none wave-bg"></div>
+
+                  <!-- Dynamic Silhouette Graphic Holder (renders the castle or characters matching the art aesthetic) -->
+                  <div class="relative z-10 w-full h-full flex items-center justify-center" id="artworkContainer">
+                    
+                    <!-- DEFAULT ARTWORK: Moving Castle Detailed Silhouette -->
+                    <svg id="svgArtCastle" class="w-4/5 h-4/5 text-indigoBrand-600 transition-all duration-500 float-anim" viewBox="0 0 200 200" fill="currentColor">
+                      <!-- Base Platform with moving chicken legs -->
+                      <path d="M70 145l-10 25h-5l5-25zM130 145l10 25h5l-5-25z" stroke="currentColor" stroke-width="2"/>
+                      <ellipse cx="100" cy="135" rx="55" ry="18"/>
+                      
+                      <!-- Intricate mechanical towers and wings -->
+                      <rect x="65" y="80" width="20" height="45" rx="2" />
+                      <rect x="115" y="70" width="22" height="55" rx="2" />
+                      <polygon points="100,50 115,100 85,100" />
+                      <ellipse cx="100" cy="85" rx="28" ry="28"/>
+                      
+                      <!-- Chimneys belching magic steam clouds -->
+                      <rect x="70" y="45" width="8" height="35" />
+                      <rect x="122" y="30" width="10" height="40" />
+                      
+                      <!-- Steam Puffs matching blue graphic style -->
+                      <circle cx="74" cy="30" r="10" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="3 3"/>
+                      <circle cx="127" cy="15" r="14" fill="none" stroke="currentColor" stroke-width="2"/>
+                      <circle cx="140" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
+
+                      <!-- Eyes/Mouth mimicking the castle's animated structure -->
+                      <circle cx="85" cy="115" r="5" fill="#fff"/>
+                      <circle cx="115" cy="115" r="5" fill="#fff"/>
+                      <path d="M90 130s10 5 20 0" stroke="#fff" stroke-width="2" fill="none"/>
+                    </svg>
+
+                  </div>
+
+                  <!-- Decorative circular inner border resembling character cameos -->
+                  <div class="absolute inset-3 border border-dashed border-indigoBrand-300/40 rounded-xl pointer-events-none"></div>
+
+                </div>
+
+                <!-- Dynamic Character Subtext label -->
+                <div class="mt-4 text-center">
+                  <span class="text-xs uppercase tracking-[0.3em] font-display text-indigoBrand-800 font-bold block" id="rightPageArtTitle">
+                    Ходячий ЗамокХаул
+                  </span>
+                  <span class="text-[10px] uppercase tracking-widest text-indigoBrand-500 font-medium block mt-1" id="rightPageArtDesc">
+                    Original Vector Blueprint No. 042
+                  </span>
+                </div>
+
+              </div>
+
+              <!-- Page Footer (Right) -->
+              <div class="pt-6 border-t border-indigoBrand-100 flex items-center justify-between text-xs text-indigoBrand-500 font-sans mt-8">
+                <span class="font-mono">Page <span id="rightPageNum">04</span></span>
+                <span class="font-semibold">Эскизный проект</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Flip Reader Navigation Controls -->
+          <div class="absolute -bottom-14 left-0 right-0 flex items-center justify-center gap-6">
+            <button onclick="prevChapter()" class="w-12 h-12 rounded-full bg-indigoBrand-800 border border-indigoBrand-700/80 hover:border-indigoBrand-300 text-indigoBrand-300 hover:text-white flex items-center justify-center shadow-lg transition-all hover:scale-105 active:scale-95">
+              <i class="fa-solid fa-chevron-left text-sm"></i>
+            </button>
+            <span class="text-xs text-indigoBrand-300 font-mono font-bold uppercase tracking-widest bg-indigoBrand-950/90 px-4 py-2 rounded-full border border-indigoBrand-800">
+              Chapter <span id="activeChapterIndicator">1</span> / 3
+            </span>
+            <button onclick="nextChapter()" class="w-12 h-12 rounded-full bg-indigoBrand-800 border border-indigoBrand-700/80 hover:border-indigoBrand-300 text-indigoBrand-300 hover:text-white flex items-center justify-center shadow-lg transition-all hover:scale-105 active:scale-95">
+              <i class="fa-solid fa-chevron-right text-sm"></i>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================= DESIGN SYSTEM / VISUAL LANGUAGE BLUEPRINT ================= -->
+  <section class="py-24 bg-indigoBrand-800 relative text-white" id="editorial-system">
+    <div class="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-indigoBrand-900 to-transparent pointer-events-none"></div>
+    
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <!-- Grid Section -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+        
+        <!-- Interactive Color & Pattern Tester column -->
+        <div class="lg:col-span-6 space-y-8">
+          <div class="space-y-4">
+            <span class="text-xs font-semibold uppercase tracking-widest text-indigoBrand-300">03 // Palette & Design System</span>
+            <h2 class="text-3xl sm:text-5xl font-display font-bold leading-tight">Visual Integrity & Color Philosophy</h2>
+            <div class="h-[2px] bg-indigoBrand-300 w-24"></div>
+          </div>
+
+          <p class="text-sm text-indigoBrand-300 leading-relaxed">
+            The design draws directly from deep-indigo letterpress block printing. This restricts the canvas to a disciplined visual system where tone, density, and contrast create high-end luxury layouts.
+          </p>
+
+          <!-- Interactive Palette Swatch Card -->
+          <div class="bg-indigoBrand-900/60 rounded-2xl p-6 border border-indigoBrand-700/80 space-y-6">
+            <h4 class="text-xs uppercase tracking-widest font-bold text-white mb-2">Color Matrix & Code Breakdown</h4>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <!-- Swatch 1 -->
+              <div class="bg-indigoBrand-900 border border-indigoBrand-800 rounded-xl p-3 text-center hover:scale-105 transition-all cursor-pointer" onclick="copyColor('#0f1724')">
+                <div class="w-full h-12 rounded-lg bg-indigoBrand-900 mb-2 border border-indigoBrand-800"></div>
+                <span class="block text-[10px] font-mono text-indigoBrand-300">#0F1724</span>
+                <span class="text-[8px] uppercase tracking-wider text-indigoBrand-500">Midnight Slate</span>
+              </div>
+              <!-- Swatch 2 -->
+              <div class="bg-indigoBrand-900 border border-indigoBrand-800 rounded-xl p-3 text-center hover:scale-105 transition-all cursor-pointer" onclick="copyColor('#2e496d')">
+                <div class="w-full h-12 rounded-lg bg-indigoBrand-600 mb-2"></div>
+                <span class="block text-[10px] font-mono text-indigoBrand-300">#2E496D</span>
+                <span class="text-[8px] uppercase tracking-wider text-indigoBrand-500">Royal Indigo</span>
+              </div>
+              <!-- Swatch 3 -->
+              <div class="bg-indigoBrand-900 border border-indigoBrand-800 rounded-xl p-3 text-center hover:scale-105 transition-all cursor-pointer" onclick="copyColor('#8da9c4')">
+                <div class="w-full h-12 rounded-lg bg-indigoBrand-300 mb-2"></div>
+                <span class="block text-[10px] font-mono text-indigoBrand-300">#8DA9C4</span>
+                <span class="text-[8px] uppercase tracking-wider text-indigoBrand-500">Periwinkle</span>
+              </div>
+              <!-- Swatch 4 -->
+              <div class="bg-indigoBrand-900 border border-indigoBrand-800 rounded-xl p-3 text-center hover:scale-105 transition-all cursor-pointer" onclick="copyColor('#fbfbf9')">
+                <div class="w-full h-12 rounded-lg bg-parchment mb-2"></div>
+                <span class="block text-[10px] font-mono text-indigoBrand-300">#FBFBF9</span>
+                <span class="text-[8px] uppercase tracking-wider text-indigoBrand-500">Book stock</span>
+              </div>
+            </div>
+
+            <!-- Copy feedback notification container -->
+            <div id="copyFeedback" class="text-xs text-indigoBrand-300 italic text-center opacity-0 transition-opacity duration-300">
+              <i class="fa-solid fa-circle-check text-green-400 mr-1.5"></i> Color hex code copied to clipboard!
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Spec Typography & Arch visualization columns -->
+        <div class="lg:col-span-6 space-y-6">
+          <div class="bg-indigoBrand-900/40 border border-indigoBrand-700/60 rounded-3xl p-8 relative overflow-hidden">
+            <!-- Decorative curve mask representing bottom design curve of the inspiration image -->
+            <div class="absolute bottom-0 right-0 w-48 h-48 border-t border-l border-dashed border-indigoBrand-500/15 rounded-tl-full pointer-events-none"></div>
+
+            <h3 class="text-xl font-display font-bold text-white mb-6 flex items-center gap-3">
+              <i class="fa-solid fa-pen-nib text-indigoBrand-300"></i>
+              <span>Typography Spectrum</span>
+            </h3>
+
+            <!-- Typo specimen blocks -->
+            <div class="space-y-6">
+              <div class="border-b border-indigoBrand-800/80 pb-4">
+                <span class="block text-[10px] uppercase font-mono tracking-widest text-indigoBrand-400">01 / TITLES / BRAND MONOGRAMS</span>
+                <h4 class="text-2xl font-display text-white tracking-widest mt-1">ХОДЯЧИЙ ЗАМОК</h4>
+                <p class="text-xs text-indigoBrand-400 italic">Cinzel Decorative • Capital Letterpress Weight</p>
+              </div>
+
+              <div class="border-b border-indigoBrand-800/80 pb-4">
+                <span class="block text-[10px] uppercase font-mono tracking-widest text-indigoBrand-400">02 / STORY CONTENT / EXCERPTS</span>
+                <p class="text-lg font-serif italic text-indigoBrand-100 mt-1">«В стране Ингарии, где действительно водятся сапоги...»</p>
+                <p class="text-xs text-indigoBrand-400 italic">Playfair Display • Classic Story Book Serif</p>
+              </div>
+
+              <div>
+                <span class="block text-[10px] uppercase font-mono tracking-widest text-indigoBrand-400">03 / METADATA & LABELS</span>
+                <span class="block text-xs uppercase tracking-[0.25em] font-sans font-semibold text-indigoBrand-300 mt-1">ORIGINAL GRAPHIC BLUEPRINT 2026</span>
+                <p class="text-xs text-indigoBrand-400 italic">Plus Jakarta Sans • Crisp modern structural utility</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================= EDITORIAL GRAPHICS & ART GALLERY ================= -->
+  <section class="py-24 bg-indigoBrand-900 text-white relative" id="illustrations">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+        <div class="space-y-4">
+          <span class="text-xs font-semibold uppercase tracking-widest text-indigoBrand-300">04 // Editorial Asset Catalog</span>
+          <h2 class="text-3xl sm:text-5xl font-display font-bold leading-tight">Artistic Blueprints & Graphics</h2>
+          <div class="h-[2px] bg-indigoBrand-300 w-24"></div>
+        </div>
+        <p class="text-sm text-indigoBrand-300 max-w-md">
+          A showcase of custom conceptual graphics styled to replicate the dual-tone contrast values of high-grade publishing art.
+        </p>
+      </div>
+
+      <!-- Vector Art Gallery Cards mimicking original image circles & landscape views -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Gallery Card 1: The Steampunk Castle silhouette -->
+        <div class="bg-indigoBrand-800/40 rounded-2xl border border-indigoBrand-700/60 p-6 flex flex-col justify-between group hover:border-indigoBrand-300 transition-all duration-300 hover:shadow-glow-blue">
+          <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-indigoBrand-900 flex items-center justify-center p-4">
+            <!-- Animated SVG of castle -->
+            <svg class="w-1/2 h-full text-indigoBrand-300 group-hover:scale-110 transition-transform duration-500" viewBox="0 0 100 100" fill="currentColor">
+              <path d="M40 85h20M30 65l10-20V30l10-15 10 15v15l10 20z" opacity="0.8"/>
+              <!-- Castle structures -->
+              <circle cx="50" cy="50" r="15" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M40 50h20M50 40v20" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+            <div class="absolute bottom-2 left-2 px-2.5 py-1 rounded bg-indigoBrand-800/90 text-[9px] uppercase tracking-wider text-indigoBrand-100 font-mono">
+              Castle Portrait
+            </div>
+          </div>
+          <div class="mt-6 space-y-2">
+            <h4 class="text-lg font-display font-bold text-white group-hover:text-indigoBrand-300 transition-colors">Ходячий замок (Symmetric Vector)</h4>
+            <p class="text-xs text-indigoBrand-300 leading-relaxed">
+              The mechanical wanderer, composed of geometric segments, steam vents, and complex multi-decked compartments.
+            </p>
+          </div>
+        </div>
+
+        <!-- Gallery Card 2: Character Portrait Cameo (Howl / Хаул) -->
+        <div class="bg-indigoBrand-800/40 rounded-2xl border border-indigoBrand-700/60 p-6 flex flex-col justify-between group hover:border-indigoBrand-300 transition-all duration-300 hover:shadow-glow-blue">
+          <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-indigoBrand-900 flex items-center justify-center p-4">
+            <!-- Cameo mask rendering matching the circle panels in the upload book preview -->
+            <div class="w-24 h-24 rounded-full border-2 border-indigoBrand-300 relative flex items-center justify-center overflow-hidden bg-indigoBrand-800 text-white">
+              <svg class="w-full h-full text-indigoBrand-300" viewBox="0 0 100 100" fill="currentColor">
+                <!-- Abstract character linework -->
+                <path d="M50 25c-8 0-15 5-15 15s8 25 15 25 15-15 15-25-7-15-15-15z" opacity="0.9"/>
+                <path d="M25 75s10-10 25-10 25 10 25 10v10H25V75z" opacity="0.6"/>
+              </svg>
+            </div>
+            <div class="absolute bottom-2 left-2 px-2.5 py-1 rounded bg-indigoBrand-800/90 text-[9px] uppercase tracking-wider text-indigoBrand-100 font-mono">
+              Cameo Profile
+            </div>
+          </div>
+          <div class="mt-6 space-y-2">
+            <h4 class="text-lg font-display font-bold text-white group-hover:text-indigoBrand-300 transition-colors">Howl Pendragon (Wizard Portrait)</h4>
+            <p class="text-xs text-indigoBrand-300 leading-relaxed">
+              Stylized character silhouette, utilizing geometric curves to achieve depth without relying on gradients.
+            </p>
+          </div>
+        </div>
+
+        <!-- Gallery Card 3: Landscape & Mountains (Inspiration Page 2 Right Panel) -->
+        <div class="bg-indigoBrand-800/40 rounded-2xl border border-indigoBrand-700/60 p-6 flex flex-col justify-between group hover:border-indigoBrand-300 transition-all duration-300 hover:shadow-glow-blue">
+          <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-indigoBrand-900 flex items-center justify-center p-4">
+            <!-- Landscape artwork with waves and peaks -->
+            <svg class="w-full h-full text-indigoBrand-300" viewBox="0 0 200 100" fill="currentColor">
+              <!-- Mountain peaks -->
+              <polygon points="10,80 60,30 110,80" opacity="0.7" />
+              <polygon points="80,80 130,20 180,80" opacity="0.9" />
+              <!-- Wave ripples -->
+              <path d="M0,85 C50,80 100,90 150,85 C180,82 200,87 200,85 L200,100 L0,100 Z" fill="currentColor" />
+            </svg>
+            <div class="absolute bottom-2 left-2 px-2.5 py-1 rounded bg-indigoBrand-800/90 text-[9px] uppercase tracking-wider text-indigoBrand-100 font-mono">
+              Landscape View
+            </div>
+          </div>
+          <div class="mt-6 space-y-2">
+            <h4 class="text-lg font-display font-bold text-white group-hover:text-indigoBrand-300 transition-colors">Market-Chipping Valley</h4>
+            <p class="text-xs text-indigoBrand-300 leading-relaxed">
+              Beautiful horizontal compositions that grace the chapter heads and editorial dividers of the design layout.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================= INTERACTIVE WORKSHOP & FEEDBACK MODAL ================= -->
+  <section class="py-24 bg-indigoBrand-800 text-white relative">
+    <!-- Fluid wave dividing element top of block -->
+    <div class="absolute inset-x-0 top-0 h-10 overflow-hidden leading-[0]">
+      <svg class="relative block w-full h-[40px]" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M1200,0H0V120H1200V0Z" fill="#0f1724" opacity="0.3"></path>
+      </svg>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-6 text-center space-y-10 relative z-10">
+      
+      <div class="space-y-4">
+        <h2 class="text-3xl sm:text-4xl font-display font-bold text-white">Experience Editorial Excellence</h2>
+        <p class="text-sm text-indigoBrand-300 max-w-lg mx-auto leading-relaxed">
+          Would you like to customize the presentation book canvas layout parameters to experiment with live margins and sizes?
+        </p>
+      </div>
+
+      <!-- Live customization knobs -->
+      <div class="bg-indigoBrand-900/80 border border-indigoBrand-700/60 p-6 sm:p-8 rounded-2xl grid grid-cols-1 sm:grid-cols-2 gap-8 text-left">
+        <!-- Control 1 -->
+        <div class="space-y-2">
+          <label class="block text-xs uppercase tracking-widest text-indigoBrand-300 font-bold">Book Cover Frame Width</label>
+          <input type="range" min="300" max="420" value="340" class="w-full h-1 bg-indigoBrand-800 rounded-lg appearance-none cursor-pointer accent-indigoBrand-300" id="frameWidthRange" oninput="adjustFrameWidth(this.value)">
+          <div class="flex justify-between text-[10px] text-indigoBrand-400 font-mono">
+            <span>Narrow (300px)</span>
+            <span>Wide (420px)</span>
+          </div>
+        </div>
+
+        <!-- Control 2 -->
+        <div class="space-y-2">
+          <label class="block text-xs uppercase tracking-widest text-indigoBrand-300 font-bold">Paper Brightness / Tone</label>
+          <div class="grid grid-cols-3 gap-2">
+            <button onclick="setPaperTone('#fbfbf9')" class="px-3 py-2 rounded bg-indigoBrand-800 hover:bg-indigoBrand-700 text-[10px] font-mono font-bold text-indigoBrand-100 border border-indigoBrand-700">
+              Classic Parchment
+            </button>
+            <button onclick="setPaperTone('#ffffff')" class="px-3 py-2 rounded bg-indigoBrand-800 hover:bg-indigoBrand-700 text-[10px] font-mono font-bold text-indigoBrand-100 border border-indigoBrand-700">
+              Stark White
+            </button>
+            <button onclick="setPaperTone('#eef2f7')" class="px-3 py-2 rounded bg-indigoBrand-800 hover:bg-indigoBrand-700 text-[10px] font-mono font-bold text-indigoBrand-100 border border-indigoBrand-700">
+              Cool Slate
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-4">
+        <span class="block text-[10px] uppercase tracking-widest text-indigoBrand-400 font-mono">Design layout proposal by O.A. • Interactive presentation engineered by Gemini</span>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-indigoBrand-950 border-t border-indigoBrand-800/80 text-indigoBrand-400 py-16">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
+      
+      <!-- Brand & Copyright -->
+      <div class="md:col-span-2 space-y-6">
+        <a href="#" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 rounded-full border border-indigoBrand-300 flex items-center justify-center text-indigoBrand-300 font-display text-lg shadow-glow-blue">
+            H
+          </div>
+          <div>
+            <span class="font-display tracking-widest text-sm text-indigoBrand-100">ХОДЯЧИЙ ЗАМОК</span>
+            <span class="block text-[9px] font-sans uppercase tracking-[0.25em] text-indigoBrand-400">Concept Project</span>
+          </div>
+        </a>
+        <p class="text-xs text-indigoBrand-400 leading-relaxed max-w-md">
+          This digital publication serves as an experimental web artifact inspired by O.A.'s physical book layout concepts. All rights to characters and literature belong to their respective creators.
+        </p>
+        <p class="text-[10px] font-mono text-indigoBrand-500">
+          &copy; 2026 Howl's Moving Castle Conceptual Team. All rights reserved.
+        </p>
+      </div>
+
+      <!-- Quick links inside visual concept -->
+      <div class="space-y-4">
+        <h4 class="text-xs uppercase tracking-widest text-indigoBrand-100 font-bold font-mono">Sections</h4>
+        <ul class="space-y-2 text-xs">
+          <li><a href="#concept" class="hover:text-white transition-colors">Design System Blueprint</a></li>
+          <li><a href="#interactive-book" class="hover:text-white transition-colors">Dual-Page Book Reader</a></li>
+          <li><a href="#editorial-system" class="hover:text-white transition-colors">Visual Typography Spec</a></li>
+          <li><a href="#illustrations" class="hover:text-white transition-colors">Conceptual Art Catalog</a></li>
+        </ul>
+      </div>
+
+      <!-- Editorial Notes -->
+      <div class="space-y-4">
+        <h4 class="text-xs uppercase tracking-widest text-indigoBrand-100 font-bold font-mono">Curator Notes</h4>
+        <p class="text-xs text-indigoBrand-400 leading-relaxed">
+          Each digital vector artwork has been engineered with raw SVGs matching the dual-tone letterpress color values specified in the original book mockup plates.
+        </p>
+        <div class="flex items-center gap-3 text-white text-sm pt-2">
+          <a href="#" class="hover:text-indigoBrand-300 transition-colors"><i class="fa-brands fa-github"></i></a>
+          <a href="#" class="hover:text-indigoBrand-300 transition-colors"><i class="fa-brands fa-dribbble"></i></a>
+          <a href="#" class="hover:text-indigoBrand-300 transition-colors"><i class="fa-brands fa-behance"></i></a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
+  <script>
+    // Chapter database containing the translation text and associated graphic assets
+    const chapters = {
+      1: {
+        chapterNum: "Глава первая",
+        title: "В которой Софи беседует со шляпками",
+        content: `
+          <p><span class="float-left text-5xl font-display font-extrabold text-indigoBrand-700 mr-2.5 mt-1 leading-none">В</span> стране Ингарии, где действительно водятся семимильные сапоги и плащи-невидимки, родиться старшим из троих детей считалось изрядным невезением. Всякий знал, что если трое братьев или сестер отправятся на поиски счастья, именно старшего ждет самый сокрушительный провал, даже если он отправится в путь первым.</p>
+          <p>Софи Хаттер была старшей из трех сестер и жила в небольшом, но весьма процветающем городке Маркет-Чиппинг. Родители ее были не слишком богаты, но содержали отличную дамскую шляпную мастерскую, в которой сами же и работали.</p>
+        `,
+        pageNumLeft: "03",
+        pageNumRight: "04",
+        artTitle: "Ходячий ЗамокХаул",
+        artDesc: "Original Vector Blueprint No. 042",
+        svgMarkup: `
+          <svg class="w-4/5 h-4/5 text-indigoBrand-600 transition-all duration-500 float-anim" viewBox="0 0 200 200" fill="currentColor">
+            <path d="M70 145l-10 25h-5l5-25zM130 145l10 25h5l-5-25z" stroke="currentColor" stroke-width="2"/>
+            <ellipse cx="100" cy="135" rx="55" ry="18"/>
+            <rect x="65" y="80" width="20" height="45" rx="2" />
+            <rect x="115" y="70" width="22" height="55" rx="2" />
+            <polygon points="100,50 115,100 85,100" />
+            <ellipse cx="100" cy="85" rx="28" ry="28"/>
+            <rect x="70" y="45" width="8" height="35" />
+            <rect x="122" y="30" width="10" height="40" />
+            <circle cx="74" cy="30" r="10" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="3 3"/>
+            <circle cx="127" cy="15" r="14" fill="none" stroke="currentColor" stroke-width="2"/>
+            <circle cx="140" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
+            <circle cx="85" cy="115" r="5" fill="#fff"/>
+            <circle cx="115" cy="115" r="5" fill="#fff"/>
+            <path d="M90 130s10 5 20 0" stroke="#fff" stroke-width="2" fill="none"/>
+          </svg>
+        `
+      },
+      2: {
+        chapterNum: "Глава вторая",
+        title: "В которой Софи вынуждена пуститься в путь",
+        content: `
+          <p><span class="float-left text-5xl font-display font-extrabold text-indigoBrand-700 mr-2.5 mt-1 leading-none">К</span>огда умер господин Хаттер, жизнь сестер круто переменилась. Мачеха Фанни решила отправить Летти в кондитерскую господина Чезари, а Марту — в ученицы к ведьме на болотах. Сама же Софи осталась помогать Фанни в шляпной мастерской.</p>
+          <p>Дни тянулись серо и однообразно. Софи шила шляпки, украшая их искусственными розами и вуалями, и тихонько разговаривала с ними, нашептывая каждой её собственную тайную судьбу и предначертанную любовь.</p>
+        `,
+        pageNumLeft: "15",
+        pageNumRight: "16",
+        artTitle: "Ведьма Пустоши",
+        artDesc: "Portrait Cameo Frame No. 011",
+        svgMarkup: `
+          <div class="w-32 h-32 rounded-full border-2 border-indigoBrand-400 flex items-center justify-center bg-indigoBrand-600 relative overflow-hidden text-white shadow-lg">
+            <svg class="w-full h-full text-indigoBrand-100" viewBox="0 0 100 100" fill="currentColor">
+              <!-- Witch stylized hat and hair -->
+              <polygon points="50,15 15,55 85,55" />
+              <circle cx="50" cy="55" r="15" />
+              <!-- Feather decorations -->
+              <path d="M30,35 Q40,20 50,35" stroke="currentColor" stroke-width="2" fill="none" />
+              <path d="M70,35 Q60,20 50,35" stroke="currentColor" stroke-width="2" fill="none" />
+            </svg>
+          </div>
+        `
+      },
+      3: {
+        chapterNum: "Глава третья",
+        title: "В которой Софи попадает в замок",
+        content: `
+          <p><span class="float-left text-5xl font-display font-extrabold text-indigoBrand-700 mr-2.5 mt-1 leading-none">П</span>осле роковой встречи с разгневанной Болотной Ведьмой, Софи обнаружила себя дряхлой старухой с изборожденным морщинами лицом. Не видя смысла оставаться в мастерской, она ушла из города, опираясь на суковатую трость.</p>
+          <p>Бредя сквозь сумерки по холодным холмам, она неожиданно увидела возвышающийся силуэт. То был огромный Ходячий Замок, окутанный клубами сизого пара и медленно переступающий с холма на холм.</p>
+        `,
+        pageNumLeft: "29",
+        pageNumRight: "30",
+        artTitle: "Огненный Демон Кальцифер",
+        artDesc: "Embers of the Hearth No. 009",
+        svgMarkup: `
+          <svg class="w-4/5 h-4/5 text-indigoBrand-500 float-anim" viewBox="0 0 100 100" fill="currentColor">
+            <!-- Calcifer fire flames -->
+            <path d="M50 15C50 15 70 35 70 55C70 70 60 85 50 85C40 85 30 70 30 55C30 35 50 15 50 15Z" />
+            <path d="M50 35C50 35 62 48 62 60C62 70 56 78 50 78C44 78 38 70 38 60C38 48 50 35 50 35Z" fill="#fff" />
+            <!-- Anime-style expressive eyes and mouth -->
+            <circle cx="43" cy="55" r="4" fill="currentColor" />
+            <circle cx="57" cy="55" r="4" fill="currentColor" />
+            <circle cx="43" cy="55" r="1" fill="#fff" />
+            <circle cx="57" cy="55" r="1" fill="#fff" />
+            <path d="M46 68 Q50 72 54 68" stroke="currentColor" stroke-width="2" fill="none" />
+          </svg>
+        `
+      }
+    };
+
+    let activeChapter = 1;
+    let invertedMode = false;
+
+    // Changes the active reader chapter
+    function setChapter(chapterId) {
+      activeChapter = chapterId;
+      const data = chapters[chapterId];
+
+      // Update indicators and buttons
+      document.getElementById("activeChapterIndicator").innerText = chapterId;
+      
+      // Update story text content
+      document.getElementById("leftPageChapterNum").innerText = data.chapterNum;
+      document.getElementById("leftPageTitle").innerText = data.title;
+      document.getElementById("leftPageContent").innerHTML = data.content;
+      document.getElementById("leftPageNum").innerText = data.pageNumLeft;
+      
+      // Update artwork graphic & caption metadata
+      document.getElementById("artworkContainer").innerHTML = data.svgMarkup;
+      document.getElementById("rightPageArtTitle").innerText = data.artTitle;
+      document.getElementById("rightPageArtDesc").innerText = data.artDesc;
+      document.getElementById("rightPageNum").innerText = data.pageNumRight;
+
+      // Reset button classes
+      for (let i = 1; i <= 3; i++) {
+        const btn = document.getElementById(`btn-chap-${i}`);
+        if (i === chapterId) {
+          btn.className = "px-3 py-1.5 rounded-md text-xs font-medium bg-indigoBrand-300 text-indigoBrand-900 shadow-md transition-all duration-200";
+        } else {
+          btn.className = "px-3 py-1.5 rounded-md text-xs font-medium text-indigoBrand-300 hover:text-white transition-all duration-200";
+        }
+      }
+    }
+
+    function prevChapter() {
+      let target = activeChapter - 1;
+      if (target < 1) target = 3;
+      setChapter(target);
+    }
+
+    function nextChapter() {
+      let target = activeChapter + 1;
+      if (target > 3) target = 1;
+      setChapter(target);
+    }
+
+    // Scroll helper
+    function scrollToReader() {
+      document.getElementById("interactive-book").scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Interactive Theme Inversion simulator
+    function toggleColorReverse() {
+      invertedMode = !invertedMode;
+      const artFrame = document.getElementById("artFrameBg");
+      const textCanvas = document.getElementById("bookCanvas");
+      
+      if (invertedMode) {
+        artFrame.classList.remove("bg-indigoBrand-50", "text-indigoBrand-900");
+        artFrame.classList.add("bg-indigoBrand-900", "text-white", "border-indigoBrand-600");
+      } else {
+        artFrame.classList.remove("bg-indigoBrand-900", "text-white", "border-indigoBrand-600");
+        artFrame.classList.add("bg-indigoBrand-50", "text-indigoBrand-900");
+      }
+    }
+
+    // Visual Customizer handles
+    function adjustFrameWidth(val) {
+      const artFrame = document.getElementById("artFrameBg");
+      artFrame.style.maxWidth = `${val}px`;
+    }
+
+    function setPaperTone(color) {
+      const textCanvas = document.getElementById("bookCanvas");
+      textCanvas.style.backgroundColor = color;
+    }
+
+    // Color Swatch copy to clipboard simulation (safe implementation without navigator.clipboard fallback)
+    function copyColor(hex) {
+      const tempInput = document.createElement("input");
+      tempInput.value = hex;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempInput);
+
+      const feedback = document.getElementById("copyFeedback");
+      feedback.style.opacity = "1";
+      setTimeout(() => {
+        feedback.style.opacity = "0";
+      }, 2500);
+    }
+
+    // Dynamic header styling on scroll
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById("mainHeader");
+      if (window.scrollY > 50) {
+        header.classList.add("py-3", "bg-indigoBrand-950/95");
+        header.classList.remove("py-5");
+      } else {
+        header.classList.add("py-5");
+        header.classList.remove("py-3", "bg-indigoBrand-950/95");
+      }
+    });
+  </script>
+
+</body>
+</html>
+9

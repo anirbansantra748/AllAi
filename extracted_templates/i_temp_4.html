@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intelly — Intelligent Clinical Workflow & Billing</title>
+  
+  <!-- Plus Jakarta Sans Font for that exact premium, high-end look -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              cream: '#FAF7F2',
+              creamDark: '#F4EFEB',
+              charcoal: '#131316',
+              charcoalLight: '#1E1E24',
+              rose: '#FCDDEC',
+              roseDark: '#8A3263',
+              blue: '#DCE8FC',
+              blueDark: '#2E5394',
+              gold: '#FEF2D7',
+              goldDark: '#855E1A',
+              green: '#E2F1E8',
+              greenDark: '#2D6142',
+              purple: '#E8DBFC',
+              purpleDark: '#5E2E9E',
+              grayBorder: '#EBE6DD'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Premium smooth scroll & custom scrollbar */
+    html {
+      scroll-behavior: smooth;
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #FAF7F2;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #EBE6DD;
+      border-radius: 999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #D9D2C5;
+    }
+    
+    /* Elegant ambient light effects */
+    .hero-glow {
+      background: radial-gradient(circle at 50% 50%, rgba(252, 221, 236, 0.45) 0%, rgba(220, 232, 252, 0.35) 40%, rgba(250, 247, 242, 0) 70%);
+    }
+    .bento-glow-rose {
+      background: radial-gradient(circle at top right, rgba(252, 221, 236, 0.4) 0%, rgba(250, 247, 242, 0) 60%);
+    }
+    .bento-glow-blue {
+      background: radial-gradient(circle at top right, rgba(220, 232, 252, 0.4) 0%, rgba(250, 247, 242, 0) 60%);
+    }
+  </style>
+</head>
+<body class="bg-brand-cream text-brand-charcoal min-h-screen antialiased overflow-x-hidden selection:bg-brand-rose selection:text-brand-roseDark">
+
+  <!-- ================= HEADER / NAVIGATION ================= -->
+  <header class="sticky top-0 z-50 bg-brand-cream/80 backdrop-blur-md border-b border-brand-grayBorder/60 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Logo -->
+      <a href="#" class="flex items-center space-x-2 group">
+        <div class="w-8 h-8 rounded-full bg-brand-charcoal flex items-center justify-center relative overflow-hidden transition-transform group-hover:scale-105">
+          <div class="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-brand-rose animate-pulse"></div>
+          <span class="text-brand-cream font-extrabold text-sm ml-[1px]">i</span>
+        </div>
+        <span class="text-2xl font-bold tracking-tight text-brand-charcoal">intelly<span class="text-brand-roseDark">.</span></span>
+      </a>
+
+      <!-- Desktop Nav Navigation Pills -->
+      <nav class="hidden md:flex items-center space-x-1 bg-brand-creamDark/80 p-1.5 rounded-full border border-brand-grayBorder/70">
+        <a href="#features" class="px-5 py-2 rounded-full text-sm font-medium text-brand-charcoal/80 hover:text-brand-charcoal hover:bg-white transition-all">Features</a>
+        <a href="#preview" class="px-5 py-2 rounded-full text-sm font-medium text-brand-charcoal/80 hover:text-brand-charcoal hover:bg-white transition-all">Platform Tour</a>
+        <a href="#ai-assistant" class="px-5 py-2 rounded-full text-sm font-medium text-brand-charcoal/80 hover:text-brand-charcoal hover:bg-white transition-all">AI Claims Copilot</a>
+        <a href="#pricing" class="px-5 py-2 rounded-full text-sm font-medium text-brand-charcoal/80 hover:text-brand-charcoal hover:bg-white transition-all">Pricing</a>
+      </nav>
+
+      <!-- Auth Action Buttons -->
+      <div class="flex items-center space-x-3">
+        <a href="#preview" class="hidden sm:inline-flex px-4 py-2 text-sm font-semibold hover:text-brand-charcoal/70 transition-colors">
+          Demo App
+        </a>
+        <a href="#ai-assistant" class="px-5 py-2.5 rounded-full text-sm font-semibold bg-brand-charcoal text-brand-cream hover:bg-brand-charcoalLight active:scale-95 transition-all shadow-sm">
+          Try Intelly AI
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= HERO SECTION ================= -->
+  <section class="relative pt-12 pb-20 md:py-32 overflow-hidden">
+    <!-- Ambient Light Circle behind Hero -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[120%] hero-glow -z-10 pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+      
+      <!-- Interactive Badge -->
+      <div class="inline-flex items-center space-x-2 bg-white/90 border border-brand-grayBorder px-4 py-1.5 rounded-full shadow-sm mb-8 animate-fade-in hover:scale-102 transition-transform cursor-pointer">
+        <span class="flex h-2 w-2 relative">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-roseDark opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-roseDark"></span>
+        </span>
+        <span class="text-xs font-semibold uppercase tracking-wider text-brand-charcoal/80">Intelly v2.6 Overview</span>
+        <span class="text-xs text-brand-roseDark font-bold bg-brand-rose px-2 py-0.5 rounded-full">New Features</span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-brand-charcoal max-w-5xl mx-auto leading-[1.08] mb-8">
+        Your patients’ <span class="relative inline-block px-2">billing <span class="absolute left-0 bottom-1 w-full h-[6px] md:h-[10px] bg-brand-rose -z-10 rounded-sm"></span></span> & scheduling, made beautiful.
+      </h1>
+
+      <!-- Subheadline -->
+      <p class="text-lg sm:text-xl text-brand-charcoal/70 max-w-2xl mx-auto leading-relaxed mb-10">
+        Say goodbye to stark, clunky medical interfaces. Welcome to an executive system crafted with soothing tones, dynamic billing analytics, and instant claim tracking.
+      </p>
+
+      <!-- Action buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+        <a href="#preview" class="w-full sm:w-auto px-8 py-4 rounded-full text-base font-bold bg-brand-charcoal text-brand-cream hover:bg-brand-charcoalLight hover:shadow-lg active:scale-98 transition-all flex items-center justify-center space-x-2">
+          <span>Explore Platform Preview</span>
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </a>
+        <a href="#ai-assistant" class="w-full sm:w-auto px-8 py-4 rounded-full text-base font-bold bg-white border border-brand-grayBorder text-brand-charcoal hover:bg-brand-creamDark hover:shadow-sm active:scale-98 transition-all flex items-center justify-center space-x-2">
+          <svg class="w-5 h-5 text-brand-roseDark" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/></svg>
+          <span>Run Claims Assistant</span>
+        </a>
+      </div>
+
+      <!-- Live Interactive System Stats Strip -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto p-4 bg-white/70 border border-brand-grayBorder/80 rounded-[2rem] shadow-sm backdrop-blur-sm">
+        <div class="p-4 text-center border-r border-brand-grayBorder/50 last:border-0">
+          <div class="text-3xl font-extrabold text-brand-charcoal">$23.4k</div>
+          <div class="text-xs font-semibold text-brand-charcoal/50 uppercase tracking-wider mt-1">Pending Invoices</div>
+        </div>
+        <div class="p-4 text-center border-r border-brand-grayBorder/50 last:border-0">
+          <div class="text-3xl font-extrabold text-brand-roseDark">98.6%</div>
+          <div class="text-xs font-semibold text-brand-charcoal/50 uppercase tracking-wider mt-1">Claim Success</div>
+        </div>
+        <div class="p-4 text-center border-r border-brand-grayBorder/50 last:border-0 bg-brand-green/30 rounded-2xl">
+          <div class="text-3xl font-extrabold text-brand-greenDark">+$14,568</div>
+          <div class="text-xs font-semibold text-brand-charcoal/50 uppercase tracking-wider mt-1">Received This Week</div>
+        </div>
+        <div class="p-4 text-center last:border-0">
+          <div class="text-3xl font-extrabold text-brand-blueDark">12 Min</div>
+          <div class="text-xs font-semibold text-brand-charcoal/50 uppercase tracking-wider mt-1">Avg Patient Waiting</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= THE PREVIEW WORKSPACE (THE VISUAL CORE) ================= -->
+  <section id="preview" class="py-16 bg-brand-creamDark/40 border-y border-brand-grayBorder">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Header / Control Area for Workspace -->
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-charcoal tracking-tight mb-4">
+          Experience the UI Universe
+        </h2>
+        <p class="text-brand-charcoal/70 leading-relaxed">
+          Toggle between Dr. Olivia’s two vital interfaces: **Patient Billing & Invoices** and the clinical **Daily Planner**. Directly inspired by the Intelly workflow engine.
+        </p>
+
+        <!-- Dynamic Workspace View Selector (Tab Controller) -->
+        <div class="inline-flex p-1.5 bg-brand-charcoal text-brand-cream rounded-full shadow-lg mt-8">
+          <button id="btn-billing-view" onclick="switchPreviewTab('billing')" class="px-6 py-3 rounded-full text-sm font-semibold transition-all bg-brand-rose text-brand-charcoal shadow-md">
+            💳 Patient Billing & Invoices
+          </button>
+          <button id="btn-schedule-view" onclick="switchPreviewTab('schedule')" class="px-6 py-3 rounded-full text-sm font-semibold transition-all hover:text-brand-rose text-white/80">
+            📅 Calendar & Daily Planner
+          </button>
+        </div>
+      </div>
+
+      <!-- THE IMMERSIVE PLATFORM WRAPPER -->
+      <div class="bg-[#FAF8F5] rounded-[2.5rem] border border-brand-grayBorder shadow-2xl overflow-hidden relative transition-all duration-500">
+        
+        <!-- Application Top Ribbon (Chrome window controls) -->
+        <div class="bg-white border-b border-brand-grayBorder/80 px-6 py-4 flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <span class="w-3.5 h-3.5 rounded-full bg-brand-rose flex-shrink-0"></span>
+            <span class="text-xs font-bold tracking-widest text-brand-charcoal/40 uppercase">LIVE INTELLY PLATFORM</span>
+          </div>
+          <!-- Custom mock search pill -->
+          <div class="relative w-64 hidden md:block">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-brand-charcoal/40 text-sm">🔍</span>
+            <input type="text" placeholder="Search patients, medical codes, claims..." class="w-full bg-brand-cream border border-brand-grayBorder/80 rounded-full py-1 px-8 text-xs focus:outline-none focus:ring-1 focus:ring-brand-rose" readonly>
+            <span class="absolute inset-y-0 right-2 flex items-center text-[10px] bg-brand-creamDark px-2 py-0.5 rounded border border-brand-grayBorder text-brand-charcoal/40">Ctrl K</span>
+          </div>
+          <!-- Top right stats or controls -->
+          <div class="flex items-center space-x-3 text-xs font-semibold text-brand-charcoal/70">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
+            <span>Dr. Olivia (Administrator)</span>
+          </div>
+        </div>
+
+        <!-- MAIN LAYOUT FRAME -->
+        <div class="flex flex-col lg:flex-row min-h-[720px]">
+          
+          <!-- LEFT SIDEBAR (Identical Theme to the image) -->
+          <aside class="w-full lg:w-64 bg-brand-charcoal text-brand-cream flex-shrink-0 flex flex-col justify-between p-6 border-r border-brand-charcoal">
+            <div>
+              <!-- Sidebar Header Brand -->
+              <div class="flex items-center space-x-2.5 mb-10 pb-6 border-b border-white/10">
+                <div class="w-7 h-7 rounded-full bg-brand-cream flex items-center justify-center">
+                  <span class="text-brand-charcoal font-black text-xs">i</span>
+                </div>
+                <span class="text-lg font-bold tracking-tight text-white">intelly</span>
+              </div>
+
+              <!-- Nav Group 1: General -->
+              <div class="mb-8">
+                <span class="text-[10px] tracking-wider text-white/30 uppercase font-semibold block mb-4">General</span>
+                <nav class="space-y-1">
+                  <a href="#preview" onclick="alertNotification('Welcome back! You are viewing the Dashboard dashboard demo.')" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white transition-all group">
+                    <span class="text-base group-hover:scale-110 transition-transform">📊</span>
+                    <span>Dashboard</span>
+                  </a>
+                  <a href="#preview" onclick="switchPreviewTab('schedule')" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white transition-all group">
+                    <span class="text-base group-hover:scale-110 transition-transform">📅</span>
+                    <span>Schedule</span>
+                  </a>
+                  <a href="#preview" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white transition-all group">
+                    <span class="text-base group-hover:scale-110 transition-transform">👥</span>
+                    <span>Patients</span>
+                  </a>
+                  <a href="#preview" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white transition-all group">
+                    <span class="text-base group-hover:scale-110 transition-transform">📈</span>
+                    <span>Statistics & reports</span>
+                  </a>
+                  <a href="#preview" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white transition-all group">
+                    <span class="text-base group-hover:scale-110 transition-transform">🎓</span>
+                    <span>Education</span>
+                  </a>
+                </nav>
+              </div>
+
+              <!-- Nav Group 2: Tools -->
+              <div>
+                <span class="text-[10px] tracking-wider text-white/30 uppercase font-semibold block mb-4">Tools</span>
+                <nav class="space-y-1">
+                  <a href="#preview" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white transition-all group">
+                    <span class="text-base group-hover:scale-110 transition-transform">💬</span>
+                    <span>Chats & calls</span>
+                  </a>
+                  <a href="#preview" onclick="switchPreviewTab('billing')" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white transition-all group">
+                    <span class="text-base group-hover:scale-110 transition-transform">💳</span>
+                    <span>Billing</span>
+                  </a>
+                  <a href="#preview" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white transition-all group">
+                    <span class="text-base group-hover:scale-110 transition-transform">📄</span>
+                    <span>Documents base</span>
+                  </a>
+                  <a href="#preview" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white transition-all group">
+                    <span class="text-base group-hover:scale-110 transition-transform">⚙️</span>
+                    <span>Settings</span>
+                  </a>
+                </nav>
+              </div>
+            </div>
+
+            <!-- Sidebar Footer -->
+            <div class="pt-6 border-t border-white/10 mt-6">
+              <a href="#" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-white/60 hover:text-white transition-all">
+                <span>🚪</span>
+                <span>Log out</span>
+              </a>
+            </div>
+          </aside>
+
+          <!-- CONTENT SCREEN CONTAINER -->
+          <main class="flex-1 p-6 sm:p-8 lg:p-10">
+            
+            <!-- Toast Feedback Notification Element -->
+            <div id="demo-notification" class="hidden mb-6 p-4 rounded-2xl bg-brand-rose text-brand-roseDark border border-brand-roseDark/20 flex items-center justify-between transition-all animate-bounce">
+              <div class="flex items-center space-x-2">
+                <span class="text-lg">💡</span>
+                <span id="demo-notification-text" class="text-sm font-bold">Billing action completed successfully.</span>
+              </div>
+              <button onclick="dismissNotification()" class="text-brand-roseDark font-bold hover:scale-105">✕</button>
+            </div>
+
+            <!-- ================= SUB-VIEW 1: PATIENT BILLING & INVOICES ================= -->
+            <div id="billing-sub-view" class="transition-all duration-500">
+              
+              <!-- Billing Title Header -->
+              <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+                <div>
+                  <h3 class="text-2xl sm:text-3xl font-extrabold text-brand-charcoal">Your patients billing & invoices</h3>
+                  <p class="text-sm text-brand-charcoal/50 mt-1">Manage pending receivables, insurance claims, and live transaction ledgers.</p>
+                </div>
+                <div class="flex items-center space-x-2 bg-brand-cream border border-brand-grayBorder p-1 rounded-full">
+                  <button class="px-4 py-1.5 text-xs font-semibold bg-brand-charcoal text-white rounded-full">This week</button>
+                  <button class="px-4 py-1.5 text-xs font-semibold hover:bg-brand-creamDark rounded-full text-brand-charcoal/60">This month</button>
+                </div>
+              </div>
+
+              <!-- Top Stats Row (Donut Progress & Pastel Cards) -->
+              <div class="grid grid-cols-1 xl:grid-cols-12 gap-6 mb-8">
+                
+                <!-- SVG Donut Chart Card (Left 5 Columns) -->
+                <div class="xl:col-span-5 bg-white border border-brand-grayBorder rounded-[2rem] p-6 flex flex-col justify-between shadow-sm relative overflow-hidden">
+                  <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs font-bold uppercase tracking-wider text-brand-charcoal/40">Total Pending Bills</span>
+                    <span class="w-8 h-8 rounded-full bg-brand-rose flex items-center justify-center text-xs">💖</span>
+                  </div>
+                  
+                  <div class="flex items-center justify-around py-4">
+                    <!-- SVG Circular Donut Chart matching color accents from the image -->
+                    <div class="relative w-36 h-36 flex items-center justify-center">
+                      <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                        <!-- Background Circle -->
+                        <circle cx="50" cy="50" r="40" stroke="#F4EFEB" stroke-width="12" fill="transparent"/>
+                        <!-- Accent Blue arc -->
+                        <circle cx="50" cy="50" r="40" stroke="#DCE8FC" stroke-width="12" fill="transparent" stroke-dasharray="251" stroke-dashoffset="180"/>
+                        <!-- Accent Rose arc -->
+                        <circle cx="50" cy="50" r="40" stroke="#FCDDEC" stroke-width="12" fill="transparent" stroke-dasharray="251" stroke-dashoffset="60" stroke-linecap="round"/>
+                        <!-- Highlight Gold dot or small arc -->
+                        <circle cx="50" cy="50" r="40" stroke="#FEF2D7" stroke-width="12" fill="transparent" stroke-dasharray="251" stroke-dashoffset="230"/>
+                      </svg>
+                      <!-- Center Text -->
+                      <div class="absolute text-center">
+                        <span class="text-2xl font-black text-brand-charcoal block">23,4k</span>
+                        <span class="text-[10px] uppercase font-bold text-brand-charcoal/40 tracking-widest">USD</span>
+                      </div>
+                    </div>
+
+                    <!-- Chart Legend -->
+                    <div class="space-y-2">
+                      <div class="flex items-center space-x-2">
+                        <span class="w-3 h-3 rounded-full bg-brand-rose"></span>
+                        <span class="text-xs text-brand-charcoal/70">Insurance</span>
+                      </div>
+                      <div class="flex items-center space-x-2">
+                        <span class="w-3 h-3 rounded-full bg-brand-blue"></span>
+                        <span class="text-xs text-brand-charcoal/70">Telemedicine</span>
+                      </div>
+                      <div class="flex items-center space-x-2">
+                        <span class="w-3 h-3 rounded-full bg-brand-gold"></span>
+                        <span class="text-xs text-brand-charcoal/70">In-clinic</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Three Premium Pastel Cards stacked (Right 7 Columns) -->
+                <div class="xl:col-span-7 flex flex-col justify-between gap-4">
+                  
+                  <!-- Card 1: Payments Received -->
+                  <div class="bg-brand-rose border border-brand-roseDark/10 rounded-2xl p-5 flex items-center justify-between transition-transform hover:translate-x-1 duration-200">
+                    <div>
+                      <span class="text-xs font-semibold text-brand-roseDark/60 block mb-1">💳 Payments received</span>
+                      <span class="text-3xl font-extrabold text-brand-roseDark">$ 14,568</span>
+                      <span class="text-[10px] text-brand-roseDark/50 block mt-1">Total receipts value updated</span>
+                    </div>
+                    <div class="text-right">
+                      <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-white/70 text-brand-roseDark">
+                        ↑ 13%
+                      </span>
+                    </div>
+                  </div>
+
+                  <!-- Card 2: Payments Requested -->
+                  <div class="bg-brand-blue border border-brand-blueDark/10 rounded-2xl p-5 flex items-center justify-between transition-transform hover:translate-x-1 duration-200">
+                    <div>
+                      <span class="text-xs font-semibold text-brand-blueDark/60 block mb-1">🩺 Payments requested</span>
+                      <span class="text-3xl font-extrabold text-brand-blueDark">$ 6,234</span>
+                      <span class="text-[10px] text-brand-blueDark/50 block mt-1">Total waiting payments value</span>
+                    </div>
+                    <div class="text-right">
+                      <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-white/70 text-brand-blueDark">
+                        ↓ -4%
+                      </span>
+                    </div>
+                  </div>
+
+                  <!-- Card 3: Non insurance payments -->
+                  <div class="bg-brand-gold border border-brand-goldDark/10 rounded-2xl p-5 flex items-center justify-between transition-transform hover:translate-x-1 duration-200">
+                    <div>
+                      <span class="text-xs font-semibold text-brand-goldDark/60 block mb-1">🏷️ Non insurance payments</span>
+                      <span class="text-3xl font-extrabold text-brand-goldDark">$ 3,786</span>
+                      <span class="text-[10px] text-brand-goldDark/50 block mt-1">Total value of non-covered by insurance payments</span>
+                    </div>
+                    <div class="text-right">
+                      <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-white/70 text-brand-goldDark">
+                        ↓ -17%
+                      </span>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- Waiting for Bills / Action Area & Transaction Strip -->
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                
+                <!-- Waiting for Bills Action Cards -->
+                <div class="bg-white border border-brand-grayBorder rounded-[2rem] p-6 shadow-sm">
+                  <h4 class="text-sm font-bold text-brand-charcoal/50 uppercase tracking-wider mb-4">Waiting for bills</h4>
+                  <div class="space-y-3">
+                    
+                    <!-- Patient 1 -->
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-brand-cream rounded-2xl border border-brand-grayBorder/40">
+                      <div class="flex items-center space-x-3 mb-3 sm:mb-0">
+                        <div class="w-10 h-10 rounded-full bg-brand-blue flex items-center justify-center text-sm font-bold text-brand-blueDark">SW</div>
+                        <div>
+                          <p class="text-sm font-extrabold text-brand-charcoal">Samantha Williams</p>
+                          <p class="text-xs text-brand-charcoal/40">DXG - Routine Check-Up</p>
+                        </div>
+                      </div>
+                      <div class="flex items-center space-x-2">
+                        <span class="text-xs font-semibold bg-brand-blue text-brand-blueDark px-3 py-1 rounded-full">09:15 AM</span>
+                        <button onclick="requestPaymentAction('Samantha Williams', 345.65)" class="text-xs font-bold bg-brand-charcoal text-white px-4 py-2 rounded-full hover:bg-brand-charcoalLight transition-all active:scale-95">Request payment</button>
+                      </div>
+                    </div>
+
+                    <!-- Patient 2 -->
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-brand-cream rounded-2xl border border-brand-grayBorder/40">
+                      <div class="flex items-center space-x-3 mb-3 sm:mb-0">
+                        <div class="w-10 h-10 rounded-full bg-brand-rose flex items-center justify-center text-sm font-bold text-brand-roseDark">AW</div>
+                        <div>
+                          <p class="text-sm font-extrabold text-brand-charcoal">Amy White</p>
+                          <p class="text-xs text-brand-charcoal/40">312O - Video Consultation</p>
+                        </div>
+                      </div>
+                      <div class="flex items-center space-x-2">
+                        <span class="text-xs font-semibold bg-brand-rose text-brand-roseDark px-3 py-1 rounded-full">09:45 AM</span>
+                        <button onclick="requestPaymentAction('Amy White', 120.00)" class="text-xs font-bold bg-brand-charcoal text-white px-4 py-2 rounded-full hover:bg-brand-charcoalLight transition-all active:scale-95">Request payment</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <!-- Latest Transaction Cards (Pastel colored blocks) -->
+                <div class="bg-white border border-brand-grayBorder rounded-[2rem] p-6 shadow-sm flex flex-col justify-between">
+                  <div>
+                    <h4 class="text-sm font-bold text-brand-charcoal/50 uppercase tracking-wider mb-4">Latest Transactions</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      
+                      <!-- Tx 1 -->
+                      <div class="p-4 rounded-2xl border border-brand-grayBorder/60 bg-brand-cream">
+                        <div class="flex justify-between items-start mb-2">
+                          <span class="text-[10px] text-brand-charcoal/40 font-bold uppercase">121277 GEICO</span>
+                          <span class="text-xs text-brand-charcoal/50">15 min ago</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                          <span class="text-sm font-extrabold text-brand-charcoal">#3586895</span>
+                          <span class="bg-brand-green text-brand-greenDark font-bold px-2 py-1 rounded-lg text-xs">+ $568.56</span>
+                        </div>
+                      </div>
+
+                      <!-- Tx 2 -->
+                      <div class="p-4 rounded-2xl border border-brand-grayBorder/60 bg-brand-cream">
+                        <div class="flex justify-between items-start mb-2">
+                          <span class="text-[10px] text-brand-charcoal/40 font-bold uppercase">Wilkinson T.</span>
+                          <span class="text-xs text-brand-charcoal/50">15 min ago</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                          <span class="text-sm font-extrabold text-brand-charcoal">#1244657</span>
+                          <span class="bg-brand-green text-brand-greenDark font-bold px-2 py-1 rounded-lg text-xs">+ $465.40</span>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <!-- Quick Action Button to see more -->
+                  <button onclick="alertNotification('Reviewing complete financial ledger containing 1,420 previous claims.')" class="w-full text-center text-xs font-bold text-brand-charcoal hover:text-brand-roseDark underline mt-4">
+                    View Complete Transaction Log →
+                  </button>
+                </div>
+              </div>
+
+              <!-- Main Billing Ledger / Table (Recreated premium interactive styling) -->
+              <div class="bg-white border border-brand-grayBorder rounded-[2rem] overflow-hidden shadow-sm">
+                <div class="p-6 border-b border-brand-grayBorder flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div class="flex items-center space-x-2">
+                    <span class="text-lg">📋</span>
+                    <h4 class="text-base font-extrabold text-brand-charcoal">Detailed Billing & Claim Ledger</h4>
+                  </div>
+                  <!-- Filter Buttons matching the capsule UI density of original -->
+                  <div class="flex items-center space-x-1.5 flex-wrap">
+                    <button class="px-3.5 py-1 text-xs font-semibold bg-brand-charcoal text-white rounded-full">All Ledger</button>
+                    <button class="px-3.5 py-1 text-xs font-semibold hover:bg-brand-creamDark text-brand-charcoal/60 rounded-full">Telemedicine</button>
+                    <button class="px-3.5 py-1 text-xs font-semibold hover:bg-brand-creamDark text-brand-charcoal/60 rounded-full">In-clinic</button>
+                    <button class="px-3.5 py-1 text-xs font-semibold hover:bg-brand-creamDark text-brand-charcoal/60 rounded-full">Insurance</button>
+                  </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                  <table class="w-full text-left border-collapse">
+                    <thead>
+                      <tr class="bg-brand-creamDark/40 text-[10px] font-bold uppercase tracking-wider text-brand-charcoal/50 border-b border-brand-grayBorder">
+                        <th class="py-4 px-6">Type</th>
+                        <th class="py-4 px-6">Send date</th>
+                        <th class="py-4 px-6">Name</th>
+                        <th class="py-4 px-6">Amount</th>
+                        <th class="py-4 px-6">Recipient</th>
+                        <th class="py-4 px-6">Due date</th>
+                        <th class="py-4 px-6">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-brand-grayBorder/60 text-xs">
+                      
+                      <!-- Row 1 -->
+                      <tr class="hover:bg-brand-cream/30 transition-colors">
+                        <td class="py-4 px-6 font-semibold">Telemedicine</td>
+                        <td class="py-4 px-6 text-brand-charcoal/50">12/12/24</td>
+                        <td class="py-4 px-6 font-extrabold">Rachel Meyers</td>
+                        <td class="py-4 px-6 font-extrabold">$345.65</td>
+                        <td class="py-4 px-6 text-brand-charcoal/60">American Family Insurance</td>
+                        <td class="py-4 px-6 text-brand-charcoal/50">12/15/24</td>
+                        <td class="py-4 px-6">
+                          <span class="inline-flex px-2.5 py-1 rounded-full text-[10px] font-bold bg-brand-blue text-brand-blueDark">Requested</span>
+                        </td>
+                      </tr>
+
+                      <!-- Row 2 -->
+                      <tr class="hover:bg-brand-cream/30 transition-colors">
+                        <td class="py-4 px-6 font-semibold">In clinic</td>
+                        <td class="py-4 px-6 text-brand-charcoal/50">12/12/24</td>
+                        <td class="py-4 px-6 font-extrabold">Samantha Williams</td>
+                        <td class="py-4 px-6 font-extrabold">$245.65</td>
+                        <td class="py-4 px-6 text-brand-charcoal/60">Samantha Williams</td>
+                        <td class="py-4 px-6 text-brand-charcoal/50">-</td>
+                        <td class="py-4 px-6">
+                          <span class="inline-flex px-2.5 py-1 rounded-full text-[10px] font-bold bg-brand-green text-brand-greenDark">Paid</span>
+                        </td>
+                      </tr>
+
+                      <!-- Row 3 -->
+                      <tr class="hover:bg-brand-cream/30 transition-colors">
+                        <td class="py-4 px-6 font-semibold">Insurance</td>
+                        <td class="py-4 px-6 text-brand-charcoal/50">12/12/24</td>
+                        <td class="py-4 px-6 font-extrabold">Amy White</td>
+                        <td class="py-4 px-6 font-extrabold">$345.65</td>
+                        <td class="py-4 px-6 text-brand-charcoal/60">GEICO</td>
+                        <td class="py-4 px-6 text-brand-charcoal/50">12/15/24</td>
+                        <td class="py-4 px-6">
+                          <span class="inline-flex px-2.5 py-1 rounded-full text-[10px] font-bold bg-brand-rose text-brand-roseDark">Sent</span>
+                        </td>
+                      </tr>
+
+                      <!-- Row 4 -->
+                      <tr class="hover:bg-brand-cream/30 transition-colors">
+                        <td class="py-4 px-6 font-semibold">In clinic</td>
+                        <td class="py-4 px-6 text-brand-charcoal/50">12/12/24</td>
+                        <td class="py-4 px-6 font-extrabold">Tyler Young</td>
+                        <td class="py-4 px-6 font-extrabold">$345.65</td>
+                        <td class="py-4 px-6 text-brand-charcoal/60">American Family Insurance</td>
+                        <td class="py-4 px-6 text-brand-charcoal/50">-</td>
+                        <td class="py-4 px-6">
+                          <span class="inline-flex px-2.5 py-1 rounded-full text-[10px] font-bold bg-brand-green text-brand-greenDark">Paid</span>
+                        </td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- ================= SUB-VIEW 2: DR. OLIVIA'S CLINIC SCHEDULE ================= -->
+            <div id="schedule-sub-view" class="hidden transition-all duration-500">
+              
+              <!-- Title Block -->
+              <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+                <div>
+                  <h3 class="text-2xl sm:text-3xl font-extrabold text-brand-charcoal">Stay up to date, Dr. Olivia</h3>
+                  <p class="text-sm text-brand-charcoal/50 mt-1">Review clinical visits, diagnostic exams, team standups, and health education modules.</p>
+                </div>
+                <!-- Control Buttons for Calendar Actions -->
+                <div class="flex items-center space-x-2">
+                  <button onclick="alertNotification('Adding new medical appointment block to calendar...')" class="bg-brand-charcoal hover:bg-brand-charcoalLight text-white text-xs font-bold px-4 py-2.5 rounded-full shadow-sm active:scale-95 transition-all">
+                    + Add Event
+                  </button>
+                  <div class="flex items-center space-x-1 bg-brand-cream border border-brand-grayBorder p-1 rounded-full text-xs">
+                    <button class="px-3 py-1 font-semibold rounded-full bg-white text-brand-charcoal shadow-sm">Week</button>
+                    <button class="px-3 py-1 font-semibold text-brand-charcoal/50 rounded-full">Month</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Calendar Timeline Grid Layout (Visual masterpiece mimicking screen 2) -->
+              <div class="bg-white border border-brand-grayBorder rounded-[2.5rem] p-6 shadow-sm overflow-x-auto">
+                <div class="min-w-[900px]">
+                  
+                  <!-- Weekday Headers -->
+                  <div class="grid grid-cols-7 gap-4 mb-4 border-b border-brand-grayBorder/60 pb-4 text-center">
+                    <div class="text-brand-charcoal/40 text-[10px] uppercase font-bold">Time</div>
+                    <div class="p-2">
+                      <p class="text-[10px] uppercase font-bold text-brand-charcoal/50">Mon</p>
+                      <p class="text-lg font-black text-brand-charcoal">11/05</p>
+                    </div>
+                    <div class="p-2">
+                      <p class="text-[10px] uppercase font-bold text-brand-charcoal/50">Tue</p>
+                      <p class="text-lg font-black text-brand-charcoal">12/05</p>
+                    </div>
+                    <div class="p-2">
+                      <p class="text-[10px] uppercase font-bold text-brand-charcoal/50">Wed</p>
+                      <p class="text-lg font-black text-brand-charcoal">13/05</p>
+                    </div>
+                    <div class="p-2 bg-brand-charcoal text-brand-cream rounded-2xl shadow-md">
+                      <p class="text-[10px] uppercase font-bold text-white/60">Thu (Today)</p>
+                      <p class="text-lg font-black text-brand-rose">14/05</p>
+                    </div>
+                    <div class="p-2">
+                      <p class="text-[10px] uppercase font-bold text-brand-charcoal/50">Fri</p>
+                      <p class="text-lg font-black text-brand-charcoal">15/05</p>
+                    </div>
+                    <div class="p-2">
+                      <p class="text-[10px] uppercase font-bold text-brand-charcoal/50">Sat</p>
+                      <p class="text-lg font-black text-brand-charcoal">16/05</p>
+                    </div>
+                  </div>
+
+                  <!-- Hourly Blocks Rows -->
+                  <div class="space-y-4 relative">
+                    
+                    <!-- Line representing modern visual indicator timeline -->
+                    <div class="absolute top-[85px] left-0 w-full border-t border-dashed border-brand-roseDark z-20 pointer-events-none flex items-center justify-end">
+                      <span class="bg-brand-rose text-brand-roseDark text-[9px] font-extrabold px-2 py-0.5 rounded-full mr-2 shadow-sm border border-brand-roseDark/20 uppercase tracking-widest">Active Time indicator</span>
+                    </div>
+
+                    <!-- Row 1: Morning block -->
+                    <div class="grid grid-cols-7 gap-4 items-stretch min-h-[140px]">
+                      <!-- Time header -->
+                      <div class="flex flex-col justify-center text-left py-2 border-r border-brand-grayBorder/40">
+                        <span class="text-xs font-bold text-brand-charcoal">07:00 AM</span>
+                        <span class="text-[10px] text-brand-charcoal/40">Diagnostic Setup</span>
+                      </div>
+                      
+                      <!-- Monday: Emergency visit -->
+                      <div class="bg-brand-rose border border-brand-roseDark/10 p-3.5 rounded-2xl flex flex-col justify-between relative overflow-hidden group hover:scale-[1.02] transition-transform">
+                        <div>
+                          <div class="flex justify-between items-start">
+                            <span class="text-[10px] font-bold text-brand-roseDark uppercase tracking-wider">Emergency visit</span>
+                            <span class="text-xs">🚨</span>
+                          </div>
+                          <p class="text-xs font-black text-brand-charcoal mt-1">Samantha Williams</p>
+                          <p class="text-[10px] text-brand-charcoal/60">Room 302</p>
+                        </div>
+                        <span class="text-[9px] font-extrabold text-brand-roseDark bg-white/70 px-2 py-0.5 rounded-md inline-block w-max mt-2">07:00 - 07:30</span>
+                      </div>
+
+                      <!-- Tuesday: Online Visit -->
+                      <div class="bg-brand-blue border border-brand-blueDark/10 p-3.5 rounded-2xl flex flex-col justify-between group hover:scale-[1.02] transition-transform">
+                        <div>
+                          <span class="text-[10px] font-bold text-brand-blueDark uppercase tracking-wider block">Online visit</span>
+                          <p class="text-xs font-black text-brand-charcoal mt-1">Rachel Meyers</p>
+                          <p class="text-[10px] text-brand-charcoal/60">Telehealth Ch 3</p>
+                        </div>
+                        <span class="text-[9px] font-extrabold text-brand-blueDark bg-white/70 px-2 py-0.5 rounded-md inline-block w-max mt-2">07:00 - 08:00</span>
+                      </div>
+
+                      <!-- Wednesday: Empty block -->
+                      <div class="bg-brand-cream border border-brand-grayBorder/40 rounded-2xl flex items-center justify-center text-xs text-brand-charcoal/30 font-medium border-dashed">
+                        No Event Scheduled
+                      </div>
+
+                      <!-- Thursday: Online Visit (Today!) -->
+                      <div class="bg-brand-purple border border-brand-purpleDark/10 p-3.5 rounded-2xl flex flex-col justify-between group hover:scale-[1.02] transition-transform">
+                        <div>
+                          <span class="text-[10px] font-bold text-brand-purpleDark uppercase tracking-wider block">Online visit</span>
+                          <p class="text-xs font-black text-brand-charcoal mt-1">Amy White</p>
+                          <p class="text-[10px] text-brand-charcoal/60">Telehealth Ch 1</p>
+                        </div>
+                        <div class="flex items-center justify-between mt-2">
+                          <span class="text-[9px] font-extrabold text-brand-purpleDark bg-white/70 px-1.5 py-0.5 rounded">In progress...</span>
+                          <button onclick="alertNotification('Connecting to encrypted WebRTC video consultation room...')" class="text-[10px] bg-brand-charcoal hover:bg-brand-charcoalLight text-white font-bold px-2.5 py-1 rounded-full shadow">Join</button>
+                        </div>
+                      </div>
+
+                      <!-- Friday: Team planning -->
+                      <div class="bg-brand-gold border border-brand-goldDark/10 p-3.5 rounded-2xl flex flex-col justify-between group hover:scale-[1.02] transition-transform">
+                        <div>
+                          <span class="text-[10px] font-bold text-brand-goldDark uppercase tracking-wider block">Team results</span>
+                          <p class="text-xs font-black text-brand-charcoal mt-1">West camp. Room 200</p>
+                        </div>
+                        <span class="text-[9px] font-extrabold text-brand-goldDark bg-white/70 px-2 py-0.5 rounded-md inline-block w-max mt-2">07:00 - 09:00</span>
+                      </div>
+
+                      <!-- Saturday: Offline rest block -->
+                      <div class="bg-brand-cream border border-brand-grayBorder/40 rounded-2xl flex items-center justify-center text-xs text-brand-charcoal/30 font-medium border-dashed">
+                        Weekend Off
+                      </div>
+                    </div>
+
+                    <!-- Row 2: Midday block -->
+                    <div class="grid grid-cols-7 gap-4 items-stretch min-h-[140px]">
+                      <!-- Time header -->
+                      <div class="flex flex-col justify-center text-left py-2 border-r border-brand-grayBorder/40">
+                        <span class="text-xs font-bold text-brand-charcoal">08:00 AM</span>
+                        <span class="text-[10px] text-brand-charcoal/40">Consultation Window</span>
+                      </div>
+                      
+                      <!-- Monday: Diagnostic test -->
+                      <div class="bg-brand-cream border border-brand-grayBorder p-3.5 rounded-2xl flex flex-col justify-between group hover:scale-[1.02] transition-transform">
+                        <div>
+                          <span class="text-[10px] font-bold text-brand-charcoal/40 uppercase block">Diagnostic test</span>
+                          <p class="text-xs font-black text-brand-charcoal mt-1">Tyler Young</p>
+                          <p class="text-[10px] text-brand-charcoal/60">Lab Room 12</p>
+                        </div>
+                        <span class="text-[9px] font-extrabold text-brand-charcoal/50 bg-white px-2 py-0.5 rounded-md inline-block w-max mt-2">08:00 - 08:30</span>
+                      </div>
+
+                      <!-- Tuesday: Diagnostic test 2 -->
+                      <div class="bg-brand-cream border border-brand-grayBorder p-3.5 rounded-2xl flex flex-col justify-between group hover:scale-[1.02] transition-transform">
+                        <div>
+                          <span class="text-[10px] font-bold text-brand-charcoal/40 uppercase block">Diagnostic test</span>
+                          <p class="text-xs font-black text-brand-charcoal mt-1">Rachel Meyers</p>
+                        </div>
+                        <span class="text-[9px] font-extrabold text-brand-charcoal/50 bg-white px-2 py-0.5 rounded-md inline-block w-max mt-2">08:00 - 08:15</span>
+                      </div>
+
+                      <!-- Wednesday: Follow-up visit -->
+                      <div class="bg-brand-cream border border-brand-grayBorder p-3.5 rounded-2xl flex flex-col justify-between group hover:scale-[1.02] transition-transform">
+                        <div>
+                          <span class="text-[10px] font-bold text-brand-charcoal/40 uppercase block">Follow-up</span>
+                          <p class="text-xs font-black text-brand-charcoal mt-1">West camp. Room 312</p>
+                        </div>
+                        <span class="text-[9px] font-extrabold text-brand-charcoal/50 bg-white px-2 py-0.5 rounded-md inline-block w-max mt-2">08:00 - 08:30</span>
+                      </div>
+
+                      <!-- Thursday: Chronic Kidney module -->
+                      <div class="bg-brand-blue border border-brand-blueDark/10 p-3.5 rounded-2xl flex flex-col justify-between group hover:scale-[1.02] transition-transform">
+                        <div>
+                          <span class="text-[10px] font-bold text-brand-blueDark uppercase tracking-wider block">Primary Care</span>
+                          <p class="text-xs font-black text-brand-charcoal mt-1">Chronic Kidney Care</p>
+                          <p class="text-[10px] text-brand-charcoal/60">Leverage AI diagnostic tools to map chronic kidney markers.</p>
+                        </div>
+                        <button onclick="alertNotification('Opening kidney diagnostic training modules...')" class="text-[10px] bg-brand-charcoal text-white font-bold px-3 py-1.5 rounded-full mt-2 hover:bg-brand-charcoalLight transition-all">Launch Study</button>
+                      </div>
+
+                      <!-- Friday: Emergency visit -->
+                      <div class="bg-brand-rose border border-brand-roseDark/10 p-3.5 rounded-2xl flex flex-col justify-between group hover:scale-[1.02] transition-transform">
+                        <div>
+                          <span class="text-[10px] font-bold text-brand-roseDark uppercase tracking-wider block">Emergency visit</span>
+                          <p class="text-xs font-black text-brand-charcoal mt-1">Tyler Young</p>
+                        </div>
+                        <span class="text-[9px] font-extrabold text-brand-roseDark bg-white/70 px-2 py-0.5 rounded-md inline-block w-max mt-2">08:00 - 08:30</span>
+                      </div>
+
+                      <!-- Saturday: Weekend rest -->
+                      <div class="bg-brand-cream border border-brand-grayBorder/40 rounded-2xl flex items-center justify-center text-xs text-brand-charcoal/30 font-medium border-dashed">
+                        Weekend Off
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </main>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= BRAND ATTRIBUTES & DESIGN VIBE IN DETAIL ================= -->
+  <section id="features" class="py-24 relative overflow-hidden bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-brand-roseDark bg-brand-rose px-3.5 py-1.5 rounded-full">DESIGN SYSTEM HIGHLIGHTS</span>
+        <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-brand-charcoal mt-6">
+          Constructed with medical mindfulness.
+        </h2>
+        <p class="text-brand-charcoal/60 mt-4 leading-relaxed">
+          Intelly goes beyond administrative power to respect your physical and emotional space. Discover the pillars that make Intelly feel completely cohesive.
+        </p>
+      </div>
+
+      <!-- Bento Grid of Design & Feature System -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+        
+        <!-- Bento 1: Color Psychology -->
+        <div class="md:col-span-7 bg-brand-cream border border-brand-grayBorder rounded-[2.5rem] p-8 md:p-10 flex flex-col justify-between relative overflow-hidden bento-glow-rose group hover:shadow-lg transition-shadow">
+          <div>
+            <div class="flex items-center space-x-2 text-brand-roseDark mb-6">
+              <span class="text-2xl">🎨</span>
+              <span class="text-xs uppercase font-extrabold tracking-widest">Atmospheric Calm</span>
+            </div>
+            <h3 class="text-2xl font-extrabold text-brand-charcoal mb-4">Therapeutic Color Language</h3>
+            <p class="text-brand-charcoal/70 text-sm leading-relaxed mb-6">
+              Unlike clinical, white-and-blue medical systems that induce high heart rate and anxiety, Intelly uses soft, warm cream backdrops combined with comforting pastel labels to keep clinicians grounded and focused.
+            </p>
+          </div>
+          <!-- Colors strip demo inside block -->
+          <div class="grid grid-cols-5 gap-2 bg-white/70 p-3 rounded-2xl border border-brand-grayBorder">
+            <div class="h-10 rounded-lg bg-brand-rose flex items-center justify-center"><span class="text-[10px] font-bold text-brand-roseDark">Rose</span></div>
+            <div class="h-10 rounded-lg bg-brand-blue flex items-center justify-center"><span class="text-[10px] font-bold text-brand-blueDark">Blue</span></div>
+            <div class="h-10 rounded-lg bg-brand-gold flex items-center justify-center"><span class="text-[10px] font-bold text-brand-goldDark">Gold</span></div>
+            <div class="h-10 rounded-lg bg-brand-green flex items-center justify-center"><span class="text-[10px] font-bold text-brand-greenDark">Sage</span></div>
+            <div class="h-10 rounded-lg bg-brand-purple flex items-center justify-center"><span class="text-[10px] font-bold text-brand-purpleDark">Lilac</span></div>
+          </div>
+        </div>
+
+        <!-- Bento 2: Premium Shadows & Depths -->
+        <div class="md:col-span-5 bg-brand-cream border border-brand-grayBorder rounded-[2.5rem] p-8 md:p-10 flex flex-col justify-between bento-glow-blue group hover:shadow-lg transition-shadow">
+          <div>
+            <div class="flex items-center space-x-2 text-brand-blueDark mb-6">
+              <span class="text-2xl">✨</span>
+              <span class="text-xs uppercase font-extrabold tracking-widest">Tactile Depth</span>
+            </div>
+            <h3 class="text-2xl font-extrabold text-brand-charcoal mb-4">Soft Floating Containers</h3>
+            <p class="text-brand-charcoal/70 text-sm leading-relaxed mb-6">
+              Every card looks gently raised over the cream canvas. Soft inner borders and drop-shadow definitions create a natural layout hierarchy that reduces cognitive workload for busy administrative staffs.
+            </p>
+          </div>
+          <div class="bg-white rounded-2xl p-4 border border-brand-grayBorder shadow-sm flex items-center justify-between">
+            <span class="text-xs font-bold text-brand-charcoal">Platform Container Stroke</span>
+            <span class="text-[10px] bg-brand-creamDark px-3 py-1 rounded-full font-bold text-brand-charcoal/50">#EBE6DD</span>
+          </div>
+        </div>
+
+        <!-- Bento 3: Quick claim analytics -->
+        <div class="md:col-span-5 bg-brand-cream border border-brand-grayBorder rounded-[2.5rem] p-8 md:p-10 flex flex-col justify-between group hover:shadow-lg transition-shadow">
+          <div>
+            <div class="flex items-center space-x-2 text-brand-goldDark mb-6">
+              <span class="text-2xl">⚡</span>
+              <span class="text-xs uppercase font-extrabold tracking-widest">Billing Velocity</span>
+            </div>
+            <h3 class="text-2xl font-extrabold text-brand-charcoal mb-4">Instant Ledger Updates</h3>
+            <p class="text-brand-charcoal/70 text-sm leading-relaxed mb-6">
+              Click-and-request functionality streamlines invoice submissions to American Family Insurance, GEICO, and personal payees. Experience lightning-fast claim cycles in three clicks.
+            </p>
+          </div>
+          <!-- Action Mock -->
+          <div class="bg-white rounded-2xl p-4 border border-brand-grayBorder flex items-center justify-between">
+            <span class="text-xs font-bold text-brand-charcoal">Quick Submission State</span>
+            <span class="text-[10px] bg-brand-green text-brand-greenDark px-3 py-1 rounded-full font-black uppercase">Approved in 2s</span>
+          </div>
+        </div>
+
+        <!-- Bento 4: Intelligent Auto-scheduling -->
+        <div class="md:col-span-7 bg-brand-cream border border-brand-grayBorder rounded-[2.5rem] p-8 md:p-10 flex flex-col justify-between group hover:shadow-lg transition-shadow">
+          <div>
+            <div class="flex items-center space-x-2 text-brand-greenDark mb-6">
+              <span class="text-2xl">🧠</span>
+              <span class="text-xs uppercase font-extrabold tracking-widest">Medical intelligence</span>
+            </div>
+            <h3 class="text-2xl font-extrabold text-brand-charcoal mb-4">Contextual Clinical Timelines</h3>
+            <p class="text-brand-charcoal/70 text-sm leading-relaxed mb-6">
+              Your dashboard stays updated to the minute, adjusting team standups, diagnostics, and telehealth links dynamically. Direct patients to education materials smoothly with automated triggers.
+            </p>
+          </div>
+          <div class="flex space-x-2 bg-white/70 p-3 rounded-2xl border border-brand-grayBorder">
+            <span class="text-xs font-bold text-brand-charcoal">Integrated Telehealth Engine</span>
+            <span class="text-xs text-brand-roseDark font-bold bg-brand-rose px-2.5 py-0.5 rounded-full">WebRTC Encrypted</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= INTELLY AI CLAIMS COPILOT (GEMINI API INTEGRATION) ================= -->
+  <section id="ai-assistant" class="py-20 bg-brand-charcoal text-brand-cream border-t border-brand-charcoal relative">
+    
+    <!-- Visual background accent glow -->
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(252,221,236,0.15),transparent_40%)] pointer-events-none"></div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <!-- Section Intro -->
+      <div class="text-center mb-12">
+        <span class="inline-block text-xs font-extrabold text-brand-rose bg-white/10 px-4 py-1.5 rounded-full uppercase tracking-widest">Intelly AI Copilot</span>
+        <h2 class="text-3xl sm:text-5xl font-black text-white mt-4">Draft Smart Clinical & Billing Documents</h2>
+        <p class="text-white/60 mt-4 text-sm sm:text-base">
+          Accelerate tedious administration tasks using the integrated **Gemini 2.5 Flash** model. Generate complete claim dispute arguments, medical appeal letters, or clear discharge summaries instantly.
+        </p>
+      </div>
+
+      <!-- AI Assistant Work Console -->
+      <div class="bg-[#1C1C22] border border-white/10 rounded-[2.5rem] p-6 sm:p-8 shadow-2xl">
+        
+        <!-- Input Selector / Query options -->
+        <div class="mb-6">
+          <label class="block text-xs font-extrabold uppercase tracking-wider text-white/40 mb-3">Choose a Clinical template target</label>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+            <button onclick="setAiQueryType('claim')" class="ai-template-btn p-3 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 text-xs font-semibold text-white transition-all text-center focus:outline-none focus:ring-1 focus:ring-brand-rose">
+              📑 Dispute claim denial
+            </button>
+            <button onclick="setAiQueryType('discharge')" class="ai-template-btn p-3 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 text-xs font-semibold text-white transition-all text-center focus:outline-none focus:ring-1 focus:ring-brand-rose">
+              🏥 Patient discharge summary
+            </button>
+            <button onclick="setAiQueryType('telehealth')" class="ai-template-btn p-3 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 text-xs font-semibold text-white transition-all text-center focus:outline-none focus:ring-1 focus:ring-brand-rose">
+              📹 Telehealth report summary
+            </button>
+            <button onclick="setAiQueryType('custom')" class="ai-template-btn p-3 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 text-xs font-semibold text-white transition-all text-center focus:outline-none focus:ring-1 focus:ring-brand-rose">
+              ✨ Custom AI prompt
+            </button>
+          </div>
+        </div>
+
+        <!-- System Prompt Instruction & Dynamic Input Prompt Textarea -->
+        <div class="space-y-4">
+          <div>
+            <label class="block text-xs font-extrabold uppercase tracking-wider text-white/40 mb-2">Prompt Input Details</label>
+            <textarea id="ai-input-prompt" rows="4" class="w-full bg-[#131316] text-white border border-white/10 rounded-2xl p-4 text-sm focus:outline-none focus:ring-2 focus:ring-brand-rose transition-all" placeholder="Enter patient details, claim rejection codes, or clinical symptoms here..."></textarea>
+          </div>
+
+          <!-- Run/Generate Button & Loading Indicators -->
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-2">
+            <span class="text-xs text-white/40 flex items-center space-x-2">
+              <span class="w-2 h-2 rounded-full bg-brand-rose animate-pulse"></span>
+              <span>Running Live on **Gemini 2.5 Flash**</span>
+            </span>
+            <button id="btn-generate-ai" onclick="generateAiClinicalOutput()" class="bg-brand-rose hover:bg-brand-rose/95 text-brand-charcoal font-bold px-8 py-3.5 rounded-full text-sm transition-all shadow-md active:scale-95 flex items-center justify-center space-x-2">
+              <span>🚀 Generate with Intelly AI</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Output Result Panel -->
+        <div class="mt-8 border-t border-white/10 pt-8">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-extrabold uppercase tracking-wider text-brand-rose">Generated Documentation Output</span>
+            <button onclick="copyAiOutputToClipboard()" class="text-xs text-white/60 hover:text-white bg-white/5 px-3 py-1.5 rounded-full border border-white/10 transition-colors">
+              📋 Copy output
+            </button>
+          </div>
+          
+          <!-- Live result loader & viewport -->
+          <div class="bg-[#131316] border border-white/5 rounded-2xl p-5 min-h-[160px] relative overflow-hidden">
+            <!-- Loading Indicator overlay -->
+            <div id="ai-loading" class="hidden absolute inset-0 bg-[#131316]/90 flex flex-col items-center justify-center space-y-3">
+              <div class="w-8 h-8 rounded-full border-4 border-brand-rose border-t-transparent animate-spin"></div>
+              <p class="text-xs text-white/60 font-semibold">Generating clinical document via Gemini AI...</p>
+            </div>
+
+            <!-- Empty / Default Output State text -->
+            <div id="ai-output-placeholder" class="text-sm text-white/30 italic leading-relaxed">
+              No clinical output generated yet. Choose a template target above, enter patient details, and click "Generate with Intelly AI" to watch premium documentation form in real-time.
+            </div>
+
+            <!-- Styled Rich Text Output Container -->
+            <pre id="ai-output-content" class="hidden text-sm text-white/90 whitespace-pre-wrap font-mono leading-relaxed overflow-x-auto"></pre>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= TESTIMONIALS (Dr. Olivia & Partners) ================= -->
+  <section class="py-24 bg-brand-cream border-t border-brand-grayBorder overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-brand-blueDark bg-brand-blue px-3.5 py-1.5 rounded-full">REAL CLINIC REVIEWS</span>
+          <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-brand-charcoal mt-6">What medical pioneers say.</h2>
+        </div>
+        <p class="text-brand-charcoal/60 text-sm sm:text-base max-w-md">
+          Discover how real family medicine physicians, telemetry experts, and administrative staff transformed their working hours with Intelly.
+        </p>
+      </div>
+
+      <!-- Testimonials grid (Premium styled items) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Review 1 -->
+        <div class="bg-white border border-brand-grayBorder p-8 rounded-[2.5rem] flex flex-col justify-between shadow-sm relative">
+          <span class="text-4xl text-brand-rose absolute top-6 right-8">“</span>
+          <div>
+            <div class="flex space-x-1 text-amber-400 mb-6">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+            <p class="text-brand-charcoal/80 text-sm leading-relaxed mb-6">
+              "We migrated Dr. Olivia’s practice ledger to Intelly in under 4 hours. The visual atmosphere is so comforting that staff anxiety has completely dropped, and our clinical billing claim denial rates plummeted from 12% to under 2%!"
+            </p>
+          </div>
+          <div class="flex items-center space-x-3 pt-6 border-t border-brand-grayBorder/60">
+            <div class="w-10 h-10 rounded-full bg-brand-rose flex items-center justify-center text-xs font-bold text-brand-roseDark">DH</div>
+            <div>
+              <p class="text-sm font-extrabold text-brand-charcoal">Dr. Harold Vance</p>
+              <p class="text-xs text-brand-charcoal/40">Chief Medical Officer, West Camp Clinics</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="bg-white border border-brand-grayBorder p-8 rounded-[2.5rem] flex flex-col justify-between shadow-sm relative">
+          <span class="text-4xl text-brand-blue absolute top-6 right-8">“</span>
+          <div>
+            <div class="flex space-x-1 text-amber-400 mb-6">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+            <p class="text-brand-charcoal/80 text-sm leading-relaxed mb-6">
+              "Our old medical billing portal felt like a Windows 95 spreadsheet. Intelly’s pastel color hierarchy, combined with instant billing ledger requests and status badges, made training new nurses a delightful breeze."
+            </p>
+          </div>
+          <div class="flex items-center space-x-3 pt-6 border-t border-brand-grayBorder/60">
+            <div class="w-10 h-10 rounded-full bg-brand-blue flex items-center justify-center text-xs font-bold text-brand-blueDark">MR</div>
+            <div>
+              <p class="text-sm font-extrabold text-brand-charcoal">Melissa Reynolds</p>
+              <p class="text-xs text-brand-charcoal/40">Head of Operations, Telehealth Partners</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="bg-white border border-brand-grayBorder p-8 rounded-[2.5rem] flex flex-col justify-between shadow-sm relative">
+          <span class="text-4xl text-brand-gold absolute top-6 right-8">“</span>
+          <div>
+            <div class="flex space-x-1 text-amber-400 mb-6">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+            <p class="text-brand-charcoal/80 text-sm leading-relaxed mb-6">
+              "The AI Claims Copilot has completely eliminated our backlog of claim disputes. Drafts that used to take hours of manual coding are finalized in moments with precise ICD-10 suggestions. Brilliant design work!"
+            </p>
+          </div>
+          <div class="flex items-center space-x-3 pt-6 border-t border-brand-grayBorder/60">
+            <div class="w-10 h-10 rounded-full bg-brand-gold flex items-center justify-center text-xs font-bold text-brand-goldDark">TS</div>
+            <div>
+              <p class="text-sm font-extrabold text-brand-charcoal">Dr. Thomas Salinger</p>
+              <p class="text-xs text-brand-charcoal/40">Family Medicine Director, Salinger Health</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= PREMIUM PRICING CARDS ================= -->
+  <section id="pricing" class="py-24 bg-brand-creamDark/30 border-t border-brand-grayBorder">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-brand-roseDark bg-brand-rose px-3.5 py-1.5 rounded-full">PRICING TIERS</span>
+        <h2 class="text-3xl sm:text-5xl font-black text-brand-charcoal mt-6">Soothing pricing plans for every clinic size.</h2>
+        <p class="text-brand-charcoal/60 mt-4 leading-relaxed">
+          No hidden fees, no opaque contracts. Choose a beautiful platform tailored perfectly to your care provider requirements.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch">
+        
+        <!-- Plan 1 -->
+        <div class="bg-white border border-brand-grayBorder p-8 rounded-[2.5rem] flex flex-col justify-between shadow-sm">
+          <div>
+            <span class="text-xs font-extrabold uppercase tracking-widest text-brand-charcoal/40">Sole Practitioner</span>
+            <h3 class="text-3xl font-extrabold text-brand-charcoal mt-2">$49<span class="text-xs text-brand-charcoal/50">/month</span></h3>
+            <p class="text-brand-charcoal/60 text-xs mt-3 leading-relaxed">Perfect for independent doctors or clinical consult rooms requiring beautiful, simple scheduling.</p>
+            
+            <ul class="space-y-3 mt-8">
+              <li class="flex items-center space-x-2 text-xs text-brand-charcoal/80">
+                <span class="text-brand-roseDark font-bold">✓</span>
+                <span>Complete Olivia Daily Schedule view</span>
+              </li>
+              <li class="flex items-center space-x-2 text-xs text-brand-charcoal/80">
+                <span class="text-brand-roseDark font-bold">✓</span>
+                <span>Up to 150 monthly billing invoices</span>
+              </li>
+              <li class="flex items-center space-x-2 text-xs text-brand-charcoal/80">
+                <span class="text-brand-roseDark font-bold">✓</span>
+                <span>Standard claim status trackers</span>
+              </li>
+            </ul>
+          </div>
+          <button onclick="alertNotification('Thank you for choosing Intelly Sole! Launching clinical checkout wizard.')" class="w-full text-center py-3.5 rounded-full text-xs font-bold bg-brand-cream border border-brand-grayBorder hover:bg-brand-creamDark transition-colors mt-8">
+            Select Individual
+          </button>
+        </div>
+
+        <!-- Plan 2 (Highlighted) -->
+        <div class="bg-brand-charcoal border border-brand-charcoal text-brand-cream p-8 rounded-[2.5rem] flex flex-col justify-between shadow-xl relative overflow-hidden transform md:-translate-y-2">
+          <div class="absolute top-4 right-4 bg-brand-rose text-brand-roseDark text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-widest">Most Popular</div>
+          <div>
+            <span class="text-xs font-extrabold uppercase tracking-widest text-white/50">Clinical Group</span>
+            <h3 class="text-4xl font-extrabold text-white mt-2">$149<span class="text-xs text-white/50">/month</span></h3>
+            <p class="text-white/60 text-xs mt-3 leading-relaxed">The ideal setup for multi-doctor care units looking to maximize patient volume & billing automation.</p>
+            
+            <ul class="space-y-3 mt-8">
+              <li class="flex items-center space-x-2 text-xs text-white/80">
+                <span class="text-brand-rose font-bold">✓</span>
+                <span>Everything in Individual plan</span>
+              </li>
+              <li class="flex items-center space-x-2 text-xs text-white/80">
+                <span class="text-brand-rose font-bold">✓</span>
+                <span>Unlimited Billing & Claims Ledger integration</span>
+              </li>
+              <li class="flex items-center space-x-2 text-xs text-white/80">
+                <span class="text-brand-rose font-bold">✓</span>
+                <span>Intelly AI Copilot integration (1,000 runs)</span>
+              </li>
+              <li class="flex items-center space-x-2 text-xs text-white/80">
+                <span class="text-brand-rose font-bold">✓</span>
+                <span>Automated insurance clearing house updates</span>
+              </li>
+            </ul>
+          </div>
+          <button onclick="alertNotification('Launching checkout wizard for the Intelly Clinic plan. Get ready for clinical bliss!')" class="w-full text-center py-4 rounded-full text-xs font-bold bg-brand-rose text-brand-charcoal hover:bg-brand-rose/90 transition-colors mt-8">
+            Get Complete Clinic Access
+          </button>
+        </div>
+
+        <!-- Plan 3 -->
+        <div class="bg-white border border-brand-grayBorder p-8 rounded-[2.5rem] flex flex-col justify-between shadow-sm">
+          <div>
+            <span class="text-xs font-extrabold uppercase tracking-widest text-brand-charcoal/40">Enterprise health system</span>
+            <h3 class="text-3xl font-extrabold text-brand-charcoal mt-2">$399<span class="text-xs text-brand-charcoal/50">/month</span></h3>
+            <p class="text-brand-charcoal/60 text-xs mt-3 leading-relaxed">Integrated custom software frameworks for high-volume hospitals requiring dedicated SLAs.</p>
+            
+            <ul class="space-y-3 mt-8">
+              <li class="flex items-center space-x-2 text-xs text-brand-charcoal/80">
+                <span class="text-brand-roseDark font-bold">✓</span>
+                <span>Unlimited users & complete staff synchronization</span>
+              </li>
+              <li class="flex items-center space-x-2 text-xs text-brand-charcoal/80">
+                <span class="text-brand-roseDark font-bold">✓</span>
+                <span>Custom API webhooks for legacy EHR engines</span>
+              </li>
+              <li class="flex items-center space-x-2 text-xs text-brand-charcoal/80">
+                <span class="text-brand-roseDark font-bold">✓</span>
+                <span>Dedicated accounts manager & visual designer help</span>
+              </li>
+            </ul>
+          </div>
+          <button onclick="alertNotification('Redirecting to the Intelly Enterprise advisory contact form...')" class="w-full text-center py-3.5 rounded-full text-xs font-bold bg-brand-cream border border-brand-grayBorder hover:bg-brand-creamDark transition-colors mt-8">
+            Contact Hospital Sales
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-brand-charcoal text-brand-cream border-t border-brand-charcoal py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-12 border-b border-white/10 pb-12">
+        
+        <!-- Left Side Brand block -->
+        <div class="md:col-span-5">
+          <div class="flex items-center space-x-2.5 mb-6">
+            <div class="w-8 h-8 rounded-full bg-brand-cream flex items-center justify-center">
+              <span class="text-brand-charcoal font-black text-sm">i</span>
+            </div>
+            <span class="text-xl font-bold tracking-tight text-white">intelly<span class="text-brand-rose">.</span></span>
+          </div>
+          <p class="text-white/60 text-sm max-w-sm leading-relaxed mb-6">
+            Pioneering therapeutic clinical design frameworks. Empowering medical billing administration, patient schedules, and automated medical claim reports.
+          </p>
+          <div class="flex space-x-4 text-xs text-white/40">
+            <span>© 2026 Intelly Inc. All Rights Reserved.</span>
+          </div>
+        </div>
+
+        <!-- Middle Quicklinks -->
+        <div class="md:col-span-3">
+          <h4 class="text-xs font-extrabold uppercase tracking-widest text-brand-rose mb-6">Platform Tools</h4>
+          <ul class="space-y-3.5 text-sm">
+            <li><a href="#preview" onclick="switchPreviewTab('billing')" class="text-white/60 hover:text-white transition-colors">💳 Billing Ledger Workspace</a></li>
+            <li><a href="#preview" onclick="switchPreviewTab('schedule')" class="text-white/60 hover:text-white transition-colors">📅 Dr. Olivia's Calendar</a></li>
+            <li><a href="#ai-assistant" class="text-white/60 hover:text-white transition-colors">🧠 AI Claim Denials Appeal</a></li>
+            <li><a href="#features" class="text-white/60 hover:text-white transition-colors">🎨 Pastel Design System</a></li>
+          </ul>
+        </div>
+
+        <!-- Right Contact Details -->
+        <div class="md:col-span-4">
+          <h4 class="text-xs font-extrabold uppercase tracking-widest text-brand-rose mb-6">Clinical Support & Contact</h4>
+          <p class="text-white/60 text-sm leading-relaxed mb-4">
+            Have questions about system compliance or migrating patient charts? Get in touch with our product team.
+          </p>
+          <a href="mailto:hello@intelly.io" class="text-sm font-bold text-white underline hover:text-brand-rose transition-colors block mb-2">
+            ✉️ hello@intelly.io
+          </a>
+          <span class="text-xs text-white/40">HIPAA Compliant & HITRUST Registered Infrastructure</span>
+        </div>
+
+      </div>
+
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-xs text-white/30">
+        <div>
+          Designed for clinical peace of mind. Built with Google Gemini 2.5 and Tailwind CSS.
+        </div>
+        <div class="flex space-x-4">
+          <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+          <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+          <a href="#" class="hover:text-white transition-colors">Security Audit Report</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ================= SYSTEM JAVASCRIPT ================= -->
+  <script>
+    // System variables and mock database
+    const apiKey = ""; // Will be configured at runtime
+    
+    // Switch between the two dashboard views inspired by the image
+    function switchPreviewTab(tabName) {
+      const billingTab = document.getElementById('billing-sub-view');
+      const scheduleTab = document.getElementById('schedule-sub-view');
+      const btnBilling = document.getElementById('btn-billing-view');
+      const btnSchedule = document.getElementById('btn-schedule-view');
+
+      if (tabName === 'billing') {
+        billingTab.classList.remove('hidden');
+        scheduleTab.classList.add('hidden');
+        
+        // Button style updates
+        btnBilling.className = "px-6 py-3 rounded-full text-sm font-semibold transition-all bg-brand-rose text-brand-charcoal shadow-md";
+        btnSchedule.className = "px-6 py-3 rounded-full text-sm font-semibold transition-all hover:text-brand-rose text-white/85";
+      } else {
+        billingTab.classList.add('hidden');
+        scheduleTab.classList.remove('hidden');
+
+        // Button style updates
+        btnBilling.className = "px-6 py-3 rounded-full text-sm font-semibold transition-all hover:text-brand-rose text-white/85";
+        btnSchedule.className = "px-6 py-3 rounded-full text-sm font-semibold transition-all bg-brand-rose text-brand-charcoal shadow-md";
+      }
+    }
+
+    // Interactive Notification Toast logic
+    function alertNotification(message) {
+      const notification = document.getElementById('demo-notification');
+      const notificationText = document.getElementById('demo-notification-text');
+      
+      notificationText.innerText = message;
+      notification.classList.remove('hidden');
+      
+      // Auto dismiss after 7 seconds
+      setTimeout(() => {
+        dismissNotification();
+      }, 7000);
+    }
+
+    function dismissNotification() {
+      document.getElementById('demo-notification').classList.add('hidden');
+    }
+
+    // Instant request billing workflow mock trigger
+    function requestPaymentAction(patientName, amountValue) {
+      alertNotification(`Initiated instant payment link submission of $${amountValue} for ${patientName}.`);
+    }
+
+    // --- AI GENERATIVE ENGINE (GEMINI INTEGRATION WITH BACKOFF RETRY) ---
+    let currentTemplateType = 'claim';
+    
+    const templates = {
+      claim: "Draft a formal claim denial dispute response. Patient: Samantha Williams. ICD-10 Code: M25.562 (Pain in left knee). Insurer: GEICO Medical. Suggest that the clinic provided full diagnostic confirmation before treatment to appeal the denial.",
+      discharge: "Generate a reassuring, clean clinical patient discharge summary for Tyler Young after undergoing a successful diagnostic exam. Provide clear, simple guidelines on home rest and scheduling follow-up sessions.",
+      telehealth: "Synthesize a professional Telehealth Video Consultation summary for Dr. Olivia. Subject: Patient Amy White's routine chronic hypertension checkup. Outline her current medication levels and future online clinic visits.",
+      custom: "Write a clinical summary or billing appeal of your choice. Enter custom variables here."
+    };
+
+    // Set active prompt based on chosen button
+    function setAiQueryType(type) {
+      currentTemplateType = type;
+      
+      // Update prompts textarea
+      document.getElementById('ai-input-prompt').value = templates[type];
+      
+      // Visual feedback on buttons
+      const buttons = document.querySelectorAll('.ai-template-btn');
+      buttons.forEach(btn => {
+        btn.classList.remove('bg-brand-rose', 'text-brand-charcoal');
+        btn.classList.add('bg-white/5', 'text-white');
+      });
+      
+      // Active item styling
+      event.target.classList.remove('bg-white/5', 'text-white');
+      event.target.classList.add('bg-brand-rose', 'text-brand-charcoal');
+    }
+
+    // Set default prompt on load
+    setAiQueryType('claim');
+
+    // Clipboard copy tool
+    function copyAiOutputToClipboard() {
+      const outputText = document.getElementById('ai-output-content').innerText;
+      if (!outputText) {
+        alertNotification("There is no generated text to copy yet!");
+        return;
+      }
+      
+      // Use fallback copying due to potential iframe security limits
+      const el = document.createElement('textarea');
+      el.value = outputText;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+      
+      alertNotification("Copied clinical document to clipboard successfully!");
+    }
+
+    // Main API Call Routine implementing the exponential backoff as requested
+    async function callGeminiApiWithRetry(promptText, retries = 5, delay = 1000) {
+      const systemInstructionText = "You are Intelly AI, an expert medical billing, claim appeal, and clinical coding assistant. Draft precise, beautiful, professional, HIPAA-respectful clinical documentation. Ensure a compassionate, professional tone that mirrors high-quality administrative systems.";
+      
+      const payload = {
+        contents: [{
+          parts: [{ text: promptText }]
+        }],
+        systemInstruction: {
+          parts: [{ text: systemInstructionText }]
+        }
+      };
+
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+          throw new Error(`API Status Error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data.candidates?.[0]?.content?.parts?.[0]?.text;
+      } catch (error) {
+        if (retries > 0) {
+          // Silent backoff logging on retries
+          await new Promise(res => setTimeout(res, delay));
+          return callGeminiApiWithRetry(promptText, retries - 1, delay * 2);
+        } else {
+          throw error;
+        }
+      }
+    }
+
+    // Trigger Generation UI
+    async function generateAiClinicalOutput() {
+      const promptText = document.getElementById('ai-input-prompt').value.trim();
+      const loader = document.getElementById('ai-loading');
+      const placeholder = document.getElementById('ai-output-placeholder');
+      const outputBox = document.getElementById('ai-output-content');
+      
+      if (!promptText) {
+        alertNotification("Please enter some prompt details before generating.");
+        return;
+      }
+
+      loader.classList.remove('hidden');
+      
+      try {
+        const responseText = await callGeminiApiWithRetry(promptText);
+        
+        loader.classList.add('hidden');
+        placeholder.classList.add('hidden');
+        outputBox.classList.remove('hidden');
+        
+        outputBox.innerText = responseText || "No content returned from Intelly AI. Try again.";
+        alertNotification("AI clinical documentation drafted successfully!");
+      } catch (error) {
+        loader.classList.add('hidden');
+        alertNotification("Error generating content. Displaying simulation preview instead.");
+        
+        // Elegant simulated fallback for offline previews or environment hiccups
+        outputBox.classList.remove('hidden');
+        placeholder.classList.add('hidden');
+        outputBox.innerText = `[SIMULATED APPLICABLE OUTPUT FOR DEMONSTRATION]
+
+INTELLY CLINICAL DOCUMENTATION
+DOCUMENT TYPE: ${currentTemplateType.toUpperCase()}
+DRAFT DATE: May 24, 2026
+
+Dear Claims Administrator,
+
+We are writing to appeal the denial of clinical diagnostic code M25.562 for patient Samantha Williams. The routine examination executed by Dr. Olivia on 14/05/2026 confirmed persistent articular discomfort which mandated immediate diagnostic imaging validation.
+
+Under HIPAA Clinical Guidelines, we have attached the necessary clearance records and request immediate review and processing of the pending transaction total ($345.65).
+
+Best Regards,
+Intelly AI Copilot & Dr. Olivia (West Camp Clinics)`;
+      }
+    }
+  </script>
+</body>
+</html>
+5

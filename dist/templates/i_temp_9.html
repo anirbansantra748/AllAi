@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ISLAND SIGNALS // 島群之間 - East Coast Contemporary Art Biennale</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Space Grotesk, Space Mono, and DotGothic16 (for pixel aesthetic) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DotGothic16&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cobalt: '#0033FF',
+            ink: '#0D0D0E',
+            paper: '#F6F6F4',
+            blueprint: 'rgba(0, 51, 255, 0.08)',
+          },
+          fontFamily: {
+            sans: ['Space Grotesk', 'sans-serif'],
+            mono: ['Space Mono', 'monospace'],
+            pixel: ['DotGothic16', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Risograph Noise Overlay */
+    .riso-noise {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      content: "";
+      opacity: 0.06;
+      z-index: 9999;
+      pointer-events: none;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3联%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    /* Custom Blueprint Grid background */
+    .blueprint-grid {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(0, 51, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 51, 255, 0.07) 1px, transparent 1px);
+    }
+
+    .blueprint-grid-dense {
+      background-size: 10px 10px;
+      background-image: 
+        linear-gradient(to right, rgba(0, 51, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 51, 255, 0.04) 1px, transparent 1px);
+    }
+
+    /* Rough Halftone Mock-effect */
+    .halftone-bg {
+      background-image: radial-gradient(circle, #0033FF 1.5px, transparent 1.5px);
+      background-size: 8px 8px;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F6F6F4;
+      border-left: 2px solid #0033FF;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #0033FF;
+    }
+
+    /* Extreme contrast borders */
+    .border-cobalt-raw {
+      border: 2.5px solid #0033FF;
+    }
+    .border-b-cobalt-raw {
+      border-bottom: 2.5px solid #0033FF;
+    }
+    .border-r-cobalt-raw {
+      border-right: 2.5px solid #0033FF;
+    }
+
+    /* Pixel glow and vintage screens */
+    .crt-scanline {
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(0, 51, 255, 0.05) 50%,
+        rgba(0, 51, 255, 0.05)
+      );
+      background-size: 100% 4px;
+    }
+  </style>
+</head>
+<body class="bg-paper text-ink font-sans relative min-h-screen selection:bg-cobalt selection:text-white overflow-x-hidden">
+
+  <!-- Risograph Paper Noise Overlay -->
+  <div class="riso-noise"></div>
+
+  <!-- Top System Bar -->
+  <div class="w-full bg-cobalt text-white py-1 px-4 text-xs font-mono flex justify-between items-center border-b-2 border-ink z-50 sticky top-0">
+    <div class="flex items-center gap-4">
+      <span class="inline-block w-2.5 h-2.5 bg-paper rounded-full animate-ping"></span>
+      <span>SYSTEMS: ACTIVE // GRID_COORDINATES: LAT 22.99° N, LON 121.38° E</span>
+    </div>
+    <div class="hidden md:flex gap-6">
+      <span>REF_TIDAL_LEVEL: +1.42M</span>
+      <span>BROADCAST_FREQ: 98.4 MHZ</span>
+      <span>LOC: TAIWAN EAST COAST // C-LAB</span>
+    </div>
+  </div>
+
+  <!-- Main Navigation / Header -->
+  <header class="w-full border-b-2 border-cobalt bg-paper z-40 relative">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-stretch">
+      
+      <!-- Brand Logo / Stamp -->
+      <div class="p-6 md:p-8 flex items-center justify-between border-b-2 md:border-b-0 md:border-r-2 border-cobalt md:max-w-sm flex-1">
+        <div class="flex flex-col">
+          <span class="font-pixel text-4xl text-cobalt tracking-tight">島群之間</span>
+          <span class="font-mono text-xs tracking-widest text-ink mt-1 font-bold">BETWEEN ISLANDS // SIGNALS.2026</span>
+        </div>
+        <!-- Stylized Circular Stamp Badge from Image -->
+        <div class="w-16 h-16 rounded-full border-2 border-dashed border-cobalt flex items-center justify-center p-1 animate-spin-slow">
+          <svg viewBox="0 0 100 100" class="w-full h-full text-cobalt fill-none stroke-current">
+            <circle cx="50" cy="50" r="45" stroke-dasharray="6,4" />
+            <path d="M 25,50 Q 50,20 75,50 Q 50,80 25,50 Z" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Navigation Links styled like a modern blueprint schematic -->
+      <nav class="flex-grow flex flex-wrap text-sm font-mono">
+        <a href="#about" class="flex-1 min-w-[120px] p-6 flex flex-col justify-between border-r-2 border-b-2 md:border-b-0 border-cobalt hover:bg-cobalt hover:text-white transition-all group">
+          <span class="text-xs text-cobalt group-hover:text-paper mb-4">[01]</span>
+          <span class="font-bold text-lg">BIENNALE CONCEPT</span>
+        </a>
+        <a href="#visualizer" class="flex-1 min-w-[120px] p-6 flex flex-col justify-between border-r-2 border-b-2 md:border-b-0 border-cobalt hover:bg-cobalt hover:text-white transition-all group">
+          <span class="text-xs text-cobalt group-hover:text-paper mb-4">[02]</span>
+          <span class="font-bold text-lg">SIGNAL LABORATORY</span>
+        </a>
+        <a href="#exhibitions" class="flex-1 min-w-[120px] p-6 flex flex-col justify-between border-r-2 border-b-2 md:border-b-0 border-cobalt hover:bg-cobalt hover:text-white transition-all group">
+          <span class="text-xs text-cobalt group-hover:text-paper mb-4">[03]</span>
+          <span class="font-bold text-lg">EXHIBITION PROGRAM</span>
+        </a>
+        <a href="#booking" class="flex-1 min-w-[120px] p-6 flex flex-col justify-between hover:bg-cobalt hover:text-white transition-all group">
+          <span class="text-xs text-cobalt group-hover:text-paper mb-4">[04]</span>
+          <span class="font-bold text-lg">GATE PASS</span>
+        </a>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- HERO SECTION: The visual fusion of "Between Islands" (Folk land art) & "Signals" (Technical lab grids) -->
+  <section class="relative w-full border-b-2 border-cobalt blueprint-grid overflow-hidden">
+    
+    <!-- Top Decorative Coordinates Line -->
+    <div class="w-full border-b-2 border-cobalt/30 flex justify-between px-6 py-2 text-[10px] font-mono text-cobalt">
+      <span>GRID_SRC: COBALT_WAVE_01</span>
+      <span>INDEX_CODE: 0x98FF23_TAIWAN_EAST</span>
+      <span>SCALE: 1:1.240.000</span>
+    </div>
+
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 min-h-[600px] relative">
+      
+      <!-- HERO LEFT: Organic "Between Islands" Vibe. Raw hand-drawn style mountains, wildlife, clotheslines. -->
+      <div class="lg:col-span-7 p-6 md:p-12 flex flex-col justify-between relative border-b-2 lg:border-b-0 lg:border-r-2 border-cobalt">
+        
+        <!-- Large Artistic Headers with English & Traditional Chinese alignment -->
+        <div class="space-y-6">
+          <div class="inline-block px-3 py-1 bg-cobalt text-white font-mono text-xs font-bold uppercase tracking-widest">
+            2026 Taiwan East Coast Art Exhibition
+          </div>
+          <h1 class="text-5xl md:text-7xl font-bold tracking-tight leading-none text-ink">
+            TAIWAN <br/>
+            <span class="text-cobalt">EAST COAST</span><br/>
+            LAND ARTS
+          </h1>
+          <p class="font-mono text-sm max-w-lg text-ink/80 leading-relaxed pt-2">
+            An intersection of raw topographical ink paintings and digital sound-wave signals. We capture the physical geometry of Taiwan's eastern cliffs and convert them into interactive visual matrices.
+          </p>
+        </div>
+
+        <!-- The "Between Islands" Linocut Mountain & Sea SVG (Visual recreation of the upper image segment) -->
+        <div class="w-full relative mt-12 bg-ink text-paper border-cobalt-raw p-4 rounded shadow-lg overflow-hidden">
+          <div class="absolute inset-0 halftone-bg opacity-10 pointer-events-none"></div>
+          
+          <!-- Inner Frame Border -->
+          <div class="border border-paper/30 p-4 flex flex-col justify-between h-64 relative">
+            
+            <!-- SVG of Organic Hand-cut Landscapes -->
+            <div class="absolute inset-0 flex items-end justify-center pointer-events-none">
+              <svg viewBox="0 0 800 300" class="w-full h-auto fill-none stroke-current text-white max-h-full">
+                <!-- Mountain Left (Rough Linocut hatching simulated in vector) -->
+                <path d="M-50,300 L150,120 L250,220 L350,150 L450,300 Z" fill="#0D0D0E" stroke="white" stroke-width="3" />
+                <!-- Hatching details on left mountain -->
+                <path d="M50,230 L55,300 M70,210 L80,300 M90,190 L105,300 M110,180 L130,300 M130,170 L155,300" stroke="white" stroke-width="1.5" stroke-dasharray="4,4" />
+                
+                <!-- Wild Boar (Linocut motif from inspiration image) -->
+                <rect x="250" y="250" width="35" height="20" rx="3" fill="white" stroke="black" stroke-width="1"/>
+                <circle cx="280" cy="257" r="1.5" fill="black" />
+                <!-- Boar Legs -->
+                <line x1="255" y1="270" x2="255" y2="280" stroke="white" stroke-width="3" />
+                <line x1="262" y1="270" x2="262" y2="280" stroke="white" stroke-width="3" />
+                <line x1="275" y1="270" x2="275" y2="280" stroke="white" stroke-width="3" />
+                <line x1="282" y1="270" x2="282" y2="280" stroke="white" stroke-width="3" />
+                
+                <!-- Standing figure from inspiration image -->
+                <path d="M 210,210 Q 212,190 210,170" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="210" cy="164" r="5" fill="white"/>
+                <line x1="202" y1="180" x2="218" y2="180" stroke="white" stroke-width="2" stroke-linecap="round" />
+                <line x1="206" y1="210" x2="204" y2="230" stroke="white" stroke-width="3" />
+                <line x1="214" y1="210" x2="216" y2="230" stroke="white" stroke-width="3" />
+
+                <!-- Waves in the Middle (Cobalt Blue stylized waves from image) -->
+                <path d="M300,240 C350,220 400,260 450,230 C500,200 550,250 600,210 C650,170 700,220 850,180" stroke="#0033FF" stroke-width="6" fill="none" />
+                <path d="M300,260 C350,240 400,280 450,250 C500,220 550,270 600,230 C650,190 700,240 850,200" stroke="#0033FF" stroke-width="3" fill="none" />
+                <path d="M300,280 C350,260 400,300 450,270 C500,240 550,290 600,250 C650,211 700,260 850,220" stroke="#0033FF" stroke-width="1.5" fill="none" stroke-dasharray="3,3" />
+
+                <!-- Mountain Right -->
+                <path d="M450,300 L580,100 L680,180 L850,50 L850,300 Z" fill="#0D0D0E" stroke="white" stroke-width="3" />
+                
+                <!-- Screen-print Clothesline simulated with SVG -->
+                <line x1="30" y1="180" x2="150" y2="180" stroke="white" stroke-width="1.5" />
+                <line x1="35" y1="180" x2="35" y2="220" stroke="white" stroke-width="2" />
+                <line x1="145" y1="180" x2="145" y2="220" stroke="white" stroke-width="2" />
+                <!-- Clothes hanging -->
+                <rect x="50" y="183" width="15" height="25" fill="white" />
+                <rect x="75" y="183" width="10" height="20" fill="white" />
+                <rect x="95" y="183" width="20" height="15" fill="white" />
+
+                <!-- Flying Seagulls -->
+                <path d="M320,80 Q325,70 330,80 Q335,70 340,80" stroke="white" stroke-width="2" fill="none"/>
+                <path d="M520,50 Q525,40 530,50 Q535,40 540,50" stroke="white" stroke-width="2" fill="none"/>
+              </svg>
+            </div>
+
+            <!-- Context Label inside the artwork panel -->
+            <div class="flex justify-between items-start text-[10px] font-mono text-paper/80 z-10">
+              <span>PLATE_01: BETWEEN_ISLANDS</span>
+              <span>BIENNALE EXHIBIT</span>
+            </div>
+            <div class="flex justify-between items-end text-[10px] font-mono text-paper/80 z-10">
+              <span>CONTEMPORARY EAST LAND ART PROJECT</span>
+              <span>2026 // MONOCHROME PRINT</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- HERO RIGHT: "Signals" Experimental Lab Console. Interactive Signal Visualizer that user can control. -->
+      <div id="visualizer" class="lg:col-span-5 p-6 md:p-12 flex flex-col justify-between bg-paper relative crt-scanline">
+        
+        <!-- High Density Grid Lines to match C-Lab Blueprint visual -->
+        <div class="absolute inset-0 blueprint-grid-dense opacity-40 pointer-events-none"></div>
+        <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-cobalt via-transparent to-cobalt"></div>
+
+        <div>
+          <!-- Header for the interactive terminal -->
+          <div class="flex justify-between items-center border-b-2 border-cobalt pb-4 mb-6">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 bg-cobalt inline-block animate-pulse"></span>
+              <span class="font-mono text-sm font-bold tracking-widest text-cobalt">[SIGNAL_CONTROLLER_v2.6]</span>
+            </div>
+            <span class="font-mono text-xs text-ink/60">REV: 0524</span>
+          </div>
+
+          <h2 class="text-3xl font-pixel text-cobalt tracking-wide mb-2">SIGNAL ANALYSIS</h2>
+          <p class="font-mono text-xs text-ink/70 leading-relaxed mb-6">
+            Use the dials below to modify parameters. Watch the ocean frequency real-time render map adapt to the input data.
+          </p>
+
+          <!-- Interactive Control Console -->
+          <div class="space-y-4 font-mono text-xs border-cobalt-raw p-4 bg-paper relative z-10">
+            
+            <!-- Frequency Slider -->
+            <div>
+              <div class="flex justify-between mb-1">
+                <span>WAVE FREQUENCY: <span id="freq-val" class="text-cobalt font-bold">4.0 Hz</span></span>
+                <span class="text-ink/40">RANGE: [1.0 - 10.0]</span>
+              </div>
+              <input type="range" id="freq-slider" min="1" max="10" step="0.1" value="4" 
+                class="w-full h-1 bg-ink/10 appearance-none cursor-pointer accent-cobalt outline-none">
+            </div>
+
+            <!-- Amplitude Slider -->
+            <div>
+              <div class="flex justify-between mb-1">
+                <span>WAVE AMPLITUDE: <span id="amp-val" class="text-cobalt font-bold">30.0 V</span></span>
+                <span class="text-ink/40">RANGE: [5.0 - 80.0]</span>
+              </div>
+              <input type="range" id="amp-slider" min="5" max="80" step="1" value="30" 
+                class="w-full h-1 bg-ink/10 appearance-none cursor-pointer accent-cobalt outline-none">
+            </div>
+
+            <!-- Grid Density Control Toggle -->
+            <div>
+              <div class="flex justify-between mb-2">
+                <span>RENDER MODE:</span>
+                <span class="text-ink/40">GRID OVERLAYS</span>
+              </div>
+              <div class="grid grid-cols-3 gap-2">
+                <button onclick="setRenderMode('sine')" id="mode-sine" class="bg-cobalt text-white py-1 px-2 border border-cobalt text-center font-bold">PURE SINE</button>
+                <button onclick="setRenderMode('tidal')" id="mode-tidal" class="bg-transparent text-cobalt py-1 px-2 border border-cobalt text-center hover:bg-cobalt/10">TIDAL MOD</button>
+                <button onclick="setRenderMode('noise')" id="mode-noise" class="bg-transparent text-cobalt py-1 px-2 border border-cobalt text-center hover:bg-cobalt/10">NOISE CAP</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Canvas Visualizer Screen (Exactly captures the bottom blueprint style) -->
+        <div class="w-full bg-paper border-cobalt-raw mt-8 p-3 relative h-64 flex flex-col justify-between overflow-hidden">
+          <div class="absolute inset-0 blueprint-grid opacity-30 pointer-events-none"></div>
+          
+          <!-- Small corner technical specs -->
+          <div class="flex justify-between text-[9px] font-mono text-cobalt/80 z-10">
+            <span>MAP_COORDS: [x: 432, y: 108]</span>
+            <span>GRID: ENABLED</span>
+          </div>
+
+          <!-- The Real-time Interactive Wave Canvas -->
+          <canvas id="signalCanvas" class="absolute inset-0 w-full h-full z-0 pointer-events-none"></canvas>
+
+          <!-- System status readout overlaying canvas -->
+          <div class="flex justify-between items-end text-[9px] font-mono text-cobalt/80 z-10 mt-auto">
+            <span>STATION: TAITUNG_LAB_01</span>
+            <span class="animate-pulse font-bold text-cobalt">● MONITORING SIGNAL STREAMS</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONCEPT & COGNITIVE MAPPING SECTION (The "Signals" Grid style) -->
+  <section id="about" class="w-full border-b-2 border-cobalt bg-paper relative">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12">
+      
+      <!-- Left Column: The Big Text Title Block -->
+      <div class="lg:col-span-4 p-6 md:p-12 border-b-2 lg:border-b-0 lg:border-r-2 border-cobalt flex flex-col justify-between">
+        <div class="space-y-4">
+          <span class="font-mono text-xs text-cobalt uppercase tracking-widest block font-bold">// RESEARCH & ARCHIVE</span>
+          <h3 class="text-4xl font-bold tracking-tight leading-none">THE COBALT<br/>SPECTRUM OF<br/>EASTERN TAIWAN</h3>
+        </div>
+        <div class="mt-8 space-y-4 font-mono text-xs text-ink/70">
+          <p>
+            Historically, cobalt blue has been used in physical stoneware and architectural drawings to depict structural logic and natural beauty. Our 2026 Biennale takes this historical material and translates it into acoustic wave mechanics.
+          </p>
+          <div class="p-3 border border-cobalt/30 bg-cobalt/5 flex items-center gap-3">
+            <span class="font-pixel text-xl text-cobalt">#0033FF</span>
+            <span>The official color language of the Pacific shorelines under precise moonlit spectrums.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive Diagram Block resembling bottom poster image with technical matrix dots -->
+      <div class="lg:col-span-8 p-6 md:p-12 blueprint-grid relative flex flex-col justify-between">
+        
+        <!-- Beautiful Schematic Diagram constructed with SVG & interactive dots -->
+        <div class="w-full border-cobalt-raw p-6 bg-paper relative shadow-sm min-h-[350px] flex flex-col justify-between">
+          <div class="absolute inset-0 halftone-bg opacity-[0.03] pointer-events-none"></div>
+          
+          <!-- Grid Blueprint Schematic SVG (resembling "Signals" blueprint circular diagrams) -->
+          <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-40">
+            <svg viewBox="0 0 500 500" class="w-1/2 h-auto text-cobalt fill-none stroke-current">
+              <circle cx="250" cy="250" r="180" stroke-width="1.5" stroke-dasharray="8,4" />
+              <circle cx="250" cy="250" r="120" stroke-width="2" />
+              <circle cx="250" cy="250" r="60" stroke-width="1" />
+              <line x1="250" y1="20" x2="250" y2="480" stroke-width="1" stroke-dasharray="4,4" />
+              <line x1="20" y1="250" x2="480" y2="250" stroke-width="1" stroke-dasharray="4,4" />
+              <line x1="70" y1="70" x2="430" y2="430" stroke-width="1.5" />
+            </svg>
+          </div>
+
+          <div class="flex justify-between items-start font-mono text-xs text-cobalt z-10">
+            <span>[DIAGRAM_04: COGNITIVE TIDAL NODE MAPPING]</span>
+            <span>SCALE: ACTIVE REALTIME</span>
+          </div>
+
+          <!-- Grid of interactive Signal Stations (User can click on points to trigger coordinate readout) -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-12 z-10">
+            
+            <button onclick="activateNode('Taitung Harbor', '121.15', '22.75', 'STABLE')" class="node-btn text-left p-4 border border-cobalt bg-paper hover:bg-cobalt hover:text-white transition-all group">
+              <span class="block font-mono text-[10px] text-cobalt group-hover:text-paper/85 mb-2">[NODE_01]</span>
+              <span class="block font-bold text-sm tracking-tight">TAITUNG HARBOR</span>
+              <span class="block font-mono text-[9px] mt-1 opacity-70">LAT 22.75° / LON 121.15°</span>
+            </button>
+
+            <button onclick="activateNode('Dulan Shore', '121.23', '22.87', 'INTERMITTENT')" class="node-btn text-left p-4 border border-cobalt bg-paper hover:bg-cobalt hover:text-white transition-all group">
+              <span class="block font-mono text-[10px] text-cobalt group-hover:text-paper/85 mb-2">[NODE_02]</span>
+              <span class="block font-bold text-sm tracking-tight">DULAN SHORE</span>
+              <span class="block font-mono text-[9px] mt-1 opacity-70">LAT 22.87° / LON 121.23°</span>
+            </button>
+
+            <button onclick="activateNode('Chenggong Port', '121.37', '23.12', 'AMPLIFIED')" class="node-btn text-left p-4 border border-cobalt bg-paper hover:bg-cobalt hover:text-white transition-all group">
+              <span class="block font-mono text-[10px] text-cobalt group-hover:text-paper/85 mb-2">[NODE_03]</span>
+              <span class="block font-bold text-sm tracking-tight">CHENGGONG PORT</span>
+              <span class="block font-mono text-[9px] mt-1 opacity-70">LAT 23.12° / LON 121.37°</span>
+            </button>
+
+            <button onclick="activateNode('Sanxiantai Node', '121.41', '23.13', 'RESONANT')" class="node-btn text-left p-4 border border-cobalt bg-paper hover:bg-cobalt hover:text-white transition-all group">
+              <span class="block font-mono text-[10px] text-cobalt group-hover:text-paper/85 mb-2">[NODE_04]</span>
+              <span class="block font-bold text-sm tracking-tight">SANXIANTAI CRAG</span>
+              <span class="block font-mono text-[9px] mt-1 opacity-70">LAT 23.13° / LON 121.41°</span>
+            </button>
+
+          </div>
+
+          <!-- Interactive Readout Box below -->
+          <div id="node-readout" class="p-4 border-t-2 border-cobalt bg-paper flex flex-col md:flex-row justify-between items-start md:items-center font-mono text-xs z-10">
+            <div>
+              <span class="text-cobalt font-bold">ACTIVE SCANNER:</span>
+              <span id="readout-title" class="ml-2 font-bold text-ink">TAITUNG HARBOR</span>
+            </div>
+            <div class="flex gap-4 mt-2 md:mt-0 text-[11px]">
+              <span>COORD: <span id="readout-coord" class="text-cobalt">LAT 22.75 / LON 121.15</span></span>
+              <span>STATUS: <span id="readout-status" class="text-cobalt uppercase font-bold">STABLE</span></span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- BIENNALE EXHIBITION & STAGES GRID -->
+  <section id="exhibitions" class="w-full border-b-2 border-cobalt bg-paper relative">
+    
+    <!-- Title Line -->
+    <div class="border-b-2 border-cobalt px-6 py-8 md:px-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div>
+        <span class="font-mono text-xs text-cobalt uppercase tracking-widest block font-bold mb-1">// EXHIBITIONS & PERFORMANCE STAGES</span>
+        <h2 class="text-4xl md:text-5xl font-bold tracking-tight">BIENNALE MODULES</h2>
+      </div>
+      <div class="font-mono text-xs text-ink/70 max-w-sm">
+        All stages operate in dialogue with natural Pacific tides. Event locations will trigger acoustic generators built in alignment with sea elevations.
+      </div>
+    </div>
+
+    <!-- Cards Layout: Ultra high UI density, raw block borders, blue overlays -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      
+      <!-- Module 01 -->
+      <div class="border-b-2 md:border-r-2 border-cobalt p-6 md:p-8 flex flex-col justify-between relative hover:bg-cobalt/5 transition-all group">
+        <div class="absolute inset-0 halftone-bg opacity-[0.02] pointer-events-none"></div>
+        <div>
+          <div class="flex justify-between items-center mb-6">
+            <span class="font-mono text-sm font-bold text-cobalt">[MODULE_01]</span>
+            <span class="px-2 py-1 bg-cobalt text-white font-mono text-[9px] uppercase tracking-wider">STAGE: SEA_COAST</span>
+          </div>
+          <h3 class="text-2xl font-bold tracking-tight text-ink group-hover:text-cobalt transition-colors mb-2">MOONLIT SEA CONCERT</h3>
+          <p class="font-mono text-xs text-ink/70 leading-relaxed">
+            Live music echoing across the tide pools of Taitung. Using low-frequency amplifiers that align with incoming lunar swell waves, the performance harmonizes directly with natural marine resonance.
+          </p>
+        </div>
+        <div class="mt-8 pt-4 border-t border-cobalt/20 flex justify-between items-center text-xs font-mono">
+          <span>DATE: JUNE 29 – JULY 1</span>
+          <span class="text-cobalt font-bold group-hover:translate-x-1 transition-transform inline-block">VIEW LINEUP →</span>
+        </div>
+      </div>
+
+      <!-- Module 02 -->
+      <div class="border-b-2 lg:border-r-2 border-cobalt p-6 md:p-8 flex flex-col justify-between relative hover:bg-cobalt/5 transition-all group">
+        <div class="absolute inset-0 halftone-bg opacity-[0.02] pointer-events-none"></div>
+        <div>
+          <div class="flex justify-between items-center mb-6">
+            <span class="font-mono text-sm font-bold text-cobalt">[MODULE_02]</span>
+            <span class="px-2 py-1 bg-cobalt text-white font-mono text-[9px] uppercase tracking-wider">STAGE: ART_SPACE_III</span>
+          </div>
+          <h3 class="text-2xl font-bold tracking-tight text-ink group-hover:text-cobalt transition-colors mb-2">TIDAL RESONATOR LAB</h3>
+          <p class="font-mono text-xs text-ink/70 leading-relaxed">
+            An indoor contemporary installation translating underwater seismograph frequencies into cobalt blue generative raster matrices. Created in direct collaboration with C-LAB’s technical collective.
+          </p>
+        </div>
+        <div class="mt-8 pt-4 border-t border-cobalt/20 flex justify-between items-center text-xs font-mono">
+          <span>DATE: AUGUST 10 – 25</span>
+          <span class="text-cobalt font-bold group-hover:translate-x-1 transition-transform inline-block">VIEW LAB →</span>
+        </div>
+      </div>
+
+      <!-- Module 03 -->
+      <div class="border-b-2 border-cobalt p-6 md:p-8 flex flex-col justify-between relative hover:bg-cobalt/5 transition-all group">
+        <div class="absolute inset-0 halftone-bg opacity-[0.02] pointer-events-none"></div>
+        <div>
+          <div class="flex justify-between items-center mb-6">
+            <span class="font-mono text-sm font-bold text-cobalt">[MODULE_03]</span>
+            <span class="px-2 py-1 bg-cobalt text-white font-mono text-[9px] uppercase tracking-wider">STAGE: OPEN_STUDIO</span>
+          </div>
+          <h3 class="text-2xl font-bold tracking-tight text-ink group-hover:text-cobalt transition-colors mb-2">EPHEMERAL LINOCUT STATIONS</h3>
+          <p class="font-mono text-xs text-ink/70 leading-relaxed">
+            Interactive, tactile printmaking workshops on the shore cliffs. Master woodcut creators guide visitors in producing high-contrast block prints using genuine sea salt ink on recycled fibers.
+          </p>
+        </div>
+        <div class="mt-8 pt-4 border-t border-cobalt/20 flex justify-between items-center text-xs font-mono">
+          <span>DATE: DAILY ENGAGEMENT</span>
+          <span class="text-cobalt font-bold group-hover:translate-x-1 transition-transform inline-block">JOIN STUDIO →</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CREATORS / ARTISTS LINEUP (Interactivity featuring detailed cards that display overlay coordinates on hover) -->
+  <section class="w-full border-b-2 border-cobalt bg-paper relative">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12">
+      
+      <!-- Artists title block -->
+      <div class="lg:col-span-4 p-6 md:p-12 border-b-2 lg:border-b-0 lg:border-r-2 border-cobalt flex flex-col justify-between">
+        <div>
+          <span class="font-mono text-xs text-cobalt uppercase tracking-widest block font-bold mb-1">// COGNITIVE VOICES</span>
+          <h2 class="text-4xl font-bold tracking-tight leading-none text-ink">EXHIBITING CREATORS</h2>
+        </div>
+        <div class="mt-8 font-mono text-xs text-ink/75 space-y-4">
+          <p>
+            An alliance of sound architects, traditional printmaking masters, and architectural engineers operating inside the eastern coastal grid coordinates.
+          </p>
+          <div class="p-4 border border-dashed border-cobalt text-cobalt bg-cobalt/5 font-bold">
+            "We build blueprints, we paint tides, we capture frequency."
+          </div>
+        </div>
+      </div>
+
+      <!-- Artists Lineup list -->
+      <div class="lg:col-span-8 flex flex-col divide-y-2 divide-cobalt">
+        
+        <!-- Artist 01 -->
+        <div class="p-6 hover:bg-cobalt hover:text-white transition-all duration-300 group flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div class="flex items-center gap-6">
+            <span class="font-pixel text-2xl text-cobalt group-hover:text-white">[01]</span>
+            <div>
+              <h4 class="text-2xl font-bold tracking-tight">Kuan-Sheng Wu (吳冠勝)</h4>
+              <p class="font-mono text-xs text-ink/65 group-hover:text-white/80">Digital Acoustic Synthesist // Sound Sculptor</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-6 font-mono text-xs text-cobalt group-hover:text-white w-full md:w-auto justify-between md:justify-end">
+            <span>RESIDENCY: DURAN STATION</span>
+            <span class="px-2 py-1 border border-cobalt group-hover:border-white font-bold">[SPECTRAL_MAP_A]</span>
+          </div>
+        </div>
+
+        <!-- Artist 02 -->
+        <div class="p-6 hover:bg-cobalt hover:text-white transition-all duration-300 group flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div class="flex items-center gap-6">
+            <span class="font-pixel text-2xl text-cobalt group-hover:text-white">[02]</span>
+            <div>
+              <h4 class="text-2xl font-bold tracking-tight">Min-An Tseng (曾敏安)</h4>
+              <p class="font-mono text-xs text-ink/65 group-hover:text-white/80">Contemporary Blockprint Master // Folk Historian</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-6 font-mono text-xs text-cobalt group-hover:text-white w-full md:w-auto justify-between md:justify-end">
+            <span>RESIDENCY: SHANXIANTAI CRAG</span>
+            <span class="px-2 py-1 border border-cobalt group-hover:border-white font-bold">[BLOCKPRINT_X]</span>
+          </div>
+        </div>
+
+        <!-- Artist 03 -->
+        <div class="p-6 hover:bg-cobalt hover:text-white transition-all duration-300 group flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div class="flex items-center gap-6">
+            <span class="font-pixel text-2xl text-cobalt group-hover:text-white">[03]</span>
+            <div>
+              <h4 class="text-2xl font-bold tracking-tight">The C-LAB Signals Collective</h4>
+              <p class="font-mono text-xs text-ink/65 group-hover:text-white/80">Generative Systems & Coding Engineers</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-6 font-mono text-xs text-cobalt group-hover:text-white w-full md:w-auto justify-between md:justify-end">
+            <span>RESIDENCY: ART SPACE III</span>
+            <span class="px-2 py-1 border border-cobalt group-hover:border-white font-bold">[GEO_MATRIX_Z]</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- INTERACTIVE BOOKING GATE PASS TERMINAL -->
+  <section id="booking" class="w-full border-b-2 border-cobalt blueprint-grid relative py-12 px-6 md:px-12">
+    <div class="max-w-4xl mx-auto">
+      
+      <div class="border-cobalt-raw bg-paper relative p-6 md:p-8 shadow-2xl">
+        <div class="absolute inset-0 halftone-bg opacity-[0.03] pointer-events-none"></div>
+        <div class="absolute inset-x-0 top-0 h-1.5 bg-cobalt"></div>
+
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b-2 border-cobalt pb-6 mb-6 gap-4">
+          <div>
+            <span class="font-mono text-xs text-cobalt uppercase font-bold tracking-widest block mb-1">[MODULE: REGISTRATION]</span>
+            <h3 class="text-3xl font-pixel text-cobalt">GATEWAY GENERATOR</h3>
+          </div>
+          <span class="font-mono text-xs bg-cobalt text-white py-1 px-3">TERM_SESSION: ONLINE</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          
+          <!-- Booking Inputs Terminal -->
+          <div class="space-y-4 font-mono text-xs">
+            <p class="text-ink/70 leading-relaxed mb-4">
+              Register for the contemporary arts pass. Custom cryptographic print passes will be compiled immediately with your unique coastal frequency alignment codes.
+            </p>
+
+            <div>
+              <label class="block text-cobalt font-bold mb-1 uppercase">PASSENGER NAME / 登記姓名</label>
+              <input type="text" id="pass-name" value="ALICE CHEN" oninput="updateTicket()"
+                class="w-full bg-paper border-cobalt-raw p-2.5 text-xs text-ink focus:bg-cobalt/5 outline-none font-bold uppercase">
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-cobalt font-bold mb-1 uppercase">GRID STATION / 選擇展區</label>
+                <select id="pass-station" onchange="updateTicket()"
+                  class="w-full bg-paper border-cobalt-raw p-2.5 text-[11px] text-ink focus:bg-cobalt/5 outline-none font-bold">
+                  <option value="TAITUNG COAST">TAITUNG COAST</option>
+                  <option value="DULAN RESIDENCY">DULAN RESIDENCY</option>
+                  <option value="C-LAB SPACE">C-LAB SPACE III</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-cobalt font-bold mb-1 uppercase">SPECTRAL ACCESS / 頻譜類別</label>
+                <select id="pass-spectral" onchange="updateTicket()"
+                  class="w-full bg-paper border-cobalt-raw p-2.5 text-[11px] text-ink focus:bg-cobalt/5 outline-none font-bold">
+                  <option value="FULL RESONANCE">FULL RESONANCE</option>
+                  <option value="TIDAL ONLY">TIDAL ACCESS</option>
+                  <option value="AEROPHONE PASS">AEROPHONE ONLY</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <button onclick="printTicket()" class="w-full bg-cobalt hover:bg-cobalt-raw hover:text-cobalt hover:bg-transparent text-white font-bold py-3 transition-all border-2 border-transparent hover:border-cobalt text-sm uppercase tracking-wider mt-4">
+                COMPILE GATEWAY PASS RECEIPT
+              </button>
+            </div>
+          </div>
+
+          <!-- Live Printable Ticket Receipt Preview -->
+          <div class="border-2 border-dashed border-cobalt p-6 bg-paper relative flex flex-col justify-between overflow-hidden min-h-[300px]">
+            <div class="absolute inset-0 halftone-bg opacity-[0.04] pointer-events-none"></div>
+            
+            <div class="flex justify-between items-start font-mono text-[10px] text-cobalt">
+              <span>GATE PASS ID: <span id="ticket-id" class="font-bold">#4922-TW</span></span>
+              <span class="font-bold">島群之間 SIGNALS</span>
+            </div>
+
+            <!-- Big ticket aesthetic badge from images -->
+            <div class="my-6 py-4 border-y border-cobalt/40 relative">
+              <div class="absolute top-0 right-0 text-[10px] font-mono text-cobalt/30">TAIWAN CONTEMPORARY</div>
+              
+              <div class="font-pixel text-4xl text-cobalt" id="ticket-station-display">TAITUNG COAST</div>
+              <div class="font-mono text-sm tracking-widest text-ink mt-2" id="ticket-name-display">ALICE CHEN</div>
+            </div>
+
+            <div class="space-y-2 font-mono text-[11px]">
+              <div class="flex justify-between">
+                <span class="text-ink/65">ACC_MODE:</span>
+                <span id="ticket-spectral-display" class="font-bold text-cobalt">FULL RESONANCE</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-ink/65">LAT_FREQ:</span>
+                <span id="ticket-freq-display" class="font-bold text-cobalt">22.87° N / 98.4 MHz</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-ink/65">STATUS:</span>
+                <span class="text-emerald-600 font-bold animate-pulse">✓ VERIFIED_COMPILED</span>
+              </div>
+            </div>
+
+            <!-- Barcode SVG Simulation for raw technical feel -->
+            <div class="mt-6 pt-4 border-t border-cobalt/20 flex flex-col items-center">
+              <svg class="w-full h-8 text-cobalt" fill="currentColor">
+                <rect x="0" width="4" height="32" />
+                <rect x="8" width="2" height="32" />
+                <rect x="14" width="6" height="32" />
+                <rect x="24" width="2" height="32" />
+                <rect x="30" width="8" height="32" />
+                <rect x="42" width="4" height="32" />
+                <rect x="50" width="2" height="32" />
+                <rect x="56" width="6" height="32" />
+                <rect x="66" width="4" height="32" />
+                <rect x="74" width="2" height="32" />
+                <rect x="80" width="8" height="32" />
+                <rect x="92" width="2" height="32" />
+                <rect x="98" width="4" height="32" />
+                <rect x="106" width="6" height="32" />
+                <rect x="116" width="4" height="32" />
+                <rect x="124" width="2" height="32" />
+                <rect x="130" width="8" height="32" />
+                <rect x="142" width="4" height="32" />
+                <rect x="150" width="2" height="32" />
+                <rect x="156" width="6" height="32" />
+                <rect x="166" width="4" height="32" />
+                <rect x="174" width="8" height="32" />
+                <rect x="186" width="2" height="32" />
+                <rect x="192" width="4" height="32" />
+                <rect x="200" width="6" height="32" />
+                <rect x="210" width="10" height="32" />
+                <rect x="225" width="2" height="32" />
+                <rect x="232" width="4" height="32" />
+                <rect x="240" width="6" height="32" />
+                <rect x="250" width="4" height="32" />
+                <rect x="258" width="2" height="32" />
+                <rect x="264" width="8" height="32" />
+                <rect x="276" width="4" height="32" />
+                <rect x="284" width="2" height="32" />
+                <rect x="290" width="6" height="32" />
+                <rect x="300" width="4" height="32" />
+                <rect x="308" width="12" height="32" />
+              </svg>
+              <span class="text-[9px] font-mono text-ink/45 mt-1 font-bold">SERIAL: 2026-ISLAND-SIGNAL-SYSTEM</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SPONSORS & AFFILIATION STRIP (Beautiful crisp black-and-blue mini badges) -->
+  <section class="w-full bg-paper border-b-2 border-cobalt py-8 px-6 overflow-hidden">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+      <span class="font-mono text-xs text-cobalt font-bold tracking-widest">// COLLABORATING ORGS & CO-SPONSORS</span>
+      <div class="flex flex-wrap gap-8 justify-center items-center">
+        <!-- Badge 01 -->
+        <div class="flex items-center gap-2 border border-cobalt px-3 py-1 bg-paper text-cobalt font-mono text-xs font-bold">
+          <span class="w-2.5 h-2.5 bg-cobalt inline-block"></span>
+          <span>TAIWAN MINISTRY OF CULTURE</span>
+        </div>
+        <!-- Badge 02 -->
+        <div class="flex items-center gap-2 border border-cobalt px-3 py-1 bg-paper text-cobalt font-mono text-xs font-bold">
+          <span class="w-2.5 h-2.5 bg-cobalt inline-block"></span>
+          <span>C-LAB TAIWAN CONTEMPORARY</span>
+        </div>
+        <!-- Badge 03 -->
+        <div class="flex items-center gap-2 border border-cobalt px-3 py-1 bg-paper text-cobalt font-mono text-xs font-bold">
+          <span class="w-2.5 h-2.5 bg-cobalt inline-block"></span>
+          <span>EAST COAST LAND ART SOC.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOTIFICATION CONTAINER (Replacement for alerts as required by prompt) -->
+  <div id="custom-notification" class="fixed bottom-6 right-6 bg-cobalt border-2 border-ink text-white p-4 font-mono text-xs z-50 shadow-xl hidden max-w-sm">
+    <div class="flex justify-between items-start gap-4">
+      <div>
+        <span class="font-bold block uppercase mb-1">▶ COMPILER STATUS</span>
+        <p id="notification-message">System updated with fresh coordinates.</p>
+      </div>
+      <button onclick="closeNotification()" class="text-white hover:text-paper font-bold">[X]</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="w-full bg-ink text-paper py-12 px-6 border-t-2 border-cobalt relative">
+    <div class="absolute inset-0 halftone-bg opacity-[0.03] pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 relative z-10">
+      
+      <div class="md:col-span-4 space-y-4">
+        <span class="font-pixel text-3xl text-cobalt">島群之間</span>
+        <p class="font-mono text-xs text-paper/70 leading-relaxed max-w-xs">
+          A design experiment capturing raw geographic structures and converting them into acoustic, interactive signal installations.
+        </p>
+      </div>
+
+      <div class="md:col-span-4 space-y-2 font-mono text-xs">
+        <h4 class="font-bold text-cobalt uppercase tracking-widest mb-2">// COORDINATE ARCHIVE</h4>
+        <p class="text-paper/70">Main Station: Taitung Coastlands, Taiwan</p>
+        <p class="text-paper/70">Secondary Hub: Art Space III, Contemporary Culture Lab (C-LAB), Taipei</p>
+        <p class="text-paper/70">Broadcasting: 98.4 MHz, Live Streams Active</p>
+      </div>
+
+      <div class="md:col-span-4 space-y-2 font-mono text-xs">
+        <h4 class="font-bold text-cobalt uppercase tracking-widest mb-2">// LEGAL & TECHNICAL</h4>
+        <p class="text-paper/70">&copy; 2026 Taiwan East Coast Land Arts Festival. All signal arrays, linocut scans, and frequency generators are open-source. Created in digital visual alignment.</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- DYNAMIC INTERACTION SCRIPTS -->
+  <script>
+    // Variables for the Signal Lab Wave Controller
+    let freq = 4.0;
+    let amp = 30.0;
+    let mode = 'sine'; // sine, tidal, noise
+
+    // Setup Canvas Visualizer
+    const canvas = document.getElementById('signalCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      // Set resolution relative to visually rendered block dimensions
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    }
+    
+    // Resize on initialization and on window resize
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+    });
+
+    // Control Elements Integration
+    const freqSlider = document.getElementById('freq-slider');
+    const ampSlider = document.getElementById('amp-slider');
+    const freqVal = document.getElementById('freq-val');
+    const ampVal = document.getElementById('amp-val');
+
+    freqSlider.addEventListener('input', (e) => {
+      freq = parseFloat(e.target.value);
+      freqVal.innerText = `${freq.toFixed(1)} Hz`;
+    });
+
+    ampSlider.addEventListener('input', (e) => {
+      amp = parseFloat(e.target.value);
+      ampVal.innerText = `${amp.toFixed(1)} V`;
+      // Dynamically update the ticket preview frequency display as well
+      document.getElementById('ticket-freq-display').innerText = `22.87° N / ${(freq * 24.6).toFixed(1)} MHz`;
+    });
+
+    function setRenderMode(selectedMode) {
+      mode = selectedMode;
+      
+      // Update UI button visuals
+      const buttons = ['sine', 'tidal', 'noise'];
+      buttons.forEach(b => {
+        const btn = document.getElementById(`mode-${b}`);
+        if (b === selectedMode) {
+          btn.className = "bg-cobalt text-white py-1 px-2 border border-cobalt text-center font-bold";
+        } else {
+          btn.className = "bg-transparent text-cobalt py-1 px-2 border border-cobalt text-center hover:bg-cobalt/10";
+        }
+      });
+
+      triggerNotification(`Render mode set to: ${selectedMode.toUpperCase()}`);
+    }
+
+    // Animation Loop for the Blue Visualizer Map (Signals grid reproduction)
+    let angle = 0;
+    function animate() {
+      if (!ctx) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw Blueprint Grid Lines in the canvas
+      ctx.strokeStyle = 'rgba(0, 51, 255, 0.09)';
+      ctx.lineWidth = 1;
+      
+      // Vertical grid lines
+      for (let x = 0; x < canvas.width; x += 20) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvas.height);
+        ctx.stroke();
+      }
+      // Horizontal grid lines
+      for (let y = 0; y < canvas.height; y += 20) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvas.width, y);
+        ctx.stroke();
+      }
+
+      // Draw Main Visualizing Waves in Electric Cobalt
+      ctx.strokeStyle = '#0033FF';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+
+      const midY = canvas.height / 2;
+
+      for (let x = 0; x < canvas.width; x++) {
+        let y = midY;
+        
+        if (mode === 'sine') {
+          // Pure sine wave synthesis
+          y = midY + Math.sin(x * (freq / 100) + angle) * amp;
+        } else if (mode === 'tidal') {
+          // Double modulated wave representing tidal pull
+          y = midY + Math.sin(x * (freq / 100) + angle) * amp + Math.cos(x * 0.01 + angle * 0.5) * (amp / 2);
+        } else if (mode === 'noise') {
+          // Sharp, raw geometric raster signals reminiscent of the technical blueprints
+          const stepValue = Math.floor(x / 12) * 12;
+          y = midY + Math.sin(stepValue * (freq / 100) + angle) * amp + (Math.random() - 0.5) * 8;
+        }
+
+        if (x === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      }
+      ctx.stroke();
+
+      // Draw a secondary decorative dashed frequency line
+      ctx.strokeStyle = 'rgba(0, 51, 255, 0.4)';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([5, 5]);
+      ctx.beginPath();
+      for (let x = 0; x < canvas.width; x++) {
+        let y = (midY + 40) + Math.sin(x * (freq / 120) - angle * 0.8) * (amp * 0.6);
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+      ctx.setLineDash([]); // Reset line dash
+
+      angle += 0.05;
+      requestAnimationFrame(animate);
+    }
+
+    // Cognitive Node Scanner interaction
+    function activateNode(name, lon, lat, status) {
+      document.getElementById('readout-title').innerText = name;
+      document.getElementById('readout-coord').innerText = `LAT ${lat}° N / LON ${lon}° E`;
+      document.getElementById('readout-status').innerText = status;
+      
+      // Trigger temporary frequency spikes in the visualizer controls
+      freq = parseFloat((Math.random() * 6 + 3).toFixed(1));
+      amp = parseFloat((Math.random() * 40 + 25).toFixed(1));
+
+      freqSlider.value = freq;
+      ampSlider.value = amp;
+      freqVal.innerText = `${freq} Hz`;
+      ampVal.innerText = `${amp} V`;
+
+      triggerNotification(`Scanned coordinates for ${name} [Active Nodes Synchronized]`);
+    }
+
+    // Gate Ticket Compilation Logic
+    function updateTicket() {
+      const name = document.getElementById('pass-name').value || "ALICE CHEN";
+      const station = document.getElementById('pass-station').value;
+      const spectral = document.getElementById('pass-spectral').value;
+
+      document.getElementById('ticket-name-display').innerText = name.toUpperCase();
+      document.getElementById('ticket-station-display').innerText = station.toUpperCase();
+      document.getElementById('ticket-spectral-display').innerText = spectral.toUpperCase();
+    }
+
+    function printTicket() {
+      const randomID = Math.floor(Math.random() * 8999 + 1000);
+      document.getElementById('ticket-id').innerText = `#${randomID}-TW`;
+      
+      triggerNotification("Ticket successfully generated with cryptographic security code.");
+    }
+
+    // Notification Handler to replace window alerts
+    function triggerNotification(text) {
+      const notif = document.getElementById('custom-notification');
+      document.getElementById('notification-message').innerText = text;
+      notif.classList.remove('hidden');
+      
+      // Auto-hide after 5 seconds
+      setTimeout(() => {
+        notif.classList.add('hidden');
+      }, 5000);
+    }
+
+    function closeNotification() {
+      document.getElementById('custom-notification').classList.add('hidden');
+    }
+
+    // On Load Initialization
+    window.onload = function() {
+      resizeCanvas();
+      animate();
+    };
+  </script>
+
+</body>
+</html>
+10

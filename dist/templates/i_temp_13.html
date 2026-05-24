@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arbor Residences - Transformative Waterfront Living</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        arbor: {
+                            green: '#2A5233',      // Deep forest green from the graphic stripe
+                            greenlight: '#42704C', // Lighter forest accent
+                            cream: '#FAF7F2',      // Luxurious cream/ivory background
+                            sand: '#F0EADF',       // Slightly deeper sand color for borders/cards
+                            charcoal: '#1C2621',   // Off-black elegant font color
+                            gold: '#C5A880'        // Muted gold accents
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Didot', 'Georgia', 'serif'],
+                        sans: ['Inter', 'Montserrat', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts for Playfair Display & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Font Awesome for elegant icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FAF7F2;
+            color: #1C2621;
+        }
+        .serif-title {
+            font-family: 'Playfair Display', serif;
+        }
+        /* Custom smooth scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF7F2;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2A5233;
+            border-radius: 4px;
+        }
+        /* Elegant custom animations to mirror architectural lines */
+        @keyframes diagonalSlide {
+            0% { transform: translateY(-100%) rotate(-15deg); }
+            100% { transform: translateY(0) rotate(-15deg); }
+        }
+        .diagonal-bg {
+            clip-path: polygon(0 0, 100% 0, 75% 100%, 0% 100%);
+        }
+        .diagonal-bg-reverse {
+            clip-path: polygon(25% 0, 100% 0, 100% 100%, 0% 100%);
+        }
+        .fade-in-up {
+            animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden selection:bg-arbor-green selection:text-white">
+
+    <!-- Premium Top Navigation Bar -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-arbor-cream/90 backdrop-blur-md border-b border-arbor-sand transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 py-5 flex justify-between items-center">
+            <!-- Brand Logo with specific styling from prompt image -->
+            <a href="#" class="flex flex-col items-center group">
+                <span class="serif-title text-2xl lg:text-3xl font-light tracking-widest text-arbor-green transition-colors duration-300">
+                    Arbor
+                </span>
+                <span class="text-[9px] uppercase tracking-[0.3em] text-arbor-charcoal/70 -mt-1 group-hover:text-arbor-green transition-colors duration-300">
+                    ~ residences ~
+                </span>
+            </a>
+
+            <!-- Navigation Links -->
+            <div class="hidden md:flex items-center space-x-10 text-xs uppercase tracking-widest font-medium text-arbor-charcoal/80">
+                <a href="#vision" class="hover:text-arbor-green transition-colors duration-200 relative py-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-arbor-green hover:after:w-full after:transition-all after:duration-300">The Vision</a>
+                <a href="#residences" class="hover:text-arbor-green transition-colors duration-200 relative py-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-arbor-green hover:after:w-full after:transition-all after:duration-300">Residences</a>
+                <a href="#amenities" class="hover:text-arbor-green transition-colors duration-200 relative py-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-arbor-green hover:after:w-full after:transition-all after:duration-300">Amenities</a>
+                <a href="#location" class="hover:text-arbor-green transition-colors duration-200 relative py-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-arbor-green hover:after:w-full after:transition-all after:duration-300">Waterfront</a>
+            </div>
+
+            <!-- Actions -->
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#enquire" class="px-6 py-3 border border-arbor-green text-xs uppercase tracking-widest font-semibold text-arbor-green hover:bg-arbor-green hover:text-white transition-all duration-300 rounded-none">
+                    Enquire Now
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button onclick="toggleMobileMenu()" class="md:hidden text-arbor-green focus:outline-none">
+                <i id="menuIcon" class="fa-solid fa-bars text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobileMenu" class="hidden md:hidden absolute top-full left-0 w-full bg-arbor-cream border-b border-arbor-sand px-6 py-8 space-y-6 shadow-xl transition-all duration-300">
+            <div class="flex flex-col space-y-5 text-xs uppercase tracking-widest font-medium text-arbor-charcoal">
+                <a href="#vision" onclick="toggleMobileMenu()" class="hover:text-arbor-green transition-colors">The Vision</a>
+                <a href="#residences" onclick="toggleMobileMenu()" class="hover:text-arbor-green transition-colors">Residences</a>
+                <a href="#amenities" onclick="toggleMobileMenu()" class="hover:text-arbor-green transition-colors">Amenities</a>
+                <a href="#location" onclick="toggleMobileMenu()" class="hover:text-arbor-green transition-colors">Waterfront</a>
+            </div>
+            <div class="pt-4 border-t border-arbor-sand">
+                <a href="#enquire" onclick="toggleMobileMenu()" class="block text-center py-3 bg-arbor-green text-white text-xs uppercase tracking-widest font-semibold transition-colors">
+                    Enquire Now
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section: Perfectly capturing the image's dynamic composition, diagonal slice, and color block -->
+    <section class="relative min-h-screen pt-24 lg:pt-0 flex items-center overflow-hidden bg-arbor-cream">
+        <!-- Background elements & dynamic color accents matching the visual template -->
+        <div class="absolute inset-0 z-0 flex pointer-events-none">
+            <!-- Large decorative forest green stripe mimicking the uploaded design diagonal -->
+            <div class="hidden lg:block w-[32%] bg-arbor-green origin-top-left -skew-x-[18deg] transform scale-y-125 opacity-95"></div>
+            <div class="flex-1"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10 py-12">
+            
+            <!-- Left Column: Elegant Architectural Visual Mockup (Inspired by structural facade inside circular masks) -->
+            <div class="lg:col-span-6 relative flex justify-center items-center fade-in-up">
+                <!-- Circular background outline referencing the frame layout from the original ad -->
+                <div class="absolute -bottom-10 -left-10 w-72 h-72 border border-arbor-green/20 rounded-full pointer-events-none"></div>
+                <div class="absolute -top-10 -right-10 w-96 h-96 border border-arbor-green/10 rounded-full pointer-events-none"></div>
+
+                <!-- Main Premium Render Container -->
+                <div class="relative w-full max-w-lg aspect-[4/5] bg-arbor-sand shadow-2xl overflow-hidden group">
+                    <!-- Overlay shadow/gradient -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-arbor-charcoal/40 via-transparent to-transparent z-10"></div>
+                    
+                    <!-- Architectural Imagery Fallback (Pure SVG + Unsplash styling) -->
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1200" 
+                         alt="Arbor Residences Exterior Facade" 
+                         class="w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-transform duration-700 ease-out"
+                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=1000';" />
+
+                    <!-- Corner architectural label mimicking premium catalogs -->
+                    <div class="absolute top-6 left-6 bg-arbor-cream/90 backdrop-blur-sm px-4 py-2 text-[10px] tracking-[0.2em] uppercase text-arbor-green font-medium z-20 border-l-2 border-arbor-green">
+                        Waterfront Landmark
+                    </div>
+                </div>
+
+                <!-- Secondary floating detail image mimicking the overlaid circular frame in the inspiration image -->
+                <div class="absolute -bottom-8 -right-4 w-44 h-44 rounded-full border-4 border-arbor-cream shadow-xl overflow-hidden hidden md:block z-20">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=500" 
+                         alt="Interior Detail" 
+                         class="w-full h-full object-cover" />
+                </div>
+            </div>
+
+            <!-- Right Column: Exquisite Copy and Grid Table directly from the inspiration design layout -->
+            <div class="lg:col-span-6 flex flex-col justify-center space-y-8 lg:pl-6 fade-in-up" style="animation-delay: 0.2s;">
+                
+                <!-- Micro Branding Header -->
+                <div class="flex items-center space-x-3">
+                    <span class="w-8 h-[1px] bg-arbor-green"></span>
+                    <span class="text-xs uppercase tracking-[0.3em] font-semibold text-arbor-green">Now Presenting</span>
+                </div>
+
+                <!-- Grand Logo Text -->
+                <div class="space-y-1">
+                    <h1 class="serif-title text-6xl lg:text-7xl font-light text-arbor-green tracking-wide leading-tight">
+                        Arbor
+                    </h1>
+                    <p class="text-xs uppercase tracking-[0.45em] text-arbor-charcoal/70 pl-1">
+                        ~ Residences ~
+                    </p>
+                </div>
+
+                <!-- Captivating Transformative Journey Message (From inspiration image header) -->
+                <div class="space-y-4">
+                    <h2 class="text-sm md:text-base tracking-[0.25em] text-arbor-charcoal font-medium uppercase leading-relaxed max-w-md">
+                        Embark on a transformative journey through exquisite waterfront <span class="serif-title italic text-arbor-green normal-case font-semibold tracking-normal block text-2xl mt-1">Living!</span>
+                    </h2>
+                    <p class="text-xs text-arbor-charcoal/60 leading-relaxed max-w-md font-light">
+                        Where architectural majesty converges with serene waves. A private enclave tailored for the design connoisseur, situated in the heart of Dubai's most pristine waterways.
+                    </p>
+                </div>
+
+                <!-- The Iconic Unit Specification Grid Table (Perfect recreation of the style in your image) -->
+                <div class="max-w-md border border-arbor-green/30 bg-arbor-cream/50 backdrop-blur-sm overflow-hidden">
+                    <!-- Row 1 -->
+                    <div class="grid grid-cols-2 border-b border-arbor-green/20">
+                        <div class="px-5 py-3 border-r border-arbor-green/20 text-xs tracking-wider text-arbor-charcoal/70 uppercase">
+                            05 BR
+                        </div>
+                        <div class="px-5 py-3 text-xs tracking-widest text-arbor-green font-semibold uppercase">
+                            Sky Palaces
+                        </div>
+                    </div>
+                    <!-- Row 2 -->
+                    <div class="grid grid-cols-2 border-b border-arbor-green/20">
+                        <div class="px-5 py-3 border-r border-arbor-green/20 text-xs tracking-wider text-arbor-charcoal/70 uppercase">
+                            04 BR
+                        </div>
+                        <div class="px-5 py-3 text-xs tracking-widest text-arbor-green font-semibold uppercase">
+                            Penthouses
+                        </div>
+                    </div>
+                    <!-- Row 3 -->
+                    <div class="grid grid-cols-2">
+                        <div class="px-5 py-3 border-r border-arbor-green/20 text-xs tracking-wider text-arbor-charcoal/70 uppercase">
+                            03 BR
+                        </div>
+                        <div class="px-5 py-3 text-xs tracking-widest text-arbor-green font-semibold uppercase">
+                            Apartments
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pricing & Action Row matching the original advert format exactly -->
+                <div class="flex items-center space-x-8 pt-2">
+                    <!-- Pricing Container -->
+                    <div class="space-y-1">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-3 h-[3px] bg-arbor-green"></span>
+                            <span class="text-[10px] tracking-widest uppercase text-arbor-charcoal/65">Starting From</span>
+                        </div>
+                        <p class="text-xl lg:text-2xl font-semibold text-arbor-green tracking-wide">
+                            AED 30 Million
+                        </p>
+                    </div>
+
+                    <!-- Call to Action -->
+                    <a href="#enquire" class="px-8 py-4 bg-arbor-green text-white text-xs uppercase tracking-widest font-bold hover:bg-arbor-greenlight shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-[2px]">
+                        Request Brochure
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Brand Philosophy Section: Building visual depth and context -->
+    <section id="vision" class="py-24 bg-arbor-sand/40 relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <!-- Grid Layout mimicking high-end fashion/real estate publications -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Details: Premium text statement -->
+                <div class="lg:col-span-5 space-y-6">
+                    <p class="text-xs uppercase tracking-[0.3em] text-arbor-green font-bold">Uncompromising Standard</p>
+                    <h2 class="serif-title text-4xl lg:text-5xl font-light text-arbor-charcoal leading-tight">
+                        A sanctuary crafted with <span class="italic text-arbor-green font-normal">infinite care</span>.
+                    </h2>
+                    <p class="text-sm text-arbor-charcoal/75 leading-relaxed font-light">
+                        Arbor Residences blends the organic textures of stone and timber with state-of-the-art engineering. Nestled directly alongside serene flowing waters, every sunrise becomes an exclusive visual masterpiece.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6 pt-4 border-t border-arbor-sand">
+                        <div>
+                            <p class="serif-title text-3xl text-arbor-green font-light">360°</p>
+                            <p class="text-[10px] uppercase tracking-widest text-arbor-charcoal/60 mt-1">Waterfront Views</p>
+                        </div>
+                        <div>
+                            <p class="serif-title text-3xl text-arbor-green font-light">24</p>
+                            <p class="text-[10px] uppercase tracking-widest text-arbor-charcoal/60 mt-1">Limited Residences</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Details: Interactive Feature Showcase Cards (matching container depth guidelines) -->
+                <div class="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Feature Card 1 -->
+                    <div class="bg-arbor-cream p-8 border border-arbor-sand shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                        <div class="w-12 h-12 rounded-full bg-arbor-green/10 flex items-center justify-center text-arbor-green mb-6">
+                            <i class="fa-solid fa-water text-lg"></i>
+                        </div>
+                        <h3 class="serif-title text-lg font-semibold text-arbor-charcoal mb-2">Private Marina Access</h3>
+                        <p class="text-xs text-arbor-charcoal/70 leading-relaxed font-light">
+                            Direct boardwalk access with private berths curated for personal luxury vessels.
+                        </p>
+                    </div>
+
+                    <!-- Feature Card 2 -->
+                    <div class="bg-arbor-cream p-8 border border-arbor-sand shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                        <div class="w-12 h-12 rounded-full bg-arbor-green/10 flex items-center justify-center text-arbor-green mb-6">
+                            <i class="fa-solid fa-leaf text-lg"></i>
+                        </div>
+                        <h3 class="serif-title text-lg font-semibold text-arbor-charcoal mb-2">Sustainable Sanctuary</h3>
+                        <p class="text-xs text-arbor-charcoal/70 leading-relaxed font-light">
+                            LEED-certified architectural framework incorporating lush bio-walls and thermal insulation.
+                        </p>
+                    </div>
+
+                    <!-- Feature Card 3 -->
+                    <div class="bg-arbor-cream p-8 border border-arbor-sand shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                        <div class="w-12 h-12 rounded-full bg-arbor-green/10 flex items-center justify-center text-arbor-green mb-6">
+                            <i class="fa-solid fa-hotel text-lg"></i>
+                        </div>
+                        <h3 class="serif-title text-lg font-semibold text-arbor-charcoal mb-2">Sky Butler & Concierge</h3>
+                        <p class="text-xs text-arbor-charcoal/70 leading-relaxed font-light">
+                            Impeccable 24/7 bespoke living assistance responding to every meticulous request.
+                        </p>
+                    </div>
+
+                    <!-- Feature Card 4 -->
+                    <div class="bg-arbor-cream p-8 border border-arbor-sand shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                        <div class="w-12 h-12 rounded-full bg-arbor-green/10 flex items-center justify-center text-arbor-green mb-6">
+                            <i class="fa-solid fa-shapes text-lg"></i>
+                        </div>
+                        <h3 class="serif-title text-lg font-semibold text-arbor-charcoal mb-2">Infinite Pool Deck</h3>
+                        <p class="text-xs text-arbor-charcoal/70 leading-relaxed font-light">
+                            Suspended leisure deck with glass-bottom design offering surreal panoramic skylines.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Exclusive Interactive Residence Finder (The heart of user engagement) -->
+    <section id="residences" class="py-24 bg-arbor-cream">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            
+            <!-- Section Header -->
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+                <span class="text-xs uppercase tracking-[0.25em] text-arbor-green font-bold">Curated Layouts</span>
+                <h2 class="serif-title text-4xl lg:text-5xl font-light text-arbor-charcoal">
+                    Explore the Collection
+                </h2>
+                <p class="text-xs text-arbor-charcoal/60 leading-relaxed">
+                    Designed for visual balance, high utility, and an exquisite sense of flow. Select your desired living standard below.
+                </p>
+                <!-- Switch selectors -->
+                <div class="flex justify-center space-x-4 pt-4">
+                    <button onclick="switchUnitType('apartments')" id="btn-apartments" class="px-6 py-2.5 text-xs uppercase tracking-wider font-semibold bg-arbor-green text-white border border-arbor-green transition-all duration-300">
+                        03 BR Apartments
+                    </button>
+                    <button onclick="switchUnitType('penthouses')" id="btn-penthouses" class="px-6 py-2.5 text-xs uppercase tracking-wider font-semibold bg-transparent text-arbor-green border border-arbor-green/30 hover:border-arbor-green transition-all duration-300">
+                        04 BR Penthouses
+                    </button>
+                    <button onclick="switchUnitType('sky')" id="btn-sky" class="px-6 py-2.5 text-xs uppercase tracking-wider font-semibold bg-transparent text-arbor-green border border-arbor-green/30 hover:border-arbor-green transition-all duration-300">
+                        05 BR Sky Palaces
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dynamic Showcase Layout Area -->
+            <div id="unit-display-box" class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center bg-arbor-sand/20 p-8 lg:p-12 border border-arbor-sand/50 shadow-sm">
+                <!-- Data will populate dynamically via JS, but starts with 03 BR Apartments -->
+                <!-- Left Side: Floorplan or Render Visual -->
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="relative overflow-hidden bg-arbor-cream p-4 border border-arbor-sand shadow-inner aspect-[4/3] flex items-center justify-center">
+                        <img id="unit-image" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=1000" 
+                             alt="Residence Interior Render" 
+                             class="w-full h-full object-cover transition-opacity duration-500" />
+                    </div>
+                </div>
+
+                <!-- Right Side: Details list -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div>
+                        <span class="text-xs uppercase tracking-widest text-arbor-green font-bold" id="unit-badge">Collection Tier A</span>
+                        <h3 class="serif-title text-3xl font-light text-arbor-charcoal mt-1" id="unit-title">03 BR Signature Waterfront Apartments</h3>
+                    </div>
+                    
+                    <p class="text-xs text-arbor-charcoal/70 leading-relaxed font-light" id="unit-description">
+                        An immaculate fusion of luxury space and pristine waterfront vistas. Features bespoke modern kitchens, open terrace lounges, and double-glazed soundproof glass walls.
+                    </p>
+
+                    <!-- Technical Specs Table -->
+                    <div class="border-t border-b border-arbor-sand py-4 space-y-3">
+                        <div class="flex justify-between text-xs">
+                            <span class="text-arbor-charcoal/60">Total Area</span>
+                            <span class="font-semibold text-arbor-charcoal" id="unit-area">4,250 SQ. FT.</span>
+                        </div>
+                        <div class="flex justify-between text-xs">
+                            <span class="text-arbor-charcoal/60">Views</span>
+                            <span class="font-semibold text-arbor-charcoal" id="unit-views">Panoramic Marina & Canal</span>
+                        </div>
+                        <div class="flex justify-between text-xs">
+                            <span class="text-arbor-charcoal/60">Private Pools</span>
+                            <span class="font-semibold text-arbor-charcoal" id="unit-pools">1 Infinity Terrace Pool</span>
+                        </div>
+                    </div>
+
+                    <!-- Pricing & Button -->
+                    <div class="flex items-center justify-between pt-2">
+                        <div>
+                            <p class="text-[10px] tracking-widest uppercase text-arbor-charcoal/60">Indicative Price</p>
+                            <p class="text-2xl font-semibold text-arbor-green" id="unit-price">AED 30,000,000</p>
+                        </div>
+                        <a href="#enquire" class="px-6 py-3 bg-arbor-green text-white text-[11px] uppercase tracking-widest font-bold hover:bg-arbor-greenlight transition-colors">
+                            Book Viewing
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Visual Splendor/Atmosphere Showcase with architectural grid (using the brand identity colors) -->
+    <section id="amenities" class="py-24 bg-arbor-green text-arbor-cream relative overflow-hidden">
+        <!-- Background accents -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none">
+            <div class="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end mb-16">
+                <div class="lg:col-span-7 space-y-4">
+                    <span class="text-xs uppercase tracking-[0.3em] text-arbor-gold font-bold">Resort-Style Amenities</span>
+                    <h2 class="serif-title text-4xl lg:text-5xl font-light text-white">
+                        Curated experiences, <br>limitless convenience.
+                    </h2>
+                </div>
+                <div class="lg:col-span-5">
+                    <p class="text-xs text-arbor-cream/70 leading-relaxed font-light">
+                        Step out of your private elevator directly into a sanctuary of wellness, dining, and premium lifestyle services managed by world-class concierges.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Showcase Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Amenity 1 -->
+                <div class="group relative overflow-hidden aspect-[4/5] bg-arbor-greenlight border border-white/10 flex flex-col justify-end p-8 transition-transform duration-500 hover:-translate-y-1">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=800" 
+                         alt="Therapeutic Spa" 
+                         class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
+                    
+                    <div class="relative z-20 space-y-2">
+                        <span class="text-xs uppercase tracking-widest text-arbor-gold font-bold">Wellness</span>
+                        <h4 class="serif-title text-2xl text-white font-light">L'Oasis Wellness Spa</h4>
+                        <p class="text-[11px] text-arbor-cream/80 leading-relaxed line-clamp-2">
+                            Thermal pools, salt rooms, and professional therapists offering curated holistic sensory rituals.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Amenity 2 -->
+                <div class="group relative overflow-hidden aspect-[4/5] bg-arbor-greenlight border border-white/10 flex flex-col justify-end p-8 transition-transform duration-500 hover:-translate-y-1">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&q=80&w=800" 
+                         alt="Cigar Lounge" 
+                         class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
+                    
+                    <div class="relative z-20 space-y-2">
+                        <span class="text-xs uppercase tracking-widest text-arbor-gold font-bold">Leisure</span>
+                        <h4 class="serif-title text-2xl text-white font-light">Sommelier's Lounge</h4>
+                        <p class="text-[11px] text-arbor-cream/80 leading-relaxed line-clamp-2">
+                            Temperature-controlled cellars and luxury lounges hosting masterclass events for estate residents.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Amenity 3 -->
+                <div class="group relative overflow-hidden aspect-[4/5] bg-arbor-greenlight border border-white/10 flex flex-col justify-end p-8 transition-transform duration-500 hover:-translate-y-1">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=800" 
+                         alt="Private Dining" 
+                         class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
+                    
+                    <div class="relative z-20 space-y-2">
+                        <span class="text-xs uppercase tracking-widest text-arbor-gold font-bold">Gastronomy</span>
+                        <h4 class="serif-title text-2xl text-white font-light">Chef's Atelier</h4>
+                        <p class="text-[11px] text-arbor-cream/80 leading-relaxed line-clamp-2">
+                            An exclusive, high-concept test kitchen bookable for bespoke private catering and culinary displays.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Interactive Map & Location section -->
+    <section id="location" class="py-24 bg-arbor-sand/30">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Map Left: Copy information -->
+                <div class="lg:col-span-5 space-y-8">
+                    <div>
+                        <span class="text-xs uppercase tracking-[0.25em] text-arbor-green font-bold">Perfect Connection</span>
+                        <h2 class="serif-title text-4xl lg:text-5xl font-light text-arbor-charcoal mt-2">
+                            Perfectly Positioned
+                        </h2>
+                    </div>
+
+                    <p class="text-xs text-arbor-charcoal/70 leading-relaxed font-light">
+                        Located along the pristine water banks of Dubai, Arbor Residences perfectly isolates you from urban noise while guaranteeing that major business districts and luxury lifestyle hubs are only minutes away.
+                    </p>
+
+                    <!-- Interactive Location Accordions -->
+                    <div class="space-y-4">
+                        <!-- Location item 1 -->
+                        <div class="border-b border-arbor-green/20 pb-4">
+                            <button onclick="toggleMapInfo('landmark-1')" class="w-full flex justify-between items-center text-xs uppercase tracking-wider font-semibold text-arbor-charcoal hover:text-arbor-green focus:outline-none">
+                                <span>The Marina Boardwalk (Direct Access)</span>
+                                <i id="icon-landmark-1" class="fa-solid fa-chevron-down transition-transform"></i>
+                            </button>
+                            <p id="desc-landmark-1" class="hidden text-xs text-arbor-charcoal/60 mt-2 leading-relaxed font-light">
+                                Instantly step outside your private residence into a luxury marina strip containing award-winning bistros, yacht docks, and quiet seaside walking pathways.
+                            </p>
+                        </div>
+
+                        <!-- Location item 2 -->
+                        <div class="border-b border-arbor-green/20 pb-4">
+                            <button onclick="toggleMapInfo('landmark-2')" class="w-full flex justify-between items-center text-xs uppercase tracking-wider font-semibold text-arbor-charcoal hover:text-arbor-green focus:outline-none">
+                                <span>Downtown Core (12 Minutes)</span>
+                                <i id="icon-landmark-2" class="fa-solid fa-chevron-down transition-transform"></i>
+                            </button>
+                            <p id="desc-landmark-2" class="hidden text-xs text-arbor-charcoal/60 mt-2 leading-relaxed font-light">
+                                Effortless accessibility to primary corporate towers, exquisite luxury retail landmarks, and fine dining hotspots.
+                            </p>
+                        </div>
+
+                        <!-- Location item 3 -->
+                        <div class="border-b border-arbor-green/20 pb-4">
+                            <button onclick="toggleMapInfo('landmark-3')" class="w-full flex justify-between items-center text-xs uppercase tracking-wider font-semibold text-arbor-charcoal hover:text-arbor-green focus:outline-none">
+                                <span>International Airport (15 Minutes)</span>
+                                <i id="icon-landmark-3" class="fa-solid fa-chevron-down transition-transform"></i>
+                            </button>
+                            <p id="desc-landmark-3" class="hidden text-xs text-arbor-charcoal/60 mt-2 leading-relaxed font-light">
+                                Fast transit pathways ensuring seamless travel coordination, returning to your safe oasis with ease.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Map Right: Artistic styled map visual or interactive vector representation -->
+                <div class="lg:col-span-7">
+                    <div class="relative bg-arbor-cream p-4 border border-arbor-sand shadow-lg overflow-hidden aspect-video group">
+                        <!-- Custom designed graphic vector map with beautiful overlay markers for that high-end architect look -->
+                        <div class="absolute inset-0 bg-[#E8E2D5] opacity-30 flex items-center justify-center">
+                            <!-- Artistic minimal map grid styling -->
+                            <div class="w-full h-full bg-[radial-gradient(#2A5233_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                        </div>
+
+                        <!-- Mock Waterfront Graphic Map lines -->
+                        <div class="absolute inset-0 z-0 opacity-40">
+                            <!-- Stylized river/canal curved element -->
+                            <svg class="w-full h-full" viewBox="0 0 500 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M-50,150 Q120,50 250,180 T550,120" stroke="#2A5233" stroke-width="45" stroke-linecap="round" fill="none"/>
+                            </svg>
+                        </div>
+
+                        <!-- Interactive map markers -->
+                        <div class="absolute inset-0 z-10 flex items-center justify-center">
+                            <!-- Arbor Residences Prime Marker -->
+                            <div class="absolute top-[48%] left-[45%] flex flex-col items-center">
+                                <div class="relative flex h-5 w-5">
+                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-arbor-green opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-5 w-5 bg-arbor-green border-2 border-white"></span>
+                                </div>
+                                <span class="bg-arbor-green text-white text-[9px] tracking-widest uppercase font-bold px-2 py-1 mt-1 shadow-md">Arbor Residences</span>
+                            </div>
+
+                            <!-- Marker Landmark 1 -->
+                            <div class="absolute top-[20%] left-[20%] flex items-center space-x-1">
+                                <span class="h-3 w-3 rounded-full bg-arbor-charcoal border border-white"></span>
+                                <span class="bg-white/90 text-arbor-charcoal text-[8px] uppercase tracking-wider px-1.5 py-0.5">International Hub</span>
+                            </div>
+
+                            <!-- Marker Landmark 2 -->
+                            <div class="absolute bottom-[30%] right-[25%] flex items-center space-x-1">
+                                <span class="h-3 w-3 rounded-full bg-arbor-charcoal border border-white"></span>
+                                <span class="bg-white/90 text-arbor-charcoal text-[8px] uppercase tracking-wider px-1.5 py-0.5">Yacht Club</span>
+                            </div>
+                        </div>
+
+                        <!-- Overlay instructions -->
+                        <div class="absolute bottom-4 left-4 z-20 bg-arbor-cream/95 backdrop-blur-md px-4 py-2 text-[10px] tracking-wider text-arbor-charcoal uppercase border border-arbor-sand flex items-center space-x-2">
+                            <i class="fa-solid fa-location-dot text-arbor-green"></i>
+                            <span>Dubai Waterfront Enclave</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section with elegant editorial quotes -->
+    <section class="py-24 bg-arbor-cream relative border-t border-b border-arbor-sand">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            
+            <div class="max-w-4xl mx-auto text-center space-y-8">
+                <i class="fa-solid fa-quote-left text-4xl text-arbor-green/35"></i>
+                
+                <p class="serif-title text-2xl lg:text-3xl font-light italic text-arbor-charcoal leading-relaxed">
+                    "Arbor Residences represents a masterclass in organic architecture. The way the dynamic diagonal lines frame the natural light makes it feel more like a living sculpture than an elite apartment complex."
+                </p>
+
+                <div class="space-y-1">
+                    <p class="text-xs uppercase tracking-[0.2em] font-semibold text-arbor-green">Sir Alistair Sterling</p>
+                    <p class="text-[10px] uppercase tracking-[0.1em] text-arbor-charcoal/50">Architectural Digest Contributor & Patron</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Contact & Enquiry Section using precise layout from prompt -->
+    <section id="enquire" class="py-24 bg-arbor-cream">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+                
+                <!-- Left Details: Brand alignment information -->
+                <div class="lg:col-span-5 space-y-8">
+                    <div class="space-y-3">
+                        <span class="text-xs uppercase tracking-[0.3em] text-arbor-green font-bold">Secure Your Sanctuary</span>
+                        <h2 class="serif-title text-4xl lg:text-5xl font-light text-arbor-charcoal leading-tight">
+                            Schedule a Private Viewing
+                        </h2>
+                    </div>
+
+                    <p class="text-xs text-arbor-charcoal/70 leading-relaxed font-light">
+                        Given our extremely limited collection of 24 waterfront estates, viewings are conducted purely through certified invitation. Complete the form to establish communications with your personal relations agent.
+                    </p>
+
+                    <div class="space-y-4 pt-6 border-t border-arbor-sand">
+                        <!-- Detail 1 -->
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 rounded-full bg-arbor-sand flex items-center justify-center text-arbor-green">
+                                <i class="fa-solid fa-phone text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="text-[9px] uppercase tracking-wider text-arbor-charcoal/50">Inquire via Phone</p>
+                                <p class="text-xs font-semibold text-arbor-charcoal">+971 4 800 ARBOR</p>
+                            </div>
+                        </div>
+
+                        <!-- Detail 2 -->
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 rounded-full bg-arbor-sand flex items-center justify-center text-arbor-green">
+                                <i class="fa-solid fa-envelope text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="text-[9px] uppercase tracking-wider text-arbor-charcoal/50">Official Correspondence</p>
+                                <p class="text-xs font-semibold text-arbor-charcoal">private@arborresidences.ae</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Details: Premium Input Form with custom feedback instead of alerts -->
+                <div class="lg:col-span-7 bg-arbor-sand/35 p-8 lg:p-12 border border-arbor-sand/70 shadow-sm relative">
+                    
+                    <form id="enquiryForm" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- First Name -->
+                            <div class="space-y-2">
+                                <label class="text-[10px] uppercase tracking-widest text-arbor-charcoal/70 font-semibold">First Name</label>
+                                <input type="text" required class="w-full bg-arbor-cream border border-arbor-sand px-4 py-3 text-xs focus:outline-none focus:border-arbor-green transition-all" placeholder="Enter first name">
+                            </div>
+                            <!-- Last Name -->
+                            <div class="space-y-2">
+                                <label class="text-[10px] uppercase tracking-widest text-arbor-charcoal/70 font-semibold">Last Name</label>
+                                <input type="text" required class="w-full bg-arbor-cream border border-arbor-sand px-4 py-3 text-xs focus:outline-none focus:border-arbor-green transition-all" placeholder="Enter last name">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Email -->
+                            <div class="space-y-2">
+                                <label class="text-[10px] uppercase tracking-widest text-arbor-charcoal/70 font-semibold">Email Address</label>
+                                <input type="email" required class="w-full bg-arbor-cream border border-arbor-sand px-4 py-3 text-xs focus:outline-none focus:border-arbor-green transition-all" placeholder="name@domain.com">
+                            </div>
+                            <!-- Phone -->
+                            <div class="space-y-2">
+                                <label class="text-[10px] uppercase tracking-widest text-arbor-charcoal/70 font-semibold">Phone Number</label>
+                                <input type="tel" required class="w-full bg-arbor-cream border border-arbor-sand px-4 py-3 text-xs focus:outline-none focus:border-arbor-green transition-all" placeholder="+971 50 000 0000">
+                            </div>
+                        </div>
+
+                        <!-- Residence Preference Selection -->
+                        <div class="space-y-2">
+                            <label class="text-[10px] uppercase tracking-widest text-arbor-charcoal/70 font-semibold">Collection Preference</label>
+                            <select class="w-full bg-arbor-cream border border-arbor-sand px-4 py-3 text-xs focus:outline-none focus:border-arbor-green transition-all">
+                                <option value="apartments">03 BR Apartments (From AED 30M)</option>
+                                <option value="penthouses">04 BR Penthouses (From AED 45M)</option>
+                                <option value="sky-palaces">05 BR Sky Palaces (From AED 75M)</option>
+                            </select>
+                        </div>
+
+                        <!-- Message -->
+                        <div class="space-y-2">
+                            <label class="text-[10px] uppercase tracking-widest text-arbor-charcoal/70 font-semibold">Additional Details</label>
+                            <textarea rows="4" class="w-full bg-arbor-cream border border-arbor-sand p-4 text-xs focus:outline-none focus:border-arbor-green transition-all" placeholder="Preferred dates for viewing or questions..."></textarea>
+                        </div>
+
+                        <!-- Custom verification disclaimer matching premium aesthetic -->
+                        <p class="text-[9px] text-arbor-charcoal/50 leading-relaxed font-light">
+                            By clicking submit, you authorize Arbor Residences to verify and share your details with our exclusive partner brokers to coordinate customized hospitality logistics.
+                        </p>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="w-full py-4 bg-arbor-green hover:bg-arbor-greenlight text-white text-xs uppercase tracking-widest font-bold transition-all duration-300 shadow-md hover:shadow-lg">
+                            Request Invitation
+                        </button>
+                    </form>
+
+                    <!-- Success Feedback Box (Hidden Initially) -->
+                    <div id="successBox" class="hidden absolute inset-0 bg-arbor-cream/95 backdrop-blur-md flex flex-col items-center justify-center p-8 text-center space-y-4">
+                        <div class="w-16 h-16 rounded-full bg-arbor-green/10 flex items-center justify-center text-arbor-green text-2xl">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                        <h4 class="serif-title text-2xl text-arbor-green">Invitation Received</h4>
+                        <p class="text-xs text-arbor-charcoal/70 max-w-sm leading-relaxed">
+                            Thank you. A senior relations coordinator will contact you directly within 2 hours to verify your credentials and arrange luxury transport for your tour.
+                        </p>
+                        <button onclick="resetEnquiryForm()" class="px-6 py-2 border border-arbor-green text-xs uppercase tracking-widest font-semibold text-arbor-green hover:bg-arbor-green hover:text-white transition-all">
+                            Back
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Exquisite Premium Footer matching exact visual design identity -->
+    <footer class="bg-arbor-charcoal text-arbor-cream py-16 border-t border-arbor-green/10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 items-start mb-16">
+                
+                <!-- Col 1: Brand Identifier -->
+                <div class="lg:col-span-4 space-y-6">
+                    <a href="#" class="flex flex-col items-start">
+                        <span class="serif-title text-3xl font-light tracking-widest text-white">
+                            Arbor
+                        </span>
+                        <span class="text-[10px] uppercase tracking-[0.3em] text-arbor-gold -mt-1">
+                            ~ residences ~
+                        </span>
+                    </a>
+                    <p class="text-xs text-arbor-cream/60 leading-relaxed font-light max-w-xs">
+                        An elite residential development providing pristine architecture and tranquil waterfront tranquility.
+                    </p>
+                    <div class="flex space-x-4 text-sm text-arbor-cream/50">
+                        <a href="#" class="hover:text-arbor-gold transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="hover:text-arbor-gold transition-colors"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="hover:text-arbor-gold transition-colors"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="#" class="hover:text-arbor-gold transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
+                    </div>
+                </div>
+
+                <!-- Col 2: Navigation Links -->
+                <div class="lg:col-span-3 space-y-4">
+                    <h5 class="text-xs uppercase tracking-widest font-bold text-arbor-gold">Navigation</h5>
+                    <ul class="space-y-2 text-xs text-arbor-cream/60">
+                        <li><a href="#vision" class="hover:text-white transition-colors">The Vision</a></li>
+                        <li><a href="#residences" class="hover:text-white transition-colors">Elite Collection</a></li>
+                        <li><a href="#amenities" class="hover:text-white transition-colors">Resort Experience</a></li>
+                        <li><a href="#location" class="hover:text-white transition-colors">Location Mapping</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Legal & Admin -->
+                <div class="lg:col-span-3 space-y-4">
+                    <h5 class="text-xs uppercase tracking-widest font-bold text-arbor-gold">Legal Framework</h5>
+                    <ul class="space-y-2 text-xs text-arbor-cream/60">
+                        <li><a href="#" class="hover:text-white transition-colors">Privacy Charter</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Terms of Experience</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Escrow Accounts</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Project Permits</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Newsletter or subtle CTA -->
+                <div class="lg:col-span-2 space-y-4">
+                    <h5 class="text-xs uppercase tracking-widest font-bold text-arbor-gold">Digital Portal</h5>
+                    <a href="https://www.arborresidences.ae" target="_blank" class="block text-xs hover:text-white underline tracking-wider text-arbor-cream/60">
+                        www.arborresidences.ae
+                    </a>
+                    <p class="text-[9px] text-arbor-cream/40 leading-relaxed font-light">
+                        Designed with perfection for modern luxury browsers.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Bottom Credits -->
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-[10px] text-arbor-cream/40 uppercase tracking-widest">
+                <p>&copy; 2026 Arbor Residences Ltd. All Rights Reserved.</p>
+                <p>Designed in collaboration with Luxury Architects</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripting for fully interactive high-end details -->
+    <script>
+        // Toggle Mobile Navigation
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const icon = document.getElementById('menuIcon');
+            menu.classList.toggle('hidden');
+            if (menu.classList.contains('hidden')) {
+                icon.className = 'fa-solid fa-bars text-2xl';
+            } else {
+                icon.className = 'fa-solid fa-xmark text-2xl';
+            }
+        }
+
+        // Data Structure representing the actual real-estate items from inspiration image
+        const unitData = {
+            apartments: {
+                badge: "Collection Tier A",
+                title: "03 BR Signature Waterfront Apartments",
+                description: "An immaculate fusion of luxury space and pristine waterfront vistas. Features bespoke modern kitchens, open terrace lounges, and double-glazed soundproof glass walls that open up to catch the marina breezes.",
+                area: "4,250 SQ. FT.",
+                views: "Panoramic Marina & Canal",
+                pools: "1 Infinity Terrace Pool",
+                price: "AED 30,000,000",
+                image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=1000"
+            },
+            penthouses: {
+                badge: "Collection Tier Gold",
+                title: "04 BR Premium Waterfront Penthouses",
+                description: "Spanning the upper tiers of Arbor Residences, these homes boast majestic double-height ceilings, a dedicated butler suite, temperature-controlled outdoor spas, and complete customized timber finishings.",
+                area: "6,800 SQ. FT.",
+                views: "360° Skyline & Full Canal",
+                pools: "1 Deepwater Rooftop Pool",
+                price: "AED 45,000,000",
+                image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=1000"
+            },
+            sky: {
+                badge: "Collection Elite Majestic",
+                title: "05 BR Grand Waterfront Sky Palaces",
+                description: "A crowning luxury landmark. These ultra-exclusive triplex residences include fully integrated private yacht docks, indoor waterfall features, automated smart lighting systems, and expansive private wellness decks.",
+                area: "11,500 SQ. FT.",
+                views: "Full Sea, Marina & Skyline",
+                pools: "2 Outdoor Infinity Pools",
+                price: "AED 75,000,000",
+                image: "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&q=80&w=1000"
+            }
+        };
+
+        // Switch active Unit details smoothly
+        function switchUnitType(tier) {
+            // Update buttons visually
+            const buttons = ['apartments', 'penthouses', 'sky'];
+            buttons.forEach(b => {
+                const element = document.getElementById('btn-' + b);
+                if (b === tier) {
+                    element.className = "px-6 py-2.5 text-xs uppercase tracking-wider font-semibold bg-arbor-green text-white border border-arbor-green transition-all duration-300";
+                } else {
+                    element.className = "px-6 py-2.5 text-xs uppercase tracking-wider font-semibold bg-transparent text-arbor-green border border-arbor-green/30 hover:border-arbor-green transition-all duration-300";
+                }
+            });
+
+            // Transition content out/in smoothly
+            const imgElement = document.getElementById('unit-image');
+            imgElement.style.opacity = 0;
+
+            setTimeout(() => {
+                // Change Data fields
+                document.getElementById('unit-badge').innerText = unitData[tier].badge;
+                document.getElementById('unit-title').innerText = unitData[tier].title;
+                document.getElementById('unit-description').innerText = unitData[tier].description;
+                document.getElementById('unit-area').innerText = unitData[tier].area;
+                document.getElementById('unit-views').innerText = unitData[tier].views;
+                document.getElementById('unit-pools').innerText = unitData[tier].pools;
+                document.getElementById('unit-price').innerText = unitData[tier].price;
+                imgElement.src = unitData[tier].image;
+                
+                // Show again
+                imgElement.style.opacity = 1;
+            }, 300);
+        }
+
+        // Toggle interactive Map Accordion details
+        function toggleMapInfo(id) {
+            const p = document.getElementById('desc-' + id);
+            const icon = document.getElementById('icon-' + id);
+            
+            p.classList.toggle('hidden');
+            if (p.classList.contains('hidden')) {
+                icon.style.transform = "rotate(0deg)";
+            } else {
+                icon.style.transform = "rotate(180deg)";
+            }
+        }
+
+        // Handle Custom Form Submit gracefully (Avoiding annoying browser alerts)
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            // Perform simulated network action
+            const successBox = document.getElementById('successBox');
+            successBox.classList.remove('hidden');
+        }
+
+        // Reset Form to clear states
+        function resetEnquiryForm() {
+            document.getElementById('enquiryForm').reset();
+            document.getElementById('successBox').classList.add('hidden');
+        }
+
+        // Smooth Nav Background transition during scroll
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-md', 'py-4');
+                nav.classList.remove('py-5');
+            } else {
+                nav.classList.remove('shadow-md', 'py-4');
+                nav.classList.add('py-5');
+            }
+        });
+    </script>
+</body>
+</html>
+14

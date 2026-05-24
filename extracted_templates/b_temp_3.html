@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AEON // METEORITES — Premium Visual System & Exhibition</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Space Grotesk (technical/mono feel) & Syne (expressive bold headers) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            tech: ['Space Grotesk', 'monospace'],
+            display: ['Syne', 'sans-serif'],
+            body: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            studio: {
+              light: '#EAEAEA',
+              lighter: '#F3F3F3',
+              dark: '#111111',
+              darker: '#080808',
+              muted: '#767676',
+              accent: '#CCCCCC',
+            }
+          },
+          letterSpacing: {
+            widest2: '0.25em',
+            extreme: '0.4em',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Premium custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #EAEAEA;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #111111;
+    }
+
+    /* Custom styles matching the exact aesthetic of the image */
+    .bg-grid-dots {
+      background-image: radial-gradient(#111111 1px, transparent 1px);
+      background-size: 16px 16px;
+    }
+    
+    .bg-grid-dots-light {
+      background-image: radial-gradient(rgba(17, 17, 17, 0.15) 1.2px, transparent 1.2px);
+      background-size: 12px 12px;
+    }
+
+    /* Fine dashed orbits rotation */
+    @keyframes slow-rotate-clockwise {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes slow-rotate-counter {
+      0% { transform: rotate(360deg); }
+      100% { transform: rotate(0deg); }
+    }
+    .animate-rotate-cw {
+      animation: slow-rotate-clockwise 45s linear infinite;
+    }
+    .animate-rotate-ccw {
+      animation: slow-rotate-counter 30s linear infinite;
+    }
+
+    /* Micro float animation */
+    @keyframes float-gentle {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(1deg); }
+    }
+    .animate-float {
+      animation: float-gentle 6s ease-in-out infinite;
+    }
+
+    /* Smooth perspective transitions */
+    .perspective-1000 {
+      perspective: 1000px;
+    }
+    .preserve-3d {
+      transform-style: preserve-3d;
+    }
+  </style>
+</head>
+<body class="bg-studio-light text-studio-dark font-body antialiased selection:bg-studio-dark selection:text-white overflow-x-hidden">
+
+  <!-- SYSTEM BANNER / RUNNING DATA TICKER -->
+  <div class="w-full bg-studio-dark text-white py-1 px-4 text-[10px] font-tech uppercase tracking-widest flex justify-between items-center z-50 relative border-b border-studio-dark/20">
+    <div class="flex items-center gap-4">
+      <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+      <span>SYSTEM STATUS: OPERATIONAL</span>
+      <span class="hidden md:inline text-studio-muted">|</span>
+      <span class="hidden md:inline text-studio-accent">CORE SPECIMEN COUNT: 3/3 IN DEPOT</span>
+    </div>
+    <div class="flex items-center gap-6">
+      <span class="hidden sm:inline">COORDINATES: 45.1092° N, 15.2011° E</span>
+      <span>LATENCY: 14MS</span>
+      <span id="realtime-clock">UTC 00:00:00</span>
+    </div>
+  </div>
+
+  <!-- STICKY HEADER -->
+  <header class="sticky top-0 w-full bg-studio-light/90 backdrop-blur-md border-b border-studio-dark/10 z-40 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+      <!-- Logo / Title -->
+      <a href="#" class="flex flex-col select-none group">
+        <span class="font-display font-extrabold text-xl tracking-wider uppercase transition-all group-hover:tracking-widest">AEON</span>
+        <span class="font-tech text-[9px] tracking-widest text-studio-muted mt-[-2px]">METEORITE SYSTEMS</span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center gap-8 font-tech text-xs tracking-wider">
+        <a href="#exhibition-viewport" class="hover:text-studio-muted transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-studio-dark hover:after:w-full after:transition-all">01. EXHIBITION VIEWPORT</a>
+        <a href="#telemetry-console" class="hover:text-studio-muted transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-studio-dark hover:after:w-full after:transition-all">02. TELEMETRY DECK</a>
+        <a href="#specimen-archive" class="hover:text-studio-muted transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-studio-dark hover:after:w-full after:transition-all">03. CATALOGUE</a>
+        <a href="#system-generator" class="hover:text-studio-muted transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-studio-dark hover:after:w-full after:transition-all">04. SYSTEM BUILDER</a>
+      </nav>
+
+      <!-- CTA / Action Menu -->
+      <div class="flex items-center gap-4">
+        <button onclick="toggleTelemetryWireframe()" class="hidden sm:flex items-center gap-2 border border-studio-dark/20 hover:border-studio-dark px-4 py-2 font-tech text-xs tracking-widest uppercase transition-all duration-300 bg-transparent hover:bg-studio-dark hover:text-white rounded-none">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+          </svg>
+          Toggle Wireframe
+        </button>
+        <a href="#ledger-section" class="bg-studio-dark text-white px-5 py-2.5 font-tech text-xs tracking-widest uppercase hover:bg-neutral-800 transition-all duration-300">
+          THE LEDGER
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN WRAPPER -->
+  <main class="w-full">
+
+    <!-- HERO / MASTER VIEWPORT SECTION -->
+    <section id="exhibition-viewport" class="min-h-screen flex flex-col justify-center items-center py-12 px-4 md:px-8 relative overflow-hidden">
+      
+      <!-- BACKGROUND DECORATIONS -->
+      <div class="absolute left-10 top-24 opacity-25 font-tech text-xs tracking-widest select-none hidden xl:block pointer-events-none">
+        AEON COMPOSITIONAL SYSTEM <br>
+        VER. 4.0 // METEORITES SPECIMENS
+      </div>
+      <div class="absolute right-10 bottom-24 opacity-25 font-tech text-xs tracking-widest text-right select-none hidden xl:block pointer-events-none">
+        SYSTEM SHIFT: ACTIVE <br>
+        BOUNDS MAP: R-722
+      </div>
+
+      <!-- MASTER FRAME CARD CONTAINER (RECREATION OF THE INSPIRED IMAGE DESIGN SYSTEM) -->
+      <div id="art-frame" class="w-full max-w-5xl bg-[#E0E0E0] border border-studio-dark/15 shadow-2xl relative overflow-hidden aspect-[16/10] min-h-[500px] md:min-h-[580px] lg:min-h-[640px] flex transition-all duration-500 rounded-none group/frame">
+        
+        <!-- Interactive telemetry overlay (Hidden by default, toggled via button) -->
+        <div id="wireframe-grid" class="absolute inset-0 bg-transparent opacity-0 pointer-events-none transition-opacity duration-300 z-30 font-mono text-[9px] text-emerald-600">
+          <div class="w-full h-full border-2 border-dashed border-emerald-500/40 relative">
+            <div class="absolute top-0 bottom-0 left-1/2 border-l border-emerald-500/30"></div>
+            <div class="absolute left-0 right-0 top-1/2 border-t border-emerald-500/30"></div>
+            <!-- Dynamic Telemetry Text elements -->
+            <div class="absolute top-4 left-4">FRAME BOUNDS: 1024px x 640px [1.6:1]</div>
+            <div class="absolute bottom-4 left-4">CENTER: X_512.00 Y_320.00</div>
+            <div class="absolute top-4 right-4">ROTATION: ACTIVE | ZOOM: 1.0X</div>
+            <div class="absolute bottom-4 right-4">DOTTED MESH: 12x12 GRID</div>
+            <div class="absolute top-1/3 left-6 animate-pulse">GRID POINT: A-94 // LOCKED</div>
+            <div class="absolute bottom-1/3 right-8 animate-pulse">DYNAMIC AXIS: ORBIT_30°</div>
+          </div>
+        </div>
+
+        <!-- 1. LEFT WHITE ARC PANEL (Matches visual system layout) -->
+        <div class="absolute inset-y-0 left-0 w-[55%] pointer-events-none z-10 transition-transform duration-700 ease-out" id="left-arc-wrapper">
+          <svg viewBox="0 0 500 640" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Sweep white path curve -->
+            <path d="M-100 -50 C 300 -50, 300 690, -100 690" fill="none" stroke="white" stroke-width="120" stroke-linecap="round"/>
+            <path d="M-100 -50 C 300 -50, 300 690, -100 690" fill="none" stroke="#FFFFFF" stroke-width="116" stroke-linecap="round"/>
+            <!-- Inner white fill panel overlaying slightly -->
+            <path d="M-100 -50 C 260 -50, 260 690, -100 690 L -100 -50 Z" fill="#FFFFFF" opacity="0.05" />
+          </svg>
+        </div>
+
+        <!-- 2. GEOMETRIC DOTTED PATTERN IN CENTRAL SPLIT -->
+        <div class="absolute left-[30%] md:left-[35%] top-[25%] w-[25%] h-[50%] bg-grid-dots bg-center opacity-65 pointer-events-none z-10"></div>
+
+        <!-- 3. DECORATIVE GRAPHICS (Zigzag symbols, circle paths, etc.) -->
+        <!-- Zigzag top-center -->
+        <div class="absolute left-1/2 -translate-x-1/2 top-8 z-20 flex flex-col items-center select-none pointer-events-none">
+          <svg class="w-4 h-6 text-studio-dark/80" viewBox="0 0 20 40" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 2 L18 10 L2 18 L18 26 L2 34" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <!-- Zigzag bottom-center -->
+        <div class="absolute left-1/2 -translate-x-1/2 bottom-8 z-20 flex flex-col items-center select-none pointer-events-none">
+          <svg class="w-4 h-6 text-studio-dark/80" viewBox="0 0 20 40" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 2 L18 10 L2 18 L18 26 L2 34" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <!-- Dashed alignment circle around the right side -->
+        <div class="absolute right-[5%] md:right-[15%] top-1/2 -translate-y-1/2 w-[350px] md:w-[450px] h-[350px] md:h-[450px] rounded-full border border-dashed border-studio-dark/20 pointer-events-none z-0 animate-rotate-cw"></div>
+        <div class="absolute right-[10%] md:right-[20%] top-1/2 -translate-y-1/2 w-[220px] md:w-[280px] h-[220px] md:h-[280px] rounded-full border border-dashed border-studio-dark/15 pointer-events-none z-0 animate-rotate-ccw"></div>
+
+        <!-- 4. TYPOGRAPHICAL ELEMENTS (Positioned precisely as the layout grid) -->
+        <!-- Top Left: "MENU" -->
+        <div class="absolute left-8 top-8 z-20">
+          <button onclick="openMenuModal()" class="font-tech text-xs tracking-extreme text-studio-dark hover:text-studio-muted transition-colors uppercase font-medium">
+            MENU
+          </button>
+        </div>
+
+        <!-- Top Right: "SHARE" -->
+        <div class="absolute right-8 top-8 z-20">
+          <button onclick="shareExhibition()" class="font-tech text-xs tracking-extreme text-studio-dark hover:text-studio-muted transition-colors uppercase font-medium">
+            SHARE
+          </button>
+        </div>
+
+        <!-- Bottom Left: "VISUAL SYSTEM" and Subtitle inside white section -->
+        <div class="absolute left-8 bottom-8 z-20">
+          <div class="font-display font-black text-xs md:text-sm tracking-widest2 text-studio-dark uppercase">
+            VISUAL SYSTEM
+          </div>
+          <div class="font-tech text-[10px] tracking-extreme text-studio-muted uppercase mt-1">
+            CREATE VISION
+          </div>
+        </div>
+
+        <!-- Bottom Right: "NEXT -" Trigger -->
+        <div class="absolute right-8 bottom-8 z-20">
+          <button onclick="nextSpecimen()" class="font-tech text-xs tracking-extreme text-studio-dark hover:text-studio-muted transition-all duration-300 uppercase flex items-center gap-1 group font-semibold">
+            <span>NEXT</span>
+            <span class="inline-block transition-transform duration-300 group-hover:translate-x-2">—</span>
+          </button>
+        </div>
+
+        <!-- Center-Left Vertical Bold Typography ("DESIGN") -->
+        <div class="absolute left-[32%] md:left-[36%] top-1/2 -translate-y-1/2 z-20 select-none pointer-events-none">
+          <h1 id="vertical-title" class="font-display font-black text-[3.5rem] md:text-[5rem] text-studio-dark tracking-[0.1em] leading-none uppercase mix-blend-difference" style="writing-mode: vertical-rl; text-orientation: uppercase;">
+            DESIGN
+          </h1>
+        </div>
+
+        <!-- Right Vertical Telemetry Accent Box ("METEORITES") -->
+        <div class="absolute right-8 md:right-16 top-1/2 -translate-y-1/2 z-20 hidden sm:block">
+          <div class="border border-studio-dark py-6 px-3 flex flex-col items-center justify-center bg-transparent backdrop-blur-sm shadow-sm">
+            <span id="specimen-tag" class="font-tech text-[9px] md:text-[10px] tracking-extreme text-studio-dark uppercase" style="writing-mode: vertical-rl; text-orientation: mixed;">
+              METEORITES
+            </span>
+          </div>
+        </div>
+
+        <!-- 5. MAIN INTERACTIVE Specimen SVG (The faceted 3D shape) -->
+        <div class="absolute inset-0 flex justify-center items-center z-10 pointer-events-auto" id="specimen-trigger-area">
+          <div id="meteorite-3d-container" class="w-64 h-64 md:w-80 md:h-80 relative flex justify-center items-center cursor-grab active:cursor-grabbing transition-transform duration-500 animate-float perspective-1000">
+            <!-- SVG Specimen Graphics will inject here -->
+            <svg id="active-specimen-svg" class="w-full h-full drop-shadow-[0_20px_35px_rgba(0,0,0,0.6)] transition-all duration-500 ease-out preserve-3d" viewBox="0 0 400 400">
+              <!-- Obsidian Base Specimen (Inspiration spec) -->
+              <g id="specimen-obsidian">
+                <!-- Outer shading and multifaceted paths for premium physical density -->
+                <polygon points="190,40 230,120 170,140" fill="#1A1A1A" stroke="#2D2D2D" stroke-width="0.5"/>
+                <polygon points="230,120 280,180 220,200" fill="#0D0D0D" stroke="#1F1F1F" stroke-width="0.5"/>
+                <polygon points="280,180 290,260 210,240" fill="#222222" stroke="#333333" stroke-width="0.5"/>
+                <polygon points="290,260 230,340 180,310" fill="#111111" stroke="#222222" stroke-width="0.5"/>
+                <polygon points="230,340 150,330 140,260" fill="#1C1C1C" stroke="#2C2C2C" stroke-width="0.5"/>
+                <polygon points="150,330 110,250 140,210" fill="#090909" stroke="#1A1A1A" stroke-width="0.5"/>
+                <polygon points="110,250 120,160 170,140" fill="#1E1E1E" stroke="#333333" stroke-width="0.5"/>
+                <polygon points="120,160 190,40  170,140" fill="#151515" stroke="#252525" stroke-width="0.5"/>
+                <!-- Internal dynamic facets -->
+                <polygon points="170,140 230,120 220,200" fill="#121212" stroke="#222222" stroke-width="0.5"/>
+                <polygon points="170,140 220,200 160,230" fill="#2A2A2A" stroke="#3A3A3A" stroke-width="0.5"/>
+                <polygon points="220,200 280,180 210,240" fill="#050505" stroke="#151515" stroke-width="0.5"/>
+                <polygon points="220,200 210,240 160,230" fill="#1B1B1B" stroke="#2B2B2B" stroke-width="0.5"/>
+                <polygon points="160,230 210,240 180,310" fill="#252525" stroke="#353535" stroke-width="0.5"/>
+                <polygon points="160,230 180,310 140,260" fill="#0F0F0F" stroke="#1F1F1F" stroke-width="0.5"/>
+                <polygon points="140,260 140,210 160,230" fill="#2F2F2F" stroke="#444444" stroke-width="0.5"/>
+                <polygon points="120,160 170,140 140,210" fill="#161616" stroke="#282828" stroke-width="0.5"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- INSTRUCTION / FEEDBACK BAR -->
+      <div class="mt-8 flex flex-col sm:flex-row gap-6 justify-between items-center w-full max-w-5xl font-tech text-xs tracking-wider border-t border-studio-dark/10 pt-6">
+        <div class="flex items-center gap-2">
+          <span class="inline-block w-1.5 h-1.5 rounded-full bg-studio-dark animate-ping"></span>
+          <span class="text-studio-muted">INTERACT: MOVE MOUSE OVER THE Specimen TO SHIFT PERSPECTIVE</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <span class="text-studio-muted">ACTIVE SPECIMEN:</span>
+          <span id="specimen-label-selector" class="font-semibold text-studio-dark uppercase">[SPECIMEN-01: OBSIDIAN CORE]</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: TELEMETRY & SPECIFICATION CONSOLE -->
+    <section id="telemetry-console" class="py-24 bg-studio-lighter border-y border-studio-dark/10 relative overflow-hidden">
+      <div class="absolute inset-0 bg-grid-dots-light opacity-50 pointer-events-none"></div>
+
+      <div class="max-w-7xl mx-auto px-6 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          
+          <!-- LEFT SIDE: Header & Tab Controls -->
+          <div class="lg:col-span-4 flex flex-col justify-between h-full">
+            <div>
+              <div class="font-tech text-xs tracking-extreme text-studio-muted uppercase mb-3">TELEMETRY ANALYSIS</div>
+              <h2 class="font-display font-black text-4xl md:text-5xl text-studio-dark tracking-tight uppercase leading-none mb-6">
+                MOLECULAR<br>READOUTS.
+              </h2>
+              <p class="font-body text-sm text-studio-muted leading-relaxed mb-8 max-w-sm">
+                Each meteorite segment cataloged carries deep geological metadata spanning millions of light years. Select a core visual system specimen below to reveal high-fidelity mineral composition details.
+              </p>
+            </div>
+
+            <!-- Tab Selection Buttons for Specimens -->
+            <div class="flex flex-col gap-3 font-tech text-xs">
+              <button onclick="selectSpecimen(1)" id="tab-btn-1" class="w-full text-left border border-studio-dark px-4 py-3 bg-studio-dark text-white hover:bg-studio-dark hover:text-white transition-all duration-300 flex justify-between items-center">
+                <span>01 // OBSIDIAN CORE (ACTIVE)</span>
+                <span class="text-[9px] opacity-70">ORIGIN: CHONDRITE V</span>
+              </button>
+              <button onclick="selectSpecimen(2)" id="tab-btn-2" class="w-full text-left border border-studio-dark/20 px-4 py-3 bg-transparent text-studio-dark hover:border-studio-dark transition-all duration-300 flex justify-between items-center">
+                <span>02 // AEROLITE SHIELD</span>
+                <span class="text-[9px] opacity-70">ORIGIN: PALLASITE M</span>
+              </button>
+              <button onclick="selectSpecimen(3)" id="tab-btn-3" class="w-full text-left border border-studio-dark/20 px-4 py-3 bg-transparent text-studio-dark hover:border-studio-dark transition-all duration-300 flex justify-between items-center">
+                <span>03 // TEKTITE GLASS</span>
+                <span class="text-[9px] opacity-70">ORIGIN: CRATER BED XI</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- RIGHT SIDE: Telemetry Dashboard Deck -->
+          <div class="lg:col-span-8 bg-studio-light border border-studio-dark/15 p-6 md:p-10 relative overflow-hidden shadow-lg">
+            
+            <!-- Structural Wire overlays -->
+            <div class="absolute right-0 top-0 h-20 w-20 border-r border-t border-studio-dark/10 pointer-events-none"></div>
+            <div class="absolute left-0 bottom-0 h-20 w-20 border-l border-b border-studio-dark/10 pointer-events-none"></div>
+
+            <div class="flex justify-between items-center border-b border-studio-dark/15 pb-6 mb-8 font-tech">
+              <div class="flex items-center gap-3">
+                <span class="w-2.5 h-2.5 bg-studio-dark rounded-full"></span>
+                <span class="text-xs tracking-widest uppercase font-bold" id="telemetry-specimen-id">SPECIMEN // AEON-01</span>
+              </div>
+              <div class="text-[10px] tracking-widest text-studio-muted">
+                CODENAME: <span id="telemetry-codename" class="text-studio-dark font-semibold">OBSIDIAN-ALPHA</span>
+              </div>
+            </div>
+
+            <!-- Quantitative Progress Readouts -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+              
+              <!-- Core Attributes -->
+              <div class="space-y-6">
+                <h4 class="font-tech text-xs tracking-widest uppercase text-studio-muted mb-4 border-b border-studio-dark/10 pb-2">[ ATTRIBUTE DENSITY ]</h4>
+                
+                <div>
+                  <div class="flex justify-between text-xs font-tech mb-2">
+                    <span>SILICA GLASS INDEX</span>
+                    <span id="metric-val-1" class="font-bold">84.2%</span>
+                  </div>
+                  <div class="w-full h-1 bg-studio-dark/10">
+                    <div id="metric-bar-1" class="h-full bg-studio-dark transition-all duration-1000 ease-out" style="width: 84.2%;"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between text-xs font-tech mb-2">
+                    <span>NICKEL-IRON ALLOY MATRIX</span>
+                    <span id="metric-val-2" class="font-bold">12.5%</span>
+                  </div>
+                  <div class="w-full h-1 bg-studio-dark/10">
+                    <div id="metric-bar-2" class="h-full bg-studio-dark transition-all duration-1000 ease-out" style="width: 12.5%;"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between text-xs font-tech mb-2">
+                    <span>EXTRATERRESTRIAL MAGNESIUM</span>
+                    <span id="metric-val-3" class="font-bold">3.3%</span>
+                  </div>
+                  <div class="w-full h-1 bg-studio-dark/10">
+                    <div id="metric-bar-3" class="h-full bg-studio-dark transition-all duration-1000 ease-out" style="width: 3.3%;"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Mathematical Telemetry -->
+              <div class="space-y-6">
+                <h4 class="font-tech text-xs tracking-widest uppercase text-studio-muted mb-4 border-b border-studio-dark/10 pb-2">[ STRUCTURAL SPECS ]</h4>
+                
+                <div class="grid grid-cols-2 gap-4">
+                  <div class="bg-studio-lighter p-3 border border-studio-dark/5">
+                    <div class="font-tech text-[10px] text-studio-muted tracking-wider uppercase">MASS ESTIMATE</div>
+                    <div id="spec-mass" class="font-display font-black text-lg text-studio-dark mt-1">4.218 KG</div>
+                  </div>
+                  <div class="bg-studio-lighter p-3 border border-studio-dark/5">
+                    <div class="font-tech text-[10px] text-studio-muted tracking-wider uppercase">DENSITY CALIBER</div>
+                    <div id="spec-density" class="font-display font-black text-lg text-studio-dark mt-1">7.42 G/CM³</div>
+                  </div>
+                  <div class="bg-studio-lighter p-3 border border-studio-dark/5">
+                    <div class="font-tech text-[10px] text-studio-muted tracking-wider uppercase">AGE ESTIMATION</div>
+                    <div id="spec-age" class="font-display font-black text-lg text-studio-dark mt-1">4.56 B YR</div>
+                  </div>
+                  <div class="bg-studio-lighter p-3 border border-studio-dark/5">
+                    <div class="font-tech text-[10px] text-studio-muted tracking-wider uppercase">SPECTRAL CLASS</div>
+                    <div id="spec-class" class="font-display font-black text-lg text-studio-dark mt-1">X-CLASS</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Chemical formula / inline LaTeX formatting request match -->
+            <div class="border-t border-studio-dark/10 pt-6">
+              <h4 class="font-tech text-xs tracking-widest uppercase text-studio-muted mb-3">[ CHEMICAL CRYSTALLIZATION SYNTAX ]</h4>
+              <div class="bg-studio-lighter p-4 font-mono text-xs text-studio-dark flex flex-col md:flex-row justify-between gap-4 items-start md:items-center">
+                <div>
+                  <span class="text-studio-muted font-sans">Empirical Formula:</span> 
+                  <span id="chemical-formula" class="font-semibold ml-2 font-tech text-sm">$\text{Fe}_{0.84} \text{Ni}_{0.12} \text{Mg}_{0.03} \text{SiO}_4$</span>
+                </div>
+                <div class="text-[10px] bg-studio-dark text-white px-2.5 py-1 tracking-wider uppercase font-tech">
+                  Verified Matrix
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: BRUTALIST PORTFOLIO / EXHIBITION ARCHIVE CATALOG -->
+    <section id="specimen-archive" class="py-28 px-6 max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
+        <div>
+          <span class="font-tech text-xs tracking-extreme text-studio-muted uppercase mb-3 block">PREMIUM DESIGN EDITIONS</span>
+          <h2 class="font-display font-black text-4xl md:text-6xl text-studio-dark tracking-tight uppercase leading-none">
+            COLLECTOR ARCHIVES.
+          </h2>
+        </div>
+        <div class="max-w-md font-body text-sm text-studio-muted leading-relaxed">
+          Each visual composition and obsidian specimen is paired with a limited physical twin structure, designed for spatial architecture.
+        </div>
+      </div>
+
+      <!-- Catalogue Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- CARD 1 -->
+        <div class="group bg-studio-lighter border border-studio-dark/10 overflow-hidden relative p-8 transition-all duration-500 hover:border-studio-dark hover:-translate-y-2 flex flex-col justify-between aspect-[3/4]">
+          <div class="absolute inset-0 bg-grid-dots-light opacity-0 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none"></div>
+          
+          <!-- Top Telemetry Row -->
+          <div class="flex justify-between items-start font-tech">
+            <span class="text-xs text-studio-muted font-bold tracking-widest">EDITION // 01</span>
+            <span class="text-[10px] text-white bg-studio-dark px-2 py-0.5 tracking-widest uppercase">SOLDOUT</span>
+          </div>
+
+          <!-- Abstract SVG representation of specimen -->
+          <div class="my-10 flex justify-center items-center transition-transform duration-500 group-hover:scale-110">
+            <svg class="w-40 h-40" viewBox="0 0 100 100" fill="none">
+              <!-- Geometric crystal cluster -->
+              <polygon points="50,15 70,45 50,55" fill="#111111"/>
+              <polygon points="50,15 30,45 50,55" fill="#222222"/>
+              <polygon points="70,45 80,75 50,85" fill="#181818"/>
+              <polygon points="50,55 70,45 50,85" fill="#0A0A0A"/>
+              <polygon points="30,45 50,55 50,85" fill="#2D2D2D"/>
+              <polygon points="20,75 30,45 50,85" fill="#151515"/>
+              <circle cx="50" cy="50" r="42" stroke="#111111" stroke-width="0.5" stroke-dasharray="2,2" class="opacity-45"/>
+            </svg>
+          </div>
+
+          <!-- Title and Description -->
+          <div class="border-t border-studio-dark/10 pt-6">
+            <h3 class="font-display font-extrabold text-xl tracking-wide text-studio-dark uppercase">OBSIDIAN CORE</h3>
+            <p class="font-tech text-xs text-studio-muted uppercase tracking-wider mt-1">THE PRIMAL GEOMORPHOLOGY</p>
+            <div class="mt-4 flex justify-between items-center text-xs font-tech font-semibold">
+              <span>$4,200.00 USD</span>
+              <span class="text-studio-muted group-hover:text-studio-dark transition-colors uppercase">VIEW DATA →</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 2 -->
+        <div class="group bg-studio-lighter border border-studio-dark/10 overflow-hidden relative p-8 transition-all duration-500 hover:border-studio-dark hover:-translate-y-2 flex flex-col justify-between aspect-[3/4]">
+          <div class="absolute inset-0 bg-grid-dots-light opacity-0 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none"></div>
+          
+          <!-- Top Telemetry Row -->
+          <div class="flex justify-between items-start font-tech">
+            <span class="text-xs text-studio-muted font-bold tracking-widest">EDITION // 02</span>
+            <span class="text-[10px] text-studio-dark border border-studio-dark px-2 py-0.5 tracking-widest uppercase">02 AVAILABLE</span>
+          </div>
+
+          <!-- Abstract SVG representation of specimen -->
+          <div class="my-10 flex justify-center items-center transition-transform duration-500 group-hover:scale-110">
+            <svg class="w-40 h-40" viewBox="0 0 100 100" fill="none">
+              <!-- Rounded, layered stone -->
+              <path d="M50 15 C 75 15, 85 45, 80 65 C 75 85, 25 85, 20 65 C 15 45, 25 15, 50 15 Z" fill="#2A2A2A"/>
+              <path d="M50 25 C 70 25, 75 45, 70 60 C 65 75, 35 75, 30 60 C 25 45, 30 25, 50 25 Z" fill="#111111"/>
+              <path d="M50 35 C 60 35, 65 45, 60 55 C 55 65, 45 65, 40 55 C 35 45, 40 35, 50 35 Z" fill="#1C1C1C"/>
+              <!-- Dashed overlay orbit -->
+              <ellipse cx="50" cy="50" rx="46" ry="12" stroke="#111111" stroke-width="0.5" stroke-dasharray="3,3" class="opacity-60" transform="rotate(-15, 50, 50)"/>
+            </svg>
+          </div>
+
+          <!-- Title and Description -->
+          <div class="border-t border-studio-dark/10 pt-6">
+            <h3 class="font-display font-extrabold text-xl tracking-wide text-studio-dark uppercase">AEROLITE SHIELD</h3>
+            <p class="font-tech text-xs text-studio-muted uppercase tracking-wider mt-1">PALLASITE NICKEL STRUCTURE</p>
+            <div class="mt-4 flex justify-between items-center text-xs font-tech font-semibold">
+              <span>$5,850.00 USD</span>
+              <span class="text-studio-muted group-hover:text-studio-dark transition-colors uppercase">ACQUIRE PIECE →</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="group bg-studio-lighter border border-studio-dark/10 overflow-hidden relative p-8 transition-all duration-500 hover:border-studio-dark hover:-translate-y-2 flex flex-col justify-between aspect-[3/4]">
+          <div class="absolute inset-0 bg-grid-dots-light opacity-0 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none"></div>
+          
+          <!-- Top Telemetry Row -->
+          <div class="flex justify-between items-start font-tech">
+            <span class="text-xs text-studio-muted font-bold tracking-widest">EDITION // 03</span>
+            <span class="text-[10px] text-studio-dark border border-studio-dark px-2 py-0.5 tracking-widest uppercase">05 AVAILABLE</span>
+          </div>
+
+          <!-- Abstract SVG representation of specimen -->
+          <div class="my-10 flex justify-center items-center transition-transform duration-500 group-hover:scale-110">
+            <svg class="w-40 h-40" viewBox="0 0 100 100" fill="none">
+              <!-- Sharp multifaceted polygon cluster -->
+              <polygon points="50,15 80,30 65,70 35,70 20,30" fill="#1C1C1C" stroke="#444" stroke-width="0.5"/>
+              <polygon points="50,15 65,45 35,45" fill="#0F0F0F"/>
+              <polygon points="80,30 65,45 65,70" fill="#242424"/>
+              <polygon points="65,70 35,45 35,70" fill="#151515"/>
+              <polygon points="20,30 35,45 35,70" fill="#333333"/>
+              <!-- Crosshair graphic -->
+              <line x1="50" y1="5" x2="50" y2="95" stroke="#111111" stroke-width="0.5" class="opacity-30"/>
+              <line x1="5" y1="50" x2="95" y2="50" stroke="#111111" stroke-width="0.5" class="opacity-30"/>
+            </svg>
+          </div>
+
+          <!-- Title and Description -->
+          <div class="border-t border-studio-dark/10 pt-6">
+            <h3 class="font-display font-extrabold text-xl tracking-wide text-studio-dark uppercase">TEKTITE GLASS</h3>
+            <p class="font-tech text-xs text-studio-muted uppercase tracking-wider mt-1">HIGH IMPACT GLASS MATRIX</p>
+            <div class="mt-4 flex justify-between items-center text-xs font-tech font-semibold">
+              <span>$3,900.00 USD</span>
+              <span class="text-studio-muted group-hover:text-studio-dark transition-colors uppercase">ACQUIRE PIECE →</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 4: INTERACTIVE VISUAL SYSTEM GENERATOR (EXPERIMENTAL PLAYGROUND) -->
+    <section id="system-generator" class="py-24 bg-studio-dark text-white border-t border-studio-dark relative overflow-hidden">
+      <!-- Background subtle dot grid in white overlay -->
+      <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 16px 16px;"></div>
+
+      <div class="max-w-7xl mx-auto px-6 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- LEFT: Generator Parameters Controls -->
+          <div class="lg:col-span-5 space-y-8">
+            <div>
+              <span class="font-tech text-xs tracking-extreme text-studio-accent uppercase mb-3 block">DYNAMIC LAYOUT ENGINE</span>
+              <h2 class="font-display font-black text-4xl md:text-5xl tracking-tight uppercase leading-none text-white">
+                GENERATIVE<br>STRUCTURE.
+              </h2>
+              <p class="font-body text-sm text-studio-accent/70 mt-4 leading-relaxed max-w-md">
+                Adjust the design variables below to modify the interactive geometric vector art in real-time. This dynamic system demonstrates the mathematical alignment and spatial geometry of the Aeon visual system.
+              </p>
+            </div>
+
+            <!-- Param Sliders -->
+            <div class="space-y-6 font-tech text-xs">
+              
+              <!-- Slider 1 -->
+              <div>
+                <div class="flex justify-between uppercase mb-2">
+                  <span class="tracking-widest">GRID COMPLEXITY</span>
+                  <span id="label-density-param">12 POINTS</span>
+                </div>
+                <input type="range" id="param-density" min="4" max="24" value="12" class="w-full accent-white bg-white/20 h-[2px] cursor-pointer" oninput="updateGenerativeArt()">
+              </div>
+
+              <!-- Slider 2 -->
+              <div>
+                <div class="flex justify-between uppercase mb-2">
+                  <span class="tracking-widest">RADIUS INTENSITY</span>
+                  <span id="label-radius-param">200px</span>
+                </div>
+                <input type="range" id="param-radius" min="80" max="320" value="200" class="w-full accent-white bg-white/20 h-[2px] cursor-pointer" oninput="updateGenerativeArt()">
+              </div>
+
+              <!-- Slider 3 -->
+              <div>
+                <div class="flex justify-between uppercase mb-2">
+                  <span class="tracking-widest">TENSION CURVATURE</span>
+                  <span id="label-tension-param">0.5</span>
+                </div>
+                <input type="range" id="param-tension" min="0" max="2" step="0.1" value="0.5" class="w-full accent-white bg-white/20 h-[2px] cursor-pointer" oninput="updateGenerativeArt()">
+              </div>
+
+            </div>
+
+            <div class="pt-4">
+              <button onclick="resetGenerativeArt()" class="border border-white/20 hover:border-white px-5 py-3 text-xs font-tech tracking-widest uppercase transition-all duration-300 w-full sm:w-auto bg-transparent text-white hover:bg-white hover:text-studio-dark">
+                RESET SYSTEM STATE
+              </button>
+            </div>
+          </div>
+
+          <!-- RIGHT: LIVE GEOMETRIC VECTOR CANVAS -->
+          <div class="lg:col-span-7 flex justify-center items-center">
+            <div class="w-full max-w-lg aspect-square bg-studio-darker border border-white/10 relative overflow-hidden flex justify-center items-center p-6 shadow-2xl">
+              <!-- Grid Matrix Backdrop -->
+              <div class="absolute inset-0 opacity-[0.05] pointer-events-none" style="background-image: linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px); background-size: 40px 40px;"></div>
+              
+              <!-- Telemetry indicators inside generator canvas -->
+              <span class="absolute top-4 left-4 font-mono text-[9px] text-white/40 uppercase tracking-widest">VIEW // LIVE RENDER GENERATION</span>
+              <span class="absolute bottom-4 right-4 font-mono text-[9px] text-white/40 uppercase tracking-widest">ALGORITHM: V_SYSTEM_4</span>
+
+              <!-- Target crosshair -->
+              <div class="absolute w-6 h-6 border border-white/20 flex justify-center items-center">
+                <div class="w-1.5 h-1.5 bg-white/45 rounded-full"></div>
+              </div>
+
+              <!-- SVG container for real-time changes -->
+              <svg id="generative-svg" class="w-full h-full relative z-10" viewBox="0 0 400 400">
+                <!-- Inner dynamic paths inject here dynamically -->
+              </svg>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: MANIFESTO & THE LEDGER NEWSLETTER -->
+    <section id="ledger-section" class="py-28 px-6 max-w-7xl mx-auto border-t border-studio-dark/10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+        
+        <!-- Manifesto Typography -->
+        <div class="lg:col-span-7">
+          <span class="font-tech text-xs tracking-extreme text-studio-muted uppercase mb-4 block">DESIGN MANIFESTO</span>
+          <h2 class="font-display font-black text-4xl sm:text-6xl md:text-7xl text-studio-dark tracking-tighter leading-none uppercase select-none">
+            CREATE VISION.<br>OBSIDIAN STABILITY.
+          </h2>
+          <p class="font-body text-base text-studio-muted leading-relaxed mt-8 max-w-2xl">
+            We operate at the precise overlap of astronomical rarity and high-end modern layout architecture. The Aeon visual system honors pure geometric balance, asymmetrical tension, and eternal materiality.
+          </p>
+        </div>
+
+        <!-- Terminal Ledger Sign Up -->
+        <div class="lg:col-span-5 bg-studio-dark text-white p-8 border border-studio-dark shadow-2xl relative">
+          <!-- Dot grid inside dark terminal -->
+          <div class="absolute inset-0 opacity-[0.02] pointer-events-none" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 12px 12px;"></div>
+
+          <div class="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse"></span>
+              <span class="font-tech text-xs tracking-widest uppercase">LEDGER REGISTRY</span>
+            </div>
+            <span class="font-mono text-[9px] text-white/40">v1.0.4</span>
+          </div>
+
+          <p class="font-body text-xs text-studio-accent/85 leading-relaxed mb-6">
+            Authenticate and register your signature to access spatial design drops, visual telemetry releases, and custom mineral specimens.
+          </p>
+
+          <!-- Input Terminal Form -->
+          <form onsubmit="handleLedgerSubmission(event)" class="space-y-4">
+            <div>
+              <label class="block font-tech text-[10px] tracking-widest uppercase text-studio-accent mb-2">CITIZEN IDENTITY SIGNATURE (EMAIL)</label>
+              <input type="email" required id="ledger-email" placeholder="ENTER VALID EMAIL ADDRESS" class="w-full bg-studio-darker text-white border border-white/15 px-4 py-3 font-tech text-xs focus:border-white focus:outline-none transition-colors rounded-none placeholder:text-white/20">
+            </div>
+
+            <!-- Simulated live available slots counter -->
+            <div class="flex justify-between items-center bg-studio-darker/60 border border-white/5 p-3 text-xs font-tech">
+              <span class="text-white/50 tracking-wider">REGISTRY SPOTS LEFT:</span>
+              <span id="slots-counter" class="font-bold text-white tracking-widest">147 / 1000</span>
+            </div>
+
+            <button type="submit" class="w-full bg-white text-studio-dark py-3 font-tech text-xs tracking-extreme uppercase font-bold hover:bg-studio-accent transition-all duration-300">
+              REGISTER SIGNATURE
+            </button>
+          </form>
+
+          <!-- Custom feedback alert (replacing traditional alerts) -->
+          <div id="ledger-success-msg" class="hidden absolute inset-0 bg-studio-dark/95 flex flex-col justify-center items-center p-8 text-center z-20">
+            <svg class="w-12 h-12 text-emerald-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <h4 class="font-display font-extrabold text-lg text-white uppercase tracking-wider">SIGNATURE RECORDED</h4>
+            <p class="font-tech text-xs text-studio-accent/70 mt-2 max-w-xs">
+              Your identity hash has been compiled into the registry ledger. Await telemetry correspondence.
+            </p>
+            <button onclick="closeLedgerSuccess()" class="mt-6 border border-white/20 hover:border-white text-white font-tech text-[10px] tracking-widest px-4 py-1.5 uppercase transition-all">
+              CLOSE TERMINAL
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- SOPHISTICATED FOOTER -->
+  <footer class="bg-studio-lighter border-t border-studio-dark/15 py-16 px-6 font-tech">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-12">
+      
+      <!-- Left side footer meta -->
+      <div class="space-y-4">
+        <div class="flex flex-col select-none">
+          <span class="font-display font-black text-2xl tracking-widest uppercase">AEON</span>
+          <span class="text-[9px] tracking-widest text-studio-muted mt-[-2px]">EXHIBITION VISUAL SYSTEM</span>
+        </div>
+        <p class="text-[11px] text-studio-muted leading-relaxed max-w-sm">
+          All celestial components, geometric layouts, and design system variables are intellectual property of Aeon Exhibition Systems. Developed for high-fidelity interactive physical spaces.
+        </p>
+      </div>
+
+      <!-- Center navigation columns -->
+      <div class="grid grid-cols-2 gap-16 text-xs">
+        <div>
+          <h5 class="font-bold tracking-widest text-studio-dark uppercase mb-4">// CORE CHANNELS</h5>
+          <ul class="space-y-2 text-studio-muted">
+            <li><a href="#exhibition-viewport" class="hover:text-studio-dark transition-colors">VIEWPORT</a></li>
+            <li><a href="#telemetry-console" class="hover:text-studio-dark transition-colors">SPECIMENS</a></li>
+            <li><a href="#specimen-archive" class="hover:text-studio-dark transition-colors">COLLECTOR CORE</a></li>
+            <li><a href="#system-generator" class="hover:text-studio-dark transition-colors">DYNAMIC ENGINE</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 class="font-bold tracking-widest text-studio-dark uppercase mb-4">// TELEMETRY</h5>
+          <ul class="space-y-2 text-studio-muted text-[11px]">
+            <li>LAT: 45.1092° N</li>
+            <li>LON: 15.2011° E</li>
+            <li>EPOCH: UTC_CURRENT</li>
+            <li>PORTAL STATUS: REZ_02</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Right side top button -->
+      <div class="flex flex-col items-start md:items-end gap-3 w-full md:w-auto">
+        <button onclick="scrollToTop()" class="border border-studio-dark/20 hover:border-studio-dark p-3 text-studio-dark hover:bg-studio-dark hover:text-white transition-all duration-300 self-stretch md:self-auto text-center flex justify-center items-center gap-2 text-xs font-semibold tracking-widest uppercase">
+          SCROLL TO CELESTIAL TOP ↑
+        </button>
+        <span class="text-[9px] text-studio-muted tracking-wider uppercase">VER. 2026.5.42 // ALL RIGHTS RESERVED</span>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- DYNAMIC INTERACTION DIALOGS (MODALS) -->
+  
+  <!-- Interactive custom menu overlay modal -->
+  <div id="menu-modal" class="hidden fixed inset-0 bg-studio-dark/95 backdrop-blur-md z-50 flex-col justify-center items-center p-6 text-white font-tech">
+    <button onclick="closeMenuModal()" class="absolute top-8 right-8 font-tech text-xs tracking-extreme text-white hover:text-studio-accent uppercase font-bold">
+      [ CLOSE MENU X ]
+    </button>
+    <div class="flex flex-col gap-8 text-center">
+      <span class="text-[10px] tracking-extreme text-studio-accent/40 uppercase">AEON CHANNELS CATALOGUE</span>
+      <a href="#exhibition-viewport" onclick="closeMenuModal()" class="font-display font-black text-3xl sm:text-5xl uppercase hover:tracking-widest transition-all duration-500">EXHIBITION CORE</a>
+      <a href="#telemetry-console" onclick="closeMenuModal()" class="font-display font-black text-3xl sm:text-5xl uppercase hover:tracking-widest transition-all duration-500">SPECIMEN TELEMETRY</a>
+      <a href="#specimen-archive" onclick="closeMenuModal()" class="font-display font-black text-3xl sm:text-5xl uppercase hover:tracking-widest transition-all duration-500">PHYSICAL ARCHIVE</a>
+      <a href="#system-generator" onclick="closeMenuModal()" class="font-display font-black text-3xl sm:text-5xl uppercase hover:tracking-widest transition-all duration-500">VISUAL GENERATOR</a>
+    </div>
+    <div class="absolute bottom-8 text-[9px] text-white/30 tracking-widest">
+      SISTEMA EXPERIMENTAL DE DISEÑO VISUAL — AEON INC.
+    </div>
+  </div>
+
+  <!-- Share exhibition feedback toast modal -->
+  <div id="share-toast" class="fixed bottom-6 right-6 bg-studio-dark text-white border border-white/10 py-3 px-5 z-50 font-tech text-xs tracking-widest uppercase flex items-center gap-3 transition-all duration-500 transform translate-y-24 opacity-0 pointer-events-none">
+    <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 10.742l4.8 2.442m0 0l-4.8 2.442m4.8-2.442a4 4 0 11-5.36 5.36a4 4 0 015.36-5.36zm4.8-2.442a4 4 0 11-5.36-5.36a4 4 0 015.36 5.36z" />
+    </svg>
+    <span>COMPOSITION METRICS COPY TO CLIPBOARD</span>
+  </div>
+
+  <!-- JS CODE FOR INTERACTIVITY, 3D ROTATION PARALLAX, AND GENERATIVE ART -->
+  <script>
+    // 1. SPECIMEN DATABASE & MODEL SWAPPER
+    // Defining complex SVGs inside JSON to swap models dynamically on "NEXT" trigger
+    const SPECIMENS_DB = [
+      {
+        id: 1,
+        name: "OBSIDIAN CORE",
+        codename: "OBSIDIAN-ALPHA",
+        formula: "$\\text{Fe}_{0.84} \text{Ni}_{0.12} \text{Mg}_{0.03} \text{SiO}_4$",
+        tag: "OBSIDIAN CORE",
+        verticalTitle: "DESIGN",
+        metrics: [84.2, 12.5, 3.3],
+        mass: "4.218 KG",
+        density: "7.42 G/CM³",
+        age: "4.56 B YR",
+        spectralClass: "X-CLASS",
+        svg: `<g id="specimen-obsidian">
+                <polygon points="190,40 230,120 170,140" fill="#1A1A1A" stroke="#2D2D2D" stroke-width="0.5"/>
+                <polygon points="230,120 280,180 220,200" fill="#0D0D0D" stroke="#1F1F1F" stroke-width="0.5"/>
+                <polygon points="280,180 290,260 210,240" fill="#222222" stroke="#333333" stroke-width="0.5"/>
+                <polygon points="290,260 230,340 180,310" fill="#111111" stroke="#222222" stroke-width="0.5"/>
+                <polygon points="230,340 150,330 140,260" fill="#1C1C1C" stroke="#2C2C2C" stroke-width="0.5"/>
+                <polygon points="150,330 110,250 140,210" fill="#090909" stroke="#1A1A1A" stroke-width="0.5"/>
+                <polygon points="110,250 120,160 170,140" fill="#1E1E1E" stroke="#333333" stroke-width="0.5"/>
+                <polygon points="120,160 190,40 170,140" fill="#151515" stroke="#252525" stroke-width="0.5"/>
+                <polygon points="170,140 230,120 220,200" fill="#121212" stroke="#222222" stroke-width="0.5"/>
+                <polygon points="170,140 220,200 160,230" fill="#2A2A2A" stroke="#3A3A3A" stroke-width="0.5"/>
+                <polygon points="220,200 280,180 210,240" fill="#050505" stroke="#151515" stroke-width="0.5"/>
+                <polygon points="220,200 210,240 160,230" fill="#1B1B1B" stroke="#2B2B2B" stroke-width="0.5"/>
+                <polygon points="160,230 210,240 180,310" fill="#252525" stroke="#353535" stroke-width="0.5"/>
+                <polygon points="160,230 180,310 140,260" fill="#0F0F0F" stroke="#1F1F1F" stroke-width="0.5"/>
+                <polygon points="140,260 140,210 160,230" fill="#2F2F2F" stroke="#444444" stroke-width="0.5"/>
+                <polygon points="120,160 170,140 140,210" fill="#161616" stroke="#282828" stroke-width="0.5"/>
+              </g>`
+      },
+      {
+        id: 2,
+        name: "AEROLITE SHIELD",
+        codename: "AEROLITE-SIGMA",
+        formula: "$\\text{Fe}_{0.62} \text{Ni}_{0.35} \text{Mg}_{0.02} \text{Cr}_{0.01}$",
+        tag: "AEROLITE SHIELD",
+        verticalTitle: "SYSTEM",
+        metrics: [62.4, 35.1, 2.5],
+        mass: "6.890 KG",
+        density: "8.15 G/CM³",
+        age: "4.41 B YR",
+        spectralClass: "S-CLASS",
+        svg: `<g id="specimen-aerolite">
+                <polygon points="200,30 250,90 210,130" fill="#3A3A3A" stroke="#4D4D4D" stroke-width="0.5"/>
+                <polygon points="250,90 320,150 250,210" fill="#1C1C1C" stroke="#2F2F2F" stroke-width="0.5"/>
+                <polygon points="320,150 310,270 230,250" fill="#2E2E2E" stroke="#3F3F3F" stroke-width="0.5"/>
+                <polygon points="310,270 240,350 170,300" fill="#121212" stroke="#242424" stroke-width="0.5"/>
+                <polygon points="240,350 140,340 110,240" fill="#282828" stroke="#3A3A3A" stroke-width="0.5"/>
+                <polygon points="140,340 90,200 130,150" fill="#1F1F1F" stroke="#333333" stroke-width="0.5"/>
+                <polygon points="90,200 120,110 160,110" fill="#3B3B3B" stroke="#4C4C4C" stroke-width="0.5"/>
+                <polygon points="120,110 200,30 160,110" fill="#222222" stroke="#353535" stroke-width="0.5"/>
+                <polygon points="160,110 250,90 210,130" fill="#181818" stroke="#2A2A2A" stroke-width="0.5"/>
+                <polygon points="160,110 210,130 170,210" fill="#333333" stroke="#444444" stroke-width="0.5"/>
+                <polygon points="210,130 250,210 170,210" fill="#101010" stroke="#222222" stroke-width="0.5"/>
+                <polygon points="250,210 230,250 170,210" fill="#262626" stroke="#383838" stroke-width="0.5"/>
+                <polygon points="170,210 230,250 170,300" fill="#3D3D3D" stroke="#555" stroke-width="0.5"/>
+                <polygon points="170,210 170,300 110,240" fill="#141414" stroke="#262626" stroke-width="0.5"/>
+                <polygon points="110,240 130,150 170,210" fill="#2B2B2B" stroke="#3C3C3C" stroke-width="0.5"/>
+                <polygon points="130,150 160,110 170,210" fill="#1A1A1A" stroke="#2E2E2E" stroke-width="0.5"/>
+              </g>`
+      },
+      {
+        id: 3,
+        name: "TEKTITE GLASS",
+        codename: "TEKTITE-OMEGA",
+        formula: "$\\text{SiO}_{0.89} \text{Al}_{0.08} \text{Fe}_{0.02} \text{Mn}_{0.01}$",
+        tag: "TEKTITE GLASS",
+        verticalTitle: "VISION",
+        metrics: [89.1, 8.4, 2.5],
+        mass: "3.112 KG",
+        density: "5.88 G/CM³",
+        age: "3.89 B YR",
+        spectralClass: "C-CLASS",
+        svg: `<g id="specimen-tektite">
+                <polygon points="180,60 260,100 200,160" fill="#090909" stroke="#1A1A1A" stroke-width="0.5"/>
+                <polygon points="260,100 300,190 220,230" fill="#242424" stroke="#353535" stroke-width="0.5"/>
+                <polygon points="300,190 270,290 190,260" fill="#1A1A1A" stroke="#2B2B2B" stroke-width="0.5"/>
+                <polygon points="270,290 210,340 150,290" fill="#2C2C2C" stroke="#3D3D3D" stroke-width="0.5"/>
+                <polygon points="210,340 130,320 110,230" fill="#101010" stroke="#222222" stroke-width="0.5"/>
+                <polygon points="130,320 90,190 140,150" fill="#303030" stroke="#444444" stroke-width="0.5"/>
+                <polygon points="90,190 110,100 150,110" fill="#1E1E1E" stroke="#313131" stroke-width="0.5"/>
+                <polygon points="110,100 180,60 150,110" fill="#2A2A2A" stroke="#3C3C3C" stroke-width="0.5"/>
+                <polygon points="150,110 200,160 140,150" fill="#0E0E0E" stroke="#202020" stroke-width="0.5"/>
+                <polygon points="200,160 220,230 190,260" fill="#343434" stroke="#484848" stroke-width="0.5"/>
+                <polygon points="140,150 200,160 190,260" fill="#1C1C1C" stroke="#2D2D2D" stroke-width="0.5"/>
+                <polygon points="140,150 190,260 110,230" fill="#282828" stroke="#3A3A3A" stroke-width="0.5"/>
+                <polygon points="190,260 150,290 110,230" fill="#121212" stroke="#242424" stroke-width="0.5"/>
+                <polygon points="110,230 130,320 150,290" fill="#3A3A3A" stroke="#4D4D4D" stroke-width="0.5"/>
+                <polygon points="150,110 180,60 200,160" fill="#181818" stroke="#2B2B2B" stroke-width="0.5"/>
+              </g>`
+      }
+    ];
+
+    let currentSpecimenIndex = 0;
+
+    // 2. TIMING AND DECORATION
+    function updateClock() {
+      const now = new Date();
+      const format = (num) => String(num).padStart(2, '0');
+      document.getElementById('realtime-clock').textContent = `UTC ${format(now.getUTCHours())}:${format(now.getUTCMinutes())}:${format(now.getUTCSeconds())}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // 3. 3D INTERACTIVE MOUSE PARALLAX OVER HERO Specimen
+    const triggerArea = document.getElementById('specimen-trigger-area');
+    const modelContainer = document.getElementById('active-specimen-svg');
+    const leftArc = document.getElementById('left-arc-wrapper');
+
+    triggerArea.addEventListener('mousemove', (e) => {
+      const rect = triggerArea.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+
+      // Restrict range to build luxury controlled smooth movement
+      const rotX = -y * 0.15;
+      const rotY = x * 0.15;
+
+      modelContainer.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.08)`;
+      // Shift left graphic curve for parallax alignment depth
+      leftArc.style.transform = `translateX(${x * 0.05}px) translateY(${y * 0.02}px)`;
+    });
+
+    triggerArea.addEventListener('mouseleave', () => {
+      modelContainer.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
+      leftArc.style.transform = `translateX(0px) translateY(0px)`;
+    });
+
+    // 4. ACTION HOOK: NEXT SPECIMEN TRIGGER
+    function nextSpecimen() {
+      currentSpecimenIndex = (currentSpecimenIndex + 1) % SPECIMENS_DB.length;
+      renderSpecimen(SPECIMENS_DB[currentSpecimenIndex]);
+    }
+
+    // 5. SELECT SPECIMEN BY TAB
+    function selectSpecimen(id) {
+      currentSpecimenIndex = SPECIMENS_DB.findIndex(x => x.id === id);
+      renderSpecimen(SPECIMENS_DB[currentSpecimenIndex]);
+    }
+
+    // 6. DRAW AND TRANSITION SPECIMEN LOGIC
+    function renderSpecimen(specimen) {
+      // 1. Transition SVG Graphics smoothly inside primary Frame
+      const svg = document.getElementById('active-specimen-svg');
+      svg.style.opacity = '0';
+      svg.style.transform = 'scale(0.8) rotateY(45deg)';
+
+      setTimeout(() => {
+        svg.innerHTML = specimen.svg;
+        svg.style.opacity = '1';
+        svg.style.transform = 'scale(1) rotateY(0deg)';
+      }, 300);
+
+      // 2. Change frame titles and vertical design tracking
+      document.getElementById('vertical-title').textContent = specimen.verticalTitle;
+      document.getElementById('specimen-tag').textContent = specimen.tag;
+      document.getElementById('specimen-label-selector').textContent = `[SPECIMEN-0${specimen.id}: ${specimen.name}]`;
+
+      // 3. Update specifications table & readout panels
+      document.getElementById('telemetry-specimen-id').textContent = `SPECIMEN // AEON-0${specimen.id}`;
+      document.getElementById('telemetry-codename').textContent = specimen.codename;
+      document.getElementById('chemical-formula').textContent = specimen.formula;
+      
+      document.getElementById('spec-mass').textContent = specimen.mass;
+      document.getElementById('spec-density').textContent = specimen.density;
+      document.getElementById('spec-age').textContent = specimen.age;
+      document.getElementById('spec-class').textContent = specimen.spectralClass;
+
+      // 4. Smoothly fill metric progress parameters
+      document.getElementById('metric-val-1').textContent = `${specimen.metrics[0]}%`;
+      document.getElementById('metric-bar-1').style.width = `${specimen.metrics[0]}%`;
+
+      document.getElementById('metric-val-2').textContent = `${specimen.metrics[1]}%`;
+      document.getElementById('metric-bar-2').style.width = `${specimen.metrics[1]}%`;
+
+      document.getElementById('metric-val-3').textContent = `${specimen.metrics[2]}%`;
+      document.getElementById('metric-bar-3').style.width = `${specimen.metrics[2]}%`;
+
+      // 5. Repaint tab styling to reflect active choice
+      for (let i = 1; i <= 3; i++) {
+        const btn = document.getElementById(`tab-btn-${i}`);
+        if (i === specimen.id) {
+          btn.classList.remove('border-studio-dark/20', 'bg-transparent', 'text-studio-dark');
+          btn.classList.add('border-studio-dark', 'bg-studio-dark', 'text-white');
+          btn.querySelector('span:first-child').textContent = `0${i} // ${SPECIMENS_DB[i-1].name} (ACTIVE)`;
+        } else {
+          btn.classList.remove('border-studio-dark', 'bg-studio-dark', 'text-white');
+          btn.classList.add('border-studio-dark/20', 'bg-transparent', 'text-studio-dark');
+          btn.querySelector('span:first-child').textContent = `0${i} // ${SPECIMENS_DB[i-1].name}`;
+        }
+      }
+    }
+
+    // 7. INTERACTIVE TELEMETRY WIREFRAME OVERLAY OVER HERO CARD
+    let wireframeActive = false;
+    function toggleTelemetryWireframe() {
+      wireframeActive = !wireframeActive;
+      const wireframe = document.getElementById('wireframe-grid');
+      const artFrame = document.getElementById('art-frame');
+
+      if (wireframeActive) {
+        wireframe.style.opacity = '1';
+        wireframe.style.pointerEvents = 'auto';
+        artFrame.classList.add('ring-2', 'ring-dashed', 'ring-emerald-500/40');
+      } else {
+        wireframe.style.opacity = '0';
+        wireframe.style.pointerEvents = 'none';
+        artFrame.classList.remove('ring-2', 'ring-dashed', 'ring-emerald-500/40');
+      }
+    }
+
+    // 8. INTERACTIVE GENERATIVE SYSTEM DESIGN GENERATOR
+    function updateGenerativeArt() {
+      const density = parseInt(document.getElementById('param-density').value);
+      const radius = parseInt(document.getElementById('param-radius').value);
+      const tension = parseFloat(document.getElementById('param-tension').value);
+
+      document.getElementById('label-density-param').textContent = `${density} POINTS`;
+      document.getElementById('label-radius-param').textContent = `${radius}px`;
+      document.getElementById('label-tension-param').textContent = tension;
+
+      const svg = document.getElementById('generative-svg');
+      svg.innerHTML = ''; // wipe old generation paths
+
+      const center = 200;
+      let pathPoints = [];
+
+      // Generate geometric outer coordinates based on density + radius modifiers
+      for (let i = 0; i < density; i++) {
+        const angle = (i * 2 * Math.PI) / density;
+        const offset = Math.sin(angle * 3) * (tension * 30);
+        const r = radius/2 + offset;
+        const x = center + r * Math.cos(angle);
+        const y = center + r * Math.sin(angle);
+        pathPoints.push({x, y});
+
+        // Small coordinate trace point
+        const pt = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        pt.setAttribute("cx", x);
+        pt.setAttribute("cy", y);
+        pt.setAttribute("r", "2");
+        pt.setAttribute("fill", "#ffffff");
+        pt.setAttribute("opacity", "0.6");
+        svg.appendChild(pt);
+
+        // Telemetry lines from center axis
+        const axis = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        axis.setAttribute("x1", center);
+        axis.setAttribute("y1", center);
+        axis.setAttribute("x2", x);
+        axis.setAttribute("y2", y);
+        axis.setAttribute("stroke", "rgba(255, 255, 255, 0.08)");
+        axis.setAttribute("stroke-width", "0.5");
+        svg.appendChild(axis);
+      }
+
+      // Drawing structural polygon shapes
+      let polyPointsStr = pathPoints.map(p => `${p.x},${p.y}`).join(' ');
+      const poly = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+      poly.setAttribute("points", polyPointsStr);
+      poly.setAttribute("fill", "rgba(255,255,255,0.03)");
+      poly.setAttribute("stroke", "rgba(255,255,255,0.4)");
+      poly.setAttribute("stroke-width", "1");
+      svg.appendChild(poly);
+
+      // Outer bounding alignment circles for premium aesthetic
+      const boundingCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      boundingCircle.setAttribute("cx", center);
+      boundingCircle.setAttribute("cy", center);
+      boundingCircle.setAttribute("r", radius/2);
+      boundingCircle.setAttribute("fill", "none");
+      boundingCircle.setAttribute("stroke", "rgba(255,255,255,0.15)");
+      boundingCircle.setAttribute("stroke-width", "1");
+      boundingCircle.setAttribute("stroke-dasharray", "4,4");
+      svg.appendChild(boundingCircle);
+
+      const boundingOuter = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      boundingOuter.setAttribute("cx", center);
+      boundingOuter.setAttribute("cy", center);
+      boundingOuter.setAttribute("r", (radius/2) * 1.3);
+      boundingOuter.setAttribute("fill", "none");
+      boundingOuter.setAttribute("stroke", "rgba(255,255,255,0.05)");
+      boundingOuter.setAttribute("stroke-width", "0.5");
+      svg.appendChild(boundingOuter);
+    }
+
+    function resetGenerativeArt() {
+      document.getElementById('param-density').value = 12;
+      document.getElementById('param-radius').value = 200;
+      document.getElementById('param-tension').value = 0.5;
+      updateGenerativeArt();
+    }
+
+    // Init generative system render on page load
+    updateGenerativeArt();
+
+    // 9. LEDGER SUBSCRIPTION TERMINAL CONTROLS
+    function handleLedgerSubmission(e) {
+      e.preventDefault();
+      const emailInput = document.getElementById('ledger-email');
+      if (emailInput.value) {
+        document.getElementById('ledger-success-msg').classList.remove('hidden');
+        // Subtract slot to simulate state activity
+        const currentSlots = parseInt(document.getElementById('slots-counter').textContent.split(' ')[0]);
+        document.getElementById('slots-counter').textContent = `${currentSlots - 1} / 1000`;
+      }
+    }
+
+    function closeLedgerSuccess() {
+      document.getElementById('ledger-success-msg').classList.add('hidden');
+      document.getElementById('ledger-email').value = '';
+    }
+
+    // 10. MODAL/TOAST UTILITIES
+    function openMenuModal() {
+      document.getElementById('menu-modal').classList.remove('hidden');
+      document.getElementById('menu-modal').classList.add('flex');
+    }
+
+    function closeMenuModal() {
+      document.getElementById('menu-modal').classList.add('hidden');
+      document.getElementById('menu-modal').classList.remove('flex');
+    }
+
+    function shareExhibition() {
+      // Use document.execCommand to match iframe-friendly requirements perfectly
+      const shareUrl = window.location.href;
+      const el = document.createElement('textarea');
+      el.value = shareUrl;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+
+      const toast = document.getElementById('share-toast');
+      toast.classList.remove('opacity-0', 'translate-y-24', 'pointer-events-none');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-24', 'pointer-events-none');
+        toast.classList.remove('opacity-100', 'translate-y-0');
+      }, 3000);
+    }
+
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  </script>
+
+</body>
+</html>
+4

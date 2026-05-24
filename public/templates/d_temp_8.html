@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TETRIS WOMEN'S ONLINESHOP — Retro Editorial Experience</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Playfair Display (Serif) & Space Grotesk (Geometric Sans/Mono hybrid) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Space Grotesk"', 'sans-serif'],
+                    },
+                    colors: {
+                        editorial: {
+                            // The precise warm, organic ochre/mustard-sand paper tone from your inspiration
+                            bg: '#DFCAA0',
+                            bgDarker: '#CBB488',
+                            bgLighter: '#EADBBF',
+                            text: '#000000',
+                            accent: '#F25C05', // editorial pop
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Brutalist Utilities & Transitions */
+        body {
+            background-color: #D3BE96; /* Outer canvas frame */
+            font-family: 'Space Grotesk', sans-serif;
+            color: #000000;
+            overflow-x: hidden;
+        }
+        
+        /* Thin crisp black borders resembling technical drafting */
+        .brutalist-border {
+            border: 1.5px solid #000000;
+        }
+        .brutalist-border-r {
+            border-right: 1.5px solid #000000;
+        }
+        .brutalist-border-b {
+            border-bottom: 1.5px solid #000000;
+        }
+        .brutalist-border-t {
+            border-top: 1.5px solid #000000;
+        }
+        .brutalist-border-l {
+            border-left: 1.5px solid #000000;
+        }
+
+        /* Solid black offset shadows */
+        .brutalist-shadow {
+            box-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
+        }
+        .brutalist-shadow-sm {
+            box-shadow: 2px 2px 0px 0px rgba(0,0,0,1);
+        }
+        .brutalist-shadow-lg {
+            box-shadow: 8px 8px 0px 0px rgba(0,0,0,1);
+        }
+        
+        /* Interactive click physical translation */
+        .brutalist-press:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px 0px rgba(0,0,0,1);
+        }
+        .brutalist-press-large:active {
+            transform: translate(4px, 4px);
+            box-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
+        }
+
+        /* Custom scrollbars matching the raw aesthetic */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #DFCAA0;
+            border-left: 1.5px solid #000000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #000000;
+            border: 1px solid #DFCAA0;
+        }
+
+        /* Vertical text orientations */
+        .vertical-text-lr {
+            writing-mode: vertical-lr;
+            text-orientation: mixed;
+        }
+        .vertical-text-rl {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+
+        /* Scanline paper texture overlay */
+        .paper-overlay {
+            position: relative;
+        }
+        .paper-overlay::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.04) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.01), rgba(0, 255, 0, 0.005), rgba(0, 0, 255, 0.01));
+            z-index: 10;
+            background-size: 100% 3px, 3px 100%;
+            pointer-events: none;
+        }
+
+        /* Image treatment to blend into warm tones */
+        .fashion-img {
+            filter: grayscale(0.1) sepia(0.2) contrast(1.1);
+            mix-blend-mode: multiply;
+        }
+
+        /* Smooth slide-outs */
+        .drawer {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+    </style>
+</head>
+<body class="p-2 md:p-6 lg:p-8 paper-overlay min-h-screen flex items-center justify-center">
+
+    <!-- Theme Customization Drawer (Fixed Access) -->
+    <div class="fixed bottom-6 left-6 z-50 flex items-center gap-2">
+        <button onclick="toggleThemeConfig()" class="bg-black text-white p-3 rounded-none brutalist-border brutalist-shadow brutalist-press text-xs font-bold uppercase tracking-wider flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            Colorway
+        </button>
+        <div id="theme-panel" class="hidden bg-editorial-bg p-3 brutalist-border brutalist-shadow flex gap-2">
+            <button onclick="changeColorway('#DFCAA0', '#D3BE96')" class="w-6 h-6 bg-[#DFCAA0] border border-black title='Original Sand'"></button>
+            <button onclick="changeColorway('#E5F0E8', '#C3D8C8')" class="w-6 h-6 bg-[#E5F0E8] border border-black title='Sage Editorial'"></button>
+            <button onclick="changeColorway('#F5E6E8', '#DEC0C4')" class="w-6 h-6 bg-[#F5E6E8] border border-black title='Dusk Blossom'"></button>
+            <button onclick="changeColorway('#E8E6E6', '#C7C5C5')" class="w-6 h-6 bg-[#E8E6E6] border border-black title='Brutalist Concrete'"></button>
+        </div>
+    </div>
+
+    <!-- MAIN EDITORIAL CONTAINER -->
+    <div id="main-shop-container" class="w-full max-w-[1400px] bg-editorial-bg brutalist-border text-editorial-text relative z-20 flex flex-col md:grid md:grid-cols-[120px_240px_1fr_120px] transition-colors duration-300">
+        
+        <!-- ================= SIDEBAR LEFT 1 (Logo & Navigation) ================= -->
+        <div class="flex md:flex-col justify-between brutalist-border-b md:brutalist-border-b-0 md:brutalist-border-r bg-editorial-bg transition-colors duration-300">
+            <!-- Top Segment -->
+            <div class="flex md:flex-col w-full">
+                <!-- Retro Blocky Logo -->
+                <div class="p-6 flex items-center justify-center brutalist-border-b brutalist-border-r md:brutalist-border-r-0 aspect-square">
+                    <div class="grid grid-cols-3 gap-1 w-10 h-10">
+                        <div class="bg-black"></div><div class="bg-black"></div><div class="bg-black"></div>
+                        <div class="border border-black"></div><div class="bg-black"></div><div class="border border-black"></div>
+                        <div class="border border-black"></div><div class="bg-black"></div><div class="border border-black"></div>
+                    </div>
+                </div>
+                <!-- Menu Toggle Button -->
+                <button onclick="toggleInfoMenu()" class="p-6 flex flex-col items-center justify-center brutalist-border-b md:brutalist-border-b brutalist-border-r md:brutalist-border-r-0 hover:bg-black hover:text-editorial-bg transition-all brutalist-press group">
+                    <div class="w-6 h-0.5 bg-black group-hover:bg-editorial-bg mb-1.5 transition-colors"></div>
+                    <div class="w-6 h-0.5 bg-black group-hover:bg-editorial-bg mb-1.5 transition-colors"></div>
+                    <div class="w-6 h-0.5 bg-black group-hover:bg-editorial-bg transition-colors"></div>
+                    <span class="text-[9px] font-bold uppercase tracking-widest mt-2">menu</span>
+                </button>
+                <!-- Social Channels -->
+                <div class="hidden md:flex flex-col items-center gap-6 py-8 brutalist-border-b text-xs font-bold tracking-widest">
+                    <a href="#" class="hover:scale-110 transition-transform hover:underline">fb</a>
+                    <a href="#" class="hover:scale-110 transition-transform hover:underline">tw</a>
+                    <a href="#" class="hover:scale-110 transition-transform hover:underline">pin</a>
+                    <a href="#" class="hover:scale-110 transition-transform hover:underline">yt</a>
+                </div>
+            </div>
+            <!-- Bottom Segment / Rotated Label -->
+            <div class="hidden md:flex py-8 items-center justify-center">
+                <span class="vertical-text-rl transform rotate-180 text-xs font-bold tracking-[0.4em] uppercase opacity-75">
+                    BLOG AND NEWS — VOL 04
+                </span>
+            </div>
+        </div>
+
+        <!-- ================= COLUMN 2 (Tetris Arcade & Interactive Promo) ================= -->
+        <div class="flex flex-col brutalist-border-b md:brutalist-border-b-0 md:brutalist-border-r bg-editorial-bg transition-colors duration-300">
+            <!-- Breadcrumb Category Header -->
+            <div class="p-4 brutalist-border-b text-[10px] tracking-wide uppercase font-medium leading-relaxed">
+                <div class="text-neutral-500">Category - Outfit</div>
+                <div class="font-bold">Main Page / Woman / Boots / Yellow</div>
+            </div>
+
+            <!-- TETRIS ARCADE WIDGET -->
+            <div class="p-4 brutalist-border-b bg-editorial-bg transition-colors duration-300">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-xs font-bold uppercase tracking-wider">Tetris Retro</span>
+                    <span class="text-xs font-bold bg-black text-editorial-bg px-2 py-0.5" id="tetris-score">Score 000</span>
+                </div>
+                
+                <!-- Game Viewport container -->
+                <div class="relative bg-editorial-bgLighter brutalist-border p-1">
+                    <div id="tetris-game-over" class="absolute inset-0 bg-black/95 text-editorial-bg flex flex-col items-center justify-center z-20 hidden">
+                        <span class="font-serif italic text-lg mb-2">Game Over</span>
+                        <button onclick="startTetris()" class="px-3 py-1 bg-white text-black text-xs font-bold uppercase hover:bg-editorial-bg hover:text-black transition-colors">Play Again</button>
+                    </div>
+                    
+                    <!-- Grid Canvas or CSS block grid -->
+                    <div id="tetris-grid" class="grid grid-cols-10 gap-0.5 bg-black/5 aspect-[10/16] w-full">
+                        <!-- Filled dynamically by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Controller / Action Buttons -->
+                <div class="grid grid-cols-4 gap-1 mt-2 text-center">
+                    <button onclick="moveTetrisLeft()" class="bg-black text-white py-1.5 text-xs font-bold hover:bg-neutral-800 brutalist-press">←</button>
+                    <button onclick="rotateTetris()" class="bg-black text-white py-1.5 text-xs font-bold hover:bg-neutral-800 brutalist-press">ROT</button>
+                    <button onclick="moveTetrisDown()" class="bg-black text-white py-1.5 text-xs font-bold hover:bg-neutral-800 brutalist-press">↓</button>
+                    <button onclick="moveTetrisRight()" class="bg-black text-white py-1.5 text-xs font-bold hover:bg-neutral-800 brutalist-press">→</button>
+                </div>
+                <div class="mt-2 flex gap-1">
+                    <button id="tetris-start-btn" onclick="startTetris()" class="w-full bg-black text-white py-1 text-[10px] uppercase font-bold tracking-widest hover:bg-editorial-accent hover:text-black transition-colors brutalist-press">
+                        Power On
+                    </button>
+                </div>
+            </div>
+
+            <!-- LIVE EDITORIAL MINI BLOG / EDITORIAL PROMO -->
+            <div class="p-6 brutalist-border-b flex-grow flex flex-col justify-between">
+                <div>
+                    <div class="overflow-hidden brutalist-border mb-4 bg-white relative group">
+                        <!-- Dynamic filter styling applied -->
+                        <img id="sidebar-blog-img" src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=400&q=80" alt="Model concept" class="w-full h-40 object-cover fashion-img transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute bottom-2 left-2 bg-black text-white text-[9px] font-bold px-2 py-0.5 uppercase">
+                            Concept 3.0
+                        </div>
+                    </div>
+                    <h4 class="font-serif italic text-base leading-snug">"The yellow accent dictates the narrative of modern activewear."</h4>
+                    <p class="text-[11px] text-neutral-700 mt-2 font-mono">— Edit 02 / Ilo Chani</p>
+                </div>
+
+                <!-- Live Interaction Indicator -->
+                <div class="mt-6 pt-4 border-t border-black/10 flex items-center justify-between text-[11px] font-bold">
+                    <span class="flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-green-600 animate-ping"></span>
+                        182 Online Now
+                    </span>
+                    <a href="#catalogue" class="underline hover:text-editorial-accent">Browse live</a>
+                </div>
+            </div>
+
+            <!-- PROMO VALIDATOR PANEL -->
+            <div class="p-4 bg-black text-white flex flex-col gap-2">
+                <label class="text-[10px] tracking-wider uppercase font-bold text-neutral-300">Enter Promo Code</label>
+                <div class="flex brutalist-border border-white bg-white/10">
+                    <input type="text" id="promo-input" placeholder="TETRIS50" class="bg-transparent px-3 py-1.5 text-xs text-white placeholder-neutral-400 focus:outline-none w-full uppercase font-mono">
+                    <button onclick="applyPromoCode()" class="bg-white text-black px-4 py-1 text-xs font-bold uppercase hover:bg-editorial-bg transition-colors">Send</button>
+                </div>
+                <span id="promo-status" class="text-[9px] font-mono tracking-wide text-neutral-400">Try code: TETRIS50</span>
+            </div>
+        </div>
+
+        <!-- ================= COLUMN 3 (Hero, Product Showcase & Interactive Core) ================= -->
+        <div id="catalogue" class="flex flex-col brutalist-border-b md:brutalist-border-b-0 bg-editorial-bg transition-colors duration-300">
+            
+            <!-- Dynamic Banner Announcement -->
+            <div class="p-4 brutalist-border-b flex justify-between items-center text-xs tracking-widest uppercase font-bold">
+                <div class="flex items-center gap-2">
+                    <span class="bg-black text-editorial-bg px-1 text-[10px]">UP TO 50% OFF</span>
+                    <span>Spring/Summer Drop</span>
+                </div>
+                <span class="hidden sm:inline font-mono text-neutral-600" id="countdown-timer">12 Days Left</span>
+            </div>
+
+            <!-- HERO BRAND TITLE BANNER -->
+            <div class="p-8 md:p-12 brutalist-border-b text-center relative overflow-hidden bg-editorial-bg transition-colors duration-300">
+                <h1 class="font-serif text-4xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight uppercase leading-none">
+                    TETRIS WOMEN'S
+                </h1>
+                <div class="flex justify-center items-center gap-4 mt-2">
+                    <div class="h-[1.5px] bg-black w-12"></div>
+                    <span class="font-serif italic text-lg sm:text-2xl tracking-wider">Onlineshop Edition</span>
+                    <div class="h-[1.5px] bg-black w-12"></div>
+                </div>
+                <p class="text-[10px] md:text-xs max-w-2xl mx-auto mt-4 text-neutral-700 italic leading-relaxed font-serif">
+                    “*** Shop with us and stay connected... everything from neutral outfit essentials to the latest trending styles. Classic woven tops, crop tops, and short sleeve tops are absolute necessities for everyday expression.”
+                </p>
+            </div>
+
+            <!-- CORE EDITORIAL SHOWCASE (Dynamic Split) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 flex-grow">
+                
+                <!-- Split Left: Focus Product Info (Interactive State) -->
+                <div class="lg:col-span-4 p-8 brutalist-border-b lg:brutalist-border-b-0 lg:brutalist-border-r flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs uppercase font-bold tracking-widest text-neutral-500">Active Editorial Focus</span>
+                        <h2 id="hero-title" class="font-serif text-2xl sm:text-3xl font-extrabold mt-2 leading-tight">
+                            Women's Activewear & Workout Clothes
+                        </h2>
+                        <div class="flex items-center gap-4 my-4">
+                            <span id="hero-price-original" class="line-through text-neutral-500 font-serif text-base">$120.00</span>
+                            <span id="hero-price" class="font-serif text-2xl font-bold bg-black text-white px-2 py-1">$60.00</span>
+                        </div>
+                        <p id="hero-desc" class="text-xs text-neutral-700 leading-relaxed mt-4 font-mono">
+                            A high-density performance composite tailored for movement. Features a technical microfiber weave, contoured seam framing, and vintage yellow accents inspired by high-brutalist construction.
+                        </p>
+                    </div>
+
+                    <!-- Size Selection & Add Actions -->
+                    <div class="mt-8">
+                        <div class="mb-4">
+                            <span class="text-[10px] font-bold uppercase tracking-wider block mb-1.5">Select Size</span>
+                            <div class="flex gap-2" id="size-selector">
+                                <button onclick="selectSize('XS')" class="size-btn w-10 h-10 brutalist-border text-xs font-bold flex items-center justify-center bg-white hover:bg-black hover:text-white transition-all brutalist-press">XS</button>
+                                <button onclick="selectSize('S')" class="size-btn w-10 h-10 brutalist-border text-xs font-bold flex items-center justify-center bg-black text-white transition-all brutalist-press">S</button>
+                                <button onclick="selectSize('M')" class="size-btn w-10 h-10 brutalist-border text-xs font-bold flex items-center justify-center bg-white hover:bg-black hover:text-white transition-all brutalist-press">M</button>
+                                <button onclick="selectSize('L')" class="size-btn w-10 h-10 brutalist-border text-xs font-bold flex items-center justify-center bg-white hover:bg-black hover:text-white transition-all brutalist-press">L</button>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="addToCartCurrent()" class="bg-black text-white py-3 px-4 brutalist-border brutalist-shadow text-xs uppercase font-bold tracking-widest hover:bg-neutral-800 transition-colors brutalist-press-large flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                                Buy Now
+                            </button>
+                            <button onclick="addToWishlistCurrent()" class="bg-white text-black py-3 px-4 brutalist-border brutalist-shadow text-xs uppercase font-bold tracking-widest hover:bg-neutral-100 transition-colors brutalist-press-large flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                                Wishlist
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Split Center: Main Dynamic Cutout Hero Graphics -->
+                <div class="lg:col-span-5 p-4 brutalist-border-b lg:brutalist-border-b-0 lg:brutalist-border-r flex items-center justify-center relative bg-[#E6D7BD] transition-colors duration-300">
+                    
+                    <!-- Decorative technical layout metrics -->
+                    <div class="absolute top-4 left-4 text-[9px] font-mono text-black/40">
+                        LAT // 52.5200° N, 13.4050° E<br>REF // TR-SPRING20
+                    </div>
+                    <div class="absolute bottom-4 right-4 text-[9px] font-mono text-black/40 text-right">
+                        CUTOUT PROFILE // ALPHA v1<br>SCALE // 1 : 1.4
+                    </div>
+
+                    <!-- Dynamic image slot -->
+                    <div class="relative w-full max-w-[360px] aspect-[3/4] brutalist-border bg-editorial-bg brutalist-shadow-lg overflow-hidden group">
+                        <img id="main-hero-image" src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=600&q=80" alt="Featured high-fashion wear" class="w-full h-full object-cover fashion-img transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/10 mix-blend-overlay pointer-events-none"></div>
+                    </div>
+                </div>
+
+                <!-- Split Right: Dynamic Curated Showcase List -->
+                <div class="lg:col-span-3 p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-baseline justify-between brutalist-border-b pb-2 mb-4">
+                            <span class="font-serif italic text-3xl font-extrabold">50%</span>
+                            <span class="text-xs font-bold uppercase tracking-wider text-neutral-600">Exclusive Drop</span>
+                        </div>
+                        
+                        <!-- Interactive Product Selection List -->
+                        <div class="flex flex-col gap-2">
+                            <!-- Item 1 (Active by default) -->
+                            <div onclick="selectProduct(0)" id="prod-card-0" class="prod-card p-3 bg-black text-white brutalist-border cursor-pointer transition-all duration-300">
+                                <div class="flex justify-between items-start">
+                                    <h5 class="text-xs font-bold uppercase tracking-wider">01. Premium Activewear</h5>
+                                    <span class="font-serif italic text-xs">$60.00</span>
+                                </div>
+                                <p class="text-[10px] text-neutral-300 mt-1 line-clamp-2">High performance structural stretch fabric with retro aesthetic details.</p>
+                            </div>
+
+                            <!-- Item 2 -->
+                            <div onclick="selectProduct(1)" id="prod-card-1" class="prod-card p-3 bg-white hover:bg-black/5 text-black brutalist-border cursor-pointer transition-all duration-300">
+                                <div class="flex justify-between items-start">
+                                    <h5 class="text-xs font-bold uppercase tracking-wider">02. Floral Maxi Dress</h5>
+                                    <span class="font-serif italic text-xs">$68.00</span>
+                                </div>
+                                <p class="text-[10px] text-neutral-600 mt-1 line-clamp-2">A crinkle woven maxi dress featuring a wildflower floral print, smocked back and shoulders.</p>
+                            </div>
+
+                            <!-- Item 3 -->
+                            <div onclick="selectProduct(2)" id="prod-card-2" class="prod-card p-3 bg-white hover:bg-black/5 text-black brutalist-border cursor-pointer transition-all duration-300">
+                                <div class="flex justify-between items-start">
+                                    <h5 class="text-xs font-bold uppercase tracking-wider">03. Heavy Lug Sole Boots</h5>
+                                    <span class="font-serif italic text-xs">$110.00</span>
+                                </div>
+                                <p class="text-[10px] text-neutral-600 mt-1 line-clamp-2">Aggressive tread profile in vibrant mustard tone. Hardened vulcanized canvas trim.</p>
+                            </div>
+
+                            <!-- Item 4 -->
+                            <div onclick="selectProduct(3)" id="prod-card-3" class="prod-card p-3 bg-white hover:bg-black/5 text-black brutalist-border cursor-pointer transition-all duration-300">
+                                <div class="flex justify-between items-start">
+                                    <h5 class="text-xs font-bold uppercase tracking-wider">04. Leather Utility Bag</h5>
+                                    <span class="font-serif italic text-xs">$45.00</span>
+                                </div>
+                                <p class="text-[10px] text-neutral-600 mt-1 line-clamp-2">Multi-chamber architectural carrying solution with adjustable webbed strapping.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Micro Testimonial Carousel -->
+                    <div class="mt-8 pt-4 border-t border-black/10">
+                        <div class="flex items-center gap-1.5 mb-1.5">
+                            <span class="text-xs font-bold">★ ★ ★ ★ ★</span>
+                        </div>
+                        <p class="text-[10px] text-neutral-700 italic font-serif leading-relaxed" id="testimonial-quote">
+                            "The structured silhouette completely changed my spring palette. Shipping was incredibly prompt!"
+                        </p>
+                        <span class="text-[9px] uppercase font-bold tracking-wider block mt-1" id="testimonial-author">— Clara K., Munich</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ================= SIDEBAR RIGHT 4 (E-Commerce Indicators) ================= -->
+        <div class="flex md:flex-col justify-between brutalist-border-t md:brutalist-border-t-0 bg-editorial-bg transition-colors duration-300">
+            <!-- Top Segment -->
+            <div class="flex md:flex-col w-full">
+                <!-- Shopping Cart Icon Indicator -->
+                <button onclick="toggleCartDrawer()" class="p-6 flex flex-col items-center justify-center brutalist-border-b brutalist-border-r md:brutalist-border-r-0 hover:bg-black hover:text-editorial-bg transition-all brutalist-press group relative">
+                    <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                    <span class="text-[9px] font-bold uppercase tracking-widest">cart</span>
+                    <!-- Live Item Counter Badge -->
+                    <div id="cart-badge" class="absolute top-4 right-4 bg-black text-white text-[9px] font-bold w-5 h-5 flex items-center justify-center rounded-none border border-white">0</div>
+                </button>
+                <!-- Wishlist Toggler -->
+                <button onclick="toggleWishlistDrawer()" class="p-6 flex flex-col items-center justify-center brutalist-border-b brutalist-border-r md:brutalist-border-r-0 hover:bg-black hover:text-editorial-bg transition-all brutalist-press group relative">
+                    <svg class="w-6 h-6 mb-1 text-black group-hover:text-editorial-bg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                    <span class="text-[9px] font-bold uppercase tracking-widest">wishlist</span>
+                    <div id="wishlist-badge" class="absolute top-4 right-4 bg-black text-white text-[9px] font-bold w-5 h-5 flex items-center justify-center rounded-none border border-white">0</div>
+                </button>
+                <!-- Quick Sign In -->
+                <button onclick="openSignModal()" class="p-6 flex flex-col items-center justify-center brutalist-border-b hover:bg-black hover:text-editorial-bg transition-all brutalist-press group">
+                    <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    <span class="text-[9px] font-bold uppercase tracking-widest">sign in</span>
+                </button>
+            </div>
+            <!-- Bottom Segment / Rotated Label -->
+            <div class="hidden md:flex py-8 items-center justify-center brutalist-border-t">
+                <span class="vertical-text-lr text-xs font-bold tracking-[0.4em] uppercase opacity-75">
+                    NEXT PRODUCT →
+                </span>
+            </div>
+            <!-- Language Picker -->
+            <div class="p-6 flex items-center justify-center brutalist-border-t text-xs font-bold hover:bg-black hover:text-white cursor-pointer transition-colors">
+                EN
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ================= SLIDE OUT CARTS & MODALS ================= -->
+
+    <!-- Interactive Shopping Cart Drawer -->
+    <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-[400px] bg-editorial-bg brutalist-border-l z-50 p-6 shadow-2xl flex flex-col justify-between translate-x-full drawer transition-transform duration-300">
+        <div>
+            <div class="flex justify-between items-center brutalist-border-b pb-4 mb-6">
+                <h3 class="font-serif italic text-2xl font-bold">Shopping Cart</h3>
+                <button onclick="toggleCartDrawer()" class="bg-black text-white p-2 text-xs font-bold uppercase tracking-widest hover:bg-neutral-800">Close ×</button>
+            </div>
+            <div id="cart-items-list" class="flex flex-col gap-4 max-h-[60vh] overflow-y-auto pr-2">
+                <!-- Cart items populated by JS -->
+                <div class="text-xs text-neutral-500 italic py-8 text-center">Your bag is currently empty. Find items you love to add them here!</div>
+            </div>
+        </div>
+
+        <div class="brutalist-border-t pt-4">
+            <div class="flex justify-between items-baseline mb-4">
+                <span class="text-xs uppercase font-bold tracking-wider">Subtotal:</span>
+                <span id="cart-subtotal" class="font-serif text-2xl font-bold">$0.00</span>
+            </div>
+            <div id="applied-discount-line" class="hidden justify-between items-baseline mb-4 text-emerald-800">
+                <span class="text-xs uppercase font-bold tracking-wider">Promo Code Discount:</span>
+                <span id="discount-amount" class="font-serif text-lg font-bold">-$0.00</span>
+            </div>
+            <div class="flex justify-between items-baseline mb-4 text-xl border-t border-black/15 pt-2 font-bold">
+                <span class="text-sm uppercase tracking-wider">Estimated Total:</span>
+                <span id="cart-total" class="font-serif text-3xl">$0.00</span>
+            </div>
+            <button onclick="checkoutMock()" class="w-full bg-black text-white py-4 text-xs font-bold uppercase tracking-widest hover:bg-neutral-900 brutalist-shadow brutalist-press-large">
+                Proceed to Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- Interactive Wishlist Drawer -->
+    <div id="wishlist-drawer" class="fixed top-0 right-0 h-full w-full max-w-[400px] bg-editorial-bg brutalist-border-l z-50 p-6 shadow-2xl flex flex-col justify-between translate-x-full drawer transition-transform duration-300">
+        <div>
+            <div class="flex justify-between items-center brutalist-border-b pb-4 mb-6">
+                <h3 class="font-serif italic text-2xl font-bold">My Wishlist</h3>
+                <button onclick="toggleWishlistDrawer()" class="bg-black text-white p-2 text-xs font-bold uppercase tracking-widest hover:bg-neutral-800">Close ×</button>
+            </div>
+            <div id="wishlist-items-list" class="flex flex-col gap-4 max-h-[70vh] overflow-y-auto pr-2">
+                <!-- Wishlist items populated by JS -->
+                <div class="text-xs text-neutral-500 italic py-8 text-center">Your wishlist is currently empty.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign In Modal -->
+    <div id="sign-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-editorial-bg p-8 brutalist-border brutalist-shadow-lg w-full max-w-md relative">
+            <button onclick="closeSignModal()" class="absolute top-4 right-4 bg-black text-white px-2 py-1 text-xs font-bold">×</button>
+            <h3 class="font-serif italic text-3xl font-bold mb-2">Sign In</h3>
+            <p class="text-xs text-neutral-700 mb-6 font-mono">Join Tetris Club for private drops and member pricing.</p>
+            
+            <form onsubmit="handleLoginSubmit(event)" class="flex flex-col gap-4">
+                <div>
+                    <label class="text-[10px] uppercase font-bold tracking-widest block mb-1">Email Address</label>
+                    <input type="email" required placeholder="name@domain.com" class="w-full p-2 text-xs brutalist-border focus:outline-none">
+                </div>
+                <div>
+                    <label class="text-[10px] uppercase font-bold tracking-widest block mb-1">Password</label>
+                    <input type="password" required placeholder="••••••••" class="w-full p-2 text-xs brutalist-border focus:outline-none">
+                </div>
+                <button type="submit" class="bg-black text-white py-3 text-xs font-bold uppercase tracking-widest hover:bg-neutral-900 brutalist-press-large mt-2">
+                    Enter the Club
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Interactive Notification Toast -->
+    <div id="toast" class="fixed top-6 right-6 z-50 bg-black text-white p-4 brutalist-border brutalist-shadow transform translate-y-[-100px] opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3">
+        <span id="toast-message" class="text-xs font-bold uppercase tracking-wider">Item Added Successfully!</span>
+    </div>
+
+    <!-- Global Fullscreen Info Panel overlay -->
+    <div id="info-menu" class="fixed inset-0 bg-black/95 text-editorial-bg z-40 flex flex-col items-center justify-center p-8 hidden">
+        <button onclick="toggleInfoMenu()" class="absolute top-8 right-8 bg-editorial-bg text-black px-4 py-2 text-xs font-bold uppercase tracking-widest brutalist-press">
+            Close Panel ×
+        </button>
+        <div class="max-w-2xl text-center flex flex-col gap-6">
+            <h2 class="font-serif text-4xl md:text-6xl font-extrabold italic">Editorial Archive</h2>
+            <p class="font-mono text-xs md:text-sm text-neutral-300 leading-relaxed">
+                Tetris Women's Onlineshop represents the intersection of digital brutalism and athletic high-fashion. Operating with a modular architectural framework, we offer garments structured around geometry, color blocks, and extreme utility.
+            </p>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-6">
+                <div class="p-4 border border-editorial-bg/20 text-center">
+                    <span class="block text-xl font-bold font-serif italic">100%</span>
+                    <span class="text-[9px] uppercase tracking-widest text-neutral-400">Organic Fibres</span>
+                </div>
+                <div class="p-4 border border-editorial-bg/20 text-center">
+                    <span class="block text-xl font-bold font-serif italic">EU</span>
+                    <span class="text-[9px] uppercase tracking-widest text-neutral-400">Sourced & Crafted</span>
+                </div>
+                <div class="p-4 border border-editorial-bg/20 text-center col-span-2 md:col-span-1">
+                    <span class="block text-xl font-bold font-serif italic">24/7</span>
+                    <span class="text-[9px] uppercase tracking-widest text-neutral-400">Global Archive Support</span>
+                </div>
+            </div>
+            <div class="mt-8">
+                <span class="text-[10px] uppercase tracking-widest text-neutral-400">Inspired by Vintage Editorial Formats</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= JAVASCRIPT LOGIC ================= -->
+    <script>
+        // --- DATA ARCHIVE (PRODUCTS) ---
+        const products = [
+            {
+                id: 1,
+                name: "Women's Activewear & Workout Clothes",
+                originalPrice: 120.00,
+                price: 60.00,
+                image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80",
+                desc: "A high-density performance composite tailored for movement. Features a technical microfiber weave, contoured seam framing, and vintage yellow accents inspired by high-brutalist construction.",
+                badge: "Concept 3.0",
+                slug: "SPRING20"
+            },
+            {
+                id: 2,
+                name: "Floral Off-the-Shoulder Maxi Dress",
+                originalPrice: 136.00,
+                price: 68.00,
+                image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=600&q=80",
+                desc: "A crinkle woven maxi dress featuring a wildflower floral print, smocked back and shoulders, tiered ruffle hemline, and relaxed side-slit profile for warm weather statement layering.",
+                badge: "Summer Line",
+                slug: "FLORAL"
+            },
+            {
+                id: 3,
+                name: "Heavy Lug Sole Runway Boots",
+                originalPrice: 220.00,
+                price: 110.00,
+                image: "https://images.unsplash.com/photo-1608256246200-53e635b5b65f?auto=format&fit=crop&w=600&q=80",
+                desc: "Handcrafted industrial footwear. Heavy tread rubber base colored in signature Ochre Mustard, coupled with ultra-durable full-grain leather framework and contrast stitch metrics.",
+                badge: "Footwear",
+                slug: "HEAVY-BOOT"
+            },
+            {
+                id: 4,
+                name: "Architectural Leather Utility Bag",
+                originalPrice: 90.00,
+                price: 45.00,
+                image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=600&q=80",
+                desc: "Geometric structural carryall with high tensile black steel hardware, internal modular organizing segments, and raw natural lining details for high daily utility.",
+                badge: "Leather Accessories",
+                slug: "LEATHER-BAG"
+            }
+        ];
+
+        // Custom Testimonials for items
+        const testimonials = [
+            { quote: '"The structured silhouette completely changed my spring palette. Shipping was incredibly prompt!"', author: '— Clara K., Munich' },
+            { quote: '"Stunning flow and heavy texture. This is a garment you can feel the architectural weight of."', author: '— Elena V., Milan' },
+            { quote: '"The lug boots are absolutely premium. I get comments every time I stride down the street."', author: '— Beatrice L., Paris' },
+            { quote: '"Impeccable minimalism. Perfect contrast against simple black layers. Fast delivery."', author: '— Sun-Woo J., Seoul' }
+        ];
+
+        // --- GLOBAL STATE ---
+        let currentProductIndex = 0;
+        let selectedSize = 'S';
+        let cart = [];
+        let wishlist = [];
+        let promoApplied = false;
+        let discountMultiplier = 1.0;
+
+        // --- THEME COLOR CHANGERS ---
+        function toggleThemeConfig() {
+            const panel = document.getElementById('theme-panel');
+            panel.classList.toggle('hidden');
+        }
+
+        function changeColorway(primary, secondary) {
+            // Re-map the theme colors on the fly
+            const shop = document.getElementById('main-shop-container');
+            const body = document.body;
+            
+            // Adjust body background (outer canvas)
+            body.style.backgroundColor = secondary;
+            
+            // For primary items
+            document.querySelectorAll('.bg-editorial-bg').forEach(el => {
+                el.style.backgroundColor = primary;
+            });
+            shop.style.backgroundColor = primary;
+            
+            // Close panel
+            toggleThemeConfig();
+        }
+
+        // --- PRODUCT EXPLORER MECHANICS ---
+        function selectProduct(index) {
+            currentProductIndex = index;
+            const p = products[index];
+
+            // Update UI contents
+            document.getElementById('hero-title').innerText = p.name;
+            document.getElementById('hero-price-original').innerText = `$${p.originalPrice.toFixed(2)}`;
+            document.getElementById('hero-price').innerText = `$${p.price.toFixed(2)}`;
+            document.getElementById('hero-desc').innerText = p.desc;
+            document.getElementById('main-hero-image').src = p.image;
+            document.getElementById('sidebar-blog-img').src = p.image;
+
+            // Testimonial matching
+            document.getElementById('testimonial-quote').innerText = testimonials[index].quote;
+            document.getElementById('testimonial-author').innerText = testimonials[index].author;
+
+            // Highlight card list in right panel
+            document.querySelectorAll('.prod-card').forEach((card, idx) => {
+                if(idx === index) {
+                    card.className = "prod-card p-3 bg-black text-white brutalist-border cursor-pointer transition-all duration-300";
+                    // Reset secondary paragraph text colors
+                    card.querySelector('p').className = "text-[10px] text-neutral-300 mt-1 line-clamp-2";
+                } else {
+                    card.className = "prod-card p-3 bg-white hover:bg-black/5 text-black brutalist-border cursor-pointer transition-all duration-300";
+                    card.querySelector('p').className = "text-[10px] text-neutral-600 mt-1 line-clamp-2";
+                }
+            });
+        }
+
+        // --- SIZE SELECTOR ---
+        function selectSize(size) {
+            selectedSize = size;
+            document.querySelectorAll('.size-btn').forEach(btn => {
+                if (btn.innerText === size) {
+                    btn.className = "size-btn w-10 h-10 brutalist-border text-xs font-bold flex items-center justify-center bg-black text-white transition-all brutalist-press";
+                } else {
+                    btn.className = "size-btn w-10 h-10 brutalist-border text-xs font-bold flex items-center justify-center bg-white hover:bg-black hover:text-white transition-all brutalist-press";
+                }
+            });
+        }
+
+        // --- TOAST NOTIFICATIONS ---
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const msgSpan = document.getElementById('toast-message');
+            msgSpan.innerText = message;
+            toast.style.transform = 'translateY(0)';
+            toast.style.opacity = '1';
+
+            setTimeout(() => {
+                toast.style.transform = 'translateY(-100px)';
+                toast.style.opacity = '0';
+            }, 3000);
+        }
+
+        // --- E-COMMERCE LOGIC (CART & WISHLIST) ---
+        function addToCartCurrent() {
+            const item = products[currentProductIndex];
+            // Check if already in cart with same size
+            const existing = cart.find(i => i.id === item.id && i.size === selectedSize);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({
+                    id: item.id,
+                    name: item.name,
+                    price: item.price,
+                    size: selectedSize,
+                    image: item.image,
+                    quantity: 1
+                });
+            }
+            updateCartUI();
+            showToast(`ADDED ${item.name} [Size ${selectedSize}] TO BAG!`);
+        }
+
+        function addToWishlistCurrent() {
+            const item = products[currentProductIndex];
+            const existing = wishlist.find(i => i.id === item.id);
+            if (!existing) {
+                wishlist.push({
+                    id: item.id,
+                    name: item.name,
+                    price: item.price,
+                    image: item.image
+                });
+                updateWishlistUI();
+                showToast(`ADDED ${item.name} TO WISHLIST!`);
+            } else {
+                showToast(`ITEM IS ALREADY IN WISHLIST.`);
+            }
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function removeFromWishlist(index) {
+            wishlist.splice(index, 1);
+            updateWishlistUI();
+        }
+
+        function updateCartUI() {
+            const listContainer = document.getElementById('cart-items-list');
+            const cartBadge = document.getElementById('cart-badge');
+            
+            // Total items count
+            const count = cart.reduce((acc, curr) => acc + curr.quantity, 0);
+            cartBadge.innerText = count;
+
+            if (cart.length === 0) {
+                listContainer.innerHTML = `<div class="text-xs text-neutral-500 italic py-8 text-center">Your bag is currently empty. Find items you love to add them here!</div>`;
+                updatePrices(0);
+                return;
+            }
+
+            let html = '';
+            let subtotal = 0;
+            cart.forEach((item, index) => {
+                subtotal += (item.price * item.quantity);
+                html += `
+                    <div class="flex gap-4 p-3 border border-black bg-white">
+                        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover border border-black fashion-img">
+                        <div class="flex-grow flex flex-col justify-between">
+                            <div>
+                                <h4 class="text-xs font-bold uppercase tracking-wider line-clamp-1">${item.name}</h4>
+                                <span class="text-[10px] text-neutral-600 font-mono">Size: ${item.size} | Qty: ${item.quantity}</span>
+                            </div>
+                            <div class="flex justify-between items-baseline mt-2">
+                                <span class="font-serif text-sm font-bold">$${(item.price * item.quantity).toFixed(2)}</span>
+                                <button onclick="removeFromCart(${index})" class="text-[9px] text-red-700 font-bold hover:underline">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            listContainer.innerHTML = html;
+            updatePrices(subtotal);
+        }
+
+        function updateWishlistUI() {
+            const listContainer = document.getElementById('wishlist-items-list');
+            const wishlistBadge = document.getElementById('wishlist-badge');
+
+            wishlistBadge.innerText = wishlist.length;
+
+            if (wishlist.length === 0) {
+                listContainer.innerHTML = `<div class="text-xs text-neutral-500 italic py-8 text-center">Your wishlist is currently empty.</div>`;
+                return;
+            }
+
+            let html = '';
+            wishlist.forEach((item, index) => {
+                html += `
+                    <div class="flex gap-4 p-3 border border-black bg-white">
+                        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover border border-black fashion-img">
+                        <div class="flex-grow flex flex-col justify-between">
+                            <div>
+                                <h4 class="text-xs font-bold uppercase tracking-wider line-clamp-1">${item.name}</h4>
+                                <span class="font-serif text-sm font-bold">$${item.price.toFixed(2)}</span>
+                            </div>
+                            <div class="flex gap-2 justify-end mt-2">
+                                <button onclick="addFromWishlistToCart(${index})" class="text-[10px] bg-black text-white px-2 py-1 font-bold uppercase hover:bg-editorial-accent">Add to Cart</button>
+                                <button onclick="removeFromWishlist(${index})" class="text-[10px] text-red-700 font-bold hover:underline">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            listContainer.innerHTML = html;
+        }
+
+        function addFromWishlistToCart(index) {
+            const item = wishlist[index];
+            const existing = cart.find(i => i.id === item.id && i.size === 'S'); // default to S
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({
+                    id: item.id,
+                    name: item.name,
+                    price: item.price,
+                    size: 'S',
+                    image: item.image,
+                    quantity: 1
+                });
+            }
+            wishlist.splice(index, 1);
+            updateCartUI();
+            updateWishlistUI();
+            showToast("MOVED ITEM FROM WISHLIST TO BAG!");
+        }
+
+        function updatePrices(subtotal) {
+            const subtotalEl = document.getElementById('cart-subtotal');
+            const totalEl = document.getElementById('cart-total');
+            const discountLine = document.getElementById('applied-discount-line');
+            const discountAmountEl = document.getElementById('discount-amount');
+
+            subtotalEl.innerText = `$${subtotal.toFixed(2)}`;
+
+            if (promoApplied) {
+                const discount = subtotal * (1 - discountMultiplier);
+                const finalTotal = subtotal * discountMultiplier;
+                
+                discountLine.classList.remove('hidden');
+                discountLine.classList.add('flex');
+                discountAmountEl.innerText = `-$${discount.toFixed(2)}`;
+                totalEl.innerText = `$${finalTotal.toFixed(2)}`;
+            } else {
+                discountLine.classList.add('hidden');
+                discountLine.classList.remove('flex');
+                totalEl.innerText = `$${subtotal.toFixed(2)}`;
+            }
+        }
+
+        // --- PROMO CODE VALIDATION ---
+        function applyPromoCode() {
+            const input = document.getElementById('promo-input').value.toUpperCase().trim();
+            const status = document.getElementById('promo-status');
+
+            if (input === 'TETRIS50') {
+                promoApplied = true;
+                discountMultiplier = 0.50; // 50% Off
+                status.innerText = "PROMO CODE TETRIS50 ACCEPTED! (50% Applied)";
+                status.className = "text-[9px] font-mono tracking-wide text-green-700 font-bold";
+                showToast("50% DISCOUNT APPLIED SUCCESSFULLY!");
+            } else if (input === 'SPRING20') {
+                promoApplied = true;
+                discountMultiplier = 0.80; // 20% Off
+                status.innerText = "PROMO CODE SPRING20 ACCEPTED! (20% Applied)";
+                status.className = "text-[9px] font-mono tracking-wide text-green-700 font-bold";
+                showToast("20% DISCOUNT APPLIED SUCCESSFULLY!");
+            } else {
+                promoApplied = false;
+                discountMultiplier = 1.0;
+                status.innerText = "INVALID PROMO CODE. Try 'TETRIS50'";
+                status.className = "text-[9px] font-mono tracking-wide text-red-600 font-bold";
+            }
+            
+            // Re-calc cart if populated
+            const subtotalRaw = cart.reduce((acc, curr) => acc + (curr.price * curr.quantity), 0);
+            updatePrices(subtotalRaw);
+        }
+
+        // --- CHECKOUT MOCK ACTION ---
+        function checkoutMock() {
+            if(cart.length === 0) {
+                showToast("YOUR BAG IS EMPTY. ADD PRODUCTS FIRST.");
+                return;
+            }
+            showToast("ORDER PROCESSED! THANK YOU FOR SECURING YOUR TETRIS DROP.");
+            cart = [];
+            updateCartUI();
+            toggleCartDrawer();
+        }
+
+        // --- DRAWER INTERFACES ---
+        function toggleCartDrawer() {
+            const drawer = document.getElementById('cart-drawer');
+            drawer.classList.toggle('translate-x-full');
+        }
+
+        function toggleWishlistDrawer() {
+            const drawer = document.getElementById('wishlist-drawer');
+            drawer.classList.toggle('translate-x-full');
+        }
+
+        function openSignModal() {
+            document.getElementById('sign-modal').classList.remove('hidden');
+        }
+
+        function closeSignModal() {
+            document.getElementById('sign-modal').classList.add('hidden');
+        }
+
+        function handleLoginSubmit(event) {
+            event.preventDefault();
+            closeSignModal();
+            showToast("LOGGED IN SECURELY TO THE MEMBER CLUB.");
+        }
+
+        function toggleInfoMenu() {
+            document.getElementById('info-menu').classList.toggle('hidden');
+        }
+
+        // --- COUNTDOWN TIMER ---
+        let daysLeft = 12;
+        let hoursLeft = 14;
+        let minutesLeft = 32;
+        let secondsLeft = 10;
+        
+        setInterval(() => {
+            secondsLeft--;
+            if (secondsLeft < 0) {
+                secondsLeft = 59;
+                minutesLeft--;
+                if (minutesLeft < 0) {
+                    minutesLeft = 59;
+                    hoursLeft--;
+                    if (hoursLeft < 0) {
+                        hoursLeft = 23;
+                        daysLeft--;
+                        if (daysLeft < 0) {
+                            daysLeft = 12; // restart loop mock
+                        }
+                    }
+                }
+            }
+            document.getElementById('countdown-timer').innerText = `${daysLeft}D : ${hoursLeft}H : ${minutesLeft}M : ${secondsLeft}S LEFT`;
+        }, 1000);
+
+        // ==========================================
+        // ============= TETRIS ARCADE ENGINE ======
+        // ==========================================
+        const GRID_WIDTH = 10;
+        const GRID_HEIGHT = 16;
+        let tetrisGrid = Array(GRID_HEIGHT).fill(null).map(() => Array(GRID_WIDTH).fill(0));
+        let tetrisInterval = null;
+        let score = 0;
+        let gameActive = false;
+
+        const SHAPES = {
+            'I': [[1,1,1,1]],
+            'O': [[1,1],[1,1]],
+            'T': [[0,1,0],[1,1,1]],
+            'L': [[1,0],[1,0],[1,1]],
+            'J': [[0,1],[0,1],[1,1]],
+            'Z': [[1,1,0],[0,1,1]],
+            'S': [[0,1,1],[1,1,0]]
+        };
+
+        const SHAPE_NAMES = ['I', 'O', 'T', 'L', 'J', 'Z', 'S'];
+        let currentPiece = null;
+        let currentX = 3;
+        let currentY = 0;
+
+        function buildVisualGrid() {
+            const gridContainer = document.getElementById('tetris-grid');
+            gridContainer.innerHTML = '';
+            for(let y=0; y<GRID_HEIGHT; y++) {
+                for(let x=0; x<GRID_WIDTH; x++) {
+                    const block = document.createElement('div');
+                    block.id = `cell-${y}-${x}`;
+                    block.className = 'w-full h-full border border-black/5 bg-transparent transition-colors duration-100';
+                    gridContainer.appendChild(block);
+                }
+            }
+        }
+
+        function drawTetris() {
+            // clear active colors
+            for(let y=0; y<GRID_HEIGHT; y++) {
+                for(let x=0; x<GRID_WIDTH; x++) {
+                    const cell = document.getElementById(`cell-${y}-${x}`);
+                    if (tetrisGrid[y][x] === 1) {
+                        cell.className = 'w-full h-full bg-black border border-neutral-700';
+                    } else {
+                        cell.className = 'w-full h-full bg-transparent border border-black/5';
+                    }
+                }
+            }
+
+            // draw current falling piece
+            if(currentPiece) {
+                for(let r=0; r<currentPiece.matrix.length; r++) {
+                    for(let c=0; c<currentPiece.matrix[r].length; c++) {
+                        if(currentPiece.matrix[r][c] === 1) {
+                            const targetY = currentY + r;
+                            const targetX = currentX + c;
+                            if (targetY >= 0 && targetY < GRID_HEIGHT && targetX >= 0 && targetX < GRID_WIDTH) {
+                                const cell = document.getElementById(`cell-${targetY}-${targetX}`);
+                                cell.className = 'w-full h-full bg-black border border-neutral-700';
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        function createNewPiece() {
+            const randomType = SHAPE_NAMES[Math.floor(Math.random() * SHAPE_NAMES.length)];
+            currentPiece = {
+                type: randomType,
+                matrix: SHAPES[randomType]
+            };
+            currentX = Math.floor((GRID_WIDTH - currentPiece.matrix[0].length)/2);
+            currentY = 0;
+
+            // Collision immediately? -> Game Over
+            if(checkCollision(currentPiece.matrix, currentX, currentY)) {
+                gameOver();
+            }
+        }
+
+        function checkCollision(matrix, px, py) {
+            for(let r=0; r<matrix.length; r++) {
+                for(let c=0; c<matrix[r].length; c++) {
+                    if(matrix[r][c] === 1) {
+                        const targetY = py + r;
+                        const targetX = px + c;
+
+                        // bounds check
+                        if(targetX < 0 || targetX >= GRID_WIDTH || targetY >= GRID_HEIGHT) {
+                            return true;
+                        }
+                        // background collision
+                        if(targetY >= 0 && tetrisGrid[targetY][targetX] === 1) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        function mergePiece() {
+            for(let r=0; r<currentPiece.matrix.length; r++) {
+                for(let c=0; c<currentPiece.matrix[r].length; c++) {
+                    if(currentPiece.matrix[r][c] === 1) {
+                        const targetY = currentY + r;
+                        const targetX = currentX + c;
+                        if (targetY >= 0) {
+                            tetrisGrid[targetY][targetX] = 1;
+                        }
+                    }
+                }
+            }
+        }
+
+        function clearRows() {
+            let rowsCleared = 0;
+            for(let y = GRID_HEIGHT - 1; y >= 0; y--) {
+                if(tetrisGrid[y].every(val => val === 1)) {
+                    // remove row
+                    tetrisGrid.splice(y, 1);
+                    // insert empty row at top
+                    tetrisGrid.unshift(Array(GRID_WIDTH).fill(0));
+                    rowsCleared++;
+                    y++; // check same row index again
+                }
+            }
+            if(rowsCleared > 0) {
+                score += (rowsCleared * 100);
+                document.getElementById('tetris-score').innerText = `Score ${score}`;
+            }
+        }
+
+        function runTetrisCycle() {
+            if(!gameActive) return;
+            if(!checkCollision(currentPiece.matrix, currentX, currentY + 1)) {
+                currentY++;
+            } else {
+                mergePiece();
+                clearRows();
+                createNewPiece();
+            }
+            drawTetris();
+        }
+
+        function startTetris() {
+            document.getElementById('tetris-game-over').classList.add('hidden');
+            tetrisGrid = Array(GRID_HEIGHT).fill(null).map(() => Array(GRID_WIDTH).fill(0));
+            score = 0;
+            document.getElementById('tetris-score').innerText = `Score 000`;
+            gameActive = true;
+            createNewPiece();
+            drawTetris();
+
+            if(tetrisInterval) clearInterval(tetrisInterval);
+            tetrisInterval = setInterval(runTetrisCycle, 450);
+
+            // Update Start btn tag to active
+            document.getElementById('tetris-start-btn').innerText = "Game Active";
+        }
+
+        function moveTetrisLeft() {
+            if(!gameActive) return;
+            if(!checkCollision(currentPiece.matrix, currentX - 1, currentY)) {
+                currentX--;
+                drawTetris();
+            }
+        }
+
+        function moveTetrisRight() {
+            if(!gameActive) return;
+            if(!checkCollision(currentPiece.matrix, currentX + 1, currentY)) {
+                currentX++;
+                drawTetris();
+            }
+        }
+
+        function moveTetrisDown() {
+            if(!gameActive) return;
+            if(!checkCollision(currentPiece.matrix, currentX, currentY + 1)) {
+                currentY++;
+                drawTetris();
+            }
+        }
+
+        function rotateTetris() {
+            if(!gameActive) return;
+            // rotate matrix
+            const n = currentPiece.matrix.length;
+            const m = currentPiece.matrix[0].length;
+            let rotated = Array(m).fill(null).map(() => Array(n).fill(0));
+            for(let r=0; r<n; r++) {
+                for(let c=0; c<m; c++) {
+                    rotated[c][n - 1 - r] = currentPiece.matrix[r][c];
+                }
+            }
+            // check if rotated has collision
+            if(!checkCollision(rotated, currentX, currentY)) {
+                currentPiece.matrix = rotated;
+                drawTetris();
+            }
+        }
+
+        function gameOver() {
+            gameActive = false;
+            clearInterval(tetrisInterval);
+            document.getElementById('tetris-game-over').classList.remove('hidden');
+            document.getElementById('tetris-start-btn').innerText = "Restart Game";
+        }
+
+        // --- KEYBOARD LISTENER FOR FUN ARCADE PLAYING ---
+        window.addEventListener('keydown', (e) => {
+            if(!gameActive) return;
+            if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Space'].includes(e.code)) {
+                e.preventDefault(); // prevent scroll
+            }
+            if(e.code === 'ArrowLeft') moveTetrisLeft();
+            if(e.code === 'ArrowRight') moveTetrisRight();
+            if(e.code === 'ArrowDown') moveTetrisDown();
+            if(e.code === 'ArrowUp') rotateTetris();
+        });
+
+        // Initialize Shop UI
+        window.onload = function() {
+            buildVisualGrid();
+            // Load first default item
+            selectProduct(0);
+        }
+
+    </script>
+</body>
+</html>
+9

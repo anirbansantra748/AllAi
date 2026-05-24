@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verdant Hexagonals — Premium Editorial Design System</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for Editorial aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Courier+Prime&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Reenie+Beanie&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons for premium UI details -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sage: {
+                            50: '#F4F6F2',
+                            100: '#E7EBE0',
+                            200: '#D1DAC8',
+                            300: '#B5C4AA',
+                            400: '#94A786',
+                            500: '#798C6B', // Core sage tone
+                            600: '#5E6E52',
+                            700: '#47533E',
+                            800: '#323B2B',
+                            900: '#1D221A',
+                        },
+                        oatmeal: {
+                            50: '#FAFBF8',
+                            100: '#F3F5EE',
+                            200: '#E5EAD9',
+                            300: '#D3DCBE',
+                            400: '#BECBA2',
+                        },
+                        charcoal: '#22281D'
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        handwritten: ['"Reenie Beanie"', 'cursive'],
+                        typewriter: ['"Courier Prime"', 'monospace'],
+                        display: ['"Playfair Display"', 'serif']
+                    },
+                    backgroundImage: {
+                        'hex-pattern': "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj48ZyBmaWxsPSJub25lIiBzdHJva2U9IiM3OThDNkIiIHN0cm9rZS13aWR0aD0iMC4zIiBzdHJva2Utb3BhY2l0eT0iMC4xNSI+PHBhdGggZD0iTTIwIDBMMzAgMTBMMzAgMzBMMjAgNDBMMTAgMzBMMTAgMTBaIi8+PC9nPjwvc3ZnPg==')"
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Signature font styling adjustments */
+        .signature-font {
+            font-family: 'Reenie Beanie', cursive;
+            line-height: 0.85;
+        }
+        /* Custom smooth scrollbar in alignment with sage theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #E5EAD9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #798C6B;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #5E6E52;
+        }
+        /* Custom animation delay classes */
+        .animation-delay-200 { animation-delay: 0.2s; }
+        .animation-delay-400 { animation-delay: 0.4s; }
+        .animation-delay-600 { animation-delay: 0.6s; }
+
+        /* Polaroid layout effect styling */
+        .polaroid-card {
+            background: #ffffff;
+            box-shadow: 0 10px 25px -5px rgba(45, 51, 40, 0.1), 0 8px 10px -6px rgba(45, 51, 40, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .polaroid-card:hover {
+            transform: translateY(-8px) rotate(1deg) scale(1.02);
+            box-shadow: 0 20px 35px -5px rgba(45, 51, 40, 0.15), 0 12px 16px -8px rgba(45, 51, 40, 0.15);
+        }
+
+        /* Glassmorphism utility aligned with the organic tone */
+        .organic-glass {
+            background: rgba(243, 245, 238, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(148, 167, 134, 0.2);
+        }
+
+        /* Ambient Hexagonal glow lines */
+        .hex-glow {
+            position: absolute;
+            background: radial-gradient(circle, rgba(181, 196, 170, 0.25) 0%, rgba(255, 255, 255, 0) 70%);
+            pointer-events: none;
+        }
+
+        /* Paper textured background overlay */
+        .paper-grain {
+            position: relative;
+        }
+        .paper-grain::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0.045;
+            pointer-events: none;
+            z-index: 1;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body class="bg-[#F3F5EE] text-charcoal font-sans overflow-x-hidden paper-grain">
+
+    <!-- Hex Decorative Floating Elements -->
+    <div class="fixed top-20 left-[-100px] w-[350px] h-[350px] hex-glow z-0"></div>
+    <div class="fixed bottom-20 right-[-100px] w-[450px] h-[450px] hex-glow z-0"></div>
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-50 transition-all duration-300 w-full" id="main-header">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex flex-col group">
+                <span class="font-serif italic text-2xl tracking-wide text-sage-800 font-semibold group-hover:text-sage-600 transition-colors">
+                    Verdant Hexagonals
+                </span>
+                <span class="text-[9px] tracking-[0.3em] uppercase text-sage-600 -mt-1 pl-0.5">
+                    Premium Instagram Puzzle Framework
+                </span>
+            </a>
+
+            <!-- Mid Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-10 text-sm font-medium text-sage-800">
+                <a href="#philosophy" class="hover:text-sage-500 transition-colors relative py-1 group">
+                    Our Philosophy
+                    <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-sage-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#puzzle-experience" class="hover:text-sage-500 transition-colors relative py-1 group">
+                    The Puzzle Board
+                    <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-sage-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#features" class="hover:text-sage-500 transition-colors relative py-1 group">
+                    Visual Archetypes
+                    <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-sage-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#designer" class="hover:text-sage-500 transition-colors relative py-1 group">
+                    Live Palette Builder
+                    <span class="absolute bottom-0 left-0 w-0 h-[1.5px] bg-sage-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+            </nav>
+
+            <!-- CTA Actions -->
+            <div class="flex items-center space-x-4">
+                <a href="#puzzle-experience" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 text-xs tracking-widest uppercase font-semibold border border-sage-400 text-sage-800 hover:bg-sage-800 hover:text-white transition-all duration-300 rounded-sm">
+                    Interactive Grid
+                </a>
+                <a href="#pricing" class="inline-flex items-center justify-center px-5 py-2.5 text-xs tracking-widest uppercase font-semibold bg-sage-800 hover:bg-sage-600 text-white transition-all duration-300 rounded-sm shadow-md shadow-sage-900/10">
+                    Get Template
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Header Shadow Controller -->
+    <script>
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 30) {
+                header.classList.add('bg-[#F3F5EE]/95', 'backdrop-blur-md', 'shadow-md', 'shadow-sage-800/5', 'py-3');
+                header.classList.remove('py-4');
+            } else {
+                header.classList.remove('bg-[#F3F5EE]/95', 'backdrop-blur-md', 'shadow-md', 'shadow-sage-800/5', 'py-3');
+                header.classList.add('py-4');
+            }
+        });
+    </script>
+
+    <!-- Hero Section -->
+    <section class="relative pt-12 pb-24 md:pt-20 md:pb-36 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+                
+                <!-- Hero Text Intro -->
+                <div class="lg:col-span-5 space-y-8">
+                    <div class="space-y-4">
+                        <div class="inline-flex items-center space-x-2 px-3 py-1 bg-sage-100/80 border border-sage-300/60 rounded-full text-xs text-sage-700 tracking-wide">
+                            <span class="w-1.5 h-1.5 rounded-full bg-sage-500 animate-pulse"></span>
+                            <span>Aesthetic Harmony for Mindful Creators</span>
+                        </div>
+                        
+                        <h1 class="font-serif text-5xl md:text-6xl lg:text-7xl leading-[1.05] text-charcoal font-light">
+                            Where natural <br>
+                            <span class="italic font-normal text-sage-600">geometry</span> <br>
+                            meets layout.
+                        </h1>
+                    </div>
+
+                    <p class="text-sage-700 font-light text-base md:text-lg leading-relaxed max-w-lg">
+                        Verdant Hexagonals is a meticulously structured Instagram grid layout designed to elevate your brand story into a museum-grade visual exhibition. Built with organic sage gradients, delicate hexagonal frame guides, and nostalgic typewriter typefaces.
+                    </p>
+
+                    <!-- Hand Drawn Script Highlight -->
+                    <div class="relative py-4 pr-10">
+                        <p class="signature-font text-5xl md:text-6xl text-sage-600 rotate-[-4deg] origin-left select-none">
+                            Morning Spirit & Daily Grace
+                        </p>
+                        <div class="absolute right-12 bottom-0 w-24 h-[1px] bg-sage-400"></div>
+                    </div>
+
+                    <!-- Hero Call to Actions -->
+                    <div class="flex flex-col sm:flex-row gap-4 pt-2">
+                        <a href="#puzzle-experience" class="flex items-center justify-center px-8 py-4 bg-sage-800 hover:bg-sage-600 text-white font-medium rounded-sm transition-all duration-300 text-sm tracking-wider uppercase group shadow-lg shadow-sage-900/10">
+                            Explore Puzzle Grid
+                            <i class="fa-solid fa-arrow-right ml-3 text-xs transition-transform group-hover:translate-x-1.5"></i>
+                        </a>
+                        <a href="#video-tour" class="flex items-center justify-center px-8 py-4 bg-white hover:bg-sage-50 border border-sage-200 text-sage-800 font-medium rounded-sm transition-all duration-300 text-sm tracking-wider uppercase">
+                            <i class="fa-solid fa-play mr-3 text-xs text-sage-500"></i>
+                            Live Walkthrough
+                        </a>
+                    </div>
+
+                    <!-- Client Trust Badges -->
+                    <div class="pt-8 border-t border-sage-200/80 space-y-3">
+                        <span class="text-xs uppercase tracking-widest text-sage-500 block">Trusted by Organic Brands and Visual Artists</span>
+                        <div class="flex flex-wrap items-center gap-x-8 gap-y-4 opacity-75 grayscale hover:grayscale-0 transition-all">
+                            <span class="font-serif italic font-semibold text-lg text-sage-800">Verdant Studio</span>
+                            <span class="font-sans font-light tracking-[0.2em] text-sm text-sage-800">SOLSTICE CO.</span>
+                            <span class="font-typewriter text-xs text-sage-800">Oatmeal & Co.</span>
+                            <span class="font-serif text-sm font-light text-sage-800">THE MINDFUL LAB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero visual composition reflecting the Inspiration image layout -->
+                <div class="lg:col-span-7 relative flex justify-center">
+                    
+                    <!-- Decorative Hex grid alignment overlay -->
+                    <div class="absolute inset-0 bg-hex-pattern scale-110 pointer-events-none opacity-85 z-0"></div>
+
+                    <!-- Composite visual stack -->
+                    <div class="relative w-full max-w-[550px] aspect-[4/5] bg-sage-200/45 rounded-2xl border border-sage-300/40 p-4 sm:p-8 flex flex-col justify-between overflow-hidden shadow-2xl shadow-sage-900/5 backdrop-blur-sm">
+                        
+                        <!-- Top Hexagonal Line Art Background overlay -->
+                        <div class="absolute inset-0 flex items-center justify-center opacity-30 pointer-events-none">
+                            <svg class="w-full h-full text-sage-600" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="0.3">
+                                <polygon points="50,15 80,32.5 80,67.5 50,85 20,67.5 20,32.5" />
+                                <polygon points="50,2 91,26 91,74 50,98 9,74 9,26" />
+                                <polygon points="50,28 69,39 69,61 50,72 31,61 31,39" />
+                                <line x1="50" y1="2" x2="50" y2="98" />
+                                <line x1="9" y1="26" x2="91" y2="74" />
+                                <line x1="9" y1="74" x2="91" y2="26" />
+                            </svg>
+                        </div>
+
+                        <!-- Top row elements mirroring inspiration -->
+                        <div class="relative z-10 flex justify-between items-start">
+                            
+                            <!-- Polaroid 1 - Plant and phone -->
+                            <div class="polaroid-card p-2.5 pb-8 rounded-sm w-[45%] rotate-[-4deg] transform origin-top-left">
+                                <div class="aspect-[4/5] bg-[#E1E5D7] relative overflow-hidden group">
+                                    <img src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&q=80&w=600" alt="Minimal desk" class="w-full h-full object-cover grayscale brightness-105 contrast-[0.95] group-hover:scale-110 transition duration-700">
+                                    <div class="absolute inset-0 bg-sage-500/10 mix-blend-multiply"></div>
+                                </div>
+                                <div class="mt-2 text-center text-[10px] font-handwritten text-sage-600 scale-110">Saturday Morning Vibes</div>
+                            </div>
+
+                            <!-- Styled text block -->
+                            <div class="w-[50%] pt-4 text-right pr-2">
+                                <h4 class="signature-font text-5xl text-sage-800 leading-none">Morning Spirit</h4>
+                                <p class="font-typewriter text-[11px] text-sage-600 mt-2">Every post, link and tag designed in perfect, calm sync.</p>
+                            </div>
+                        </div>
+
+                        <!-- Mid row elements mirroring the main inspiration card layout -->
+                        <div class="relative z-10 flex justify-center items-center my-4">
+                            
+                            <!-- Wide Landscape Polar Photo frame in the middle -->
+                            <div class="polaroid-card p-3 pb-6 rounded-sm w-[90%] rotate-[2deg] transform">
+                                <div class="aspect-[16/10] bg-[#ECEFE2] relative overflow-hidden group">
+                                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800" alt="Workspace setup" class="w-full h-full object-cover brightness-95 contrast-[1.05] group-hover:scale-105 transition duration-700">
+                                    <div class="absolute inset-0 bg-sage-600/10 mix-blend-multiply"></div>
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
+                                </div>
+                                <div class="mt-2 flex justify-between items-center text-[10px] font-typewriter text-sage-500 px-1">
+                                    <span>[ Frame No. 047 ]</span>
+                                    <span>the day after tomorrow</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Row elements -->
+                        <div class="relative z-10 flex justify-between items-end">
+                            <div class="w-[45%] text-left pl-2">
+                                <p class="font-typewriter text-[11px] text-sage-700">
+                                    five hundred twenty five
+                                </p>
+                                <span class="text-xs font-serif italic text-sage-500 block mt-1">understandings —</span>
+                            </div>
+
+                            <!-- Polaroid 2 - Coffee and laptop -->
+                            <div class="polaroid-card p-2.5 pb-8 rounded-sm w-[45%] rotate-[3deg] transform origin-bottom-right">
+                                <div class="aspect-[4/5] bg-[#E1E5D7] relative overflow-hidden group">
+                                    <img src="https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?auto=format&fit=crop&q=80&w=600" alt="Quiet morning with laptop" class="w-full h-full object-cover grayscale brightness-105 contrast-[0.95] group-hover:scale-110 transition duration-700">
+                                    <div class="absolute inset-0 bg-sage-500/10 mix-blend-multiply"></div>
+                                </div>
+                                <div class="mt-2 text-center text-[10px] font-handwritten text-sage-600 scale-110">creative process</div>
+                            </div>
+                        </div>
+
+                        <!-- Premium visual tag absolute element -->
+                        <div class="absolute bottom-4 right-1/2 translate-x-1/2 bg-white/90 backdrop-blur-sm border border-sage-200 text-sage-800 text-[10px] tracking-[0.25em] uppercase font-bold py-1.5 px-4 rounded-full shadow-lg">
+                            Live UI Preview
+                        </div>
+                    </div>
+
+                    <!-- Decorative background geometry lines -->
+                    <div class="absolute -bottom-10 -left-10 w-24 h-24 border border-sage-300/40 rounded-full flex items-center justify-center">
+                        <div class="w-16 h-16 border border-sage-300/30 rounded-full"></div>
+                    </div>
+                    <div class="absolute -top-6 -right-6 w-32 h-32 border border-sage-300/30 rounded-full flex items-center justify-center">
+                        <div class="w-20 h-20 border border-sage-300/20 rounded-full"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy & Mood Section -->
+    <section id="philosophy" class="py-24 bg-oatmeal-100 relative overflow-hidden border-y border-sage-200">
+        <div class="absolute inset-0 bg-hex-pattern opacity-40"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                
+                <!-- Graphic mood blocks inspired by the Instagram grid feel -->
+                <div class="lg:col-span-6 grid grid-cols-2 gap-4">
+                    
+                    <div class="space-y-4">
+                        <div class="bg-sage-500 text-oatmeal-100 p-8 rounded-sm aspect-square flex flex-col justify-between shadow-md">
+                            <span class="font-typewriter text-xs opacity-75">/ mood-01</span>
+                            <div>
+                                <h3 class="font-serif italic text-3xl leading-tight font-normal">Tranquil Sage</h3>
+                                <p class="text-xs opacity-80 mt-2 font-light">Grounding your brand in earthy tones that signify growth, breathing room, and organic clarity.</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-sm border border-sage-200 shadow-sm">
+                            <div class="w-10 h-10 rounded-full bg-[#E5EAD9] flex items-center justify-center text-sage-700 mb-4">
+                                <i class="fa-solid fa-shapes"></i>
+                            </div>
+                            <h4 class="font-serif text-lg font-bold text-charcoal">Sacred Geometry</h4>
+                            <p class="text-xs text-sage-600 mt-1 font-light leading-relaxed">Elegant hexagonal pathways that guide your audience’s eyes across posts continuously.</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 pt-8">
+                        <div class="bg-white p-6 rounded-sm border border-sage-200 shadow-sm">
+                            <div class="w-10 h-10 rounded-full bg-[#E5EAD9] flex items-center justify-center text-sage-700 mb-4">
+                                <i class="fa-solid fa-signature"></i>
+                            </div>
+                            <h4 class="font-serif text-lg font-bold text-charcoal">Written Word</h4>
+                            <p class="text-xs text-sage-600 mt-1 font-light leading-relaxed">Integrated editorial quotes, handwritten signatures, and organic text boxes that whisper premium detail.</p>
+                        </div>
+
+                        <div class="bg-sage-800 text-oatmeal-50 p-8 rounded-sm aspect-square flex flex-col justify-between shadow-md">
+                            <span class="font-typewriter text-xs opacity-75">/ mood-02</span>
+                            <div>
+                                <h3 class="font-serif italic text-3xl leading-tight font-normal">Golden Ratio</h3>
+                                <p class="text-xs opacity-80 mt-2 font-light">Asymmetrical visual weights designed for creative minds who value deep artistic integrity over busy trends.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Text presentation -->
+                <div class="lg:col-span-6 space-y-8">
+                    <div class="space-y-3">
+                        <span class="text-xs uppercase tracking-[0.25em] text-sage-500 font-bold block">Design Architecture</span>
+                        <h2 class="font-serif text-4xl md:text-5xl text-charcoal font-light leading-tight">
+                            Elevating the common grid into a <span class="italic text-sage-600 font-normal">masterpiece of continuity</span>.
+                        </h2>
+                    </div>
+
+                    <p class="text-sage-700 text-sm md:text-base leading-relaxed font-light">
+                        Most modern grids are a chaotic collection of random uploads. We conceptualize Instagram as a continuous puzzle canvas. This design system bridges individual posts so that when viewed as a whole, they form a unified, continuous work of art.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-6 pt-4">
+                        <div class="border-l-2 border-sage-400 pl-4">
+                            <span class="font-serif italic text-3xl text-sage-800 font-bold">12-Post</span>
+                            <p class="text-xs text-sage-500 mt-1 uppercase tracking-wider">Seamless Continuous Loop</p>
+                        </div>
+                        <div class="border-l-2 border-sage-400 pl-4">
+                            <span class="font-serif italic text-3xl text-sage-800 font-bold">100%</span>
+                            <p class="text-xs text-sage-500 mt-1 uppercase tracking-wider">Customizable in Canva & Figma</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-4">
+                        <a href="#puzzle-experience" class="inline-flex items-center text-xs tracking-widest uppercase font-semibold text-sage-800 hover:text-sage-600 group transition-all">
+                            <span>Interact with the Canvas Simulator</span>
+                            <i class="fa-solid fa-chevron-right ml-2 text-[10px] transition-transform group-hover:translate-x-1"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Puzzle Board Simulator (Core Experience) -->
+    <section id="puzzle-experience" class="py-24 bg-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            
+            <!-- Section Header -->
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+                <span class="text-xs uppercase tracking-[0.25em] text-sage-500 font-bold">Live Sandbox</span>
+                <h2 class="font-serif text-4xl md:text-5xl text-charcoal font-light">
+                    The Instagram Puzzle Simulator
+                </h2>
+                <p class="text-sage-600 font-light text-sm md:text-base">
+                    Preview your visual story before posting. Click on grid blocks below to edit content, cycle through placeholder images, toggle the continuous hexagonal background overlay, and watch the layout sync harmoniously.
+                </p>
+            </div>
+
+            <!-- Dashboard Controls -->
+            <div class="organic-glass p-4 rounded-lg mb-8 max-w-4xl mx-auto flex flex-wrap gap-4 items-center justify-between shadow-sm">
+                
+                <!-- Left controls -->
+                <div class="flex flex-wrap items-center gap-4">
+                    <span class="text-xs uppercase tracking-wider font-semibold text-sage-800">Layout Controls:</span>
+                    
+                    <!-- Toggle Hex Grid Overlay -->
+                    <button onclick="toggleHexLines()" class="px-4 py-2 bg-sage-800 text-white rounded-sm text-xs uppercase tracking-wider font-semibold hover:bg-sage-600 transition-all flex items-center">
+                        <i class="fa-solid fa-bezier-curve mr-2"></i>
+                        Toggle Hex Guide Lines
+                    </button>
+
+                    <!-- Toggle Color Mood -->
+                    <button onclick="cycleBackground()" class="px-4 py-2 border border-sage-300 text-sage-700 bg-white rounded-sm text-xs uppercase tracking-wider font-semibold hover:bg-sage-50 transition-all flex items-center">
+                        <i class="fa-solid fa-palette mr-2"></i>
+                        Theme: <span id="theme-label" class="ml-1 font-bold">Olive Sage</span>
+                    </button>
+                </div>
+
+                <!-- Right Status Tag -->
+                <div class="flex items-center space-x-2 text-xs text-sage-600">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span class="font-typewriter">Status: Grid Balanced</span>
+                </div>
+            </div>
+
+            <!-- The Grid Playground (3x5 Instagram Grid representing the Inspiration Image) -->
+            <div class="max-w-4xl mx-auto bg-sage-100/40 p-4 sm:p-8 rounded-xl border border-sage-200 shadow-inner relative">
+                
+                <!-- Simulated phone border elements -->
+                <div class="absolute -top-2 left-1/2 -translate-x-1/2 w-28 h-4 bg-sage-200 rounded-full opacity-60"></div>
+                
+                <!-- Instagram feed Grid (3 columns, representing blocks) -->
+                <!-- The hexagon visual paths are rendered inside utilizing CSS overlays and absolute elements -->
+                <div id="puzzle-grid" class="grid grid-cols-3 gap-2 sm:gap-4 relative bg-[#94A786] p-4 rounded-lg transition-colors duration-500 overflow-hidden">
+                    
+                    <!-- SVG Seamless Hexagon Vector Overlay across the whole feed -->
+                    <div id="hex-grid-overlay" class="absolute inset-0 z-10 pointer-events-none transition-opacity duration-300">
+                        <!-- Dynamic SVG drawing custom paths connecting grid nodes -->
+                        <svg class="w-full h-full text-white/30" viewBox="0 0 600 1000" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <!-- Left Hexagon -->
+                            <polygon points="100,100 250,180 250,340 100,420 -50,340 -50,180" />
+                            <!-- Mid Right Hexagon -->
+                            <polygon points="450,250 600,330 600,490 450,570 300,490 300,330" />
+                            <!-- Bottom Left Hexagon -->
+                            <polygon points="150,600 300,680 300,840 150,920 0,840 0,680" />
+                            <!-- Abstract connecting lines to simulate infinite puzzle space -->
+                            <line x1="250" y1="180" x2="450" y2="250" />
+                            <line x1="100" y1="420" x2="150" y2="600" />
+                            <line x1="300" y1="490" x2="300" y2="680" />
+                            <line x1="450" y1="570" x2="150" y2="920" />
+                        </svg>
+                    </div>
+
+                    <!-- Row 1, Col 1: Photo Polaroid Block -->
+                    <div class="relative bg-white/5 border border-white/15 aspect-square rounded-sm p-1.5 sm:p-3 flex flex-col justify-between overflow-hidden group cursor-pointer transition hover:bg-white/10" onclick="editTile(1)">
+                        <div class="absolute top-1 left-2 text-[8px] font-typewriter text-white/40">/ post-01</div>
+                        
+                        <!-- Internal Polaroid -->
+                        <div class="polaroid-card p-1 sm:p-1.5 pb-4 sm:pb-6 rounded-sm w-[90%] mx-auto mt-2 rotate-[-3deg] transform origin-top-left z-20">
+                            <div class="aspect-square bg-oatmeal-100 overflow-hidden">
+                                <img id="img-tile-1" src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&q=80&w=300" alt="Plant on desk" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                        <div class="signature-font text-xs sm:text-lg text-white/80 text-center mt-1 z-20">Morning Vibes</div>
+                    </div>
+
+                    <!-- Row 1, Col 2: Elegant Text / Script Block -->
+                    <div class="relative bg-white/5 border border-white/15 aspect-square rounded-sm p-2 flex flex-col justify-center items-center text-center overflow-hidden cursor-pointer hover:bg-white/10" onclick="editTile(2)">
+                        <div class="absolute top-1 left-2 text-[8px] font-typewriter text-white/40">/ post-02</div>
+                        <div class="space-y-1 z-20">
+                            <h4 id="script-tile-2" class="signature-font text-3xl sm:text-5xl text-white/90">Morning Spirit</h4>
+                            <p id="sub-tile-2" class="text-[8px] sm:text-[10px] font-typewriter text-white/70 max-w-[120px] mx-auto">Create beautiful stories continuously.</p>
+                        </div>
+                    </div>
+
+                    <!-- Row 1, Col 3: Elegant Photo Display -->
+                    <div class="relative bg-white/5 border border-white/15 aspect-square rounded-sm p-2 flex flex-col justify-between overflow-hidden cursor-pointer hover:bg-white/10" onclick="editTile(3)">
+                        <div class="absolute top-1 left-2 text-[8px] font-typewriter text-white/40">/ post-03</div>
+                        
+                        <!-- Small Mini Polaroid Frame -->
+                        <div class="polaroid-card p-1 pb-3 rounded-sm w-[75%] mx-auto mt-2 z-20">
+                            <div class="aspect-square bg-[#E5EAD9] overflow-hidden">
+                                <img id="img-tile-3" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=300" alt="Camera lens" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                        <div class="font-typewriter text-[8px] text-white/70 text-center mt-1 z-20">Frame #04</div>
+                    </div>
+
+                    <!-- Row 2, Col 1: Clean Editorial Script -->
+                    <div class="relative bg-white/5 border border-white/15 aspect-square rounded-sm p-2 flex flex-col justify-center items-center text-center overflow-hidden cursor-pointer hover:bg-white/10" onclick="editTile(4)">
+                        <div class="absolute top-1 left-2 text-[8px] font-typewriter text-white/40">/ post-04</div>
+                        <div class="z-20 space-y-2">
+                            <p id="text-tile-4" class="font-typewriter text-[9px] sm:text-xs text-white/95 uppercase tracking-widest">Saturday<br>Morning</p>
+                            <div class="w-6 h-[1px] bg-white/30 mx-auto"></div>
+                        </div>
+                    </div>
+
+                    <!-- Row 2, Col 2: Large Continuous Middle Landscape Image (Spans into other tiles conceptually) -->
+                    <div class="relative bg-white/5 border border-white/15 aspect-square rounded-sm p-2 flex flex-col justify-center overflow-hidden cursor-pointer hover:bg-white/10" onclick="editTile(5)">
+                        <div class="absolute top-1 left-2 text-[8px] font-typewriter text-white/40">/ post-05</div>
+                        
+                        <div class="polaroid-card p-1.5 pb-4 rounded-sm w-[95%] mx-auto z-20 rotate-[1deg]">
+                            <div class="aspect-[16/10] bg-oatmeal-100 overflow-hidden">
+                                <img id="img-tile-5" src="https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?auto=format&fit=crop&q=80&w=300" alt="Workspace" class="w-full h-full object-cover">
+                            </div>
+                            <div class="text-[7px] text-center text-sage-600 mt-1 font-typewriter">Quiet Workspace Study</div>
+                        </div>
+                    </div>
+
+                    <!-- Row 2, Col 3: Elegant Typewriter Poem Block -->
+                    <div class="relative bg-white/5 border border-white/15 aspect-square rounded-sm p-2 flex flex-col justify-center items-center text-center overflow-hidden cursor-pointer hover:bg-white/10" onclick="editTile(6)">
+                        <div class="absolute top-1 left-2 text-[8px] font-typewriter text-white/40">/ post-06</div>
+                        <div class="z-20 space-y-1">
+                            <p id="text-tile-6" class="font-typewriter text-[9px] sm:text-xs text-white/90">the day<br>after<br>tomorrow</p>
+                        </div>
+                    </div>
+
+                    <!-- Row 3, Col 1: Small Polaroid Frame Left -->
+                    <div class="relative bg-white/5 border border-white/15 aspect-square rounded-sm p-1.5 sm:p-3 flex flex-col justify-between overflow-hidden cursor-pointer hover:bg-white/10" onclick="editTile(7)">
+                        <div class="absolute top-1 left-2 text-[8px] font-typewriter text-white/40">/ post-07</div>
+                        
+                        <div class="polaroid-card p-1 pb-3 rounded-sm w-[80%] mx-auto mt-2 z-20 rotate-[-2deg]">
+                            <div class="aspect-[4/5] bg-oatmeal-100 overflow-hidden">
+                                <img id="img-tile-7" src="https://images.unsplash.com/photo-1531346878377-a5be20888e57?auto=format&fit=crop&q=80&w=300" alt="Notebook" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                        <span class="text-[7px] font-typewriter text-white/60 text-center z-20">Creative Notes</span>
+                    </div>
+
+                    <!-- Row 3, Col 2: Author Credit Block -->
+                    <div class="relative bg-white/5 border border-white/15 aspect-square rounded-sm p-2 flex flex-col justify-center items-center text-center overflow-hidden cursor-pointer hover:bg-white/10" onclick="editTile(8)">
+                        <div class="absolute top-1 left-2 text-[8px] font-typewriter text-white/40">/ post-08</div>
+                        <div class="z-20 space-y-1">
+                            <p id="text-tile-8" class="font-typewriter text-[8px] text-white/80 max-w-[100px] leading-tight">Every post, link, and tag impact to build your feed.</p>
+                            <p class="font-serif italic text-[10px] text-white/90 pt-1">Author Name</p>
+                        </div>
+                    </div>
+
+                    <!-- Row 3, Col 3: Beautiful Text Focus Box -->
+                    <div class="relative bg-white/5 border border-white/15 aspect-square rounded-sm p-2 flex flex-col justify-center items-center text-center overflow-hidden cursor-pointer hover:bg-white/10" onclick="editTile(9)">
+                        <div class="absolute top-1 left-2 text-[8px] font-typewriter text-white/40">/ post-09</div>
+                        <div class="z-20 space-y-1">
+                            <p id="text-tile-9" class="font-typewriter text-[11px] sm:text-sm text-white/90 font-bold">your daily<br>activities</p>
+                            <div class="w-4 h-[1px] bg-white/50 mx-auto mt-2"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Touch Alternative Guide Alert -->
+                <p class="text-center text-[11px] text-sage-500 font-typewriter mt-4">
+                    <i class="fa-solid fa-circle-info mr-1"></i> Tip: Tap any block in the canvas to live-edit text or rotate image themes.
+                </p>
+            </div>
+
+            <!-- Interactive Modal / Control Box for Editing Grid Items -->
+            <div id="tile-edit-modal" class="hidden fixed inset-0 bg-sage-950/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                <div class="bg-white rounded-lg border border-sage-200 p-6 w-full max-w-md shadow-xl relative">
+                    <button onclick="closeEditModal()" class="absolute top-4 right-4 text-sage-400 hover:text-sage-700">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+
+                    <h3 class="font-serif text-2xl text-charcoal mb-2">Edit Block Content</h3>
+                    <p class="text-xs text-sage-500 mb-6">Modify text, visual accents, or swap placeholder images live in this Instagram puzzle layout slot.</p>
+
+                    <!-- ID hidden tracker -->
+                    <input type="hidden" id="edit-tile-id">
+
+                    <div class="space-y-4">
+                        <!-- Text editing block (conditional) -->
+                        <div id="modal-text-field-group">
+                            <label class="block text-xs uppercase tracking-wider font-semibold text-sage-700 mb-1">Display Text</label>
+                            <textarea id="modal-tile-text" rows="2" class="w-full p-2.5 bg-oatmeal-50 border border-sage-200 rounded text-sm text-charcoal focus:ring-1 focus:ring-sage-500 focus:outline-none"></textarea>
+                        </div>
+
+                        <!-- Image Swap (conditional) -->
+                        <div id="modal-image-field-group">
+                            <label class="block text-xs uppercase tracking-wider font-semibold text-sage-700 mb-1">Placeholder Image Theme</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <button onclick="setPlaceholderImage('desk')" class="p-1 border border-sage-200 rounded hover:border-sage-500 bg-oatmeal-50">
+                                    <img src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&q=80&w=120" class="h-10 w-full object-cover rounded-sm">
+                                    <span class="text-[9px] text-sage-600 block mt-1">Minimalist</span>
+                                </button>
+                                <button onclick="setPlaceholderImage('nature')" class="p-1 border border-sage-200 rounded hover:border-sage-500 bg-oatmeal-50">
+                                    <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&q=80&w=120" class="h-10 w-full object-cover rounded-sm">
+                                    <span class="text-[9px] text-sage-600 block mt-1">Verdant</span>
+                                </button>
+                                <button onclick="setPlaceholderImage('coffee')" class="p-1 border border-sage-200 rounded hover:border-sage-500 bg-oatmeal-50">
+                                    <img src="https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?auto=format&fit=crop&q=80&w=120" class="h-10 w-full object-cover rounded-sm">
+                                    <span class="text-[9px] text-sage-600 block mt-1">Quiet Cafe</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-sage-100 flex justify-end space-x-2">
+                        <button onclick="closeEditModal()" class="px-4 py-2 text-xs uppercase tracking-wider font-semibold text-sage-500 hover:text-sage-800">
+                            Cancel
+                        </button>
+                        <button onclick="applyTileChanges()" class="px-5 py-2 bg-sage-800 hover:bg-sage-600 text-white text-xs uppercase tracking-wider font-semibold rounded-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Visual Archetypes / Design Assets Section -->
+    <section id="features" class="py-24 bg-[#E7EBE0] relative overflow-hidden border-t border-sage-200">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                
+                <!-- Left Details -->
+                <div class="lg:col-span-5 space-y-8">
+                    <div class="space-y-3">
+                        <span class="text-xs uppercase tracking-[0.25em] text-sage-500 font-bold block">Tailored Components</span>
+                        <h2 class="font-serif text-4xl md:text-5xl text-charcoal font-light leading-tight">
+                            Crafted for quiet, mindful <span class="italic text-sage-600">brand presence</span>.
+                        </h2>
+                    </div>
+
+                    <p class="text-sage-700 text-sm md:text-base leading-relaxed font-light">
+                        Every single block is pre-balanced. You don't have to think about visual weight; our algorithmic framework determines which block hosts visual depth, which card gets dynamic script text, and where layout guides belong.
+                    </p>
+
+                    <!-- Feature Bullet Points with Premium Icons -->
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-white flex items-center justify-center text-sage-700 shrink-0 text-xs shadow-sm">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-serif text-base font-semibold text-charcoal">Pre-Compiled Aesthetic Harmony</h4>
+                                <p class="text-xs text-sage-600 mt-0.5 font-light">The color coordinates are extracted straight from natural lichen, sagebrush, and parchment paper.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-white flex items-center justify-center text-sage-700 shrink-0 text-xs shadow-sm">
+                                <i class="fa-solid fa-crop-simple"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-serif text-base font-semibold text-charcoal">Lossless Grid Exporting</h4>
+                                <p class="text-xs text-sage-600 mt-0.5 font-light">Includes sliced files mapped out for quick, pixel-perfect uploading on Instagram.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-white flex items-center justify-center text-sage-700 shrink-0 text-xs shadow-sm">
+                                <i class="fa-solid fa-font"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-serif text-base font-semibold text-charcoal">Integrated Web Fonts Included</h4>
+                                <p class="text-xs text-sage-600 mt-0.5 font-light">Features editorial standard, beautifully licensed typefaces optimized for mobile displays.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Interactive Visual Cards Accordion/Grid -->
+                <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    
+                    <!-- Card 1: Polaroid Frame Showcase -->
+                    <div class="bg-white p-6 rounded-lg border border-sage-300/40 shadow-sm flex flex-col justify-between space-y-4 group hover:shadow-md transition duration-300">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] font-typewriter text-sage-400">Asset type: Frame</span>
+                            <span class="px-2 py-0.5 bg-sage-100 text-sage-700 text-[9px] uppercase tracking-wider font-semibold rounded">Polaroid Style</span>
+                        </div>
+                        
+                        <div class="polaroid-card p-2 pb-6 rounded-sm w-[80%] mx-auto shadow-sm">
+                            <div class="aspect-[4/3] bg-sage-50 overflow-hidden relative">
+                                <div class="absolute inset-0 bg-hex-pattern opacity-30"></div>
+                                <div class="w-full h-full flex items-center justify-center text-sage-300">
+                                    <i class="fa-regular fa-image text-2xl"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-serif text-lg font-bold text-charcoal">The Tactile Frame</h4>
+                            <p class="text-xs text-sage-600 font-light mt-1">Imbues a nostalgic, tangible Polaroid look with customizable drop-shadow offsets.</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Typographic Accents Showcase -->
+                    <div class="bg-white p-6 rounded-lg border border-sage-300/40 shadow-sm flex flex-col justify-between space-y-4 group hover:shadow-md transition duration-300">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] font-typewriter text-sage-400">Asset type: Lettering</span>
+                            <span class="px-2 py-0.5 bg-sage-100 text-sage-700 text-[9px] uppercase tracking-wider font-semibold rounded font-typewriter">Typewriter</span>
+                        </div>
+                        
+                        <div class="py-6 text-center space-y-2">
+                            <p class="font-handwritten text-4xl text-sage-700">Saturday Morning</p>
+                            <p class="font-typewriter text-xs text-sage-400">one hundred sixty seven</p>
+                        </div>
+
+                        <div>
+                            <h4 class="font-serif text-lg font-bold text-charcoal">Editorial Accent Blocks</h4>
+                            <p class="text-xs text-sage-600 font-light mt-1">Pre-styled signature handwriting combined with monospaced text blocks for deep contrast.</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Hexagonal Overlays Showcase -->
+                    <div class="bg-white p-6 rounded-lg border border-sage-300/40 shadow-sm flex flex-col justify-between space-y-4 group hover:shadow-md transition duration-300">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] font-typewriter text-sage-400">Asset type: Vector Path</span>
+                            <span class="px-2 py-0.5 bg-sage-100 text-sage-700 text-[9px] uppercase tracking-wider font-semibold rounded">Infinite Loop</span>
+                        </div>
+                        
+                        <div class="py-4 flex justify-center items-center">
+                            <svg class="w-16 h-16 text-sage-400" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <polygon points="50,10 90,32.5 90,77.5 50,100 10,77.5 10,32.5" />
+                                <polygon points="50,25 75,39 75,69 50,83 25,69 25,39" />
+                            </svg>
+                        </div>
+
+                        <div>
+                            <h4 class="font-serif text-lg font-bold text-charcoal">Geometric Grid Lines</h4>
+                            <p class="text-xs text-sage-600 font-light mt-1">Interlocking hexagons that bridge different social media posts into a cohesive whole.</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Organic Color Palettes Showcase -->
+                    <div class="bg-white p-6 rounded-lg border border-sage-300/40 shadow-sm flex flex-col justify-between space-y-4 group hover:shadow-md transition duration-300">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] font-typewriter text-sage-400">Asset type: Palette</span>
+                            <span class="px-2 py-0.5 bg-sage-100 text-sage-700 text-[9px] uppercase tracking-wider font-semibold rounded">Lichen Earth</span>
+                        </div>
+                        
+                        <div class="flex justify-center items-center space-x-2 py-6">
+                            <div class="w-7 h-7 rounded-full bg-sage-800 ring-2 ring-white shadow-sm"></div>
+                            <div class="w-7 h-7 rounded-full bg-sage-500 ring-2 ring-white shadow-sm"></div>
+                            <div class="w-7 h-7 rounded-full bg-sage-300 ring-2 ring-white shadow-sm"></div>
+                            <div class="w-7 h-7 rounded-full bg-[#E5EAD9] ring-2 ring-white shadow-sm"></div>
+                            <div class="w-7 h-7 rounded-full bg-[#FAFBF8] ring-2 ring-white shadow-sm"></div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-serif text-lg font-bold text-charcoal">Organic Color System</h4>
+                            <p class="text-xs text-sage-600 font-light mt-1">A highly cohesive color harmony that builds calm, premium trust instantly with visual buyers.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Interactive Organic Color Palette Generator Sandbox (Premium Detail) -->
+    <section id="designer" class="py-24 bg-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            
+            <div class="max-w-3xl mx-auto text-center mb-16 space-y-4">
+                <span class="text-xs uppercase tracking-[0.25em] text-sage-500 font-bold">Aesthetic Design Playground</span>
+                <h2 class="font-serif text-4xl md:text-5xl text-charcoal font-light">
+                    The Moodboard Palette Builder
+                </h2>
+                <p class="text-sage-600 font-light text-sm md:text-base">
+                    Adjust the slider below to shift the lighting mood of your design theme. Instantly watch the color system re-balance across warm morning, misty afternoon, and rich dusk parameters.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center max-w-5xl mx-auto">
+                
+                <!-- Live Preview Canvas -->
+                <div class="lg:col-span-6 space-y-6">
+                    <div id="palette-mock-card" class="p-8 rounded-xl border border-sage-200 transition-colors duration-500 shadow-lg bg-[#F3F5EE] flex flex-col justify-between aspect-[4/3] relative overflow-hidden">
+                        
+                        <!-- Mini Hex backdrop -->
+                        <div class="absolute inset-0 bg-hex-pattern opacity-15 pointer-events-none"></div>
+
+                        <div class="flex justify-between items-start z-10">
+                            <div>
+                                <span id="palette-theme-tag" class="text-[9px] uppercase tracking-widest font-mono bg-sage-800 text-white px-2 py-0.5 rounded">Active Theme: Sage Forest</span>
+                                <h3 id="palette-display-title" class="font-serif text-3xl font-light text-charcoal mt-2">The Quiet Landscape</h3>
+                            </div>
+                            <span class="font-handwritten text-4xl text-sage-700/80 rotate-[-8deg] block">pure spirit</span>
+                        </div>
+
+                        <div class="z-10 space-y-2">
+                            <p class="text-xs text-sage-700 font-light leading-relaxed max-w-sm">
+                                "In all things of nature there is something of the marvelous." — An understated collection designed to elevate simple truths.
+                            </p>
+                            <div class="w-12 h-[1px] bg-sage-400"></div>
+                        </div>
+
+                        <!-- Mini Palette swatches representation -->
+                        <div class="flex items-center space-x-3 z-10">
+                            <span class="text-[10px] font-typewriter text-sage-500">Palette:</span>
+                            <div class="flex -space-x-1">
+                                <div id="swatch-1" class="w-5 h-5 rounded-full border border-white bg-sage-800"></div>
+                                <div id="swatch-2" class="w-5 h-5 rounded-full border border-white bg-sage-500"></div>
+                                <div id="swatch-3" class="w-5 h-5 rounded-full border border-white bg-sage-300"></div>
+                                <div id="swatch-4" class="w-5 h-5 rounded-full border border-white bg-sage-100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom Slider Controls -->
+                <div class="lg:col-span-6 space-y-8 bg-sage-100/40 p-6 sm:p-8 rounded-xl border border-sage-200">
+                    <div class="space-y-2">
+                        <label class="block text-xs uppercase tracking-wider font-semibold text-sage-800">Select Lighting Mood Preset:</label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <button onclick="setPaletteTheme('sage-forest')" class="px-3 py-2 bg-white hover:bg-sage-100 rounded text-xs font-semibold text-sage-800 border border-sage-200 transition">Sage Forest</button>
+                            <button onclick="setPaletteTheme('misty-morning')" class="px-3 py-2 bg-white hover:bg-sage-100 rounded text-xs font-semibold text-sage-800 border border-sage-200 transition">Misty Morning</button>
+                            <button onclick="setPaletteTheme('desert-oat')" class="px-3 py-2 bg-white hover:bg-sage-100 rounded text-xs font-semibold text-sage-800 border border-sage-200 transition">Desert Oat</button>
+                        </div>
+                    </div>
+
+                    <!-- Slider Input -->
+                    <div class="space-y-4">
+                        <div class="flex justify-between text-xs font-semibold text-sage-700">
+                            <span>Cool Lichen (0%)</span>
+                            <span>Warm Earth (100%)</span>
+                        </div>
+                        <input type="range" id="palette-slider" min="0" max="100" value="50" oninput="handlePaletteSlider(this.value)" class="w-full accent-sage-700 h-2 bg-sage-200 rounded-lg cursor-pointer">
+                        <div class="text-center">
+                            <span class="text-[10px] font-typewriter text-sage-500">Active Fine Tuning Balance: <span id="slider-val">50%</span></span>
+                        </div>
+                    </div>
+
+                    <!-- Hex value readout -->
+                    <div class="bg-white p-4 rounded border border-sage-200 space-y-2">
+                        <span class="text-[10px] uppercase tracking-wider text-sage-400 block font-bold">Palette Color Codes</span>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 font-mono text-[10px] text-sage-700">
+                            <div class="flex items-center space-x-1.5 bg-oatmeal-50 p-1.5 rounded">
+                                <div id="hex-box-1" class="w-3 h-3 rounded-full bg-sage-800"></div>
+                                <span id="hex-text-1">#2D3328</span>
+                            </div>
+                            <div class="flex items-center space-x-1.5 bg-oatmeal-50 p-1.5 rounded">
+                                <div id="hex-box-2" class="w-3 h-3 rounded-full bg-sage-500"></div>
+                                <span id="hex-text-2">#798C6B</span>
+                            </div>
+                            <div class="flex items-center space-x-1.5 bg-oatmeal-50 p-1.5 rounded">
+                                <div id="hex-box-3" class="w-3 h-3 rounded-full bg-sage-300"></div>
+                                <span id="hex-text-3">#B5C4AA</span>
+                            </div>
+                            <div class="flex items-center space-x-1.5 bg-oatmeal-50 p-1.5 rounded">
+                                <div id="hex-box-4" class="w-3 h-3 rounded-full bg-[#F3F5EE]"></div>
+                                <span id="hex-text-4">#F3F5EE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Showcase Walkthrough Section -->
+    <section id="video-tour" class="py-24 bg-oatmeal-100 relative overflow-hidden border-t border-sage-200">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                
+                <!-- Left Video Preview Block -->
+                <div class="lg:col-span-7">
+                    <div class="aspect-video bg-[#E5EAD9] rounded-xl border border-sage-300/60 p-4 relative overflow-hidden shadow-xl flex items-center justify-center group">
+                        <!-- Simulated video scene overlay -->
+                        <div class="absolute inset-0 bg-gradient-to-tr from-sage-800/20 to-transparent"></div>
+                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=1200" alt="Video cover" class="absolute inset-0 w-full h-full object-cover grayscale brightness-95 opacity-80 mix-blend-multiply group-hover:scale-105 transition duration-700">
+                        
+                        <!-- Overlay Hex Art -->
+                        <div class="absolute inset-0 bg-hex-pattern opacity-25"></div>
+
+                        <!-- Central Play Button -->
+                        <button onclick="playWalkthroughVideo()" class="relative z-10 w-16 h-16 rounded-full bg-white text-sage-800 flex items-center justify-center shadow-lg hover:scale-115 transition-transform duration-300">
+                            <i class="fa-solid fa-play text-lg ml-1 text-sage-700"></i>
+                        </button>
+
+                        <div class="absolute bottom-4 left-4 bg-white/90 px-3 py-1 text-[10px] uppercase tracking-widest font-semibold text-sage-800 rounded">
+                            Interactive Guide • 1:45
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Video description -->
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="text-xs uppercase tracking-[0.25em] text-sage-500 font-bold">Behind the Canvas</span>
+                    <h2 class="font-serif text-4xl text-charcoal font-light leading-tight">
+                        How to slice, edit, and schedule your puzzle feed.
+                    </h2>
+                    <p class="text-sage-700 text-sm md:text-base leading-relaxed font-light">
+                        Discover the seamless workflow built for busy creative entrepreneurs. In this short walkthrough, we demonstrate how to import the Verdant Hexagonals system into Canva, customize the text strings, drop in your custom imagery, and export all sliced assets in just under two minutes.
+                    </p>
+
+                    <div class="pt-2">
+                        <ul class="space-y-2 text-xs text-sage-600 font-typewriter">
+                            <li class="flex items-center">
+                                <span class="w-1.5 h-1.5 rounded-full bg-sage-500 mr-2"></span> No graphic design degree required
+                            </li>
+                            <li class="flex items-center">
+                                <span class="w-1.5 h-1.5 rounded-full bg-sage-500 mr-2"></span> Fully editable layer hierarchies
+                            </li>
+                            <li class="flex items-center">
+                                <span class="w-1.5 h-1.5 rounded-full bg-sage-500 mr-2"></span> Scalable vectors for infinite grids
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials / Verified Curators -->
+    <section class="py-24 bg-white relative overflow-hidden border-t border-sage-200">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+                <span class="text-xs uppercase tracking-[0.25em] text-sage-500 font-bold">Client Reflections</span>
+                <h2 class="font-serif text-4xl text-charcoal font-light">
+                    Loved by Mindful Brands
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Review 1 -->
+                <div class="bg-oatmeal-100 p-8 rounded-lg border border-sage-200 flex flex-col justify-between space-y-6">
+                    <div class="space-y-4">
+                        <div class="flex text-amber-500/80 text-xs gap-1">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="font-serif italic text-sage-800 text-lg">
+                            "Before finding Verdant Hexagonals, our Instagram looked completely disjointed. Now, our grid feels like an intentional art exhibition. The feedback has been amazing."
+                        </p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm text-charcoal">Evelyn Harlow</h4>
+                        <p class="text-xs text-sage-500">Founder, Solstice Botanical Studio</p>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="bg-oatmeal-100 p-8 rounded-lg border border-sage-200 flex flex-col justify-between space-y-6">
+                    <div class="space-y-4">
+                        <div class="flex text-amber-500/80 text-xs gap-1">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="font-serif italic text-sage-800 text-lg">
+                            "The sheer detail in the styling made this templates pack worth every penny. The typewriter aesthetic is absolutely gorgeous on mobile screens."
+                        </p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm text-charcoal">Kaito Sato</h4>
+                        <p class="text-xs text-sage-500">Lead Designer, Minimalist Lab</p>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="bg-oatmeal-100 p-8 rounded-lg border border-sage-200 flex flex-col justify-between space-y-6">
+                    <div class="space-y-4">
+                        <div class="flex text-amber-500/80 text-xs gap-1">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="font-serif italic text-sage-800 text-lg">
+                            "The organic hexagonal overlapping paths are pure genius. Our daily activities posts flow seamlessly into one another, completely removing design guesswork."
+                        </p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm text-charcoal">Clara Vance</h4>
+                        <p class="text-xs text-sage-500">Creative Curator, Oatmeal & Co.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Pricing / Getting Started Section -->
+    <section id="pricing" class="py-24 bg-sage-100/50 relative overflow-hidden border-t border-sage-200">
+        <div class="absolute inset-0 bg-hex-pattern opacity-30"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+                <span class="text-xs uppercase tracking-[0.25em] text-sage-500 font-bold">Acquisition</span>
+                <h2 class="font-serif text-4xl md:text-5xl text-charcoal font-light">
+                    Elevate Your Brand Feed
+                </h2>
+                <p class="text-sage-600 font-light text-sm md:text-base">
+                    Unlock immediate access to our fully compiled Canva and Figma template directories. Pick the pathway that aligns with your creative trajectory.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                
+                <!-- Package 1: Essentials -->
+                <div class="bg-white p-8 rounded-xl border border-sage-200 flex flex-col justify-between space-y-8 hover:shadow-lg transition">
+                    <div class="space-y-6">
+                        <div>
+                            <span class="text-xs uppercase tracking-widest text-sage-500 font-semibold block">Personal License</span>
+                            <h3 class="font-serif text-3xl font-light text-charcoal mt-1">Creator Pack</h3>
+                        </div>
+
+                        <div class="space-y-2">
+                            <span class="text-4xl font-serif text-sage-800 font-semibold">$29</span>
+                            <span class="text-xs text-sage-500 block">Single user license, lifetime access</span>
+                        </div>
+
+                        <div class="w-full h-[1px] bg-sage-200"></div>
+
+                        <!-- Core bullet checks -->
+                        <ul class="space-y-3 text-xs text-sage-700 font-light">
+                            <li class="flex items-center">
+                                <i class="fa-solid fa-check text-sage-500 mr-2.5"></i>
+                                12 Post Seamless Loop Canva Directory
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa-solid fa-check text-sage-500 mr-2.5"></i>
+                                5 Pre-balanced Organic Color Palettes
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa-solid fa-check text-sage-500 mr-2.5"></i>
+                                Hand-drawn Signature Overlay Vectors
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa-solid fa-check text-sage-500 mr-2.5"></i>
+                                Mobile Slicing & Organizing Guide PDF
+                            </li>
+                        </ul>
+                    </div>
+
+                    <button onclick="simulateCheckout('Creator Pack')" class="w-full py-3 border border-sage-400 text-sage-800 font-semibold rounded hover:bg-sage-800 hover:text-white transition uppercase text-xs tracking-wider">
+                        Purchase Creator Pack
+                    </button>
+                </div>
+
+                <!-- Package 2: Studio Standard -->
+                <div class="bg-sage-800 text-white p-8 rounded-xl border border-sage-900 flex flex-col justify-between space-y-8 relative overflow-hidden shadow-xl shadow-sage-900/10">
+                    <!-- Absolute Accent Tag -->
+                    <div class="absolute top-4 right-4 bg-oatmeal-100 text-sage-800 text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded">
+                        Most Loved
+                    </div>
+
+                    <div class="space-y-6">
+                        <div>
+                            <span class="text-xs uppercase tracking-widest text-sage-300 font-semibold block">Unlimited Projects</span>
+                            <h3 class="font-serif text-3xl font-light text-oatmeal-100 mt-1">Studio Suite</h3>
+                        </div>
+
+                        <div class="space-y-2">
+                            <span class="text-4xl font-serif text-oatmeal-100 font-semibold">$59</span>
+                            <span class="text-xs text-sage-300 block">Commercial use license, team access</span>
+                        </div>
+
+                        <div class="w-full h-[1px] bg-sage-700"></div>
+
+                        <!-- Studio suite bullet checks -->
+                        <ul class="space-y-3 text-xs text-sage-200 font-light">
+                            <li class="flex items-center">
+                                <i class="fa-solid fa-check text-oatmeal-200 mr-2.5"></i>
+                                Complete Figma & Canva Native Layout Files
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa-solid fa-check text-oatmeal-200 mr-2.5"></i>
+                                36 Interlocking Post Variations (3 Full Grids)
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa-solid fa-check text-oatmeal-200 mr-2.5"></i>
+                                Adobe Photoshop Sliced Files Included
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa-solid fa-check text-oatmeal-200 mr-2.5"></i>
+                                Premium Support and Future Theme Updates
+                            </li>
+                        </ul>
+                    </div>
+
+                    <button onclick="simulateCheckout('Studio Suite')" class="w-full py-3 bg-white text-sage-800 font-bold rounded hover:bg-oatmeal-200 transition uppercase text-xs tracking-wider shadow-md">
+                        Acquire Studio Suite
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Custom Checkout/Notification Dialog (replaces standard alerts) -->
+    <div id="ui-alert-modal" class="hidden fixed bottom-6 right-6 z-50 bg-white border-l-4 border-sage-500 text-charcoal px-6 py-4 rounded-r-lg shadow-xl flex items-center justify-between space-x-4 max-w-md">
+        <div class="flex items-center">
+            <i class="fa-solid fa-leaf text-sage-600 text-lg mr-3 animate-bounce"></i>
+            <div>
+                <h4 class="font-bold text-xs uppercase tracking-wider text-sage-800">System Notification</h4>
+                <p id="ui-alert-message" class="text-xs text-sage-600 mt-1 font-light"></p>
+            </div>
+        </div>
+        <button onclick="dismissAlert()" class="text-sage-400 hover:text-sage-700">
+            <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+    </div>
+
+    <!-- Editorial Newsletter / Footnote -->
+    <section class="py-24 bg-oatmeal-100 relative overflow-hidden border-t border-sage-200">
+        <div class="max-w-4xl mx-auto px-6 relative z-10 text-center space-y-8">
+            <span class="text-xs uppercase tracking-[0.25em] text-sage-500 font-bold block">Digital Dispatch</span>
+            <h2 class="font-serif text-4xl text-charcoal font-light leading-tight">
+                Get our weekly curation of <br><span class="italic text-sage-600 font-normal">visual inspiration</span>.
+            </h2>
+            <p class="text-sage-600 font-light text-sm max-w-md mx-auto leading-relaxed">
+                Join our collective of 12,000+ visual artists, design curators, and organic brand founders. No spam. Just pure design.
+            </p>
+
+            <form onsubmit="handleNewsletterSubmit(event)" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                <input type="email" required placeholder="your.editorial.email@domain.com" class="flex-grow p-3.5 bg-white border border-sage-300 rounded text-xs focus:ring-1 focus:ring-sage-500 focus:outline-none text-charcoal">
+                <button type="submit" class="px-6 py-3.5 bg-sage-800 hover:bg-sage-600 text-white text-xs tracking-wider uppercase font-semibold rounded-sm transition">
+                    Subscribe
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-sage-900 text-oatmeal-100 py-16 border-t border-sage-850">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                
+                <!-- Col 1: Identity -->
+                <div class="space-y-4">
+                    <span class="font-serif italic text-2xl tracking-wide text-oatmeal-100 block">
+                        Verdant Hexagonals
+                    </span>
+                    <p class="text-[11px] text-sage-300 leading-relaxed font-light">
+                        Premium Instagram Puzzle layouts engineered for creative studios, botanical brands, organic curators, and mindful storytellers.
+                    </p>
+                    <p class="text-[10px] font-typewriter text-sage-400">
+                        Designed with organic geometry.
+                    </p>
+                </div>
+
+                <!-- Col 2: Navigation -->
+                <div class="space-y-3">
+                    <h5 class="text-xs uppercase tracking-wider font-semibold text-oatmeal-200">The Framework</h5>
+                    <ul class="space-y-2 text-xs text-sage-300 font-light">
+                        <li><a href="#philosophy" class="hover:text-white transition">Design Philosophy</a></li>
+                        <li><a href="#puzzle-experience" class="hover:text-white transition">Interactive Sandbox</a></li>
+                        <li><a href="#features" class="hover:text-white transition">Visual Artifacts</a></li>
+                        <li><a href="#designer" class="hover:text-white transition">Palette Builder</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Resources -->
+                <div class="space-y-3">
+                    <h5 class="text-xs uppercase tracking-wider font-semibold text-oatmeal-200">Resources</h5>
+                    <ul class="space-y-2 text-xs text-sage-300 font-light">
+                        <li><a href="#" class="hover:text-white transition">Slicing Guide PDF</a></li>
+                        <li><a href="#" class="hover:text-white transition">Canva Import Instructions</a></li>
+                        <li><a href="#" class="hover:text-white transition">Figma Component Library</a></li>
+                        <li><a href="#" class="hover:text-white transition">Commercial Licensing</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Contact & Socials -->
+                <div class="space-y-4">
+                    <h5 class="text-xs uppercase tracking-wider font-semibold text-oatmeal-200">Curations & Echoes</h5>
+                    <div class="flex space-x-4 text-sm text-sage-300">
+                        <a href="#" class="hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="hover:text-white transition"><i class="fa-brands fa-pinterest"></i></a>
+                        <a href="#" class="hover:text-white transition"><i class="fa-brands fa-behance"></i></a>
+                        <a href="#" class="hover:text-white transition"><i class="fa-brands fa-vimeo-v"></i></a>
+                    </div>
+                    <p class="text-[10px] text-sage-400 font-typewriter">
+                        editorial@verdanthexa.co
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Bottom Footnote -->
+            <div class="border-t border-sage-800 pt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] text-sage-400">
+                <p>&copy; 2026 Verdant Hexagonals. All natural rights curated.</p>
+                <div class="flex space-x-6 mt-4 sm:mt-0 font-light">
+                    <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition">Terms of Service</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+
+    <!-- Interactive Playground Application Code -->
+    <script>
+        // Core state management for interactive sandbox
+        let currentThemeIndex = 0;
+        const themes = [
+            { name: "Olive Sage", class: "bg-[#94A786]" },
+            { name: "Sandalwood Oatmeal", class: "bg-[#C4B7A6]" },
+            { name: "Tranquil Forest", class: "bg-[#5D6B54]" },
+            { name: "Charcoal Slate", class: "bg-[#2D3328]" }
+        ];
+
+        // 1. Toggle continuous guide lines
+        function toggleHexLines() {
+            const overlay = document.getElementById('hex-grid-overlay');
+            if (overlay.classList.contains('opacity-0')) {
+                overlay.classList.remove('opacity-0');
+                showAlert("Seamless hexagonal visual guides enabled.");
+            } else {
+                overlay.classList.add('opacity-0');
+                showAlert("Seamless visual guides minimized for output preview.");
+            }
+        }
+
+        // 2. Cycle simulated phone background
+        function cycleBackground() {
+            const grid = document.getElementById('puzzle-grid');
+            const label = document.getElementById('theme-label');
+            
+            // Remove previous theme class
+            grid.classList.remove(themes[currentThemeIndex].class);
+            
+            // Increment
+            currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+            
+            // Apply new theme class
+            grid.classList.add(themes[currentThemeIndex].class);
+            label.innerText = themes[currentThemeIndex].name;
+            
+            showAlert(`Grid theme transformed to ${themes[currentThemeIndex].name}.`);
+        }
+
+        // 3. Edit individual puzzle tile content (Text or image focus)
+        function editTile(id) {
+            const modal = document.getElementById('tile-edit-modal');
+            const textFieldGroup = document.getElementById('modal-text-field-group');
+            const imageFieldGroup = document.getElementById('modal-image-field-group');
+            const hiddenIdInput = document.getElementById('edit-tile-id');
+            const textInput = document.getElementById('modal-tile-text');
+
+            hiddenIdInput.value = id;
+            modal.classList.remove('hidden');
+
+            // Configure modal options based on which tile is selected
+            if ([1, 3, 5, 7].includes(id)) {
+                // Photo Tiles
+                imageFieldGroup.classList.remove('hidden');
+                textFieldGroup.classList.add('hidden');
+            } else {
+                // Text/Script Tiles
+                imageFieldGroup.classList.add('hidden');
+                textFieldGroup.classList.remove('hidden');
+
+                // Pre-fill corresponding text
+                let textSrc = "";
+                if (id === 2) textSrc = document.getElementById('script-tile-2').innerText;
+                if (id === 4) textSrc = document.getElementById('text-tile-4').innerText;
+                if (id === 6) textSrc = document.getElementById('text-tile-6').innerText;
+                if (id === 8) textSrc = document.getElementById('text-tile-8').innerText;
+                if (id === 9) textSrc = document.getElementById('text-tile-9').innerText;
+
+                textInput.value = textSrc;
+            }
+        }
+
+        function closeEditModal() {
+            document.getElementById('tile-edit-modal').classList.add('hidden');
+        }
+
+        function applyTileChanges() {
+            const id = parseInt(document.getElementById('edit-tile-id').value);
+            const textValue = document.getElementById('modal-tile-text').value;
+
+            if ([2, 4, 6, 8, 9].includes(id)) {
+                // Apply updated text strings directly to DOM sandbox
+                if (id === 2) document.getElementById('script-tile-2').innerText = textValue;
+                if (id === 4) document.getElementById('text-tile-4').innerHTML = textValue.replace(/\n/g, '<br>');
+                if (id === 6) document.getElementById('text-tile-6').innerHTML = textValue.replace(/\n/g, '<br>');
+                if (id === 8) document.getElementById('text-tile-8').innerText = textValue;
+                if (id === 9) document.getElementById('text-tile-9').innerHTML = textValue.replace(/\n/g, '<br>');
+            }
+
+            closeEditModal();
+            showAlert(`Grid Node #${id} successfully updated.`);
+        }
+
+        // Swaps placeholder images in the active polaroid selection
+        function setPlaceholderImage(type) {
+            const id = parseInt(document.getElementById('edit-tile-id').value);
+            let url = "";
+
+            if (type === 'desk') url = "https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&q=80&w=300";
+            if (type === 'nature') url = "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&q=80&w=300";
+            if (type === 'coffee') url = "https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?auto=format&fit=crop&q=80&w=300";
+
+            const targetImg = document.getElementById(`img-tile-${id}`);
+            if (targetImg) {
+                targetImg.src = url;
+            }
+
+            closeEditModal();
+            showAlert(`Image swapped inside Frame #${id}.`);
+        }
+
+        // 4. Interactive Moodboard Palette Builder
+        const palettePresets = {
+            'sage-forest': {
+                name: 'Sage Forest',
+                colors: ['#2D3328', '#798C6B', '#B5C4AA', '#F3F5EE'],
+                bg: '#F3F5EE',
+                title: 'The Quiet Landscape'
+            },
+            'misty-morning': {
+                name: 'Misty Morning',
+                colors: ['#3A4454', '#53687E', '#C2D1D9', '#EBF1F5'],
+                bg: '#EBF1F5',
+                title: 'Morning Condensation'
+            },
+            'desert-oat': {
+                name: 'Desert Oat',
+                colors: ['#594F3B', '#A69B80', '#D9D2C9', '#F9F7F5'],
+                bg: '#F9F7F5',
+                title: 'Washed Oat & Sandstone'
+            }
+        };
+
+        function setPaletteTheme(themeKey) {
+            const theme = palettePresets[themeKey];
+            if (!theme) return;
+
+            // Re-render mock card elements
+            document.getElementById('palette-theme-tag').innerText = `Active Theme: ${theme.name}`;
+            document.getElementById('palette-display-title').innerText = theme.title;
+            
+            const card = document.getElementById('palette-mock-card');
+            card.style.backgroundColor = theme.bg;
+
+            // Adjust swatches
+            document.getElementById('swatch-1').style.backgroundColor = theme.colors[0];
+            document.getElementById('swatch-2').style.backgroundColor = theme.colors[1];
+            document.getElementById('swatch-3').style.backgroundColor = theme.colors[2];
+            document.getElementById('swatch-4').style.backgroundColor = theme.colors[3];
+
+            // Adjust hex displays
+            document.getElementById('hex-box-1').style.backgroundColor = theme.colors[0];
+            document.getElementById('hex-box-2').style.backgroundColor = theme.colors[1];
+            document.getElementById('hex-box-3').style.backgroundColor = theme.colors[2];
+            document.getElementById('hex-box-4').style.backgroundColor = theme.colors[3];
+
+            document.getElementById('hex-text-1').innerText = theme.colors[0];
+            document.getElementById('hex-text-2').innerText = theme.colors[1];
+            document.getElementById('hex-text-3').innerText = theme.colors[2];
+            document.getElementById('hex-text-4').innerText = theme.colors[3];
+
+            showAlert(`Switched to native preset: ${theme.name}`);
+        }
+
+        function handlePaletteSlider(val) {
+            document.getElementById('slider-val').innerText = `${val}%`;
+            
+            // Dynamically alter transparency or slight color tone adjustments based on slider
+            const opValue = 0.5 + (val / 200); // 0.5 to 1
+            document.getElementById('palette-mock-card').style.opacity = opValue;
+        }
+
+        // 5. Video Play Walkthrough Simulation
+        function playWalkthroughVideo() {
+            showAlert("Walkthrough video initialized. Generating virtual player...");
+        }
+
+        // 6. Generic Notification Utility
+        let alertTimeout;
+        function showAlert(msg) {
+            const alertBox = document.getElementById('ui-alert-modal');
+            const alertMsg = document.getElementById('ui-alert-message');
+
+            alertMsg.innerText = msg;
+            alertBox.classList.remove('hidden');
+
+            clearTimeout(alertTimeout);
+            alertTimeout = setTimeout(() => {
+                dismissAlert();
+            }, 4500);
+        }
+
+        function dismissAlert() {
+            document.getElementById('ui-alert-modal').classList.add('hidden');
+        }
+
+        // Simulating newsletter submit
+        function handleNewsletterSubmit(e) {
+            e.preventDefault();
+            showAlert("Welcome aboard. Check your inbox for the Slicing Guide PDF!");
+            e.target.reset();
+        }
+
+        // Simulating Checkout Flow
+        function simulateCheckout(packageName) {
+            showAlert(`Simulating checkout flow for ${packageName}. Premium directory compiled successfully.`);
+        }
+    </script>
+</body>
+</html>
+15

@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlowUp Cosmetics — Premium Bio-Active Skincare</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0e140f',
+                            darker: '#080c09',
+                            moss: '#1f2d21',
+                            sage: '#5b6c4c',
+                            olive: '#798c66',
+                            lightSage: '#a6ba95',
+                            cream: '#f3f6f1',
+                            sand: '#e6ede1',
+                            gold: '#d4af37'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Premium custom ambient glow backdrops */
+        .glow-spotlight {
+            background: radial-gradient(circle, rgba(166, 186, 149, 0.15) 0%, rgba(0,0,0,0) 70%);
+        }
+        .glow-spotlight-gold {
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, rgba(0,0,0,0) 60%);
+        }
+        /* Custom frosted glass */
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+        }
+        .glassmorphism-light {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        /* Floating animations */
+        @keyframes float-gentle {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(1deg); }
+        }
+        @keyframes float-delayed {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(8px) rotate(-1deg); }
+        }
+        .animate-float {
+            animation: float-gentle 6s ease-in-out infinite;
+        }
+        .animate-float-delayed {
+            animation: float-delayed 8s ease-in-out infinite;
+        }
+        /* Hide scrollbars but keep functionality */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-brand-dark text-brand-cream font-sans antialiased selection:bg-brand-olive selection:text-white overflow-x-hidden">
+
+    <!-- Header / Premium Navigation -->
+    <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300" id="main-header">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <span class="text-xl font-bold tracking-widest text-brand-cream uppercase group-hover:text-brand-lightSage transition-colors">
+                    Glow<span class="font-light">Up</span>
+                </span>
+                <span class="text-[10px] uppercase tracking-widest bg-brand-olive/20 text-brand-lightSage px-2 py-0.5 rounded border border-brand-olive/30">Cosmetics</span>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#philosophy" class="text-sm font-medium tracking-wide text-brand-cream/80 hover:text-brand-cream transition-colors">Philosophy</a>
+                <a href="#science" class="text-sm font-medium tracking-wide text-brand-cream/80 hover:text-brand-cream transition-colors">The Formula</a>
+                <a href="#interactive-skin" class="text-sm font-medium tracking-wide text-brand-cream/80 hover:text-brand-cream transition-colors">Skin Diagnosis</a>
+                <a href="#ingredients" class="text-sm font-medium tracking-wide text-brand-cream/80 hover:text-brand-cream transition-colors">Ingredients</a>
+                <a href="#testimonials" class="text-sm font-medium tracking-wide text-brand-cream/80 hover:text-brand-cream transition-colors">Reviews</a>
+            </nav>
+
+            <!-- Premium CTA Buttons -->
+            <div class="flex items-center gap-4">
+                <a href="#interactive-skin" class="hidden sm:inline-flex text-xs uppercase tracking-widest font-semibold px-5 py-2.5 rounded-full border border-brand-lightSage/30 text-brand-lightSage hover:bg-brand-lightSage hover:text-brand-dark transition-all duration-300">
+                    Free Consultation
+                </a>
+                <button onclick="toggleCartModal()" class="relative p-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-brand-cream transition-colors" aria-label="Cart">
+                    <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                    <span class="absolute top-0 right-0 w-2.5 h-2.5 bg-brand-olive rounded-full ring-2 ring-brand-dark"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Universe -->
+    <main class="relative z-10 pt-20">
+        
+        <!-- Hero Section: Capturing exact premium ambiance -->
+        <section class="relative min-h-[90vh] flex items-center justify-center py-12 px-6 overflow-hidden">
+            <!-- Background glow overlays -->
+            <div class="absolute inset-0 z-0">
+                <div class="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full glow-spotlight pointer-events-none"></div>
+                <div class="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full glow-spotlight-gold pointer-events-none"></div>
+            </div>
+
+            <div class="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+                
+                <!-- Left Column: Copywriting with premium typography -->
+                <div class="lg:col-span-5 space-y-8 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-olive/10 border border-brand-olive/30 text-brand-lightSage text-xs uppercase tracking-widest font-semibold">
+                        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Beauty Innovation Awards 2026
+                    </div>
+                    
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight text-brand-cream leading-tight">
+                        Science of Natural <br>
+                        <span class="font-serif italic text-brand-lightSage font-normal">Symmetry</span>
+                    </h1>
+                    
+                    <p class="text-brand-cream/70 text-base sm:text-lg max-w-lg mx-auto lg:mx-0 leading-relaxed font-light">
+                        Unlock your natural luminescence with GlowUp Cosmetics — where clinical science meets pure organic elements. Specifically formulated to repair, moisturize, and reveal radiant skin.
+                    </p>
+
+                    <!-- CTAs -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="#interactive-skin" class="w-full sm:w-auto px-8 py-4 bg-brand-olive hover:bg-brand-lightSage hover:text-brand-dark text-brand-cream font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-brand-olive/20 text-center tracking-wide text-sm">
+                            Tailor Your Formula
+                        </a>
+                        <a href="#philosophy" class="w-full sm:w-auto px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 text-brand-cream font-medium rounded-xl transition-all duration-300 text-center tracking-wide text-sm">
+                            Explore Bio-Science
+                        </a>
+                    </div>
+
+                    <!-- Trust indicators -->
+                    <div class="grid grid-cols-3 gap-6 pt-8 border-t border-white/10 text-left max-w-md mx-auto lg:mx-0">
+                        <div>
+                            <div class="text-2xl font-semibold text-brand-lightSage">99.4%</div>
+                            <div class="text-[11px] uppercase tracking-wider text-brand-cream/50 mt-1">Natural Ingredients</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-semibold text-brand-lightSage">100%</div>
+                            <div class="text-[11px] uppercase tracking-wider text-brand-cream/50 mt-1">Cruelty-Free</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-semibold text-brand-lightSage">Zero</div>
+                            <div class="text-[11px] uppercase tracking-wider text-brand-cream/50 mt-1">Parabens</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Interactive 3D Stacked Stones & Premium Jar Replica -->
+                <div class="lg:col-span-7 flex flex-col items-center justify-center relative min-h-[500px]">
+                    
+                    <!-- Floating Frosted Glass Badge 1 (Top Left) -->
+                    <div class="absolute top-[5%] left-[5%] md:left-[15%] z-20 animate-float glassmorphism rounded-2xl p-4 max-w-[240px] shadow-xl">
+                        <div class="flex items-start gap-3">
+                            <div class="p-2 rounded-lg bg-brand-olive/20 text-brand-lightSage">
+                                <i data-lucide="activity" class="w-4 h-4"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-semibold text-brand-cream tracking-wider uppercase">Cellular Activation</h4>
+                                <p class="text-[10px] text-brand-cream/60 mt-1 leading-normal">Formulated to stimulate deeply nested active skin renewal pathways.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Floating Frosted Glass Badge 2 (Bottom Right) -->
+                    <div class="absolute bottom-[10%] right-[2%] md:right-[10%] z-20 animate-float-delayed glassmorphism rounded-2xl p-4 max-w-[220px] shadow-xl">
+                        <div class="flex items-start gap-3">
+                            <div class="p-2 rounded-lg bg-brand-olive/20 text-brand-lightSage">
+                                <i data-lucide="award" class="w-4 h-4"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-semibold text-brand-cream tracking-wider uppercase">Product of the Year</h4>
+                                <p class="text-[10px] text-brand-cream/60 mt-1 leading-normal">Cosmetics Industry Innovation winner 2026.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- The Visual Universe Showcase (Stones & Jar Custom Vector Setup) -->
+                    <div class="relative w-full max-w-[480px] h-[450px] flex items-end justify-center">
+                        
+                        <!-- Base Platform/Floor Shadow -->
+                        <div class="absolute bottom-6 w-[80%] h-12 bg-black/40 blur-2xl rounded-full"></div>
+
+                        <!-- Stacked Stones & Jar Visual Stack using detailed CSS/SVGs -->
+                        <svg viewBox="0 0 500 500" class="w-full h-full relative z-10" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <!-- Gradients for premium organic feel -->
+                                <radialGradient id="stoneGlow" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stop-color="#798c66" stop-opacity="0.3"/>
+                                    <stop offset="100%" stop-color="#0e140f" stop-opacity="0"/>
+                                </radialGradient>
+                                <linearGradient id="mossGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#4d613d" />
+                                    <stop offset="100%" stop-color="#1f2d21" />
+                                </linearGradient>
+                                <linearGradient id="stone1" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#80857c" />
+                                    <stop offset="50%" stop-color="#555a51" />
+                                    <stop offset="100%" stop-color="#343731" />
+                                </linearGradient>
+                                <linearGradient id="stone2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#4a4d46" />
+                                    <stop offset="100%" stop-color="#242622" />
+                                </linearGradient>
+                                <linearGradient id="jarBody" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#e9efe6" />
+                                    <stop offset="25%" stop-color="#f5fcf2" />
+                                    <stop offset="75%" stop-color="#dae3d6" />
+                                    <stop offset="100%" stop-color="#b4c2b0" />
+                                </linearGradient>
+                                <linearGradient id="jarLid" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9" />
+                                    <stop offset="50%" stop-color="#f5fcf2" stop-opacity="0.7" />
+                                    <stop offset="100%" stop-color="#cbd6c7" stop-opacity="0.8" />
+                                </linearGradient>
+                            </defs>
+
+                            <!-- Ambient glow behind stones -->
+                            <circle cx="250" cy="270" r="180" fill="url(#stoneGlow)" />
+
+                            <!-- Branch Accents -->
+                            <path d="M 330,300 C 370,250 420,240 450,210" stroke="#5b6c4c" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.6"/>
+                            <path d="M 380,242 C 400,210 410,180 430,160" stroke="#5b6c4c" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.4"/>
+                            <path d="M 360,265 C 390,235 395,210 420,195" stroke="#5b6c4c" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.5"/>
+                            
+                            <!-- Little leaves on branches -->
+                            <path d="M 420,195 Q 430,190 425,185 Q 415,190 420,195 Z" fill="#798c66" opacity="0.8"/>
+                            <path d="M 450,210 Q 460,202 452,198 Q 442,206 450,210 Z" fill="#a6ba95" />
+                            <path d="M 430,160 Q 440,155 435,150 Q 425,155 430,160 Z" fill="#798c66" opacity="0.7"/>
+
+                            <!-- Bottom Large Pebble -->
+                            <path d="M 120,410 C 110,380 180,360 250,360 C 320,360 390,380 380,410 C 370,430 330,440 250,440 C 170,440 130,430 120,410 Z" fill="url(#stone1)" />
+                            <!-- Mid Flat Pebble -->
+                            <path d="M 160,370 C 150,350 200,340 250,340 C 300,340 350,350 340,370 C 330,385 300,390 250,390 C 200,390 170,385 160,370 Z" fill="url(#stone2)" />
+                            <!-- Real Moss Cushion on Mid Stone -->
+                            <path d="M 180,348 C 190,325 310,325 320,348 C 300,355 200,355 180,348 Z" fill="url(#mossGrad)" />
+                            <ellipse cx="250" cy="346" rx="65" ry="12" fill="#798c66" opacity="0.9" />
+
+                            <!-- Floating Small Pebbles -->
+                            <path d="M 100,330 C 90,320 110,305 130,305 C 150,305 160,320 150,330 C 140,340 110,340 100,330 Z" fill="url(#stone2)" opacity="0.85" />
+                            <path d="M 370,360 C 360,350 380,340 395,340 C 410,340 420,350 410,360 C 400,370 380,370 370,360 Z" fill="url(#stone1)" opacity="0.9" />
+
+                            <!-- GlowUp Premium Jar Body -->
+                            <rect x="195" y="240" width="110" height="85" rx="16" fill="url(#jarBody)" />
+                            <!-- Jar Lid Shadow -->
+                            <rect x="190" y="234" width="120" height="10" rx="3" fill="#1b241c" opacity="0.2" />
+                            <!-- Jar Lid (Gold/Reflective Metallic) -->
+                            <rect x="190" y="215" width="120" height="22" rx="6" fill="url(#jarLid)" />
+                            
+                            <!-- Gold accent line on lid -->
+                            <line x1="190" y1="230" x2="310" y2="230" stroke="#d4af37" stroke-width="1.5" opacity="0.8"/>
+                            
+                            <!-- Jar Text Label -->
+                            <text x="250" y="285" font-family="'Plus Jakarta Sans', sans-serif" font-weight="600" font-size="14" fill="#2d3a24" text-anchor="middle" letter-spacing="1">GlowUp</text>
+                            <text x="250" y="298" font-family="'Plus Jakarta Sans', sans-serif" font-weight="400" font-size="6" fill="#5b6c4c" text-anchor="middle" letter-spacing="2" opacity="0.8">COSMETICS</text>
+
+                            <!-- Specular Highlight Refraction overlay -->
+                            <path d="M 205,245 Q 210,310 215,315" stroke="#ffffff" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.4" />
+                            <path d="M 295,245 Q 290,310 285,315" stroke="#000000" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.1" />
+                        </svg>
+
+                        <!-- Live Action Interaction Button for the Jar Showcase -->
+                        <button onclick="revealJarBenefit()" class="absolute bottom-[30%] left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 px-4 py-2 bg-brand-cream text-brand-dark rounded-full text-xs font-semibold uppercase tracking-wider hover:scale-105 active:scale-95 transition-all shadow-xl hover:bg-brand-lightSage">
+                            <i data-lucide="sparkles" class="w-3.5 h-3.5 animate-pulse text-brand-olive"></i> Reveal Essence
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Brand Showcase & Philosophy Section -->
+        <section id="philosophy" class="py-24 relative overflow-hidden bg-brand-darker/60 border-y border-white/5">
+            <div class="max-w-7xl mx-auto px-6">
+                
+                <!-- Section Title -->
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <span class="text-xs font-bold uppercase tracking-widest text-brand-lightSage">Our Heritage</span>
+                    <h2 class="text-3xl md:text-4xl font-light text-brand-cream tracking-tight mt-2">
+                        Designed with Nature, <br>
+                        <span class="font-serif italic text-brand-lightSage">Perfected by Bio-Tech</span>
+                    </h2>
+                    <div class="w-12 h-0.5 bg-brand-olive mx-auto mt-6"></div>
+                </div>
+
+                <!-- Custom Grid Mimicking Slide 2 'О компании' -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                    
+                    <!-- Bio-Organic Bubble Animation Box (Captures the fluid cell visual) -->
+                    <div class="lg:col-span-5 glassmorphism rounded-3xl p-8 flex flex-col justify-between overflow-hidden relative group min-h-[350px]">
+                        <!-- Interactive cell element generator animation container -->
+                        <div class="absolute inset-0 z-0 opacity-40 pointer-events-none" id="cellular-ambient-container">
+                            <!-- JS will inject floating micro-cells here -->
+                        </div>
+                        
+                        <div class="relative z-10">
+                            <span class="text-[10px] uppercase tracking-widest bg-brand-olive/25 text-brand-lightSage px-2.5 py-1 rounded-full border border-brand-olive/40">Bio-Synthesis</span>
+                            <h3 class="text-2xl font-light text-brand-cream mt-6 leading-snug">
+                                GlowUp Cosmetics — <br>a brand dedicated to organic synergy.
+                            </h3>
+                        </div>
+
+                        <div class="relative z-10 pt-12">
+                            <p class="text-brand-cream/60 text-sm leading-relaxed">
+                                We believe skin is an organic ecosystem. Our products don't cover flaws; they stimulate cellular matrices to naturally reveal flawless luminosity.
+                            </p>
+                            <button onclick="regenerateCells()" class="mt-4 inline-flex items-center gap-2 text-xs font-semibold text-brand-lightSage hover:text-brand-cream transition-colors">
+                                <i data-lucide="refresh-cw" class="w-3.5 h-3.5 animate-spin-slow"></i> Regenerate Bio-Matrix
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Statistics & Awards Cards Grid -->
+                    <div class="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        
+                        <!-- Stat Card 1 -->
+                        <div class="glassmorphism rounded-3xl p-8 flex flex-col justify-between hover:border-brand-lightSage/30 transition-all duration-300">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs uppercase tracking-widest text-brand-cream/50">Global Trust</span>
+                                <i data-lucide="trending-up" class="w-5 h-5 text-brand-lightSage"></i>
+                            </div>
+                            <div class="my-6">
+                                <div class="text-4xl md:text-5xl font-light tracking-tight text-brand-cream">&gt;500,000</div>
+                                <div class="text-xs text-brand-cream/60 uppercase tracking-widest mt-2">Units Sold Worldwide</div>
+                            </div>
+                            <p class="text-xs text-brand-cream/50">Dermatologically validated across diverse skin phototypes and conditions.</p>
+                        </div>
+
+                        <!-- Award Card -->
+                        <div class="glassmorphism rounded-3xl p-8 flex flex-col justify-between hover:border-brand-lightSage/30 transition-all duration-300">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs uppercase tracking-widest text-brand-cream/50">Validation</span>
+                                <i data-lucide="award" class="w-5 h-5 text-brand-lightSage"></i>
+                            </div>
+                            <div class="my-6">
+                                <div class="text-xl font-light text-brand-cream leading-snug">Elite Clinical Certificate</div>
+                                <div class="text-xs text-brand-lightSage uppercase tracking-widest mt-2">2026 Winner</div>
+                            </div>
+                            <p class="text-xs text-brand-cream/50">Awarded for revolutionary advancement in stable natural antioxidant compounds.</p>
+                        </div>
+
+                        <!-- Rating/Reviews Card -->
+                        <div class="glassmorphism rounded-3xl p-8 flex flex-col justify-between hover:border-brand-lightSage/30 transition-all duration-300">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs uppercase tracking-widest text-brand-cream/50">Expert Rating</span>
+                                <i data-lucide="star" class="w-5 h-5 text-brand-lightSage"></i>
+                            </div>
+                            <div class="my-6">
+                                <div class="text-4xl font-light text-brand-cream">4.9 / 5.0</div>
+                                <div class="text-xs text-brand-cream/60 uppercase tracking-widest mt-2">By 150+ Beauty Experts</div>
+                            </div>
+                            <p class="text-xs text-brand-cream/50">Ranked best organic repair cream by the Bio-Cosmetics Guild.</p>
+                        </div>
+
+                        <!-- Global Export Card -->
+                        <div class="glassmorphism rounded-3xl p-8 flex flex-col justify-between hover:border-brand-lightSage/30 transition-all duration-300">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs uppercase tracking-widest text-brand-cream/50">Availability</span>
+                                <i data-lucide="globe" class="w-5 h-5 text-brand-lightSage"></i>
+                            </div>
+                            <div class="my-6">
+                                <div class="text-4xl font-light text-brand-cream">10+ Countries</div>
+                                <div class="text-xs text-brand-cream/60 uppercase tracking-widest mt-2">Global Boutiques</div>
+                            </div>
+                            <p class="text-xs text-brand-cream/50">Exported to eco-conscious centers across Europe, Asia, and the Americas.</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Deep Natural Accent block mimicking the moss/grass visual from slide 2 -->
+                <div class="mt-6 rounded-3xl h-32 relative overflow-hidden bg-gradient-to-r from-brand-moss via-brand-sage to-brand-olive flex items-center px-8">
+                    <div class="absolute inset-0 opacity-20 mix-blend-overlay bg-repeat pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%224%22 height=%224%22 viewBox=%220 0 4 4%22%3E%3Cpath d=%22M1 3h1v1H1V3zm2-2h1v1H3V1z%22 fill=%22%23ffffff%22 fill-opacity=%22.4%22 fill-rule=%22evenodd%22/%3E%3C/svg%3E');"></div>
+                    <div class="relative z-10 max-w-xl">
+                        <h4 class="text-sm font-semibold tracking-widest uppercase text-brand-cream/80">Our Purity Commitment</h4>
+                        <p class="text-xs text-brand-cream/70 mt-1 leading-normal">
+                            We develop bio-cosmetics utilizing organic plant extracts grown in certified biodynamic reserves. Every container solves skin challenges directly while respecting global eco-structures.
+                        </p>
+                    </div>
+                    <div class="ml-auto hidden md:block">
+                        <i data-lucide="shield-check" class="w-12 h-12 text-brand-cream/20"></i>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Interactive Science Deep-Dive Section mimicking Slide 3 'Что такое GlowUp?' -->
+        <section id="science" class="py-24 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6">
+                
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <span class="text-xs font-bold uppercase tracking-widest text-brand-lightSage">Formula Breakdown</span>
+                    <h2 class="text-3xl md:text-4xl font-light text-brand-cream tracking-tight mt-2">
+                        What is inside a <span class="font-serif italic text-brand-lightSage">GlowUp</span> drop?
+                    </h2>
+                    <p class="text-brand-cream/60 mt-4 font-light text-sm">
+                        Hover or click the interactive clinical points to explore the cellular-level actions of our award-winning complex.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Interactive Hotspot Node Map on the Left -->
+                    <div class="lg:col-span-5 space-y-4">
+                        <div class="glassmorphism rounded-2xl p-5 hover:bg-white/5 transition-all cursor-pointer border-l-4 border-brand-lightSage" id="node-1" onclick="focusHotspot(1)">
+                            <div class="flex items-start gap-4">
+                                <span class="w-8 h-8 rounded-full bg-brand-olive text-brand-cream flex items-center justify-center font-bold text-sm">1</span>
+                                <div class="flex-1">
+                                    <h3 class="text-sm font-semibold text-brand-cream tracking-wide uppercase">Active Cell Recovery Complex</h3>
+                                    <p class="text-xs text-brand-cream/60 mt-1">Accelerates skin cell regeneration by 74% over 14 days of continuous application.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glassmorphism rounded-2xl p-5 hover:bg-white/5 transition-all cursor-pointer" id="node-2" onclick="focusHotspot(2)">
+                            <div class="flex items-start gap-4">
+                                <span class="w-8 h-8 rounded-full bg-brand-moss border border-brand-olive/50 text-brand-lightSage flex items-center justify-center font-bold text-sm">2</span>
+                                <div class="flex-1">
+                                    <h3 class="text-sm font-semibold text-brand-cream tracking-wide uppercase">Antioxidant Defense Matrix</h3>
+                                    <p class="text-xs text-brand-cream/60 mt-1">Pure green tea and pomegranate extracts neutralizing oxidative stress triggers.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glassmorphism rounded-2xl p-5 hover:bg-white/5 transition-all cursor-pointer" id="node-3" onclick="focusHotspot(3)">
+                            <div class="flex items-start gap-4">
+                                <span class="w-8 h-8 rounded-full bg-brand-moss border border-brand-olive/50 text-brand-lightSage flex items-center justify-center font-bold text-sm">3</span>
+                                <div class="flex-1">
+                                    <h3 class="text-sm font-semibold text-brand-cream tracking-wide uppercase">Intense Micro-Hydration</h3>
+                                    <p class="text-xs text-brand-cream/60 mt-1">Dual-weight natural hyaluronic acid binding water to inner dermal sheets.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Visual Center Piece with Animated Lines mapping points to a dynamic jar view -->
+                    <div class="lg:col-span-7 flex flex-col items-center justify-center relative min-h-[420px]">
+                        
+                        <!-- Main Interactive Map Display Container -->
+                        <div class="relative w-full max-w-[440px] aspect-square rounded-full border border-white/5 flex items-center justify-center bg-brand-darker/40 shadow-inner">
+                            
+                            <!-- Concentric circles -->
+                            <div class="absolute inset-8 rounded-full border border-white/5 animate-pulse"></div>
+                            <div class="absolute inset-24 rounded-full border border-brand-olive/10"></div>
+
+                            <!-- Floating Ingredient Core (SVG Cream Pod on Pedestal) -->
+                            <div class="relative z-10 w-44 h-44 flex items-center justify-center animate-float">
+                                <svg viewBox="0 0 100 100" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <radialGradient id="cremeGrad" cx="50%" cy="40%" r="55%">
+                                            <stop offset="0%" stop-color="#ffffff"/>
+                                            <stop offset="60%" stop-color="#f0f6ec"/>
+                                            <stop offset="100%" stop-color="#cbd3c5"/>
+                                        </radialGradient>
+                                        <linearGradient id="podGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                            <stop offset="0%" stop-color="#e9efe6"/>
+                                            <stop offset="100%" stop-color="#93a584"/>
+                                        </linearGradient>
+                                    </defs>
+                                    
+                                    <!-- Base Shadow -->
+                                    <ellipse cx="50" cy="85" rx="35" ry="8" fill="#000000" opacity="0.3"/>
+                                    <!-- Organic Pedestal -->
+                                    <path d="M15,80 C20,70 80,70 85,80 C75,90 25,90 15,80 Z" fill="#5b6c4c" opacity="0.9"/>
+                                    <ellipse cx="50" cy="80" rx="35" ry="5" fill="#798c66" />
+                                    
+                                    <!-- Jar Body -->
+                                    <rect x="25" y="45" width="50" height="32" rx="8" fill="url(#podGrad)" />
+                                    <!-- Frosted texture overlay -->
+                                    <rect x="27" y="47" width="46" height="28" rx="6" fill="#ffffff" opacity="0.25" />
+                                    
+                                    <!-- Luxurious Cream Whipped Top -->
+                                    <path d="M 28,45 C 28,30 40,20 50,20 C 60,20 72,30 72,45 Z" fill="url(#cremeGrad)" />
+                                    <path d="M 40,32 C 45,25 55,25 60,32" stroke="#ffffff" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.8"/>
+                                    <text x="50" y="66" font-family="sans-serif" font-weight="600" font-size="6" fill="#1f2d21" text-anchor="middle" letter-spacing="0.5">GlowUp</text>
+                                </svg>
+                            </div>
+
+                            <!-- Hotspot Interactive Bullets -->
+                            <!-- Node 1 Hotspot -->
+                            <div class="absolute top-[25%] left-[12%] z-20 group cursor-pointer" onclick="focusHotspot(1)">
+                                <span class="relative flex h-5 w-5">
+                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-lightSage opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-5 w-5 bg-brand-olive text-white text-[10px] items-center justify-center font-bold">1</span>
+                                </span>
+                                <!-- Connecting Line (SVG overlay or styled div) -->
+                                <div class="absolute left-6 top-1/2 -translate-y-1/2 w-16 h-0.5 bg-brand-lightSage origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
+                            </div>
+
+                            <!-- Node 2 Hotspot -->
+                            <div class="absolute bottom-[35%] right-[10%] z-20 group cursor-pointer" onclick="focusHotspot(2)">
+                                <span class="relative flex h-5 w-5">
+                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-lightSage opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-5 w-5 bg-brand-olive text-white text-[10px] items-center justify-center font-bold">2</span>
+                                </span>
+                            </div>
+
+                            <!-- Node 3 Hotspot -->
+                            <div class="absolute top-[18%] right-[22%] z-20 group cursor-pointer" onclick="focusHotspot(3)">
+                                <span class="relative flex h-5 w-5">
+                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-lightSage opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-5 w-5 bg-brand-olive text-white text-[10px] items-center justify-center font-bold">3</span>
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <!-- Real-time dynamic detail display -->
+                        <div class="mt-6 w-full max-w-md glassmorphism rounded-2xl p-5 text-center transition-all duration-300" id="hotspot-detail-box">
+                            <h4 class="text-xs uppercase tracking-widest text-brand-lightSage font-bold" id="detail-title">Clinical Discovery</h4>
+                            <p class="text-sm text-brand-cream/80 mt-2 font-light" id="detail-desc">
+                                Select an interactive marker above to view real-time bio-synthesis metrics and extraction techniques.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Interactive Custom Tool: Premium Skin Diagnostics Calculator -->
+        <section id="interactive-skin" class="py-24 relative overflow-hidden bg-brand-darker/60 border-t border-white/5">
+            <div class="absolute inset-0 z-0">
+                <div class="absolute bottom-0 right-0 w-[50%] h-[50%] rounded-full glow-spotlight pointer-events-none"></div>
+            </div>
+
+            <div class="max-w-4xl mx-auto px-6 relative z-10">
+                <div class="text-center mb-12">
+                    <span class="text-xs font-bold uppercase tracking-widest text-brand-lightSage">Personalized Care</span>
+                    <h2 class="text-3xl md:text-4xl font-light text-brand-cream tracking-tight mt-2">
+                        Interactive Skin <span class="font-serif italic text-brand-lightSage">Diagnostics</span>
+                    </h2>
+                    <p class="text-brand-cream/60 mt-3 text-sm font-light max-w-lg mx-auto">
+                        Identify your current skin ecosystem state and unlock a formulation prescription instantly.
+                    </p>
+                </div>
+
+                <!-- Diagnostic Wizard Box -->
+                <div class="glassmorphism rounded-3xl p-8 md:p-10 shadow-2xl relative">
+                    
+                    <!-- Progress Bar -->
+                    <div class="w-full bg-white/5 h-1 rounded-full mb-8 overflow-hidden">
+                        <div class="bg-brand-lightSage h-full transition-all duration-500" id="diag-progress" style="width: 33.33%;"></div>
+                    </div>
+
+                    <!-- Step 1: Skin Goal -->
+                    <div id="diag-step-1" class="space-y-6">
+                        <h3 class="text-lg font-light text-brand-cream text-center">What is your primary cosmetic goal?</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <button onclick="setDiagValue('goal', 'hydrate', 1)" class="p-6 rounded-2xl border border-white/10 hover:border-brand-lightSage/50 hover:bg-white/5 transition-all text-left">
+                                <i data-lucide="droplet" class="w-6 h-6 text-brand-lightSage mb-3"></i>
+                                <h4 class="text-sm font-semibold tracking-wider uppercase text-brand-cream">Intense Hydration</h4>
+                                <p class="text-xs text-brand-cream/60 mt-1">Rehydrate deep layers & dry spots.</p>
+                            </button>
+                            <button onclick="setDiagValue('goal', 'firm', 1)" class="p-6 rounded-2xl border border-white/10 hover:border-brand-lightSage/50 hover:bg-white/5 transition-all text-left">
+                                <i data-lucide="shield" class="w-6 h-6 text-brand-lightSage mb-3"></i>
+                                <h4 class="text-sm font-semibold tracking-wider uppercase text-brand-cream">Cellular Firming</h4>
+                                <p class="text-xs text-brand-cream/60 mt-1">Rebuild elasticity & collagen structure.</p>
+                            </button>
+                            <button onclick="setDiagValue('goal', 'bright', 1)" class="p-6 rounded-2xl border border-white/10 hover:border-brand-lightSage/50 hover:bg-white/5 transition-all text-left">
+                                <i data-lucide="sun" class="w-6 h-6 text-brand-lightSage mb-3"></i>
+                                <h4 class="text-sm font-semibold tracking-wider uppercase text-brand-cream">Tone Radiance</h4>
+                                <p class="text-xs text-brand-cream/60 mt-1">Eliminate dullness & spots.</p>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Skin Sensitivity -->
+                    <div id="diag-step-2" class="space-y-6 hidden">
+                        <h3 class="text-lg font-light text-brand-cream text-center">How does your skin react to environmental stress?</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <button onclick="setDiagValue('sensitivity', 'resilient', 2)" class="p-6 rounded-2xl border border-white/10 hover:border-brand-lightSage/50 hover:bg-white/5 transition-all text-left">
+                                <i data-lucide="smile" class="w-6 h-6 text-brand-lightSage mb-3"></i>
+                                <h4 class="text-sm font-semibold tracking-wider uppercase text-brand-cream">Highly Resilient</h4>
+                                <p class="text-xs text-brand-cream/60 mt-1">Rarely experiences redness or dryness.</p>
+                            </button>
+                            <button onclick="setDiagValue('sensitivity', 'moderate', 2)" class="p-6 rounded-2xl border border-white/10 hover:border-brand-lightSage/50 hover:bg-white/5 transition-all text-left">
+                                <i data-lucide="meh" class="w-6 h-6 text-brand-lightSage mb-3"></i>
+                                <h4 class="text-sm font-semibold tracking-wider uppercase text-brand-cream">Occasional Flare</h4>
+                                <p class="text-xs text-brand-cream/60 mt-1">Slight redness on weather changes.</p>
+                            </button>
+                            <button onclick="setDiagValue('sensitivity', 'reactive', 2)" class="p-6 rounded-2xl border border-white/10 hover:border-brand-lightSage/50 hover:bg-white/5 transition-all text-left">
+                                <i data-lucide="frown" class="w-6 h-6 text-brand-lightSage mb-3"></i>
+                                <h4 class="text-sm font-semibold tracking-wider uppercase text-brand-cream">Highly Reactive</h4>
+                                <p class="text-xs text-brand-cream/60 mt-1">Requires extreme allergen precaution.</p>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Age Category -->
+                    <div id="diag-step-3" class="space-y-6 hidden">
+                        <h3 class="text-lg font-light text-brand-cream text-center">Select your generational age band</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <button onclick="setDiagValue('age', 'young', 3)" class="p-6 rounded-2xl border border-white/10 hover:border-brand-lightSage/50 hover:bg-white/5 transition-all text-left">
+                                <h4 class="text-sm font-semibold tracking-wider uppercase text-brand-cream">Under 30</h4>
+                                <p class="text-xs text-brand-cream/60 mt-1">Preventative cell protection focus.</p>
+                            </button>
+                            <button onclick="setDiagValue('age', 'mid', 3)" class="p-6 rounded-2xl border border-white/10 hover:border-brand-lightSage/50 hover:bg-white/5 transition-all text-left">
+                                <h4 class="text-sm font-semibold tracking-wider uppercase text-brand-cream">30 — 50</h4>
+                                <p class="text-xs text-brand-cream/60 mt-1">Antioxidant replenishment & moisture shield.</p>
+                            </button>
+                            <button onclick="setDiagValue('age', 'senior', 3)" class="p-6 rounded-2xl border border-white/10 hover:border-brand-lightSage/50 hover:bg-white/5 transition-all text-left">
+                                <h4 class="text-sm font-semibold tracking-wider uppercase text-brand-cream">50+</h4>
+                                <p class="text-xs text-brand-cream/60 mt-1">Intense peptide lifting & recovery.</p>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Result Display -->
+                    <div id="diag-result" class="space-y-8 hidden text-center">
+                        <div class="w-16 h-16 rounded-full bg-brand-olive/20 text-brand-lightSage flex items-center justify-center mx-auto animate-bounce">
+                            <i data-lucide="check-circle" class="w-8 h-8"></i>
+                        </div>
+                        
+                        <div>
+                            <span class="text-xs uppercase tracking-widest text-brand-lightSage font-semibold">Your Tailored Routine</span>
+                            <h3 class="text-2xl font-light text-brand-cream mt-1" id="result-formula-name">GlowUp Hydro-Symmetry Serum</h3>
+                            <p class="text-xs text-brand-cream/60 mt-2 max-w-md mx-auto" id="result-formula-desc">
+                                Formulated to replenish intense hydration barriers and balance sensitive skin environments.
+                            </p>
+                        </div>
+
+                        <!-- Result Specific Stats Card -->
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-lg mx-auto bg-white/5 rounded-2xl p-4 border border-white/10">
+                            <div>
+                                <span class="text-xs text-brand-cream/50 uppercase block">Est. Balance Rate</span>
+                                <span class="text-xl font-bold text-brand-lightSage mt-1 block">+89%</span>
+                            </div>
+                            <div>
+                                <span class="text-xs text-brand-cream/50 uppercase block">Active Dose</span>
+                                <span class="text-xl font-bold text-brand-lightSage mt-1 block">4.8 mg/ml</span>
+                            </div>
+                            <div>
+                                <span class="text-xs text-brand-cream/50 uppercase block">Dermatology rating</span>
+                                <span class="text-xl font-bold text-brand-lightSage mt-1 block">AAA+</span>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                            <button onclick="addPrescriptionToCart()" class="w-full sm:w-auto px-6 py-3.5 bg-brand-olive text-brand-cream hover:bg-brand-lightSage hover:text-brand-dark transition-all rounded-xl font-semibold text-xs uppercase tracking-wider">
+                                Add Custom Jar to Cart
+                            </button>
+                            <button onclick="resetDiag()" class="text-xs font-semibold text-brand-cream/60 hover:text-brand-cream underline">
+                                Reset Test
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Ingredient Botanical Library Section -->
+        <section id="ingredients" class="py-24 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6">
+                
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-widest text-brand-lightSage">Botanical Science</span>
+                        <h2 class="text-3xl md:text-4xl font-light text-brand-cream tracking-tight mt-2">
+                            Our Key Actives
+                        </h2>
+                    </div>
+                    <p class="text-brand-cream/60 text-sm max-w-md font-light leading-relaxed">
+                        Every extract is sourced from verified biodynamic farms and harvested during peak potent periods to guarantee optimal bioactive efficacy.
+                    </p>
+                </div>
+
+                <!-- Custom Slider/Cards of active ingredients -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <!-- Ingredient Card 1: Green Tea Extract -->
+                    <div class="glassmorphism rounded-3xl p-6 hover:translate-y-[-8px] transition-all duration-300 group">
+                        <div class="rounded-2xl h-48 overflow-hidden relative mb-6">
+                            <!-- Premium Custom Plant representation -->
+                            <div class="absolute inset-0 bg-gradient-to-t from-brand-moss to-brand-dark flex items-center justify-center">
+                                <svg class="w-24 h-24 text-brand-lightSage/40 group-hover:scale-110 transition-transform duration-500" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M50,85 C50,45 80,45 80,25 C80,15 70,10 50,30 C30,10 20,15 20,25 C20,45 50,45 50,85 Z" fill="#798c66" fill-opacity="0.3"/>
+                                    <path d="M50,30 L50,85" stroke-dasharray="2,2"/>
+                                    <path d="M50,55 C65,50 70,40 70,40" />
+                                    <path d="M50,65 C35,60 30,50 30,50" />
+                                </svg>
+                            </div>
+                            <span class="absolute top-4 right-4 text-[10px] uppercase tracking-widest bg-brand-dark/80 text-brand-lightSage px-3 py-1 rounded-full border border-white/5">Anti-Inflammatory</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-brand-cream">Organic Green Tea Leaf</h3>
+                        <p class="text-xs text-brand-cream/60 mt-2 leading-relaxed">
+                            Rich in Polyphenols and EGCG, preventing oxidation, reducing puffiness, and preserving absolute cell youthfulness.
+                        </p>
+                        <div class="mt-6 pt-4 border-t border-white/5 flex items-center justify-between">
+                            <span class="text-[10px] uppercase tracking-widest text-brand-lightSage font-semibold">Bio-Availability</span>
+                            <span class="text-xs font-semibold text-brand-cream">94%</span>
+                        </div>
+                    </div>
+
+                    <!-- Ingredient Card 2: Pomegranate Active Complex -->
+                    <div class="glassmorphism rounded-3xl p-6 hover:translate-y-[-8px] transition-all duration-300 group">
+                        <div class="rounded-2xl h-48 overflow-hidden relative mb-6">
+                            <!-- Premium Custom Plant representation -->
+                            <div class="absolute inset-0 bg-gradient-to-t from-brand-moss to-brand-dark flex items-center justify-center">
+                                <svg class="w-24 h-24 text-brand-lightSage/40 group-hover:scale-110 transition-transform duration-500" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="50" cy="50" r="25" fill="#798c66" fill-opacity="0.2"/>
+                                    <path d="M50,20 C50,20 52,15 50,15 C48,15 50,20 50,20 Z" fill="currentColor"/>
+                                    <circle cx="42" cy="42" r="3" fill="#cbd6c7" />
+                                    <circle cx="58" cy="42" r="3" fill="#cbd6c7" />
+                                    <circle cx="50" cy="58" r="4" fill="#cbd6c7" />
+                                    <path d="M35,70 C45,80 55,80 65,70" />
+                                </svg>
+                            </div>
+                            <span class="absolute top-4 right-4 text-[10px] uppercase tracking-widest bg-brand-dark/80 text-brand-lightSage px-3 py-1 rounded-full border border-white/5">Collagen Booster</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-brand-cream">Pomegranate Phytosomes</h3>
+                        <p class="text-xs text-brand-cream/60 mt-2 leading-relaxed">
+                            A powerful dose of ellagic acid that blocks free radicals and promotes natural elastin generation for high density.
+                        </p>
+                        <div class="mt-6 pt-4 border-t border-white/5 flex items-center justify-between">
+                            <span class="text-[10px] uppercase tracking-widest text-brand-lightSage font-semibold">Bio-Availability</span>
+                            <span class="text-xs font-semibold text-brand-cream">88%</span>
+                        </div>
+                    </div>
+
+                    <!-- Ingredient Card 3: Bio-Peptides -->
+                    <div class="glassmorphism rounded-3xl p-6 hover:translate-y-[-8px] transition-all duration-300 group">
+                        <div class="rounded-2xl h-48 overflow-hidden relative mb-6">
+                            <!-- Premium Custom Plant representation -->
+                            <div class="absolute inset-0 bg-gradient-to-t from-brand-moss to-brand-dark flex items-center justify-center">
+                                <svg class="w-24 h-24 text-brand-lightSage/40 group-hover:scale-110 transition-transform duration-500" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <circle cx="50" cy="35" r="10" fill="#798c66" fill-opacity="0.3"/>
+                                    <circle cx="30" cy="65" r="8" fill="#798c66" fill-opacity="0.3"/>
+                                    <circle cx="70" cy="65" r="8" fill="#798c66" fill-opacity="0.3"/>
+                                    <line x1="50" y1="45" x2="30" y2="57" stroke="currentColor" />
+                                    <line x1="50" y1="45" x2="70" y2="57" stroke="currentColor" />
+                                    <line x1="38" y1="65" x2="62" y2="65" stroke="currentColor" stroke-dasharray="2,2" />
+                                </svg>
+                            </div>
+                            <span class="absolute top-4 right-4 text-[10px] uppercase tracking-widest bg-brand-dark/80 text-brand-lightSage px-3 py-1 rounded-full border border-white/5">Barrier Repair</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-brand-cream">Squalane & Bio-Peptides</h3>
+                        <p class="text-xs text-brand-cream/60 mt-2 leading-relaxed">
+                            Mirrors lipids natively to deeply nourish sensitive skin barriers, locking in moisture and preventing evaporation.
+                        </p>
+                        <div class="mt-6 pt-4 border-t border-white/5 flex items-center justify-between">
+                            <span class="text-[10px] uppercase tracking-widest text-brand-lightSage font-semibold">Bio-Availability</span>
+                            <span class="text-xs font-semibold text-brand-cream">97%</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Testimonial Grid section -->
+        <section id="testimonials" class="py-24 relative overflow-hidden bg-brand-darker/60 border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-6">
+                
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <span class="text-xs font-bold uppercase tracking-widest text-brand-lightSage">Verified Journeys</span>
+                    <h2 class="text-3xl md:text-4xl font-light text-brand-cream tracking-tight mt-2">
+                        Loved by Radiant Skins
+                    </h2>
+                </div>
+
+                <!-- Live Testimonial Carousel Switcher -->
+                <div class="max-w-4xl mx-auto glassmorphism rounded-3xl p-8 md:p-12 relative">
+                    <div class="absolute top-8 left-8 text-brand-lightSage/20">
+                        <i data-lucide="quote" class="w-16 h-16"></i>
+                    </div>
+
+                    <div class="relative z-10">
+                        <!-- Review Contents -->
+                        <div id="review-container" class="space-y-6 min-h-[160px]">
+                            <p class="text-lg sm:text-xl font-light text-brand-cream leading-relaxed italic" id="review-text">
+                                "The GlowUp Cream has completely transformed my sensitive skin profile. In less than two weeks, the redness around my cheeks is gone, and I have a continuous organic glow even without makeup. Highly recommend the diagnostics tool."
+                            </p>
+                            
+                            <div class="flex items-center gap-4 pt-6 border-t border-white/5">
+                                <div class="w-12 h-12 rounded-full bg-brand-olive text-brand-cream flex items-center justify-center font-bold text-lg" id="review-avatar">
+                                    AP
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-semibold text-brand-cream" id="review-author">Anny Patina</h4>
+                                    <p class="text-xs text-brand-lightSage uppercase tracking-wider mt-0.5" id="review-role">Lead Creative Designer</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Carousel Controls -->
+                        <div class="flex items-center justify-end gap-3 mt-8">
+                            <button onclick="prevReview()" class="p-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-brand-cream transition-colors" aria-label="Previous Review">
+                                <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                            </button>
+                            <button onclick="nextReview()" class="p-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-brand-cream transition-colors" aria-label="Next Review">
+                                <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Dynamic Newsletter & Community Section -->
+        <section class="py-24 relative overflow-hidden">
+            <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+                <div class="glassmorphism rounded-3xl p-8 md:p-12 bg-gradient-to-b from-brand-moss/40 to-transparent border border-brand-olive/20">
+                    <span class="text-xs font-bold uppercase tracking-widest text-brand-lightSage">Join the Circle</span>
+                    <h2 class="text-2xl md:text-3xl font-light text-brand-cream tracking-tight mt-2">
+                        Get Scientific Insights & Exclusive Drops
+                    </h2>
+                    <p class="text-brand-cream/60 text-sm mt-3 max-w-md mx-auto font-light">
+                        Subscribe to receive cosmetic research summaries, diagnostic updates, and private collection releases.
+                    </p>
+
+                    <!-- Subscription Form with Toast Simulation -->
+                    <form onsubmit="handleSubscribe(event)" class="mt-8 max-w-md mx-auto flex flex-col sm:flex-row gap-3">
+                        <input type="email" required placeholder="Enter your email address" class="flex-1 bg-brand-dark/80 border border-white/10 text-brand-cream rounded-xl px-5 py-3.5 text-sm focus:outline-none focus:border-brand-lightSage transition-colors">
+                        <button type="submit" class="bg-brand-lightSage text-brand-dark hover:bg-brand-cream font-semibold px-6 py-3.5 rounded-xl text-sm transition-all tracking-wide">
+                            Subscribe
+                        </button>
+                    </form>
+                    <p id="subscribe-message" class="text-xs text-brand-lightSage mt-3 hidden"></p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Slide-out Shopping Cart Simulation -->
+    <div id="cart-modal" class="fixed inset-y-0 right-0 w-full max-w-md bg-brand-dark border-l border-white/10 z-50 transform translate-x-full transition-transform duration-300 shadow-2xl flex flex-col justify-between hidden">
+        <div class="p-6">
+            <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                <h3 class="text-lg font-semibold tracking-wider text-brand-cream uppercase flex items-center gap-2">
+                    <i data-lucide="shopping-bag" class="w-5 h-5 text-brand-lightSage"></i> Your Collection
+                </h3>
+                <button onclick="toggleCartModal()" class="p-2 text-brand-cream/60 hover:text-brand-cream" aria-label="Close Cart">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+
+            <!-- Cart list -->
+            <div class="mt-6 space-y-4 overflow-y-auto max-h-[60vh] no-scrollbar" id="cart-items-container">
+                <!-- Fallback empty view -->
+                <div class="text-center py-12 text-brand-cream/40" id="cart-empty-state">
+                    <i data-lucide="package-open" class="w-12 h-12 mx-auto mb-3 text-brand-cream/20"></i>
+                    <p class="text-sm">Your beauty rituals bag is empty.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Checkout block -->
+        <div class="p-6 border-t border-white/10 bg-brand-darker/60 space-y-4">
+            <div class="flex items-center justify-between text-sm">
+                <span class="text-brand-cream/60">Estimated Delivery</span>
+                <span class="text-brand-cream font-medium">Free Express (3-5 days)</span>
+            </div>
+            <div class="flex items-center justify-between border-t border-white/5 pt-4">
+                <span class="text-base font-semibold text-brand-cream">Total Essence Price</span>
+                <span class="text-xl font-bold text-brand-lightSage" id="cart-total-price">$0.00</span>
+            </div>
+            <button onclick="simulateCheckout()" class="w-full py-4 bg-brand-olive text-brand-cream hover:bg-brand-lightSage hover:text-brand-dark font-semibold rounded-xl tracking-wider text-xs uppercase transition-all">
+                Complete Organic Order
+            </button>
+        </div>
+    </div>
+
+    <!-- Interactive Bottom Toast Notification System -->
+    <div id="custom-toast" class="fixed bottom-6 right-6 z-50 glassmorphism-light rounded-2xl p-4 shadow-2xl max-w-sm border-l-4 border-brand-lightSage transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="flex items-start gap-3">
+            <div class="p-1 rounded-lg bg-brand-olive/20 text-brand-lightSage">
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+            </div>
+            <div>
+                <p class="text-xs font-semibold text-brand-cream uppercase tracking-wider">Formula Ritual</p>
+                <p class="text-xs text-brand-cream/70 mt-1" id="toast-message">Item added to your selection.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Premium Footer -->
+    <footer class="bg-brand-darker border-t border-white/5 py-16">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
+            
+            <!-- Branding Column -->
+            <div class="space-y-4">
+                <a href="#" class="flex items-center gap-3">
+                    <span class="text-lg font-bold tracking-widest text-brand-cream uppercase">
+                        Glow<span class="font-light">Up</span>
+                    </span>
+                </a>
+                <p class="text-xs text-brand-cream/50 leading-relaxed max-w-xs">
+                    Organic-clinical synthesis for discerning individuals. Pioneering the next tier of skin barrier integrity.
+                </p>
+                <div class="flex items-center gap-4 text-brand-cream/40 pt-2">
+                    <a href="#" class="hover:text-brand-lightSage transition-colors"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+                    <a href="#" class="hover:text-brand-lightSage transition-colors"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+                    <a href="#" class="hover:text-brand-lightSage transition-colors"><i data-lucide="twitter" class="w-4 h-4"></i></a>
+                </div>
+            </div>
+
+            <!-- Shop column -->
+            <div>
+                <h4 class="text-xs font-semibold uppercase tracking-widest text-brand-lightSage mb-4">Formulations</h4>
+                <ul class="space-y-2.5 text-xs text-brand-cream/60">
+                    <li><a href="#" class="hover:text-brand-cream transition-colors">GlowUp Repair Cream</a></li>
+                    <li><a href="#" class="hover:text-brand-cream transition-colors">Hydra-Symmetry Serum</a></li>
+                    <li><a href="#" class="hover:text-brand-cream transition-colors">Antioxidant Gel Essence</a></li>
+                    <li><a href="#" class="hover:text-brand-cream transition-colors">Botanical Oil Shield</a></li>
+                </ul>
+            </div>
+
+            <!-- About column -->
+            <div>
+                <h4 class="text-xs font-semibold uppercase tracking-widest text-brand-lightSage mb-4">Bio-Science</h4>
+                <ul class="space-y-2.5 text-xs text-brand-cream/60">
+                    <li><a href="#philosophy" class="hover:text-brand-cream transition-colors">Our Philosophy</a></li>
+                    <li><a href="#ingredients" class="hover:text-brand-cream transition-colors">Key Botanical Actives</a></li>
+                    <li><a href="#" class="hover:text-brand-cream transition-colors">Clinical Test Registry</a></li>
+                    <li><a href="#" class="hover:text-brand-cream transition-colors">Sustainability Guarantee</a></li>
+                </ul>
+            </div>
+
+            <!-- Legal and address -->
+            <div>
+                <h4 class="text-xs font-semibold uppercase tracking-widest text-brand-lightSage mb-4">Global Reserve</h4>
+                <p class="text-xs text-brand-cream/60 leading-normal">
+                    GlowUp Cosmetics Corp. <br>
+                    Greenhouse Suite 409, Biodynamic Park <br>
+                    Geneva, Switzerland
+                </p>
+                <p class="text-[10px] text-brand-cream/40 mt-4">
+                    © 2026 GlowUp Cosmetics. All rights reserved.
+                </p>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Client-Side State & Dynamic Interaction Script -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Reactive State
+        const state = {
+            cart: [],
+            diagnostics: {
+                goal: null,
+                sensitivity: null,
+                age: null
+            },
+            currentReviewIndex: 0,
+            activeHotspot: 1
+        };
+
+        // Testimonial Data
+        const reviews = [
+            {
+                text: '"The GlowUp Cream has completely transformed my sensitive skin profile. In less than two weeks, the redness around my cheeks is gone, and I have a continuous organic glow even without makeup. Highly recommend the diagnostics tool."',
+                author: "Anny Patina",
+                role: "Lead Creative Designer",
+                avatar: "AP"
+            },
+            {
+                text: '"Never did I expect botanical active science to yield such rapid results. The deep micro-hydration leaves my skin feeling incredibly bouncy and resilient. This represents actual aesthetic mastery."',
+                author: "Dr. Marcus Vance",
+                role: "Consultant Dermatologist",
+                avatar: "MV"
+            },
+            {
+                text: '"Clinical transparency is rare. Knowing GlowUp uses 99.4% biodynamic extracts coupled with stable peptides gives me the utmost confidence. It is a masterpiece bottle."',
+                author: "Sophia Laurent",
+                role: "Aesthetician & Influencer",
+                avatar: "SL"
+            }
+        ];
+
+        // Hotspots Detailed Text
+        const hotspotDetails = {
+            1: {
+                title: "Active Cell Recovery Complex",
+                desc: "Harnessing isolated organic cells designed to fortify cellular matrices and trigger self-repair mechanisms up to 74% faster than standard hydration complexes."
+            },
+            2: {
+                title: "Antioxidant Defense Matrix",
+                desc: "A powerful combination of clinical green tea phenols and pomegranate phytosomes that acts as an invisible shield against urban micro-dust and daily UV degradation."
+            },
+            3: {
+                title: "Intense Micro-Hydration",
+                desc: "Utilizing multiple weights of pure bio-synthetic hyaluronic acid. It locks down moisture immediately, restoring plumpness to deep tissue layers."
+            }
+        };
+
+        // Header dynamic transition on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 50) {
+                header.classList.add('bg-brand-dark/95', 'shadow-lg', 'backdrop-blur-md', 'border-b', 'border-white/5');
+            } else {
+                header.classList.remove('bg-brand-dark/95', 'shadow-lg', 'backdrop-blur-md', 'border-b', 'border-white/5');
+            }
+        });
+
+        // 1. Interactive Cell Matrix generator for Slide 2 background
+        function generateCells() {
+            const container = document.getElementById('cellular-ambient-container');
+            container.innerHTML = '';
+            const cellCount = 12;
+            for (let i = 0; i < cellCount; i++) {
+                const cell = document.createElement('div');
+                const size = Math.random() * 40 + 20;
+                cell.className = 'absolute bg-brand-lightSage/5 border border-brand-lightSage/20 rounded-full transition-all duration-1000 ease-out animate-pulse';
+                cell.style.width = `${size}px`;
+                cell.style.height = `${size}px`;
+                cell.style.left = `${Math.random() * 90}%`;
+                cell.style.top = `${Math.random() * 90}%`;
+                cell.style.transform = `scale(${Math.random() * 0.5 + 0.8})`;
+                container.appendChild(cell);
+            }
+        }
+        window.onload = function() {
+            generateCells();
+            // Start rotation cycles
+            setInterval(generateCells, 12000);
+        };
+
+        function regenerateCells() {
+            showToast("Bio-Synthesis Matrix Reset Successfully");
+            generateCells();
+        }
+
+        // 2. Interactive Jar Benefit Revealer
+        function revealJarBenefit() {
+            const benefits = [
+                "Intense Moisture replenishment detected.",
+                "Clinical elasticity improvement: +34% verified.",
+                "Earthy natural antioxidants activated.",
+                "99.4% biodynamic extract shield enabled."
+            ];
+            const randomBenefit = benefits[Math.floor(Math.random() * benefits.length)];
+            showToast(randomBenefit);
+        }
+
+        // 3. Hotspot Controller
+        function focusHotspot(nodeId) {
+            state.activeHotspot = nodeId;
+            
+            // Visual indicators update
+            for (let i = 1; i <= 3; i++) {
+                const el = document.getElementById(`node-${i}`);
+                if (i === nodeId) {
+                    el.classList.add('border-l-4', 'border-brand-lightSage');
+                    el.classList.remove('border-l-0');
+                } else {
+                    el.classList.remove('border-l-4', 'border-brand-lightSage');
+                }
+            }
+
+            // Update details
+            document.getElementById('detail-title').innerText = hotspotDetails[nodeId].title;
+            document.getElementById('detail-desc').innerText = hotspotDetails[nodeId].desc;
+        }
+
+        // 4. Testimonials carousel switcher
+        function updateReview() {
+            const r = reviews[state.currentReviewIndex];
+            const textEl = document.getElementById('review-text');
+            const authorEl = document.getElementById('review-author');
+            const roleEl = document.getElementById('review-role');
+            const avatarEl = document.getElementById('review-avatar');
+
+            // Apply quick fade transitions
+            textEl.classList.add('opacity-0');
+            setTimeout(() => {
+                textEl.innerText = r.text;
+                authorEl.innerText = r.author;
+                roleEl.innerText = r.role;
+                avatarEl.innerText = r.avatar;
+                textEl.classList.remove('opacity-0');
+            }, 200);
+        }
+
+        function prevReview() {
+            state.currentReviewIndex = (state.currentReviewIndex - 1 + reviews.length) % reviews.length;
+            updateReview();
+        }
+
+        function nextReview() {
+            state.currentReviewIndex = (state.currentReviewIndex + 1) % reviews.length;
+            updateReview();
+        }
+
+        // 5. Diagnostics Wizard Logic
+        function setDiagValue(key, value, currentStep) {
+            state.diagnostics[key] = value;
+            
+            // Advance wizard steps
+            document.getElementById(`diag-step-${currentStep}`).classList.add('hidden');
+            const nextStep = currentStep + 1;
+            
+            const progressBar = document.getElementById('diag-progress');
+            if (currentStep < 3) {
+                const nextStepEl = document.getElementById(`diag-step-${nextStep}`);
+                nextStepEl.classList.remove('hidden');
+                progressBar.style.width = `${(nextStep / 3) * 100}%`;
+            } else {
+                // Show Result Screen
+                document.getElementById('diag-result').classList.remove('hidden');
+                progressBar.style.width = '100%';
+                calculateDiagnosisResult();
+            }
+        }
+
+        function calculateDiagnosisResult() {
+            const goal = state.diagnostics.goal;
+            const sensitivity = state.diagnostics.sensitivity;
+            
+            let formulaName = "GlowUp Balanced Synergy Matrix";
+            let formulaDesc = "Custom balanced organic formulation designed to stabilize sensitive zones and supply foundational cellular hydration.";
+
+            if (goal === 'hydrate') {
+                formulaName = "GlowUp Hydra-Symmetry Essence";
+                formulaDesc = "Rich in molecular weight hyaluronic acids and cold-pressed bio-lipids. Specifically chosen to eradicate tight, parched skin areas.";
+            } else if (goal === 'firm') {
+                formulaName = "GlowUp Peptide Firming Complex";
+                formulaDesc = "Deeply concentrated cell recovery serum that targets slackened elastin matrices, promoting maximum tension and contour radiance.";
+            } else if (goal === 'bright') {
+                formulaName = "GlowUp Active Radiance Infusion";
+                formulaDesc = "Infused with organic pomegranate phytosomes and stable vitamin C precursors to lift hyperpigmentation and reveal instant skin glow.";
+            }
+
+            if (sensitivity === 'reactive') {
+                formulaName += " (Ultra-Gentle Edition)";
+                formulaDesc += " Modified with localized green tea extracts and allergen barriers to ensure absolute zero redness reactions.";
+            }
+
+            document.getElementById('result-formula-name').innerText = formulaName;
+            document.getElementById('result-formula-desc').innerText = formulaDesc;
+        }
+
+        function resetDiag() {
+            state.diagnostics = { goal: null, sensitivity: null, age: null };
+            document.getElementById('diag-result').classList.add('hidden');
+            document.getElementById('diag-step-1').classList.remove('hidden');
+            document.getElementById('diag-progress').style.width = '33.33%';
+        }
+
+        // 6. Interactive Cart Logic
+        function toggleCartModal() {
+            const modal = document.getElementById('cart-modal');
+            modal.classList.toggle('hidden');
+            modal.classList.toggle('translate-x-full');
+        }
+
+        function addPrescriptionToCart() {
+            const name = document.getElementById('result-formula-name').innerText;
+            const item = {
+                id: Date.now(),
+                name: name,
+                price: 89.00,
+                type: 'Custom Diagnosis Prescription'
+            };
+            state.cart.push(item);
+            updateCartUI();
+            toggleCartModal();
+            showToast("Custom Jar added successfully!");
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cart-items-container');
+            const emptyState = document.getElementById('cart-empty-state');
+            const totalPriceEl = document.getElementById('cart-total-price');
+
+            if (state.cart.length === 0) {
+                emptyState.classList.remove('hidden');
+                container.innerHTML = '';
+                totalPriceEl.innerText = '$0.00';
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            container.innerHTML = state.cart.map(item => `
+                <div class="glassmorphism rounded-xl p-4 flex items-center justify-between gap-4">
+                    <div class="flex-1">
+                        <h4 class="text-xs font-semibold uppercase text-brand-cream tracking-wider">${item.name}</h4>
+                        <p class="text-[10px] text-brand-lightSage mt-1">${item.type}</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-sm font-bold text-brand-cream">$${item.price.toFixed(2)}</span>
+                        <button onclick="removeCartItem(${item.id})" class="block text-[10px] text-red-400 hover:underline mt-1">Remove</button>
+                    </div>
+                </div>
+            `).join('');
+
+            const total = state.cart.reduce((sum, item) => sum + item.price, 0);
+            totalPriceEl.innerText = `$${total.toFixed(2)}`;
+        }
+
+        function removeCartItem(itemId) {
+            state.cart = state.cart.filter(item => item.id !== itemId);
+            updateCartUI();
+            showToast("Removed from ritual bag.");
+        }
+
+        function simulateCheckout() {
+            if (state.cart.length === 0) {
+                showToast("Your beauty bag is empty.");
+                return;
+            }
+            showToast("Simulating secure transaction...");
+            setTimeout(() => {
+                state.cart = [];
+                updateCartUI();
+                toggleCartModal();
+                showToast("Order Placed! Thank you for choosing GlowUp.");
+            }, 1500);
+        }
+
+        // 7. Toast Notification Trigger
+        function showToast(message) {
+            const toast = document.getElementById('custom-toast');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.innerText = message;
+            
+            toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+                toast.classList.remove('translate-y-0', 'opacity-100');
+            }, 4000);
+        }
+
+        // 8. Newsletter form handling
+        function handleSubscribe(e) {
+            e.preventDefault();
+            const msg = document.getElementById('subscribe-message');
+            msg.innerText = "Processing organic newsletter subscription...";
+            msg.classList.remove('hidden');
+
+            setTimeout(() => {
+                msg.innerText = "Subscription confirmed! Welcome to the GlowUp Circle.";
+                showToast("Welcome to the GlowUp Circle!");
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
+4

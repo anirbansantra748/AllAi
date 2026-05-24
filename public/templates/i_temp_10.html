@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teatro Griego — Immersive Digital Archive</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Cinzel Decorative for Headers, Space Grotesk for Technical text, Playfair for elegant bodies -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons via CDN for premium graphical buttons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cobalt: {
+              DEFAULT: '#102ce6',
+              light: '#3b54ff',
+              dark: '#08178a',
+              glow: 'rgba(16, 44, 230, 0.4)'
+            },
+            void: '#060608',
+            stark: '#ffffff'
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            display: ['"Cinzel Decorative"', 'serif'],
+            mono: ['"Space Grotesk"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #060608;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #102ce6;
+      border-radius: 3px;
+    }
+
+    /* Screenprint Halftone & Grid Textures */
+    .bg-halftone {
+      background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+    .bg-technical-grid {
+      background-image: linear-gradient(rgba(16, 44, 230, 0.15) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(16, 44, 230, 0.15) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .screen-noise {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 999;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    /* Elegant Text Glow and Outlines to match Risograph print styling */
+    .text-outline-stark {
+      -webkit-text-stroke: 1px #ffffff;
+      color: transparent;
+    }
+    .text-outline-cobalt {
+      -webkit-text-stroke: 1.5px #102ce6;
+      color: transparent;
+    }
+
+    /* Custom Transitions & Hover Effects */
+    .transition-premium {
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    /* Pulses matching divine presence */
+    @keyframes subtlePulse {
+      0%, 100% { opacity: 0.8; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.02); }
+    }
+    .deity-pulse {
+      animation: subtlePulse 4s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-void text-stark font-mono antialiased selection:bg-cobalt selection:text-stark overflow-x-hidden relative">
+
+  <!-- Aesthetic Screen Noise & CRT Filter overlay -->
+  <div class="screen-noise"></div>
+
+  <!-- FIXED DECORATIVE ANNOTATIONS (Brutalist Poster Theme) -->
+  <div class="hidden lg:flex fixed left-6 top-1/2 -translate-y-1/2 flex-col gap-8 text-[10px] tracking-[0.2em] text-cobalt-light/60 writing-mode-vertical z-50 pointer-events-none uppercase">
+    <div>ARCHIVE SYSTEM // MODEL.TG.11</div>
+    <div class="h-24 w-px bg-cobalt/30 mx-auto"></div>
+    <div>LAT: 37.5961° N / LON: 23.0792° E (EPIDAURUS)</div>
+  </div>
+  <div class="hidden lg:flex fixed right-6 top-1/2 -translate-y-1/2 flex-col gap-8 text-[10px] tracking-[0.2em] text-cobalt-light/60 writing-mode-vertical z-50 pointer-events-none uppercase">
+    <div>DIONYSUS FESTIVAL — ATHENS V.CENTURY B.C.</div>
+    <div class="h-24 w-px bg-cobalt/30 mx-auto"></div>
+    <div>TEATRO CLÁSICO DE OCCIDENTE</div>
+  </div>
+
+  <!-- EXQUISITE HEADER/NAVBAR -->
+  <header class="border-b border-cobalt/40 bg-void/95 backdrop-blur-md sticky top-0 z-40 transition-premium">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <!-- Logo Branding -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="relative w-10 h-10 border border-cobalt flex items-center justify-center group-hover:bg-cobalt transition-premium">
+          <span class="text-xs font-bold font-display group-hover:text-stark text-cobalt-light">T</span>
+          <div class="absolute -inset-1 border border-cobalt/30 opacity-0 group-hover:opacity-100 transition-premium"></div>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-sm font-bold tracking-widest font-display text-stark group-hover:text-cobalt-light transition-premium">TEATRO GRIEGO</span>
+          <span class="text-[9px] text-cobalt-light/70 tracking-widest uppercase">Digital Amphitheater Archive</span>
+        </div>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex items-center gap-8 text-xs tracking-wider uppercase">
+        <a href="#origen" class="hover:text-cobalt-light transition-premium flex items-center gap-2">
+          <span class="text-[9px] text-cobalt-light">01 //</span> Origen
+        </a>
+        <a href="#arquitectura" class="hover:text-cobalt-light transition-premium flex items-center gap-2">
+          <span class="text-[9px] text-cobalt-light">02 //</span> Arquitectura
+        </a>
+        <a href="#mascaras" class="hover:text-cobalt-light transition-premium flex items-center gap-2">
+          <span class="text-[9px] text-cobalt-light">03 //</span> El Arte Dramático
+        </a>
+        <a href="#acustica" class="hover:text-cobalt-light transition-premium flex items-center gap-2">
+          <span class="text-[9px] text-cobalt-light">04 //</span> Acústica Virtual
+        </a>
+      </nav>
+
+      <!-- Action Button & Audio Indicator -->
+      <div class="flex items-center gap-4">
+        <button onclick="toggleAudio()" id="ambient-audio-btn" class="p-2 border border-cobalt/40 rounded-full hover:border-stark text-cobalt-light hover:text-stark transition-premium flex items-center justify-center w-10 h-10" title="Activar Ambiente Sonoro">
+          <i id="audio-icon" class="fa-solid fa-volume-xmark text-sm"></i>
+        </button>
+        <a href="#simulador" class="hidden sm:inline-flex items-center gap-2 px-5 py-2 text-xs uppercase tracking-widest bg-cobalt border border-cobalt-light hover:bg-void hover:border-stark text-stark transition-premium">
+          <span>PROMPT ORÁCULO</span>
+          <i class="fa-solid fa-chevron-right text-[9px]"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION: THE MAJESTIC PROLOGUE -->
+  <section class="relative min-h-[90vh] flex flex-col justify-center overflow-hidden border-b border-cobalt/40 bg-technical-grid">
+    <!-- Gradient Overlay matching the exact saturated electric blue feel -->
+    <div class="absolute inset-0 bg-gradient-to-b from-cobalt/10 via-void/90 to-void pointer-events-none"></div>
+    <div class="absolute -right-40 -top-40 w-96 h-96 rounded-full bg-cobalt/20 blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-6 py-20 w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <!-- Left Column: The Dramatic Texts -->
+      <div class="lg:col-span-7 flex flex-col justify-center space-y-8">
+        <div class="inline-flex items-center gap-3 border border-cobalt/40 px-3 py-1 bg-cobalt/5 self-start">
+          <span class="w-1.5 h-1.5 bg-stark rounded-full animate-ping"></span>
+          <span class="text-[10px] tracking-[0.2em] text-cobalt-light uppercase">ESTUDIO HISTÓRICO Y SENSORIAL</span>
+        </div>
+
+        <div class="space-y-4">
+          <h1 class="text-5xl md:text-8xl font-display font-black leading-none uppercase tracking-tight text-stark">
+            Teatro<br>
+            <span class="text-outline-stark text-cobalt-light">Griego</span>
+          </h1>
+          <p class="text-cobalt-light font-bold text-lg md:text-xl tracking-wider font-display max-w-xl">
+            La cuna de la catarsis colectiva, la geometría acústica sagrada y el misterio divino de Dioniso.
+          </p>
+        </div>
+
+        <p class="text-gray-400 font-serif leading-relaxed text-sm md:text-base max-w-2xl">
+          El origen de la representación dramática occidental occidental nació en Grecia entre los siglos VI y V a.C. Las fiestas dionisíacas sirvieron de cuna para las primeras tragedias de Esquilo, Sófocles y Eurípides, fusionando música, coro y rito sagrado sobre piedras que desafiaron el paso del tiempo.
+        </p>
+
+        <!-- Technical Specs Row -->
+        <div class="grid grid-cols-3 gap-4 border-t border-cobalt/30 pt-6 max-w-lg">
+          <div>
+            <div class="text-xs text-cobalt-light">DISEÑO</div>
+            <div class="text-lg font-bold">100% Acústico</div>
+          </div>
+          <div>
+            <div class="text-xs text-cobalt-light">PROPÓSITO</div>
+            <div class="text-lg font-bold">Catarsis Colectiva</div>
+          </div>
+          <div>
+            <div class="text-xs text-cobalt-light">DEIDAD</div>
+            <div class="text-lg font-bold">Dioniso</div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-4 pt-4">
+          <button onclick="scrollToId('arquitectura')" class="px-6 py-3 bg-cobalt border border-cobalt-light hover:bg-stark hover:text-void hover:border-stark text-xs uppercase tracking-widest font-bold transition-premium">
+            Explorar Arquitectura
+          </button>
+          <button onclick="scrollToId('simulador')" class="px-6 py-3 border border-cobalt/60 hover:border-stark text-xs uppercase tracking-widest font-bold transition-premium">
+            Consultar Oráculo
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Column: Majestic Statue & Architectural Medallion Hero Art -->
+      <div class="lg:col-span-5 relative flex items-center justify-center">
+        <!-- Giant background seal representing the circular geometry of the orchestra -->
+        <div class="absolute w-[350px] md:w-[480px] h-[350px] md:h-[480px] border border-cobalt/30 rounded-full flex items-center justify-center animate-spin-slow">
+          <div class="w-[85%] h-[85%] border border-dashed border-cobalt/40 rounded-full flex items-center justify-center">
+            <div class="w-[75%] h-[75%] border border-cobalt/20 rounded-full flex items-center justify-center">
+              <span class="text-[9px] uppercase tracking-[0.3em] text-cobalt-light/40">EPIDAURUS • DELOS • ATHENS • EPIDAURUS • DELOS</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Central Decorative Column with Statue Illustration (SVG) -->
+        <div class="relative z-10 deity-pulse py-8">
+          <!-- Main Greek Statue silhouette + column container -->
+          <div class="w-64 h-96 relative flex flex-col items-center justify-end">
+            <!-- Classic Statue Art rendered beautifully in white vectors with a glowing cobalt backshadow -->
+            <div class="absolute top-0 w-48 h-72 drop-shadow-[0_0_25px_rgba(16,44,230,0.6)]">
+              <svg viewBox="0 0 100 150" class="w-full h-full fill-stark" xmlns="http://www.w3.org/2000/svg">
+                <!-- Greek Classical Pose Stylized Art Path -->
+                <path d="M50 15 C53 15, 55 18, 54 22 C53 25, 51 27, 49 28 C52 30, 56 34, 57 38 C58 42, 59 48, 57 52 C55 56, 52 58, 48 59 C46 60, 44 60, 42 62 C40 64, 38 68, 36 74 C34 80, 34 88, 33 95 L35 125 L45 128 L52 110 L58 100 C62 95, 64 92, 65 85 L67 60 L62 55 L58 58 L54 62 L50 63 L48 70 L46 72 L45 80 L44 92 L42 105 L41 125 C41 128, 43 130, 46 130 L55 130 C58 130, 60 128, 62 122 L65 110 L68 95 C70 85, 71 78, 70 70 L68 50 C67 45, 66 40, 68 35 L69 32 L66 30 C64 30, 62 32, 61 34 L58 42 L55 46 L52 48 L51 45 C51 40, 52 35, 53 30 Z" />
+                <path d="M48 5 C45 5, 43 7, 42 10 C41 12, 41 15, 43 18 C45 20, 48 22, 52 22 C55 22, 57 20, 58 17 C59 14, 58 11, 56 8 C53 6, 51 5, 48 5 Z" />
+                <!-- Fold drapery details -->
+                <path d="M40 35 L44 55 M42 45 L46 65 M48 50 L52 75 M46 68 L50 95 M38 65 L41 85 M45 90 L48 115" stroke="#102ce6" stroke-width="1.2" fill="none" />
+              </svg>
+            </div>
+
+            <!-- Ionic Column base supporting the statue (Matches exact visual aesthetic) -->
+            <div class="w-48 h-32 border-2 border-cobalt bg-void/90 flex flex-col items-center justify-between p-2 shadow-[0_0_30px_rgba(16,44,230,0.2)]">
+              <!-- Column Capital -->
+              <div class="w-full flex justify-between px-1">
+                <div class="w-6 h-6 rounded-full border-2 border-cobalt flex items-center justify-center"><div class="w-2 h-2 rounded-full bg-cobalt"></div></div>
+                <div class="h-2 w-2/3 bg-cobalt self-center"></div>
+                <div class="w-6 h-6 rounded-full border-2 border-cobalt flex items-center justify-center"><div class="w-2 h-2 rounded-full bg-cobalt"></div></div>
+              </div>
+              <!-- Shaft -->
+              <div class="w-11/12 h-16 flex justify-around border-t-2 border-b-2 border-cobalt pt-1 pb-1">
+                <div class="w-1.5 h-full bg-cobalt/70"></div>
+                <div class="w-1.5 h-full bg-cobalt/70"></div>
+                <div class="w-1.5 h-full bg-cobalt/70"></div>
+                <div class="w-1.5 h-full bg-cobalt/70"></div>
+                <div class="w-1.5 h-full bg-cobalt/70"></div>
+              </div>
+              <!-- Base -->
+              <div class="w-full h-3 bg-cobalt flex items-center justify-center">
+                <span class="text-[7px] text-stark font-bold tracking-widest">TEMPLUM DIONYSI</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Float Floating Technical Labels -->
+        <div class="absolute left-4 top-1/4 border border-cobalt/40 bg-void/80 px-3 py-1.5 text-[10px] space-y-0.5">
+          <p class="text-cobalt-light font-bold">ESCULTURA CLÁSICA</p>
+          <p class="text-gray-400 font-serif">Mármol Pentélico</p>
+        </div>
+        <div class="absolute right-4 bottom-1/4 border border-cobalt/40 bg-void/80 px-3 py-1.5 text-[10px] space-y-0.5">
+          <p class="text-cobalt-light font-bold">COLUMNATA JÓNICA</p>
+          <p class="text-gray-400 font-serif">Sección 09/B</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- INTERACTIVE ARCHITECTURE SECTION: THE BLUEPRINT -->
+  <section id="arquitectura" class="py-24 border-b border-cobalt/40 relative bg-halftone">
+    <!-- Subtle Gradient light -->
+    <div class="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-cobalt/10 to-transparent pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <!-- Section Title & Narrative -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div class="space-y-4">
+          <div class="text-xs text-cobalt-light tracking-widest uppercase">// GEOMETRÍA SAGRADA Y ACÚSTICA</div>
+          <h2 class="text-3xl md:text-5xl font-display font-bold uppercase">PARTES DEL TEATRO</h2>
+          <p class="text-gray-400 font-serif max-w-xl text-sm md:text-base">
+            Pasea el cursor por las diferentes zonas marcadas de la maqueta arquitectónica interactiva para descubrir la función técnica y espiritual de cada elemento del anfiteatro clásico.
+          </p>
+        </div>
+        <div class="border border-cobalt/40 bg-void p-4 max-w-xs text-[11px] space-y-1">
+          <p class="text-cobalt-light font-bold uppercase"><i class="fa-solid fa-circle-nodes mr-2"></i>SISTEMA DIGITAL ACTIVO</p>
+          <p class="text-gray-400">Haz clic en los nodos de la estructura para ver los análisis profundos correspondientes.</p>
+        </div>
+      </div>
+
+      <!-- MAIN INTERACTIVE CONTAINER: Grid containing visual Blueprint and detail panel -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        
+        <!-- Interactive Map (Left Panel - 7 columns) -->
+        <div class="lg:col-span-7 bg-void border border-cobalt/50 relative p-6 flex flex-col justify-between overflow-hidden shadow-[0_0_40px_rgba(16,44,230,0.1)]">
+          <!-- Background Grid lines decoration -->
+          <div class="absolute inset-0 bg-technical-grid opacity-20 pointer-events-none"></div>
+          
+          <div class="relative z-10 flex items-center justify-between border-b border-cobalt/20 pb-4 mb-6">
+            <span class="text-xs text-cobalt-light tracking-wider"><i class="fa-solid fa-compass mr-1"></i> CARTOGRAFÍA ESTRUCTURAL / AMFITEATRO DE EPIDAURO</span>
+            <span class="text-[10px] text-gray-500 font-mono">MAP-REF: 104-E</span>
+          </div>
+
+          <!-- THE INTERACTIVE SVG BLUEPRINT -->
+          <div class="relative z-10 w-full flex items-center justify-center py-6">
+            <svg id="theatre-blueprint" viewBox="0 0 500 320" class="w-full max-w-lg h-auto drop-shadow-[0_0_15px_rgba(16,44,230,0.35)]" xmlns="http://www.w3.org/2000/svg">
+              <!-- Definitions for patterns & markers if needed -->
+              <defs>
+                <radialGradient id="highlightGlow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#102ce6" stop-opacity="0.6"/>
+                  <stop offset="100%" stop-color="#102ce6" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+
+              <!-- Grid overlay helper line visual -->
+              <line x1="250" y1="20" x2="250" y2="300" stroke="#102ce6" stroke-width="0.5" stroke-dasharray="3,3" />
+              <line x1="20" y1="160" x2="480" y2="160" stroke="#102ce6" stroke-width="0.5" stroke-dasharray="3,3" />
+
+              <!-- STAGES & BUILDINGS -->
+              <!-- Skene (Stage Building Block) -->
+              <g id="node-skene" class="cursor-pointer group" onclick="highlightPart('skene')">
+                <rect x="130" y="230" width="240" height="40" fill="#060608" stroke="#102ce6" stroke-width="1.5" class="transition-premium group-hover:fill-cobalt/20" />
+                <text x="250" y="254" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="10" text-anchor="middle" letter-spacing="1.5" class="pointer-events-none font-bold">SKENE</text>
+                <!-- Detail lines representing doors -->
+                <line x1="180" y1="230" x2="180" y2="270" stroke="#102ce6" stroke-width="0.8" />
+                <line x1="250" y1="230" x2="250" y2="270" stroke="#102ce6" stroke-width="0.8" />
+                <line x1="320" y1="230" x2="320" y2="270" stroke="#102ce6" stroke-width="0.8" />
+                <!-- Indicator Ring -->
+                <circle cx="250" cy="250" r="14" fill="transparent" stroke="#ffffff" stroke-width="0.5" stroke-dasharray="2,2" class="animate-spin-slow" />
+                <circle cx="250" cy="250" r="3" fill="#ffffff" />
+              </g>
+
+              <!-- Proskenion (Front of Stage) -->
+              <g id="node-proskenion" class="cursor-pointer group" onclick="highlightPart('proskenion')">
+                <rect x="150" y="200" width="200" height="24" fill="#060608" stroke="#102ce6" stroke-width="1.2" class="transition-premium group-hover:fill-cobalt/20" />
+                <text x="250" y="215" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="7" text-anchor="middle" class="pointer-events-none tracking-widest">PROSKENION</text>
+                <!-- Interactive pin -->
+                <circle cx="200" cy="212" r="3" fill="#102ce6" class="group-hover:fill-stark transition-premium" />
+              </g>
+
+              <!-- ORCHESTRA (Circular Central Floor) -->
+              <g id="node-orchestra" class="cursor-pointer group" onclick="highlightPart('orchestra')">
+                <circle cx="250" cy="145" r="50" fill="#060608" stroke="#102ce6" stroke-width="1.8" stroke-dasharray="3,1" class="transition-premium group-hover:fill-cobalt/15" />
+                <text x="250" y="148" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="10" text-anchor="middle" letter-spacing="1" class="pointer-events-none font-bold">ORCHESTRA</text>
+                
+                <!-- Thymele (Altar - perfect center of the Orchestra) -->
+                <circle cx="250" cy="145" r="10" fill="#102ce6" stroke="#ffffff" stroke-width="1" class="transition-premium group-hover:scale-125" />
+                <circle cx="250" cy="145" r="2" fill="#ffffff" />
+              </g>
+
+              <!-- KOILON (Cavea/Auditorium Seating - Large Arc) -->
+              <g id="node-koilon" class="cursor-pointer group" onclick="highlightPart('koilon')">
+                <!-- Outer Tier arcs -->
+                <path d="M 50,140 A 200,200 0 0,1 450,140" fill="none" stroke="#102ce6" stroke-width="14" stroke-dasharray="4,6" class="transition-premium group-hover:stroke-cobalt-light" />
+                <path d="M 75,140 A 175,175 0 0,1 425,140" fill="none" stroke="#102ce6" stroke-width="12" stroke-dasharray="2,4" class="transition-premium group-hover:stroke-cobalt-light" />
+                
+                <!-- Diazomata (Dividing corridor arc) -->
+                <path d="M 105,140 A 145,145 0 0,1 395,140" fill="none" stroke="#ffffff" stroke-width="2" class="transition-premium group-hover:stroke-cobalt" />
+                
+                <!-- Inner Tier arcs -->
+                <path d="M 125,140 A 125,125 0 0,1 375,140" fill="none" stroke="#102ce6" stroke-width="10" stroke-dasharray="4,4" class="transition-premium group-hover:stroke-cobalt-light" />
+                <path d="M 155,140 A 95,95 0 0,1 345,140" fill="none" stroke="#102ce6" stroke-width="8" stroke-dasharray="1,3" class="transition-premium group-hover:stroke-cobalt-light" />
+                
+                <text x="250" y="60" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="11" text-anchor="middle" letter-spacing="2" class="pointer-events-none font-bold">KOILON / CAVEA</text>
+                
+                <!-- Interactive Pin on Auditorium top tier -->
+                <circle cx="250" cy="35" r="4" fill="#ffffff" class="animate-bounce" />
+              </g>
+
+              <!-- PARODOI (Lateral Entrances left and right) -->
+              <g id="node-parodoi" class="cursor-pointer group" onclick="highlightPart('parodoi')">
+                <!-- Left Parodos -->
+                <path d="M 60,195 L 140,195 L 140,210 L 60,210 Z" fill="#060608" stroke="#102ce6" stroke-width="1" class="transition-premium group-hover:fill-cobalt/20" />
+                <text x="100" y="205" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="6" text-anchor="middle" class="pointer-events-none">PÁRODOS (I)</text>
+
+                <!-- Right Parodos -->
+                <path d="M 360,195 L 440,195 L 440,210 L 360,210 Z" fill="#060608" stroke="#102ce6" stroke-width="1" class="transition-premium group-hover:fill-cobalt/20" />
+                <text x="400" y="205" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="6" text-anchor="middle" class="pointer-events-none">PÁRODOS (D)</text>
+                
+                <!-- Pin Indicators -->
+                <circle cx="100" cy="202" r="2.5" fill="#ffffff" />
+                <circle cx="400" cy="202" r="2.5" fill="#ffffff" />
+              </g>
+
+              <!-- DIAZOMATA annotation pins -->
+              <g id="node-diazomata" class="cursor-pointer group" onclick="highlightPart('diazomata')">
+                <circle cx="110" cy="135" r="3" fill="#102ce6" />
+                <line x1="110" y1="135" x2="80" y2="105" stroke="#ffffff" stroke-width="0.5" />
+                <text x="75" y="100" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="6" text-anchor="end">DIAZOMATA</text>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Bottom Legend Info -->
+          <div class="relative z-10 border-t border-cobalt/20 pt-4 flex justify-between text-[9px] text-gray-400">
+            <div><span class="text-cobalt-light">HINT:</span> Haz clic en cualquiera de las regiones en blanco o azul del mapa.</div>
+            <div class="text-cobalt-light font-bold">ESCALA 1:500</div>
+          </div>
+        </div>
+
+        <!-- Part Details Panel (Right Panel - 5 columns) -->
+        <div id="part-details-card" class="lg:col-span-5 bg-cobalt border border-cobalt-light p-8 flex flex-col justify-between text-stark transition-premium shadow-[0_0_30px_rgba(16,44,230,0.3)]">
+          <div class="space-y-6">
+            <!-- Part Header Tag / ID -->
+            <div class="flex items-center justify-between border-b border-stark/30 pb-4">
+              <span id="detail-id" class="text-xs font-mono bg-void text-stark px-3 py-1 font-bold">PARTE // 01</span>
+              <span class="text-xs uppercase tracking-widest font-mono">SECCIÓN ARQUITECTÓNICA</span>
+            </div>
+
+            <!-- Part Title -->
+            <h3 id="detail-title" class="text-4xl font-display font-bold uppercase tracking-wide">KOILON / CAVEA</h3>
+            
+            <!-- Description -->
+            <p id="detail-desc" class="font-serif text-sm leading-relaxed text-stark/90">
+              La gran gradería semicircular excavada directamente sobre la ladera de la colina. Diseñada con una inclinación milimétrica perfecta que permitía la visibilidad total y un comportamiento acústico asombroso, propagando los susurros de la escena hasta la última fila.
+            </p>
+
+            <!-- Specifications / Fun Fact grid -->
+            <div class="grid grid-cols-2 gap-4 bg-void/30 p-4 border border-stark/20 rounded-sm">
+              <div>
+                <span class="text-[9px] text-stark/70 block uppercase">Capacidad Estimada</span>
+                <span id="detail-cap" class="text-sm font-bold font-mono">14,000 espectadores</span>
+              </div>
+              <div>
+                <span class="text-[9px] text-stark/70 block uppercase">Material Dominante</span>
+                <span id="detail-mat" class="text-sm font-bold font-mono">Piedra caliza / Mármol</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Navigation buttons for Parts inside info card -->
+          <div class="pt-8 flex items-center justify-between border-t border-stark/30 mt-6">
+            <button onclick="prevPart()" class="hover:text-void flex items-center gap-2 text-xs transition-premium">
+              <i class="fa-solid fa-arrow-left"></i> ANTERIOR
+            </button>
+            <span id="part-counter" class="text-xs font-mono font-bold">01 / 06</span>
+            <button onclick="nextPart()" class="hover:text-void flex items-center gap-2 text-xs transition-premium">
+              SIGUIENTE <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- THE DRAMATIC ELEMENTS: THREE-CARD PORTFOLIO Grid -->
+  <section id="mascaras" class="py-24 border-b border-cobalt/40 bg-void relative">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <!-- Section Title Header -->
+      <div class="text-center space-y-4 mb-16">
+        <div class="text-xs text-cobalt-light tracking-widest uppercase">// EL PODER TRÁGICO Y CÓMICO</div>
+        <h2 class="text-3xl md:text-5xl font-display font-bold uppercase tracking-wide">LOS ELEMENTOS DE LA REPRESENTACIÓN</h2>
+        <p class="text-gray-400 font-serif max-w-2xl mx-auto text-sm md:text-base">
+          El teatro clásico no dependía de la mímica facial, sino de una sobredimensión dramática sustentada en tres pilares eternos.
+        </p>
+      </div>
+
+      <!-- Grid of The 3 Pillars -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- CARD 1: MÁSCARAS -->
+        <div class="border border-cobalt/40 bg-void hover:border-stark p-8 flex flex-col justify-between space-y-8 transition-premium group hover:shadow-[0_0_25px_rgba(16,44,230,0.15)]">
+          <div class="space-y-4">
+            <div class="w-12 h-12 border border-cobalt flex items-center justify-center text-cobalt-light group-hover:bg-cobalt group-hover:text-stark transition-premium text-lg font-bold">
+              01
+            </div>
+            <h3 class="text-2xl font-display font-bold uppercase tracking-wide text-stark group-hover:text-cobalt-light transition-premium">MÁSCARAS (PROSOPON)</h3>
+            <p class="text-gray-400 font-serif text-sm leading-relaxed">
+              Dispositivos sagrados fabricados en lino prensado, corteza o madera. Exageraban los rasgos trágicos y cómicos para ser visibles desde distancias monumentales y actuaban como megáfonos primitivos para proyectar la voz.
+            </p>
+          </div>
+          <!-- Decorative Mask Illustration (SVG) -->
+          <div class="h-32 w-full flex items-center justify-center bg-cobalt/5 border border-cobalt/25 rounded p-2">
+            <svg viewBox="0 0 100 100" class="h-24 fill-none stroke-cobalt-light stroke-1 group-hover:stroke-stark transition-premium" xmlns="http://www.w3.org/2000/svg">
+              <!-- Tragedy Mask -->
+              <circle cx="50" cy="45" r="30" />
+              <!-- Eyes -->
+              <ellipse cx="40" cy="40" rx="4" ry="6" fill="#102ce6" />
+              <ellipse cx="60" cy="40" rx="4" ry="6" fill="#102ce6" />
+              <!-- Downward Mouth -->
+              <path d="M 35,65 Q 50,50 65,65" stroke-width="2" />
+              <!-- Forehead lines representing worry -->
+              <line x1="45" y1="23" x2="55" y2="23" />
+              <line x1="42" y1="28" x2="58" y2="28" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- CARD 2: EL CORO -->
+        <div class="border border-cobalt/40 bg-void hover:border-stark p-8 flex flex-col justify-between space-y-8 transition-premium group hover:shadow-[0_0_25px_rgba(16,44,230,0.15)]">
+          <div class="space-y-4">
+            <div class="w-12 h-12 border border-cobalt flex items-center justify-center text-cobalt-light group-hover:bg-cobalt group-hover:text-stark transition-premium text-lg font-bold">
+              02
+            </div>
+            <h3 class="text-2xl font-display font-bold uppercase tracking-wide text-stark group-hover:text-cobalt-light transition-premium">EL CORO (CHORUS)</h3>
+            <p class="text-gray-400 font-serif text-sm leading-relaxed">
+              Un grupo homogéneo de actores (entre 12 y 15) que cantaban, danzaban y comentaban los acontecimientos de la obra. Actuaban como la voz de la conciencia comunitaria, el puente entre el héroe trágico y la audiencia.
+            </p>
+          </div>
+          <!-- Decorative Chorus Group Lines (SVG) -->
+          <div class="h-32 w-full flex items-center justify-center bg-cobalt/5 border border-cobalt/25 rounded p-2">
+            <svg viewBox="0 0 100 100" class="h-24 fill-none stroke-cobalt-light stroke-1 group-hover:stroke-stark transition-premium" xmlns="http://www.w3.org/2000/svg">
+              <!-- 3 figures standing close together representing chorus -->
+              <!-- Fig 1 -->
+              <path d="M 30,85 L 30,55 C 30,50 35,45 40,45" />
+              <circle cx="35" cy="35" r="6" />
+              <!-- Fig 2 (Center back) -->
+              <path d="M 50,85 L 50,45 C 50,40 55,35 60,35" />
+              <circle cx="55" cy="25" r="6" />
+              <!-- Fig 3 -->
+              <path d="M 70,85 L 70,60 C 70,55 75,50 80,50" />
+              <circle cx="75" cy="40" r="6" />
+              
+              <!-- Connecting flow line showing choral choreography -->
+              <path d="M 15,75 Q 40,55 85,75" stroke-dasharray="3,3" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- CARD 3: LA CATARSIS -->
+        <div class="border border-cobalt/40 bg-void hover:border-stark p-8 flex flex-col justify-between space-y-8 transition-premium group hover:shadow-[0_0_25px_rgba(16,44,230,0.15)]">
+          <div class="space-y-4">
+            <div class="w-12 h-12 border border-cobalt flex items-center justify-center text-cobalt-light group-hover:bg-cobalt group-hover:text-stark transition-premium text-lg font-bold">
+              03
+            </div>
+            <h3 class="text-2xl font-display font-bold uppercase tracking-wide text-stark group-hover:text-cobalt-light transition-premium">LA CATARSIS (KATHARSIS)</h3>
+            <p class="text-gray-400 font-serif text-sm leading-relaxed">
+              El fin supremo de la tragedia griega. A través de la experimentación de la compasión y el terror (eleos y phobos), el público alcanzaba una purificación emocional profunda, saliendo del recinto purgados y renovados éticamente.
+            </p>
+          </div>
+          <!-- Decorative Flame / Flow of emotion (SVG) -->
+          <div class="h-32 w-full flex items-center justify-center bg-cobalt/5 border border-cobalt/25 rounded p-2">
+            <svg viewBox="0 0 100 100" class="h-24 fill-none stroke-cobalt-light stroke-1 group-hover:stroke-stark transition-premium" xmlns="http://www.w3.org/2000/svg">
+              <!-- Flame or rising vapor pathways -->
+              <path d="M 50,85 C 40,75 35,60 35,45 C 35,30 50,15 50,15 C 50,15 65,30 65,45 C 65,60 60,75 50,85 Z" />
+              <path d="M 50,80 C 45,70 42,60 42,50 C 42,40 50,30 50,30 C 50,30 58,40 58,50 C 58,60 55,70 50,80 Z" />
+              <path d="M 50,75 L 50,45" stroke-dasharray="2,2" />
+            </svg>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- INTERACTIVE SIMULATOR / ORACLE GENERATOR -->
+  <section id="simulador" class="py-24 border-b border-cobalt/40 bg-technical-grid relative">
+    <div class="absolute inset-0 bg-gradient-to-b from-void/80 via-cobalt/5 to-void/90 pointer-events-none"></div>
+
+    <div class="max-w-4xl mx-auto px-6 relative z-10">
+      
+      <!-- Card Container with Cobalt Header and High UI Density -->
+      <div class="border border-cobalt bg-void/95 shadow-[0_0_50px_rgba(16,44,230,0.2)]">
+        
+        <!-- Header Banner -->
+        <div class="bg-cobalt px-6 py-4 border-b border-cobalt-light flex items-center justify-between">
+          <span class="text-xs uppercase tracking-[0.2em] font-bold"><i class="fa-solid fa-scroll mr-2"></i>EL ORÁCULO DE LA TRAGEDIA GRIEGA</span>
+          <span class="text-[9px] bg-void px-2.5 py-0.5 text-cobalt-light border border-cobalt/30 font-bold uppercase">MODEL.V-0.1</span>
+        </div>
+
+        <div class="p-8 space-y-6">
+          <p class="text-gray-300 font-serif text-sm leading-relaxed text-center">
+            Diseña los parámetros del destino de tu personaje trágico. Selecciona un protagonista, su error fatal (<span class="italic">hamartia</span>) y el veredicto divino para que el Oráculo configure tu drama teatral y las sentencias del Coro.
+          </p>
+
+          <!-- Input selectors grid -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+            <!-- Selector 1: Protagonist -->
+            <div class="space-y-2">
+              <label class="text-[10px] text-cobalt-light uppercase tracking-wider block">1. EL PROTAGONISTA</label>
+              <select id="param-hero" class="w-full bg-void border border-cobalt/50 text-stark px-3 py-2 text-xs uppercase tracking-wider focus:outline-none focus:border-stark transition-premium">
+                <option value="edipo">El Rey Desterrado (Edipo)</option>
+                <option value="antigona">La Hermana Insurrecta (Antígona)</option>
+                <option value="prometeo">El Titán Encadenado (Prometeo)</option>
+                <option value="medea">La Hechicera Vengativa (Medea)</option>
+              </select>
+            </div>
+
+            <!-- Selector 2: Hamartia -->
+            <div class="space-y-2">
+              <label class="text-[10px] text-cobalt-light uppercase tracking-wider block">2. ERROR TRÁGICO (HAMARTIA)</label>
+              <select id="param-flaw" class="w-full bg-void border border-cobalt/50 text-stark px-3 py-2 text-xs uppercase tracking-wider focus:outline-none focus:border-stark transition-premium">
+                <option value="soberbia">Hybris (Soberbia extrema)</option>
+                <option value="traicion">Traición por Honor</option>
+                <option value="destino">Huida del Hado Ciego</option>
+                <option value="justicia">Venganza de Sangre</option>
+              </select>
+            </div>
+
+            <!-- Selector 3: Fate -->
+            <div class="space-y-2">
+              <label class="text-[10px] text-cobalt-light uppercase tracking-wider block">3. JUICIO DIVINO</label>
+              <select id="param-fate" class="w-full bg-void border border-cobalt/50 text-stark px-3 py-2 text-xs uppercase tracking-wider focus:outline-none focus:border-stark transition-premium">
+                <option value="zeus">La Ira de Zeus (Rayo & Ruina)</option>
+                <option value="apolo">La Profecía Inevitable de Delfos</option>
+                <option value="erinias">La Persecución de las Erinias</option>
+                <option value="hades">El Silencio del Tártaro</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- CTA to generate -->
+          <div class="flex justify-center pt-4">
+            <button onclick="generateTragedy()" class="w-full md:w-auto px-8 py-4 bg-cobalt border border-cobalt-light text-stark text-xs tracking-[0.25em] font-bold uppercase hover:bg-stark hover:text-void hover:border-stark transition-premium flex items-center justify-center gap-2 shadow-lg">
+              <i class="fa-solid fa-mask"></i> DECRETAR DESTINO TRÁGICO
+            </button>
+          </div>
+
+          <!-- Output Display (Pre-filled and animated dynamically) -->
+          <div id="oraculo-output" class="border border-cobalt/40 bg-void/90 p-6 space-y-4 rounded-sm transition-all duration-700 opacity-100">
+            <!-- Dynamic header -->
+            <div class="flex items-center justify-between border-b border-cobalt/20 pb-3">
+              <span id="output-meta" class="text-[10px] text-cobalt-light tracking-widest font-mono">DRAMATURGIA GENERADA // CÓDICE CLÁSICO</span>
+              <span class="text-xs text-gray-500"><i class="fa-solid fa-feather-pointed"></i></span>
+            </div>
+
+            <!-- The generated text title -->
+            <h4 id="output-title" class="text-xl md:text-2xl font-display font-bold text-stark uppercase tracking-wider">
+              La Fatalidad de Edipo y la Sombra de la Hybris
+            </h4>
+
+            <!-- The generated prologue text -->
+            <p id="output-text" class="font-serif text-sm italic leading-relaxed text-gray-300">
+              "En la mítica Tebas, donde el viento arrastra sollozos eternos, aquel monarca soberbio desafió el curso de las estrellas. Pero ningún mortal escapa a las garras invisibles del destino..."
+            </p>
+
+            <!-- Chorus Verse Box -->
+            <div class="border-l-2 border-cobalt pl-4 py-2 mt-4 bg-cobalt/5">
+              <span class="text-[9px] text-cobalt-light font-bold uppercase tracking-widest block mb-1">Canto del Coro (Estrofa I):</span>
+              <p id="output-chorus" class="font-serif text-sm text-stark italic">
+                «¡Ay de los ojos que buscan ver más de lo concedido! Quien camina altivo sobre cimientos de barro será arrastrado por la tormenta de Zeus.»
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- IMMERSIVE WEB AUDIO SIMULATOR SECTION (Dionysian Acoustics) -->
+  <section id="acustica" class="py-24 border-b border-cobalt/40 bg-void relative">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Side: Interactive Synthesizer Deck (7 Cols) -->
+        <div class="lg:col-span-7 space-y-8">
+          <div class="space-y-4">
+            <span class="text-xs text-cobalt-light tracking-widest uppercase">// SINTETIZADOR DE ACÚSTICA HISTÓRICA</span>
+            <h2 class="text-3xl md:text-5xl font-display font-bold uppercase">RESONANCIA TRÁGICA</h2>
+            <p class="text-gray-400 font-serif text-sm md:text-base leading-relaxed">
+              Los antiguos griegos poseían un conocimiento empírico impecable sobre el sonido. Los anfiteatros amplificaban y filtraban la voz mediante el uso de la resonancia de las vasijas de bronce situadas bajo las gradas y la reflexión de las piedras. 
+            </p>
+          </div>
+
+          <!-- Simulated Audio Controls Platform -->
+          <div class="border border-cobalt/50 bg-void p-6 space-y-6 shadow-[0_0_30px_rgba(16,44,230,0.1)]">
+            <div class="flex items-center justify-between border-b border-cobalt/20 pb-4">
+              <span class="text-xs font-bold text-stark tracking-wider uppercase"><i class="fa-solid fa-sliders mr-2"></i>MODULACIÓN SENSORIAL</span>
+              <span class="text-[10px] text-cobalt-light font-bold uppercase">Web Audio Core</span>
+            </div>
+
+            <!-- Parameter 1: Wind Sound -->
+            <div class="space-y-2">
+              <div class="flex justify-between text-xs">
+                <span class="text-gray-300">SUSURRO DEL VIENTO (EPIDAURO)</span>
+                <span id="wind-val" class="text-cobalt-light font-bold">Apagado</span>
+              </div>
+              <input type="range" id="wind-slider" min="0" max="100" value="0" class="w-full h-1 bg-cobalt/20 rounded-lg appearance-none cursor-pointer accent-cobalt-light" oninput="updateWind(this.value)">
+            </div>
+
+            <!-- Parameter 2: Ritual Chime -->
+            <div class="flex items-center justify-between pt-4 border-t border-cobalt/10">
+              <div>
+                <h4 class="text-sm font-bold">CAMPANA DE SACRIFICIO DIONISÍACO</h4>
+                <p class="text-[10px] text-gray-500">Campanada ceremonial filtrada con reverbera de cueva.</p>
+              </div>
+              <button onclick="playChime()" class="px-5 py-2.5 bg-cobalt hover:bg-stark text-stark hover:text-void text-xs uppercase tracking-widest font-bold transition-premium border border-cobalt-light">
+                <i class="fa-solid fa-gong mr-1"></i> TAÑER
+              </button>
+            </div>
+
+            <!-- Parameter 3: Chorus Hum -->
+            <div class="flex items-center justify-between pt-4 border-t border-cobalt/10">
+              <div>
+                <h4 class="text-sm font-bold">ZUMBIDO DEL CORO DE TRAGEDIA</h4>
+                <p class="text-[10px] text-gray-500">Tono armónico de 110Hz simulando la meditación coral.</p>
+              </div>
+              <button id="hum-btn" onclick="toggleChorusHum()" class="px-5 py-2.5 border border-cobalt/60 hover:border-stark text-stark text-xs uppercase tracking-widest font-bold transition-premium">
+                ACTIVAR ZUMBIDO
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side: Graphic Visualizer (5 Cols) -->
+        <div class="lg:col-span-5 flex flex-col items-center justify-center space-y-6">
+          <div class="w-full h-80 border-2 border-cobalt/50 relative flex items-center justify-center overflow-hidden bg-technical-grid bg-void">
+            <div class="absolute inset-0 bg-gradient-to-t from-cobalt/20 to-transparent pointer-events-none"></div>
+            
+            <!-- Graphic Audio Pulse Visualizer -->
+            <div id="visualizer-container" class="flex items-end gap-1.5 h-32 w-11/12 z-10">
+              <!-- Animated Bars (Using JS to stagger heights when playing sound) -->
+              <div class="w-full bg-cobalt-light transition-premium" style="height: 10%;"></div>
+              <div class="w-full bg-cobalt-light transition-premium" style="height: 15%;"></div>
+              <div class="w-full bg-cobalt-light transition-premium" style="height: 30%;"></div>
+              <div class="w-full bg-cobalt-light transition-premium" style="height: 55%;"></div>
+              <div class="w-full bg-cobalt-light transition-premium" style="height: 70%;"></div>
+              <div class="w-full bg-cobalt-light transition-premium" style="height: 85%;"></div>
+              <div class="w-full bg-cobalt-light transition-premium" style="height: 95%;"></div>
+              <div class="w-full bg-cobalt-light transition-premium" style="height: 80%;"></div>
+              <div class="w-full bg-cobalt-light transition-premium" style="height: 60%;"></div>
+              <div class="w-full bg-cobalt-light transition-premium" style="height: 40%;"></div>
+              <div class="w-full bg-cobalt-light transition-premium" style="height: 20%;"></div>
+              <div class="w-full bg-cobalt-light transition-premium" style="height: 10%;"></div>
+            </div>
+
+            <!-- Absolute Technical Coordinates overlay -->
+            <div class="absolute top-4 left-4 text-[8px] text-cobalt-light">ACOST-ANALYSIS: RUNNING</div>
+            <div class="absolute bottom-4 right-4 text-[8px] text-cobalt-light">FRQ: 110Hz - 22000Hz</div>
+          </div>
+          
+          <p class="text-xs text-gray-500 font-serif italic text-center max-w-sm">
+            “La voz fluye desde la escena de forma esférica, encontrándose con el Koilon de manera perpendicular para evitar el eco de distracción.”
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- HISTORICAL TIMELINE SECTION -->
+  <section class="py-24 border-b border-cobalt/40 bg-halftone relative">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <!-- Section Title -->
+      <div class="flex flex-col items-center text-center space-y-4 mb-20">
+        <div class="text-xs text-cobalt-light tracking-widest uppercase">// CRONOLOGÍA DE LA TRAGEDIA</div>
+        <h2 class="text-3xl md:text-5xl font-display font-bold uppercase">SENDEROS HISTÓRICOS</h2>
+        <div class="h-1 w-24 bg-cobalt mt-4"></div>
+      </div>
+
+      <!-- Horizontal scrollable timeline or stacked vertical items -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+        <!-- Connecting Line -->
+        <div class="hidden md:block absolute top-[45px] left-8 right-8 h-0.5 bg-cobalt/35 z-0"></div>
+
+        <!-- Timeline 1 -->
+        <div class="relative z-10 space-y-4 bg-void p-6 border border-cobalt/30 hover:border-stark transition-premium">
+          <div class="w-10 h-10 rounded-full bg-cobalt border border-cobalt-light flex items-center justify-center font-bold text-xs">
+            I
+          </div>
+          <div class="text-xs text-cobalt-light tracking-wider font-bold">534 A.C.</div>
+          <h4 class="text-lg font-display font-bold uppercase text-stark">EL CARRO DE TESpis</h4>
+          <p class="text-gray-400 font-serif text-xs leading-relaxed">
+            Tespis de Icaria introduce el primer actor individual (hipócrita), separándose formalmente del coro sagrado y naciendo el drama teatral dramático propiamente dicho.
+          </p>
+        </div>
+
+        <!-- Timeline 2 -->
+        <div class="relative z-10 space-y-4 bg-void p-6 border border-cobalt/30 hover:border-stark transition-premium">
+          <div class="w-10 h-10 rounded-full bg-cobalt border border-cobalt-light flex items-center justify-center font-bold text-xs">
+            II
+          </div>
+          <div class="text-xs text-cobalt-light tracking-wider font-bold">472 A.C.</div>
+          <h4 class="text-lg font-display font-bold uppercase text-stark">ESQUILO Y EL DIÁLOGO</h4>
+          <p class="text-gray-400 font-serif text-xs leading-relaxed">
+            Esquilo añade un segundo actor a escena, reduciendo el tamaño relativo del coro y permitiendo el primer conflicto dialogal verdadero ("Los Persas").
+          </p>
+        </div>
+
+        <!-- Timeline 3 -->
+        <div class="relative z-10 space-y-4 bg-void p-6 border border-cobalt/30 hover:border-stark transition-premium">
+          <div class="w-10 h-10 rounded-full bg-cobalt border border-cobalt-light flex items-center justify-center font-bold text-xs">
+            III
+          </div>
+          <div class="text-xs text-cobalt-light tracking-wider font-bold">442 A.C.</div>
+          <h4 class="text-lg font-display font-bold uppercase text-stark">SÓFOCLES Y LA IDENTIDAD</h4>
+          <p class="text-gray-400 font-serif text-xs leading-relaxed">
+            Sófocles introduce el tercer actor, eleva la escenografía pictórica y compone obras maestras eternas como "Edipo Rey" y "Antígona", centradas en la fragilidad ética.
+          </p>
+        </div>
+
+        <!-- Timeline 4 -->
+        <div class="relative z-10 space-y-4 bg-void p-6 border border-cobalt/30 hover:border-stark transition-premium">
+          <div class="w-10 h-10 rounded-full bg-cobalt border border-cobalt-light flex items-center justify-center font-bold text-xs">
+            IV
+          </div>
+          <div class="text-xs text-cobalt-light tracking-wider font-bold">408 A.C.</div>
+          <h4 class="text-lg font-display font-bold uppercase text-stark">EURÍPIDES Y LA PASIÓN</h4>
+          <p class="text-gray-400 font-serif text-xs leading-relaxed">
+            Eurípides subvierte las tradiciones, retratando los instintos humanos violentos ("Medea", "Las Bacantes") e introduciendo técnicas audaces como el Deus ex Machina.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- IMMERSIVE QUOTES BLOCK (Stunning high contrast visual design) -->
+  <section class="py-28 bg-cobalt text-stark relative overflow-hidden border-b border-cobalt-light shadow-[inset_0_0_80px_rgba(0,0,0,0.5)]">
+    <!-- Concentric circle background layout to anchor Neoclassical feeling -->
+    <div class="absolute -left-20 -bottom-20 w-80 h-80 rounded-full border border-stark/20 opacity-30"></div>
+    <div class="absolute -right-20 -top-20 w-[400px] h-[400px] rounded-full border border-stark/20 opacity-30"></div>
+
+    <div class="max-w-4xl mx-auto px-6 text-center space-y-8 relative z-10">
+      <span class="text-xs uppercase tracking-[0.4em] text-stark/80 font-bold block">// MÁXIMA SAGRADA DE SÓFOCLES</span>
+      
+      <p class="text-3xl md:text-5xl font-serif font-bold italic leading-tight text-outline-stark">
+        "Muchas cosas hay misteriosas, pero ninguna tan misteriosa y asombrosa como el hombre."
+      </p>
+      
+      <div class="text-xs uppercase tracking-widest font-bold text-stark/90 font-mono mt-4">
+        — ANTÍGONA, VERSO 332
+      </div>
+    </div>
+  </section>
+
+  <!-- BRUTALIST & MODERN COBALT FOOTER -->
+  <footer class="bg-void py-16 border-t border-cobalt/30 text-xs text-gray-500 font-mono">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-12 pb-12 border-b border-cobalt/20">
+        
+        <!-- Col 1: Brand details -->
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 border border-cobalt flex items-center justify-center text-cobalt-light font-bold">T</div>
+            <span class="text-sm font-bold tracking-widest text-stark font-display">TEATRO GRIEGO</span>
+          </div>
+          <p class="text-gray-500 font-serif leading-relaxed text-xs">
+            Una inmersión digital interactiva dedicada a la preservación y divulgación de la acústica, el drama y la arquitectura clásica del mundo antiguo.
+          </p>
+        </div>
+
+        <!-- Col 2: Navigation Map -->
+        <div class="space-y-3">
+          <h5 class="text-stark font-bold tracking-wider uppercase text-[10px]">SECCIONES</h5>
+          <ul class="space-y-2">
+            <li><a href="#origen" class="hover:text-cobalt-light transition-premium">Origen Ritual</a></li>
+            <li><a href="#arquitectura" class="hover:text-cobalt-light transition-premium">Geometría y Plantas</a></li>
+            <li><a href="#mascaras" class="hover:text-cobalt-light transition-premium">Máscaras e Instrumentos</a></li>
+            <li><a href="#acustica" class="hover:text-cobalt-light transition-premium">Sintetizador Acústico</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Educational references -->
+        <div class="space-y-3">
+          <h5 class="text-stark font-bold tracking-wider uppercase text-[10px]">FUENTES BIBLIOGRÁFICAS</h5>
+          <ul class="space-y-2 text-[11px] text-gray-500 font-serif">
+            <li>• Vitruvio: *De architectura*, Libro V.</li>
+            <li>• Aristóteles: *Poética*.</li>
+            <li>• Ensayos acústicos sobre el teatro de Epidauro (UPatras).</li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Technical Specs -->
+        <div class="space-y-3">
+          <h5 class="text-stark font-bold tracking-wider uppercase text-[10px]">PARÁMETROS TÉCNICOS</h5>
+          <div class="bg-void/80 border border-cobalt/30 p-3 text-[10px] space-y-1 text-gray-400">
+            <p><span class="text-cobalt-light">ESTADO:</span> OPERATIVO // ONLINE</p>
+            <p><span class="text-cobalt-light">PALETA:</span> COBALTO / VACÍO / MÁRMOL</p>
+            <p><span class="text-cobalt-light">COGNITIVO:</span> CATARSIS DIGITAL</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Credits -->
+      <div class="pt-8 flex flex-col md:flex-row items-center justify-between text-[11px] text-gray-600 gap-4">
+        <div>
+          © 2026 TEATRO GRIEGO ARCHIVE. TODOS LOS DERECHOS RESERVADOS.
+        </div>
+        <div class="flex gap-6">
+          <a href="#" class="hover:text-cobalt-light transition-premium">Condiciones</a>
+          <a href="#" class="hover:text-cobalt-light transition-premium">Privacidad</a>
+          <a href="#" class="hover:text-cobalt-light transition-premium">Soporte</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- JAVASCRIPT LOGIC & INTERACTIVITY -->
+  <script>
+    // --- 1. INTERACTIVE BLUEPRINT CONFIGURATION ---
+    const partData = {
+      koilon: {
+        id: "PARTE // 01",
+        title: "KOILON / CAVEA",
+        desc: "La gran gradería semicircular excavada directamente sobre la ladera de la colina. Diseñada con una inclinación milimétrica perfecta que permitía la visibilidad total y un comportamiento acústico asombroso, propagando los susurros de la escena hasta la última fila.",
+        cap: "14,000 espectadores",
+        mat: "Piedra caliza / Mármol"
+      },
+      skene: {
+        id: "PARTE // 02",
+        title: "SKENE (ESCENA)",
+        desc: "El edificio de fondo que servía como vestuario, almacén y bastidor. Su frente estaba decorado con columnas y sirvió en ocasiones de soporte para los primeros lienzos escénicos pintados. Solía poseer puertas por donde salían los actores de alcurnia.",
+        cap: "Uso exclusivo de actores",
+        mat: "Madera / Piedra volcánica"
+      },
+      orchestra: {
+        id: "PARTE // 03",
+        title: "ORCHESTRA",
+        desc: "El gran espacio circular central donde actuaba el coro. En su centro exacto se erigía la Thymele (el altar dedicado al dios Dioniso). Era la verdadera alma geométrica y ritual del teatro griego antiguo.",
+        cap: "Coro (12-15 personas)",
+        mat: "Tierra compactada / Mármol"
+      },
+      proskenion: {
+        id: "PARTE // 04",
+        title: "PROSKENION",
+        desc: "La plataforma elevada delante de la Skene donde actuaban los actores principales de la tragedia. Esta separación de altura ayudaba a diferenciar a los personajes de estatus real o heroico de los coristas en la orchestra.",
+        cap: "2-3 actores principales",
+        mat: "Madera tallada / Columnata"
+      },
+      parodoi: {
+        id: "PARTE // 05",
+        title: "PÁRODOS (ACCESOS)",
+        desc: "Los pasillos laterales abiertos por los que entraba el público al teatro y los coristas a la orchestra. Eran fundamentales para regular el flujo de miles de personas con asombrosa velocidad en eventos ceremoniales.",
+        cap: "Flujo constante",
+        mat: "Arcos de piedra"
+      },
+      diazomata: {
+        id: "PARTE // 06",
+        title: "DIAZOMATA",
+        desc: "El pasillo de circunvalación ancho que dividía las gradas del Koilon en dos niveles. Facilitaba el acceso cómodo a los espectadores y servía como barrera acústica secundaria para evitar las turbulencias acústicas del aire.",
+        cap: "Zona de paso",
+        mat: "Piedra pulida"
+      }
+    };
+
+    const partKeys = Object.keys(partData);
+    let currentPartIndex = 0;
+
+    function highlightPart(key) {
+      const data = partData[key];
+      currentPartIndex = partKeys.indexOf(key);
+      
+      // Update Detail Card Content
+      document.getElementById('detail-id').innerText = data.id;
+      document.getElementById('detail-title').innerText = data.title;
+      document.getElementById('detail-desc').innerText = data.desc;
+      document.getElementById('detail-cap').innerText = data.cap;
+      document.getElementById('detail-mat').innerText = data.mat;
+      document.getElementById('part-counter').innerText = `${String(currentPartIndex + 1).padStart(2, '0')} / 06`;
+
+      // Apply subtle dynamic styling triggers on highlight
+      const card = document.getElementById('part-details-card');
+      card.classList.add('scale-[1.01]', 'border-stark');
+      setTimeout(() => {
+        card.classList.remove('scale-[1.01]', 'border-stark');
+      }, 300);
+    }
+
+    function nextPart() {
+      currentPartIndex = (currentPartIndex + 1) % partKeys.length;
+      highlightPart(partKeys[currentPartIndex]);
+    }
+
+    function prevPart() {
+      currentPartIndex = (currentPartIndex - 1 + partKeys.length) % partKeys.length;
+      highlightPart(partKeys[currentPartIndex]);
+    }
+
+
+    // --- 2. ORACLE GENERATOR LOGIC ---
+    const scenarios = {
+      hero: {
+        edipo: { name: "Edipo", context: "el desterrado de Tebas", location: "en el cruce de tres caminos de Fócida" },
+        antigona: { name: "Antígona", context: "la rebelde incorruptible", location: "frente a las murallas prohibidas de Tebas" },
+        prometeo: { name: "Prometeo", context: "el titán que amó a los hombres", location: "encadenado a las rocas heladas del Cáucaso" },
+        medea: { name: "Medea", context: "la hechicera extranjera ultrajada", location: "ante el palacio dorado del infiel rey Creonte" }
+      },
+      flaw: {
+        soberbia: { name: "Hybris (soberbia ciega)", act: "creyó poder burlar las sentencias escritas antes de su nacimiento" },
+        traicion: { name: "Traición por Honor", act: "enterró el cadáver de su hermano desafiando el yugo de los decretos terrenales" },
+        destino: { name: "Huida del Destino", act: "robó el fuego sagrado de los inmortales para encender la chispa humana" },
+        justicia: { name: "Venganza de Sangre", act: "sacrificó a sus propios hijos para desgarrar el alma del esposo perjuro" }
+      },
+      fate: {
+        zeus: { 
+          title: "La Ira Destructiva de Zeus", 
+          text: "El trueno divino estalla de súbito. El soberbio es derribado del trono y su estirpe condenada a vagar ciega por la eternidad, dejando un rastro de ruinas doradas como advertencia.",
+          chorus: "«¡Contemplad al que antes reinó con gloria! Un susurro de Zeus bastó para hundir su cetro en la ceniza del olvido eterno.»"
+        },
+        apolo: { 
+          title: "El Veredicto Inevitable de Delfos", 
+          text: "Las sacerdotisas de Apolo pronuncian el decreto. Cada intento de escapar teje con más fuerza la red del hado, forzando al héroe a ejecutar, con sus propias manos, la profecía anunciada.",
+          chorus: "«No intentes correr, mortal de pie ligero. El sol de Delfos ilumina tus pasos y tus ojos se cerrarán ante la luz implacable del Destino.»"
+        },
+        erinias: { 
+          title: "La Persecución Furiosa de las Erinias", 
+          text: "Las diosas de la venganza surgen del abismo con antorchas y serpientes. El remordimiento desgarra la mente del héroe, quien correrá sin descanso bajo el castigo de los dioses de la tierra.",
+          chorus: "«Escuchamos el grito de la sangre derramada. Volamos sobre tus hombros, no habrá tregua para el corazón que violó las leyes del cielo.»"
+        },
+        hades: { 
+          title: "El Silencio Eterno del Tártaro", 
+          text: "Las puertas de bronce de la morada de Hades se abren de par en par. La pasión del héroe es consumida por el frío eterno del inframundo, descansando junto a las sombras del pasado.",
+          chorus: "«Fría es la losa que cubre el ardiente deseo. En el reino de las sombras mudas, todas las lágrimas pesan lo mismo.»"
+        }
+      }
+    };
+
+    function generateTragedy() {
+      const heroKey = document.getElementById('param-hero').value;
+      const flawKey = document.getElementById('param-flaw').value;
+      const fateKey = document.getElementById('param-fate').value;
+
+      const heroObj = scenarios.hero[heroKey];
+      const flawObj = scenarios.flaw[flawKey];
+      const fateObj = scenarios.fate[fateKey];
+
+      // Format texts
+      const title = `La Tragedia de ${heroObj.name} y la Sombra de la ${flawObj.name}`;
+      const narrative = `En la asombrosa ${heroObj.location}, ${heroObj.name}, ${heroObj.context}, desató la furia de los cielos porque ${flawObj.act}. Ahora, el veredicto desciende implacable: ${fateObj.text}`;
+      
+      // Update UI elements with animation
+      const outputBox = document.getElementById('oraculo-output');
+      outputBox.classList.add('opacity-0', 'scale-95');
+      
+      setTimeout(() => {
+        document.getElementById('output-title').innerText = title;
+        document.getElementById('output-text').innerText = narrative;
+        document.getElementById('output-chorus').innerText = fateObj.chorus;
+        
+        outputBox.classList.remove('opacity-0', 'scale-95');
+      }, 350);
+    }
+
+
+    // --- 3. IMMERSIVE WEB AUDIO SYNTHESIZER ---
+    let audioCtx = null;
+    let windNoiseNode = null;
+    let windGain = null;
+    let humOscillator = null;
+    let humGain = null;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    // Toggle button main ambient
+    function toggleAudio() {
+      initAudio();
+      const btn = document.getElementById('ambient-audio-btn');
+      const icon = document.getElementById('audio-icon');
+
+      if (audioCtx.state === 'running') {
+        // Toggle a global soft wind simulation if not already running
+        if (!windNoiseNode) {
+          setupWind();
+          btn.classList.add('border-stark', 'bg-cobalt/30');
+          icon.className = 'fa-solid fa-volume-high text-sm text-stark';
+          updateWind(40); // Set volume to 40% default
+          document.getElementById('wind-slider').value = 40;
+        } else {
+          // Tear down
+          stopWind();
+          btn.classList.remove('border-stark', 'bg-cobalt/30');
+          icon.className = 'fa-solid fa-volume-xmark text-sm text-cobalt-light';
+          document.getElementById('wind-slider').value = 0;
+        }
+      }
+    }
+
+    // Setup procedural brown noise for deep open-air wind
+    function setupWind() {
+      const bufferSize = 4096;
+      let lastOut = 0.0;
+      const node = audioCtx.createScriptProcessor(bufferSize, 1, 1);
+      
+      node.onaudioprocess = function(e) {
+        const output = e.outputBuffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          const white = Math.random() * 2 - 1;
+          // Filter to produce brownian noise (deep, windy rumble)
+          output[i] = (lastOut + (0.02 * white)) / 1.02;
+          lastOut = output[i];
+          output[i] *= 3.5; // Gain multiplier
+        }
+      };
+
+      // Connect to lowpass filter for theater acoustics simulation
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(250, audioCtx.currentTime);
+
+      windGain = audioCtx.createGain();
+      windGain.gain.setValueAtTime(0, audioCtx.currentTime);
+
+      node.connect(filter);
+      filter.connect(windGain);
+      windGain.connect(audioCtx.destination);
+
+      windNoiseNode = node;
+    }
+
+    function updateWind(value) {
+      initAudio();
+      const vol = value / 100;
+      document.getElementById('wind-val').innerText = value > 0 ? `${value}%` : "Apagado";
+      
+      if (!windNoiseNode && value > 0) {
+        setupWind();
+      }
+
+      if (windGain) {
+        windGain.gain.setTargetAtTime(vol * 0.15, audioCtx.currentTime, 0.2);
+        triggerVisualizerPulse(value);
+      }
+    }
+
+    function stopWind() {
+      if (windGain) {
+        windGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.2);
+      }
+      setTimeout(() => {
+        if (windNoiseNode) {
+          windNoiseNode.disconnect();
+          windNoiseNode = null;
+        }
+      }, 500);
+      document.getElementById('wind-val').innerText = "Apagado";
+    }
+
+    // Play ritual high resonance chime (FM synthesizer chime)
+    function playChime() {
+      initAudio();
+      
+      const now = audioCtx.currentTime;
+      
+      // Carrier
+      const carrier = audioCtx.createOscillator();
+      carrier.type = 'sine';
+      carrier.frequency.setValueAtTime(440, now); // Ceremonial 'A'
+
+      // Modulator for metallic/bronze color
+      const modulator = audioCtx.createOscillator();
+      modulator.type = 'triangle';
+      modulator.frequency.setValueAtTime(1400, now);
+
+      const modGain = audioCtx.createGain();
+      modGain.gain.setValueAtTime(300, now);
+
+      // Reverb / Decay Gain Envelope
+      const gainNode = audioCtx.createGain();
+      gainNode.gain.setValueAtTime(0.3, now);
+      gainNode.gain.exponentialRampToValueAtTime(0.001, now + 4); // 4-second sustain
+
+      // Connection architecture
+      modulator.connect(modGain);
+      modGain.connect(carrier.frequency);
+      carrier.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+
+      // Fire
+      modulator.start(now);
+      carrier.start(now);
+      
+      modulator.stop(now + 4.1);
+      carrier.stop(now + 4.1);
+
+      // Graphic feedback
+      triggerVisualizerPulse(85);
+    }
+
+    // Toggle chorus hum (110Hz deep drone)
+    function toggleChorusHum() {
+      initAudio();
+      const btn = document.getElementById('hum-btn');
+
+      if (!humOscillator) {
+        const now = audioCtx.currentTime;
+        
+        humOscillator = audioCtx.createOscillator();
+        humOscillator.type = 'sawtooth';
+        humOscillator.frequency.setValueAtTime(110, now); // Low harmonic G
+
+        // Filter to make it warmer, singing-like vocal tone
+        const lpFilter = audioCtx.createBiquadFilter();
+        lpFilter.type = 'lowpass';
+        lpFilter.frequency.setValueAtTime(180, now);
+
+        humGain = audioCtx.createGain();
+        humGain.gain.setValueAtTime(0, now);
+        humGain.gain.setTargetAtTime(0.12, now, 0.4);
+
+        humOscillator.connect(lpFilter);
+        lpFilter.connect(humGain);
+        humGain.connect(audioCtx.destination);
+
+        humOscillator.start(now);
+        btn.innerText = "ZUMBIDO ACTIVO";
+        btn.classList.add('bg-stark', 'text-void');
+        
+        triggerVisualizerPulse(60);
+      } else {
+        const now = audioCtx.currentTime;
+        humGain.gain.setTargetAtTime(0, now, 0.2);
+        
+        setTimeout(() => {
+          if (humOscillator) {
+            humOscillator.stop();
+            humOscillator.disconnect();
+            humOscillator = null;
+          }
+        }, 300);
+
+        btn.innerText = "ACTIVAR ZUMBIDO";
+        btn.classList.remove('bg-stark', 'text-void');
+      }
+    }
+
+    // Fun Visual feedback loops for visualizer elements
+    function triggerVisualizerPulse(strength) {
+      const bars = document.getElementById('visualizer-container').children;
+      for (let i = 0; i < bars.length; i++) {
+        // Randomize response heights based on visual trigger strength
+        const factor = Math.random() * strength * 0.9;
+        bars[i].style.height = `${Math.max(10, Math.min(100, factor))}%`;
+        
+        // Decay heights slowly over time
+        setTimeout(() => {
+          bars[i].style.height = `${Math.max(10, factor * 0.45)}%`;
+        }, 400);
+      }
+    }
+
+    // Interactive Scroll Helper
+    function scrollToId(id) {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // Initialize the default first highlight
+    window.onload = function() {
+      highlightPart('koilon');
+    };
+  </script>
+</body>
+</html>
+I1

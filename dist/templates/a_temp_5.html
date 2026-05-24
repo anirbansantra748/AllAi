@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KENYX — Элитные Заборы и Архитектурные Решения</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            bg: '#121315',
+                            card: '#1A1C1E',
+                            border: '#2A2D31',
+                            lime: '#A3E635',
+                            limeDark: '#84CC16',
+                            textMuted: '#9CA3AF'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts & Lucide Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121315;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+        /* Custom fine-line grid backgrounds */
+        .architectural-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(42, 45, 49, 0.25) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(42, 45, 49, 0.25) 1px, transparent 1px);
+        }
+        /* Continuous premium horizontal slat pattern overlay */
+        .slat-bg {
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0,0,0,0.15),
+                rgba(0,0,0,0.15) 8px,
+                rgba(26,28,30,0.8) 8px,
+                rgba(26,28,30,0.8) 16px
+            );
+        }
+        /* Custom horizontal decorative sine-wave styling */
+        .wave-line {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawWave 4s ease-in-out infinite alternate;
+        }
+        @keyframes drawWave {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+        /* Pulse for glowing status lights */
+        .glow-pulse {
+            box-shadow: 0 0 12px rgba(163, 230, 53, 0.6);
+            animation: pulse-glow 2s infinite;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.15); opacity: 1; box-shadow: 0 0 20px rgba(163, 230, 53, 0.9); }
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121315;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2A2D31;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #A3E635;
+        }
+    </style>
+</head>
+<body class="architectural-grid selection:bg-brand-lime selection:text-black">
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 max-w-sm w-full pointer-events-none"></div>
+
+    <!-- MAIN DYNAMIC NAVIGATION BAR -->
+    <header class="sticky top-0 z-40 w-full bg-brand-bg/90 backdrop-blur-md border-b border-brand-border transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo with Slat Motif -->
+            <a href="#" class="flex items-center gap-3 group focus:outline-none">
+                <div class="relative w-10 h-10 bg-brand-card border border-brand-border rounded flex flex-col justify-between p-2 overflow-hidden transition-colors group-hover:border-brand-lime">
+                    <div class="h-1 bg-brand-lime rounded w-full transition-all group-hover:w-3/4"></div>
+                    <div class="h-1 bg-white/70 rounded w-full"></div>
+                    <div class="h-1 bg-brand-lime rounded w-1/2 transition-all group-hover:w-full"></div>
+                </div>
+                <div>
+                    <span class="text-xl font-black tracking-widest text-white block">KE<span class="text-brand-lime">N</span>YX</span>
+                    <span class="text-[9px] tracking-widest text-brand-textMuted uppercase font-semibold block -mt-1">ЗАБОРЫ И ВОРОТА</span>
+                </div>
+            </a>
+
+            <!-- Central Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide">
+                <a href="#about" class="text-brand-textMuted hover:text-white transition-colors">О компании</a>
+                <a href="#mistakes" class="text-brand-textMuted hover:text-white transition-colors">Проблемы рынка</a>
+                <a href="#configurator" class="text-brand-textMuted hover:text-white transition-colors flex items-center gap-1.5">
+                    Калькулятор <span class="bg-brand-lime/10 text-brand-lime px-1.5 py-0.5 text-[9px] font-bold rounded uppercase">New</span>
+                </a>
+                <a href="#benefits" class="text-brand-textMuted hover:text-white transition-colors">Преимущества</a>
+                <a href="#pricing" class="text-brand-textMuted hover:text-white transition-colors">Цены</a>
+                <a href="#faq" class="text-brand-textMuted hover:text-white transition-colors">Вопросы</a>
+            </nav>
+
+            <!-- CTA & Design System Trigger -->
+            <div class="hidden lg:flex items-center gap-4">
+                <button onclick="toggleComponentExplorer()" class="text-xs text-brand-textMuted hover:text-brand-lime transition-all border border-brand-border hover:border-brand-lime/50 rounded-lg px-3 py-2 flex items-center gap-1.5 bg-brand-card/50">
+                    <i data-lucide="layers" class="w-3.5 h-3.5"></i> UI Киты
+                </button>
+                <a href="#quote-estimator" class="bg-brand-lime hover:bg-brand-limeDark text-brand-bg font-bold text-xs tracking-wider uppercase px-5 py-3 rounded-lg transition-all transform hover:-translate-y-0.5 shadow-md flex items-center gap-2">
+                    <i data-lucide="calculator" class="w-4 h-4"></i> Рассчитать забор
+                </a>
+            </div>
+
+            <!-- Mobile Navigation Trigger -->
+            <button onclick="toggleMobileMenu()" class="md:hidden text-white hover:text-brand-lime focus:outline-none p-2 rounded border border-brand-border">
+                <i id="menu-icon" data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Slide-out Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden absolute left-0 right-0 top-20 bg-brand-bg border-b border-brand-border p-6 flex flex-col gap-4 animate-fadeIn">
+            <a href="#about" onclick="toggleMobileMenu()" class="text-lg text-white hover:text-brand-lime transition-colors py-1">О компании</a>
+            <a href="#mistakes" onclick="toggleMobileMenu()" class="text-lg text-white hover:text-brand-lime transition-colors py-1">Проблемы рынка</a>
+            <a href="#configurator" onclick="toggleMobileMenu()" class="text-lg text-brand-lime transition-colors py-1 font-semibold">Онлайн-калькулятор (Новинка)</a>
+            <a href="#benefits" onclick="toggleMobileMenu()" class="text-lg text-white hover:text-brand-lime transition-colors py-1">Наши преимущества</a>
+            <a href="#pricing" onclick="toggleMobileMenu()" class="text-lg text-white hover:text-brand-lime transition-colors py-1">Цены и комплекты</a>
+            <a href="#faq" onclick="toggleMobileMenu()" class="text-lg text-white hover:text-brand-lime transition-colors py-1">Частые вопросы</a>
+            <div class="h-[1px] bg-brand-border my-2"></div>
+            <div class="flex items-center gap-2 justify-between">
+                <button onclick="toggleComponentExplorer(); toggleMobileMenu();" class="text-xs text-brand-textMuted bg-brand-card px-3 py-2 rounded-lg border border-brand-border w-1/2 flex justify-center items-center gap-2">
+                    <i data-lucide="layers" class="w-4 h-4"></i> UI Киты
+                </button>
+                <a href="#quote-estimator" onclick="toggleMobileMenu()" class="bg-brand-lime text-brand-bg text-center text-xs font-bold uppercase tracking-wider px-4 py-3 rounded-lg w-1/2">
+                    Рассчитать
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- LIVE COMPONENT EXPLORER / UI DESIGN SYSTEM PANEL (SLIDE DRAWER) -->
+    <div id="component-explorer" class="fixed inset-y-0 right-0 w-full max-w-2xl bg-brand-bg border-l border-brand-border shadow-2xl z-50 transform translate-x-full transition-transform duration-500 ease-in-out overflow-y-auto hidden">
+        <div class="p-8">
+            <div class="flex items-center justify-between border-b border-brand-border pb-6 mb-8">
+                <div>
+                    <h3 class="text-xl font-extrabold text-white">KENYX Design System v1.4</h3>
+                    <p class="text-xs text-brand-textMuted">Интерактивный справочник UI-компонентов и глобальных стилей</p>
+                </div>
+                <button onclick="toggleComponentExplorer()" class="text-brand-textMuted hover:text-white border border-brand-border hover:border-white rounded-lg p-2 transition-all">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Color Palette & Tokens -->
+            <div class="mb-10">
+                <h4 class="text-sm font-bold tracking-wider text-brand-lime uppercase mb-4 flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 bg-brand-lime rounded-full"></span> 01. Цветовые Токены
+                </h4>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <div class="bg-brand-bg p-3 rounded-lg border border-brand-border">
+                        <div class="w-full h-10 bg-brand-bg rounded border border-brand-border mb-2"></div>
+                        <span class="text-xs font-mono text-white block">bg-brand-bg</span>
+                        <span class="text-[10px] text-brand-textMuted font-mono">#121315</span>
+                    </div>
+                    <div class="bg-brand-card p-3 rounded-lg border border-brand-border">
+                        <div class="w-full h-10 bg-brand-card rounded border border-brand-border mb-2"></div>
+                        <span class="text-xs font-mono text-white block">brand-card</span>
+                        <span class="text-[10px] text-brand-textMuted font-mono">#1A1C1E</span>
+                    </div>
+                    <div class="bg-brand-bg p-3 rounded-lg border border-brand-border">
+                        <div class="w-full h-10 bg-brand-border rounded mb-2"></div>
+                        <span class="text-xs font-mono text-white block">brand-border</span>
+                        <span class="text-[10px] text-brand-textMuted font-mono">#2A2D31</span>
+                    </div>
+                    <div class="bg-brand-bg p-3 rounded-lg border border-brand-border">
+                        <div class="w-full h-10 bg-brand-lime rounded mb-2"></div>
+                        <span class="text-xs font-mono text-brand-bg font-bold block">brand-lime</span>
+                        <span class="text-[10px] text-brand-textMuted font-mono">#A3E635</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Button Typologies -->
+            <div class="mb-10">
+                <h4 class="text-sm font-bold tracking-wider text-brand-lime uppercase mb-4 flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 bg-brand-lime rounded-full"></span> 02. Типы Кнопок & Стейты
+                </h4>
+                <div class="flex flex-wrap gap-3">
+                    <button class="bg-brand-lime hover:bg-brand-limeDark text-brand-bg font-bold text-xs tracking-wider uppercase px-4 py-2.5 rounded transition-all">
+                        Primary Accent
+                    </button>
+                    <button class="border border-brand-lime text-brand-lime hover:bg-brand-lime/10 font-bold text-xs tracking-wider uppercase px-4 py-2.5 rounded transition-all">
+                        Secondary Outline
+                    </button>
+                    <button class="bg-brand-card hover:bg-brand-border border border-brand-border text-white text-xs tracking-wider uppercase px-4 py-2.5 rounded transition-all">
+                        System Card
+                    </button>
+                    <button class="opacity-50 cursor-not-allowed bg-brand-border text-brand-textMuted text-xs tracking-wider uppercase px-4 py-2.5 rounded" disabled>
+                        Disabled State
+                    </button>
+                </div>
+            </div>
+
+            <!-- Typography Grid -->
+            <div class="mb-10">
+                <h4 class="text-sm font-bold tracking-wider text-brand-lime uppercase mb-4 flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 bg-brand-lime rounded-full"></span> 03. Типографика & Сетка
+                </h4>
+                <div class="space-y-4 bg-brand-card p-4 rounded-lg border border-brand-border">
+                    <div>
+                        <span class="text-[10px] uppercase tracking-wider text-brand-textMuted block mb-1">H1 Hero Title</span>
+                        <h1 class="text-3xl font-black tracking-tight text-white leading-none">Заборы, которые стоят <span class="text-brand-lime">десятилетиями</span></h1>
+                    </div>
+                    <div>
+                        <span class="text-[10px] uppercase tracking-wider text-brand-textMuted block mb-1">Body Text Lead</span>
+                        <p class="text-sm text-brand-textMuted">Мы занимаемся только заборами премиального уровня, гарантируя жесткий контроль качества на каждом этапе проектирования и монтажа.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Code copy-paste sandbox -->
+            <div>
+                <h4 class="text-sm font-bold tracking-wider text-brand-lime uppercase mb-3 flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 bg-brand-lime rounded-full"></span> 04. Быстрый Код для разработчика
+                </h4>
+                <p class="text-xs text-brand-textMuted mb-3">Скопируйте базовый класс премиальной карточки Kenyx в ваш проект:</p>
+                <div class="bg-brand-bg p-4 rounded-lg border border-brand-border relative">
+                    <pre class="text-[11px] text-white font-mono overflow-x-auto whitespace-pre">class="bg-brand-card hover:bg-brand-card/80 border border-brand-border hover:border-brand-lime/40 p-6 rounded-xl transition-all duration-300 shadow-xl relative overflow-hidden group"</pre>
+                    <button onclick="copySnippet('class=\'bg-brand-card hover:bg-brand-card/80 border border-brand-border hover:border-brand-lime/40 p-6 rounded-xl transition-all duration-300 shadow-xl relative overflow-hidden group\'')" class="absolute top-2 right-2 text-xs bg-brand-lime text-brand-bg px-2 py-1 rounded font-bold hover:bg-brand-limeDark">
+                        Copy
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HERO SECTION (Inspired deeply by top of image_bce96a.jpg with custom typography block, wave styling, and KENYX background visual) -->
+    <section class="relative min-h-[90vh] flex items-center justify-center pt-8 pb-16 overflow-hidden border-b border-brand-border">
+        <!-- SVG Wave Overlay (as featured in the inspiration image) -->
+        <div class="absolute inset-x-0 top-1/4 h-24 pointer-events-none z-10">
+            <svg class="w-full h-full opacity-60" viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 60 C300 120, 600 0, 900 80 C1200 130, 1350 40, 1440 60" stroke="#06b6d4" stroke-width="2" class="wave-line" fill="none"/>
+                <path d="M0 80 C400 20, 700 110, 1000 30 C1300 -20, 1400 80, 1440 40" stroke="#A3E635" stroke-width="1.5" class="wave-line" fill="none" style="animation-delay: -1s;"/>
+            </svg>
+        </div>
+
+        <!-- Huge Background Textured KENYX Title Letters Block from Image -->
+        <div class="absolute right-4 md:right-12 lg:right-24 bottom-1/2 translate-y-1/2 w-full max-w-[280px] sm:max-w-[420px] lg:max-w-[550px] pointer-events-none opacity-20 lg:opacity-40 select-none z-0">
+            <div class="relative font-black tracking-tighter text-right leading-none flex flex-col">
+                <span class="text-[120px] sm:text-[180px] lg:text-[230px] text-brand-border stroke-text">KE</span>
+                <span class="text-[120px] sm:text-[180px] lg:text-[230px] text-brand-lime -mt-8 lg:-mt-16">NY</span>
+                <span class="text-[120px] sm:text-[180px] lg:text-[230px] text-white -mt-8 lg:-mt-16">X</span>
+            </div>
+            <!-- Interactive Floating Tag "качественно / быстро" with wave accent -->
+            <div class="absolute top-1/3 left-0 bg-brand-lime text-brand-bg text-[10px] sm:text-xs font-black tracking-widest uppercase px-3 py-1.5 rounded-full rotate-[-12deg] shadow-lg animate-bounce flex items-center gap-1.5">
+                <i data-lucide="check" class="w-3.5 h-3.5"></i> качественно быстро
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <!-- Hero Left: Strong Copy & Call to Action -->
+            <div class="lg:col-span-7 space-y-8">
+                <!-- Highlight Tag -->
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-card border border-brand-border">
+                    <span class="w-2.5 h-2.5 rounded-full bg-brand-lime glow-pulse"></span>
+                    <span class="text-xs font-semibold tracking-wider text-brand-textMuted uppercase">Защитите свою территорию за 14 дней</span>
+                </div>
+
+                <!-- Main Bold Statement -->
+                <div class="space-y-4">
+                    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1]">
+                        Заборы, которые<br> стоят <span class="text-brand-lime underline decoration-brand-border decoration-wavy">десятилетиями</span>
+                    </h1>
+                    <p class="text-base sm:text-xl text-brand-textMuted max-w-xl font-light">
+                        Профессиональное проектирование, собственное производство панелей, и умный монтаж в один клик. Никаких скрытых смет и проблем с грунтом.
+                    </p>
+                </div>
+
+                <!-- Client Protection Checklist / Bullet Trust points from image -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md pt-2">
+                    <div class="flex items-center gap-3 text-sm text-white font-medium">
+                        <div class="w-5 h-5 rounded-full bg-brand-lime/10 flex items-center justify-center border border-brand-lime/30 text-brand-lime">
+                            <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+                        </div>
+                        Гарантия до 25 лет по договору
+                    </div>
+                    <div class="flex items-center gap-3 text-sm text-white font-medium">
+                        <div class="w-5 h-5 rounded-full bg-brand-lime/10 flex items-center justify-center border border-brand-lime/30 text-brand-lime">
+                            <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+                        </div>
+                        Фиксация цены до начала монтажа
+                    </div>
+                </div>
+
+                <!-- CTAs -->
+                <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                    <a href="#configurator" class="bg-brand-lime hover:bg-brand-limeDark text-brand-bg font-black text-xs tracking-widest uppercase px-8 py-4.5 rounded-lg text-center transition-all shadow-xl hover:shadow-brand-lime/10 flex items-center justify-center gap-2">
+                        Запустить конфигуратор <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </a>
+                    <a href="#quote-estimator" class="border border-brand-border hover:border-brand-lime/40 bg-brand-card/50 text-white font-bold text-xs tracking-widest uppercase px-8 py-4.5 rounded-lg text-center transition-all hover:bg-brand-card flex items-center justify-center gap-2">
+                        <i data-lucide="phone-call" class="w-4 h-4"></i> Связаться с технологом
+                    </a>
+                </div>
+
+                <!-- Real-time Status Badge -->
+                <div class="flex items-center gap-2 pt-2 text-xs text-brand-textMuted">
+                    <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                    <span>Свободно 4 монтажные бригады на этой неделе</span>
+                </div>
+            </div>
+
+            <!-- Hero Right: Dynamic Interactive Miniature Sandbox -->
+            <div class="lg:col-span-5 relative">
+                <div class="bg-brand-card/80 border border-brand-border p-6 rounded-2xl relative shadow-2xl overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand-lime/10 rounded-full blur-3xl pointer-events-none"></div>
+                    
+                    <div class="flex items-center justify-between border-b border-brand-border pb-4 mb-4">
+                        <span class="text-xs uppercase tracking-wider text-brand-lime font-bold">Система Ограждения Premium</span>
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-green-500/80"></span>
+                        </div>
+                    </div>
+
+                    <!-- Mini Live Fence Visualizer Panel -->
+                    <div class="bg-brand-bg border border-brand-border rounded-xl p-4 min-h-[160px] flex flex-col justify-end relative overflow-hidden">
+                        <!-- Custom CSS Slat system which dynamically responds to input changes -->
+                        <div id="hero-fence-preview" class="space-y-1.5 w-full max-w-[280px] mx-auto py-4">
+                            <div class="h-3 bg-brand-lime rounded transition-all duration-300"></div>
+                            <div class="h-3 bg-brand-lime rounded transition-all duration-300"></div>
+                            <div class="h-3 bg-brand-lime rounded transition-all duration-300"></div>
+                            <div class="h-3 bg-brand-lime rounded transition-all duration-300"></div>
+                            <div class="h-3 bg-brand-lime rounded transition-all duration-300"></div>
+                        </div>
+
+                        <!-- Soil Layer Base -->
+                        <div class="h-6 bg-amber-950/40 border-t border-brand-border text-[9px] uppercase tracking-widest text-center py-0.5 text-brand-textMuted font-mono">
+                            Песчано-гравийный фундамент
+                        </div>
+                    </div>
+
+                    <!-- Mini Configurator Actions -->
+                    <div class="mt-4 grid grid-cols-3 gap-2 text-center">
+                        <button onclick="updateHeroFenceColor('#A3E635')" class="p-2 rounded bg-brand-bg border border-brand-border hover:border-brand-lime text-xs transition-colors text-white block">
+                            Lime Green
+                        </button>
+                        <button onclick="updateHeroFenceColor('#FFFFFF')" class="p-2 rounded bg-brand-bg border border-brand-border hover:border-white text-xs transition-colors text-white block">
+                            Arctic White
+                        </button>
+                        <button onclick="updateHeroFenceColor('#3B82F6')" class="p-2 rounded bg-brand-bg border border-brand-border hover:border-blue-500 text-xs transition-colors text-white block">
+                            Slate Blue
+                        </button>
+                    </div>
+
+                    <div class="mt-4 flex items-center justify-between text-xs text-brand-textMuted font-mono">
+                        <span>Текущая прочность:</span>
+                        <span class="text-brand-lime font-bold">Высший стандарт СНиП</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRIPLE STATS OVERLAY BANNER -->
+    <section class="border-b border-brand-border bg-brand-card/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="text-center md:text-left">
+                <span class="block text-3xl sm:text-4xl font-extrabold text-white">1000+</span>
+                <span class="text-xs text-brand-textMuted uppercase tracking-wider font-semibold">Установленных заборов</span>
+            </div>
+            <div class="text-center md:text-left border-l border-brand-border/40 pl-0 md:pl-8">
+                <span class="block text-3xl sm:text-4xl font-extrabold text-brand-lime">14 дней</span>
+                <span class="text-xs text-brand-textMuted uppercase tracking-wider font-semibold">Средний срок под ключ</span>
+            </div>
+            <div class="text-center md:text-left border-l border-brand-border/40 pl-0 md:pl-8">
+                <span class="block text-3xl sm:text-4xl font-extrabold text-white">25 лет</span>
+                <span class="text-xs text-brand-textMuted uppercase tracking-wider font-semibold">Официальная гарантия</span>
+            </div>
+            <div class="text-center md:text-left border-l border-brand-border/40 pl-0 md:pl-8">
+                <span class="block text-3xl sm:text-4xl font-extrabold text-brand-lime">100%</span>
+                <span class="text-xs text-brand-textMuted uppercase tracking-wider font-semibold">Контроль геометрии опор</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE BENTO GRID SECTION: "Топ 4 частых проблем при работе с компаниями" (Explicitly mapping to Page-2 in image_bce96a.jpg) -->
+    <section id="mistakes" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div class="mb-12">
+            <span class="text-xs font-bold text-brand-lime uppercase tracking-widest block mb-2">Ошибки рынка</span>
+            <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+                Топ-4 самых частых <span class="text-brand-lime">проблем</span> при работе с компаниями
+            </h2>
+            <p class="text-base text-brand-textMuted max-w-2xl mt-4">
+                С чем сталкиваются 90% заказчиков при выборе подрядчиков по установке заборов в РФ. Мы раскрыли карты, чтобы вы были вооружены.
+            </p>
+        </div>
+
+        <!-- Bento Grid Structure -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+            <!-- Problem Card 1 -->
+            <div class="md:col-span-4 bg-brand-card/90 border border-brand-border p-8 rounded-2xl relative overflow-hidden group hover:border-brand-lime/40 transition-all duration-300">
+                <div class="absolute -right-6 -bottom-6 text-brand-border text-8xl font-black opacity-30 select-none group-hover:text-brand-lime/10 transition-colors">01</div>
+                <div class="w-12 h-12 rounded-lg bg-red-500/10 flex items-center justify-center border border-red-500/30 text-red-400 mb-6">
+                    <i data-lucide="trending-up" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">Нарушение Сроков</h3>
+                <p class="text-sm text-brand-textMuted">
+                    Компании нарушают сроки, и установка забора затягивается на долгие месяцы из-за нехватки сырья или рабочих рук.
+                </p>
+            </div>
+
+            <!-- Problem Card 2 -->
+            <div class="md:col-span-4 bg-brand-card/90 border border-brand-border p-8 rounded-2xl relative overflow-hidden group hover:border-brand-lime/40 transition-all duration-300">
+                <div class="absolute -right-6 -bottom-6 text-brand-border text-8xl font-black opacity-30 select-none group-hover:text-brand-lime/10 transition-colors">02</div>
+                <div class="w-12 h-12 rounded-lg bg-yellow-500/10 flex items-center justify-center border border-yellow-500/30 text-yellow-400 mb-6">
+                    <i data-lucide="shield-alert" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">Плохое Качество</h3>
+                <p class="text-sm text-brand-textMuted">
+                    Вы платите деньги за премиум, а забор выходит из строя или ржавеет через 2 года из-за некачественной полимерной покраски.
+                </p>
+            </div>
+
+            <!-- Problem Card 3 (Featured Wide Card) -->
+            <div class="md:col-span-4 bg-brand-card/90 border border-brand-border p-8 rounded-2xl relative overflow-hidden group hover:border-brand-lime/40 transition-all duration-300">
+                <div class="absolute -right-6 -bottom-6 text-brand-border text-8xl font-black opacity-30 select-none group-hover:text-brand-lime/10 transition-colors">03</div>
+                <div class="w-12 h-12 rounded-lg bg-orange-500/10 flex items-center justify-center border border-orange-500/30 text-orange-400 mb-6">
+                    <i data-lucide="info" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">Внезапные Сметы</h3>
+                <p class="text-sm text-brand-textMuted">
+                    В ходе работы выясняется, что нужны дополнительные расходы на бетон или крепежи, о которых не было ни слова в смете.
+                </p>
+            </div>
+
+            <!-- Problem Card 4 (Deep Feature Card) -->
+            <div class="md:col-span-12 bg-gradient-to-r from-brand-card to-[#1F2225] border border-brand-border p-8 rounded-2xl relative overflow-hidden group hover:border-brand-lime/40 transition-all duration-300">
+                <div class="absolute right-0 top-0 w-1/3 h-full bg-brand-lime/5 rounded-l-full blur-3xl pointer-events-none"></div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                    <div class="lg:col-span-8 space-y-4">
+                        <div class="inline-flex items-center gap-2 bg-red-500/10 text-red-400 border border-red-500/30 text-xs px-2.5 py-1 rounded-full uppercase font-bold">
+                            <i data-lucide="alert-octagon" class="w-3.5 h-3.5"></i> Самая главная боль клиентов
+                        </div>
+                        <h3 class="text-2xl font-black text-white">Стоимость в телефоне и после замера отличается на 50%+</h3>
+                        <p class="text-sm text-brand-textMuted max-w-xl">
+                            Вам озвучивают одну цифру по звонку, а по приезду замерщика она вырастает до небес, создавая ощущение обмана. Мы в KENYX зафиксировали неизменные параметры сметы прямо на уровне смарт-контракта.
+                        </p>
+                    </div>
+                    <div class="lg:col-span-4 bg-brand-bg p-4 rounded-xl border border-brand-border space-y-3">
+                        <div class="flex items-center justify-between text-xs text-brand-textMuted">
+                            <span>Озвучено менеджером:</span>
+                            <span class="line-through text-red-400">120 000 руб</span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs text-brand-textMuted">
+                            <span>Приговор замерщика:</span>
+                            <span class="text-red-400 font-bold">210 000 руб</span>
+                        </div>
+                        <div class="h-[1px] bg-brand-border"></div>
+                        <div class="flex items-center justify-between text-xs text-white">
+                            <span>Стандарт KENYX:</span>
+                            <span class="text-brand-lime font-bold">Фиксированно в договоре</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTRODUCING THE REVOLUTIONARY FENCE CONFIGURATOR (3D-LIKE LIVE DEMO) -->
+    <section id="configurator" class="py-24 bg-brand-card/25 border-y border-brand-border relative">
+        <div class="absolute inset-0 slat-bg opacity-30 pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Control Panel -->
+                <div class="lg:col-span-5 space-y-8">
+                    <div>
+                        <span class="text-xs font-bold text-brand-lime uppercase tracking-widest block mb-2">Интерактивный Модуль</span>
+                        <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">Создайте забор своей мечты</h2>
+                        <p class="text-sm text-brand-textMuted mt-4">
+                            Настройте параметры полотна, высоту, цвет и дополнительные системы безопасности в реальном времени. Стоимость рассчитывается автоматически.
+                        </p>
+                    </div>
+
+                    <!-- Live Configurator Form controls -->
+                    <div class="space-y-6">
+                        <!-- Slat material type picker -->
+                        <div>
+                            <label class="block text-xs font-bold text-white uppercase tracking-wider mb-2">1. Тип Наполнения</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button onclick="selectMaterial('slats-vertical', 3200)" id="btn-mat-1" class="material-btn p-3 rounded-lg bg-brand-card border-2 border-brand-lime text-left transition-all">
+                                    <span class="block text-xs font-bold text-white">Вертикальные Ламели</span>
+                                    <span class="text-[10px] text-brand-lime font-semibold">3 200 ₽ / м²</span>
+                                </button>
+                                <button onclick="selectMaterial('slats-horizontal', 3900)" id="btn-mat-2" class="material-btn p-3 rounded-lg bg-brand-card border border-brand-border text-left transition-all">
+                                    <span class="block text-xs font-bold text-white">Горизонтальное Жалюзи</span>
+                                    <span class="text-[10px] text-brand-textMuted">3 900 ₽ / м²</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Width & Height Slider Inputs -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-white uppercase tracking-wider mb-2">Высота (м)</label>
+                                <input type="range" min="1.2" max="3.0" step="0.2" value="1.8" id="fence-height-input" oninput="recalcConfigurator()" class="w-full accent-brand-lime bg-brand-bg rounded-lg appearance-none h-2">
+                                <div class="flex justify-between text-xs text-brand-textMuted mt-1">
+                                    <span>1.2м</span>
+                                    <span id="label-height" class="text-brand-lime font-bold">1.8м</span>
+                                    <span>3.0м</span>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-white uppercase tracking-wider mb-2">Длина (м)</label>
+                                <input type="range" min="10" max="150" step="5" value="30" id="fence-length-input" oninput="recalcConfigurator()" class="w-full accent-brand-lime bg-brand-bg rounded-lg appearance-none h-2">
+                                <div class="flex justify-between text-xs text-brand-textMuted mt-1">
+                                    <span>10м</span>
+                                    <span id="label-length" class="text-brand-lime font-bold">30м</span>
+                                    <span>150м</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Color selection dots -->
+                        <div>
+                            <label class="block text-xs font-bold text-white uppercase tracking-wider mb-2">Цвет по каталогу RAL</label>
+                            <div class="flex gap-3">
+                                <button onclick="selectColor('ral-dark', '#1A1C1E')" class="color-dot w-8 h-8 rounded-full bg-[#1A1C1E] border-2 border-brand-lime focus:outline-none transition-all" title="Graphite Grey"></button>
+                                <button onclick="selectColor('ral-brown', '#4c3c30')" class="color-dot w-8 h-8 rounded-full bg-[#4c3c30] border border-brand-border focus:outline-none transition-all" title="Chocolate Brown"></button>
+                                <button onclick="selectColor('ral-green', '#1e3f20')" class="color-dot w-8 h-8 rounded-full bg-[#1e3f20] border border-brand-border focus:outline-none transition-all" title="Moss Green"></button>
+                                <button onclick="selectColor('ral-silver', '#9ca3af')" class="color-dot w-8 h-8 rounded-full bg-[#9ca3af] border border-brand-border focus:outline-none transition-all" title="Classic Silver"></button>
+                            </div>
+                        </div>
+
+                        <!-- Addon Toggle checkboxes -->
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-white uppercase tracking-wider">Дополнительно</label>
+                            <label class="flex items-center gap-3 bg-brand-bg p-3 rounded-lg border border-brand-border cursor-pointer hover:border-brand-lime/40">
+                                <input type="checkbox" id="addon-gate" onchange="recalcConfigurator()" class="accent-brand-lime w-4 h-4">
+                                <span class="text-xs text-white">Интегрировать автоматические ворота (+85,000 ₽)</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Big Dynamic Preview Rendering Screen -->
+                <div class="lg:col-span-7">
+                    <div class="bg-brand-card border-2 border-brand-border rounded-3xl p-8 shadow-2xl relative overflow-hidden">
+                        <!-- Dynamic Label overlay -->
+                        <div class="absolute top-4 left-4 bg-brand-lime/10 border border-brand-lime/30 text-brand-lime text-[10px] uppercase tracking-widest px-3 py-1 rounded-full font-bold">
+                            Интерактивный рендеринг
+                        </div>
+
+                        <!-- Main Preview Stage representation of slats -->
+                        <div class="my-8 bg-brand-bg border border-brand-border rounded-2xl p-6 min-h-[300px] flex flex-col justify-end relative overflow-hidden">
+                            
+                            <!-- Columns and Posts styling -->
+                            <div class="absolute inset-x-0 bottom-0 top-0 flex justify-between px-12 pointer-events-none">
+                                <div class="w-4 bg-zinc-800 border-x border-zinc-700 h-full"></div>
+                                <div class="w-4 bg-zinc-800 border-x border-zinc-700 h-full"></div>
+                                <div class="w-4 bg-zinc-800 border-x border-zinc-700 h-full"></div>
+                            </div>
+
+                            <!-- Live dynamically rendered fence panel slats -->
+                            <div id="render-panel-container" class="relative z-10 w-full max-w-[440px] mx-auto py-8 flex flex-col gap-2 transition-all duration-300">
+                                <div class="h-4 bg-brand-lime rounded border border-white/10 transition-all duration-300"></div>
+                                <div class="h-4 bg-brand-lime rounded border border-white/10 transition-all duration-300"></div>
+                                <div class="h-4 bg-brand-lime rounded border border-white/10 transition-all duration-300"></div>
+                                <div class="h-4 bg-brand-lime rounded border border-white/10 transition-all duration-300"></div>
+                                <div class="h-4 bg-brand-lime rounded border border-white/10 transition-all duration-300"></div>
+                            </div>
+
+                            <!-- Soil Base visualizer block -->
+                            <div class="relative z-20 h-10 bg-gradient-to-b from-[#251710] to-[#120905] border-t border-amber-950 p-2 flex items-center justify-between text-[10px] tracking-wide text-brand-textMuted font-mono">
+                                <span>Глубина свай: 1.5м</span>
+                                <span>Антикоррозийная обработка: Да</span>
+                            </div>
+                        </div>
+
+                        <!-- Realtime Price Calculation output block -->
+                        <div class="bg-brand-bg/80 border border-brand-border rounded-xl p-6 grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                            <div>
+                                <span class="text-xs text-brand-textMuted block">Предварительный расчет под ключ:</span>
+                                <span id="recalc-total-price" class="text-3xl sm:text-4xl font-extrabold text-brand-lime font-mono">172 200 ₽</span>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <button onclick="saveConfiguration()" class="bg-brand-lime hover:bg-brand-limeDark text-brand-bg font-black text-xs uppercase tracking-wider py-3 rounded-lg text-center transition-all flex items-center justify-center gap-1.5">
+                                    <i data-lucide="save" class="w-4 h-4"></i> Закрепить эту цену
+                                </button>
+                                <span class="text-[9px] text-brand-textMuted text-center">Действительно при бронировании замера сегодня.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE "WHY CHOOSE US" TIMELINE (Reflecting the structural timeline block on Page-5 of inspiration) -->
+    <section id="benefits" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <span class="text-xs font-bold text-brand-lime uppercase tracking-widest block mb-2">Наши преимущества</span>
+            <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+                Почему именно <span class="text-brand-lime">мы</span>
+            </h2>
+            <p class="text-sm sm:text-base text-brand-textMuted mt-4">
+                Мы избавились от всех посреднических наценок и создали пошаговую систему контроля качества, которая бережет ваше время и нервы.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+            
+            <!-- Step Card 1 -->
+            <div class="bg-brand-card border border-brand-border rounded-2xl p-6 hover:border-brand-lime/40 transition-all group relative">
+                <!-- Connect Line Decor -->
+                <div class="hidden md:block absolute top-1/2 left-full w-full h-[1px] bg-gradient-to-r from-brand-lime/30 to-transparent z-0"></div>
+                <div class="w-12 h-12 rounded-full bg-brand-lime text-brand-bg font-black text-xl flex items-center justify-center mb-6 shadow-lg">
+                    1
+                </div>
+                <h3 class="text-lg font-bold text-white mb-3">Смета в приложении</h3>
+                <p class="text-xs text-brand-textMuted leading-relaxed">
+                    Составляем точную смету в специальном ПО сразу же после замера. Наша IT-система позволяет быстро менять любые позиции и цены.
+                </p>
+            </div>
+
+            <!-- Step Card 2 -->
+            <div class="bg-brand-card border border-brand-border rounded-2xl p-6 hover:border-brand-lime/40 transition-all group relative">
+                <!-- Connect Line Decor -->
+                <div class="hidden md:block absolute top-1/2 left-full w-full h-[1px] bg-gradient-to-r from-brand-lime/30 to-transparent z-0"></div>
+                <div class="w-12 h-12 rounded-full bg-brand-lime text-brand-bg font-black text-xl flex items-center justify-center mb-6 shadow-lg">
+                    2
+                </div>
+                <h3 class="text-lg font-bold text-white mb-3">Дизайн-проект</h3>
+                <p class="text-xs text-brand-textMuted leading-relaxed">
+                    Разрабатываем детальный дизайн-проект и чертежи технических решений даже для самых нестандартных рельефов грунта.
+                </p>
+            </div>
+
+            <!-- Step Card 3 -->
+            <div class="bg-brand-card border border-brand-border rounded-2xl p-6 hover:border-brand-lime/40 transition-all group relative">
+                <!-- Connect Line Decor -->
+                <div class="hidden md:block absolute top-1/2 left-full w-full h-[1px] bg-gradient-to-r from-brand-lime/30 to-transparent z-0"></div>
+                <div class="w-12 h-12 rounded-full bg-brand-lime text-brand-bg font-black text-xl flex items-center justify-center mb-6 shadow-lg">
+                    3
+                </div>
+                <h3 class="text-lg font-bold text-white mb-3">Идеальный порядок</h3>
+                <p class="text-xs text-brand-textMuted leading-relaxed">
+                    Не оставляем за собой никакого строительного мусора после монтажа забора: генеральная уборка территории уже входит в комплекс.
+                </p>
+            </div>
+
+            <!-- Step Card 4 -->
+            <div class="bg-brand-card border border-brand-border rounded-2xl p-6 hover:border-brand-lime/40 transition-all group relative">
+                <div class="w-12 h-12 rounded-full bg-brand-lime text-brand-bg font-black text-xl flex items-center justify-center mb-6 shadow-lg">
+                    4
+                </div>
+                <h3 class="text-lg font-bold text-white mb-3">Опытный персонал</h3>
+                <p class="text-xs text-brand-textMuted leading-relaxed">
+                    К работе допускаются только квалифицированные монтажники, имеющие профильное образование и подтвержденный стаж работы от 5 лет.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- DETAILED PRICING CATALOG (Structured cards with features and quote button) -->
+    <section id="pricing" class="py-24 bg-brand-card/25 border-y border-brand-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold text-brand-lime uppercase tracking-widest block mb-2">Каталог цен</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">Готовые решения под ключ</h2>
+                <p class="text-sm text-brand-textMuted mt-4">Выбирайте комплектацию под ваши задачи и бюджет. Без скрытых наценок.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Package 1 -->
+                <div class="bg-brand-card border border-brand-border rounded-2xl p-8 relative overflow-hidden flex flex-col justify-between hover:border-brand-lime/30 transition-all">
+                    <div>
+                        <span class="text-xs uppercase tracking-wider text-brand-lime font-bold">Эконом стандарт</span>
+                        <h3 class="text-3xl font-extrabold text-white mt-4">от 1 900 ₽ <span class="text-xs text-brand-textMuted font-normal">/ пог.м</span></h3>
+                        <p class="text-xs text-brand-textMuted mt-2">Идеально подходит для дачных участков и временных ограждений.</p>
+                        
+                        <div class="h-[1px] bg-brand-border my-6"></div>
+
+                        <ul class="space-y-3 text-xs text-white">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-lime"></i> Сваи винтовые 76мм</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-lime"></i> Заполнение: Профлист С8 0.45мм</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-lime"></i> Лаги 40х20мм в два ряда</li>
+                            <li class="flex items-center gap-2 text-brand-textMuted"><i data-lucide="x" class="w-4 h-4"></i> Без бетонирования столбов</li>
+                        </ul>
+                    </div>
+                    <button onclick="orderPackage('Эконом стандарт', 1900)" class="w-full mt-8 bg-brand-bg hover:bg-brand-border text-white border border-brand-border font-bold text-xs uppercase tracking-wider py-3.5 rounded-lg transition-colors">
+                        Выбрать тариф
+                    </button>
+                </div>
+
+                <!-- Package 2 - Best seller with special badge -->
+                <div class="bg-brand-card border-2 border-brand-lime rounded-2xl p-8 relative flex flex-col justify-between shadow-xl">
+                    <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-brand-lime text-brand-bg font-black text-[9px] uppercase tracking-widest px-4 py-1 rounded-full">
+                        Самый популярный
+                    </div>
+                    <div>
+                        <span class="text-xs uppercase tracking-wider text-brand-lime font-bold">Премиум Жалюзи</span>
+                        <h3 class="text-3xl font-extrabold text-white mt-4">от 3 400 ₽ <span class="text-xs text-brand-textMuted font-normal">/ пог.м</span></h3>
+                        <p class="text-xs text-brand-textMuted mt-2">Продуваемое дизайнерское решение с максимальной ветрозащитой.</p>
+                        
+                        <div class="h-[1px] bg-brand-border my-6"></div>
+
+                        <ul class="space-y-3 text-xs text-white">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-lime"></i> Бетонирование столбов на 1.5м</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-lime"></i> Заполнение: Металлический ламели</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-lime"></i> Двусторонняя порошковая покраска</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-lime"></i> Официальная гарантия 15 лет</li>
+                        </ul>
+                    </div>
+                    <button onclick="orderPackage('Премиум Жалюзи', 3400)" class="w-full mt-8 bg-brand-lime hover:bg-brand-limeDark text-brand-bg font-black text-xs uppercase tracking-wider py-3.5 rounded-lg transition-colors">
+                        Заказать комплект
+                    </button>
+                </div>
+
+                <!-- Package 3 -->
+                <div class="bg-brand-card border border-brand-border rounded-2xl p-8 relative overflow-hidden flex flex-col justify-between hover:border-brand-lime/30 transition-all">
+                    <div>
+                        <span class="text-xs uppercase tracking-wider text-brand-lime font-bold">Коттеджный Хай-Тек</span>
+                        <h3 class="text-3xl font-extrabold text-white mt-4">от 5 800 ₽ <span class="text-xs text-brand-textMuted font-normal">/ пог.м</span></h3>
+                        <p class="text-xs text-brand-textMuted mt-2">Бескомпромиссная надежность со скрытым монтажом.</p>
+                        
+                        <div class="h-[1px] bg-brand-border my-6"></div>
+
+                        <ul class="space-y-3 text-xs text-white">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-lime"></i> Ленточный фундамент М300</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-lime"></i> Оцинкованные секции</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-lime"></i> Подготовка под датчики охраны</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-lime"></i> Пожизненное обслуживание петель</li>
+                        </ul>
+                    </div>
+                    <button onclick="orderPackage('Коттеджный Хай-Тек', 5800)" class="w-full mt-8 bg-brand-bg hover:bg-brand-border text-white border border-brand-border font-bold text-xs uppercase tracking-wider py-3.5 rounded-lg transition-colors">
+                        Выбрать тариф
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIVE INTERACTIVE QUOTE ESTIMATOR FORM -->
+    <section id="quote-estimator" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-gradient-to-r from-brand-card to-brand-bg border border-brand-border rounded-3xl p-8 sm:p-12 relative overflow-hidden">
+            <div class="absolute right-0 top-0 w-96 h-96 bg-brand-lime/5 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Details Info -->
+                <div class="lg:col-span-6 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 bg-brand-lime/10 border border-brand-lime/30 rounded-full text-xs text-brand-lime font-semibold uppercase">
+                        Быстрое бронирование
+                    </div>
+                    <h2 class="text-3xl sm:text-5xl font-black text-white leading-tight">
+                        Зафиксируйте стоимость <span class="text-brand-lime">уже сегодня</span>
+                    </h2>
+                    <p class="text-sm text-brand-textMuted max-w-md">
+                        Заполните эту форму, и наш главный инженер-технолог свяжется с вами для согласования деталей выезда. Выезд замерщика в пределах 50 км от МКАД — абсолютно бесплатный.
+                    </p>
+
+                    <!-- Trust indicators inside block -->
+                    <div class="space-y-4 pt-4 border-t border-brand-border/60">
+                        <div class="flex items-start gap-3">
+                            <div class="p-1 rounded bg-brand-lime/10 text-brand-lime mt-1">
+                                <i data-lucide="shield" class="w-4 h-4"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-white">Защита от брака</h4>
+                                <p class="text-[11px] text-brand-textMuted">Вся продукция сертифицирована по международному стандарту ISO 9001.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Form Element -->
+                <div class="lg:col-span-6 bg-brand-card/90 border border-brand-border p-8 rounded-2xl shadow-xl">
+                    <form id="leadForm" onsubmit="handleLeadSubmit(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-white uppercase mb-1.5">Ваше имя</label>
+                            <input type="text" id="clientName" required placeholder="Иван Иванов" class="w-full bg-brand-bg border border-brand-border focus:border-brand-lime rounded-lg px-4 py-3 text-sm text-white focus:outline-none transition-all">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-white uppercase mb-1.5">Номер телефона</label>
+                            <input type="tel" id="clientPhone" required placeholder="+7 (999) 000-00-00" class="w-full bg-brand-bg border border-brand-border focus:border-brand-lime rounded-lg px-4 py-3 text-sm text-white focus:outline-none transition-all">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-white uppercase mb-1.5">Укажите примерную длину (м)</label>
+                            <input type="number" id="clientLength" placeholder="Например, 30" class="w-full bg-brand-bg border border-brand-border focus:border-brand-lime rounded-lg px-4 py-3 text-sm text-white focus:outline-none transition-all">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-white uppercase mb-1.5">Ваши пожелания</label>
+                            <textarea id="clientNotes" placeholder="Например: хочу забор жалюзи коричневого цвета" class="w-full bg-brand-bg border border-brand-border focus:border-brand-lime rounded-lg px-4 py-3 text-sm text-white focus:outline-none transition-all h-20 resize-none"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-brand-lime hover:bg-brand-limeDark text-brand-bg font-black text-xs uppercase tracking-widest py-4 rounded-lg transition-all shadow-md flex items-center justify-center gap-2">
+                            <i data-lucide="send" class="w-4 h-4"></i> Отправить заявку технологу
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- LIVE INTERACTIVE ACCORDION FAQ -->
+    <section id="faq" class="py-24 max-w-4xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-16">
+            <span class="text-xs font-bold text-brand-lime uppercase tracking-widest block mb-2">Отвечаем на вопросы</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Часто задаваемые вопросы</h2>
+        </div>
+
+        <div class="space-y-4">
+            <!-- FAQ 1 -->
+            <div class="border border-brand-border rounded-xl bg-brand-card overflow-hidden">
+                <button onclick="toggleFaq(1)" class="w-full p-6 text-left flex justify-between items-center text-white font-semibold hover:text-brand-lime transition-all focus:outline-none">
+                    <span>Сколько времени занимает установка забора в 50 метров?</span>
+                    <i id="faq-icon-1" data-lucide="plus" class="w-5 h-5 text-brand-lime transition-transform duration-300"></i>
+                </button>
+                <div id="faq-content-1" class="hidden px-6 pb-6 text-sm text-brand-textMuted leading-relaxed animate-fadeIn">
+                    Обычно такая работа занимает всего 2-3 рабочих дня, включая бурение лунок, бетонирование опорных столбов и монтаж секций. Наш технолог делает детальный таймлайн-план до старта.
+                </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="border border-brand-border rounded-xl bg-brand-card overflow-hidden">
+                <button onclick="toggleFaq(2)" class="w-full p-6 text-left flex justify-between items-center text-white font-semibold hover:text-brand-lime transition-all focus:outline-none">
+                    <span>Предоставляете ли вы рассрочку или кредит?</span>
+                    <i id="faq-icon-2" data-lucide="plus" class="w-5 h-5 text-brand-lime transition-transform duration-300"></i>
+                </button>
+                <div id="faq-content-2" class="hidden px-6 pb-6 text-sm text-brand-textMuted leading-relaxed animate-fadeIn">
+                    Да, мы сотрудничаем с ведущими банками РФ и предоставляем беспроцентную рассрочку на 6 месяцев без первоначального взноса прямо в офисе или дистанционно.
+                </div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="border border-brand-border rounded-xl bg-brand-card overflow-hidden">
+                <button onclick="toggleFaq(3)" class="w-full p-6 text-left flex justify-between items-center text-white font-semibold hover:text-brand-lime transition-all focus:outline-none">
+                    <span>Что делать, если у меня сильный перепад высот на участке?</span>
+                    <i id="faq-icon-3" data-lucide="plus" class="w-5 h-5 text-brand-lime transition-transform duration-300"></i>
+                </button>
+                <div id="faq-content-3" class="hidden px-6 pb-6 text-sm text-brand-textMuted leading-relaxed animate-fadeIn">
+                    Для участков со сложным рельефом мы проектируем ступенчатый тип забора с усиленным каркасом. Наши специалисты выровняют профиль лазерным уровнем с точностью до 1 миллиметра.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PREMIUM COMPREHENSIVE FOOTER -->
+    <footer class="bg-brand-card border-t border-brand-border py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
+            <!-- Brand Column -->
+            <div class="md:col-span-4 space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="relative w-8 h-8 bg-brand-bg border border-brand-border rounded flex flex-col justify-between p-1.5">
+                        <div class="h-0.5 bg-brand-lime rounded w-full"></div>
+                        <div class="h-0.5 bg-white rounded w-full"></div>
+                        <div class="h-0.5 bg-brand-lime rounded w-1/2"></div>
+                    </div>
+                    <span class="text-lg font-black tracking-widest text-white">KE<span class="text-brand-lime">N</span>YX</span>
+                </div>
+                <p class="text-xs text-brand-textMuted leading-relaxed">
+                    Премиальное производство металлических ламелей, жалюзи, и авторских систем ограждения участков любого уровня сложности.
+                </p>
+                <div class="flex gap-3 pt-2">
+                    <a href="#" class="p-2 rounded bg-brand-bg border border-brand-border text-brand-textMuted hover:text-brand-lime transition-colors">
+                        <i data-lucide="telegram" class="w-4 h-4"></i>
+                    </a>
+                    <a href="#" class="p-2 rounded bg-brand-bg border border-brand-border text-brand-textMuted hover:text-brand-lime transition-colors">
+                        <i data-lucide="instagram" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Links Column 1 -->
+            <div class="md:col-span-2 space-y-3">
+                <h4 class="text-xs font-bold text-white uppercase tracking-wider">Каталог</h4>
+                <ul class="space-y-2 text-xs text-brand-textMuted">
+                    <li><a href="#" class="hover:text-white transition-colors">Заборы Жалюзи</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Горизонтальные секции</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Откатные ворота</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Ограждения 3D</a></li>
+                </ul>
+            </div>
+
+            <!-- Links Column 2 -->
+            <div class="md:col-span-2 space-y-3">
+                <h4 class="text-xs font-bold text-white uppercase tracking-wider">Клиентам</h4>
+                <ul class="space-y-2 text-xs text-brand-textMuted">
+                    <li><a href="#" class="hover:text-white transition-colors">Калькулятор</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Портфолио работ</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Гарантия и Сервис</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Контакты</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact/Hotline Info Column -->
+            <div class="md:col-span-4 space-y-4">
+                <h4 class="text-xs font-bold text-white uppercase tracking-wider">Контакты & Горячая линия</h4>
+                <div class="space-y-2">
+                    <a href="tel:+74950000000" class="block text-xl font-bold text-brand-lime hover:underline">+7 (495) 000-00-00</a>
+                    <span class="text-[11px] text-brand-textMuted block">Ежедневно с 09:00 до 21:00 (МСК)</span>
+                    <span class="text-xs text-white block">г. Москва, ул. Архитектурная, д. 12, оф. 404</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-brand-border/40 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-brand-textMuted">
+            <span>&copy; 2026 ООО &laquo;КЕНИКС СТРОЙ&raquo;. Все права защищены.</span>
+            <div class="flex gap-4">
+                <a href="#" class="hover:text-white transition-colors">Политика конфиденциальности</a>
+                <a href="#" class="hover:text-white transition-colors">Карта сайта</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT SYSTEMS -->
+    <script>
+        // Init Lucide Icons
+        lucide.createIcons();
+
+        // Mobile Menu Toggle logic
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            menu.classList.toggle('hidden');
+            
+            if (menu.classList.contains('hidden')) {
+                icon.setAttribute('data-lucide', 'menu');
+            } else {
+                icon.setAttribute('data-lucide', 'x');
+            }
+            lucide.createIcons();
+        }
+
+        // Component Explorer Design drawer
+        function toggleComponentExplorer() {
+            const explorer = document.getElementById('component-explorer');
+            if (explorer.classList.contains('hidden')) {
+                explorer.classList.remove('hidden');
+                setTimeout(() => {
+                    explorer.classList.remove('translate-x-full');
+                }, 10);
+            } else {
+                explorer.classList.add('translate-x-full');
+                setTimeout(() => {
+                    explorer.classList.add('hidden');
+                }, 500);
+            }
+        }
+
+        // Copy Text utility
+        function copySnippet(text) {
+            const temp = document.createElement('textarea');
+            temp.value = text;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            document.body.removeChild(temp);
+            showToast('Успешно скопировано в буфер обмена!');
+        }
+
+        // Live Configurator calculations
+        let selectedMaterialCost = 3200;
+        let selectedColorHex = '#1A1C1E';
+
+        function selectMaterial(type, cost) {
+            selectedMaterialCost = cost;
+            document.querySelectorAll('.material-btn').forEach(btn => {
+                btn.classList.remove('border-brand-lime', 'border-2');
+                btn.classList.add('border-brand-border', 'border');
+            });
+            
+            if (type === 'slats-vertical') {
+                document.getElementById('btn-mat-1').classList.add('border-brand-lime', 'border-2');
+            } else {
+                document.getElementById('btn-mat-2').classList.add('border-brand-lime', 'border-2');
+            }
+            recalcConfigurator();
+        }
+
+        function selectColor(id, hex) {
+            selectedColorHex = hex;
+            document.querySelectorAll('.color-dot').forEach(dot => {
+                dot.classList.remove('border-brand-lime', 'border-2');
+                dot.classList.add('border-brand-border', 'border');
+            });
+            event.currentTarget.classList.add('border-brand-lime', 'border-2');
+            recalcConfigurator();
+        }
+
+        function recalcConfigurator() {
+            const height = parseFloat(document.getElementById('fence-height-input').value);
+            const length = parseFloat(document.getElementById('fence-length-input').value);
+            const includeGate = document.getElementById('addon-gate').checked;
+
+            // Update labels
+            document.getElementById('label-height').innerText = height.toFixed(1) + 'м';
+            document.getElementById('label-length').innerText = length + 'м';
+
+            // Cost calculations
+            const baseArea = height * length;
+            let total = baseArea * selectedMaterialCost;
+            if (includeGate) {
+                total += 85000;
+            }
+
+            // Formatter ruble
+            document.getElementById('recalc-total-price').innerText = new Intl.NumberFormat('ru-RU', {
+                style: 'currency',
+                currency: 'RUB',
+                maximumFractionDigits: 0
+            }).format(total);
+
+            // Re-render visual slats preview dynamically
+            const renderContainer = document.getElementById('render-panel-container');
+            renderContainer.innerHTML = '';
+            
+            // Adjust visual density based on height
+            const numSlats = Math.floor(height * 4);
+            for (let i = 0; i < numSlats; i++) {
+                const slat = document.createElement('div');
+                slat.className = 'h-4 rounded transition-all duration-300 border border-white/10 shadow-sm';
+                slat.style.backgroundColor = selectedColorHex;
+                renderContainer.appendChild(slat);
+            }
+        }
+
+        // Action: Save configuration custom dialog helper
+        function saveConfiguration() {
+            const price = document.getElementById('recalc-total-price').innerText;
+            showToast(`Цена ${price} успешно зафиксирована на ваш сессионный токен!`);
+        }
+
+        // Action: Quick select package helper
+        function orderPackage(name, basePrice) {
+            document.getElementById('clientNotes').value = `Меня заинтересовал комплект: "${name}" по цене от ${basePrice} ₽/пог.м.`;
+            document.getElementById('quote-estimator').scrollIntoView({ behavior: 'smooth' });
+            showToast(`Тариф "${name}" выбран. Пожалуйста, подтвердите данные для связи ниже.`);
+        }
+
+        // Hero fence preview update helper
+        function updateHeroFenceColor(color) {
+            const children = document.getElementById('hero-fence-preview').children;
+            for (let child of children) {
+                child.style.backgroundColor = color;
+            }
+            showToast('Цвет интерактивного образца обновлен!');
+        }
+
+        // Accordion FAQ toggle
+        function toggleFaq(id) {
+            const content = document.getElementById(`faq-content-${id}`);
+            const icon = document.getElementById(`faq-icon-${id}`);
+            content.classList.toggle('hidden');
+            
+            if (content.classList.contains('hidden')) {
+                icon.setAttribute('data-lucide', 'plus');
+            } else {
+                icon.setAttribute('data-lucide', 'minus');
+            }
+            lucide.createIcons();
+        }
+
+        // Handle lead submit
+        function handleLeadSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('clientName').value;
+            const phone = document.getElementById('clientPhone').value;
+            showToast(`Спасибо, ${name}! Ваша заявка успешно отправлена. Технолог свяжется по телефону ${phone} в течение 10 минут.`);
+            document.getElementById('leadForm').reset();
+        }
+
+        // System Toast alert helper
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = "bg-brand-card border border-brand-lime text-white p-4 rounded-xl shadow-2xl flex items-center gap-3 animate-fadeIn pointer-events-auto transition-all duration-300";
+            toast.innerHTML = `
+                <div class="w-2 h-2 rounded-full bg-brand-lime glow-pulse"></div>
+                <span class="text-xs font-semibold">${message}</span>
+            `;
+            container.appendChild(toast);
+
+            // Auto dismiss toast after 4s
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 4000);
+        }
+
+        // Preload initial calculation state
+        recalcConfigurator();
+    </script>
+</body>
+</html>
+6

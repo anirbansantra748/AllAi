@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>911 Turbo S Cabriolet - Dual-Tone Interactive Experience</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cormorant Garamond (Editorial Serif) & Plus Jakarta Sans (Premium Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Cormorant Garamond', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brandDark: '#35304a',      /* Deep Slate Purple/Indigo from left panel */
+                        brandLight: '#f2edd9',     /* Warm Alabaster/Cream from right panel */
+                        brandCreamDark: '#e3dcbf', /* Slightly darker cream for contrast */
+                        brandSlate: '#211d30',     /* Ultra-dark slate for text/accents */
+                        brandRed: '#e32a1e',       /* Classic Guards Red */
+                        brandYellow: '#fbc02d',    /* Racing Yellow alternative */
+                        brandBlue: '#00bcd4',      /* Miami Blue alternative */
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #35304a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e3dcbf;
+            border-radius: 4px;
+        }
+        
+        /* Subtle texture overlay to replicate premium catalog feel */
+        .noise-bg {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3联%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
+        }
+
+        /* Pulse effects for hotspots */
+        @keyframes custom-ping {
+            0% { transform: scale(1); opacity: 1; }
+            70%, 100% { transform: scale(2.2); opacity: 0; }
+        }
+        .animate-custom-ping {
+            animation: custom-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+
+        /* Custom luxury cursor transitions */
+        .transition-all-custom {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+    </style>
+</head>
+<body class="bg-[#1c1a26] text-slate-100 font-sans antialiased overflow-x-hidden noise-bg selection:bg-brandLight selection:text-brandDark">
+
+    <!-- Premium Audio System Controller -->
+    <div class="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-brandSlate/90 backdrop-blur-md border border-brandLight/20 px-4 py-3 rounded-full shadow-2xl">
+        <div class="flex flex-col text-right">
+            <span class="text-[10px] uppercase tracking-widest text-brandLight/60">Acoustic System</span>
+            <span id="engine-status" class="text-xs font-semibold text-brandLight">Engine: Switched Off</span>
+        </div>
+        <button id="audio-toggle" onclick="toggleEngineSound()" class="w-10 h-10 rounded-full flex items-center justify-center bg-brandLight text-brandDark hover:bg-brandRed hover:text-white transition-all duration-300 shadow-lg group">
+            <i id="audio-icon" data-lucide="power" class="w-5 h-5 group-hover:rotate-90 transition-transform duration-500"></i>
+        </button>
+    </div>
+
+    <!-- Live Toast System (Replaces browser alert) -->
+    <div id="toast" class="fixed top-6 right-6 z-50 transform translate-y-[-100px] opacity-0 transition-all duration-500 bg-brandSlate text-brandLight border border-brandLight/30 rounded-lg px-6 py-4 shadow-2xl flex items-center gap-4 max-w-sm">
+        <div class="w-2 h-2 rounded-full bg-brandRed animate-pulse"></div>
+        <div class="flex-1">
+            <h4 class="font-serif text-sm font-semibold tracking-wide">SYSTEM MESSAGE</h4>
+            <p id="toast-message" class="text-xs text-brandLight/80 mt-1">Notification details go here.</p>
+        </div>
+        <button onclick="dismissToast()" class="text-brandLight/50 hover:text-brandLight text-xs">&times;</button>
+    </div>
+
+    <!-- Top Premium Navigation Split Menu -->
+    <header class="relative z-40 w-full border-b border-brandLight/10">
+        <div class="grid grid-cols-1 md:grid-cols-2">
+            <!-- Left Header: Dark Zone -->
+            <div class="bg-brandDark text-brandLight/90 flex items-center justify-between px-6 md:px-12 py-5 border-r border-brandLight/10">
+                <div class="flex items-center gap-6">
+                    <button class="hover:text-brandLight text-brandLight/70 flex items-center gap-2 text-xs tracking-widest uppercase" onclick="toggleMobileMenu()">
+                        <i data-lucide="menu" class="w-4 h-4"></i>
+                        <span class="hidden sm:inline">Catalogue</span>
+                    </button>
+                    <nav class="hidden lg:flex items-center gap-8 text-xs tracking-widest uppercase text-brandLight/70">
+                        <a href="#models" class="hover:text-brandLight transition-colors">Cars</a>
+                        <a href="#technology" class="hover:text-brandLight transition-colors">Technology</a>
+                        <a href="#configurator" class="hover:text-brandLight transition-colors">Bespoke Shop</a>
+                    </nav>
+                </div>
+            </div>
+            <!-- Right Header: Light Zone -->
+            <div class="bg-brandLight text-brandSlate flex items-center justify-between px-6 md:px-12 py-5">
+                <nav class="hidden lg:flex items-center gap-8 text-xs tracking-widest uppercase text-brandSlate/70">
+                    <a href="#engineering" class="hover:text-brandSlate transition-colors">Engineering</a>
+                    <a href="#experience" class="hover:text-brandSlate transition-colors">Heritage</a>
+                </nav>
+                <div class="flex items-center gap-6 ml-auto lg:ml-0">
+                    <button onclick="showSearch()" class="hover:text-brandSlate text-brandSlate/70 transition-colors">
+                        <i data-lucide="search" class="w-5 h-5"></i>
+                    </button>
+                    <a href="#configurator" class="hidden sm:inline-block border border-brandSlate px-4 py-1.5 text-[10px] font-semibold tracking-widest uppercase hover:bg-brandSlate hover:text-brandLight transition-all duration-300">
+                        Build Custom
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Absolute Center Shield Logo Emblem -->
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-auto z-50">
+            <div class="bg-brandSlate hover:bg-brandRed border border-brandLight/30 w-12 h-14 flex items-center justify-center shadow-xl clip-shield transition-all duration-300 cursor-pointer" onclick="showToast('Porsche Brand Center', 'Explore the classic styling & legacy of the legendary 911.')">
+                <!-- Golden Crest Representation -->
+                <svg class="w-6 h-8 text-brandLight" viewBox="0 0 24 28" fill="currentColor">
+                    <path d="M12 2L4 5v8c0 5.25 3.42 10.16 8 11 4.58-.84 8-5.75 8-11V5l-8-3zm0 3c3.87 0 7 3.13 7 7 0 3.87-3.13 7-7 7s-7-3.13-7-7c0-3.87 3.13-7 7-7z"/>
+                </svg>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="fixed inset-0 bg-brandSlate/95 z-50 backdrop-blur-xl pointer-events-none opacity-0 transition-all duration-500 flex flex-col justify-between p-8">
+        <div class="flex justify-between items-center border-b border-brandLight/10 pb-6">
+            <span class="text-sm font-serif italic text-brandLight">911 Digital Suite</span>
+            <button onclick="toggleMobileMenu()" class="text-brandLight/80 hover:text-white">
+                <i data-lucide="x" class="w-8 h-8"></i>
+            </button>
+        </div>
+        <div class="flex flex-col gap-6 my-auto text-center">
+            <a href="#models" onclick="toggleMobileMenu()" class="font-serif text-3xl hover:text-brandRed transition-colors">Active Fleet</a>
+            <a href="#technology" onclick="toggleMobileMenu()" class="font-serif text-3xl hover:text-brandRed transition-colors">Traction Technology</a>
+            <a href="#engineering" onclick="toggleMobileMenu()" class="font-serif text-3xl hover:text-brandRed transition-colors">Chassis Dynamics</a>
+            <a href="#configurator" onclick="toggleMobileMenu()" class="font-serif text-3xl hover:text-brandRed transition-colors">Bespoke Creator</a>
+        </div>
+        <div class="border-t border-brandLight/10 pt-6 text-center text-xs text-brandLight/40 tracking-wider">
+            © 2026 Crafted for Extreme Luxury. Built for High-Speed Performance.
+        </div>
+    </div>
+
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="fixed inset-0 bg-brandSlate/95 z-50 backdrop-blur-md hidden items-center justify-center p-6">
+        <div class="w-full max-w-2xl bg-brandDark/80 p-8 rounded-2xl border border-brandLight/20 relative">
+            <button onclick="hideSearch()" class="absolute top-4 right-4 text-brandLight/60 hover:text-white">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <h3 class="font-serif text-2xl text-brandLight mb-4">Search Porsche Vault</h3>
+            <div class="relative">
+                <input type="text" placeholder="Type keywords e.g., PTM, Cabriolet, Horsepower..." class="w-full bg-brandSlate text-brandLight border border-brandLight/30 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brandRed">
+                <button onclick="executeSearch()" class="absolute right-3 top-3 text-brandLight/60 hover:text-brandRed">
+                    <i data-lucide="arrow-right" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <div class="mt-4 flex gap-2 flex-wrap text-xs text-brandLight/60">
+                <span>Quick Links:</span>
+                <a href="#technology" onclick="hideSearch()" class="underline hover:text-brandLight">Active Traction</a>,
+                <a href="#configurator" onclick="hideSearch()" class="underline hover:text-brandLight">Specs Configurator</a>,
+                <a href="#models" onclick="hideSearch()" class="underline hover:text-brandLight">0-100 Speed</a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- MAIN HERO SECTION with EXACT SPLIT THEME -->
+    <main class="relative min-h-screen">
+        <div class="grid grid-cols-1 md:grid-cols-2 min-h-screen">
+            
+            <!-- LEFT HERO PANEL (DARK MODE / SLATE PURPLE) -->
+            <div class="bg-brandDark text-brandLight px-8 md:px-16 pt-32 pb-24 flex flex-col justify-between relative overflow-hidden">
+                <div class="absolute inset-0 pointer-events-none opacity-20">
+                    <div class="absolute -top-12 -left-12 w-64 h-64 rounded-full bg-brandLight blur-3xl"></div>
+                </div>
+
+                <!-- Product Header Details -->
+                <div class="relative z-10">
+                    <p class="text-[11px] tracking-[0.3em] text-brandLight/60 uppercase mb-3">The Innovative Bodyshell of the 911</p>
+                    <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-normal leading-none mb-8 tracking-tight">
+                        Turbo S<br><span class="italic font-light">Cabriolet</span>
+                    </h1>
+                </div>
+
+                <!-- Quick Statistics Sheet -->
+                <div class="border-t border-brandLight/20 pt-8 relative z-10 max-w-md">
+                    <div class="flex items-baseline justify-between py-3 border-b border-brandLight/10">
+                        <span class="text-xs uppercase tracking-widest text-brandLight/50">0 - 100 km/h</span>
+                        <span class="text-2xl font-serif text-brandLight font-medium">2.8 sec</span>
+                    </div>
+                    <div class="flex items-baseline justify-between py-3 border-b border-brandLight/10">
+                        <span class="text-xs uppercase tracking-widest text-brandLight/50">Peak Performance</span>
+                        <span class="text-2xl font-serif text-brandLight font-medium">650 hp / 478 kW</span>
+                    </div>
+                    <div class="flex items-baseline justify-between py-3">
+                        <span class="text-xs uppercase tracking-widest text-brandLight/50">Top Track Velocity</span>
+                        <span class="text-2xl font-serif text-brandLight font-medium">330 km/h</span>
+                    </div>
+                </div>
+
+                <!-- Call to action action base -->
+                <div class="pt-8 relative z-10">
+                    <a href="#configurator" class="inline-block bg-brandLight text-brandDark hover:bg-brandRed hover:text-white px-8 py-4 text-xs font-semibold tracking-widest uppercase transition-all-custom shadow-xl">
+                        Build Your Custom Porsche
+                    </a>
+                </div>
+            </div>
+
+            <!-- RIGHT HERO PANEL (LIGHT MODE / ALABASTER CREAM) -->
+            <div class="bg-brandLight text-brandSlate px-8 md:px-16 pt-32 pb-24 flex flex-col justify-between relative">
+                
+                <!-- Dynamic Interactive Detail Module (Changes on Hotspot hover/click) -->
+                <div id="dynamic-detail-panel" class="max-w-md mt-6 md:mt-0 transition-all-custom">
+                    <p class="text-[11px] tracking-[0.3em] text-brandSlate/50 uppercase mb-3 font-semibold">Adaptive Tech Showcase</p>
+                    <h2 id="detail-title" class="font-serif text-4xl font-normal text-brandSlate mb-6">Porsche Traction Management (PTM)</h2>
+                    
+                    <!-- Dynamic Graphic Frame (Suspension vector illustration built with custom elegant lines) -->
+                    <div class="my-6 p-4 bg-brandCreamDark/40 rounded-xl border border-brandSlate/10 shadow-inner flex justify-center">
+                        <svg id="tech-graphic" class="w-full max-w-[240px] h-[160px] text-brandSlate" viewBox="0 0 200 150">
+                            <!-- Central Axle -->
+                            <line x1="100" y1="40" x2="100" y2="110" stroke="currentColor" stroke-width="2" stroke-dasharray="4"/>
+                            <!-- Front Axle and wheels -->
+                            <line x1="40" y1="40" x2="160" y2="40" stroke="currentColor" stroke-width="4"/>
+                            <rect x="25" y="25" width="15" height="30" rx="3" fill="currentColor"/>
+                            <rect x="160" y="25" width="15" height="30" rx="3" fill="currentColor"/>
+                            <!-- Rear Axle and wheels -->
+                            <line x1="40" y1="110" x2="160" y2="110" stroke="currentColor" stroke-width="4"/>
+                            <rect x="25" y="95" width="15" height="30" rx="3" fill="currentColor"/>
+                            <rect x="160" y="95" width="15" height="30" rx="3" fill="currentColor"/>
+                            <!-- Active Center Differential indicator -->
+                            <circle cx="100" cy="75" r="16" fill="currentColor" opacity="0.15" class="animate-pulse"/>
+                            <circle cx="100" cy="75" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <circle cx="100" cy="75" r="3" fill="currentColor"/>
+                            <!-- Power delivery flow lines -->
+                            <line x1="100" y1="75" x2="100" y2="45" stroke="#e32a1e" stroke-width="2" stroke-dasharray="4" class="animate-pulse"/>
+                            <line x1="100" y1="75" x2="100" y2="105" stroke="#e32a1e" stroke-width="2" stroke-dasharray="4"/>
+                        </svg>
+                    </div>
+
+                    <p id="detail-desc" class="text-sm leading-relaxed text-brandSlate/80 font-normal">
+                        Active all-wheel drive coordinates distribution of drive force perfectly between rear and front axles. Features an electronically controlled multi-plate clutch for instant torque adjustment.
+                    </p>
+                    
+                    <div class="mt-6 flex gap-4">
+                        <a href="#technology" class="text-xs font-bold tracking-widest uppercase border-b-2 border-brandSlate hover:border-brandRed hover:text-brandRed pb-1 transition-all duration-300">
+                            Explore Driving Dynamics
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Custom Exterior Color Swatches Picker (Updates Car Centerpiece paint dynamically!) -->
+                <div class="mt-12">
+                    <p class="text-[10px] tracking-[0.2em] uppercase font-bold text-brandSlate/60 mb-3">Instant Paint Selection</p>
+                    <div class="flex items-center gap-4">
+                        <button onclick="changeCarColor('#e32a1e', 'Guards Red')" class="w-8 h-8 rounded-full bg-brandRed border-2 border-white shadow-lg focus:outline-none transition-all duration-300 hover:scale-110" title="Guards Red"></button>
+                        <button onclick="changeCarColor('#fbc02d', 'Racing Yellow')" class="w-8 h-8 rounded-full bg-brandYellow border-2 border-white shadow-lg focus:outline-none transition-all duration-300 hover:scale-110" title="Racing Yellow"></button>
+                        <button onclick="changeCarColor('#00bcd4', 'Miami Blue')" class="w-8 h-8 rounded-full bg-brandBlue border-2 border-white shadow-lg focus:outline-none transition-all duration-300 hover:scale-110" title="Miami Blue"></button>
+                        <button onclick="changeCarColor('#2d2d3a', 'Jet Black Metallic')" class="w-8 h-8 rounded-full bg-[#2d2d3a] border-2 border-white shadow-lg focus:outline-none transition-all duration-300 hover:scale-110" title="Jet Black Metallic"></button>
+                        <button onclick="changeCarColor('#fbfbfd', 'Carrera White')" class="w-8 h-8 rounded-full bg-[#fbfbfd] border-2 border-white shadow-lg focus:outline-none transition-all duration-300 hover:scale-110" title="Carrera White"></button>
+                        <span id="paint-label" class="text-xs font-semibold uppercase tracking-wider text-brandSlate/70 ml-2">Guards Red</span>
+                    </div>
+                </div>
+
+                <!-- Social Engagement layout exactly aligned with image layout -->
+                <div class="flex items-center justify-between border-t border-brandSlate/10 pt-8 mt-12">
+                    <span class="text-xs font-serif italic text-brandSlate/60">Share Build Concept</span>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-8 h-8 rounded-full bg-brandSlate/5 text-brandSlate hover:bg-brandSlate hover:text-brandLight flex items-center justify-center transition-all duration-300">
+                            <i data-lucide="instagram" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-brandSlate/5 text-brandSlate hover:bg-brandSlate hover:text-brandLight flex items-center justify-center transition-all duration-300">
+                            <i data-lucide="twitter" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-brandSlate/5 text-brandSlate hover:bg-brandSlate hover:text-brandLight flex items-center justify-center transition-all duration-300">
+                            <i data-lucide="facebook" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- THE ABSOLUTE CENTERPIECE DYNAMIC TOP-DOWN CAR -->
+            <!-- Positioned flawlessly between both panes to perfectly bridge the dark/light divide -->
+            <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none md:pointer-events-auto h-[550px] w-[280px]">
+                <div class="relative w-full h-full flex items-center justify-center">
+                    
+                    <!-- HIGH-FIDELITY VECTOR TOP-DOWN VIEW CAR DESIGN -->
+                    <svg id="car-svg" class="w-full h-full drop-shadow-[0_25px_45px_rgba(0,0,0,0.65)] transition-all-custom" viewBox="0 0 200 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        
+                        <!-- Base Shadow -->
+                        <ellipse cx="100" cy="200" rx="65" ry="175" fill="black" opacity="0.4" />
+
+                        <!-- Main Body Paint Base Shell (Targeted by javascript to change paint colors dynamically) -->
+                        <path id="car-paint" d="M100 20 C60 25, 45 45, 42 75 C38 120, 38 280, 42 325 C45 355, 60 375, 100 380 C140 375, 155 355, 158 325 C162 280, 162 120, 158 75 C155 45, 140 25, 100 20 Z" fill="#e32a1e" class="transition-all duration-700" />
+
+                        <!-- Wheel Arches / Flare outlines -->
+                        <path d="M42 65 C41 85, 41 100, 42 120" stroke="#111" stroke-width="2"/>
+                        <path d="M158 65 C159 85, 159 100, 158 120" stroke="#111" stroke-width="2"/>
+                        <path d="M42 280 C41 300, 41 315, 42 335" stroke="#111" stroke-width="2"/>
+                        <path d="M158 280 C159 300, 159 315, 158 335" stroke="#111" stroke-width="2"/>
+
+                        <!-- Side Mirrors -->
+                        <path d="M40 105 C30 105, 20 110, 22 118 C24 125, 38 125, 42 120" fill="#222" />
+                        <path d="M160 105 C170 105, 180 110, 178 118 C176 125, 162 125, 158 120" fill="#222" />
+                        
+                        <!-- Side Skirts Details -->
+                        <rect x="36" y="140" width="4" height="120" rx="2" fill="#15151c"/>
+                        <rect x="160" y="140" width="4" height="120" rx="2" fill="#15151c"/>
+
+                        <!-- Front Headlights (High-end LEDs) -->
+                        <ellipse cx="55" cy="50" rx="6" ry="12" transform="rotate(-15 55 50)" fill="#fffae0" opacity="0.9"/>
+                        <ellipse cx="145" cy="50" rx="6" ry="12" transform="rotate(15 145 50)" fill="#fffae0" opacity="0.9"/>
+                        <ellipse cx="55" cy="50" rx="3" ry="6" transform="rotate(-15 55 50)" fill="#fff" />
+                        <ellipse cx="145" cy="50" rx="3" ry="6" transform="rotate(15 145 50)" fill="#fff" />
+
+                        <!-- Front Air Intake vents on Hood -->
+                        <path d="M75 35 Q100 45 125 35" stroke="#15151c" stroke-width="2.5" fill="none"/>
+                        <path d="M70 75 Q100 85 130 75" stroke="#15151c" stroke-width="1.5" fill="none" opacity="0.4"/>
+
+                        <!-- Windshield (Tempered luxury glass) -->
+                        <path d="M55 110 C62 90, 138 90, 145 110 C140 160, 60 160, 55 110 Z" fill="#201f2b" stroke="#15151c" stroke-width="3"/>
+                        <path d="M60 108 C65 95, 135 95, 140 108" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.15"/>
+
+                        <!-- Luxurious Interior Cabin / Seat Buckets (Top view detailing) -->
+                        <!-- Cockpit surround line -->
+                        <path d="M52 135 C50 170, 50 210, 52 235 C65 245, 135 245, 148 235 C150 210, 150 170, 148 135 Z" fill="#4d4439" stroke="#15151c" stroke-width="2"/>
+                        <!-- Leather Seats -->
+                        <!-- Driver Seat -->
+                        <rect x="62" y="145" width="30" height="40" rx="8" fill="#d2b48c" stroke="#15151c" stroke-width="1.5" />
+                        <rect x="67" y="152" width="20" height="28" rx="4" fill="#c5a075" />
+                        <rect x="69" y="137" width="16" height="10" rx="3" fill="#a07d53" /> <!-- Headrest -->
+                        <!-- Passenger Seat -->
+                        <rect x="108" y="145" width="30" height="40" rx="8" fill="#d2b48c" stroke="#15151c" stroke-width="1.5" />
+                        <rect x="113" y="152" width="20" height="28" rx="4" fill="#c5a075" />
+                        <rect x="115" y="137" width="16" height="10" rx="3" fill="#a07d53" /> <!-- Headrest -->
+                        <!-- Center Console / Dashboard Top -->
+                        <rect x="94" y="142" width="12" height="60" rx="4" fill="#2d2925"/>
+                        <!-- Premium Wooden/Alloy Shifter track detail -->
+                        <line x1="100" y1="150" x2="100" y2="185" stroke="#111" stroke-width="2"/>
+                        <!-- Steering Wheel top curve -->
+                        <path d="M68 128 Q77 121 86 128" stroke="#111" stroke-width="3" fill="none"/>
+
+                        <!-- Engine Intake Deck (Rear Engine configuration) -->
+                        <path d="M60 250 C65 240, 135 240, 140 250 C145 285, 55 285, 60 250 Z" fill="#1e1b24" />
+                        <line x1="75" y1="250" x2="75" y2="280" stroke="#444" stroke-width="1.5"/>
+                        <line x1="85" y1="248" x2="85" y2="282" stroke="#444" stroke-width="1.5"/>
+                        <line x1="100" y1="245" x2="100" y2="285" stroke="#c4332b" stroke-width="2"/> <!-- Center Accent Line -->
+                        <line x1="115" y1="248" x2="115" y2="282" stroke="#444" stroke-width="1.5"/>
+                        <line x1="125" y1="250" x2="125" y2="280" stroke="#444" stroke-width="1.5"/>
+
+                        <!-- Soft Top Convertible Roof Fold area -->
+                        <path d="M52 235 Q100 245 148 235" stroke="#111" stroke-width="5" fill="none"/>
+
+                        <!-- Rear Active Spoiler (Slightly extends out) -->
+                        <path d="M50 330 Q100 340 150 330" stroke="#1c1a26" stroke-width="6" fill="none"/>
+                        <rect x="48" y="338" width="104" height="12" rx="4" fill="#2d2925" />
+
+                        <!-- Tail Light Strip (Glows Red!) -->
+                        <path d="M48 354 Q100 364 152 354" stroke="#e32a1e" stroke-width="3.5" fill="none" class="animate-pulse" />
+                        <path d="M48 354 Q100 364 152 354" stroke="#fff" stroke-width="1" fill="none" opacity="0.8" />
+                    </svg>
+
+                    <!-- INTERACTIVE HOTSPOTS (Perfect absolute placements overlapping the top-down car) -->
+                    <!-- Hotspot 1: Aerodynamics / Active Spoiler (Rear) -->
+                    <button onclick="activateHotspot('aero')" class="absolute bottom-[80px] left-[140px] z-40 focus:outline-none group">
+                        <span class="absolute inline-flex h-6 w-6 rounded-full bg-brandRed/50 animate-custom-ping"></span>
+                        <span class="relative inline-flex rounded-full h-4 w-4 bg-brandRed border border-white shadow-md flex items-center justify-center text-[8px] text-white font-bold">1</span>
+                    </button>
+
+                    <!-- Hotspot 2: Cockpit / Luxury Leather Seat (Middle Left) -->
+                    <button onclick="activateHotspot('cockpit')" class="absolute top-[210px] left-[90px] z-40 focus:outline-none group">
+                        <span class="absolute inline-flex h-6 w-6 rounded-full bg-brandYellow/50 animate-custom-ping"></span>
+                        <span class="relative inline-flex rounded-full h-4 w-4 bg-brandYellow border border-white shadow-md flex items-center justify-center text-[8px] text-brandDark font-bold">2</span>
+                    </button>
+
+                    <!-- Hotspot 3: PTM Chassis / Drivetrain (Middle Center) -->
+                    <button onclick="activateHotspot('chassis')" class="absolute top-[280px] left-[140px] z-40 focus:outline-none group">
+                        <span class="absolute inline-flex h-6 w-6 rounded-full bg-brandBlue/50 animate-custom-ping"></span>
+                        <span class="relative inline-flex rounded-full h-4 w-4 bg-brandBlue border border-white shadow-md flex items-center justify-center text-[8px] text-white font-bold">3</span>
+                    </button>
+
+                    <!-- Hotspot 4: Twin-Turbo Engine Power (Rear Engine Deck) -->
+                    <button onclick="activateHotspot('engine')" class="absolute bottom-[160px] left-[110px] z-40 focus:outline-none group">
+                        <span class="absolute inline-flex h-6 w-6 rounded-full bg-brandRed/50 animate-custom-ping"></span>
+                        <span class="relative inline-flex rounded-full h-4 w-4 bg-brandRed border border-white shadow-md flex items-center justify-center text-[8px] text-white font-bold">4</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+
+    <!-- SPECIFICATION COMPARISON CAROUSEL SIMULATOR -->
+    <section id="models" class="py-24 bg-brandDark text-brandLight border-t border-brandLight/10 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                <div>
+                    <span class="text-xs uppercase tracking-[0.3em] text-brandLight/60">Choose Your Variant</span>
+                    <h2 class="font-serif text-4xl md:text-6xl font-normal mt-2">Active Fleet Comparison</h2>
+                </div>
+                <div class="flex gap-4">
+                    <button onclick="switchVariant('carrera')" id="btn-carrera" class="px-6 py-2 rounded-full border border-brandLight/20 text-xs tracking-widest uppercase hover:bg-brandLight hover:text-brandDark transition-all duration-300">
+                        Carrera 4S
+                    </button>
+                    <button onclick="switchVariant('turbo')" id="btn-turbo" class="px-6 py-2 rounded-full border border-brandLight/20 text-xs tracking-widest uppercase hover:bg-brandLight hover:text-brandDark transition-all duration-300">
+                        911 Turbo
+                    </button>
+                    <button onclick="switchVariant('turbos')" id="btn-turbos" class="px-6 py-2 rounded-full bg-brandLight text-brandDark text-xs tracking-widest uppercase hover:opacity-90 transition-all duration-300 font-bold">
+                        911 Turbo S
+                    </button>
+                </div>
+            </div>
+
+            <!-- Specs Grid Simulator -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+                <!-- Visual highlight card -->
+                <div class="bg-brandSlate/50 p-8 rounded-2xl border border-brandLight/10 h-full flex flex-col justify-between">
+                    <div>
+                        <span id="variant-subtitle" class="text-xs text-brandLight/60 uppercase tracking-widest">Ultimate Benchmark</span>
+                        <h3 id="variant-title" class="font-serif text-3xl font-medium mt-1 mb-4">911 Turbo S Cabriolet</h3>
+                        <p id="variant-desc" class="text-xs leading-relaxed text-brandLight/70 font-normal">
+                            Equipped with a 3.8-liter twin-turbo six-cylinder boxer engine. Unites incredible performance with legendary dynamic chassis control systems.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-8 border-t border-brandLight/10">
+                        <span class="text-[10px] uppercase tracking-wider text-brandLight/40 block">Starting MSRP From</span>
+                        <span id="variant-price" class="text-2xl font-serif text-brandLight">$230,400</span>
+                    </div>
+                </div>
+
+                <!-- Live Dynamic Dial Gauge Indicators (Created with pure SVG & JS manipulation) -->
+                <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-8">
+                    <!-- Gauge 1: Max Speed -->
+                    <div class="bg-brandSlate/30 p-8 rounded-2xl border border-brandLight/5 flex flex-col items-center text-center">
+                        <span class="text-xs uppercase tracking-widest text-brandLight/60 mb-4">Max Speed Velocity</span>
+                        <div class="relative w-40 h-40">
+                            <!-- SVG Speedometer Dial -->
+                            <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="40" stroke="#3d3b5c" stroke-width="8" fill="transparent" />
+                                <circle id="gauge-speed" cx="50" cy="50" r="40" stroke="#e32a1e" stroke-width="8" fill="transparent" 
+                                        stroke-dasharray="251.2" stroke-dashoffset="60" class="transition-all duration-1000 ease-out" />
+                            </svg>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                <span id="gauge-speed-val" class="text-3xl font-serif font-bold text-brandLight">330</span>
+                                <span class="text-[10px] uppercase text-brandLight/50">km/h</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gauge 2: Acceleration Rate -->
+                    <div class="bg-brandSlate/30 p-8 rounded-2xl border border-brandLight/5 flex flex-col items-center text-center">
+                        <span class="text-xs uppercase tracking-widest text-brandLight/60 mb-4">0-100 km/h Launch Time</span>
+                        <div class="relative w-40 h-40">
+                            <!-- SVG Acceleration Dial -->
+                            <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="40" stroke="#3d3b5c" stroke-width="8" fill="transparent" />
+                                <circle id="gauge-acc" cx="50" cy="50" r="40" stroke="#fbc02d" stroke-width="8" fill="transparent" 
+                                        stroke-dasharray="251.2" stroke-dashoffset="190" class="transition-all duration-1000 ease-out" />
+                            </svg>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                <span id="gauge-acc-val" class="text-3xl font-serif font-bold text-brandLight">2.8</span>
+                                <span class="text-[10px] uppercase text-brandLight/50">Seconds</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ENGINEERING & CRAFTSMANSHIP DEEP DIVE SECTION -->
+    <section id="technology" class="py-24 bg-brandLight text-brandSlate relative">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            
+            <div class="max-w-3xl mb-16">
+                <span class="text-xs uppercase tracking-[0.3em] text-brandSlate/60 font-bold">Technological Superiority</span>
+                <h2 class="font-serif text-5xl md:text-7xl font-normal mt-2 text-brandSlate">Mastering Power & Wind Resistance</h2>
+                <p class="text-sm text-brandSlate/70 leading-relaxed mt-4 max-w-xl">
+                    Every element is engineered with premium athletic materials to maximize contact force, reduce friction, and generate ultimate control through cutting-edge technology.
+                </p>
+            </div>
+
+            <!-- Intersecting Feature Grid Panels -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Card A: Porsche Active Suspension Management (PASM) -->
+                <div class="group bg-brandCreamDark/50 p-8 md:p-12 rounded-2xl border border-brandSlate/10 flex flex-col justify-between transition-all duration-500 hover:shadow-2xl">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-brandSlate text-brandLight flex items-center justify-center mb-8">
+                            <i data-lucide="sliders" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="font-serif text-3xl font-normal text-brandSlate mb-4">Porsche Active Suspension Management</h3>
+                        <p class="text-xs text-brandSlate/80 leading-relaxed font-normal mb-8">
+                            An electronic active damping system that continuously controls damping force on each wheel based on road conditions and driving style. Lowers body by 10mm for track situations.
+                        </p>
+                    </div>
+                    <!-- Technical interactive blueprint -->
+                    <div class="border-t border-brandSlate/10 pt-6 flex items-center justify-between">
+                        <span class="text-[10px] uppercase tracking-wider font-bold text-brandSlate/50">Dynamic Response System</span>
+                        <span class="text-xs font-semibold text-brandRed group-hover:translate-x-2 transition-transform duration-300 flex items-center gap-2">
+                            Active PASM Ready <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Card B: Adaptive Aerodynamics (PAA) -->
+                <div class="group bg-brandCreamDark/50 p-8 md:p-12 rounded-2xl border border-brandSlate/10 flex flex-col justify-between transition-all duration-500 hover:shadow-2xl">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-brandSlate text-brandLight flex items-center justify-center mb-8">
+                            <i data-lucide="wind" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="font-serif text-3xl font-normal text-brandSlate mb-4">Active Aerodynamic Balance</h3>
+                        <p class="text-xs text-brandSlate/80 leading-relaxed font-normal mb-8">
+                            Includes a multi-stage extendable front spoiler and adaptive rear wing. PAA adjusts automatically to deliver massive downforce or extreme fuel efficiency instantly.
+                        </p>
+                    </div>
+                    <!-- Technical interactive blueprint -->
+                    <div class="border-t border-brandSlate/10 pt-6 flex items-center justify-between">
+                        <span class="text-[10px] uppercase tracking-wider font-bold text-brandSlate/50">Drag Coefficient: 0.33</span>
+                        <span class="text-xs font-semibold text-brandRed group-hover:translate-x-2 transition-transform duration-300 flex items-center gap-2">
+                            Aero Spoiler Dynamic <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed interactive chassis explorer -->
+            <div id="engineering" class="mt-16 bg-brandCreamDark/30 rounded-3xl p-8 md:p-12 border border-brandSlate/10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-5">
+                        <span class="text-xs uppercase tracking-widest text-brandSlate/50 font-bold">Blueprint System</span>
+                        <h3 class="font-serif text-3xl md:text-4xl mt-1 mb-4">Rear Axle Steering System</h3>
+                        <p class="text-xs text-brandSlate/70 leading-relaxed">
+                            Under 50 km/h, the system steers the rear wheels in the opposite direction to the front wheels to reduce the turning circle. Over 80 km/h, it steers them in the same direction to maximize stability.
+                        </p>
+                        <div class="mt-6 space-y-3">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="check" class="w-4 h-4 text-brandRed"></i>
+                                <span class="text-xs font-semibold">Tighter turn radius at low speeds</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="check" class="w-4 h-4 text-brandRed"></i>
+                                <span class="text-xs font-semibold">Incredible stability during fast lane changes</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Responsive Interactive Canvas Diagram simulating Rear Axle Steering -->
+                    <div class="lg:col-span-7 flex flex-col items-center bg-white/60 p-6 rounded-2xl border border-brandSlate/5 shadow-inner">
+                        <span class="text-[10px] uppercase tracking-widest text-brandSlate/50 mb-3 font-bold">Interactive Axle Simulation</span>
+                        <div class="flex items-center gap-4 mb-4">
+                            <button onclick="simulateSteer('low')" class="px-4 py-1.5 rounded-full text-[10px] tracking-wider uppercase border border-brandSlate/20 hover:bg-brandSlate hover:text-white transition-all duration-300" id="steer-low-btn">Low Speed</button>
+                            <button onclick="simulateSteer('high')" class="px-4 py-1.5 rounded-full text-[10px] tracking-wider uppercase border border-brandSlate/20 hover:bg-brandSlate hover:text-white transition-all duration-300" id="steer-high-btn">High Speed</button>
+                        </div>
+                        <svg class="w-full max-w-[400px] h-[180px] text-brandSlate" viewBox="0 0 200 100">
+                            <!-- Car frame boundary -->
+                            <rect x="30" y="20" width="140" height="60" rx="8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2"/>
+                            
+                            <!-- Front Wheels (Fixed slight turn) -->
+                            <g transform="translate(50, 20) rotate(15)">
+                                <rect x="-8" y="-12" width="16" height="24" rx="2" fill="currentColor"/>
+                            </g>
+                            <g transform="translate(50, 80) rotate(15)">
+                                <rect x="-8" y="-12" width="16" height="24" rx="2" fill="currentColor"/>
+                            </g>
+
+                            <!-- Rear Wheels (Dynamic angle based on JS state) -->
+                            <g id="rear-wheel-top" transform="translate(150, 20) rotate(-15)">
+                                <rect x="-8" y="-12" width="16" height="24" rx="2" fill="#e32a1e"/>
+                            </g>
+                            <g id="rear-wheel-bottom" transform="translate(150, 80) rotate(-15)">
+                                <rect x="-8" y="-12" width="16" height="24" rx="2" fill="#e32a1e"/>
+                            </g>
+
+                            <!-- Labels -->
+                            <text x="50" y="55" font-family="Plus Jakarta Sans" font-size="8" text-anchor="middle" fill="currentColor" font-weight="bold">Front Axle</text>
+                            <text x="150" y="55" font-family="Plus Jakarta Sans" font-size="8" text-anchor="middle" fill="#e32a1e" font-weight="bold" id="steer-text">Opposite Direction</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- BRAND HISTORICAL TIMELINE SHOWCASE -->
+    <section id="experience" class="py-24 bg-brandDark text-brandLight relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-xs uppercase tracking-[0.3em] text-brandLight/60">An Unending Legacy</span>
+                <h2 class="font-serif text-4xl md:text-6xl font-normal mt-2">Born on the Race Track</h2>
+            </div>
+
+            <!-- Intersecting Timeline Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+                <!-- Year 1 -->
+                <div class="bg-brandSlate/40 p-8 rounded-2xl border border-brandLight/10 flex flex-col justify-between hover:bg-brandSlate/60 transition-colors duration-300">
+                    <div>
+                        <span class="font-serif text-5xl italic text-brandLight/30 font-light">1963</span>
+                        <h4 class="font-serif text-2xl font-semibold mt-4 mb-2">The Birth of an Icon</h4>
+                        <p class="text-xs text-brandLight/70 leading-relaxed font-normal">
+                            First presented at the Frankfurt Motor Show as the Type 901, starting an legendary era of rear-engine sports cars.
+                        </p>
+                    </div>
+                    <div class="mt-8 border-t border-brandLight/10 pt-4 flex items-center justify-between text-xs text-brandLight/40">
+                        <span>Heritage Edition</span>
+                        <i data-lucide="award" class="w-4 h-4 text-brandRed"></i>
+                    </div>
+                </div>
+
+                <!-- Year 2 -->
+                <div class="bg-brandSlate/40 p-8 rounded-2xl border border-brandLight/10 flex flex-col justify-between hover:bg-brandSlate/60 transition-colors duration-300">
+                    <div>
+                        <span class="font-serif text-5xl italic text-brandLight/30 font-light">1974</span>
+                        <h4 class="font-serif text-2xl font-semibold mt-4 mb-2">The Turbo Revolution</h4>
+                        <p class="text-xs text-brandLight/70 leading-relaxed font-normal">
+                            Porsche introduces turbocharging technology from motorsport into production, creating a benchmark of supreme performance.
+                        </p>
+                    </div>
+                    <div class="mt-8 border-t border-brandLight/10 pt-4 flex items-center justify-between text-xs text-brandLight/40">
+                        <span>Le Mans Legacy</span>
+                        <i data-lucide="zap" class="w-4 h-4 text-brandYellow"></i>
+                    </div>
+                </div>
+
+                <!-- Year 3 -->
+                <div class="bg-brandSlate/40 p-8 rounded-2xl border border-brandLight/10 flex flex-col justify-between hover:bg-brandSlate/60 transition-colors duration-300">
+                    <div>
+                        <span class="font-serif text-5xl italic text-brandLight/30 font-light">2026</span>
+                        <h4 class="font-serif text-2xl font-semibold mt-4 mb-2">The Ultimate Turbo S</h4>
+                        <p class="text-xs text-brandLight/70 leading-relaxed font-normal">
+                            Unites highly advanced computer physics, high-performance hybrid setups, and classic aesthetic proportions.
+                        </p>
+                    </div>
+                    <div class="mt-8 border-t border-brandLight/10 pt-4 flex items-center justify-between text-xs text-brandLight/40">
+                        <span>Digital Age Masterpiece</span>
+                        <i data-lucide="shield-check" class="w-4 h-4 text-brandBlue"></i>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- THE CONFIGURATOR & ORDER SUMMARY SHEET -->
+    <section id="configurator" class="py-24 bg-brandLight text-brandSlate relative">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            
+            <div class="max-w-3xl mb-16">
+                <span class="text-xs uppercase tracking-[0.3em] text-brandSlate/60 font-bold">Personal Commission</span>
+                <h2 class="font-serif text-5xl md:text-7xl font-normal mt-2">Configure Your Dream Build</h2>
+                <p class="text-sm text-brandSlate/70 leading-relaxed mt-4">
+                    Tailor your 911 Turbo S Cabriolet spec sheet precisely. All choices update the live invoice below instantly.
+                </p>
+            </div>
+
+            <!-- Configuration Workbench -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                
+                <!-- Setup inputs -->
+                <div class="lg:col-span-7 space-y-8">
+                    <!-- Option 1: Paint Configuration -->
+                    <div class="bg-brandCreamDark/40 p-8 rounded-2xl border border-brandSlate/10">
+                        <h3 class="font-serif text-2xl font-semibold mb-4 text-brandSlate">1. Bespoke Paintwork</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <label class="flex items-center gap-4 p-4 rounded-xl border border-brandSlate/20 bg-white/60 cursor-pointer hover:bg-white transition-all">
+                                <input type="radio" name="paint-opt" value="0" checked onclick="updatePricing(0, 'Guards Red')" class="accent-brandRed">
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-bold text-brandSlate">Guards Red</span>
+                                    <span class="text-[10px] text-brandSlate/60">Standard Paint</span>
+                                </div>
+                            </label>
+                            <label class="flex items-center gap-4 p-4 rounded-xl border border-brandSlate/20 bg-white/60 cursor-pointer hover:bg-white transition-all">
+                                <input type="radio" name="paint-opt" value="3120" onclick="updatePricing(3120, 'Miami Blue Metallic')" class="accent-brandRed">
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-bold text-brandSlate">Miami Blue Metallic</span>
+                                    <span class="text-[10px] text-brandSlate/60">+$3,120 Premium</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Option 2: Wheel Systems -->
+                    <div class="bg-brandCreamDark/40 p-8 rounded-2xl border border-brandSlate/10">
+                        <h3 class="font-serif text-2xl font-semibold mb-4 text-brandSlate">2. Performance Wheels</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <label class="flex items-center gap-4 p-4 rounded-xl border border-brandSlate/20 bg-white/60 cursor-pointer hover:bg-white transition-all">
+                                <input type="radio" name="wheel-opt" value="0" checked onclick="updatePricing(0, 'Turbo S Design Wheels')" class="accent-brandRed">
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-bold text-brandSlate">20/21" Turbo S Wheels</span>
+                                    <span class="text-[10px] text-brandSlate/60">Standard Issue</span>
+                                </div>
+                            </label>
+                            <label class="flex items-center gap-4 p-4 rounded-xl border border-brandSlate/20 bg-white/60 cursor-pointer hover:bg-white transition-all">
+                                <input type="radio" name="wheel-opt" value="4890" onclick="updatePricing(4890, 'Exclusive Manufaktur Wheels')" class="accent-brandRed">
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-bold text-brandSlate">Exclusive Manufaktur</span>
+                                    <span class="text-[10px] text-brandSlate/60">+$4,890 High Gloss Black</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Option 3: Sound and Exhaust options -->
+                    <div class="bg-brandCreamDark/40 p-8 rounded-2xl border border-brandSlate/10">
+                        <h3 class="font-serif text-2xl font-semibold mb-4 text-brandSlate">3. Exhaust & Acoustics</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <label class="flex items-center gap-4 p-4 rounded-xl border border-brandSlate/20 bg-white/60 cursor-pointer hover:bg-white transition-all">
+                                <input type="radio" name="exhaust-opt" value="0" checked onclick="updatePricing(0, 'Standard Sports Exhaust')" class="accent-brandRed">
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-bold text-brandSlate">Standard Active Exhaust</span>
+                                    <span class="text-[10px] text-brandSlate/60">Included Spec</span>
+                                </div>
+                            </label>
+                            <label class="flex items-center gap-4 p-4 rounded-xl border border-brandSlate/20 bg-white/60 cursor-pointer hover:bg-white transition-all">
+                                <input type="radio" name="exhaust-opt" value="3490" onclick="updatePricing(3490, 'Titanium Sport Exhaust System')" class="accent-brandRed">
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-bold text-brandSlate">Titanium Exhaust System</span>
+                                    <span class="text-[10px] text-brandSlate/60">+$3,490 Sports System</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom invoice receipt -->
+                <div class="lg:col-span-5 bg-brandSlate text-brandLight p-8 rounded-3xl border border-brandLight/10 shadow-2xl sticky top-24">
+                    <span class="text-[10px] uppercase tracking-widest text-brandLight/50 font-bold block mb-2">Invoice Summary</span>
+                    <h3 class="font-serif text-3xl font-medium mb-6">Commission Estimate</h3>
+
+                    <div class="space-y-4 border-b border-brandLight/10 pb-6 text-xs">
+                        <div class="flex justify-between">
+                            <span class="text-brandLight/60">911 Turbo S Cabriolet Base Spec</span>
+                            <span class="font-bold">$230,400</span>
+                        </div>
+                        <div class="flex justify-between" id="paint-invoice-row">
+                            <span class="text-brandLight/60">Selected Paint: <b id="paint-sel">Guards Red</b></span>
+                            <span class="font-bold" id="paint-price-display">$0</span>
+                        </div>
+                        <div class="flex justify-between" id="wheel-invoice-row">
+                            <span class="text-brandLight/60">Selected Wheels: <b id="wheel-sel">Turbo S Design</b></span>
+                            <span class="font-bold" id="wheel-price-display">$0</span>
+                        </div>
+                        <div class="flex justify-between" id="exhaust-invoice-row">
+                            <span class="text-brandLight/60">Exhaust Tune: <b id="exhaust-sel">Standard Active</b></span>
+                            <span class="font-bold" id="exhaust-price-display">$0</span>
+                        </div>
+                    </div>
+
+                    <!-- Total display -->
+                    <div class="pt-6 flex justify-between items-baseline mb-8">
+                        <span class="text-xs uppercase tracking-wider text-brandLight/50 font-bold">Total Delivery Concept</span>
+                        <span id="invoice-total" class="text-3xl font-serif font-bold text-brandLight">$230,400</span>
+                    </div>
+
+                    <button onclick="openReservationModal()" class="w-full bg-brandLight text-brandDark hover:bg-brandRed hover:text-white py-4 text-xs font-semibold tracking-widest uppercase transition-all duration-300 text-center rounded-xl shadow-lg block">
+                        Proceed to Reservation
+                    </button>
+                    <span class="text-[9px] text-center text-brandLight/40 block mt-4 uppercase tracking-widest">Pricing excludes local dealership custom taxes.</span>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- CUSTOM RESERVATION MODAL (Replaces intrusive alerts) -->
+    <div id="reserve-modal" class="fixed inset-0 bg-brandSlate/95 z-50 backdrop-blur-md hidden items-center justify-center p-6">
+        <div class="w-full max-w-xl bg-brandLight text-brandSlate p-8 md:p-12 rounded-3xl border border-brandSlate/10 relative shadow-2xl">
+            <button onclick="closeReservationModal()" class="absolute top-6 right-6 text-brandSlate/60 hover:text-brandRed">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <span class="text-xs uppercase tracking-[0.3em] text-brandSlate/60 font-bold block mb-2">COMMISSION CONFIRMATION</span>
+            <h3 class="font-serif text-4xl font-normal mb-6 text-brandSlate">Lock In Your Build Slot</h3>
+            
+            <form id="reserve-form" onsubmit="submitReservation(event)" class="space-y-4">
+                <div>
+                    <label class="block text-[10px] uppercase font-bold text-brandSlate/60 mb-2">Legal Name</label>
+                    <input type="text" required placeholder="Alexander Porsche" class="w-full bg-brandCreamDark/30 border border-brandSlate/20 rounded-lg px-4 py-3 text-brandSlate focus:outline-none focus:ring-2 focus:ring-brandRed text-sm">
+                </div>
+                <div>
+                    <label class="block text-[10px] uppercase font-bold text-brandSlate/60 mb-2">E-Mail Address</label>
+                    <input type="email" required placeholder="alexander@zuffenhausen.com" class="w-full bg-brandCreamDark/30 border border-brandSlate/20 rounded-lg px-4 py-3 text-brandSlate focus:outline-none focus:ring-2 focus:ring-brandRed text-sm">
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] uppercase font-bold text-brandSlate/60 mb-2">Preferred Dealer Zone</label>
+                        <select class="w-full bg-brandCreamDark/30 border border-brandSlate/20 rounded-lg px-4 py-3 text-brandSlate focus:outline-none focus:ring-2 focus:ring-brandRed text-sm">
+                            <option>West Coast Logistics</option>
+                            <option>East Coast Port</option>
+                            <option>European Delivery Program</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase font-bold text-brandSlate/60 mb-2">Total Calculated Deposit</label>
+                        <input type="text" id="modal-deposit" readonly class="w-full bg-brandCreamDark/50 border border-brandSlate/20 rounded-lg px-4 py-3 text-brandSlate font-bold text-sm">
+                    </div>
+                </div>
+                <div class="pt-4">
+                    <button type="submit" class="w-full bg-brandSlate text-brandLight hover:bg-brandRed hover:text-white py-4 text-xs font-semibold tracking-widest uppercase transition-all duration-300 text-center rounded-xl shadow-lg">
+                        Submit Build Allocation Request
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- PREMIUM FOOTER -->
+    <footer class="bg-brandSlate text-brandLight/70 border-t border-brandLight/10 py-16 relative">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div>
+                    <span class="font-serif text-2xl italic text-brandLight mb-4 block">911 Concept Lab</span>
+                    <p class="text-xs text-brandLight/60 leading-relaxed font-normal">
+                        Redefining precision athletic transport mechanisms through dynamic dual-tone layouts and legendary chassis balances.
+                    </p>
+                </div>
+                <div>
+                    <h5 class="text-xs uppercase tracking-widest text-brandLight font-bold mb-4">Performance Variant Systems</h5>
+                    <ul class="space-y-2 text-xs text-brandLight/60">
+                        <li><a href="#models" class="hover:text-brandLight">911 Turbo S Cabriolet</a></li>
+                        <li><a href="#models" class="hover:text-brandLight">911 Turbo Coupe</a></li>
+                        <li><a href="#models" class="hover:text-brandLight">911 Carrera 4S Cabriolet</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-xs uppercase tracking-widest text-brandLight font-bold mb-4">Digital Services Hub</h5>
+                    <ul class="space-y-2 text-xs text-brandLight/60">
+                        <li><a href="#configurator" class="hover:text-brandLight">Bespoke Build Configurator</a></li>
+                        <li><a href="#technology" class="hover:text-brandLight">Active Traction (PTM)</a></li>
+                        <li><a href="#engineering" class="hover:text-brandLight">Chassis Blueprints</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-xs uppercase tracking-widest text-brandLight font-bold mb-4">Zuffenhausen HQ</h5>
+                    <p class="text-xs text-brandLight/60 leading-relaxed font-normal">
+                        Porscheplatz 1,<br>70435 Stuttgart-Zuffenhausen,<br>Germany.
+                    </p>
+                </div>
+            </div>
+
+            <div class="border-t border-brandLight/10 mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+                <span class="text-[10px] uppercase tracking-widest text-brandLight/40">© 2026 Porsche Interactive Platform. All designs match the classic dual-tone layout framework.</span>
+                <div class="flex gap-6 text-[10px] uppercase tracking-widest text-brandLight/40">
+                    <a href="#" class="hover:text-brandLight">Legal System</a>
+                    <a href="#" class="hover:text-brandLight">Privacy Codex</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- JAVASCRIPT LOGIC ENGINE -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Audio System State Setup via Web Audio API (Synthesizing a realistic high-end sports engine hum)
+        let audioContext = null;
+        let engineOscillator = null;
+        let engineFilter = null;
+        let isEngineRunning = false;
+
+        function toggleEngineSound() {
+            if (!isEngineRunning) {
+                try {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    
+                    // Main engine rumble oscillator
+                    engineOscillator = audioContext.createOscillator();
+                    engineOscillator.type = 'sawtooth';
+                    engineOscillator.frequency.value = 45; // Deep growling engine note
+
+                    // Modulating rumble oscillator for the piston feel
+                    let pistonModulator = audioContext.createOscillator();
+                    pistonModulator.type = 'sine';
+                    pistonModulator.frequency.value = 8; // Piston firing cycle
+                    let modulatorGain = audioContext.createGain();
+                    modulatorGain.gain.value = 15; // Tremolo intensity
+
+                    // Lowpass filter to muffle and give luxury depth
+                    engineFilter = audioContext.createBiquadFilter();
+                    engineFilter.type = 'lowpass';
+                    engineFilter.frequency.value = 120; // Cuts harsh buzzes
+
+                    // Connect modulation chain
+                    pistonModulator.connect(modulatorGain);
+                    modulatorGain.connect(engineOscillator.frequency);
+                    
+                    // Main gain volume
+                    let masterGain = audioContext.createGain();
+                    masterGain.gain.value = 0.35; // Safe comfortable level
+
+                    // Connect everything
+                    engineOscillator.connect(engineFilter);
+                    engineFilter.connect(masterGain);
+                    masterGain.connect(audioContext.destination);
+
+                    // Start sounds
+                    engineOscillator.start();
+                    pistonModulator.start();
+
+                    isEngineRunning = true;
+                    document.getElementById('engine-status').innerText = "Engine: Purring (Active)";
+                    document.getElementById('audio-toggle').classList.add('bg-brandRed', 'text-white');
+                    document.getElementById('audio-icon').setAttribute('data-lucide', 'volume-2');
+                    lucide.createIcons();
+
+                    showToast('Twin-Turbo Activated', 'Web Audio synthesis generated the 3.8L engine purr beautifully. Hover/Click elements to feel the power.');
+                } catch(e) {
+                    showToast('Audio Error', 'Could not initialize Audio Synthesis engine.');
+                }
+            } else {
+                if (engineOscillator) {
+                    engineOscillator.stop();
+                    engineOscillator.disconnect();
+                }
+                isEngineRunning = false;
+                document.getElementById('engine-status').innerText = "Engine: Switched Off";
+                document.getElementById('audio-toggle').classList.remove('bg-brandRed', 'text-white');
+                document.getElementById('audio-icon').setAttribute('data-lucide', 'power');
+                lucide.createIcons();
+            }
+        }
+
+        // Handle Hotspot Click - Dynamically swaps content panel on right hand side
+        const hotspotDetails = {
+            aero: {
+                title: "Active Aerodynamics (PAA)",
+                desc: "An adaptive multi-stage rear spoiler elevates or angles down dynamically to match downforce demands. Provides extreme stabilization at speeds exceeding 250 km/h.",
+                graphic: `<rect x="30" y="40" width="140" height="20" rx="3" fill="#e32a1e" opacity="0.3"/>
+                          <line x1="20" y1="50" x2="180" y2="50" stroke="#e32a1e" stroke-width="4"/>
+                          <path d="M50 80 Q100 60 150 80" stroke="currentColor" stroke-width="2" stroke-dasharray="4"/>
+                          <text x="100" y="110" font-family="Cormorant Garamond" font-size="12" fill="currentColor" text-anchor="middle" font-style="italic">Active Track Wing Mode</text>`
+            },
+            cockpit: {
+                title: "Bespoke Cockpit & Leather Trim",
+                desc: "Dual-finished carbon weave paired with double-stitch Tan Leather. Includes mechanical toggle switches, customized dynamic steering adjustments, and classic chronograph clock layout.",
+                graphic: `<rect x="50" y="30" width="100" height="80" rx="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                          <circle cx="100" cy="50" r="15" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                          <line x1="100" y1="50" x2="105" y2="42" stroke="#e32a1e" stroke-width="2"/>
+                          <text x="100" y="95" font-family="Plus Jakarta Sans" font-size="10" fill="currentColor" text-anchor="middle">Chronograph Dial</text>`
+            },
+            chassis: {
+                title: "Porsche Traction Management (PTM)",
+                desc: "Active all-wheel drive coordinates distribution of drive force perfectly between rear and front axles. Features an electronically controlled multi-plate clutch for instant torque adjustment.",
+                graphic: `<line x1="100" y1="40" x2="100" y2="110" stroke="currentColor" stroke-width="2" stroke-dasharray="4"/>
+                          <line x1="40" y1="40" x2="160" y2="40" stroke="currentColor" stroke-width="4"/>
+                          <rect x="25" y="25" width="15" height="30" rx="3" fill="currentColor"/>
+                          <rect x="160" y="25" width="15" height="30" rx="3" fill="currentColor"/>
+                          <circle cx="100" cy="75" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
+                          <circle cx="100" cy="75" r="3" fill="currentColor"/>`
+            },
+            engine: {
+                title: "3.8L VTG Twin-Turbo Boxer",
+                desc: "Produces incredible 650 horsepower. Symmetrically positioned turbos with Variable Turbine Geometry deliver responsive torque delivery and peak performance across the entire RPM range.",
+                graphic: `<rect x="40" y="30" width="120" height="80" rx="8" fill="none" stroke="currentColor" stroke-width="2"/>
+                          <path d="M60 50 L140 50 M60 70 L140 70 M60 90 L140 90" stroke="currentColor" stroke-width="2" stroke-dasharray="8"/>
+                          <circle cx="100" cy="70" r="18" fill="none" stroke="#e32a1e" stroke-width="2" class="animate-pulse"/>`
+            }
+        };
+
+        function activateHotspot(key) {
+            const data = hotspotDetails[key];
+            if (!data) return;
+
+            // Apply fade transition effect
+            const panel = document.getElementById('dynamic-detail-panel');
+            panel.classList.add('opacity-0', 'translate-y-2');
+
+            setTimeout(() => {
+                document.getElementById('detail-title').innerText = data.title;
+                document.getElementById('detail-desc').innerText = data.desc;
+                document.getElementById('tech-graphic').innerHTML = data.graphic;
+                
+                panel.classList.remove('opacity-0', 'translate-y-2');
+            }, 300);
+
+            // Synthesize short high-frequency confirmation tone for futuristic feel
+            if (isEngineRunning && audioContext) {
+                let note = audioContext.createOscillator();
+                note.frequency.value = 800; // Crisp feedback chirp
+                let noteGain = audioContext.createGain();
+                noteGain.gain.value = 0.05;
+                note.connect(noteGain);
+                noteGain.connect(audioContext.destination);
+                note.start();
+                note.stop(audioContext.currentTime + 0.08);
+            }
+        }
+
+        // Paint Color swatches selector - changes colors dynamically on the top-down SVG car
+        function changeCarColor(hexCode, name) {
+            document.getElementById('car-paint').setAttribute('fill', hexCode);
+            document.getElementById('paint-label').innerText = name;
+            document.getElementById('paint-sel').innerText = name;
+            
+            // Highlight visual effect on labels
+            showToast('Paint Selection updated', `The 911 convertible shell transitioned into classic ${name}.`);
+        }
+
+        // Active Fleet comparison variant selector logic
+        const variants = {
+            carrera: {
+                title: "Carrera 4S Cabriolet",
+                subtitle: "Athletic & Versatile Performance",
+                desc: "Powered by a twin-turbocharged 3.0-liter flat-six delivering 443 hp. Features standard 8-speed Porsche Doppelkupplung (PDK).",
+                price: "$138,200",
+                speed: 304,
+                acc: 3.6,
+                dashSpeed: 230,
+                dashAcc: 140
+            },
+            turbo: {
+                title: "911 Turbo Cabriolet",
+                subtitle: "The Signature Benchmark",
+                desc: "Features 572 hp with 3.8-liter boxer engine configuration. Perfect balance of extreme power and road trip suitability.",
+                price: "$195,900",
+                speed: 320,
+                acc: 2.9,
+                dashSpeed: 190,
+                dashAcc: 170
+            },
+            turbos: {
+                title: "911 Turbo S Cabriolet",
+                subtitle: "Ultimate Benchmark",
+                desc: "Equipped with a 3.8-liter twin-turbo six-cylinder boxer engine. Unites incredible performance with legendary dynamic chassis control systems.",
+                price: "$230,400",
+                speed: 330,
+                acc: 2.8,
+                dashSpeed: 60,
+                dashAcc: 190
+            }
+        };
+
+        function switchVariant(variantKey) {
+            const data = variants[variantKey];
+            if (!data) return;
+
+            // Reset navigation active styles
+            ['carrera', 'turbo', 'turbos'].forEach(v => {
+                const btn = document.getElementById(`btn-${v}`);
+                btn.className = "px-6 py-2 rounded-full border border-brandLight/20 text-xs tracking-widest uppercase hover:bg-brandLight hover:text-brandDark transition-all duration-300";
+            });
+
+            // Set current active button styles
+            const activeBtn = document.getElementById(`btn-${variantKey}`);
+            if (variantKey === 'turbos') {
+                activeBtn.className = "px-6 py-2 rounded-full bg-brandLight text-brandDark text-xs tracking-widest uppercase hover:opacity-90 transition-all duration-300 font-bold";
+            } else {
+                activeBtn.className = "px-6 py-2 rounded-full bg-brandSlate text-brandLight border border-brandLight/20 text-xs tracking-widest uppercase hover:bg-brandLight hover:text-brandDark transition-all duration-300 font-bold";
+            }
+
+            // Update details
+            document.getElementById('variant-title').innerText = data.title;
+            document.getElementById('variant-subtitle').innerText = data.subtitle;
+            document.getElementById('variant-desc').innerText = data.desc;
+            document.getElementById('variant-price').innerText = data.price;
+
+            // Animate Gauges using SVG stroke-dashoffset formulas
+            document.getElementById('gauge-speed').setAttribute('stroke-dashoffset', data.dashSpeed);
+            document.getElementById('gauge-speed-val').innerText = data.speed;
+
+            document.getElementById('gauge-acc').setAttribute('stroke-dashoffset', data.dashAcc);
+            document.getElementById('gauge-acc-val').innerText = data.acc;
+
+            showToast('Variant Loaded', `Performance spec dials calibrated for ${data.title}.`);
+        }
+
+        // Steer simulation logic for low/high speed rear axle steering
+        function simulateSteer(speedMode) {
+            const lowBtn = document.getElementById('steer-low-btn');
+            const highBtn = document.getElementById('steer-high-btn');
+            const steerText = document.getElementById('steer-text');
+            const topWheel = document.getElementById('rear-wheel-top');
+            const bottomWheel = document.getElementById('rear-wheel-bottom');
+
+            if (speedMode === 'low') {
+                lowBtn.className = "px-4 py-1.5 rounded-full text-[10px] tracking-wider uppercase bg-brandSlate text-white font-bold";
+                highBtn.className = "px-4 py-1.5 rounded-full text-[10px] tracking-wider uppercase border border-brandSlate/20 hover:bg-brandSlate hover:text-white transition-all duration-300";
+                steerText.innerText = "Opposite Direction";
+                steerText.setAttribute('fill', '#e32a1e');
+                
+                // Opposite steer rotation matrix applied to rear wheels SVG
+                topWheel.setAttribute('transform', 'translate(150, 20) rotate(-15)');
+                bottomWheel.setAttribute('transform', 'translate(150, 80) rotate(-15)');
+            } else {
+                highBtn.className = "px-4 py-1.5 rounded-full text-[10px] tracking-wider uppercase bg-brandSlate text-white font-bold";
+                lowBtn.className = "px-4 py-1.5 rounded-full text-[10px] tracking-wider uppercase border border-brandSlate/20 hover:bg-brandSlate hover:text-white transition-all duration-300";
+                steerText.innerText = "Same Direction";
+                steerText.setAttribute('fill', '#00bcd4');
+                
+                // Same steer rotation matrix applied to rear wheels SVG
+                topWheel.setAttribute('transform', 'translate(150, 20) rotate(15)');
+                bottomWheel.setAttribute('transform', 'translate(150, 80) rotate(15)');
+            }
+        }
+
+        // LIVE PRICING CALCULATOR LOGIC
+        let configPrices = {
+            base: 230400,
+            paint: 0,
+            wheel: 0,
+            exhaust: 0
+        };
+
+        function updatePricing(price, selectionName) {
+            if (selectionName.includes('Red') || selectionName.includes('Blue')) {
+                configPrices.paint = price;
+                document.getElementById('paint-sel').innerText = selectionName;
+                document.getElementById('paint-price-display').innerText = price === 0 ? "Included" : `+$${price.toLocaleString()}`;
+            } else if (selectionName.includes('Wheels')) {
+                configPrices.wheel = price;
+                document.getElementById('wheel-sel').innerText = selectionName;
+                document.getElementById('wheel-price-display').innerText = price === 0 ? "Included" : `+$${price.toLocaleString()}`;
+            } else if (selectionName.includes('Exhaust')) {
+                configPrices.exhaust = price;
+                document.getElementById('exhaust-sel').innerText = selectionName;
+                document.getElementById('exhaust-price-display').innerText = price === 0 ? "Included" : `+$${price.toLocaleString()}`;
+            }
+
+            const total = configPrices.base + configPrices.paint + configPrices.wheel + configPrices.exhaust;
+            document.getElementById('invoice-total').innerText = `$${total.toLocaleString()}`;
+            document.getElementById('modal-deposit').value = `$${(total * 0.1).toLocaleString()} (10% Deposit)`;
+        }
+
+        // Reservation dialog controller
+        function openReservationModal() {
+            document.getElementById('reserve-modal').style.display = 'flex';
+        }
+
+        function closeReservationModal() {
+            document.getElementById('reserve-modal').style.display = 'none';
+        }
+
+        function submitReservation(event) {
+            event.preventDefault();
+            closeReservationModal();
+            showToast('Allocation Secured', 'Your reservation proposal was successfully submitted to Stuttgart headquarters. A concierge will reach out.');
+        }
+
+        // Mobile Menu Drawer Control
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu.classList.contains('pointer-events-none')) {
+                menu.classList.remove('pointer-events-none', 'opacity-0');
+            } else {
+                menu.classList.add('pointer-events-none', 'opacity-0');
+            }
+        }
+
+        // Search Drawer Control
+        function showSearch() {
+            document.getElementById('search-overlay').style.display = 'flex';
+        }
+
+        function hideSearch() {
+            document.getElementById('search-overlay').style.display = 'none';
+        }
+
+        function executeSearch() {
+            hideSearch();
+            showToast('Search Completed', 'Matching results pulled from Porsche heritage databases successfully.');
+        }
+
+        // Elegant Toast notification implementation (replaces ugly window alert)
+        function showToast(title, desc) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').innerText = desc;
+            
+            toast.classList.remove('translate-y-[-100px]', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                dismissToast();
+            }, 5000);
+        }
+
+        function dismissToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.remove('translate-y-0', 'opacity-100');
+            toast.classList.add('translate-y-[-100px]', 'opacity-0');
+        }
+    </script>
+</body>
+</html>
+7

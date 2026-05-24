@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Magnum — The Art of Chocolate Indulgence</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Cormorant Garamond for elegant serif headlines, Plus Jakarta Sans for luxury UI -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              cream: '#f9e9d9',
+              creamLight: '#fdf7f2',
+              caramel: '#c87c3e',
+              caramelLight: '#dda15e',
+              chocolateLight: '#733e29',
+              chocolate: '#3d1e11',
+              chocolateDark: '#1c0c06',
+              gold: '#d4af37',
+            }
+          },
+          animation: {
+            'float-slow': 'float 8s ease-in-out infinite',
+            'float-medium': 'floatMedium 6s ease-in-out infinite',
+            'pulse-subtle': 'pulseSubtle 4s ease-in-out infinite',
+            'wave-slow': 'wave 20s linear infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+              '50%': { transform: 'translateY(-15px) rotate(1.5deg)' },
+            },
+            floatMedium: {
+              '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+              '50%': { transform: 'translateY(-10px) rotate(-1deg)' },
+            },
+            pulseSubtle: {
+              '0%, 100%': { opacity: '0.8', transform: 'scale(1)' },
+              '50%': { opacity: '1', transform: 'scale(1.03)' },
+            },
+            wave: {
+              '0%': { transform: 'translateX(0)' },
+              '100%': { transform: 'translateX(-50%)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Premium custom styling and overlays */
+    .noise-bg {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.025;
+    }
+    
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #1c0c06;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #c87c3e;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #dda15e;
+    }
+
+    /* Soft premium glow highlights */
+    .glow-caramel {
+      box-shadow: 0 0 60px -10px rgba(200, 124, 62, 0.25);
+    }
+    .glow-chocolate {
+      box-shadow: 0 0 60px -10px rgba(61, 30, 17, 0.4);
+    }
+
+    /* Glassmorphism overlays */
+    .glass-card {
+      background: rgba(253, 247, 242, 0.04);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(253, 247, 242, 0.08);
+    }
+    
+    .glass-card-light {
+      background: rgba(253, 247, 242, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(253, 247, 242, 0.4);
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-[#f2d2b6] via-[#dfab81] to-[#3d1e11] text-brand-chocolateDark font-sans relative overflow-x-hidden min-h-screen selection:bg-brand-caramel selection:text-white">
+
+  <!-- Grainy Editorial Overlay -->
+  <div class="fixed inset-0 pointer-events-none noise-bg z-50"></div>
+
+  <!-- Audio Crack Synthesizer UI / Indulgence Controller -->
+  <div class="fixed bottom-6 left-6 z-40 flex items-center gap-3">
+    <button onclick="toggleSound()" id="soundBtn" class="flex items-center justify-center w-12 h-12 rounded-full glass-card hover:bg-brand-chocolate hover:text-brand-cream transition-all duration-300 group shadow-lg" title="Toggle Crisp Crunch Sound FX">
+      <i data-lucide="volume-2" id="soundIcon" class="w-5 h-5 text-brand-chocolateDark group-hover:text-brand-creamLight transition-colors"></i>
+    </button>
+    <div class="bg-brand-chocolateDark/80 text-brand-cream text-xs px-3 py-1.5 rounded-full backdrop-blur-md border border-brand-cream/10 hidden md:block select-none">
+      <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse mr-1.5"></span>
+      Chocolate "Crack" Active
+    </div>
+  </div>
+
+  <!-- Floating Navigation -->
+  <header class="w-full py-6 px-6 md:px-16 flex justify-between items-center relative z-40">
+    <div class="flex items-center gap-2">
+      <!-- Menu Trigger -->
+      <button onclick="toggleMobileMenu()" class="text-brand-chocolateDark hover:scale-110 transition-transform p-1">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+      <span class="hidden md:inline text-xs tracking-[0.2em] uppercase font-semibold text-brand-chocolateDark/80 ml-2">Indulge</span>
+    </div>
+
+    <!-- Central Logo -->
+    <a href="#" class="flex flex-col items-center group">
+      <span class="font-serif text-2xl md:text-3xl tracking-[0.25em] font-bold uppercase transition-all duration-300 group-hover:tracking-[0.3em] text-brand-chocolateDark">
+        MAGNUM
+      </span>
+      <span class="text-[8px] md:text-[9px] tracking-[0.5em] font-semibold text-brand-chocolateDark/70 uppercase">
+        Ice Cream
+      </span>
+    </a>
+
+    <!-- Navigation Options -->
+    <div class="flex items-center gap-6">
+      <nav class="hidden md:flex items-center gap-8 text-xs font-semibold uppercase tracking-widest text-brand-chocolateDark/80">
+        <a href="#flavors" class="hover:text-brand-chocolate transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-brand-chocolate hover:after:w-full after:transition-all">Flavors</a>
+        <a href="#layers" class="hover:text-brand-chocolate transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-brand-chocolate hover:after:w-full after:transition-all">The Craft</a>
+        <a href="#stats" class="hover:text-brand-chocolate transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-brand-chocolate hover:after:w-full after:transition-all">Our Legacy</a>
+      </nav>
+      <button class="text-brand-chocolateDark hover:scale-110 transition-transform p-1">
+        <i data-lucide="search" class="w-5 h-5"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Overlay Menu -->
+  <div id="mobileMenu" class="fixed inset-0 bg-brand-chocolateDark/95 backdrop-blur-xl z-50 transform translate-x-full transition-transform duration-500 ease-out flex flex-col justify-between p-8">
+    <div class="flex justify-between items-center">
+      <span class="font-serif text-2xl tracking-[0.25em] font-bold text-brand-cream uppercase">MAGNUM</span>
+      <button onclick="toggleMobileMenu()" class="text-brand-cream hover:rotate-90 transition-transform duration-300 p-2">
+        <i data-lucide="x" class="w-8 h-8"></i>
+      </button>
+    </div>
+    <nav class="flex flex-col gap-8 text-3xl font-serif text-brand-cream/80 my-auto pl-4">
+      <a href="#hero" onclick="toggleMobileMenu()" class="hover:text-brand-creamLight transition-colors hover:translate-x-2 transition-transform">01. Premium Hero</a>
+      <a href="#flavors" onclick="toggleMobileMenu()" class="hover:text-brand-creamLight transition-colors hover:translate-x-2 transition-transform">02. Flavors Chamber</a>
+      <a href="#layers" onclick="toggleMobileMenu()" class="hover:text-brand-creamLight transition-colors hover:translate-x-2 transition-transform">03. The Velvet Blueprint</a>
+      <a href="#stats" onclick="toggleMobileMenu()" class="hover:text-brand-creamLight transition-colors hover:translate-x-2 transition-transform">04. Cocoa Legacy</a>
+      <a href="#indulge" onclick="toggleMobileMenu()" class="hover:text-brand-creamLight transition-colors hover:translate-x-2 transition-transform">05. Order Indulgence</a>
+    </nav>
+    <div class="text-xs tracking-widest text-brand-cream/40 uppercase">
+      © 2026 Magnum Luxury Pleasure. Crafted for Pleasure Seekers.
+    </div>
+  </div>
+
+  <!-- MAIN CONTAINER -->
+  <main class="relative z-10">
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="relative min-h-[90vh] flex flex-col justify-center px-6 md:px-16 py-12">
+      <!-- Ambient Fluid Background Glows -->
+      <div class="absolute top-1/4 left-1/4 w-[40rem] h-[40rem] rounded-full bg-brand-caramelLight/25 blur-[120px] pointer-events-none -translate-x-1/2 -translate-y-1/2"></div>
+      <div class="absolute bottom-1/4 right-1/4 w-[35rem] h-[35rem] rounded-full bg-brand-chocolate/30 blur-[100px] pointer-events-none translate-x-1/2 translate-y-1/2"></div>
+
+      <!-- Main Layout Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-4 items-center max-w-7xl mx-auto w-full z-10">
+        
+        <!-- Left Column: Copywriting -->
+        <div class="lg:col-span-5 flex flex-col justify-center space-y-6 md:space-y-8 order-2 lg:order-1 text-center lg:text-left">
+          <div class="space-y-3">
+            <span class="inline-block px-4 py-1.5 rounded-full glass-card text-brand-chocolate text-xs tracking-[0.25em] uppercase font-bold shadow-sm">
+              Double Coating Pleasure
+            </span>
+            <h1 id="heroTitle" class="font-serif text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight text-brand-chocolateDark transition-all duration-700">
+              Double <br class="hidden lg:block"/>Vanilla <br class="hidden lg:block"/><span class="text-brand-chocolate italic">Caramel</span>
+            </h1>
+          </div>
+
+          <p id="heroDesc" class="text-sm md:text-base text-brand-chocolateDark/80 max-w-md mx-auto lg:mx-0 leading-relaxed font-medium transition-all duration-700">
+            Vanilla ice cream dipped in a chocolatey coating and a luxurious layer of caramel sauce, wrapped in exquisite cracked Magnum Belgian milk chocolate.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+            <a href="#layers" onclick="playCrackSound()" class="px-8 py-4 bg-brand-chocolate text-brand-cream font-semibold tracking-widest text-xs uppercase rounded-full shadow-lg hover:bg-brand-chocolateDark hover:scale-[1.03] transition-all duration-300">
+              Explore The Craft
+            </a>
+            <a href="#flavors" onclick="playCrackSound()" class="px-8 py-4 border border-brand-chocolate/30 text-brand-chocolateDark font-semibold tracking-widest text-xs uppercase rounded-full hover:bg-brand-cream/40 transition-all duration-300">
+              Other Pleasures
+            </a>
+          </div>
+
+          <!-- Bottom Micro-Slider/Pagination Indicators -->
+          <div class="flex items-center justify-center lg:justify-start gap-4 pt-6">
+            <div class="w-24 h-[2px] bg-brand-chocolate/20 relative rounded-full overflow-hidden">
+              <div id="progressLine" class="absolute left-0 top-0 h-full w-1/3 bg-brand-chocolate transition-all duration-700"></div>
+            </div>
+            <div class="flex gap-2 text-xs font-semibold tracking-widest text-brand-chocolate/70">
+              <span id="progressNum" class="text-brand-chocolate font-bold">01</span> / <span>03</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Center Column: Dynamic Floating Ice Cream Visual -->
+        <div class="lg:col-span-4 flex justify-center items-center relative py-8 order-1 lg:order-2">
+          <!-- Ambient Aura behind stick -->
+          <div id="glowAura" class="absolute w-72 h-72 rounded-full bg-gradient-to-tr from-brand-caramel/40 to-brand-cream/10 blur-3xl opacity-80 animate-pulse-subtle"></div>
+          
+          <!-- Master Floating Container -->
+          <div id="stickWrapper" class="relative z-10 animate-float-slow transition-transform duration-700 ease-out cursor-pointer" onclick="handleStickClick()" hover-parallax>
+            
+            <!-- High Fidelity Responsive SVG Ice Cream Stick -->
+            <svg id="iceCreamSvg" class="w-64 md:w-80 h-auto filter drop-shadow-[0_25px_40px_rgba(45,19,10,0.35)]" viewBox="0 0 320 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <!-- Wood Gradients -->
+                <linearGradient id="woodGrad" x1="160" y1="360" x2="160" y2="480" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#cc9a6a"/>
+                  <stop offset="50%" stop-color="#b68152"/>
+                  <stop offset="100%" stop-color="#9a6538"/>
+                </linearGradient>
+                <linearGradient id="woodGlow" x1="140" y1="360" x2="180" y2="360" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#000" stop-opacity="0.2"/>
+                  <stop offset="100%" stop-color="#fff" stop-opacity="0.1"/>
+                </linearGradient>
+
+                <!-- Chocolate Coating Gradients -->
+                <linearGradient id="chocoMain" x1="160" y1="60" x2="160" y2="380" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#5a2e1c"/>
+                  <stop offset="40%" stop-color="#411f11"/>
+                  <stop offset="100%" stop-color="#2a1208"/>
+                </linearGradient>
+                
+                <!-- Specular highlights for realistic 3D chocolate -->
+                <linearGradient id="specularGrad" x1="70" y1="70" x2="130" y2="280" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#ffffff" stop-opacity="0.25"/>
+                  <stop offset="30%" stop-color="#ffffff" stop-opacity="0.03"/>
+                  <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                </linearGradient>
+
+                <!-- Swirl/Caramel Layer Gradients -->
+                <linearGradient id="caramelDrip" x1="160" y1="180" x2="160" y2="320" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#e9a459"/>
+                  <stop offset="50%" stop-color="#c97c36"/>
+                  <stop offset="100%" stop-color="#8a4d1a"/>
+                </linearGradient>
+                <linearGradient id="caramelGlow" x1="120" y1="210" x2="200" y2="250" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#fff" stop-opacity="0.4"/>
+                  <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                </linearGradient>
+
+                <!-- Soft Drop Shadow Filter for layers -->
+                <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+                  <feDropShadow dx="0" dy="8" stdDeviation="5" flood-color="#120602" flood-opacity="0.4"/>
+                </filter>
+              </defs>
+
+              <!-- LAYER 1: WOODEN STICK -->
+              <g id="stickGroup">
+                <!-- Rounded Wood Stick -->
+                <path d="M135,350 L185,350 C195,350 200,360 195,440 C193,475 178,485 160,485 C142,485 127,475 125,440 C120,360 125,350 135,350 Z" fill="url(#woodGrad)"/>
+                <!-- Branded MAGNUM text inside the wood -->
+                <path d="M135,350 L185,350 C195,350 200,360 195,440 C193,475 178,485 160,485 C142,485 127,475 125,440 C120,360 125,350 135,350 Z" fill="url(#woodGlow)"/>
+                
+                <!-- MAGNUM Engraved Logo -->
+                <text x="160" y="425" fill="#5c381b" fill-opacity="0.6" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="11" letter-spacing="3" text-anchor="middle" transform="rotate(-90 160 425)">MAGNUM</text>
+                <!-- Small heart brand icon -->
+                <path d="M156,442 C154,440 152,440 152,442 C152,444 156,447 156,447 C156,447 160,444 160,442 C160,440 158,440 156,442 Z" fill="#5c381b" fill-opacity="0.5"/>
+              </g>
+
+              <!-- LAYER 2: INTERNAL COATING / ICE CREAM BASE (Invisible hint around borders) -->
+              <rect x="58" y="58" width="204" height="294" rx="102" fill="#faf0e6" opacity="0.15" />
+
+              <!-- LAYER 3: VELVET CHOCOLATE COATING BODY -->
+              <g id="chocolateBody" filter="url(#softShadow)">
+                <!-- Exquisite organic smooth capsule shape -->
+                <path d="M60,162 C60,100 100,50 160,50 C220,50 260,100 260,162 L260,260 C260,310 215,350 160,350 C105,350 60,310 60,260 Z" fill="url(#chocoMain)" />
+                
+                <!-- Leftside organic highlight/reflection shine -->
+                <path d="M72,162 C72,110 105,65 160,65 C175,65 178,72 160,75 C115,82 85,120 85,162 L85,250 C85,280 72,280 72,250 Z" fill="url(#specularGrad)" />
+              </g>
+
+              <!-- LAYER 4: DOUBLE CARAMEL / FLAVOR DRIP COATING -->
+              <g id="caramelDrips" filter="url(#softShadow)" class="transition-all duration-700">
+                <!-- Luscious melting caramel drips running down the center of the bar -->
+                <path d="M75,120 C100,120 110,135 125,135 C140,135 145,115 160,115 C175,115 185,145 200,145 C215,145 220,130 245,130 C255,130 258,140 258,155 L252,215 C252,230 240,250 220,250 C205,250 200,230 185,230 C170,230 165,260 150,260 C135,260 130,225 115,225 C100,225 95,245 80,245 C65,245 62,230 62,215 L62,150 C62,130 68,120 75,120 Z" fill="url(#caramelDrip)"/>
+                
+                <!-- Extra Highlight inside caramel to give glossy fluid feel -->
+                <path d="M78,135 C95,135 102,145 118,145 C132,145 140,128 158,128 C172,128 180,152 195,152 C210,152 218,138 238,138 L242,165 C242,175 235,185 220,185 C205,185 198,170 182,170 C168,170 162,195 148,195 C132,195 125,175 112,175 C98,175 92,185 78,185 Z" fill="url(#caramelGlow)" opacity="0.6"/>
+              </g>
+
+              <!-- LAYER 5: TOPPING SHELL / SECONARY COATING WAVE (The crackable second dip) -->
+              <g id="outerChocoShell">
+                <!-- An artistic diagonal top shell dipping down to cover part of the bar -->
+                <path d="M60,162 C60,100 100,50 160,50 C220,50 260,100 260,162 L260,200 C220,220 200,180 160,210 C120,240 100,195 60,210 Z" fill="url(#chocoMain)" filter="url(#softShadow)"/>
+                <path d="M60,162 C60,100 100,50 160,50 C220,50 260,100 260,162 L260,200 C220,220 200,180 160,210 C120,240 100,195 60,210 Z" fill="url(#specularGrad)" />
+              </g>
+
+              <!-- Extra Gloss Dot Highlight -->
+              <circle cx="95" cy="110" r="8" fill="#ffffff" opacity="0.25" filter="blur(1px)"/>
+              <circle cx="215" cy="95" r="5" fill="#ffffff" opacity="0.2" filter="blur(1px)"/>
+            </svg>
+
+            <!-- Floating Cocoa Pod/Bean SVG Element (Interactive Accessory) -->
+            <div class="absolute -top-6 -right-6 w-16 h-16 bg-gradient-to-br from-brand-caramel to-brand-chocolateDark rounded-full flex items-center justify-center p-3 shadow-xl border border-brand-cream/20 animate-float-medium transition-all duration-500 hover:scale-110">
+              <svg viewBox="0 0 64 64" fill="none" class="w-full h-full text-brand-cream" stroke="currentColor" stroke-width="2">
+                <path d="M32 8 C20 16, 12 32, 32 56 C52 32, 44 16, 32 8 Z" fill="currentColor" fill-opacity="0.2"/>
+                <path d="M32 8 Q32 32 32 56" />
+                <path d="M19 28 Q32 32 45 28" />
+                <path d="M22 38 Q32 40 42 38" />
+              </svg>
+            </div>
+
+            <!-- Floating Vanilla Flower SVG Element (Interactive Accessory) -->
+            <div class="absolute bottom-16 -left-8 w-20 h-20 bg-brand-creamLight/90 rounded-full flex items-center justify-center p-3 shadow-2xl border border-brand-caramel/20 animate-float-slow transition-all duration-500 hover:scale-110">
+              <svg viewBox="0 0 64 64" fill="none" class="w-full h-full text-brand-caramel" stroke="currentColor" stroke-width="1.5">
+                <path d="M32 32 C32 16, 24 16, 32 8 C40 16, 32 16, 32 32 Z" fill="currentColor" fill-opacity="0.1"/>
+                <path d="M32 32 C32 48, 40 48, 32 56 C24 48, 32 48, 32 32 Z" fill="currentColor" fill-opacity="0.1"/>
+                <path d="M32 32 C16 32, 16 24, 8 32 C16 40, 16 32, 32 32 Z" fill="currentColor" fill-opacity="0.1"/>
+                <path d="M32 32 C48 32, 48 40, 56 32 C48 24, 48 32, 32 32 Z" fill="currentColor" fill-opacity="0.1"/>
+                <circle cx="32" cy="32" r="4" fill="currentColor" />
+              </svg>
+            </div>
+            
+            <!-- Click visual prompt -->
+            <div class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-10 bg-brand-chocolateDark/80 text-brand-cream text-[10px] tracking-widest uppercase py-1 px-3 rounded-full pointer-events-none opacity-80 backdrop-blur-sm">
+              Tap to bite / crack
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Interactive Flavor Carousel & Premium Video Block -->
+        <div class="lg:col-span-3 flex flex-col gap-6 order-3">
+          
+          <!-- Flavor Selector Buttons -->
+          <div class="glass-card rounded-3xl p-6 space-y-4">
+            <span class="text-xs tracking-widest uppercase font-bold text-brand-creamLight opacity-70 block mb-2">Select Your Pleasure</span>
+            
+            <!-- Flavor Option 1 -->
+            <button onclick="switchFlavor(0)" id="flavorBtn0" class="w-full flex items-center justify-between p-3.5 rounded-2xl bg-brand-cream/20 text-brand-chocolateDark border border-brand-cream/30 hover:bg-brand-cream/30 transition-all duration-300 text-left group">
+              <div class="flex items-center gap-3">
+                <div class="w-3 h-3 rounded-full bg-brand-caramel"></div>
+                <div class="flex flex-col">
+                  <span class="text-xs font-bold uppercase tracking-wider">Double Caramel</span>
+                  <span class="text-[10px] opacity-70 font-semibold">Rich Gold & Vanilla</span>
+                </div>
+              </div>
+              <i data-lucide="chevron-right" class="w-4 h-4 opacity-50 group-hover:translate-x-1 transition-transform"></i>
+            </button>
+
+            <!-- Flavor Option 2 -->
+            <button onclick="switchFlavor(1)" id="flavorBtn1" class="w-full flex items-center justify-between p-3.5 rounded-2xl bg-transparent text-brand-chocolateDark border border-transparent hover:bg-brand-cream/10 transition-all duration-300 text-left group">
+              <div class="flex items-center gap-3">
+                <div class="w-3 h-3 rounded-full bg-rose-700"></div>
+                <div class="flex flex-col">
+                  <span class="text-xs font-bold uppercase tracking-wider">Double Raspberry</span>
+                  <span class="text-[10px] opacity-70 font-semibold">Decadent Tart Berry</span>
+                </div>
+              </div>
+              <i data-lucide="chevron-right" class="w-4 h-4 opacity-50 group-hover:translate-x-1 transition-transform"></i>
+            </button>
+
+            <!-- Flavor Option 3 -->
+            <button onclick="switchFlavor(2)" id="flavorBtn2" class="w-full flex items-center justify-between p-3.5 rounded-2xl bg-transparent text-brand-chocolateDark border border-transparent hover:bg-brand-cream/10 transition-all duration-300 text-left group">
+              <div class="flex items-center gap-3">
+                <div class="w-3 h-3 rounded-full bg-yellow-600"></div>
+                <div class="flex flex-col">
+                  <span class="text-xs font-bold uppercase tracking-wider">Gold Billionaire</span>
+                  <span class="text-[10px] opacity-70 font-semibold">Salted Biscuit & Pecan</span>
+                </div>
+              </div>
+              <i data-lucide="chevron-right" class="w-4 h-4 opacity-50 group-hover:translate-x-1 transition-transform"></i>
+            </button>
+          </div>
+
+          <!-- Video Wave Card / Melting Simulation -->
+          <div class="glass-card rounded-3xl p-5 relative overflow-hidden group shadow-lg">
+            <span class="text-xs tracking-widest uppercase font-bold text-brand-creamLight opacity-70 block mb-1">Made With</span>
+            <span class="font-serif text-xl font-bold text-brand-creamLight block mb-4">Pure Belgian Chocolate</span>
+            
+            <!-- Chocolate Wave Container -->
+            <div class="relative h-24 bg-brand-chocolateDark/50 rounded-2xl overflow-hidden flex items-end">
+              
+              <!-- Looping SVG Chocolate Waves -->
+              <svg class="absolute inset-x-0 bottom-0 w-[200%] h-16 text-brand-chocolate opacity-80 animate-wave-slow" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,60 C150,90 350,30 500,60 C650,90 850,30 1000,60 L1000,120 L0,120 Z" fill="currentColor"/>
+                <path d="M1000,60 C1150,90 1350,30 1500,60 C1650,90 1850,30 2000,60 L2000,120 L1000,120 Z" fill="currentColor"/>
+              </svg>
+              <svg class="absolute inset-x-0 bottom-0 w-[200%] h-12 text-brand-caramel opacity-50 animate-wave-slow" style="animation-duration: 12s; animation-direction: reverse;" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,50 C100,20 250,80 400,50 C550,20 700,80 850,50 C1000,20 1150,80 1200,50 L1200,120 L0,120 Z" fill="currentColor"/>
+                <path d="M1200,50 C1300,20 1450,80 1600,50 C1750,20 1900,80 2050,50 C2200,20 2350,80 2400,50 L2400,120 L1200,120 Z" fill="currentColor"/>
+              </svg>
+
+              <!-- Play Overlay -->
+              <div class="absolute inset-0 flex items-center justify-center group-hover:bg-brand-chocolateDark/30 transition-colors duration-300">
+                <button onclick="playChocolateASMR()" class="w-10 h-10 rounded-full bg-brand-cream/90 flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform duration-300">
+                  <i data-lucide="play" class="w-4 h-4 fill-brand-chocolate text-brand-chocolate ml-0.5"></i>
+                </button>
+              </div>
+
+              <!-- Micro Info Overlay -->
+              <div class="absolute bottom-2 left-3 text-[9px] uppercase tracking-widest text-brand-cream font-bold">
+                Melt Simulation V.1
+              </div>
+            </div>
+            
+            <p class="text-[11px] text-brand-cream/80 mt-3 leading-relaxed">
+              Every drop is sourced from sustainably farmed rainforest cocoa beans, roasted to golden perfection.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- INGREDIENT EXPLORER / HOTSPOT BLUEPRINT -->
+    <section id="layers" class="py-24 px-6 md:px-16 bg-brand-chocolateDark text-brand-cream relative">
+      <!-- Background SVG curves representing liquid drip -->
+      <div class="absolute top-0 inset-x-0 h-16 bg-gradient-to-b from-[#3d1e11] to-brand-chocolateDark"></div>
+      
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center space-y-4 mb-16">
+          <span class="text-xs tracking-[0.3em] uppercase font-bold text-brand-caramel">Anatomy of Indulgence</span>
+          <h2 class="font-serif text-4xl md:text-5xl font-bold tracking-tight">The Velvet Blueprint</h2>
+          <p class="text-sm md:text-base text-brand-cream/60 max-w-lg mx-auto">
+            Decades of ice cream mastery designed into a flawless sequence of premium temperatures, textures, and sounds.
+          </p>
+        </div>
+
+        <!-- Interactive Hotspot Structure -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Interactive Diagram Column (Left) -->
+          <div class="lg:col-span-5 flex justify-center relative py-10">
+            <!-- Background Radial Glow -->
+            <div class="absolute w-80 h-80 rounded-full bg-brand-caramel/20 blur-3xl"></div>
+            
+            <!-- Blueprint Schematic SVG -->
+            <div class="relative w-72 md:w-80">
+              <svg viewBox="0 0 320 500" class="w-full h-auto filter drop-shadow-[0_15px_30px_rgba(0,0,0,0.6)]" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Outlines of layers -->
+                <rect x="20" y="20" width="280" height="460" rx="140" stroke="#c87c3e" stroke-width="1.5" stroke-dasharray="6 6" opacity="0.3" />
+                
+                <!-- Inner Core -->
+                <path d="M100,120 C100,80 120,60 160,60 C200,60 220,80 220,120 L220,320 C220,360 190,380 160,380 C130,380 100,360 100,320 Z" stroke="#dda15e" stroke-width="2" fill="#faf0e6" fill-opacity="0.05" />
+                
+                <!-- Middle Layer Drip Outline -->
+                <path d="M70,140 C90,140 100,160 120,160 C140,160 150,130 170,130 C190,130 200,160 220,160 C240,160 250,140 250,140 L250,300 C250,330 210,350 160,350 C110,350 70,330 70,300 Z" stroke="#c87c3e" stroke-width="2" fill="none" />
+
+                <!-- Outer Shell -->
+                <path d="M40,150 C40,90 80,40 160,40 C240,40 280,90 280,150 L280,310 C280,370 230,410 160,410 C90,410 40,370 40,310 Z" stroke="#f9e9d9" stroke-width="2.5" fill="none" />
+              </svg>
+
+              <!-- HOTSPOT MARKERS (Clickable Buttons) -->
+              <!-- Hotspot 1: Outer Belgian Shell -->
+              <button onclick="activateHotspot(1)" class="absolute top-[15%] left-[25%] group z-20">
+                <span class="absolute inline-flex h-full w-full rounded-full bg-brand-cream opacity-75 animate-ping"></span>
+                <div class="relative w-8 h-8 rounded-full bg-brand-cream text-brand-chocolateDark font-bold text-xs flex items-center justify-center shadow-lg border border-brand-chocolate transition-transform duration-300 hover:scale-125">
+                  1
+                </div>
+              </button>
+
+              <!-- Hotspot 2: Double Liquid Flavor Coating -->
+              <button onclick="activateHotspot(2)" class="absolute top-[40%] right-[15%] group z-20">
+                <span class="absolute inline-flex h-full w-full rounded-full bg-brand-caramel opacity-75 animate-ping"></span>
+                <div class="relative w-8 h-8 rounded-full bg-brand-caramel text-brand-cream font-bold text-xs flex items-center justify-center shadow-lg border border-brand-cream transition-transform duration-300 hover:scale-125">
+                  2
+                </div>
+              </button>
+
+              <!-- Hotspot 3: Inner Velvet Madagascar Ice Cream -->
+              <button onclick="activateHotspot(3)" class="absolute bottom-[35%] left-[45%] group z-20">
+                <span class="absolute inline-flex h-full w-full rounded-full bg-amber-200 opacity-75 animate-ping"></span>
+                <div class="relative w-8 h-8 rounded-full bg-amber-100 text-brand-chocolateDark font-bold text-xs flex items-center justify-center shadow-lg border border-brand-chocolate transition-transform duration-300 hover:scale-125">
+                  3
+                </div>
+              </button>
+
+              <!-- Hotspot 4: Signature Branded Timber Stick -->
+              <button onclick="activateHotspot(4)" class="absolute bottom-[8%] left-[47%] group z-20">
+                <span class="absolute inline-flex h-full w-full rounded-full bg-yellow-700 opacity-75 animate-ping"></span>
+                <div class="relative w-8 h-8 rounded-full bg-yellow-600 text-brand-cream font-bold text-xs flex items-center justify-center shadow-lg border border-brand-cream transition-transform duration-300 hover:scale-125">
+                  4
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Description Column (Right) -->
+          <div class="lg:col-span-7 space-y-6">
+            <div class="glass-card rounded-3xl p-8 md:p-12 space-y-8 relative overflow-hidden">
+              <div class="absolute -right-16 -bottom-16 w-48 h-48 bg-brand-caramel/10 rounded-full blur-2xl"></div>
+
+              <!-- Interactive Content Area -->
+              <div id="hotspotContent" class="space-y-6 min-h-[250px] transition-all duration-500">
+                <!-- DEFAULT STATE / FIRST LAYER -->
+                <div class="space-y-4">
+                  <span class="text-xs tracking-widest uppercase font-bold text-brand-caramel">Layer 01 — Outer Shell</span>
+                  <h3 class="font-serif text-3xl md:text-4xl font-bold text-brand-creamLight">The Belgian Chocolate Snap</h3>
+                  <p class="text-brand-cream/80 leading-relaxed text-sm md:text-base">
+                    Every Magnum bar is signature-dipped in high-grade premium Belgian milk chocolate. Engineered with a calibrated thickness of exactly 1.2mm, it delivers the iconic "crack" sound on your first bite—releasing a burst of authentic cacao complexity.
+                  </p>
+                  
+                  <div class="grid grid-cols-2 gap-4 pt-4 border-t border-brand-cream/10">
+                    <div>
+                      <span class="text-[11px] text-brand-cream/50 uppercase tracking-widest block">Sound Frequency</span>
+                      <span class="font-serif text-xl font-bold text-brand-caramel">4.5 kHz Crack</span>
+                    </div>
+                    <div>
+                      <span class="text-[11px] text-brand-cream/50 uppercase tracking-widest block">Sustainably Sourced</span>
+                      <span class="font-serif text-xl font-bold text-brand-caramel">100% Cocoa</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Layer switcher pagination -->
+              <div class="flex items-center gap-2 pt-6 border-t border-brand-cream/10">
+                <button onclick="activateHotspot(1)" id="hotspotTab1" class="w-10 h-10 rounded-full bg-brand-cream text-brand-chocolateDark font-bold text-xs transition-colors">1</button>
+                <button onclick="activateHotspot(2)" id="hotspotTab2" class="w-10 h-10 rounded-full bg-brand-cream/10 text-brand-cream hover:bg-brand-cream/20 font-bold text-xs transition-colors">2</button>
+                <button onclick="activateHotspot(3)" id="hotspotTab3" class="w-10 h-10 rounded-full bg-brand-cream/10 text-brand-cream hover:bg-brand-cream/20 font-bold text-xs transition-colors">3</button>
+                <button onclick="activateHotspot(4)" id="hotspotTab4" class="w-10 h-10 rounded-full bg-brand-cream/10 text-brand-cream hover:bg-brand-cream/20 font-bold text-xs transition-colors">4</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PREMIUM COCOA SENSORY STATS -->
+    <section id="stats" class="py-24 px-6 md:px-16 bg-gradient-to-br from-[#3d1e11] via-[#542b1a] to-[#2d130a] text-brand-cream relative overflow-hidden">
+      <!-- Glow effects -->
+      <div class="absolute -top-48 left-1/2 -translate-x-1/2 w-96 h-96 bg-brand-caramel/20 rounded-full blur-[100px]"></div>
+
+      <div class="max-w-7xl mx-auto z-10 relative">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Left side copywriting -->
+          <div class="lg:col-span-5 space-y-6 text-center lg:text-left">
+            <span class="text-xs tracking-[0.3em] uppercase font-bold text-brand-caramelLight">Uncompromising Integrity</span>
+            <h2 class="font-serif text-4xl md:text-5xl font-bold tracking-tight leading-tight">Mastery in Every Particle</h2>
+            <p class="text-sm md:text-base text-brand-cream/70 leading-relaxed">
+              We travel the equator, working hand-in-hand with Rainforest Alliance Certified farms to harvest cocoa that respects both earth and artisan.
+            </p>
+            <div class="pt-2">
+              <a href="#indulge" onclick="playCrackSound()" class="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-bold text-brand-caramelLight hover:text-brand-cream transition-colors group">
+                Trace Our Ingredients <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right side stat grid -->
+          <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
+            
+            <!-- Stat Card 1 -->
+            <div class="glass-card rounded-3xl p-8 space-y-4 hover:bg-brand-cream/5 transition-all duration-300">
+              <div class="w-12 h-12 bg-brand-caramel/20 rounded-2xl flex items-center justify-center">
+                <i data-lucide="leaf" class="w-6 h-6 text-brand-caramelLight"></i>
+              </div>
+              <div class="space-y-1">
+                <span class="font-serif text-4xl font-bold text-brand-cream">100%</span>
+                <span class="text-xs uppercase tracking-widest font-bold text-brand-caramelLight block">Sustainably Sourced</span>
+              </div>
+              <p class="text-xs text-brand-cream/60 leading-relaxed">
+                Certified by the Rainforest Alliance, helping protect biodiversity and support farm livelihoods.
+              </p>
+            </div>
+
+            <!-- Stat Card 2 -->
+            <div class="glass-card rounded-3xl p-8 space-y-4 hover:bg-brand-cream/5 transition-all duration-300">
+              <div class="w-12 h-12 bg-brand-caramel/20 rounded-2xl flex items-center justify-center">
+                <i data-lucide="droplet" class="w-6 h-6 text-brand-caramelLight"></i>
+              </div>
+              <div class="space-y-1">
+                <span class="font-serif text-4xl font-bold text-brand-cream">1.2mm</span>
+                <span class="text-xs uppercase tracking-widest font-bold text-brand-caramelLight block">Optimized Thickness</span>
+              </div>
+              <p class="text-xs text-brand-cream/60 leading-relaxed">
+                Calculated down to the micrometer for the perfect snap-to-melt ratio in any climate.
+              </p>
+            </div>
+
+            <!-- Stat Card 3 -->
+            <div class="glass-card rounded-3xl p-8 space-y-4 hover:bg-brand-cream/5 transition-all duration-300">
+              <div class="w-12 h-12 bg-brand-caramel/20 rounded-2xl flex items-center justify-center">
+                <i data-lucide="heart" class="w-6 h-6 text-brand-caramelLight"></i>
+              </div>
+              <div class="space-y-1">
+                <span class="font-serif text-4xl font-bold text-brand-cream">#1</span>
+                <span class="text-xs uppercase tracking-widest font-bold text-brand-caramelLight block">Global Standard</span>
+              </div>
+              <p class="text-xs text-brand-cream/60 leading-relaxed">
+                Recognized worldwide as the gold standard for premium chocolate-dipped ice cream.
+              </p>
+            </div>
+
+            <!-- Stat Card 4 -->
+            <div class="glass-card rounded-3xl p-8 space-y-4 hover:bg-brand-cream/5 transition-all duration-300">
+              <div class="w-12 h-12 bg-brand-caramel/20 rounded-2xl flex items-center justify-center">
+                <i data-lucide="sun" class="w-6 h-6 text-brand-caramelLight"></i>
+              </div>
+              <div class="space-y-1">
+                <span class="font-serif text-4xl font-bold text-brand-cream">4 Layers</span>
+                <span class="text-xs uppercase tracking-widest font-bold text-brand-caramelLight block">Flavor Architecture</span>
+              </div>
+              <p class="text-xs text-brand-cream/60 leading-relaxed">
+                Cracked coating, sauce, premium mid-shell, and slow-churned core.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPANDED COLLECTION / DYNAMIC CAROUSEL SECTION -->
+    <section id="flavors" class="py-24 px-6 md:px-16 bg-brand-creamLight text-brand-chocolateDark relative">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+          <div class="space-y-4">
+            <span class="text-xs tracking-[0.3em] uppercase font-bold text-brand-caramel">Taste The Portfolio</span>
+            <h2 class="font-serif text-4xl md:text-5xl font-bold tracking-tight">The Pleasure Chamber</h2>
+          </div>
+          <p class="text-sm text-brand-chocolate/70 max-w-sm md:text-right leading-relaxed">
+            Every flavor represents an architectural exploration of balance, intensity, and texture.
+          </p>
+        </div>
+
+        <!-- Horizontal Slide / Grid of Luxury Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <!-- Flavor Card 1 -->
+          <div class="glass-card-light rounded-[2.5rem] p-8 flex flex-col justify-between space-y-8 relative overflow-hidden group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+            <!-- Background Accent Blur -->
+            <div class="absolute -right-24 -bottom-24 w-48 h-48 bg-brand-caramel/10 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+            
+            <div class="space-y-4">
+              <!-- Custom Small SVG Representation -->
+              <div class="w-24 h-32 mx-auto relative group-hover:scale-110 transition-transform duration-500">
+                <svg viewBox="0 0 100 150" class="w-full h-full filter drop-shadow-md">
+                  <!-- stick -->
+                  <path d="M44,110 L56,110 C60,110 60,140 50,140 C40,140 40,110 44,110 Z" fill="#b68152"/>
+                  <!-- body -->
+                  <path d="M25,50 C25,20 40,10 50,10 C60,10 75,20 75,50 L75,90 C75,105 60,115 50,115 C40,115 25,105 25,90 Z" fill="#5a2e1c"/>
+                  <!-- caramel dripping overlay -->
+                  <path d="M26,45 C35,45 38,52 45,52 C52,52 55,42 62,42 C70,42 72,50 74,50 L74,70 C74,75 60,85 50,85 C40,85 26,75 26,70 Z" fill="#e9a459" opacity="0.9"/>
+                </svg>
+              </div>
+              
+              <div class="text-center space-y-2">
+                <span class="text-[10px] tracking-widest uppercase font-bold text-brand-caramel">Gold Standard</span>
+                <h3 class="font-serif text-2xl font-bold">Double Caramel</h3>
+                <p class="text-xs text-brand-chocolateDark/70 leading-relaxed">
+                  Smooth Madagascan vanilla, velvet thick caramel layer, and signature chocolate crunch.
+                </p>
+              </div>
+            </div>
+
+            <button onclick="switchFlavor(0); window.scrollTo({top: 0, behavior: 'smooth'});" class="w-full py-3 bg-brand-chocolate hover:bg-brand-chocolateDark text-brand-cream text-xs font-bold uppercase tracking-wider rounded-2xl transition-colors">
+              Interactive View
+            </button>
+          </div>
+
+          <!-- Flavor Card 2 -->
+          <div class="glass-card-light rounded-[2.5rem] p-8 flex flex-col justify-between space-y-8 relative overflow-hidden group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+            <!-- Background Accent Blur -->
+            <div class="absolute -right-24 -bottom-24 w-48 h-48 bg-rose-500/10 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+            
+            <div class="space-y-4">
+              <!-- Custom Small SVG Representation -->
+              <div class="w-24 h-32 mx-auto relative group-hover:scale-110 transition-transform duration-500">
+                <svg viewBox="0 0 100 150" class="w-full h-full filter drop-shadow-md">
+                  <!-- stick -->
+                  <path d="M44,110 L56,110 C60,110 60,140 50,140 C40,140 40,110 44,110 Z" fill="#b68152"/>
+                  <!-- body -->
+                  <path d="M25,50 C25,20 40,10 50,10 C60,10 75,20 75,50 L75,90 C75,105 60,115 50,115 C40,115 25,105 25,90 Z" fill="#30140a"/>
+                  <!-- raspberry dripping overlay -->
+                  <path d="M26,45 C35,45 38,52 45,52 C52,52 55,42 62,42 C70,42 72,50 74,50 L74,70 C74,75 60,85 50,85 C40,85 26,75 26,70 Z" fill="#be123c" opacity="0.9"/>
+                </svg>
+              </div>
+              
+              <div class="text-center space-y-2">
+                <span class="text-[10px] tracking-widest uppercase font-bold text-rose-700">Rich Fruity Tartness</span>
+                <h3 class="font-serif text-2xl font-bold">Double Raspberry</h3>
+                <p class="text-xs text-brand-chocolateDark/70 leading-relaxed">
+                  Decadent dark chocolate paired with sharp, refreshing raspberry coulis and vanilla cream.
+                </p>
+              </div>
+            </div>
+
+            <button onclick="switchFlavor(1); window.scrollTo({top: 0, behavior: 'smooth'});" class="w-full py-3 bg-brand-chocolate hover:bg-brand-chocolateDark text-brand-cream text-xs font-bold uppercase tracking-wider rounded-2xl transition-colors">
+              Interactive View
+            </button>
+          </div>
+
+          <!-- Flavor Card 3 -->
+          <div class="glass-card-light rounded-[2.5rem] p-8 flex flex-col justify-between space-y-8 relative overflow-hidden group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+            <!-- Background Accent Blur -->
+            <div class="absolute -right-24 -bottom-24 w-48 h-48 bg-yellow-600/10 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+            
+            <div class="space-y-4">
+              <!-- Custom Small SVG Representation -->
+              <div class="w-24 h-32 mx-auto relative group-hover:scale-110 transition-transform duration-500">
+                <svg viewBox="0 0 100 150" class="w-full h-full filter drop-shadow-md">
+                  <!-- stick -->
+                  <path d="M44,110 L56,110 C60,110 60,140 50,140 C40,140 40,110 44,110 Z" fill="#b68152"/>
+                  <!-- body -->
+                  <path d="M25,50 C25,20 40,10 50,10 C60,10 75,20 75,50 L75,90 C75,105 60,115 50,115 C40,115 25,105 25,90 Z" fill="#d97706"/>
+                  <!-- biscuit dripping overlay -->
+                  <path d="M26,45 C35,45 38,52 45,52 C52,52 55,42 62,42 C70,42 72,50 74,50 L74,70 C74,75 60,85 50,85 C40,85 26,75 26,70 Z" fill="#eab308" opacity="0.9"/>
+                </svg>
+              </div>
+              
+              <div class="text-center space-y-2">
+                <span class="text-[10px] tracking-widest uppercase font-bold text-yellow-600">The Ultimate Sweet</span>
+                <h3 class="font-serif text-2xl font-bold">Gold Billionaire</h3>
+                <p class="text-xs text-brand-chocolateDark/70 leading-relaxed">
+                  Salty-sweet gold caramel chocolate layered with crisp biscuit bits and roasted pecan hints.
+                </p>
+              </div>
+            </div>
+
+            <button onclick="switchFlavor(2); window.scrollTo({top: 0, behavior: 'smooth'});" class="w-full py-3 bg-brand-chocolate hover:bg-brand-chocolateDark text-brand-cream text-xs font-bold uppercase tracking-wider rounded-2xl transition-colors">
+              Interactive View
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- IMMERSIVE CALL-TO-PLEASURE (CTA) -->
+    <section id="indulge" class="py-24 px-6 md:px-16 bg-brand-chocolateDark text-brand-cream relative overflow-hidden">
+      <!-- Glow effect -->
+      <div class="absolute inset-0 bg-gradient-to-r from-brand-chocolate to-brand-chocolateDark opacity-90"></div>
+      <div class="absolute top-0 right-0 w-[40rem] h-[40rem] bg-brand-caramel/15 rounded-full blur-[120px] pointer-events-none translate-x-1/2 -translate-y-1/2"></div>
+      
+      <div class="max-w-4xl mx-auto text-center relative z-10 space-y-8">
+        <span class="text-xs tracking-[0.4em] uppercase font-bold text-brand-caramelLight block">Ready for the Crack?</span>
+        <h2 class="font-serif text-4xl md:text-6xl font-bold tracking-tight">Begin Your Pleasure Ritual</h2>
+        <p class="text-sm md:text-base text-brand-cream/70 max-w-xl mx-auto leading-relaxed">
+          Sign up to access exclusive private flavor launches, luxury dining pop-ups, and early boutique chocolate pairings.
+        </p>
+
+        <!-- Newsletter Interactive Container -->
+        <form onsubmit="handleFormSubmit(event)" class="max-w-md mx-auto flex flex-col sm:flex-row items-center gap-3 bg-brand-cream/5 p-2 rounded-[2rem] border border-brand-cream/10 backdrop-blur-md">
+          <input type="email" required placeholder="Enter email to trace pleasure" class="w-full bg-transparent px-6 py-4 text-sm text-brand-creamLight focus:outline-none placeholder-brand-cream/40" />
+          <button type="submit" onclick="playCrackSound()" class="w-full sm:w-auto shrink-0 bg-brand-caramel hover:bg-brand-caramelLight text-brand-chocolateDark font-bold tracking-widest text-xs uppercase px-8 py-4 rounded-[1.5rem] transition-colors">
+            Subscribe
+          </button>
+        </form>
+        
+        <div id="formSuccessMsg" class="hidden text-emerald-400 text-sm font-semibold transition-all duration-300">
+          <i data-lucide="check" class="inline-block w-4 h-4 mr-1.5 align-middle"></i> Ritual accepted. Welcome to the Inner Circle.
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- LUXURIOUS MINIMALIST FOOTER -->
+  <footer class="bg-brand-chocolateDark text-brand-cream/40 py-16 px-6 md:px-16 border-t border-brand-cream/5 relative z-10">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+      
+      <!-- Brand Logo -->
+      <div class="flex flex-col items-center md:items-start">
+        <span class="font-serif text-xl tracking-[0.3em] font-bold uppercase text-brand-cream">MAGNUM</span>
+        <span class="text-[8px] tracking-[0.4em] font-semibold text-brand-cream/60 uppercase">ICE CREAM</span>
+      </div>
+
+      <!-- Quick Nav Links -->
+      <div class="flex flex-wrap justify-center gap-8 text-xs uppercase tracking-widest text-brand-cream/70">
+        <a href="#hero" class="hover:text-brand-cream transition-colors">Back to Top</a>
+        <a href="#flavors" class="hover:text-brand-cream transition-colors">Chamber</a>
+        <a href="#layers" class="hover:text-brand-cream transition-colors">Blueprint</a>
+        <a href="#stats" class="hover:text-brand-cream transition-colors">Legacy</a>
+      </div>
+
+      <!-- Social & Copy -->
+      <div class="flex flex-col items-center md:items-end gap-2 text-xs">
+        <div class="flex gap-4">
+          <a href="#" class="text-brand-cream/60 hover:text-brand-cream transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+          <a href="#" class="text-brand-cream/60 hover:text-brand-cream transition-colors"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+          <a href="#" class="text-brand-cream/60 hover:text-brand-cream transition-colors"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+        </div>
+        <p class="mt-2 text-[10px]">© 2026 Unilever Portfolio. Pure Luxury Indulgence. All Rights Reserved.</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Notification Banner for dynamic actions -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 glass-card text-brand-cream text-xs px-5 py-3.5 rounded-2xl shadow-xl border border-brand-cream/20 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2">
+    <i data-lucide="info" class="w-4 h-4 text-brand-caramelLight"></i>
+    <span id="toastMsg">Sensory mode updated.</span>
+  </div>
+
+  <!-- SCRIPTING FOR DYNAMIC INTERACTIONS -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Sound FX variables
+    let audioCtx = null;
+    let isSoundEnabled = true; // Enabled by default for rich immersion
+
+    // Web Audio Chocolate Crack sound synthesizer
+    function playCrackSound() {
+      if (!isSoundEnabled) return;
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+
+        // --- STAGE 1: High Pitch CRISP CRACK (the initial snap of chocolate shell) ---
+        const noiseBuffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.08, audioCtx.sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+        for (let i = 0; i < noiseBuffer.length; i++) {
+          output[i] = Math.random() * 2 - 1;
+        }
+
+        const whiteNoise = audioCtx.createBufferSource();
+        whiteNoise.buffer = noiseBuffer;
+
+        const noiseFilter = audioCtx.createBiquadFilter();
+        noiseFilter.type = 'highpass';
+        noiseFilter.frequency.setValueAtTime(3200, audioCtx.currentTime);
+        noiseFilter.Q.setValueAtTime(4, audioCtx.currentTime);
+
+        const noiseGain = audioCtx.createGain();
+        noiseGain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+        noiseGain.gain.exponentialRampToValueAtTime(0.005, audioCtx.currentTime + 0.08);
+
+        whiteNoise.connect(noiseFilter);
+        noiseFilter.connect(noiseGain);
+        noiseGain.connect(audioCtx.destination);
+        whiteNoise.start();
+
+        // --- STAGE 2: Deep Crunchy Pop Resonance ---
+        const crunchOsc = audioCtx.createOscillator();
+        const crunchGain = audioCtx.createGain();
+
+        crunchOsc.type = 'triangle';
+        crunchOsc.frequency.setValueAtTime(140, audioCtx.currentTime);
+        crunchOsc.frequency.exponentialRampToValueAtTime(45, audioCtx.currentTime + 0.12);
+
+        crunchGain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+        crunchGain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.12);
+
+        crunchOsc.connect(crunchGain);
+        crunchGain.connect(audioCtx.destination);
+        crunchOsc.start();
+        crunchOsc.stop(audioCtx.currentTime + 0.15);
+
+      } catch (e) {
+        console.warn("Audio Context init blocked or failed.", e);
+      }
+    }
+
+    // Play luxurious wave melt ambient sound effect
+    function playChocolateASMR() {
+      playCrackSound();
+      showToast("🍫 ASMR Melt Wave Playback Simulated");
+    }
+
+    // Audio status toggle
+    function toggleSound() {
+      isSoundEnabled = !isSoundEnabled;
+      const icon = document.getElementById('soundIcon');
+      const btn = document.getElementById('soundBtn');
+      if (isSoundEnabled) {
+        icon.setAttribute('data-lucide', 'volume-2');
+        showToast("🔈 Interactive Crack Sounds On");
+      } else {
+        icon.setAttribute('data-lucide', 'volume-x');
+        showToast("🔇 Interactive Sounds Muted");
+      }
+      lucide.createIcons();
+    }
+
+    // Toast Notification helper
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const msg = document.getElementById('toastMsg');
+      msg.textContent = message;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 2500);
+    }
+
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      if (menu.classList.contains('translate-x-full')) {
+        menu.classList.remove('translate-x-full');
+        menu.classList.add('translate-x-0');
+      } else {
+        menu.classList.remove('translate-x-0');
+        menu.classList.add('translate-x-full');
+      }
+    }
+
+    // Interactive bite simulation on the main visual stick!
+    let biteCount = 0;
+    function handleStickClick() {
+      playCrackSound();
+      
+      const chocoShell = document.getElementById('outerChocoShell');
+      const caramelDrips = document.getElementById('caramelDrips');
+      
+      biteCount++;
+      if (biteCount === 1) {
+        // Crack open top shell partially
+        chocoShell.style.transform = "scale(0.96) rotate(-1deg)";
+        chocoShell.style.opacity = "0.75";
+        showToast("💥 Pure Belgian Chocolate Shell Cracked!");
+      } else if (biteCount === 2) {
+        // Expose caramel dripping layer
+        chocoShell.style.transform = "scale(0.9) rotate(-3deg) translateY(-20px)";
+        chocoShell.style.opacity = "0.2";
+        caramelDrips.style.transform = "scale(1.05) translateY(5px)";
+        showToast("🍯 Luscious Double Caramel Exposed!");
+      } else {
+        // Reset state
+        chocoShell.style.transform = "none";
+        chocoShell.style.opacity = "1";
+        caramelDrips.style.transform = "none";
+        biteCount = 0;
+        showToast("🔄 Magnum Restored — Bite Again!");
+      }
+    }
+
+    // Flavor Database matching the premium palette
+    const flavorData = [
+      {
+        title: 'Double <br class="hidden lg:block"/>Vanilla <br class="hidden lg:block"/><span class="text-brand-chocolate italic">Caramel</span>',
+        desc: 'Vanilla ice cream dipped in a chocolatey coating and a luxurious layer of caramel sauce, wrapped in exquisite cracked Magnum Belgian milk chocolate.',
+        gradientFrom: '#f2d2b6',
+        gradientVia: '#dfab81',
+        gradientTo: '#3d1e11',
+        chocoGradStart: '#5a2e1c',
+        chocoGradMid: '#411f11',
+        chocoGradEnd: '#2a1208',
+        accentGradStart: '#e9a459',
+        accentGradEnd: '#8a4d1a',
+        glowAura: 'from-brand-caramel/40 to-brand-cream/10',
+        progressNum: '01',
+        progressWidth: '33.33%'
+      },
+      {
+        title: 'Double <br class="hidden lg:block"/>Raspberry <br class="hidden lg:block"/><span class="text-rose-700 italic">Supreme</span>',
+        desc: 'Velvety vanilla ice cream with a decadent swirl of fresh, tart raspberry coulis, double-dipped in luscious cracked dark Belgian chocolate.',
+        gradientFrom: '#fbcfe8',
+        gradientVia: '#fda4af',
+        gradientTo: '#4c0519',
+        chocoGradStart: '#2d0612',
+        chocoGradMid: '#1e020a',
+        chocoGradEnd: '#120005',
+        accentGradStart: '#f43f5e',
+        accentGradEnd: '#9f1239',
+        glowAura: 'from-rose-500/35 to-rose-200/10',
+        progressNum: '02',
+        progressWidth: '66.66%'
+      },
+      {
+        title: 'Gold Caramel <br class="hidden lg:block"/>Billionaire <br class="hidden lg:block"/><span class="text-yellow-600 italic">Limited</span>',
+        desc: 'Rich pecan flavored ice cream combined with salted caramel sauce, wrapped in golden chocolate coating with crispy biscuit crumbs.',
+        gradientFrom: '#fef08a',
+        gradientVia: '#fde047',
+        gradientTo: '#713f12',
+        chocoGradStart: '#7c2d12',
+        chocoGradMid: '#451a03',
+        chocoGradEnd: '#290b00',
+        accentGradStart: '#ca8a04',
+        accentGradEnd: '#854d0e',
+        glowAura: 'from-yellow-500/30 to-yellow-200/10',
+        progressNum: '03',
+        progressWidth: '100%'
+      }
+    ];
+
+    // Core interactive flavor switching logic
+    function switchFlavor(index) {
+      playCrackSound();
+      
+      const flavor = flavorData[index];
+      
+      // Update Copy with transition
+      const titleElem = document.getElementById('heroTitle');
+      const descElem = document.getElementById('heroDesc');
+      
+      titleElem.style.opacity = '0';
+      titleElem.style.transform = 'translateY(10px)';
+      descElem.style.opacity = '0';
+      
+      setTimeout(() => {
+        titleElem.innerHTML = flavor.title;
+        descElem.textContent = flavor.desc;
+        titleElem.style.opacity = '1';
+        titleElem.style.transform = 'none';
+        descElem.style.opacity = '1';
+      }, 3500 * 0.1); // Fast aesthetic switch
+
+      // Update background gradient colors on body smoothly
+      document.body.style.backgroundImage = `linear-gradient(to bottom right, ${flavor.gradientFrom}, ${flavor.gradientVia}, ${flavor.gradientTo})`;
+      
+      // Update SVG Gradients inside the Magnum stick
+      const chocoMain = document.getElementById('chocoMain');
+      chocoMain.children[0].setAttribute('stop-color', flavor.chocoGradStart);
+      chocoMain.children[1].setAttribute('stop-color', flavor.chocoGradMid);
+      chocoMain.children[2].setAttribute('stop-color', flavor.chocoGradEnd);
+
+      const caramelDrip = document.getElementById('caramelDrip');
+      caramelDrip.children[0].setAttribute('stop-color', flavor.accentGradStart);
+      caramelDrip.children[2].setAttribute('stop-color', flavor.accentGradEnd);
+
+      // Update Ambient Aura
+      const aura = document.getElementById('glowAura');
+      aura.className = `absolute w-72 h-72 rounded-full bg-gradient-to-tr ${flavor.glowAura} blur-3xl opacity-80 animate-pulse-subtle`;
+
+      // Update Pagination Indicator
+      document.getElementById('progressLine').style.width = flavor.progressWidth;
+      document.getElementById('progressNum').textContent = flavor.progressNum;
+
+      // Toggle Active Button Styles
+      for (let i = 0; i < 3; i++) {
+        const btn = document.getElementById(`flavorBtn${i}`);
+        if (i === index) {
+          btn.className = "w-full flex items-center justify-between p-3.5 rounded-2xl bg-brand-cream/20 text-brand-chocolateDark border border-brand-cream/30 hover:bg-brand-cream/30 transition-all duration-300 text-left group";
+        } else {
+          btn.className = "w-full flex items-center justify-between p-3.5 rounded-2xl bg-transparent text-brand-chocolateDark border border-transparent hover:bg-brand-cream/10 transition-all duration-300 text-left group";
+        }
+      }
+
+      showToast(`✨ Selected: ${flavor.progressNum === '01' ? 'Double Caramel' : flavor.progressNum === '02' ? 'Double Raspberry' : 'Billionaire'}`);
+    }
+
+    // Blueprint Hotspot Information Data
+    const hotspotData = {
+      1: {
+        title: 'The Belgian Chocolate Snap',
+        subtitle: 'Layer 01 — Outer Shell',
+        body: 'Every Magnum bar is signature-dipped in high-grade premium Belgian milk chocolate. Engineered with a calibrated thickness of exactly 1.2mm, it delivers the iconic "crack" sound on your first bite—releasing a burst of authentic cacao complexity.',
+        val1: '4.5 kHz Snap',
+        val2: '100% Cocoa'
+      },
+      2: {
+        title: 'Exquisite Sauce Drips',
+        subtitle: 'Layer 02 — Fluid Core',
+        body: 'Beneath the hard crunch lies a flowing reservoir of rich, salted caramel sauce (or tangy raspberry glaze). Slowly prepared over low copper pans to ensure a velvety viscous texture that remains liquid even below freezing temperatures.',
+        val1: '-4°C Softness',
+        val2: 'All-Natural Salts'
+      },
+      3: {
+        title: 'Double-Churned Velvet Core',
+        subtitle: 'Layer 03 — Madagascan Ice Cream',
+        body: 'The interior is a slow-churned, rich cream base packed with real crushed orchid seeds harvested from the finest farms in northern Madagascar. The double-churning process ensures zero crystallization, maintaining smooth consistency.',
+        val1: 'Double Churned',
+        val2: 'Madagascar Seeds'
+      },
+      4: {
+        title: 'Branded Wood Base',
+        subtitle: 'Layer 04 — Premium Timber',
+        body: 'An ergonomic support crafted from FSC-certified sustainably grown timber. Machine-stamped and steam-curved to feel comfortable between fingers, ensuring no residue taste interferes with the complexity of Belgian chocolate.',
+        val1: 'FSC Certified',
+        val2: 'Odourless Steam'
+      }
+    };
+
+    // Hotspot activation switcher
+    function activateHotspot(id) {
+      playCrackSound();
+      
+      const content = hotspotData[id];
+      const div = document.getElementById('hotspotContent');
+      
+      // Fade out
+      div.style.opacity = '0';
+      div.style.transform = 'translateY(10px)';
+      
+      setTimeout(() => {
+        div.innerHTML = `
+          <div class="space-y-4">
+            <span class="text-xs tracking-widest uppercase font-bold text-brand-caramel">${content.subtitle}</span>
+            <h3 class="font-serif text-3xl md:text-4xl font-bold text-brand-creamLight">${content.title}</h3>
+            <p class="text-brand-cream/80 leading-relaxed text-sm md:text-base">
+              ${content.body}
+            </p>
+            
+            <div class="grid grid-cols-2 gap-4 pt-4 border-t border-brand-cream/10">
+              <div>
+                <span class="text-[11px] text-brand-cream/50 uppercase tracking-widest block">Core Spec</span>
+                <span class="font-serif text-xl font-bold text-brand-caramel">${content.val1}</span>
+              </div>
+              <div>
+                <span class="text-[11px] text-brand-cream/50 uppercase tracking-widest block">Craftsmanship</span>
+                <span class="font-serif text-xl font-bold text-brand-caramel">${content.val2}</span>
+              </div>
+            </div>
+          </div>
+        `;
+        // Fade in
+        div.style.opacity = '1';
+        div.style.transform = 'none';
+      }, 200);
+
+      // Highlight active button indicators in pagination
+      for (let i = 1; i <= 4; i++) {
+        const btn = document.getElementById(`hotspotTab${i}`);
+        if (i === id) {
+          btn.className = "w-10 h-10 rounded-full bg-brand-cream text-brand-chocolateDark font-bold text-xs transition-colors";
+        } else {
+          btn.className = "w-10 h-10 rounded-full bg-brand-cream/10 text-brand-cream hover:bg-brand-cream/20 font-bold text-xs transition-colors";
+        }
+      }
+    }
+
+    // Form submission simulation
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const success = document.getElementById('formSuccessMsg');
+      success.classList.remove('hidden');
+      success.style.opacity = '0';
+      setTimeout(() => {
+        success.style.opacity = '1';
+      }, 50);
+    }
+
+    // Parallax interactive mouse-move effect on the ice cream stick!
+    const parallaxEl = document.querySelector('[hover-parallax]');
+    if (parallaxEl) {
+      document.addEventListener('mousemove', (e) => {
+        const x = (window.innerWidth / 2 - e.clientX) / 25;
+        const y = (window.innerHeight / 2 - e.clientY) / 25;
+        parallaxEl.style.transform = `translateY(${y}px) translateX(${x}px) rotate(${x * 0.1}deg)`;
+      });
+    }
+  </script>
+</body>
+</html>
+14

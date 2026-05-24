@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digitally — Discover, Collect & Sell Rare NFTs</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Space Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        display: ['"Space Grotesk"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#131b26',
+                            muted: '#4a5568',
+                            mint: '#b9f2e5',
+                            glow: '#dcfce7',
+                            lightBg: '#e9f5f3',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Exact color language, soft grain overlay, and atmosphere from the reference image */
+        body {
+            background: radial-gradient(circle at 10% 20%, rgba(220, 245, 241, 0.7) 0%, rgba(225, 241, 245, 0.7) 40%, rgba(239, 246, 245, 0.9) 100%);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #131b26;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Subtle textured grain to match the premium tactile feel of the inspiration image */
+        .grain-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 99;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3 Trick %3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Floating elements animations */
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(2deg); }
+        }
+        @keyframes orbit {
+            0% { transform: rotate(0deg) translateX(15px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(15px) rotate(-360deg); }
+        }
+        @keyframes glow-pulse {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 0.9; transform: scale(1.1); }
+        }
+
+        .animate-float {
+            animation: float-slow 8s ease-in-out infinite;
+        }
+        
+        .animate-orbit {
+            animation: orbit 12s linear infinite;
+        }
+
+        .glow-sphere {
+            filter: blur(80px);
+            animation: glow-pulse 6s ease-in-out infinite;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(225, 241, 245, 0.5);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Glassmorphism utility */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .glass-nav {
+            background: rgba(239, 246, 245, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+        }
+    </style>
+</head>
+<body class="min-h-screen selection:bg-brand-mint selection:text-brand-dark">
+
+    <!-- Texture Grain Overlay -->
+    <div class="grain-overlay"></div>
+
+    <!-- Soft Ambient Light Glows -->
+    <div class="absolute top-[10%] left-[20%] w-[350px] h-[350px] bg-emerald-100 rounded-full glow-sphere -z-10 pointer-events-none"></div>
+    <div class="absolute top-[40%] right-[10%] w-[450px] h-[450px] bg-sky-100 rounded-full glow-sphere -z-10 pointer-events-none"></div>
+    <div class="absolute bottom-[10%] left-[5%] w-[400px] h-[400px] bg-teal-50 rounded-full glow-sphere -z-10 pointer-events-none"></div>
+
+    <!-- MAIN NAVBAR -->
+    <header class="sticky top-0 w-full z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center space-x-2 group">
+                <span class="font-display font-extrabold text-2xl tracking-tight text-brand-dark transition-colors duration-300 group-hover:text-emerald-700">
+                    Digitally
+                </span>
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-brand-dark/80">
+                <a href="#marketplace" class="hover:text-brand-dark transition-colors duration-200 py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-brand-dark after:transition-all hover:after:w-full">Marketplace</a>
+                <a href="#simulator" class="hover:text-brand-dark transition-colors duration-200 py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-brand-dark after:transition-all hover:after:w-full">Instant Mint</a>
+                <a href="#discover" class="hover:text-brand-dark transition-colors duration-200 py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-brand-dark after:transition-all hover:after:w-full">Creators</a>
+                <a href="#faq" class="hover:text-brand-dark transition-colors duration-200 py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-brand-dark after:transition-all hover:after:w-full">FAQ</a>
+            </nav>
+
+            <!-- Action CTAs -->
+            <div class="flex items-center space-x-4">
+                <button onclick="toggleWalletModal()" class="text-sm font-bold text-brand-dark hover:opacity-80 transition-opacity hidden sm:inline-block">
+                    Sign Up
+                </button>
+                <span class="text-gray-300 hidden sm:inline-block">|</span>
+                <button onclick="toggleWalletModal()" id="connect-wallet-btn" class="px-6 py-2.5 bg-brand-dark hover:bg-brand-dark/95 text-white font-bold text-sm rounded-full shadow-lg shadow-brand-dark/10 transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0">
+                    Connect Wallet
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <main class="max-w-7xl mx-auto px-6 pt-8 pb-20 relative">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center min-h-[80vh] relative">
+            
+            <!-- Left Info Component (Responsive Column) -->
+            <div class="lg:col-span-3 order-2 lg:order-1 flex flex-col justify-center space-y-8 z-20">
+                <div class="space-y-4">
+                    <p class="text-xs font-bold tracking-widest text-brand-dark/50 uppercase">
+                        // PLATFORM PRINCIPLE
+                    </p>
+                    <p class="text-brand-dark/85 text-base leading-relaxed font-medium">
+                        The first NFT market place that enables creators to choose and embed smart licenses when they mint and trade digital assets.
+                    </p>
+                </div>
+
+                <!-- Custom Circular Button matching reference image -->
+                <a href="#marketplace" class="group flex items-center space-x-4 w-fit">
+                    <span class="font-bold text-brand-dark text-base tracking-wide group-hover:underline">
+                        Discover Now
+                    </span>
+                    <div class="w-12 h-12 rounded-full border border-brand-dark/20 flex items-center justify-center transition-all duration-300 group-hover:bg-brand-dark group-hover:text-white group-hover:scale-110">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                        </svg>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Central Visual Showcase (Responsive Centerpiece) -->
+            <div class="lg:col-span-6 order-1 lg:order-2 flex flex-col items-center justify-center relative select-none h-[420px] sm:h-[550px]">
+                
+                <!-- Massive Background Display Typography -->
+                <div class="absolute inset-0 flex flex-col justify-center items-center pointer-events-none z-0">
+                    <div class="text-center font-display leading-none select-none tracking-tight">
+                        <!-- "RARE" in styled tracking text -->
+                        <span class="block text-2xl sm:text-4xl font-light tracking-[0.4em] text-brand-dark opacity-90 uppercase mb-2">
+                            RARE
+                        </span>
+                        <!-- "NFT" in massive iconic display font (behind the character) -->
+                        <span class="block text-[110px] sm:text-[180px] md:text-[230px] font-extrabold tracking-tighter text-brand-dark leading-none">
+                            NFT
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Circular Glowing Halos/Orbits (matching reference design style) -->
+                <div class="absolute w-[280px] h-[280px] sm:w-[420px] sm:h-[420px] rounded-full border border-brand-dark/5 flex items-center justify-center animate-orbit">
+                    <div class="absolute top-2 left-10 w-4 h-4 rounded-full bg-emerald-300 shadow-md"></div>
+                </div>
+                <div class="absolute w-[230px] h-[230px] sm:w-[350px] sm:h-[350px] rounded-full border-2 border-dashed border-emerald-500/10 animate-float"></div>
+                <div class="absolute w-[180px] h-[180px] sm:w-[280px] sm:h-[280px] rounded-full bg-white/20 backdrop-blur-md border border-white/60 shadow-inner"></div>
+
+                <!-- Custom Vector Character (The Legendary White Parka Ape from the inspiration) -->
+                <div class="absolute bottom-0 w-[240px] sm:w-[360px] h-[240px] sm:h-[360px] z-10 animate-float">
+                    <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-[0_25px_35px_rgba(19,27,38,0.15)]">
+                        <!-- Hood Backing -->
+                        <path d="M100 240 C100 120, 300 120, 300 240 C300 320, 270 350, 200 350 C130 350, 100 320, 100 240 Z" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="4"/>
+                        <!-- Fluffy Fur Ring of Hood -->
+                        <path d="M90 240 C90 100, 310 100, 310 240 C310 330, 280 370, 200 370 C120 370, 90 330, 90 240 Z" fill="none" stroke="#FFFFFF" stroke-width="20" stroke-linecap="round"/>
+                        <path d="M90 240 C90 100, 310 100, 310 240 C310 330, 280 370, 200 370 C120 370, 90 330, 90 240 Z" fill="none" stroke="#E2E8F0" stroke-width="8" stroke-dasharray="12 8" stroke-linecap="round"/>
+                        
+                        <!-- Inside Hood Shadow -->
+                        <path d="M120 240 C120 140, 280 140, 280 240 C280 310, 260 330, 200 330 C140 330, 120 310, 120 240 Z" fill="#E2E8F0"/>
+                        
+                        <!-- Face (Ape Character) -->
+                        <path d="M140 250 C140 190, 260 190, 260 250 C260 290, 240 310, 200 310 C160 310, 140 290, 140 250 Z" fill="#DDB892"/>
+                        
+                        <!-- Face Tattoos & Markings -->
+                        <!-- Eyes Closed/Bored -->
+                        <path d="M165 240 C175 235, 185 240, 185 240" stroke="#4A3728" stroke-width="4" stroke-linecap="round"/>
+                        <path d="M215 240 C225 235, 235 240, 235 240" stroke="#4A3728" stroke-width="4" stroke-linecap="round"/>
+                        <!-- Bored Eyebrow/Under-eye bags -->
+                        <path d="M165 250 Q175 248 185 250" stroke="#7F5539" stroke-width="2"/>
+                        <path d="M215 250 Q225 248 235 250" stroke="#7F5539" stroke-width="2"/>
+                        
+                        <!-- Snout -->
+                        <path d="M160 270 C160 255, 240 255, 240 270 C240 295, 220 305, 200 305 C180 305, 160 295, 160 270 Z" fill="#CB997E"/>
+                        <!-- Nose Nostrils -->
+                        <circle cx="192" cy="272" r="3" fill="#6F4E37"/>
+                        <circle cx="208" cy="272" r="3" fill="#6F4E37"/>
+                        <!-- Bored Mouth Line -->
+                        <path d="M175 288 Q200 284 225 288" stroke="#4A3728" stroke-width="3.5" stroke-linecap="round"/>
+                        
+                        <!-- Tribal/Tattoo detailing on skin -->
+                        <path d="M190 215 L210 215 M200 205 L200 225" stroke="#4A3728" stroke-width="2" opacity="0.4"/>
+                        <circle cx="155" cy="275" r="2" fill="#4A3728" opacity="0.5"/>
+                        <circle cx="245" cy="275" r="2" fill="#4A3728" opacity="0.5"/>
+
+                        <!-- Custom Cap (The elegant white cap worn under the hood) -->
+                        <path d="M148 220 C148 185, 252 185, 252 220 Z" fill="#FFFFFF"/>
+                        <!-- Cap visor -->
+                        <path d="M140 220 C140 220, 150 228, 200 228 C250 228, 260 220, 260 220 L255 214 L145 214 Z" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="2"/>
+                        <!-- H Lettermark on Cap -->
+                        <text x="200" y="212" font-family="'Space Grotesk', sans-serif" font-weight="bold" font-size="16" fill="#E2E8F0" text-anchor="middle">H</text>
+
+                        <!-- High Collar/Coat Detail -->
+                        <path d="M140 325 L260 325 L245 380 L155 380 Z" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="4"/>
+                        <!-- Silver chain underneath -->
+                        <path d="M180 340 Q200 365 220 340" fill="none" stroke="#94A3B8" stroke-width="5" stroke-linecap="round"/>
+                        <path d="M182 344 Q200 365 218 344" fill="none" stroke="#CBD5E1" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Right Info Component (Responsive Column) -->
+            <div class="lg:col-span-3 order-3 flex flex-col justify-center space-y-8 z-20">
+                <!-- Discover, Collect & Sell Accent -->
+                <div class="text-right hidden lg:block">
+                    <p class="font-display font-medium text-lg text-brand-dark/80">
+                        Discover , Collect & Sell
+                    </p>
+                    <div class="h-[2px] w-24 bg-brand-dark/20 ml-auto mt-2"></div>
+                </div>
+
+                <!-- 10K+ Creators Stat Badge (matches the exact UI in reference image) -->
+                <div class="glass-card p-6 rounded-3xl shadow-xl shadow-emerald-950/5 flex items-center space-x-5 max-w-sm ml-auto mr-auto lg:mr-0 transition-all duration-300 hover:scale-[1.03]">
+                    <div class="flex -space-x-3 overflow-hidden">
+                        <!-- Creator Avatars with nice pastel styling -->
+                        <div class="inline-block h-10 w-10 rounded-full ring-2 ring-white bg-blue-100 flex items-center justify-center text-xs font-bold text-blue-600">🎨</div>
+                        <div class="inline-block h-10 w-10 rounded-full ring-2 ring-white bg-emerald-100 flex items-center justify-center text-xs font-bold text-emerald-600">👾</div>
+                        <!-- Custom Play/Audio icon as seen in photo -->
+                        <div class="inline-block h-10 w-10 rounded-full ring-2 ring-white bg-brand-dark flex items-center justify-center text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-4 h-4 text-emerald-300">
+                                <path d="M8 5v14l11-7z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-display font-bold text-brand-dark text-lg leading-none">10K+ CREATORS</h4>
+                        <p class="text-xs text-brand-dark/60 mt-1 font-medium leading-normal">
+                            The first NFT market place that enables creators to choose.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- TRUSTED BY / MARQUEE -->
+    <section class="border-y border-brand-dark/10 py-8 bg-white/20 backdrop-blur-sm select-none overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <p class="text-center text-xs font-bold tracking-[0.2em] text-brand-dark/40 uppercase mb-6">
+                INTEGRATED WITH LEADING WEB3 PROTOCOLS
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-12 md:gap-20">
+                <div class="flex items-center space-x-2 opacity-50 hover:opacity-100 transition-opacity">
+                    <span class="font-display font-bold text-xl text-brand-dark">Ethereum</span>
+                </div>
+                <div class="flex items-center space-x-2 opacity-50 hover:opacity-100 transition-opacity">
+                    <span class="font-display font-bold text-xl text-brand-dark">Solana</span>
+                </div>
+                <div class="flex items-center space-x-2 opacity-50 hover:opacity-100 transition-opacity">
+                    <span class="font-display font-bold text-xl text-brand-dark">Polygon</span>
+                </div>
+                <div class="flex items-center space-x-2 opacity-50 hover:opacity-100 transition-opacity">
+                    <span class="font-display font-bold text-xl text-brand-dark">Metamask</span>
+                </div>
+                <div class="flex items-center space-x-2 opacity-50 hover:opacity-100 transition-opacity">
+                    <span class="font-display font-bold text-xl text-brand-dark">IPFS Secure</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIVE AUCTIONS / MARKETPLACE -->
+    <section id="marketplace" class="py-24 max-w-7xl mx-auto px-6">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+            <div>
+                <span class="text-xs font-bold tracking-widest text-emerald-600 uppercase">// DISCOVER EXCELLENCE</span>
+                <h2 class="text-4xl sm:text-5xl font-display font-bold text-brand-dark mt-2 tracking-tight">
+                    Live Hot Auctions
+                </h2>
+            </div>
+            <!-- Interactive Category Pills -->
+            <div class="flex flex-wrap gap-2">
+                <button onclick="filterMarket('all')" id="btn-all" class="px-5 py-2.5 rounded-full text-xs font-bold bg-brand-dark text-white transition-all">
+                    All Collections
+                </button>
+                <button onclick="filterMarket('art')" id="btn-art" class="px-5 py-2.5 rounded-full text-xs font-bold bg-white/50 text-brand-dark hover:bg-white/80 transition-all border border-brand-dark/10">
+                    Digital Art
+                </button>
+                <button onclick="filterMarket('avatars')" id="btn-avatars" class="px-5 py-2.5 rounded-full text-xs font-bold bg-white/50 text-brand-dark hover:bg-white/80 transition-all border border-brand-dark/10">
+                    Avatars
+                </button>
+                <button onclick="filterMarket('meta')" id="btn-meta" class="px-5 py-2.5 rounded-full text-xs font-bold bg-white/50 text-brand-dark hover:bg-white/80 transition-all border border-brand-dark/10">
+                    Metaverse
+                </button>
+            </div>
+        </div>
+
+        <!-- Auction Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Card 1 -->
+            <div class="glass-card rounded-[32px] p-4 flex flex-col justify-between shadow-xl shadow-brand-dark/5 hover:shadow-2xl hover:shadow-brand-dark/10 transition-all duration-300 transform hover:-translate-y-2 group" data-category="art">
+                <div class="relative overflow-hidden rounded-[24px] aspect-square bg-gradient-to-tr from-teal-100 to-amber-100 flex items-center justify-center">
+                    <!-- Custom Beautiful Premium Artwork Visual representation -->
+                    <div class="absolute inset-0 bg-cover bg-center mix-blend-multiply opacity-80" style="background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80');"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/65 via-transparent to-transparent"></div>
+                    
+                    <!-- Mint Floating Badge -->
+                    <span class="absolute top-4 left-4 px-3.5 py-1.5 rounded-full bg-white/95 backdrop-blur-md text-[10px] font-extrabold text-brand-dark shadow-sm">
+                        ARTWORK #1024
+                    </span>
+
+                    <!-- Time Left Clock Dynamic Visual -->
+                    <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white">
+                        <span class="text-xs font-bold bg-brand-dark/80 px-3 py-1.5 rounded-full backdrop-blur-md flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                            08h : 14m : 55s
+                        </span>
+                        <span class="text-xs font-extrabold tracking-wider bg-emerald-500/95 px-3 py-1.5 rounded-full shadow-lg">
+                            ACTIVE
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Info Block -->
+                <div class="p-4 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-display font-bold text-lg text-brand-dark group-hover:text-emerald-700 transition-colors">
+                            Cosmic Aurora Aura
+                        </h3>
+                        <span class="text-xs font-bold text-brand-dark/40">CC-BY 4.0</span>
+                    </div>
+
+                    <!-- Creator info and bids -->
+                    <div class="flex items-center justify-between pt-2 border-t border-brand-dark/5">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-emerald-200 flex items-center justify-center text-xs">🌌</div>
+                            <div>
+                                <p class="text-[10px] text-brand-dark/40 font-bold">CREATOR</p>
+                                <p class="text-xs font-bold text-brand-dark">@aurora_maker</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-[10px] text-brand-dark/40 font-bold">CURRENT BID</p>
+                            <p class="text-sm font-black text-brand-dark">2.45 ETH</p>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Place Bid Trigger -->
+                    <button onclick="simulateBid('Cosmic Aurora Aura', '2.45')" class="w-full py-3.5 bg-brand-dark text-white text-xs font-bold rounded-2xl hover:bg-emerald-600 transition-all shadow-md shadow-brand-dark/10 group-hover:scale-[1.01]">
+                        Place Instant Bid
+                    </button>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="glass-card rounded-[32px] p-4 flex flex-col justify-between shadow-xl shadow-brand-dark/5 hover:shadow-2xl hover:shadow-brand-dark/10 transition-all duration-300 transform hover:-translate-y-2 group" data-category="avatars">
+                <div class="relative overflow-hidden rounded-[24px] aspect-square bg-gradient-to-tr from-purple-100 to-emerald-100 flex items-center justify-center">
+                    <div class="absolute inset-0 bg-cover bg-center mix-blend-multiply opacity-80" style="background-image: url('https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=600&q=80');"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/65 via-transparent to-transparent"></div>
+                    
+                    <span class="absolute top-4 left-4 px-3.5 py-1.5 rounded-full bg-white/95 backdrop-blur-md text-[10px] font-extrabold text-brand-dark shadow-sm">
+                        AVATAR #8893
+                    </span>
+
+                    <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white">
+                        <span class="text-xs font-bold bg-brand-dark/80 px-3 py-1.5 rounded-full backdrop-blur-md flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                            03h : 05m : 11s
+                        </span>
+                        <span class="text-xs font-extrabold tracking-wider bg-emerald-500/95 px-3 py-1.5 rounded-full shadow-lg">
+                            ACTIVE
+                        </span>
+                    </div>
+                </div>
+
+                <div class="p-4 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-display font-bold text-lg text-brand-dark group-hover:text-emerald-700 transition-colors">
+                            Cyber Ape Hoodie #01
+                        </h3>
+                        <span class="text-xs font-bold text-brand-dark/40">CC0 License</span>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-2 border-t border-brand-dark/5">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-purple-200 flex items-center justify-center text-xs">🐵</div>
+                            <div>
+                                <p class="text-[10px] text-brand-dark/40 font-bold">CREATOR</p>
+                                <p class="text-xs font-bold text-brand-dark">@crypto_hype</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-[10px] text-brand-dark/40 font-bold">CURRENT BID</p>
+                            <p class="text-sm font-black text-brand-dark">1.89 ETH</p>
+                        </div>
+                    </div>
+
+                    <button onclick="simulateBid('Cyber Ape Hoodie #01', '1.89')" class="w-full py-3.5 bg-brand-dark text-white text-xs font-bold rounded-2xl hover:bg-emerald-600 transition-all shadow-md shadow-brand-dark/10 group-hover:scale-[1.01]">
+                        Place Instant Bid
+                    </button>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="glass-card rounded-[32px] p-4 flex flex-col justify-between shadow-xl shadow-brand-dark/5 hover:shadow-2xl hover:shadow-brand-dark/10 transition-all duration-300 transform hover:-translate-y-2 group" data-category="meta">
+                <div class="relative overflow-hidden rounded-[24px] aspect-square bg-gradient-to-tr from-rose-100 to-indigo-100 flex items-center justify-center">
+                    <div class="absolute inset-0 bg-cover bg-center mix-blend-multiply opacity-80" style="background-image: url('https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?auto=format&fit=crop&w=600&q=80');"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/65 via-transparent to-transparent"></div>
+                    
+                    <span class="absolute top-4 left-4 px-3.5 py-1.5 rounded-full bg-white/95 backdrop-blur-md text-[10px] font-extrabold text-brand-dark shadow-sm">
+                        TERRAIN #452
+                    </span>
+
+                    <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white">
+                        <span class="text-xs font-bold bg-brand-dark/80 px-3 py-1.5 rounded-full backdrop-blur-md flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                            19h : 42m : 02s
+                        </span>
+                        <span class="text-xs font-extrabold tracking-wider bg-emerald-500/95 px-3 py-1.5 rounded-full shadow-lg">
+                            ACTIVE
+                        </span>
+                    </div>
+                </div>
+
+                <div class="p-4 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-display font-bold text-lg text-brand-dark group-hover:text-emerald-700 transition-colors">
+                            Neo-Tokyo Virtual Penthouse
+                        </h3>
+                        <span class="text-xs font-bold text-brand-dark/40">Exclusive Ownership</span>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-2 border-t border-brand-dark/5">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-amber-200 flex items-center justify-center text-xs">🏙️</div>
+                            <div>
+                                <p class="text-[10px] text-brand-dark/40 font-bold">CREATOR</p>
+                                <p class="text-xs font-bold text-brand-dark">@arch_meta</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-[10px] text-brand-dark/40 font-bold">CURRENT BID</p>
+                            <p class="text-sm font-black text-brand-dark">4.12 ETH</p>
+                        </div>
+                    </div>
+
+                    <button onclick="simulateBid('Neo-Tokyo Virtual Penthouse', '4.12')" class="w-full py-3.5 bg-brand-dark text-white text-xs font-bold rounded-2xl hover:bg-emerald-600 transition-all shadow-md shadow-brand-dark/10 group-hover:scale-[1.01]">
+                        Place Instant Bid
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- INTERACTIVE "INSTANT MINT" CREATOR SIMULATOR -->
+    <section id="simulator" class="py-24 bg-white/30 backdrop-blur-md border-y border-brand-dark/10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                
+                <!-- Left Details & Simulator Panel -->
+                <div class="lg:col-span-5 space-y-8">
+                    <div>
+                        <span class="text-xs font-bold tracking-widest text-emerald-600 uppercase">// ZERO CODE MINTER</span>
+                        <h2 class="text-4xl sm:text-5xl font-display font-bold text-brand-dark mt-2 tracking-tight">
+                            Generate & Mint Your Artwork
+                        </h2>
+                        <p class="text-brand-dark/70 text-base leading-relaxed mt-4">
+                            Experiment with custom design attributes instantly below. Choose base gradients, metadata parameters, and watch your preview generate in real-time. Connect wallet to experience simulated Web3 minting.
+                        </p>
+                    </div>
+
+                    <!-- Custom Form Inputs with pristine matching style -->
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-xs font-bold text-brand-dark/60 tracking-wider uppercase mb-2">
+                                Artwork Name
+                            </label>
+                            <input type="text" id="mint-name" value="Futuristic Cyber Abstract" oninput="updateMintPreview()" class="w-full px-5 py-4 bg-white/70 border border-brand-dark/10 rounded-2xl text-sm font-semibold text-brand-dark focus:outline-none focus:border-emerald-500 transition-all">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-brand-dark/60 tracking-wider uppercase mb-2">
+                                Royalty Share (%)
+                            </label>
+                            <input type="range" id="mint-royalty" min="1" max="15" value="5" oninput="updateMintPreview()" class="w-full accent-emerald-500 bg-brand-dark/5 rounded-lg appearance-none h-2 cursor-pointer">
+                            <div class="flex justify-between text-xs font-semibold text-brand-dark/50 mt-1">
+                                <span>1%</span>
+                                <span id="royalty-value" class="text-emerald-600 font-bold">5% Royalty</span>
+                                <span>15%</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-brand-dark/60 tracking-wider uppercase mb-2">
+                                Choose Palette Scheme
+                            </label>
+                            <div class="grid grid-cols-3 gap-3">
+                                <button onclick="selectPalette('neon-emerald')" class="py-3 px-2 rounded-xl border border-brand-dark/10 font-bold text-xs bg-emerald-50 text-emerald-800 flex items-center justify-center gap-1.5 focus:border-emerald-500 transition-all">
+                                    <span class="w-3 h-3 rounded-full bg-emerald-400 inline-block"></span> Minty Glow
+                                </button>
+                                <button onclick="selectPalette('solar-sunset')" class="py-3 px-2 rounded-xl border border-brand-dark/10 font-bold text-xs bg-amber-50 text-amber-800 flex items-center justify-center gap-1.5 focus:border-amber-500 transition-all">
+                                    <span class="w-3 h-3 rounded-full bg-amber-400 inline-block"></span> Solar Flare
+                                </button>
+                                <button onclick="selectPalette('cyber-space')" class="py-3 px-2 rounded-xl border border-brand-dark/10 font-bold text-xs bg-indigo-50 text-indigo-800 flex items-center justify-center gap-1.5 focus:border-indigo-500 transition-all">
+                                    <span class="w-3 h-3 rounded-full bg-indigo-400 inline-block"></span> Cyber Dust
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CTA to execute simulated mint -->
+                    <button onclick="triggerSimulatedMint()" class="w-full sm:w-auto px-8 py-4 bg-brand-dark hover:bg-emerald-600 text-white font-bold text-sm rounded-full shadow-lg transition-all duration-300 transform hover:-translate-y-0.5">
+                        Simulate Direct Mint
+                    </button>
+                </div>
+
+                <!-- Right Live Preview Card Component -->
+                <div class="lg:col-span-7 flex justify-center">
+                    <div class="glass-card p-6 rounded-[40px] shadow-2xl shadow-brand-dark/10 max-w-md w-full relative">
+                        <div class="absolute -top-4 -right-4 px-4 py-2 bg-emerald-400 text-brand-dark font-extrabold text-[10px] rounded-full tracking-wider shadow-md animate-bounce uppercase">
+                            LIVE GENERATION
+                        </div>
+
+                        <!-- Changing visual placeholder -->
+                        <div id="preview-art-box" class="w-full aspect-[4/3] rounded-[30px] bg-gradient-to-tr from-emerald-100 to-teal-200 flex flex-col items-center justify-center relative overflow-hidden transition-all duration-500">
+                            <!-- Inside artwork display -->
+                            <div class="absolute inset-0 bg-cover bg-center mix-blend-overlay opacity-50" style="background-image: url('https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=600&q=80');"></div>
+                            
+                            <!-- Dynamic changing central glowing vector graphic -->
+                            <div id="preview-icon" class="w-24 h-24 rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center shadow-lg text-4xl animate-float">
+                                💎
+                            </div>
+                        </div>
+
+                        <!-- Card metadata -->
+                        <div class="mt-6 space-y-4">
+                            <div>
+                                <p class="text-[10px] font-bold tracking-widest text-brand-dark/40 uppercase">LIVE PREVIEW SPECIFICATIONS</p>
+                                <h3 id="preview-title" class="font-display font-bold text-2xl text-brand-dark mt-1">
+                                    Futuristic Cyber Abstract
+                                </h3>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4 pt-4 border-t border-brand-dark/5 text-sm font-semibold">
+                                <div>
+                                    <p class="text-xs text-brand-dark/40 font-bold">SMART CONTRACT</p>
+                                    <p class="text-brand-dark font-mono text-xs mt-0.5">0x71C...9E2a</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-brand-dark/40 font-bold">ROYALTY</p>
+                                    <p id="preview-royalty" class="text-emerald-600 font-extrabold text-sm mt-0.5">5% Split</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PREMIUM PLATFORM CAPABILITIES / VALUES -->
+    <section id="discover" class="py-24 max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-3xl mx-auto mb-20">
+            <span class="text-xs font-bold tracking-widest text-emerald-600 uppercase">// PLATFORM PRINCIPLES</span>
+            <h2 class="text-4xl sm:text-5xl font-display font-bold text-brand-dark mt-3 tracking-tight">
+                Designed for True Collectors
+            </h2>
+            <p class="text-brand-dark/70 text-base leading-relaxed mt-4">
+                We believe that digital ownership should have clarity. Our smart-contract layer empowers creator security while fostering secondary marketplace confidence.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <!-- Value Item 1 -->
+            <div class="glass-card p-10 rounded-[40px] border border-white/60 shadow-xl shadow-brand-dark/5 hover:scale-[1.02] transition-transform duration-300">
+                <div class="w-14 h-14 rounded-full bg-emerald-100 flex items-center justify-center text-2xl mb-8 shadow-sm">
+                    📜
+                </div>
+                <h3 class="font-display font-bold text-xl text-brand-dark mb-4">
+                    Embedded Licensing
+                </h3>
+                <p class="text-brand-dark/70 text-sm leading-relaxed font-medium">
+                    Unlike standard marketplaces, Digitally automatically embeds Creative Commons and customized commercial rights directly into token smart contracts.
+                </p>
+            </div>
+
+            <!-- Value Item 2 -->
+            <div class="glass-card p-10 rounded-[40px] border border-white/60 shadow-xl shadow-brand-dark/5 hover:scale-[1.02] transition-transform duration-300">
+                <div class="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center text-2xl mb-8 shadow-sm">
+                    ⚡
+                </div>
+                <h3 class="font-display font-bold text-xl text-brand-dark mb-4">
+                    Ultra-Low Gas Minting
+                </h3>
+                <p class="text-brand-dark/70 text-sm leading-relaxed font-medium">
+                    Optimized ERC-721A and Solana protocols yield up to 85% lower transaction cost overhead, putting priority power and money back in creators’ wallets.
+                </p>
+            </div>
+
+            <!-- Value Item 3 -->
+            <div class="glass-card p-10 rounded-[40px] border border-white/60 shadow-xl shadow-brand-dark/5 hover:scale-[1.02] transition-transform duration-300">
+                <div class="w-14 h-14 rounded-full bg-amber-100 flex items-center justify-center text-2xl mb-8 shadow-sm">
+                    🌟
+                </div>
+                <h3 class="font-display font-bold text-xl text-brand-dark mb-4">
+                    Creator Co-ops
+                </h3>
+                <p class="text-brand-dark/70 text-sm leading-relaxed font-medium">
+                    Connect directly to our creator governance platform. Shape marketplace features, suggest contract standards, and share in platform-wide rewards.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- INTERACTIVE NOTIFICATIONS/ALERT LOG (Bottom Left Toast) -->
+    <div id="toast-message" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 max-w-sm w-full">
+        <div class="glass-card p-4 rounded-2xl shadow-2xl flex items-center space-x-3 border-l-4 border-emerald-500">
+            <span class="text-lg" id="toast-icon">🚀</span>
+            <div class="flex-1">
+                <p class="text-xs font-bold text-brand-dark" id="toast-title">Notification</p>
+                <p class="text-[11px] text-brand-dark/70" id="toast-body">Details here.</p>
+            </div>
+            <button onclick="dismissToast()" class="text-brand-dark/40 hover:text-brand-dark">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- WALLET SIMULATOR MODAL -->
+    <div id="wallet-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-brand-dark/20 backdrop-blur-sm hidden transition-opacity duration-300">
+        <div class="glass-card max-w-md w-full mx-4 rounded-[36px] overflow-hidden shadow-2xl border border-white/80 transform scale-95 transition-transform duration-300">
+            <div class="p-8 space-y-6">
+                <div class="flex justify-between items-center">
+                    <h3 class="font-display font-bold text-2xl text-brand-dark">
+                        Simulate Wallet
+                    </h3>
+                    <button onclick="toggleWalletModal()" class="w-8 h-8 rounded-full bg-brand-dark/5 flex items-center justify-center hover:bg-brand-dark/15">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <p class="text-brand-dark/70 text-sm">
+                    Select a simulated mock wallet to instantly link, enabling marketplace and creator simulation functionality without installing external extensions.
+                </p>
+
+                <div class="space-y-3">
+                    <button onclick="selectWallet('Metamask')" class="w-full p-4 rounded-2xl border border-brand-dark/10 hover:border-emerald-500 hover:bg-emerald-50/50 flex items-center justify-between font-bold text-sm text-brand-dark transition-all">
+                        <span class="flex items-center space-x-3">
+                            <span class="text-xl">🦊</span>
+                            <span>Metamask Simulator</span>
+                        </span>
+                        <span class="text-xs text-emerald-600 font-extrabold">POPULAR</span>
+                    </button>
+                    <button onclick="selectWallet('Phantom')" class="w-full p-4 rounded-2xl border border-brand-dark/10 hover:border-emerald-500 hover:bg-emerald-50/50 flex items-center justify-between font-bold text-sm text-brand-dark transition-all">
+                        <span class="flex items-center space-x-3">
+                            <span class="text-xl">👻</span>
+                            <span>Phantom Wallet Simulator</span>
+                        </span>
+                        <span class="text-xs text-blue-600 font-extrabold">FAST</span>
+                    </button>
+                    <button onclick="selectWallet('Coinbase')" class="w-full p-4 rounded-2xl border border-brand-dark/10 hover:border-emerald-500 hover:bg-emerald-50/50 flex items-center justify-between font-bold text-sm text-brand-dark transition-all">
+                        <span class="flex items-center space-x-3">
+                            <span class="text-xl">🔵</span>
+                            <span>Coinbase Mock SDK</span>
+                        </span>
+                        <span class="text-xs text-gray-500">LEGACY</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ ACCORDION SECTION -->
+    <section id="faq" class="py-24 max-w-4xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <span class="text-xs font-bold tracking-widest text-emerald-600 uppercase">// ASSISTANCE & INQUIRY</span>
+            <h2 class="text-4xl font-display font-bold text-brand-dark mt-2">
+                Frequently Asked Questions
+            </h2>
+        </div>
+
+        <div class="space-y-4">
+            <!-- Accordion 1 -->
+            <div class="glass-card rounded-2xl overflow-hidden transition-all border border-white/60">
+                <button onclick="toggleFaq(1)" class="w-full p-6 text-left flex items-center justify-between font-display font-bold text-base text-brand-dark">
+                    <span>What is the smart license feature on Digitally?</span>
+                    <span id="faq-icon-1" class="transform transition-transform text-emerald-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+                    </span>
+                </button>
+                <div id="faq-ans-1" class="hidden px-6 pb-6 text-brand-dark/70 text-sm leading-relaxed">
+                    Unlike ordinary NFT marketplaces that only verify token ownership, Digitally embeds a legally-binding license agreement into the smart contract metadata. Creators can choose standard presets (e.g., Personal Use Only, CC-BY, CC0, Commercial Rights) or upload custom terms.
+                </div>
+            </div>
+
+            <!-- Accordion 2 -->
+            <div class="glass-card rounded-2xl overflow-hidden transition-all border border-white/60">
+                <button onclick="toggleFaq(2)" class="w-full p-6 text-left flex items-center justify-between font-display font-bold text-base text-brand-dark">
+                    <span>How can I test minting on this platform?</span>
+                    <span id="faq-icon-2" class="transform transition-transform text-emerald-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+                    </span>
+                </button>
+                <div id="faq-ans-2" class="hidden px-6 pb-6 text-brand-dark/70 text-sm leading-relaxed">
+                    You can try out our mock mint simulator above! Simply change your parameters, configure the name, and press "Simulate Direct Mint". It will run a local state simulator showing standard verification on a mock network block without spending real currency.
+                </div>
+            </div>
+
+            <!-- Accordion 3 -->
+            <div class="glass-card rounded-2xl overflow-hidden transition-all border border-white/60">
+                <button onclick="toggleFaq(3)" class="w-full p-6 text-left flex items-center justify-between font-display font-bold text-base text-brand-dark">
+                    <span>Are secondary royalty overrides supported?</span>
+                    <span id="faq-icon-3" class="transform transition-transform text-emerald-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+                    </span>
+                </button>
+                <div id="faq-ans-3" class="hidden px-6 pb-6 text-brand-dark/70 text-sm leading-relaxed">
+                    Yes, we employ ERC-2981 Multi-Chain Royalty protocols. This guarantees secondary sales on any compliant aggregator automatically respect and pay out configured royalties back to creators' wallets.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CALL TO ACTION (CTA) -->
+    <section class="py-20 px-6 max-w-6xl mx-auto">
+        <div class="glass-card p-12 sm:p-20 rounded-[50px] relative overflow-hidden flex flex-col items-center text-center space-y-8 shadow-2xl border border-white/80">
+            <!-- Decorative Light Blur Spheres inside Banner -->
+            <div class="absolute -top-12 -left-12 w-32 h-32 bg-emerald-200 rounded-full blur-2xl opacity-40"></div>
+            <div class="absolute -bottom-12 -right-12 w-48 h-48 bg-blue-200 rounded-full blur-2xl opacity-40"></div>
+
+            <span class="text-xs font-bold tracking-widest text-emerald-600 uppercase z-10">// ENTER THE UNIVERSE</span>
+            <h2 class="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-brand-dark tracking-tight max-w-3xl z-10 leading-none">
+                Begin Collecting Exceptional Digital Licensing Assets
+            </h2>
+            <p class="text-brand-dark/75 text-sm sm:text-base max-w-xl z-10 leading-relaxed font-medium">
+                Connect your mock wallet, configure your custom licenses, and list with the lowest gas premiums in the industry.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 w-full justify-center items-center z-10">
+                <input type="email" placeholder="Enter your email for platform updates" class="w-full sm:w-80 px-6 py-4 rounded-full bg-white/70 border border-brand-dark/10 focus:outline-none focus:border-emerald-500 font-semibold text-sm">
+                <button onclick="showToast('Success!', 'Successfully registered email for newsletter!', '📧')" class="w-full sm:w-auto px-8 py-4 bg-brand-dark hover:bg-emerald-600 text-white font-bold text-sm rounded-full transition-all duration-300">
+                    Join Waitlist
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-brand-dark/10 py-16 bg-white/10 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <!-- Column 1 -->
+            <div class="space-y-4">
+                <span class="font-display font-extrabold text-2xl tracking-tight text-brand-dark">
+                    Digitally
+                </span>
+                <p class="text-xs text-brand-dark/60 leading-relaxed font-medium">
+                    The premium Web3 digital arts marketplace emphasizing safe, secure contract licensing and robust creator royalties.
+                </p>
+                <div class="flex space-x-3 text-xs font-bold">
+                    <span class="px-2.5 py-1 rounded bg-brand-dark/5 text-brand-dark/60">MAINNET ACTIVE</span>
+                    <span class="px-2.5 py-1 rounded bg-emerald-100 text-emerald-700">v1.2.5</span>
+                </div>
+            </div>
+
+            <!-- Column 2 -->
+            <div class="space-y-4">
+                <h4 class="font-display font-bold text-brand-dark text-sm tracking-wider uppercase">Marketplace</h4>
+                <ul class="space-y-2 text-xs font-semibold text-brand-dark/70">
+                    <li><a href="#marketplace" class="hover:text-emerald-600">Trending Art</a></li>
+                    <li><a href="#marketplace" class="hover:text-emerald-600">Avatars Showcase</a></li>
+                    <li><a href="#marketplace" class="hover:text-emerald-600">Exclusive Lands</a></li>
+                    <li><a href="#marketplace" class="hover:text-emerald-600">Licensing Docs</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3 -->
+            <div class="space-y-4">
+                <h4 class="font-display font-bold text-brand-dark text-sm tracking-wider uppercase">Simulator Services</h4>
+                <ul class="space-y-2 text-xs font-semibold text-brand-dark/70">
+                    <li><a href="#simulator" class="hover:text-emerald-600">Mock Minter</a></li>
+                    <li><a href="#simulator" class="hover:text-emerald-600">Custom Attributes</a></li>
+                    <li><a href="#simulator" class="hover:text-emerald-600">Royalty Presets</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 4 -->
+            <div class="space-y-4">
+                <h4 class="font-display font-bold text-brand-dark text-sm tracking-wider uppercase">Legal & Compliance</h4>
+                <ul class="space-y-2 text-xs font-semibold text-brand-dark/70">
+                    <li><a href="#" class="hover:text-emerald-600">Privacy Protocols</a></li>
+                    <li><a href="#" class="hover:text-emerald-600">Terms of Licensing</a></li>
+                    <li><a href="#" class="hover:text-emerald-600">Smart Contract Audits</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-brand-dark/5 flex flex-col sm:flex-row justify-between items-center text-xs text-brand-dark/50 font-semibold gap-4">
+            <p>&copy; 2026 Digitally Technologies Inc. All simulated transactions reserved.</p>
+            <div class="flex space-x-6">
+                <a href="#" class="hover:text-brand-dark">Twitter / X</a>
+                <a href="#" class="hover:text-brand-dark">Discord Community</a>
+                <a href="#" class="hover:text-brand-dark">Github Hub</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- INTERACTIVE SCRIPTS -->
+    <script>
+        // State management
+        let walletConnected = false;
+        let selectedWalletName = "";
+        let mockWalletAddress = "0x71C5...9E2a";
+        let activeFilter = 'all';
+
+        // Filter marketplace cards
+        function filterMarket(category) {
+            activeFilter = category;
+            const buttons = ['all', 'art', 'avatars', 'meta'];
+            
+            // Toggle active style on buttons
+            buttons.forEach(btn => {
+                const el = document.getElementById(`btn-${btn}`);
+                if (btn === category) {
+                    el.className = "px-5 py-2.5 rounded-full text-xs font-bold bg-brand-dark text-white transition-all";
+                } else {
+                    el.className = "px-5 py-2.5 rounded-full text-xs font-bold bg-white/50 text-brand-dark hover:bg-white/80 transition-all border border-brand-dark/10";
+                }
+            });
+
+            // Filter items
+            const cards = document.querySelectorAll('[data-category]');
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Accordion functionality
+        function toggleFaq(num) {
+            const ans = document.getElementById(`faq-ans-${num}`);
+            const icon = document.getElementById(`faq-icon-${num}`);
+            
+            if (ans.classList.contains('hidden')) {
+                ans.classList.remove('hidden');
+                icon.style.transform = "rotate(180deg)";
+            } else {
+                ans.classList.add('hidden');
+                icon.style.transform = "rotate(0deg)";
+            }
+        }
+
+        // Dynamic Simulator Preview Update
+        function updateMintPreview() {
+            const nameInput = document.getElementById('mint-name').value;
+            const royaltyValue = document.getElementById('mint-royalty').value;
+            
+            document.getElementById('preview-title').innerText = nameInput ? nameInput : "Unnamed Masterpiece";
+            document.getElementById('royalty-value').innerText = `${royaltyValue}% Royalty`;
+            document.getElementById('preview-royalty').innerText = `${royaltyValue}% Split`;
+        }
+
+        // Color Palette Selector for Simulator
+        function selectPalette(palette) {
+            const previewBox = document.getElementById('preview-art-box');
+            const previewIcon = document.getElementById('preview-icon');
+            
+            if (palette === 'neon-emerald') {
+                previewBox.className = "w-full aspect-[4/3] rounded-[30px] bg-gradient-to-tr from-emerald-100 to-teal-200 flex flex-col items-center justify-center relative overflow-hidden transition-all duration-500";
+                previewIcon.innerText = "💎";
+            } else if (palette === 'solar-sunset') {
+                previewBox.className = "w-full aspect-[4/3] rounded-[30px] bg-gradient-to-tr from-amber-100 to-rose-200 flex flex-col items-center justify-center relative overflow-hidden transition-all duration-500";
+                previewIcon.innerText = "🔥";
+            } else if (palette === 'cyber-space') {
+                previewBox.className = "w-full aspect-[4/3] rounded-[30px] bg-gradient-to-tr from-indigo-200 to-sky-300 flex flex-col items-center justify-center relative overflow-hidden transition-all duration-500";
+                previewIcon.innerText = "🌌";
+            }
+            showToast("Palette Shift", `Switched design canvas theme to ${palette}`, "🎨");
+        }
+
+        // Simulated Mint Execution
+        function triggerSimulatedMint() {
+            const nameInput = document.getElementById('mint-name').value;
+            if (!walletConnected) {
+                showToast("Connection Required", "Please connect a simulated wallet first to authorize the mint transaction.", "⚠️");
+                toggleWalletModal();
+                return;
+            }
+
+            showToast("Authorizing Mint", `Sending secure transaction block to ${selectedWalletName}...`, "⚙️");
+            
+            setTimeout(() => {
+                showToast("Transaction Broadcasted", "Verifying contract metadata blocks on simulated mainnet...", "📡");
+                setTimeout(() => {
+                    showToast("Mint Successful! 🎉", `"${nameInput}" successfully created with ERC-2981 royalty structure!`, "✅");
+                }, 1500);
+            }, 1200);
+        }
+
+        // Simulated Placing Bids
+        function simulateBid(itemName, baseBid) {
+            const increment = (parseFloat(baseBid) + 0.15).toFixed(2);
+            if (!walletConnected) {
+                showToast("Connection Required", "Please connect a simulated wallet to record your instant signature bid.", "⚠️");
+                toggleWalletModal();
+                return;
+            }
+
+            showToast("Signing Bid Offer", `Submitting offer of ${increment} ETH for "${itemName}"...`, "✍️");
+            setTimeout(() => {
+                showToast("Offer Success", `Your bid of ${increment} ETH is now recorded on-chain.`, "✅");
+            }, 1000);
+        }
+
+        // Wallet simulated connection
+        function toggleWalletModal() {
+            const modal = document.getElementById('wallet-modal');
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                modal.style.opacity = '1';
+            } else {
+                modal.classList.add('hidden');
+                modal.style.opacity = '0';
+            }
+        }
+
+        function selectWallet(walletName) {
+            selectedWalletName = walletName;
+            walletConnected = true;
+            toggleWalletModal();
+            
+            // Update Navigation Button
+            const connectBtn = document.getElementById('connect-wallet-btn');
+            connectBtn.innerText = "0x71C...9E2a (Mock)";
+            connectBtn.className = "px-6 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-brand-dark font-extrabold text-sm rounded-full shadow-lg shadow-emerald-400/20 transition-all duration-300";
+
+            showToast("Wallet Synced", `Successfully loaded and synced simulated ${walletName} profile!`, "🦊");
+        }
+
+        // Toast Notification System
+        function showToast(title, body, icon = "📢") {
+            const toast = document.getElementById('toast-message');
+            document.getElementById('toast-title').innerText = title;
+            document.getElementById('toast-body').innerText = body;
+            document.getElementById('toast-icon').innerText = icon;
+
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            // Auto-dismiss after 4 seconds
+            setTimeout(() => {
+                dismissToast();
+            }, 4000);
+        }
+
+        function dismissToast() {
+            const toast = document.getElementById('toast-message');
+            toast.classList.add('translate-y-24', 'opacity-0');
+            toast.classList.remove('translate-y-0', 'opacity-100');
+        }
+    </script>
+</body>
+</html>
+8

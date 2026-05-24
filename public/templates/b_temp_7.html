@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folia — Biophilic Workspace & Ecological Intelligence Platform</title>
+    <!-- Google Fonts: Plus Jakarta Sans for ultra-modern UI, Playfair Display for organic/editorial headings -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        editorial: ['"Playfair Display"', 'serif'],
+                    },
+                    colors: {
+                        folia: {
+                            forest: '#132A13',
+                            deep: '#1b3322',
+                            jungle: '#224229',
+                            emerald: '#2D5A27',
+                            moss: '#3F7A4C',
+                            mint: '#A7F3D0',
+                            sage: '#8FBC8F',
+                            cream: '#F4F7F5',
+                            charcoal: '#1E2923',
+                        }
+                    },
+                    boxShadow: {
+                        'paper-1': '-2px 2px 5px rgba(0,0,0,0.08), -5px 10px 15px rgba(0,0,0,0.12)',
+                        'paper-2': '-5px 5px 10px rgba(0,0,0,0.12), -15px 15px 35px rgba(19, 42, 19, 0.2)',
+                        'paper-3': '-8px 8px 15px rgba(0,0,0,0.15), -25px 25px 50px rgba(19, 42, 19, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom smooth scroll and scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F4F7F5;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2D5A27;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1b3322;
+        }
+        
+        /* Shimmer background animation */
+        @keyframes subtle-float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(1deg); }
+        }
+        .animate-float-slow {
+            animation: subtle-float 8s ease-in-out infinite;
+        }
+        .animate-float-slower {
+            animation: subtle-float 12s ease-in-out infinite 2s;
+        }
+
+        /* Paper cut layers transition */
+        .layer-transition {
+            transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+    </style>
+</head>
+<body class="bg-folia-cream text-folia-charcoal font-sans overflow-x-hidden antialiased">
+
+    <!-- Toast Notification System -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 max-w-sm pointer-events-none"></div>
+
+    <!-- Top Navigation Header -->
+    <header class="fixed top-0 left-0 w-full z-40 bg-folia-cream/80 backdrop-blur-md border-b border-folia-forest/5 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-2 group">
+                <div class="relative w-9 h-9 flex items-center justify-center bg-folia-forest rounded-xl overflow-hidden transition-all duration-300 group-hover:scale-105">
+                    <!-- Layered Leaf Mark -->
+                    <svg class="w-6 h-6 text-folia-mint absolute" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M17,8C8,10 5.9,16.17 3.82,21.34L2.18,20.66C4.26,15.49 6.36,9.3 15.36,7.3L17,8M18,3C12,3 6,8 6,14C6,14 8,10 13,9C13,9 10,13 11,17C14.5,15.5 17.5,13.5 19,10C21,5.5 18,3 18,3Z" />
+                    </svg>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xl font-extrabold tracking-tight text-folia-forest font-sans">FOLIA</span>
+                    <span class="text-[9px] uppercase tracking-widest text-folia-moss -mt-1 font-bold">Biophilic Tech</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#ecosystem" class="text-sm font-semibold text-folia-charcoal/80 hover:text-folia-forest transition-colors">Ecosystem</a>
+                <a href="#sandbox" class="text-sm font-semibold text-folia-charcoal/80 hover:text-folia-forest transition-colors">Workspace Simulator</a>
+                <a href="#calculator" class="text-sm font-semibold text-folia-charcoal/80 hover:text-folia-forest transition-colors">ROI Calculator</a>
+                <a href="#pricing" class="text-sm font-semibold text-folia-charcoal/80 hover:text-folia-forest transition-colors">Licensing</a>
+                <a href="#faq" class="text-sm font-semibold text-folia-charcoal/80 hover:text-folia-forest transition-colors">FAQ</a>
+            </nav>
+
+            <!-- Dynamic Actions -->
+            <div class="flex items-center gap-4">
+                <a href="#hero-section" class="hidden sm:inline-flex items-center justify-center px-5  py-2.5 rounded-full text-xs font-bold text-folia-forest border border-folia-forest/20 hover:border-folia-forest/60 transition-all">
+                    Access Portal
+                </a>
+                <a href="#sandbox" class="inline-flex items-center justify-center px-5 py-2.5 rounded-full text-xs font-bold bg-folia-forest text-white shadow-lg shadow-folia-forest/10 hover:bg-folia-jungle hover:shadow-xl hover:shadow-folia-forest/20 transition-all">
+                    Launch Sandbox
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Wrapper -->
+    <main class="pt-20">
+
+        <!-- SECTION 1: HERO & PREMIUM PORTAL DEMO (Awwwards Style) -->
+        <section id="hero-section" class="relative min-h-[90vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 overflow-hidden bg-folia-cream">
+            <!-- Subtle Background Gradients -->
+            <div class="absolute inset-0 z-0 pointer-events-none">
+                <div class="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-emerald-500/5 rounded-full blur-[120px] animate-float-slow"></div>
+                <div class="absolute bottom-[-10%] left-[-10%] w-[60%] h-[60%] bg-folia-moss/5 rounded-full blur-[150px] animate-float-slower"></div>
+            </div>
+
+            <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+                
+                <!-- Left Narrative Copy -->
+                <div class="lg:col-span-5 text-left space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-folia-forest/5 border border-folia-forest/10">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span class="text-[11px] font-extrabold uppercase tracking-wider text-folia-emerald">Architectural Bio-Tech v3.4</span>
+                    </div>
+                    
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-folia-forest tracking-tight leading-[1.08] font-sans">
+                        Architecting the <span class="font-editorial italic font-normal text-folia-emerald">living</span> digital workspace.
+                    </h1>
+                    
+                    <p class="text-base sm:text-lg text-folia-charcoal/80 leading-relaxed font-normal max-w-xl">
+                        Folia harmonizes advanced ecological intelligence with corporate productivity software. Transform lifeless offices and environments into breathing, biophilic micro-climates scientifically proven to boost cognition by 26%.
+                    </p>
+
+                    <!-- Real-time statistics counter row -->
+                    <div class="grid grid-cols-3 gap-4 pt-4 border-t border-folia-forest/10">
+                        <div>
+                            <p class="text-2xl sm:text-3xl font-extrabold text-folia-forest tracking-tight">+26%</p>
+                            <p class="text-[11px] text-folia-moss font-bold uppercase tracking-wider">Cognitive Speed</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl sm:text-3xl font-extrabold text-folia-forest tracking-tight">-34%</p>
+                            <p class="text-[11px] text-folia-moss font-bold uppercase tracking-wider">Mental Fatigue</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl sm:text-3xl font-extrabold text-folia-forest tracking-tight">4.8M</p>
+                            <p class="text-[11px] text-folia-moss font-bold uppercase tracking-wider">Tons CO₂ Saved</p>
+                        </div>
+                    </div>
+
+                    <!-- Client validation logos -->
+                    <div class="pt-6 space-y-2">
+                        <p class="text-xs font-bold text-folia-moss uppercase tracking-widest">Partnered with Green Leaders</p>
+                        <div class="flex items-center gap-6 opacity-60 grayscale hover:grayscale-0 transition-all duration-300">
+                            <!-- Placeholder corporate marks with premium styling -->
+                            <div class="font-bold text-sm tracking-widest text-folia-forest font-serif">VERDANT CO.</div>
+                            <div class="font-bold text-sm tracking-widest text-folia-forest">E C O S Y S</div>
+                            <div class="font-bold text-sm tracking-widest text-folia-forest font-editorial italic">BioArch</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side: Desktop Split Card & Device Simulator (FAITHFUL RECREATION OF INSPIRATION) -->
+                <div class="lg:col-span-7 flex flex-col items-center justify-center">
+                    
+                    <!-- Interactive Device / Layout Selector Tab -->
+                    <div class="mb-6 bg-folia-forest/5 p-1 rounded-full flex gap-1 z-20">
+                        <button id="btn-desktop-preview" class="px-5 py-2 rounded-full text-xs font-bold transition-all bg-folia-forest text-white shadow-md">
+                            Desktop Gateway (Split-Wave)
+                        </button>
+                        <button id="btn-mobile-preview" class="px-5 py-2 rounded-full text-xs font-bold transition-all text-folia-forest hover:bg-folia-forest/10">
+                            Mobile Glassmorphism
+                        </button>
+                    </div>
+
+                    <!-- Outer Wrapper with Parallax Hover Tracking Container -->
+                    <div id="parallax-container" class="relative w-full max-w-2xl aspect-[4/3] sm:aspect-[1.3] bg-transparent rounded-[32px] transition-all duration-700 ease-out">
+                        
+                        <!-- VIEW 1: DESKTOP SPLIT LAYOUT (Faithful to image left part) -->
+                        <div id="desktop-portal-view" class="absolute inset-0 w-full h-full bg-white rounded-[32px] shadow-paper-3 overflow-hidden border border-folia-forest/5 grid grid-cols-12 opacity-100 transition-all duration-500 scale-100 z-10">
+                            
+                            <!-- Left: Premium Clean Forms -->
+                            <div class="col-span-12 sm:col-span-6 p-8 sm:p-10 flex flex-col justify-between relative z-20 bg-white">
+                                <!-- Minimal Header -->
+                                <div class="flex items-center gap-2 mb-2">
+                                    <div class="w-6 h-6 flex items-center justify-center bg-folia-forest rounded-lg overflow-hidden">
+                                        <svg class="w-4 h-4 text-folia-mint" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M17,8C8,10 5.9,16.17 3.82,21.34L2.18,20.66C4.26,15.49 6.36,9.3 15.36,7.3L17,8M18,3C12,3 6,8 6,14C6,14 8,10 13,9C13,9 10,13 11,17C14.5,15.5 17.5,13.5 19,10C21,5.5 18,3 18,3Z" />
+                                        </svg>
+                                    </div>
+                                    <span class="text-xs font-bold tracking-widest text-folia-forest">FOLIA SYSTEM</span>
+                                </div>
+
+                                <!-- Dynamic Login/Register Card Context -->
+                                <div id="portal-form-container" class="my-auto py-4">
+                                    <!-- Log In State -->
+                                    <div id="state-login" class="space-y-4 transition-all duration-300">
+                                        <h2 id="form-heading" class="text-2xl font-extrabold text-folia-forest tracking-tight">Log in</h2>
+                                        
+                                        <div class="space-y-3">
+                                            <div>
+                                                <label class="block text-[10px] font-bold text-folia-moss uppercase tracking-widest mb-1.5">Login, email or phone number</label>
+                                                <input type="text" placeholder="name@company.com" class="w-full px-4 py-2.5 rounded-full border border-folia-forest/15 focus:border-folia-emerald focus:outline-none focus:ring-2 focus:ring-folia-mint/30 text-xs transition-all bg-folia-cream/20">
+                                            </div>
+                                            <div>
+                                                <div class="flex justify-between items-center mb-1.5">
+                                                    <label class="block text-[10px] font-bold text-folia-moss uppercase tracking-widest">Password</label>
+                                                </div>
+                                                <div class="relative">
+                                                    <input id="login-password-input" type="password" placeholder="••••••••••••" class="w-full px-4 py-2.5 rounded-full border border-folia-forest/15 focus:border-folia-emerald focus:outline-none focus:ring-2 focus:ring-folia-mint/30 text-xs transition-all bg-folia-cream/20 pr-10">
+                                                    <button type="button" onclick="togglePasswordReveal('login-password-input')" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-folia-moss hover:text-folia-forest transition-colors">
+                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button onclick="handlePortalAction('login')" class="w-full py-2.5 rounded-full bg-[#3B5441] hover:bg-folia-forest text-white text-xs font-bold transition-all shadow-md shadow-folia-forest/20 mt-2">
+                                            Log in
+                                        </button>
+
+                                        <div class="relative flex py-2 items-center">
+                                            <div class="flex-grow border-t border-folia-forest/10"></div>
+                                            <span class="flex-shrink mx-3 text-[10px] font-bold text-folia-moss uppercase tracking-wider">or log in with</span>
+                                            <div class="flex-grow border-t border-folia-forest/10"></div>
+                                        </div>
+
+                                        <div class="grid grid-cols-2 gap-3">
+                                            <button onclick="handlePortalAction('Google')" class="flex items-center justify-center gap-2 py-2 border border-folia-forest/10 rounded-full hover:bg-folia-cream/50 transition-all">
+                                                <svg class="w-4 h-4" viewBox="0 0 24 24">
+                                                    <path fill="#EA4335" d="M12.24 10.285V14.4h6.887c-.275 1.565-1.88 4.604-6.887 4.604-4.33 0-7.859-3.579-7.859-8s3.53-8 7.859-8c2.46 0 4.105 1.025 5.047 1.926l3.227-3.111C18.29 1.845 15.485 1 12.24 1 5.48 1 0 6.48 0 13.2s5.48 12.2 12.24 12.2c7.055 0 11.75-4.964 11.75-11.945 0-.805-.085-1.42-.19-1.97H12.24z"/>
+                                                </svg>
+                                                <span class="text-[11px] font-bold text-folia-charcoal">Google</span>
+                                            </button>
+                                            <button onclick="handlePortalAction('Office')" class="flex items-center justify-center gap-2 py-2 border border-folia-forest/10 rounded-full hover:bg-folia-cream/50 transition-all">
+                                                <svg class="w-4 h-4" viewBox="0 0 23 23">
+                                                    <path fill="#F25022" d="M0 0h11v11H0z"/>
+                                                    <path fill="#7FBA00" d="M12 0h11v11H12z"/>
+                                                    <path fill="#00A4EF" d="M0 12h11v11H0z"/>
+                                                    <path fill="#FFB900" d="M12 12h11v11H12z"/>
+                                                </svg>
+                                                <span class="text-[11px] font-bold text-folia-charcoal">Office 365</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col items-center gap-2 text-center text-xs mt-2 border-t border-folia-forest/5 pt-4">
+                                    <button onclick="toggleFormState()" id="form-toggle-link" class="text-folia-emerald hover:underline font-bold">
+                                        Don't have an account? Sign up
+                                    </button>
+                                    <a href="#" class="text-[11px] text-folia-moss/80 hover:text-folia-forest">Forgot login or password?</a>
+                                </div>
+                            </div>
+
+                            <!-- Right: Masterfully Layered Papercraft Wave & Botanical Illustration -->
+                            <div class="hidden sm:block sm:col-span-6 relative h-full bg-[#1e2f23] overflow-hidden">
+                                
+                                <!-- Background Ambient Light -->
+                                <div class="absolute inset-0 bg-radial-gradient from-[#2d4d38] to-[#121c15] opacity-80"></div>
+
+                                <!-- Dynamic CSS-based Layered Waves & Shadows matching exact contours of inspiration image -->
+                                <!-- We stack multiple absolute-positioned SVGs shifted slightly on mouse move -->
+                                
+                                <!-- Layer 4: Deepest Leaf Layer (Darkest Green & Leaves) -->
+                                <div class="absolute inset-0 z-10 opacity-95">
+                                    <svg class="w-full h-full object-cover" preserveAspectRatio="none" viewBox="0 0 300 400" fill="none">
+                                        <g filter="url(#drop-shadow-heavy)">
+                                            <!-- Dark Leaf Path Artworks in vector -->
+                                            <!-- Monstera Silhouette -->
+                                            <path d="M 220,100 C 230,120 250,130 260,110 C 270,90 280,100 290,130 C 300,160 280,190 270,220 C 260,250 240,260 220,240 Z" fill="#142419" />
+                                            <!-- Organic Forest Vines -->
+                                            <path d="M 180,320 C 190,300 240,310 270,330 C 300,350 280,390 240,400 C 200,410 160,380 180,320 Z" fill="#1d3223" />
+                                        </g>
+                                    </svg>
+                                </div>
+
+                                <!-- Layer 3: Middle Green Cut & Fine Foliage -->
+                                <div id="layer-wave-3" class="layer-transition absolute inset-0 z-20">
+                                    <svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <!-- Soft green paper edge with shadow -->
+                                        <path d="M 120,0 C 180,50 110,120 180,200 C 230,260 120,330 150,400 L 300,400 L 300,0 Z" fill="#2d4834" filter="url(#paper-shadow)" />
+                                        <!-- Overlay detailed leaves inside green boundary -->
+                                        <g opacity="0.9">
+                                            <!-- Palm Fronds Silhouettes -->
+                                            <path d="M 180,150 C 200,140 220,130 240,135 C 230,155 210,165 190,160 Z" fill="#3b5a41" />
+                                            <path d="M 185,170 C 210,165 230,160 250,170 C 235,185 215,190 195,180 Z" fill="#3b5a41" />
+                                            <path d="M 180,195 C 205,195 225,200 245,215 C 225,225 205,220 190,205 Z" fill="#3b5a41" />
+                                            <!-- Detailed fern leaf at bottom -->
+                                            <path d="M 160,280 C 180,270 210,275 230,290 C 210,305 190,300 170,290 Z" fill="#223a27" />
+                                            <path d="M 155,310 C 175,305 200,315 220,330 C 200,340 180,335 165,320 Z" fill="#223a27" />
+                                        </g>
+                                    </svg>
+                                </div>
+
+                                <!-- Layer 2: Transition Wave & Shadow (Grey/White Intermediate) -->
+                                <div id="layer-wave-2" class="layer-transition absolute inset-0 z-30 pointer-events-none">
+                                    <svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <!-- Fluid Wave Separator matching the photo curve with a double ripple -->
+                                        <path d="M 105,0 C 150,60 90,140 160,210 C 210,260 100,340 115,400 L 300,400 L 300,0 Z" fill="#e4eae6" opacity="0.6" filter="url(#paper-shadow)" />
+                                    </svg>
+                                </div>
+
+                                <!-- Layer 1: Front White Border Cut -->
+                                <div id="layer-wave-1" class="layer-transition absolute inset-0 z-30 pointer-events-none">
+                                    <svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <!-- Precise primary crisp white split wave curve -->
+                                        <path d="M 95,0 C 145,50 85,130 150,210 C 200,260 90,345 105,400 L 300,400 L 300,0 Z" fill="white" filter="url(#paper-shadow-sharp)" />
+                                    </svg>
+                                </div>
+
+                                <!-- Standard SVG Filters for Paper Shadow Simulation -->
+                                <svg class="hidden">
+                                    <defs>
+                                        <filter id="paper-shadow" x="-30%" y="-30%" width="160%" height="160%">
+                                            <feDropShadow dx="-8" dy="8" stdDeviation="10" flood-color="#000000" flood-opacity="0.3" />
+                                            <feDropShadow dx="-2" dy="2" stdDeviation="3" flood-color="#030805" flood-opacity="0.2" />
+                                        </filter>
+                                        <filter id="paper-shadow-sharp" x="-20%" y="-20%" width="150%" height="150%">
+                                            <feDropShadow dx="-4" dy="4" stdDeviation="6" flood-color="#0b170f" flood-opacity="0.25" />
+                                        </filter>
+                                        <filter id="drop-shadow-heavy" x="-40%" y="-40%" width="180%" height="180%">
+                                            <feDropShadow dx="-10" dy="10" stdDeviation="15" flood-color="#000000" flood-opacity="0.4" />
+                                        </filter>
+                                    </defs>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- VIEW 2: SIMULATED MOBILE PREVIEW - GLASSMORPHIC PANEL (Faithful to image right part) -->
+                        <div id="mobile-portal-view" class="absolute inset-0 w-full h-full bg-[#142318] rounded-[32px] shadow-paper-3 overflow-hidden border-4 border-folia-forest/20 opacity-0 pointer-events-none transition-all duration-500 scale-95 z-0 flex items-center justify-center">
+                            
+                            <!-- Forest Background for Mobile View -->
+                            <div class="absolute inset-0 z-0">
+                                <div class="absolute inset-0 bg-radial-gradient from-[#24422e] to-[#0f1912] opacity-90"></div>
+                                
+                                <!-- Dense Botanical Overlay simulating background leafy visuals -->
+                                <svg class="w-full h-full opacity-60" viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" fill="none">
+                                    <!-- Fern Leafs & Monstera shapes wrapping the container -->
+                                    <path d="M10,300 C30,280 60,290 80,310 C60,330 30,320 10,300 Z" fill="#315c3e" />
+                                    <path d="M220,10 C240,30 230,60 210,80 C190,60 200,30 220,10 Z" fill="#2d4f37" />
+                                    <path d="M 200,350 C 230,320 270,330 290,360 C 260,390 220,380 200,350 Z" fill="#1b3321" />
+                                    <!-- Mobile paper cut white curve peeking in -->
+                                    <path d="M 0,0 C 80,40 50,150 10,220 C -20,260 0,330 0,400 Z" fill="white" opacity="0.9" />
+                                </svg>
+                            </div>
+
+                            <!-- Mobile Outer Status Bar Frame Simulation -->
+                            <div class="absolute top-0 left-0 w-full px-6 py-2 flex justify-between items-center text-white/50 text-[10px] tracking-widest font-mono z-20">
+                                <span>FOLIA NET</span>
+                                <div class="flex items-center gap-1.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                    <span>5G ECO</span>
+                                </div>
+                            </div>
+
+                            <!-- Floating Glassmorphic Container (Direct replica from mobile layout of inspiration image) -->
+                            <div class="relative w-[85%] max-w-[280px] bg-white/20 backdrop-blur-xl border border-white/25 rounded-3xl shadow-2xl p-6 z-10 flex flex-col justify-between text-white my-6">
+                                <div class="text-center space-y-1 mb-4">
+                                    <h3 class="text-lg font-black tracking-tight text-white">Log in</h3>
+                                    <p class="text-[9px] text-white/70 uppercase tracking-widest font-bold">Secure Biosphere Access</p>
+                                </div>
+
+                                <div class="space-y-3">
+                                    <div>
+                                        <label class="block text-[8px] font-bold text-white/80 uppercase tracking-widest mb-1">Login, email or phone number</label>
+                                        <input type="text" placeholder="name@company.com" class="w-full px-3.5 py-2 rounded-full border border-white/20 bg-white/10 placeholder-white/40 text-[11px] text-white focus:outline-none focus:ring-2 focus:ring-emerald-400/50 transition-all">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[8px] font-bold text-white/80 uppercase tracking-widest mb-1">Password</label>
+                                        <div class="relative">
+                                            <input id="mobile-password-input" type="password" placeholder="••••••••" class="w-full px-3.5 py-2 rounded-full border border-white/20 bg-white/10 placeholder-white/40 text-[11px] text-white focus:outline-none focus:ring-2 focus:ring-emerald-400/50 transition-all">
+                                            <button type="button" onclick="togglePasswordReveal('mobile-password-input')" class="absolute right-3 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors">
+                                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <button onclick="handlePortalAction('Mobile Login')" class="w-full py-2 rounded-full bg-[#3B5441] hover:bg-folia-emerald text-white text-[11px] font-bold transition-all shadow-md mt-2">
+                                        Log in
+                                    </button>
+                                </div>
+
+                                <div class="relative flex py-2 items-center">
+                                    <div class="flex-grow border-t border-white/15"></div>
+                                    <span class="flex-shrink mx-2 text-[8px] font-bold text-white/60 uppercase tracking-widest">or log in with</span>
+                                    <div class="flex-grow border-t border-white/15"></div>
+                                </div>
+
+                                <div class="flex justify-center gap-4">
+                                    <button onclick="handlePortalAction('Google (Mobile)')" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center border border-white/15 hover:bg-white/20 transition-all">
+                                        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24">
+                                            <path fill="#EA4335" d="M12.24 10.285V14.4h6.887c-.275 1.565-1.88 4.604-6.887 4.604-4.33 0-7.859-3.579-7.859-8s3.53-8 7.859-8c2.46 0 4.105 1.025 5.047 1.926l3.227-3.111C18.29 1.845 15.485 1 12.24 1 5.48 1 0 6.48 0 13.2s5.48 12.2 12.24 12.2c7.055 0 11.75-4.964 11.75-11.945 0-.805-.085-1.42-.19-1.97H12.24z"/>
+                                        </svg>
+                                    </button>
+                                    <button onclick="handlePortalAction('Office (Mobile)')" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center border border-white/15 hover:bg-white/20 transition-all">
+                                        <svg class="w-3.5 h-3.5" viewBox="0 0 23 23">
+                                            <path fill="#F25022" d="M0 0h11v11H0z"/>
+                                            <path fill="#7FBA00" d="M12 0h11v11H12z"/>
+                                            <path fill="#00A4EF" d="M0 12h11v11H0z"/>
+                                            <path fill="#FFB900" d="M12 12h11v11H12z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+
+                                <div class="text-center mt-3 text-[10px] text-white/50">
+                                    <a href="#" class="hover:underline">Forgot login or password?</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 2: THE ECOSYSTEM ADVANTAGES -->
+        <section id="ecosystem" class="py-24 bg-white border-t border-b border-folia-forest/5 relative">
+            <div class="max-w-7xl mx-auto px-6">
+                
+                <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                    <span class="text-xs font-extrabold uppercase tracking-widest text-folia-emerald bg-folia-forest/5 px-3.5 py-1.5 rounded-full">Environmental Architecture</span>
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-folia-forest tracking-tight leading-[1.1]">
+                        Seamlessly integrating organic beauty with digital logic.
+                    </h2>
+                    <p class="text-base text-folia-charcoal/80">
+                        Modern work-spaces fail our biological design. Folia fixes this. Our system connects IoT hardware directly with ambient smart displays and environmental feedback workflows.
+                    </p>
+                </div>
+
+                <!-- Custom 3D Parallax Feature Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <!-- Card 1 -->
+                    <div class="group relative bg-folia-cream rounded-[32px] p-8 overflow-hidden shadow-paper-1 hover:shadow-paper-2 border border-folia-forest/5 transition-all duration-500 hover:-translate-y-2 flex flex-col justify-between aspect-square md:aspect-auto md:h-[420px]">
+                        <!-- Embedded decorative paper-cut SVGs on corners -->
+                        <div class="absolute right-0 bottom-0 w-32 h-32 opacity-20 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none">
+                            <svg class="w-full h-full text-folia-forest" fill="currentColor" viewBox="0 0 100 100">
+                                <path d="M100,50 C80,60 70,80 50,100 C30,80 20,60 0,50 C20,40 30,20 50,0 C70,20 80,40 100,50 Z"/>
+                            </svg>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center shadow-md">
+                                <!-- Leaf icon -->
+                                <svg class="w-6 h-6 text-folia-emerald" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-black text-folia-forest tracking-tight">Circadian Light Sync</h3>
+                            <p class="text-xs sm:text-sm text-folia-charcoal/70 leading-relaxed">
+                                Dynamically modifies office screen temperatures and background visuals to align perfectly with organic pineal rhythms, reducing computer vision syndrome by 60%.
+                            </p>
+                        </div>
+                        
+                        <a href="#sandbox" class="text-xs font-bold text-folia-emerald inline-flex items-center gap-1 group-hover:underline">
+                            Explore Interface <span class="group-hover:translate-x-1 transition-transform">→</span>
+                        </a>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="group relative bg-[#1c2c20] text-white rounded-[32px] p-8 overflow-hidden shadow-paper-1 hover:shadow-paper-2 border border-folia-forest/5 transition-all duration-500 hover:-translate-y-2 flex flex-col justify-between aspect-square md:aspect-auto md:h-[420px]">
+                        <div class="absolute right-0 bottom-0 w-36 h-36 opacity-10 group-hover:opacity-30 transition-opacity duration-500 pointer-events-none">
+                            <svg class="w-full h-full text-white" fill="currentColor" viewBox="0 0 100 100">
+                                <path d="M100,0 C80,30 50,70 100,100 Z"/>
+                            </svg>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center shadow-md border border-white/10">
+                                <!-- Sensor waves -->
+                                <svg class="w-6 h-6 text-folia-mint" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-black tracking-tight text-white">IoT Bio-Feedback</h3>
+                            <p class="text-xs sm:text-sm text-white/70 leading-relaxed">
+                                Connect smart moss walls, real-time leaf transpiration telemetry, and ambient air sensors directly to our ecological ledger database. Monitor bio-signals instantly.
+                            </p>
+                        </div>
+
+                        <a href="#sandbox" class="text-xs font-bold text-folia-mint inline-flex items-center gap-1 group-hover:underline">
+                            Open Dashboard <span class="group-hover:translate-x-1 transition-transform">→</span>
+                        </a>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="group relative bg-folia-cream rounded-[32px] p-8 overflow-hidden shadow-paper-1 hover:shadow-paper-2 border border-folia-forest/5 transition-all duration-500 hover:-translate-y-2 flex flex-col justify-between aspect-square md:aspect-auto md:h-[420px]">
+                        <div class="absolute right-0 bottom-0 w-32 h-32 opacity-20 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none">
+                            <svg class="w-full h-full text-folia-forest" fill="currentColor" viewBox="0 0 100 100">
+                                <path d="M0,0 C30,30 70,50 100,0 Z"/>
+                            </svg>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center shadow-md">
+                                <!-- Brain / Performance -->
+                                <svg class="w-6 h-6 text-folia-emerald" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-black text-folia-forest tracking-tight">Acoustic Masking</h3>
+                            <p class="text-xs sm:text-sm text-folia-charcoal/70 leading-relaxed">
+                                Generative audio engines map physical plant density to synthesize natural ambient acoustic barriers, masking background chat with high-fidelity streams of real rain forest.
+                            </p>
+                        </div>
+
+                        <a href="#sandbox" class="text-xs font-bold text-folia-emerald inline-flex items-center gap-1 group-hover:underline">
+                            Examine System <span class="group-hover:translate-x-1 transition-transform">→</span>
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 3: INTERACTIVE BIOPHILIC WORKSPACE SIMULATOR -->
+        <section id="sandbox" class="py-24 bg-folia-cream relative">
+            <div class="max-w-7xl mx-auto px-6">
+                
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Interactive Sliders and Controls -->
+                    <div class="lg:col-span-5 space-y-6 bg-white p-8 rounded-[32px] shadow-paper-2 border border-folia-forest/5">
+                        <div class="space-y-1">
+                            <span class="text-xs font-extrabold uppercase tracking-widest text-folia-emerald">Playground</span>
+                            <h3 class="text-2xl font-black text-folia-forest tracking-tight">Configure Your Biophilic Chamber</h3>
+                            <p class="text-xs text-folia-charcoal/70">Alter environmental parameters in real time to visualize ecological and intellectual output shifts.</p>
+                        </div>
+
+                        <!-- Slider 1 -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="font-bold text-folia-forest">FLORA DENSITY</span>
+                                <span id="val-flora" class="font-mono bg-folia-mint px-2 py-0.5 rounded-full text-folia-forest font-bold">45%</span>
+                            </div>
+                            <input id="slide-flora" type="range" min="10" max="100" value="45" oninput="updateSimulator()" class="w-full accent-folia-forest bg-folia-cream rounded-lg appearance-none h-2 cursor-pointer">
+                            <p class="text-[10px] text-folia-moss">Determines square footage covered by organic multi-tiered live vegetation.</p>
+                        </div>
+
+                        <!-- Slider 2 -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="font-bold text-folia-forest">AIR TRANSPIRATION FLOW</span>
+                                <span id="val-air" class="font-mono bg-folia-mint px-2 py-0.5 rounded-full text-folia-forest font-bold">60%</span>
+                            </div>
+                            <input id="slide-air" type="range" min="20" max="100" value="60" oninput="updateSimulator()" class="w-full accent-folia-forest bg-folia-cream rounded-lg appearance-none h-2 cursor-pointer">
+                            <p class="text-[10px] text-folia-moss">Controls fan volumes blowing through plant root layers to extract pollutants.</p>
+                        </div>
+
+                        <!-- Slider 3 -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="font-bold text-folia-forest">BIO-ACOUSTIC MASKING</span>
+                                <span id="val-audio" class="font-mono bg-folia-mint px-2 py-0.5 rounded-full text-folia-forest font-bold">30%</span>
+                            </div>
+                            <input id="slide-audio" type="range" min="0" max="100" value="30" oninput="updateSimulator()" class="w-full accent-folia-forest bg-folia-cream rounded-lg appearance-none h-2 cursor-pointer">
+                            <p class="text-[10px] text-folia-moss">Generates variable botanical frequencies from localized high-fidelity transducers.</p>
+                        </div>
+
+                        <div class="pt-4 border-t border-folia-forest/5 flex items-center justify-between">
+                            <span class="text-xs font-bold text-folia-forest">CHAMBER STABILITY STATUS</span>
+                            <span id="status-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-extrabold bg-emerald-100 text-emerald-800">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                OPTIMAL HARMONY
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Right Side: Real-time Render Visualization -->
+                    <div class="lg:col-span-7 space-y-6">
+                        
+                        <!-- High tech environmental telemetry interface -->
+                        <div class="bg-[#121d15] text-white p-8 rounded-[32px] shadow-paper-3 space-y-6 relative overflow-hidden border border-white/5">
+                            <!-- Background Leaf Watermarks responsive to flora slider -->
+                            <div id="visual-leaf-bg" class="absolute right-0 bottom-0 w-64 h-64 opacity-20 pointer-events-none transition-all duration-500 scale-100">
+                                <svg class="w-full h-full text-folia-mint" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M17,8C8,10 5.9,16.17 3.82,21.34L2.18,20.66C4.26,15.49 6.36,9.3 15.36,7.3L17,8M18,3C12,3 6,8 6,14C6,14 8,10 13,9C13,9 10,13 11,17C14.5,15.5 17.5,13.5 19,10C21,5.5 18,3 18,3Z" />
+                                </svg>
+                            </div>
+
+                            <div class="flex justify-between items-start border-b border-white/10 pb-4 relative z-10">
+                                <div>
+                                    <p class="text-xs font-extrabold uppercase tracking-widest text-folia-mint">Active Simulation Telemetry</p>
+                                    <h4 class="text-xl font-bold tracking-tight">Biosphere Module Beta-08</h4>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-xs text-white/50">Location ID</p>
+                                    <p class="text-xs font-mono font-bold">CHI-HQ-SECTOR-4</p>
+                                </div>
+                            </div>
+
+                            <!-- Big Dynamic Readouts -->
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 relative z-10">
+                                <!-- Readout 1 -->
+                                <div class="bg-white/5 p-4 rounded-2xl border border-white/10 space-y-2">
+                                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-white/60">Productivity Boost</span>
+                                    <div class="flex items-baseline gap-1">
+                                        <span id="metric-prod" class="text-3xl font-extrabold tracking-tight text-white transition-all">18%</span>
+                                        <span class="text-xs font-bold text-emerald-400">↑</span>
+                                    </div>
+                                    <div class="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
+                                        <div id="bar-prod" class="bg-emerald-400 h-full transition-all duration-500" style="width: 50%"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Readout 2 -->
+                                <div class="bg-white/5 p-4 rounded-2xl border border-white/10 space-y-2">
+                                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-white/60">Oxygen Saturation</span>
+                                    <div class="flex items-baseline gap-1">
+                                        <span id="metric-oxygen" class="text-3xl font-extrabold tracking-tight text-white transition-all">+1.2M</span>
+                                        <span class="text-xs font-bold text-folia-mint">cc/h</span>
+                                    </div>
+                                    <div class="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
+                                        <div id="bar-oxygen" class="bg-folia-mint h-full transition-all duration-500" style="width: 45%"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Readout 3 -->
+                                <div class="bg-white/5 p-4 rounded-2xl border border-white/10 space-y-2">
+                                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-white/60">Mental Clarity index</span>
+                                    <div class="flex items-baseline gap-1">
+                                        <span id="metric-clarity" class="text-3xl font-extrabold tracking-tight text-white transition-all">45</span>
+                                        <span class="text-xs font-bold text-[#E2E8F0]">/100</span>
+                                    </div>
+                                    <div class="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
+                                        <div id="bar-clarity" class="bg-[#E2E8F0] h-full transition-all duration-500" style="width: 45%"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Live Audio Visualizer / Transpiration Spectrum Waves Simulation -->
+                            <div class="bg-white/5 p-4 rounded-2xl border border-white/10 space-y-3 relative z-10">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-white/60">Bio-Acoustic Waveform Analysis</span>
+                                    <span class="text-[9px] font-mono text-[#A7F3D0]">ACTIVE SPECTRUM GENERATOR</span>
+                                </div>
+                                <div class="flex items-end justify-between h-12 px-2 bg-[#09100a] rounded-xl overflow-hidden">
+                                    <!-- Animated Bars -->
+                                    <div id="eq-bar-1" class="w-2.5 bg-emerald-500 rounded-t-sm transition-all duration-300" style="height: 40%"></div>
+                                    <div id="eq-bar-2" class="w-2.5 bg-folia-mint rounded-t-sm transition-all duration-300" style="height: 60%"></div>
+                                    <div id="eq-bar-3" class="w-2.5 bg-emerald-400 rounded-t-sm transition-all duration-300" style="height: 80%"></div>
+                                    <div id="eq-bar-4" class="w-2.5 bg-white/40 rounded-t-sm transition-all duration-300" style="height: 30%"></div>
+                                    <div id="eq-bar-5" class="w-2.5 bg-emerald-600 rounded-t-sm transition-all duration-300" style="height: 50%"></div>
+                                    <div id="eq-bar-6" class="w-2.5 bg-folia-mint rounded-t-sm transition-all duration-300" style="height: 70%"></div>
+                                    <div id="eq-bar-7" class="w-2.5 bg-emerald-400 rounded-t-sm transition-all duration-300" style="height: 90%"></div>
+                                    <div id="eq-bar-8" class="w-2.5 bg-white/20 rounded-t-sm transition-all duration-300" style="height: 20%"></div>
+                                    <div id="eq-bar-9" class="w-2.5 bg-emerald-500 rounded-t-sm transition-all duration-300" style="height: 45%"></div>
+                                    <div id="eq-bar-10" class="w-2.5 bg-emerald-300 rounded-t-sm transition-all duration-300" style="height: 65%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 4: INTERACTIVE IMPACT & ROI CALCULATOR -->
+        <section id="calculator" class="py-24 bg-white border-t border-b border-folia-forest/5 relative">
+            <div class="max-w-7xl mx-auto px-6">
+                
+                <div class="text-center max-w-2xl mx-auto space-y-4 mb-16">
+                    <span class="text-xs font-extrabold uppercase tracking-widest text-folia-emerald bg-folia-forest/5 px-3.5 py-1.5 rounded-full">Financial Harmonics</span>
+                    <h2 class="text-3xl sm:text-4xl font-black text-folia-forest tracking-tight leading-[1.1]">
+                        Model Your Corporate Botanical ROI
+                    </h2>
+                    <p class="text-base text-folia-charcoal/80">
+                        See how introducing biological layers to physical hardware systems yields concrete carbon offsets and saves thousands in annual operational overhead.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 bg-folia-cream rounded-[48px] p-8 sm:p-12 shadow-paper-2 border border-folia-forest/5">
+                    
+                    <!-- Left Column: Inputs -->
+                    <div class="lg:col-span-6 space-y-8">
+                        <div>
+                            <h4 class="text-xl font-extrabold text-folia-forest tracking-tight mb-2">Workspace Scope Parameters</h4>
+                            <p class="text-xs text-folia-charcoal/70">Adjust the metrics below to reflect your real office operations.</p>
+                        </div>
+
+                        <!-- Metric Input 1 -->
+                        <div class="space-y-3">
+                            <label class="block text-xs font-bold text-folia-moss uppercase tracking-widest">Total Active Employees</label>
+                            <div class="flex items-center gap-4 bg-white px-4 py-2 rounded-full border border-folia-forest/10 shadow-sm">
+                                <button onclick="adjustCalcValue('employees', -50)" class="w-8 h-8 rounded-full bg-folia-cream hover:bg-folia-forest hover:text-white flex items-center justify-center font-bold transition-all">-</button>
+                                <span id="calc-employees" class="text-lg font-extrabold text-folia-forest font-mono flex-grow text-center">250</span>
+                                <button onclick="adjustCalcValue('employees', 50)" class="w-8 h-8 rounded-full bg-folia-cream hover:bg-folia-forest hover:text-white flex items-center justify-center font-bold transition-all">+</button>
+                            </div>
+                        </div>
+
+                        <!-- Metric Input 2 -->
+                        <div class="space-y-3">
+                            <label class="block text-xs font-bold text-folia-moss uppercase tracking-widest">Average Annual Salary ($/Yr)</label>
+                            <input id="calc-salary" type="range" min="40000" max="200000" step="5000" value="85000" oninput="calculateROI()" class="w-full accent-folia-forest bg-white rounded-lg appearance-none h-2 cursor-pointer shadow-sm">
+                            <div class="flex justify-between text-xs font-mono text-folia-moss font-bold">
+                                <span>$40,000</span>
+                                <span id="display-salary" class="bg-folia-forest text-white px-2.5 py-0.5 rounded-full">$85,000</span>
+                                <span>$200,000</span>
+                            </div>
+                        </div>
+
+                        <!-- Metric Input 3 -->
+                        <div class="space-y-3">
+                            <label class="block text-xs font-bold text-folia-moss uppercase tracking-widest">Target Biophilic Density Plan</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <button onclick="setDensityPlan('Sprout', 1.0)" id="plan-sprout" class="py-2.5 rounded-full text-xs font-bold transition-all bg-folia-forest text-white shadow-md">Sprout (10%)</button>
+                                <button onclick="setDensityPlan('Canopy', 1.5)" id="plan-canopy" class="py-2.5 rounded-full text-xs font-bold transition-all text-folia-forest bg-white border border-folia-forest/10 hover:bg-folia-forest/5">Canopy (25%)</button>
+                                <button onclick="setDensityPlan('Biosphere', 2.0)" id="plan-biosphere" class="py-2.5 rounded-full text-xs font-bold transition-all text-folia-forest bg-white border border-folia-forest/10 hover:bg-folia-forest/5">Biosphere (50%)</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Outputs -->
+                    <div class="lg:col-span-6 flex flex-col justify-between bg-white p-8 rounded-[36px] border border-folia-forest/5 shadow-sm space-y-6">
+                        <div>
+                            <h4 class="text-xl font-extrabold text-folia-forest tracking-tight">Projected Annual Gains</h4>
+                            <p class="text-xs text-folia-charcoal/70">Calculated based on average cognitive performance metrics & real carbon offset indices.</p>
+                        </div>
+
+                        <!-- Readout Fields -->
+                        <div class="space-y-4">
+                            <!-- Field 1 -->
+                            <div class="flex items-center justify-between p-4 bg-folia-cream/50 rounded-2xl">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-600 font-bold">$</div>
+                                    <div>
+                                        <p class="text-xs font-extrabold text-folia-forest uppercase tracking-wider">Productivity Recovery</p>
+                                        <p class="text-[10px] text-folia-moss">Value of recovered distraction time</p>
+                                    </div>
+                                </div>
+                                <span id="display-productivity" class="text-2xl font-black text-emerald-600 tracking-tight">$345,000</span>
+                            </div>
+
+                            <!-- Field 2 -->
+                            <div class="flex items-center justify-between p-4 bg-folia-cream/50 rounded-2xl">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-600 font-bold">CO₂</div>
+                                    <div>
+                                        <p class="text-xs font-extrabold text-folia-forest uppercase tracking-wider">Carbon Credit Savings</p>
+                                        <p class="text-[10px] text-folia-moss">Mitigated taxes / purchase requirements</p>
+                                    </div>
+                                </div>
+                                <span id="display-co2" class="text-2xl font-black text-emerald-600 tracking-tight">$18,400</span>
+                            </div>
+
+                            <!-- Total Dynamic Large ROI Header -->
+                            <div class="text-center py-6 bg-folia-forest text-white rounded-3xl space-y-1 shadow-md">
+                                <span class="text-[10px] font-extrabold uppercase tracking-widest text-folia-mint">Total Estimated Annual Value</span>
+                                <h5 id="display-total" class="text-4xl font-black text-white tracking-tight">$363,400</h5>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button onclick="handlePortalAction('Corporate ROI PDF Export')" class="w-full sm:w-auto px-8 py-3 rounded-full bg-folia-forest hover:bg-folia-emerald text-white text-xs font-bold tracking-wider uppercase transition-all shadow-md">
+                                Export Biophilic Impact Report
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 5: PREMIUM PRICING PLANS -->
+        <section id="pricing" class="py-24 bg-folia-cream relative">
+            <div class="max-w-7xl mx-auto px-6">
+                
+                <div class="text-center max-w-2xl mx-auto space-y-4 mb-16">
+                    <span class="text-xs font-extrabold uppercase tracking-widest text-folia-emerald bg-folia-forest/5 px-3.5 py-1.5 rounded-full">Licensing Modules</span>
+                    <h2 class="text-3xl sm:text-4xl font-black text-folia-forest tracking-tight leading-[1.1]">
+                        Scalable Architecture For Any Scope
+                    </h2>
+                    <p class="text-base text-folia-charcoal/80">
+                        Whether you are testing localized smart gardens or deploying biophilic hardware automation across multiple corporate towers.
+                    </p>
+
+                    <!-- Billing Toggle -->
+                    <div class="inline-flex items-center gap-3 p-1 bg-folia-forest/5 rounded-full mt-4">
+                        <button id="btn-billing-monthly" onclick="setBillingCycle('monthly')" class="px-5 py-2 rounded-full text-xs font-bold transition-all bg-folia-forest text-white shadow-sm">Monthly Billing</button>
+                        <button id="btn-billing-annual" onclick="setBillingCycle('annual')" class="px-5 py-2 rounded-full text-xs font-bold transition-all text-folia-forest hover:bg-folia-forest/10">Annual Billing (-20%)</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+                    
+                    <!-- Pricing Plan 1 -->
+                    <div class="bg-white rounded-[40px] p-8 border border-folia-forest/5 shadow-paper-1 flex flex-col justify-between transition-all duration-300 hover:scale-[1.02]">
+                        <div class="space-y-6">
+                            <div class="space-y-2">
+                                <p class="text-xs font-extrabold uppercase tracking-widest text-folia-moss">Local Office</p>
+                                <h3 class="text-2xl font-black text-folia-forest tracking-tight">Sprout Plan</h3>
+                                <p class="text-xs text-folia-charcoal/70">Ideal for targeted single-room or creative workspace installations.</p>
+                            </div>
+
+                            <div class="flex items-baseline">
+                                <span class="text-4xl font-black text-folia-forest tracking-tight font-mono">$</span>
+                                <span id="price-sprout" class="text-5xl font-black text-folia-forest tracking-tight font-mono">149</span>
+                                <span class="text-xs font-bold text-folia-moss ml-1">/ Month</span>
+                            </div>
+
+                            <div class="border-t border-folia-forest/5 pt-6 space-y-4">
+                                <div class="flex items-center gap-3 text-xs">
+                                    <span class="text-emerald-500 font-extrabold">✓</span>
+                                    <span>Supports up to 50 employees</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-xs">
+                                    <span class="text-emerald-500 font-extrabold">✓</span>
+                                    <span>Circadian Light Display Syncing</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-xs">
+                                    <span class="text-emerald-500 font-extrabold">✓</span>
+                                    <span>Ambient bio-sound library streaming</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-xs text-folia-moss/50 line-through">
+                                    <span>✗ Ambient IoT sensor integrations</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="handlePortalAction('Sprout Plan Subscription')" class="w-full py-3.5 rounded-full bg-folia-cream text-folia-forest border border-folia-forest/10 hover:bg-folia-forest hover:text-white text-xs font-bold transition-all mt-8">
+                            Select Sprout Package
+                        </button>
+                    </div>
+
+                    <!-- Pricing Plan 2 (Highlighted) -->
+                    <div class="bg-[#1a3121] text-white rounded-[40px] p-8 shadow-paper-3 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:scale-[1.03]">
+                        <!-- Subtle glass shine highlight across the top card -->
+                        <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent pointer-events-none"></div>
+
+                        <div class="space-y-6 relative z-10">
+                            <div class="flex justify-between items-center">
+                                <p class="text-xs font-extrabold uppercase tracking-widest text-folia-mint">MOST REQUISITIONED</p>
+                                <span class="bg-folia-mint text-folia-forest text-[9px] font-extrabold uppercase tracking-widest px-2 py-0.5 rounded-full">Automated</span>
+                            </div>
+
+                            <div class="space-y-2">
+                                <h3 class="text-2xl font-black tracking-tight">Canopy Plan</h3>
+                                <p class="text-xs text-white/70">The complete software & dynamic environment integration framework.</p>
+                            </div>
+
+                            <div class="flex items-baseline">
+                                <span class="text-4xl font-black tracking-tight font-mono">$</span>
+                                <span id="price-canopy" class="text-5xl font-black tracking-tight font-mono">399</span>
+                                <span class="text-xs font-bold text-folia-mint ml-1">/ Month</span>
+                            </div>
+
+                            <div class="border-t border-white/10 pt-6 space-y-4">
+                                <div class="flex items-center gap-3 text-xs">
+                                    <span class="text-folia-mint font-extrabold">✓</span>
+                                    <span>Supports up to 250 employees</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-xs">
+                                    <span class="text-folia-mint font-extrabold">✓</span>
+                                    <span>Automated plant wall IoT control</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-xs">
+                                    <span class="text-folia-mint font-extrabold">✓</span>
+                                    <span>Integrated Slack/Teams biometric feedback</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-xs">
+                                    <span class="text-folia-mint font-extrabold">✓</span>
+                                    <span>Real-time environmental telemetry api</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="handlePortalAction('Canopy Plan Subscription')" class="w-full py-3.5 rounded-full bg-folia-mint text-folia-forest hover:bg-white text-xs font-bold transition-all mt-8 relative z-10 shadow-lg shadow-folia-mint/20">
+                            Select Canopy Package
+                        </button>
+                    </div>
+
+                    <!-- Pricing Plan 3 -->
+                    <div class="bg-white rounded-[40px] p-8 border border-folia-forest/5 shadow-paper-1 flex flex-col justify-between transition-all duration-300 hover:scale-[1.02]">
+                        <div class="space-y-6">
+                            <div class="space-y-2">
+                                <p class="text-xs font-extrabold uppercase tracking-widest text-folia-moss">Enterprise Scope</p>
+                                <h3 class="text-2xl font-black text-folia-forest tracking-tight">Biosphere Plan</h3>
+                                <p class="text-xs text-folia-charcoal/70">Custom tailored hardware integration and dedicated ecological consulting.</p>
+                            </div>
+
+                            <div class="flex items-baseline">
+                                <span class="text-4xl font-black text-folia-forest tracking-tight font-mono">$</span>
+                                <span id="price-biosphere" class="text-5xl font-black text-folia-forest tracking-tight font-mono">899</span>
+                                <span class="text-xs font-bold text-folia-moss ml-1">/ Month</span>
+                            </div>
+
+                            <div class="border-t border-folia-forest/5 pt-6 space-y-4">
+                                <div class="flex items-center gap-3 text-xs">
+                                    <span class="text-emerald-500 font-extrabold">✓</span>
+                                    <span>Unlimited employees & locations</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-xs">
+                                    <span class="text-emerald-500 font-extrabold">✓</span>
+                                    <span>Full multi-tiered server infrastructure</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-xs">
+                                    <span class="text-emerald-500 font-extrabold">✓</span>
+                                    <span>Custom botanical design blueprints</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-xs">
+                                    <span class="text-emerald-500 font-extrabold">✓</span>
+                                    <span>Dedicated botanical engineering support</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="handlePortalAction('Biosphere Plan Subscription')" class="w-full py-3.5 rounded-full bg-folia-cream text-folia-forest border border-folia-forest/10 hover:bg-folia-forest hover:text-white text-xs font-bold transition-all mt-8">
+                            Contact Architectural Rep
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 6: FAQ ACCORDION -->
+        <section id="faq" class="py-24 bg-white border-t border-b border-folia-forest/5 relative">
+            <div class="max-w-4xl mx-auto px-6">
+                
+                <div class="text-center space-y-4 mb-16">
+                    <span class="text-xs font-extrabold uppercase tracking-widest text-folia-emerald bg-folia-forest/5 px-3.5 py-1.5 rounded-full">Knowledge Bank</span>
+                    <h2 class="text-3xl sm:text-4xl font-black text-folia-forest tracking-tight leading-[1.1]">
+                        Deep Environmental Architecture FAQ
+                    </h2>
+                </div>
+
+                <!-- FAQ Items Accordion -->
+                <div class="space-y-4">
+                    
+                    <!-- Item 1 -->
+                    <div class="bg-folia-cream rounded-2xl border border-folia-forest/5 overflow-hidden transition-all duration-300">
+                        <button onclick="toggleFaq(1)" class="w-full px-6 py-5 flex justify-between items-center text-left hover:bg-folia-forest/5 transition-colors">
+                            <span class="font-extrabold text-folia-forest text-sm sm:text-base">How does Folia extract cognitive performance boosts from plant telemetry?</span>
+                            <span id="faq-icon-1" class="text-lg font-bold text-folia-moss transition-transform duration-300">+</span>
+                        </button>
+                        <div id="faq-body-1" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                            <div class="px-6 pb-5 text-xs sm:text-sm text-folia-charcoal/80 leading-relaxed border-t border-folia-forest/5 pt-3">
+                                Folia matches physical plant metrics (specifically transpiration speed, organic relative humidity emission, and VOC extraction) to specialized ambient computer screensavers and generative soundtracks. Scientifically, keeping biological processes synced with circadian screens keeps staff visual systems in lower states of stress, yielding higher mental longevity.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="bg-folia-cream rounded-2xl border border-folia-forest/5 overflow-hidden transition-all duration-300">
+                        <button onclick="toggleFaq(2)" class="w-full px-6 py-5 flex justify-between items-center text-left hover:bg-folia-forest/5 transition-colors">
+                            <span class="font-extrabold text-folia-forest text-sm sm:text-base">What physical hardware setup is needed?</span>
+                            <span id="faq-icon-2" class="text-lg font-bold text-folia-moss transition-transform duration-300">+</span>
+                        </button>
+                        <div id="faq-body-2" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                            <div class="px-6 pb-5 text-xs sm:text-sm text-folia-charcoal/80 leading-relaxed border-t border-folia-forest/5 pt-3">
+                                Folia interfaces with standard off-the-shelf smart plant wall sensors (Bluetooth & Zigbee) as well as custom Folia telemetry units. Setting up takes minutes: plug standard sensor probes directly into soil mediums and pair using our secure Desktop/Mobile Gateways.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="bg-folia-cream rounded-2xl border border-folia-forest/5 overflow-hidden transition-all duration-300">
+                        <button onclick="toggleFaq(3)" class="w-full px-6 py-5 flex justify-between items-center text-left hover:bg-folia-forest/5 transition-colors">
+                            <span class="font-extrabold text-folia-forest text-sm sm:text-base">Does the platform calculate real tax-deductible Carbon Credits?</span>
+                            <span id="faq-icon-3" class="text-lg font-bold text-folia-moss transition-transform duration-300">+</span>
+                        </button>
+                        <div id="faq-body-3" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                            <div class="px-6 pb-5 text-xs sm:text-sm text-folia-charcoal/80 leading-relaxed border-t border-folia-forest/5 pt-3">
+                                Yes. Folia translates aggregate biosensing datasets directly into officially certified carbon offset protocols compliant with international GHG reporting standards. This allows green tech organizations to claim verifiable corporate carbon offsets from localized office flora.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER DESIGN -->
+    <footer class="bg-folia-forest text-white py-16 relative overflow-hidden">
+        
+        <!-- Background Layered Paper Shapes mimicking leaf silhouettes -->
+        <div class="absolute right-[-10%] bottom-[-10%] w-96 h-96 opacity-10 pointer-events-none">
+            <svg class="w-full h-full text-folia-mint" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17,8C8,10 5.9,16.17 3.82,21.34L2.18,20.66C4.26,15.49 6.36,9.3 15.36,7.3L17,8M18,3C12,3 6,8 6,14C6,14 8,10 13,9C13,9 10,13 11,17C14.5,15.5 17.5,13.5 19,10C21,5.5 18,3 18,3Z" />
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 relative z-10">
+            
+            <!-- Left Brand Column -->
+            <div class="md:col-span-5 space-y-6">
+                <a href="#" class="flex items-center gap-2 group">
+                    <div class="relative w-9 h-9 flex items-center justify-center bg-white rounded-xl overflow-hidden">
+                        <svg class="w-6 h-6 text-folia-forest" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M17,8C8,10 5.9,16.17 3.82,21.34L2.18,20.66C4.26,15.49 6.36,9.3 15.36,7.3L17,8M18,3C12,3 6,8 6,14C6,14 8,10 13,9C13,9 10,13 11,17C14.5,15.5 17.5,13.5 19,10C21,5.5 18,3 18,3Z" />
+                        </svg>
+                    </div>
+                    <span class="text-2xl font-black tracking-tight text-white font-sans">FOLIA</span>
+                </a>
+                <p class="text-xs sm:text-sm text-white/70 leading-relaxed max-w-sm">
+                    Folia transforms ordinary architectural assets into living, telemetry-integrated structures. Scale your eco-awareness with carbon verification software.
+                </p>
+                <div class="flex items-center gap-4 text-xs font-semibold text-white/50">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <span>•</span>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Compliance</a>
+                </div>
+            </div>
+
+            <!-- Middle Columns (Links) -->
+            <div class="md:col-span-4 grid grid-cols-2 gap-6">
+                <div class="space-y-4">
+                    <h5 class="text-xs font-extrabold uppercase tracking-widest text-folia-mint">ECOSYSTEM</h5>
+                    <ul class="space-y-2.5 text-xs text-white/60">
+                        <li><a href="#ecosystem" class="hover:text-white transition-colors">Circadian Engine</a></li>
+                        <li><a href="#ecosystem" class="hover:text-white transition-colors">Botanical Biosensors</a></li>
+                        <li><a href="#sandbox" class="hover:text-white transition-colors">Chamber Simulator</a></li>
+                        <li><a href="#calculator" class="hover:text-white transition-colors">Tax Incentives</a></li>
+                    </ul>
+                </div>
+                <div class="space-y-4">
+                    <h5 class="text-xs font-extrabold uppercase tracking-widest text-folia-mint">PLATFORM</h5>
+                    <ul class="space-y-2.5 text-xs text-white/60">
+                        <li><a href="#pricing" class="hover:text-white transition-colors">Subscription Licences</a></li>
+                        <li><a href="#hero-section" class="hover:text-white transition-colors">Gateway Portal</a></li>
+                        <li><a href="#faq" class="hover:text-white transition-colors">Technical Docs</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Developer API</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Right Column: Newsletter -->
+            <div class="md:col-span-3 space-y-4">
+                <h5 class="text-xs font-extrabold uppercase tracking-widest text-folia-mint font-sans">JOIN THE BIOSPHERE</h5>
+                <p class="text-xs text-white/60">Subscribe to get monthly biophilic blueprints and system deployment logs.</p>
+                
+                <div class="relative">
+                    <input type="email" placeholder="enter your email" class="w-full px-4 py-2.5 rounded-full border border-white/20 bg-white/10 text-xs placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                    <button onclick="handlePortalAction('Newsletter Subscription')" class="absolute right-1 top-1 bottom-1 px-4 rounded-full bg-[#3B5441] hover:bg-folia-emerald text-[10px] font-bold uppercase transition-all">
+                        Join
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center text-xs text-white/40 relative z-10 gap-4">
+            <p>© 2026 Folia Botanical Technologies. All environmental telemetry logged securely.</p>
+            <div class="flex items-center gap-4">
+                <a href="#" class="hover:text-white transition-colors">Twitter / X</a>
+                <a href="#" class="hover:text-white transition-colors">GitHub Repository</a>
+                <a href="#" class="hover:text-white transition-colors">LinkedIn Biometrics</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- JAVASCRIPT: PRECISE INTERACTION ENGINE AND DATA FLOWS -->
+    <script>
+        
+        // Custom interactive toasts
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `transform translate-y-4 opacity-0 transition-all duration-300 p-4 rounded-2xl shadow-lg border text-xs font-bold flex items-center gap-3 bg-white text-folia-charcoal border-folia-forest/10 pointer-events-auto`;
+            
+            const badgeColor = type === 'success' ? 'bg-emerald-500' : 'bg-red-500';
+            
+            toast.innerHTML = `
+                <span class="w-2.5 h-2.5 rounded-full ${badgeColor}"></span>
+                <p class="flex-grow">${message}</p>
+            `;
+            
+            container.appendChild(toast);
+            
+            // Trigger animation
+            setTimeout(() => {
+                toast.classList.remove('translate-y-4', 'opacity-0');
+            }, 50);
+            
+            // Remove after duration
+            setTimeout(() => {
+                toast.classList.add('translate-y-4', 'opacity-0');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 3500);
+        }
+
+        // Toggle Password Input Reveal
+        function togglePasswordReveal(inputId) {
+            const input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text";
+                showToast("Password shown securely.", "success");
+            } else {
+                input.type = "password";
+            }
+        }
+
+        // Handle interactive Actions (no default alerts)
+        function handlePortalAction(actionName) {
+            showToast(`${actionName} action initialized successfully! Connecting to secure Folia API...`, 'success');
+        }
+
+        // Toggling between login & registration on the Desktop Form Block
+        let isLoginState = true;
+        function toggleFormState() {
+            const container = document.getElementById('portal-form-container');
+            const toggleLink = document.getElementById('form-toggle-link');
+            const heading = document.getElementById('form-heading');
+            
+            // Animate card slide/flip out
+            container.style.opacity = '0';
+            container.style.transform = 'translateY(10px)';
+            
+            setTimeout(() => {
+                if (isLoginState) {
+                    heading.innerText = 'Create Account';
+                    container.innerHTML = `
+                        <div id="state-register" class="space-y-4 transition-all duration-300">
+                            <h2 class="text-2xl font-extrabold text-folia-forest tracking-tight">Create Account</h2>
+                            
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="block text-[10px] font-bold text-folia-moss uppercase tracking-widest mb-1.5">Full Corporate Name</label>
+                                    <input type="text" placeholder="John Green" class="w-full px-4 py-2.5 rounded-full border border-folia-forest/15 focus:border-folia-emerald focus:outline-none focus:ring-2 focus:ring-folia-mint/30 text-xs transition-all bg-folia-cream/20">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-bold text-folia-moss uppercase tracking-widest mb-1.5">Work Email Address</label>
+                                    <input type="email" placeholder="name@company.com" class="w-full px-4 py-2.5 rounded-full border border-folia-forest/15 focus:border-folia-emerald focus:outline-none focus:ring-2 focus:ring-folia-mint/30 text-xs transition-all bg-folia-cream/20">
+                                </div>
+                            </div>
+
+                            <button onclick="handlePortalAction('Account Signup')" class="w-full py-2.5 rounded-full bg-[#3B5441] hover:bg-folia-forest text-white text-xs font-bold transition-all shadow-md mt-2">
+                                Launch Free Biosphere Trial
+                            </button>
+                        </div>
+                    `;
+                    toggleLink.innerText = 'Already have an account? Log in';
+                } else {
+                    heading.innerText = 'Log in';
+                    container.innerHTML = `
+                        <div id="state-login" class="space-y-4 transition-all duration-300">
+                            <h2 class="text-2xl font-extrabold text-folia-forest tracking-tight">Log in</h2>
+                            
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="block text-[10px] font-bold text-folia-moss uppercase tracking-widest mb-1.5">Login, email or phone number</label>
+                                    <input type="text" placeholder="name@company.com" class="w-full px-4 py-2.5 rounded-full border border-folia-forest/15 focus:border-folia-emerald focus:outline-none focus:ring-2 focus:ring-folia-mint/30 text-xs transition-all bg-folia-cream/20">
+                                </div>
+                                <div>
+                                    <div class="flex justify-between items-center mb-1.5">
+                                        <label class="block text-[10px] font-bold text-folia-moss uppercase tracking-widest">Password</label>
+                                    </div>
+                                    <div class="relative">
+                                        <input id="login-password-input" type="password" placeholder="••••••••••••" class="w-full px-4 py-2.5 rounded-full border border-folia-forest/15 focus:border-folia-emerald focus:outline-none focus:ring-2 focus:ring-folia-mint/30 text-xs transition-all bg-folia-cream/20 pr-10">
+                                        <button type="button" onclick="togglePasswordReveal('login-password-input')" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-folia-moss hover:text-folia-forest transition-colors">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button onclick="handlePortalAction('login')" class="w-full py-2.5 rounded-full bg-[#3B5441] hover:bg-folia-forest text-white text-xs font-bold transition-all shadow-md shadow-folia-forest/20 mt-2">
+                                Log in
+                            </button>
+
+                            <div class="relative flex py-2 items-center">
+                                <div class="flex-grow border-t border-folia-forest/10"></div>
+                                <span class="flex-shrink mx-3 text-[10px] font-bold text-folia-moss uppercase tracking-wider">or log in with</span>
+                                <div class="flex-grow border-t border-folia-forest/10"></div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-3">
+                                <button onclick="handlePortalAction('Google')" class="flex items-center justify-center gap-2 py-2 border border-folia-forest/10 rounded-full hover:bg-folia-cream/50 transition-all">
+                                    <svg class="w-4 h-4" viewBox="0 0 24 24">
+                                        <path fill="#EA4335" d="M12.24 10.285V14.4h6.887c-.275 1.565-1.88 4.604-6.887 4.604-4.33 0-7.859-3.579-7.859-8s3.53-8 7.859-8c2.46 0 4.105 1.025 5.047 1.926l3.227-3.111C18.29 1.845 15.485 1 12.24 1 5.48 1 0 6.48 0 13.2s5.48 12.2 12.24 12.2c7.055 0 11.75-4.964 11.75-11.945 0-.805-.085-1.42-.19-1.97H12.24z"/>
+                                    </svg>
+                                    <span class="text-[11px] font-bold text-folia-charcoal">Google</span>
+                                </button>
+                                <button onclick="handlePortalAction('Office')" class="flex items-center justify-center gap-2 py-2 border border-folia-forest/10 rounded-full hover:bg-folia-cream/50 transition-all">
+                                    <svg class="w-4 h-4" viewBox="0 0 23 23">
+                                        <path fill="#F25022" d="M0 0h11v11H0z"/>
+                                        <path fill="#7FBA00" d="M12 0h11v11H12z"/>
+                                        <path fill="#00A4EF" d="M0 12h11v11H0z"/>
+                                        <path fill="#FFB900" d="M12 12h11v11H12z"/>
+                                    </svg>
+                                    <span class="text-[11px] font-bold text-folia-charcoal">Office 365</span>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    toggleLink.innerText = "Don't have an account? Sign up";
+                }
+                isLoginState = !isLoginState;
+                container.style.opacity = '1';
+                container.style.transform = 'translateY(0px)';
+            }, 300);
+        }
+
+        // Hero Layout Switcher (Simulation of Desktop View and Mobile Glassmorphic Card View)
+        const btnDesktop = document.getElementById('btn-desktop-preview');
+        const btnMobile = document.getElementById('btn-mobile-preview');
+        const desktopView = document.getElementById('desktop-portal-view');
+        const mobileView = document.getElementById('mobile-portal-view');
+        const parallaxContainer = document.getElementById('parallax-container');
+
+        btnDesktop.addEventListener('click', () => {
+            // Apply Classes
+            btnDesktop.className = 'px-5 py-2 rounded-full text-xs font-bold transition-all bg-folia-forest text-white shadow-md';
+            btnMobile.className = 'px-5 py-2 rounded-full text-xs font-bold transition-all text-folia-forest hover:bg-folia-forest/10';
+            
+            // Reveal View 1
+            desktopView.classList.remove('opacity-0', 'pointer-events-none', 'scale-95', 'z-0');
+            desktopView.classList.add('opacity-100', 'scale-100', 'z-10');
+            
+            // Conceal View 2
+            mobileView.classList.add('opacity-0', 'pointer-events-none', 'scale-95', 'z-0');
+            mobileView.classList.remove('opacity-100', 'scale-100', 'z-10');
+            
+            // Morph the outer aspect container
+            parallaxContainer.style.maxWidth = '2xl';
+            showToast('Desktop Wave System preview activated', 'success');
+        });
+
+        btnMobile.addEventListener('click', () => {
+            // Apply Classes
+            btnMobile.className = 'px-5 py-2 rounded-full text-xs font-bold transition-all bg-folia-forest text-white shadow-md';
+            btnDesktop.className = 'px-5 py-2 rounded-full text-xs font-bold transition-all text-folia-forest hover:bg-folia-forest/10';
+            
+            // Reveal View 2
+            mobileView.classList.remove('opacity-0', 'pointer-events-none', 'scale-95', 'z-0');
+            mobileView.classList.add('opacity-100', 'scale-100', 'z-10');
+            
+            // Conceal View 1
+            desktopView.classList.add('opacity-0', 'pointer-events-none', 'scale-95', 'z-0');
+            desktopView.classList.remove('opacity-100', 'scale-100', 'z-10');
+            
+            // Morph the outer aspect container (simulate sleek tall mobile frame aspect)
+            parallaxContainer.style.maxWidth = '320px';
+            showToast('Mobile Glassmorphic preview activated', 'success');
+        });
+
+
+        // 3D Parallax Movement Tracking for Leaf Waves
+        const layer1 = document.getElementById('layer-wave-1');
+        const layer2 = document.getElementById('layer-wave-2');
+        const layer3 = document.getElementById('layer-wave-3');
+
+        document.addEventListener('mousemove', (e) => {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            
+            // Calculate normalization offset
+            const moveX = (e.clientX - width / 2) / (width / 2);
+            const moveY = (e.clientY - height / 2) / (height / 2);
+            
+            // Translate layers dynamically with varying weights (Simulating Papercut Depth)
+            if (layer1) layer1.style.transform = `translate(${moveX * -4}px, ${moveY * -4}px)`;
+            if (layer2) layer2.style.transform = `translate(${moveX * -10}px, ${moveY * -10}px)`;
+            if (layer3) layer3.style.transform = `translate(${moveX * -18}px, ${moveY * -18}px)`;
+        });
+
+
+        // BIOPHILIC PLAYGROUND SANDBOX LOGIC
+        function updateSimulator() {
+            // Read value metrics
+            const flora = parseInt(document.getElementById('slide-flora').value);
+            const air = parseInt(document.getElementById('slide-air').value);
+            const audio = parseInt(document.getElementById('slide-audio').value);
+
+            // Set numerical displays
+            document.getElementById('val-flora').innerText = `${flora}%`;
+            document.getElementById('val-air').innerText = `${air}%`;
+            document.getElementById('val-audio').innerText = `${audio}%`;
+
+            // Core Telemetry Algorithm Simulation
+            const projectedProductivity = Math.round((flora * 0.15) + (air * 0.1) + (audio * 0.05));
+            const oxygenEmission = (((flora * 1.8) + (air * 1.2)) / 10).toFixed(1);
+            const clarityIndex = Math.round((flora * 0.4) + (air * 0.3) + (audio * 0.3));
+
+            // Set dynamic values on outputs
+            document.getElementById('metric-prod').innerText = `${projectedProductivity}%`;
+            document.getElementById('metric-oxygen').innerText = `+${oxygenEmission}M`;
+            document.getElementById('metric-clarity').innerText = `${clarityIndex}`;
+
+            // Adjust graphical progress bar fills
+            document.getElementById('bar-prod').style.width = `${Math.min(projectedProductivity * 3, 100)}%`;
+            document.getElementById('bar-oxygen').style.width = `${Math.min(parseFloat(oxygenEmission) * 4, 100)}%`;
+            document.getElementById('bar-clarity').style.width = `${clarityIndex}%`;
+
+            // Scale the background leaf mark matching density slider
+            const scaleFactor = 0.5 + (flora / 100);
+            document.getElementById('visual-leaf-bg').style.transform = `scale(${scaleFactor})`;
+
+            // Simulate dynamic audio bar changes when slider changes
+            simulateEqualizer();
+
+            // Set Stability Badge
+            const badge = document.getElementById('status-badge');
+            const compositeRating = flora + air + audio;
+            if (compositeRating > 220) {
+                badge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-extrabold bg-emerald-100 text-emerald-800";
+                badge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> MAXIMUM BIOSYNTHESIS`;
+            } else if (compositeRating > 110) {
+                badge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-extrabold bg-green-100 text-green-800";
+                badge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> OPTIMAL HARMONY`;
+            } else {
+                badge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-extrabold bg-amber-100 text-amber-800";
+                badge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> ATTENUATED STABILITY`;
+            }
+        }
+
+        // Simulated EQ audio visualizer
+        function simulateEqualizer() {
+            const audioVal = parseInt(document.getElementById('slide-audio').value);
+            for (let i = 1; i <= 10; i++) {
+                const el = document.getElementById(`eq-bar-${i}`);
+                if (el) {
+                    const randomVariance = Math.random() * 30;
+                    const calculatedHeight = Math.max(10, Math.min(100, (audioVal * 0.7) + randomVariance));
+                    el.style.height = `${calculatedHeight}%`;
+                }
+            }
+        }
+
+        // ROI CALCULATOR LOGIC
+        let activeScopePlan = 'Sprout';
+        let scopeMultiplier = 1.0;
+
+        function adjustCalcValue(metric, delta) {
+            if (metric === 'employees') {
+                const current = parseInt(document.getElementById('calc-employees').innerText);
+                const updated = Math.max(50, Math.min(5000, current + delta));
+                document.getElementById('calc-employees').innerText = updated;
+                calculateROI();
+            }
+        }
+
+        function setDensityPlan(planName, multiplier) {
+            activeScopePlan = planName;
+            scopeMultiplier = multiplier;
+
+            // Reset Highlight Classes
+            const plans = ['sprout', 'canopy', 'biosphere'];
+            plans.forEach(p => {
+                const el = document.getElementById(`plan-${p}`);
+                if (p === planName.toLowerCase()) {
+                    el.className = "py-2.5 rounded-full text-xs font-bold transition-all bg-folia-forest text-white shadow-md";
+                } else {
+                    el.className = "py-2.5 rounded-full text-xs font-bold transition-all text-folia-forest bg-white border border-folia-forest/10 hover:bg-folia-forest/5";
+                }
+            });
+
+            calculateROI();
+            showToast(`Biosphere target scale set to ${planName}`, 'success');
+        }
+
+        function calculateROI() {
+            const employees = parseInt(document.getElementById('calc-employees').innerText);
+            const salary = parseInt(document.getElementById('calc-salary').value);
+            
+            // Set slider value indicator
+            document.getElementById('display-salary').innerText = `$${salary.toLocaleString()}`;
+
+            // ROI Metrics (Recovery value metrics modeled on certified wellness data)
+            // Lost productivity usually totals ~15% of annual payroll hours to mental exhaustion.
+            // Biophilic structures recover approx 3-5% of total lost potential.
+            const productivityFactor = 0.04 * scopeMultiplier; 
+            const totalRecovPayroll = employees * salary * productivityFactor;
+
+            // Carbon credits: ~0.8 metric tons generated annually per active green tier per employee space
+            const carbonCreditsCo2 = employees * 0.8 * scopeMultiplier;
+            const carbonValueCredits = carbonCreditsCo2 * 92; // Avg carbon price indexing $92/ton
+
+            // Format monetary outputs
+            document.getElementById('display-productivity').innerText = `$${Math.round(totalRecovPayroll).toLocaleString()}`;
+            document.getElementById('display-co2').innerText = `$${Math.round(carbonValueCredits).toLocaleString()}`;
+            document.getElementById('display-total').innerText = `$${Math.round(totalRecovPayroll + carbonValueCredits).toLocaleString()}`;
+        }
+
+
+        // PRICING MATRIX LOGIC
+        let billingCycle = 'monthly';
+        function setBillingCycle(cycle) {
+            billingCycle = cycle;
+            
+            // Update Tab styles
+            const btnMonthly = document.getElementById('btn-billing-monthly');
+            const btnAnnual = document.getElementById('btn-billing-annual');
+
+            if (cycle === 'monthly') {
+                btnMonthly.className = "px-5 py-2 rounded-full text-xs font-bold transition-all bg-folia-forest text-white shadow-sm";
+                btnAnnual.className = "px-5 py-2 rounded-full text-xs font-bold transition-all text-folia-forest hover:bg-folia-forest/10";
+                
+                // Set Prices
+                document.getElementById('price-sprout').innerText = "149";
+                document.getElementById('price-canopy').innerText = "399";
+                document.getElementById('price-biosphere').innerText = "899";
+            } else {
+                btnAnnual.className = "px-5 py-2 rounded-full text-xs font-bold transition-all bg-folia-forest text-white shadow-sm";
+                btnMonthly.className = "px-5 py-2 rounded-full text-xs font-bold transition-all text-folia-forest hover:bg-folia-forest/10";
+
+                // Set Prices with 20% discount applied
+                document.getElementById('price-sprout').innerText = "119";
+                document.getElementById('price-canopy').innerText = "319";
+                document.getElementById('price-biosphere').innerText = "719";
+            }
+            showToast(`Billing cycle updated to: ${cycle}`, 'success');
+        }
+
+
+        // FAQ COLLAPSIBLE MECHANICS
+        function toggleFaq(index) {
+            const body = document.getElementById(`faq-body-${index}`);
+            const icon = document.getElementById(`faq-icon-${index}`);
+            
+            if (body.style.maxHeight === '0px' || !body.style.maxHeight) {
+                // Open Faq Body
+                body.style.maxHeight = `${body.scrollHeight}px`;
+                icon.innerText = "−";
+                icon.style.transform = "rotate(180deg)";
+            } else {
+                // Close Faq Body
+                body.style.maxHeight = "0px";
+                icon.innerText = "+";
+                icon.style.transform = "rotate(0deg)";
+            }
+        }
+
+
+        // On Window Load Initialization Sequences
+        window.onload = function () {
+            // Start the ambient equalizer simulation loop
+            setInterval(simulateEqualizer, 1000);
+            
+            // Run baseline calculations
+            updateSimulator();
+            calculateROI();
+        };
+
+    </script>
+</body>
+</html>
+8

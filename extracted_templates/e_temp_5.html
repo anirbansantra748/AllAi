@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIRAWT - Premium Ergonomic Seating</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandYellow: '#F3C536',
+                        brandYellowDark: '#DBAE20',
+                        brandCharcoal: '#313538',
+                        brandLightGray: '#F3F4F6',
+                        brandDarkText: '#1A1C1E',
+                        brandMuted: '#6E7478'
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+            background-color: #F3F4F6;
+            color: #1A1C1E;
+            overflow-x: hidden;
+        }
+        
+        /* Custom animations to match the premium feel */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 0.4; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+        .animate-pulse-ring {
+            animation: pulse-ring 3s infinite ease-in-out;
+        }
+
+        /* Smooth scroll and transition helpers */
+        .transition-all-custom {
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Hide scrollbar but keep functionality */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="selection:bg-brandYellow selection:text-brandDarkText">
+
+    <!-- Top Promo Banner / Alert Bar -->
+    <div class="bg-brandCharcoal text-white py-2 px-4 text-xs font-semibold tracking-wider text-center flex justify-center items-center gap-2 relative z-50">
+        <span class="bg-brandYellow text-brandDarkText px-2 py-0.5 rounded text-[10px] uppercase font-bold">Offer</span>
+        <span>EXPERIENCE ULTIMATE LUMBAR SUPPORT — ENJOY 20% OFF ALL WORKSTATION CHAIRS THIS WEEK</span>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 bg-brandLightGray/80 backdrop-blur-md border-b border-gray-200/50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-2 group">
+                <div class="w-8 h-8 rounded-full bg-brandYellow flex items-center justify-center font-black text-brandDarkText text-lg shadow-sm transition-transform group-hover:rotate-12">
+                    C
+                </div>
+                <span class="font-extrabold text-xl tracking-tight text-brandDarkText">CIRAWT</span>
+            </a>
+
+            <!-- Central Navigation Links -->
+            <nav class="hidden md:flex items-center gap-8 font-medium text-sm text-brandDarkText">
+                <a href="#products" class="hover:text-brandYellowDark transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-brandYellow hover:after:w-full after:transition-all">Product</a>
+                <a href="#features" class="hover:text-brandYellowDark transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-brandYellow hover:after:w-full after:transition-all">Category</a>
+                <a href="#philosophy" class="hover:text-brandYellowDark transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-brandYellow hover:after:w-full after:transition-all">About us</a>
+                <a href="#reviews" class="hover:text-brandYellowDark transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-brandYellow hover:after:w-full after:transition-all">Blog</a>
+            </nav>
+
+            <!-- Right-Side Utilities -->
+            <div class="flex items-center gap-6">
+                <!-- Search Box -->
+                <div class="hidden lg:flex items-center bg-gray-200/50 border border-gray-300/30 rounded-full px-4 py-1.5 text-sm w-48 focus-within:w-60 focus-within:border-brandYellow transition-all duration-300">
+                    <i class="fa-solid fa-search text-gray-400 mr-2 text-xs"></i>
+                    <input type="text" placeholder="Search..." class="bg-transparent border-none outline-none text-xs text-brandDarkText placeholder-gray-400 w-full">
+                </div>
+
+                <!-- Account & Settings -->
+                <button class="text-sm font-semibold flex items-center gap-1.5 hover:text-brandYellowDark transition-colors">
+                    <i class="fa-regular fa-user text-sm"></i>
+                    <span class="hidden sm:inline">Account</span>
+                </button>
+
+                <!-- Language Selector -->
+                <button class="flex items-center gap-1.5 text-xs font-bold bg-white px-2.5 py-1 rounded-full border border-gray-200 shadow-sm">
+                    <span class="w-4 h-3 overflow-hidden rounded flex items-center justify-center">🇬🇧</span>
+                    <span>ENG</span>
+                    <i class="fa-solid fa-chevron-down text-[8px] text-gray-400"></i>
+                </button>
+
+                <!-- Interactive Cart Trigger -->
+                <button onclick="toggleCart()" class="relative p-2.5 bg-brandCharcoal hover:bg-brandDarkText text-white rounded-full shadow-md transition-all duration-300 hover:scale-105">
+                    <i class="fa-solid fa-bag-shopping text-sm"></i>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-brandYellow text-brandDarkText text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center shadow-sm">2</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTEXT WRAPPER -->
+    <main class="relative">
+
+        <!-- HERO SECTION (Interactive Product Showcase matching the exact aesthetic of inspiration image) -->
+        <section class="min-h-[calc(100vh-5rem)] flex items-center relative overflow-hidden py-12 md:py-0">
+            <!-- Background Decorative Geometric Accents matching the layout of the source image -->
+            <div class="absolute inset-0 z-0 pointer-events-none">
+                <!-- Large Right Charcoal Half-circle -->
+                <div class="absolute right-[-10vw] top-[10%] w-[55vw] h-[55vw] rounded-full bg-brandCharcoal opacity-100 transform translate-x-20 transition-all duration-700"></div>
+                <!-- Interactive dynamic secondary accent circles -->
+                <div class="absolute right-[15vw] top-[15%] w-[42vw] h-[42vw] rounded-full bg-brandYellow opacity-100 transition-all duration-1000 transform scale-100" id="hero-bg-circle"></div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-6 w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Details / Typography Content -->
+                <div class="lg:col-span-5 flex flex-col justify-center text-left space-y-6 md:space-y-8">
+                    
+                    <!-- Dynamic Sliding Header -->
+                    <div class="space-y-2">
+                        <span class="text-xs font-black uppercase tracking-[0.3em] text-brandMuted block" id="hero-series-tag">SERIES 03 // ERGONOMIC</span>
+                        <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold text-brandDarkText leading-tight tracking-tight transition-all duration-500" id="hero-title">
+                            Comferiws
+                        </h1>
+                    </div>
+
+                    <!-- Description -->
+                    <p class="text-base text-brandMuted max-w-md leading-relaxed" id="hero-desc">
+                        We are a design-forward workspace solutions company. Engineered with smart lumbar adaptivity, breathable custom fiber mesh, and sleek synchronous kinetics.
+                    </p>
+
+                    <!-- Pricing & Promo Indicator -->
+                    <div class="flex items-baseline gap-4">
+                        <span class="text-3xl md:text-4xl font-extrabold text-brandDarkText" id="hero-price">$1,867</span>
+                        <span class="text-lg text-gray-400 line-through font-medium" id="hero-original-price">$2,543</span>
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1">
+                            <i class="fa-solid fa-arrow-trend-down"></i> Save 26%
+                        </span>
+                    </div>
+
+                    <!-- CTA Buttons matching design feel -->
+                    <div class="flex flex-wrap items-center gap-4 sm:gap-6 pt-2">
+                        <button onclick="addToCartCurrent()" class="bg-brandYellow hover:bg-brandYellowDark text-brandDarkText font-extrabold px-8 py-4 rounded shadow-[0_10px_20px_rgba(243,197,54,0.3)] hover:shadow-[0_12px_24px_rgba(243,197,54,0.4)] transition-all-custom transform hover:-translate-y-0.5 active:translate-y-0 uppercase tracking-wider text-xs">
+                            ADD TO CART
+                        </button>
+                        
+                        <button onclick="toggleWishlist(this)" class="group flex items-center gap-2 text-sm font-bold text-brandDarkText hover:text-brandYellowDark transition-colors py-3">
+                            <span class="w-10 h-10 rounded-full border-2 border-brandCharcoal/10 flex items-center justify-center group-hover:border-brandYellow transition-colors bg-white/50">
+                                <i class="fa-regular fa-heart text-base group-hover:scale-110 transition-transform" id="wishlist-icon"></i>
+                            </span>
+                            <span>Add to wish list</span>
+                        </button>
+                    </div>
+
+                    <!-- Trust factors -->
+                    <div class="flex items-center gap-8 pt-6 border-t border-gray-200/50">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-shield-halved text-brandYellow text-lg"></i>
+                            <div class="text-xs">
+                                <p class="font-bold">10-Year Warranty</p>
+                                <p class="text-gray-400 text-[10px]">Built to endure</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-truck-fast text-brandYellow text-lg"></i>
+                            <div class="text-xs">
+                                <p class="font-bold">Free Shipping</p>
+                                <p class="text-gray-400 text-[10px]">No hidden cost</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Central Visual Presentation Container (The circles + actual SVG asset of chair) -->
+                <div class="lg:col-span-6 flex justify-center items-center relative min-h-[400px] md:min-h-[500px]">
+                    
+                    <!-- Main Interactive Floating Product Showcase Graphic with depth shadow -->
+                    <div class="relative w-80 h-80 sm:w-96 sm:h-96 md:w-[420px] md:h-[420px] flex items-center justify-center z-10 transition-all duration-700 animate-float" id="product-graphic-container">
+                        
+                        <!-- Floating Discount Badge exactly as shown in inspiration image -->
+                        <div class="absolute -left-2 top-[45%] z-20 w-20 h-20 bg-brandDarkText text-white rounded-full flex flex-col items-center justify-center text-center font-bold border-4 border-brandLightGray shadow-xl cursor-pointer hover:scale-110 transition-all duration-300">
+                            <span class="text-sm font-extrabold tracking-tight" id="badge-pct">20%</span>
+                            <span class="text-[10px] text-brandYellow tracking-wider uppercase font-black">Off</span>
+                            <div class="absolute inset-0 rounded-full border border-brandYellow opacity-50 animate-pulse-ring"></div>
+                        </div>
+
+                        <!-- Rendered SVG Office Chair showing beautiful premium construction with structural segments -->
+                        <svg id="chair-svg" class="w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 relative z-10 drop-shadow-[0_25px_35px_rgba(0,0,0,0.18)]" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Chair shadow underneath -->
+                            <ellipse cx="250" cy="455" rx="100" ry="12" fill="rgba(0,0,0,0.25)" filter="blur(5px)" />
+                            
+                            <!-- Castors / Base Wheels -->
+                            <g id="wheels" class="stroke-brandDarkText" stroke-width="6" stroke-linecap="round">
+                                <circle cx="150" cy="450" r="10" fill="#1C1F22" />
+                                <circle cx="210" cy="458" r="10" fill="#1C1F22" />
+                                <circle cx="290" cy="458" r="10" fill="#1C1F22" />
+                                <circle cx="350" cy="450" r="10" fill="#1C1F22" />
+                            </g>
+                            
+                            <!-- Base Star Struts -->
+                            <g id="base-star" stroke="#1C1F22" stroke-width="12" stroke-linecap="round">
+                                <line x1="250" y1="420" x2="150" y2="450" />
+                                <line x1="250" y1="420" x2="210" y2="458" />
+                                <line x1="250" y1="420" x2="290" y2="458" />
+                                <line x1="250" y1="420" x2="350" y2="450" />
+                            </g>
+
+                            <!-- Cylinder Gas Lift Mechanism -->
+                            <rect x="242" y="370" width="16" height="55" rx="3" fill="#1C1F22" />
+                            <rect x="238" y="390" width="24" height="8" rx="2" fill="#E5E7EB" />
+                            <path d="M230 365 H270 V375 H230 Z" fill="#1C1F22" />
+
+                            <!-- Mechanism Under-Seat Adjusters -->
+                            <line x1="210" y1="360" x2="245" y2="368" stroke="#1C1F22" stroke-width="6" stroke-linecap="round" />
+                            <circle cx="205" cy="358" r="6" fill="#1C1F22" />
+
+                            <!-- Main Seat Base Support Bracket -->
+                            <path d="M190 350 L250 368 L310 350" stroke="#1C1F22" stroke-width="14" stroke-linejoin="round" stroke-linecap="round" />
+
+                            <!-- Cushion Cushion / Support (Outer Frame & Soft Top) -->
+                            <g id="cushion">
+                                <path d="M160 320 C160 350, 340 350, 340 320 C340 305, 160 305, 160 320 Z" fill="#E5E7EB" stroke="#1C1F22" stroke-width="10" stroke-linejoin="round" />
+                                <!-- Inner Soft Comfort Layer (Dynamic Color via JS) -->
+                                <path id="chair-seat-color" d="M170 318 C170 340, 330 340, 330 318 C330 308, 170 308, 170 318 Z" fill="#FFFFFF" />
+                            </g>
+
+                            <!-- Spine Backrest Upright Connection -->
+                            <path d="M250 350 L250 250" stroke="#1C1F22" stroke-width="18" stroke-linecap="round" />
+
+                            <!-- Ergonomic Lumbar Bracket -->
+                            <path d="M210 240 Q250 248 290 240" stroke="#1C1F22" stroke-width="12" stroke-linecap="round" fill="none" />
+
+                            <!-- Mesh Backrest Frame (Elegant Slatted Curve) -->
+                            <g id="backrest">
+                                <!-- Outer Curved Frame -->
+                                <path d="M190 140 C180 200, 195 285, 205 290 C220 295, 280 295, 295 290 C305 285, 320 200, 310 140 C300 95, 200 95, 190 140 Z" fill="none" stroke="#1C1F22" stroke-width="12" stroke-linejoin="round" />
+                                
+                                <!-- Slats / Lumbar Ribs (Giving that exquisite office chair vibe from the photo) -->
+                                <g stroke="#1C1F22" stroke-width="5" opacity="0.85">
+                                    <line x1="202" y1="150" x2="298" y2="150" />
+                                    <line x1="200" y1="165" x2="300" y2="165" />
+                                    <line x1="198" y1="180" x2="302" y2="180" />
+                                    <line x1="197" y1="195" x2="303" y2="195" />
+                                    <line x1="198" y1="210" x2="302" y2="210" />
+                                    <line x1="200" y1="225" x2="300" y2="225" />
+                                    <line x1="202" y1="240" x2="298" y2="240" />
+                                    <line x1="205" y1="255" x2="295" y2="255" />
+                                    <line x1="208" y1="270" x2="292" y2="270" />
+                                </g>
+                            </g>
+
+                            <!-- Armrests Left and Right -->
+                            <g id="armrests">
+                                <!-- Left Armrest Post and Pad -->
+                                <path d="M175 320 V255" stroke="#1C1F22" stroke-width="10" stroke-linecap="round" />
+                                <path d="M155 250 H195" stroke="#1C1F22" stroke-width="12" stroke-linecap="round" />
+                                
+                                <!-- Right Armrest Post and Pad -->
+                                <path d="M325 320 V255" stroke="#1C1F22" stroke-width="10" stroke-linecap="round" />
+                                <path d="M305 250 H345" stroke="#1C1F22" stroke-width="12" stroke-linecap="round" />
+                            </g>
+                        </svg>
+
+                        <!-- Subtle Glow Behind the Chair -->
+                        <div class="absolute inset-20 rounded-full bg-white opacity-25 blur-2xl z-0 pointer-events-none"></div>
+                    </div>
+                </div>
+
+                <!-- Sleek Right Stepper / Navigation Interface exactly as represented in source image -->
+                <div class="lg:col-span-1 flex flex-row lg:flex-col justify-center items-center gap-6 lg:gap-4 text-brandDarkText lg:text-white z-20">
+                    <!-- Up Arrow -->
+                    <button onclick="navigateSlide('prev')" class="w-8 h-8 rounded-full border border-current flex items-center justify-center hover:bg-brandYellow hover:text-brandDarkText hover:border-brandYellow transition-all duration-300">
+                        <i class="fa-solid fa-arrow-up text-[10px]"></i>
+                    </button>
+                    
+                    <!-- Stepper Index Labels -->
+                    <div class="flex flex-row lg:flex-col items-center gap-3 font-semibold text-xs tracking-wider">
+                        <button onclick="changeSlide(1)" id="step-btn-1" class="transition-all duration-300 py-1 px-2 rounded hover:text-brandYellow text-gray-400 opacity-60">01</button>
+                        <button onclick="changeSlide(2)" id="step-btn-2" class="transition-all duration-300 py-1 px-2 rounded hover:text-brandYellow text-gray-400 opacity-60">02</button>
+                        <button onclick="changeSlide(3)" id="step-btn-3" class="transition-all duration-300 py-1 px-2 rounded hover:text-brandYellow font-extrabold text-white bg-brandCharcoal/20 lg:bg-white/25 scale-125 px-2.5 shadow-sm">03</button>
+                        <button onclick="changeSlide(4)" id="step-btn-4" class="transition-all duration-300 py-1 px-2 rounded hover:text-brandYellow text-gray-400 opacity-60">04</button>
+                    </div>
+
+                    <!-- Down Arrow -->
+                    <button onclick="navigateSlide('next')" class="w-8 h-8 rounded-full border border-current flex items-center justify-center hover:bg-brandYellow hover:text-brandDarkText hover:border-brandYellow transition-all duration-300">
+                        <i class="fa-solid fa-arrow-down text-[10px]"></i>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- LIVE DESIGN SYSTEM / CUSTOMIZATION CONTROL BAR -->
+        <section class="bg-white border-y border-gray-200 py-6 px-6 relative z-20">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+                    <span class="bg-brandYellow/10 text-brandYellowDark font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider">LIVE RECOLOR</span>
+                    <p class="text-sm font-semibold text-brandDarkText">Customize the seat color to visualize in real-time:</p>
+                </div>
+                
+                <!-- Seat Color Switcher Controls -->
+                <div class="flex items-center gap-4">
+                    <button onclick="setSeatColor('#FFFFFF', 'Pure Alabaster')" class="w-10 h-10 rounded-full bg-white border-2 border-brandYellow focus:outline-none transition-all duration-300 shadow-md transform hover:scale-110" title="Alabaster White"></button>
+                    <button onclick="setSeatColor('#F3C536', 'Cyber Mustard')" class="w-10 h-10 rounded-full bg-brandYellow border-2 border-transparent hover:border-brandYellowDark focus:outline-none transition-all duration-300 shadow-sm transform hover:scale-110" title="Cyber Mustard"></button>
+                    <button onclick="setSeatColor('#313538', 'Carbon Black')" class="w-10 h-10 rounded-full bg-brandCharcoal border-2 border-transparent hover:border-brandYellowDark focus:outline-none transition-all duration-300 shadow-sm transform hover:scale-110" title="Carbon Black"></button>
+                    <button onclick="setSeatColor('#E05A47', 'Sienna Terracotta')" class="w-10 h-10 rounded-full bg-[#E05A47] border-2 border-transparent hover:border-brandYellowDark focus:outline-none transition-all duration-300 shadow-sm transform hover:scale-110" title="Sienna Terracotta"></button>
+                    <button onclick="setSeatColor('#4B8BBE', 'Aero Glacier')" class="w-10 h-10 rounded-full bg-[#4B8BBE] border-2 border-transparent hover:border-brandYellowDark focus:outline-none transition-all duration-300 shadow-sm transform hover:scale-110" title="Aero Glacier"></button>
+                </div>
+                
+                <div class="text-xs text-brandMuted">
+                    Showing: <span id="color-name" class="font-extrabold text-brandDarkText">Pure Alabaster</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- PREMIUM PROOF METRICS SECTION -->
+        <section class="py-16 bg-brandLightGray border-b border-gray-200/50">
+            <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center md:text-left space-y-2">
+                    <p class="text-xs font-bold text-brandMuted uppercase tracking-wider">Engineering Pedigree</p>
+                    <h2 class="text-4xl font-extrabold text-brandDarkText">150+</h2>
+                    <p class="text-sm text-brandMuted">Patented ergonomic design structures tested rigorously.</p>
+                </div>
+                <div class="text-center md:text-left space-y-2">
+                    <p class="text-xs font-bold text-brandMuted uppercase tracking-wider">Sustainable Sourcing</p>
+                    <h2 class="text-4xl font-extrabold text-brandDarkText">85%</h2>
+                    <p class="text-sm text-brandMuted">Recycled polymer fabric and certified organic compounds.</p>
+                </div>
+                <div class="text-center md:text-left space-y-2">
+                    <p class="text-xs font-bold text-brandMuted uppercase tracking-wider">Globally Endorsed</p>
+                    <h2 class="text-4xl font-extrabold text-brandDarkText">24k+</h2>
+                    <p class="text-sm text-brandMuted">Active modern workspace systems delivered worldwide.</p>
+                </div>
+                <div class="text-center md:text-left space-y-2">
+                    <p class="text-xs font-bold text-brandMuted uppercase tracking-wider">Direct Feedback Rating</p>
+                    <h2 class="text-4xl font-extrabold text-brandDarkText">4.92</h2>
+                    <p class="text-sm text-brandMuted">Average user rating verified by certified ergonomic labs.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- HIGH-FIDELITY FEATURE GRID -->
+        <section id="features" class="py-24 bg-white relative">
+            <div class="max-w-7xl mx-auto px-6">
+                <!-- Section Header -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                    <div class="max-w-xl space-y-4">
+                        <span class="text-brandYellowDark font-black text-xs uppercase tracking-[0.25em]">Precision Mechanics</span>
+                        <h2 class="text-4xl md:text-5xl font-black text-brandDarkText leading-tight">
+                            Crafting comfort that optimizes cognitive performance.
+                        </h2>
+                    </div>
+                    <p class="text-brandMuted max-w-sm leading-relaxed text-sm">
+                        Traditional chairs compress your spine and restrict venous return. Our adaptive kinetic frames synchronize dynamically with your body's sub-millimeter shiftings.
+                    </p>
+                </div>
+
+                <!-- Feature Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Card 1 -->
+                    <div class="group bg-brandLightGray rounded-2xl p-8 border border-gray-100 hover:border-brandYellow hover:bg-white hover:shadow-[0_20px_40px_rgba(0,0,0,0.04)] transition-all-custom">
+                        <div class="w-12 h-12 rounded-xl bg-brandCharcoal text-white flex items-center justify-center mb-6 group-hover:bg-brandYellow group-hover:text-brandDarkText transition-colors duration-300">
+                            <i class="fa-solid fa-arrows-to-dot text-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-brandDarkText group-hover:text-brandYellowDark transition-colors">Adaptive Smart Lumbar</h3>
+                        <p class="text-sm text-brandMuted leading-relaxed">
+                            Continuous, auto-adjusting tension mesh reads your posture alignment to deliver precise counter-pressure without manual knobs.
+                        </p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="group bg-brandLightGray rounded-2xl p-8 border border-gray-100 hover:border-brandYellow hover:bg-white hover:shadow-[0_20px_40px_rgba(0,0,0,0.04)] transition-all-custom">
+                        <div class="w-12 h-12 rounded-xl bg-brandCharcoal text-white flex items-center justify-center mb-6 group-hover:bg-brandYellow group-hover:text-brandDarkText transition-colors duration-300">
+                            <i class="fa-solid fa-wind text-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-brandDarkText group-hover:text-brandYellowDark transition-colors">VaporMesh Breathability</h3>
+                        <p class="text-sm text-brandMuted leading-relaxed">
+                            Interwoven elastomeric fibers create micro-chambers that maximize heat dissipation, keeping your dermis dry through intense focus sessions.
+                        </p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="group bg-brandLightGray rounded-2xl p-8 border border-gray-100 hover:border-brandYellow hover:bg-white hover:shadow-[0_20px_40px_rgba(0,0,0,0.04)] transition-all-custom">
+                        <div class="w-12 h-12 rounded-xl bg-brandCharcoal text-white flex items-center justify-center mb-6 group-hover:bg-brandYellow group-hover:text-brandDarkText transition-colors duration-300">
+                            <i class="fa-solid fa-rotate text-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-brandDarkText group-hover:text-brandYellowDark transition-colors">Kinetic Synchronous Tilt</h3>
+                        <p class="text-sm text-brandMuted leading-relaxed">
+                            A smart mechanical linkage keeps the seat pan relatively level while the backrest reclines, maintaining your core visual line perfectly.
+                        </p>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="group bg-brandLightGray rounded-2xl p-8 border border-gray-100 hover:border-brandYellow hover:bg-white hover:shadow-[0_20px_40px_rgba(0,0,0,0.04)] transition-all-custom">
+                        <div class="w-12 h-12 rounded-xl bg-brandCharcoal text-white flex items-center justify-center mb-6 group-hover:bg-brandYellow group-hover:text-brandDarkText transition-colors duration-300">
+                            <i class="fa-solid fa-circle-nodes text-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-brandDarkText group-hover:text-brandYellowDark transition-colors">4D Pivoting Armrests</h3>
+                        <p class="text-sm text-brandMuted leading-relaxed">
+                            Adjust height, forward-backward positioning, lateral width, and rotation angles to rest your forearms without introducing neck strain.
+                        </p>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="group bg-brandLightGray rounded-2xl p-8 border border-gray-100 hover:border-brandYellow hover:bg-white hover:shadow-[0_20px_40px_rgba(0,0,0,0.04)] transition-all-custom">
+                        <div class="w-12 h-12 rounded-xl bg-brandCharcoal text-white flex items-center justify-center mb-6 group-hover:bg-brandYellow group-hover:text-brandDarkText transition-colors duration-300">
+                            <i class="fa-solid fa-award text-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-brandDarkText group-hover:text-brandYellowDark transition-colors">BIFMA Gold Standard</h3>
+                        <p class="text-sm text-brandMuted leading-relaxed">
+                            Passed extreme impact, drop, fatigue, and heavy-duty load testing standards, exceeding industrial commercial criteria easily.
+                        </p>
+                    </div>
+
+                    <!-- Card 6 -->
+                    <div class="group bg-brandLightGray rounded-2xl p-8 border border-gray-100 hover:border-brandYellow hover:bg-white hover:shadow-[0_20px_40px_rgba(0,0,0,0.04)] transition-all-custom">
+                        <div class="w-12 h-12 rounded-xl bg-brandCharcoal text-white flex items-center justify-center mb-6 group-hover:bg-brandYellow group-hover:text-brandDarkText transition-colors duration-300">
+                            <i class="fa-solid fa-leaf text-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-brandDarkText group-hover:text-brandYellowDark transition-colors">Carbon-Negative Initiative</h3>
+                        <p class="text-sm text-brandMuted leading-relaxed">
+                            For every workspace module constructed, CIRAWT offsets 150% of the greenhouse emissions, investing back into certified carbon capture.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- HOTSPOT EXPLORER SECTION (With interactive visual pointers) -->
+        <section id="philosophy" class="py-24 bg-brandLightGray border-y border-gray-200">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                    
+                    <!-- Left Visual Interactive Diagram -->
+                    <div class="lg:col-span-7 flex justify-center relative bg-white rounded-3xl p-8 border border-gray-200 shadow-md min-h-[500px] overflow-hidden">
+                        
+                        <!-- Overlay circular background decoration -->
+                        <div class="absolute inset-0 z-0 flex items-center justify-center opacity-30">
+                            <div class="w-80 h-80 rounded-full border-4 border-dashed border-brandYellow animate-spin" style="animation-duration: 40s;"></div>
+                        </div>
+
+                        <!-- Main visual SVG -->
+                        <div class="relative z-10 w-full flex justify-center">
+                            <!-- Hotspot Graphic SVG -->
+                            <svg class="w-full max-w-md h-auto" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Chair schematic design rendering -->
+                                <g opacity="0.15" stroke="#1C1F22" stroke-width="2">
+                                    <line x1="50" y1="250" x2="450" y2="250" />
+                                    <line x1="250" y1="50" x2="250" y2="450" />
+                                    <circle cx="250" cy="250" r="180" />
+                                </g>
+                                <!-- Rendered Wireframe-style chair -->
+                                <path d="M190 140 C180 200, 195 285, 205 290 C220 295, 280 295, 295 290 C305 285, 320 200, 310 140 C300 95, 200 95, 190 140 Z" stroke="#313538" stroke-width="4" stroke-dasharray="2 2" />
+                                <path d="M160 320 C160 350, 340 350, 340 320 C340 305, 160 305, 160 320 Z" fill="none" stroke="#313538" stroke-width="4" />
+                                <path d="M250 350 L250 420 M150 450 L350 450" stroke="#313538" stroke-width="4" />
+                            </svg>
+
+                            <!-- Interactive Hotspots -->
+                            
+                            <!-- Hotspot A: Backrest -->
+                            <div class="absolute top-[28%] left-[45%] group z-20">
+                                <div class="relative flex items-center justify-center">
+                                    <span class="absolute inline-flex h-8 w-8 rounded-full bg-brandYellow opacity-75 animate-ping"></span>
+                                    <button onclick="triggerHotspot('backrest')" class="relative flex items-center justify-center w-6 h-6 rounded-full bg-brandYellow hover:bg-brandDarkText hover:text-white text-brandDarkText text-xs font-bold shadow-md transition-all">A</button>
+                                </div>
+                            </div>
+
+                            <!-- Hotspot B: Armrest -->
+                            <div class="absolute top-[50%] left-[28%] group z-20">
+                                <div class="relative flex items-center justify-center">
+                                    <span class="absolute inline-flex h-8 w-8 rounded-full bg-brandYellow opacity-75 animate-ping"></span>
+                                    <button onclick="triggerHotspot('armrest')" class="relative flex items-center justify-center w-6 h-6 rounded-full bg-brandYellow hover:bg-brandDarkText hover:text-white text-brandDarkText text-xs font-bold shadow-md transition-all">B</button>
+                                </div>
+                            </div>
+
+                            <!-- Hotspot C: Lumbar Core -->
+                            <div class="absolute top-[44%] left-[55%] group z-20">
+                                <div class="relative flex items-center justify-center">
+                                    <span class="absolute inline-flex h-8 w-8 rounded-full bg-brandYellow opacity-75 animate-ping"></span>
+                                    <button onclick="triggerHotspot('lumbar')" class="relative flex items-center justify-center w-6 h-6 rounded-full bg-brandYellow hover:bg-brandDarkText hover:text-white text-brandDarkText text-xs font-bold shadow-md transition-all">C</button>
+                                </div>
+                            </div>
+
+                            <!-- Hotspot D: Gas Lift & Tilt -->
+                            <div class="absolute top-[75%] left-[51%] group z-20">
+                                <div class="relative flex items-center justify-center">
+                                    <span class="absolute inline-flex h-8 w-8 rounded-full bg-brandYellow opacity-75 animate-ping"></span>
+                                    <button onclick="triggerHotspot('lift')" class="relative flex items-center justify-center w-6 h-6 rounded-full bg-brandYellow hover:bg-brandDarkText hover:text-white text-brandDarkText text-xs font-bold shadow-md transition-all">D</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tap/Click Legend Helper -->
+                        <div class="absolute bottom-4 left-6 right-6 text-center text-xs text-brandMuted bg-brandLightGray/90 backdrop-blur py-2 px-4 rounded-xl border border-gray-200">
+                            <i class="fa-solid fa-hand-pointer text-brandYellowDark mr-1"></i> Tap any highlighted letter node to inspect high-resolution components
+                        </div>
+                    </div>
+
+                    <!-- Right Info Details Pane -->
+                    <div class="lg:col-span-5 space-y-8">
+                        <div class="space-y-3">
+                            <span class="text-xs font-black uppercase tracking-[0.2em] text-brandMuted block">Component Anatomy</span>
+                            <h2 class="text-4xl font-extrabold text-brandDarkText tracking-tight">Interactive Structure Inspection</h2>
+                            <p class="text-sm text-brandMuted leading-relaxed">
+                                Every part, hinge, stitch, and component in the CIRAWT system undergoes continuous stress modeling to optimize daily task performance.
+                            </p>
+                        </div>
+
+                        <!-- Dynamic Content Box -->
+                        <div id="hotspot-detail-box" class="bg-white p-6 rounded-2xl border border-gray-200 shadow-md space-y-4 transition-all-custom">
+                            <!-- Default state before selection -->
+                            <div id="hotspot-default" class="text-center py-6">
+                                <i class="fa-solid fa-compass-drafting text-4xl text-brandYellow mb-4"></i>
+                                <h3 class="font-bold text-lg text-brandDarkText mb-2">No Node Selected</h3>
+                                <p class="text-sm text-brandMuted">Click on A, B, C, or D in the diagram on the left to review manufacturing specifications.</p>
+                            </div>
+
+                            <!-- Dynamic Detail elements inserted by JS -->
+                            <div id="hotspot-active" class="hidden space-y-4">
+                                <div class="flex items-center gap-3">
+                                    <span id="hotspot-tag" class="bg-brandCharcoal text-white text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded">NODE A</span>
+                                    <h3 id="hotspot-title" class="font-bold text-xl text-brandDarkText">Smart Backrest Tension</h3>
+                                </div>
+                                <hr class="border-gray-200">
+                                <p id="hotspot-description" class="text-sm text-brandMuted leading-relaxed">
+                                    Made with specialized composite mesh fibers from reinforced carbon polymers.
+                                </p>
+                                <div class="bg-brandLightGray p-3.5 rounded-xl border border-gray-200/50 flex items-center justify-between text-xs">
+                                    <span class="font-semibold text-brandDarkText">Durability Metric:</span>
+                                    <span id="hotspot-metric" class="font-black text-brandYellowDark">1,000,000+ Cycles</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quote/Trust box -->
+                        <div class="p-6 rounded-2xl bg-brandCharcoal text-white space-y-4 shadow-lg relative overflow-hidden">
+                            <div class="absolute top-0 right-0 transform translate-x-6 -translate-y-6 opacity-10">
+                                <i class="fa-solid fa-quote-right text-9xl text-white"></i>
+                            </div>
+                            <p class="text-sm italic leading-relaxed relative z-10">
+                                "The adaptive synchronous recline maintains spinal comfort in a way traditional executive chairs simply cannot duplicate. Highly recommended."
+                            </p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-brandYellow flex items-center justify-center text-brandDarkText font-bold text-sm">
+                                    JD
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-white">Dr. Jonas Dunworth</p>
+                                    <p class="text-[10px] text-gray-400">Chief Orthopedist at NeuroSpinal Lab</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- LUXURY CURATED PRODUCTS/COLLECTIONS -->
+        <section id="products" class="py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-6">
+                <!-- Header -->
+                <div class="text-center max-w-xl mx-auto space-y-4 mb-16">
+                    <span class="text-brandYellowDark font-black text-xs uppercase tracking-[0.3em]">Curated Lineup</span>
+                    <h2 class="text-4xl font-extrabold text-brandDarkText tracking-tight">Select Your Level of Comfort</h2>
+                    <p class="text-sm text-brandMuted leading-relaxed">
+                        Every task demands a unique posture. Match your style, schedule, and biomechanics to one of our flagship series.
+                    </p>
+                </div>
+
+                <!-- Product Catalog Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Product 1 -->
+                    <div class="group bg-brandLightGray rounded-2xl overflow-hidden border border-gray-100 hover:border-brandYellow hover:bg-white hover:shadow-xl transition-all-custom flex flex-col justify-between">
+                        <!-- Media Box with circular overlay -->
+                        <div class="p-8 relative h-72 flex items-center justify-center bg-gray-200/40 relative overflow-hidden">
+                            <div class="absolute w-48 h-48 rounded-full bg-brandYellow opacity-10 group-hover:scale-125 transition-transform duration-700"></div>
+                            
+                            <!-- Custom SVG chair placeholder inside circle -->
+                            <svg class="w-44 h-44 relative z-10 group-hover:scale-105 transition-transform duration-500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <ellipse cx="250" cy="450" rx="90" ry="10" fill="rgba(0,0,0,0.15)" />
+                                <rect x="240" y="320" width="20" height="130" fill="#313538" />
+                                <path d="M160 300 C160 330, 340 330, 340 300 C340 285, 160 285, 160 300 Z" fill="#E5E7EB" stroke="#313538" stroke-width="12" />
+                                <path d="M200 120 C190 180, 200 270, 210 275 H290 C300 270, 310 180, 300 120 Z" fill="none" stroke="#313538" stroke-width="12" />
+                            </svg>
+
+                            <div class="absolute top-4 right-4 bg-brandDarkText text-white text-[10px] font-bold px-2 py-1 rounded">BESTSELLER</div>
+                        </div>
+                        
+                        <!-- Details Content -->
+                        <div class="p-6 space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-brandMuted uppercase tracking-wider">Ergonomic Task</span>
+                                <div class="flex items-center text-xs text-brandYellowDark font-bold">
+                                    <i class="fa-solid fa-star mr-1"></i> 4.9 (184 reviews)
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold text-brandDarkText group-hover:text-brandYellowDark transition-colors">Comferiws Work</h3>
+                            <p class="text-xs text-brandMuted leading-relaxed">
+                                Optimized with continuous posture support tracking. Engineered specifically for extended coding and high-focus desks.
+                            </p>
+                            <div class="flex items-center justify-between pt-2">
+                                <div class="flex items-baseline gap-2">
+                                    <span class="text-2xl font-black text-brandDarkText">$1,867</span>
+                                    <span class="text-xs text-gray-400 line-through">$2,543</span>
+                                </div>
+                                <button onclick="addToCart('Comferiws Work', 1867)" class="bg-brandCharcoal hover:bg-brandYellow hover:text-brandDarkText text-white font-extrabold px-4 py-2 rounded text-xs transition-colors uppercase tracking-wider">
+                                    ADD TO CART
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 2 -->
+                    <div class="group bg-brandLightGray rounded-2xl overflow-hidden border border-gray-100 hover:border-brandYellow hover:bg-white hover:shadow-xl transition-all-custom flex flex-col justify-between">
+                        <!-- Media Box with circular overlay -->
+                        <div class="p-8 relative h-72 flex items-center justify-center bg-gray-200/40 relative overflow-hidden">
+                            <div class="absolute w-48 h-48 rounded-full bg-brandCharcoal opacity-5 group-hover:scale-125 transition-transform duration-700"></div>
+                            
+                            <!-- Custom SVG chair placeholder inside circle -->
+                            <svg class="w-44 h-44 relative z-10 group-hover:scale-105 transition-transform duration-500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <ellipse cx="250" cy="450" rx="90" ry="10" fill="rgba(0,0,0,0.15)" />
+                                <rect x="240" y="320" width="20" height="130" fill="#313538" />
+                                <path d="M160 300 C160 330, 340 330, 340 300 C340 285, 160 285, 160 300 Z" fill="#E5E7EB" stroke="#313538" stroke-width="12" />
+                                <path d="M190 120 L210 275 H290 L310 120 Z" fill="none" stroke="#E5E7EB" stroke-width="12" />
+                            </svg>
+
+                            <div class="absolute top-4 right-4 bg-brandYellow text-brandDarkText text-[10px] font-bold px-2 py-1 rounded">NEW RELEASE</div>
+                        </div>
+                        
+                        <!-- Details Content -->
+                        <div class="p-6 space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-brandMuted uppercase tracking-wider">Executive Lounge</span>
+                                <div class="flex items-center text-xs text-brandYellowDark font-bold">
+                                    <i class="fa-solid fa-star mr-1"></i> 4.8 (92 reviews)
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold text-brandDarkText group-hover:text-brandYellowDark transition-colors">AeroGlide Classic</h3>
+                            <p class="text-xs text-brandMuted leading-relaxed">
+                                Premium leather and synchronous tilt mechanism. Features memory foam back elements for directors and creative visual artists.
+                            </p>
+                            <div class="flex items-center justify-between pt-2">
+                                <div class="flex items-baseline gap-2">
+                                    <span class="text-2xl font-black text-brandDarkText">$2,240</span>
+                                    <span class="text-xs text-gray-400 line-through">$2,850</span>
+                                </div>
+                                <button onclick="addToCart('AeroGlide Classic', 2240)" class="bg-brandCharcoal hover:bg-brandYellow hover:text-brandDarkText text-white font-extrabold px-4 py-2 rounded text-xs transition-colors uppercase tracking-wider">
+                                    ADD TO CART
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 3 -->
+                    <div class="group bg-brandLightGray rounded-2xl overflow-hidden border border-gray-100 hover:border-brandYellow hover:bg-white hover:shadow-xl transition-all-custom flex flex-col justify-between">
+                        <!-- Media Box with circular overlay -->
+                        <div class="p-8 relative h-72 flex items-center justify-center bg-gray-200/40 relative overflow-hidden">
+                            <div class="absolute w-48 h-48 rounded-full bg-brandYellow opacity-10 group-hover:scale-125 transition-transform duration-700"></div>
+                            
+                            <!-- Custom SVG chair placeholder inside circle -->
+                            <svg class="w-44 h-44 relative z-10 group-hover:scale-105 transition-transform duration-500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <ellipse cx="250" cy="450" rx="90" ry="10" fill="rgba(0,0,0,0.15)" />
+                                <rect x="240" y="320" width="20" height="130" fill="#313538" />
+                                <path d="M160 300 C160 330, 340 330, 340 300 C340 285, 160 285, 160 300 Z" fill="#E5E7EB" stroke="#313538" stroke-width="12" />
+                                <path d="M190 140 C180 200, 320 200, 310 140 Z" fill="none" stroke="#313538" stroke-width="12" />
+                            </svg>
+
+                            <div class="absolute top-4 right-4 bg-brandDarkText text-white text-[10px] font-bold px-2 py-1 rounded">20% OFF</div>
+                        </div>
+                        
+                        <!-- Details Content -->
+                        <div class="p-6 space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-brandMuted uppercase tracking-wider">Study Companion</span>
+                                <div class="flex items-center text-xs text-brandYellowDark font-bold">
+                                    <i class="fa-solid fa-star mr-1"></i> 4.7 (118 reviews)
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold text-brandDarkText group-hover:text-brandYellowDark transition-colors">Zenith Lounge</h3>
+                            <p class="text-xs text-brandMuted leading-relaxed">
+                                Highly adaptive modular shell design. Perfect space-saving contours, highly breathable light composite backing structure.
+                            </p>
+                            <div class="flex items-center justify-between pt-2">
+                                <div class="flex items-baseline gap-2">
+                                    <span class="text-2xl font-black text-brandDarkText">$1,599</span>
+                                    <span class="text-xs text-gray-400 line-through">$1,999</span>
+                                </div>
+                                <button onclick="addToCart('Zenith Lounge', 1599)" class="bg-brandCharcoal hover:bg-brandYellow hover:text-brandDarkText text-white font-extrabold px-4 py-2 rounded text-xs transition-colors uppercase tracking-wider">
+                                    ADD TO CART
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- LUXURY REALISTIC REVIEWS / TESTIMONIALS SLIDER -->
+        <section id="reviews" class="py-24 bg-brandLightGray border-t border-gray-200/50">
+            <div class="max-w-7xl mx-auto px-6">
+                <!-- Section Header -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                    <div class="max-w-md space-y-4">
+                        <span class="text-brandYellowDark font-black text-xs uppercase tracking-[0.25em]">REAL EXPERIENCES</span>
+                        <h2 class="text-4xl font-extrabold text-brandDarkText tracking-tight">Verified Comfort Reports</h2>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <!-- Navigation buttons for manual control -->
+                        <button onclick="shiftReview('prev')" class="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center bg-white text-brandDarkText hover:bg-brandYellow hover:border-brandYellow transition-all duration-300 shadow-sm">
+                            <i class="fa-solid fa-chevron-left text-xs"></i>
+                        </button>
+                        <button onclick="shiftReview('next')" class="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center bg-white text-brandDarkText hover:bg-brandYellow hover:border-brandYellow transition-all duration-300 shadow-sm">
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Horizontal Review Carousel -->
+                <div class="flex gap-8 overflow-x-auto pb-8 snap-x snap-mandatory no-scrollbar" id="reviews-carousel">
+                    
+                    <!-- Review 1 -->
+                    <div class="min-w-[300px] md:min-w-[400px] bg-white rounded-2xl p-8 border border-gray-100 shadow-sm snap-start shrink-0 space-y-6 flex flex-col justify-between">
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-1 text-brandYellow text-xs">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <h4 class="font-extrabold text-lg text-brandDarkText">"Changed my lower back posture entirely"</h4>
+                            <p class="text-sm text-brandMuted leading-relaxed">
+                                I code for 10-12 hours daily. After switching to the Comferiws Work system, the lingering dull ache in my lumbar region has completely resolved. Incredible product.
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-brandLightGray font-bold flex items-center justify-center text-xs text-brandDarkText">
+                                AB
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-brandDarkText">Alexander B.</p>
+                                <p class="text-[10px] text-brandMuted">Lead Infrastructure Architect</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review 2 -->
+                    <div class="min-w-[300px] md:min-w-[400px] bg-white rounded-2xl p-8 border border-gray-100 shadow-sm snap-start shrink-0 space-y-6 flex flex-col justify-between">
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-1 text-brandYellow text-xs">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <h4 class="font-extrabold text-lg text-brandDarkText">"Aesthetics match the high-end build"</h4>
+                            <p class="text-sm text-brandMuted leading-relaxed">
+                                Beyond the medical-grade spine support, the physical appearance of the chair is beautiful. The yellow and charcoal accent colors look incredibly premium in our studio.
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-brandLightGray font-bold flex items-center justify-center text-xs text-brandDarkText">
+                                SK
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-brandDarkText">Sofia K.</p>
+                                <p class="text-[10px] text-brandMuted">VP of Interaction Design</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review 3 -->
+                    <div class="min-w-[300px] md:min-w-[400px] bg-white rounded-2xl p-8 border border-gray-100 shadow-sm snap-start shrink-0 space-y-6 flex flex-col justify-between">
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-1 text-brandYellow text-xs">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <h4 class="font-extrabold text-lg text-brandDarkText">"Breathable fabric actually works"</h4>
+                            <p class="text-sm text-brandMuted leading-relaxed">
+                                Most traditional leather desk seats trap heat, forcing uncomfortable micro-adjustments. The VaporMesh material dissipates sweat perfectly even in humid conditions.
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-brandLightGray font-bold flex items-center justify-center text-xs text-brandDarkText">
+                                MC
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-brandDarkText">Marcus C.</p>
+                                <p class="text-[10px] text-brandMuted">3D Generalist & Animator</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review 4 -->
+                    <div class="min-w-[300px] md:min-w-[400px] bg-white rounded-2xl p-8 border border-gray-100 shadow-sm snap-start shrink-0 space-y-6 flex flex-col justify-between">
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-1 text-brandYellow text-xs">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <h4 class="font-extrabold text-lg text-brandDarkText">"Incredible premium customer support"</h4>
+                            <p class="text-sm text-brandMuted leading-relaxed">
+                                The shipping transit was extremely fast, and adjusting the modular neck brace was highly intuitive. A highly cohesive premium user experience throughout.
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-brandLightGray font-bold flex items-center justify-center text-xs text-brandDarkText">
+                                HR
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-brandDarkText">Hannah R.</p>
+                                <p class="text-[10px] text-brandMuted">Chief Creative Officer</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- FREQUENTLY ASKED QUESTIONS SECTION -->
+        <section class="py-24 bg-white border-t border-gray-200/50">
+            <div class="max-w-4xl mx-auto px-6 space-y-12">
+                <div class="text-center space-y-4">
+                    <span class="text-brandYellowDark font-black text-xs uppercase tracking-[0.25em]">FAQS</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-brandDarkText tracking-tight">Got Questions? We’ve Got Answers.</h2>
+                </div>
+                
+                <div class="space-y-4">
+                    <!-- FAQ Item 1 -->
+                    <div class="border border-gray-200 rounded-xl p-5 hover:border-brandYellow transition-colors bg-brandLightGray/30 cursor-pointer" onclick="toggleFaq(1)">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-bold text-brandDarkText text-sm sm:text-base">What makes CIRAWT chairs different from standard office seating?</h4>
+                            <span id="faq-icon-1" class="text-brandYellowDark text-xs font-bold"><i class="fa-solid fa-plus"></i></span>
+                        </div>
+                        <div id="faq-ans-1" class="hidden mt-3 text-xs sm:text-sm text-brandMuted leading-relaxed border-t border-gray-200/50 pt-3">
+                            Unlike generic chairs that use simple tension foam, our products utilize custom mechanical weight-distribution and auto-responsive lumbar alignment plates that continuously re-calculate spinal curvature dynamically as you shift weight.
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 2 -->
+                    <div class="border border-gray-200 rounded-xl p-5 hover:border-brandYellow transition-colors bg-brandLightGray/30 cursor-pointer" onclick="toggleFaq(2)">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-bold text-brandDarkText text-sm sm:text-base">Can I adjust the armrests and seat depth manually?</h4>
+                            <span id="faq-icon-2" class="text-brandYellowDark text-xs font-bold"><i class="fa-solid fa-plus"></i></span>
+                        </div>
+                        <div id="faq-ans-2" class="hidden mt-3 text-xs sm:text-sm text-brandMuted leading-relaxed border-t border-gray-200/50 pt-3">
+                            Absolutely. The Comferiws Work and AeroGlide series feature custom intuitive adjustments, including 4D armrests (height, rotation, slide, pivot) and a 60mm sliding dynamic seat-pan glide.
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 3 -->
+                    <div class="border border-gray-200 rounded-xl p-5 hover:border-brandYellow transition-colors bg-brandLightGray/30 cursor-pointer" onclick="toggleFaq(3)">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-bold text-brandDarkText text-sm sm:text-base">How long is the warranty and shipping window?</h4>
+                            <span id="faq-icon-3" class="text-brandYellowDark text-xs font-bold"><i class="fa-solid fa-plus"></i></span>
+                        </div>
+                        <div id="faq-ans-3" class="hidden mt-3 text-xs sm:text-sm text-brandMuted leading-relaxed border-t border-gray-200/50 pt-3">
+                            We provide an industry-leading 10-year mechanical warranty. Shipping is 100% free and typical transit timelines range between 3 to 6 business days.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODERN PREMIUM CALL TO ACTION SECTION -->
+        <section class="bg-brandCharcoal text-white py-20 px-6 relative overflow-hidden">
+            <div class="absolute inset-0 z-0 pointer-events-none opacity-20">
+                <!-- Large aesthetic background circles -->
+                <div class="absolute right-0 top-0 w-96 h-96 bg-brandYellow rounded-full blur-3xl"></div>
+                <div class="absolute left-10 bottom-0 w-80 h-80 bg-white rounded-full blur-3xl"></div>
+            </div>
+
+            <div class="max-w-4xl mx-auto text-center space-y-8 relative z-10">
+                <span class="text-brandYellow font-extrabold text-xs uppercase tracking-[0.3em]">LIMITED OFFER</span>
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight">
+                    Upgrade Your Workspace <br>Aesthetic & Well-being
+                </h2>
+                <p class="text-gray-300 max-w-lg mx-auto leading-relaxed text-sm md:text-base">
+                    Invest in physical endurance and structural spine longevity. Secure your custom configured Comferiws today and redeem 20% off.
+                </p>
+                <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <button onclick="scrollToTop()" class="bg-brandYellow hover:bg-brandYellowDark text-brandDarkText font-black px-8 py-4 rounded text-xs uppercase tracking-wider shadow-lg transform hover:-translate-y-0.5 transition-all">
+                        CONFIGURE CHAIR NOW
+                    </button>
+                    <a href="#products" class="text-sm font-bold border-b-2 border-white hover:border-brandYellow hover:text-brandYellow transition-all pb-1">
+                        Explore other models
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER WITH DETAILED CHANNELS -->
+    <footer class="bg-brandDarkText text-white pt-16 pb-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 pb-12 border-b border-gray-800">
+            
+            <!-- Column 1: Brand details -->
+            <div class="lg:col-span-4 space-y-6">
+                <a href="#" class="flex items-center gap-2 group">
+                    <div class="w-8 h-8 rounded-full bg-brandYellow flex items-center justify-center font-black text-brandDarkText text-lg">
+                        C
+                    </div>
+                    <span class="font-extrabold text-xl tracking-tight text-white">CIRAWT</span>
+                </a>
+                <p class="text-xs text-gray-400 leading-relaxed max-w-sm">
+                    CIRAWT is a globally recognized ergonomic design pioneer. Our goal is to synthesize industrial orthopedic expertise with highly functional, premium modern visual languages.
+                </p>
+                <!-- Social media icons -->
+                <div class="flex items-center gap-4 text-gray-400">
+                    <a href="#" class="hover:text-brandYellow transition-colors"><i class="fa-brands fa-instagram text-lg"></i></a>
+                    <a href="#" class="hover:text-brandYellow transition-colors"><i class="fa-brands fa-pinterest text-lg"></i></a>
+                    <a href="#" class="hover:text-brandYellow transition-colors"><i class="fa-brands fa-twitter text-lg"></i></a>
+                    <a href="#" class="hover:text-brandYellow transition-colors"><i class="fa-brands fa-vimeo text-lg"></i></a>
+                </div>
+            </div>
+
+            <!-- Column 2: Quick Links -->
+            <div class="lg:col-span-2 space-y-4">
+                <h4 class="font-extrabold text-xs uppercase tracking-wider text-brandYellow">Collections</h4>
+                <ul class="space-y-2.5 text-xs text-gray-400">
+                    <li><a href="#products" class="hover:text-white transition-colors">Comferiws Series</a></li>
+                    <li><a href="#products" class="hover:text-white transition-colors">AeroGlide Classic</a></li>
+                    <li><a href="#products" class="hover:text-white transition-colors">Zenith Modular</a></li>
+                    <li><a href="#products" class="hover:text-white transition-colors">Workspace Ergonomics</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Company -->
+            <div class="lg:col-span-2 space-y-4">
+                <h4 class="font-extrabold text-xs uppercase tracking-wider text-brandYellow">Company</h4>
+                <ul class="space-y-2.5 text-xs text-gray-400">
+                    <li><a href="#philosophy" class="hover:text-white transition-colors">Our Philosophy</a></li>
+                    <li><a href="#philosophy" class="hover:text-white transition-colors">Orthopedic Standards</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Sustainability Report</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Design Awards</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 4: Support -->
+            <div class="lg:col-span-4 space-y-4">
+                <h4 class="font-extrabold text-xs uppercase tracking-wider text-brandYellow">Join the Newsletter</h4>
+                <p class="text-xs text-gray-400">Receive architectural inspiration, comfort hacks, and priority release access.</p>
+                
+                <form onsubmit="event.preventDefault(); showToast('Subscribed successfully!');" class="flex items-center bg-gray-800 rounded px-3 py-2 border border-gray-700 focus-within:border-brandYellow transition-colors">
+                    <input type="email" placeholder="Email address" class="bg-transparent border-none outline-none text-xs text-white placeholder-gray-500 w-full" required>
+                    <button class="text-brandYellow hover:text-brandYellowDark font-bold text-xs uppercase ml-2">JOIN</button>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+            <p>© 2026 CIRAWT International Inc. All biomechanical patents reserved.</p>
+            <div class="flex items-center gap-6">
+                <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                <a href="#" class="hover:text-white transition-colors">Sitemap</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- INTERACTIVE SIDEBAR CART OVERLAY PANEL -->
+    <div id="sidebar-cart" class="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-white shadow-2xl transform translate-x-full transition-all duration-500 ease-in-out border-l border-gray-200 flex flex-col justify-between">
+        
+        <!-- Cart Header -->
+        <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-bag-shopping text-brandYellowDark text-lg"></i>
+                <h3 class="font-black text-xl text-brandDarkText">Your Active Cart</h3>
+            </div>
+            <button onclick="toggleCart()" class="w-8 h-8 rounded-full bg-brandLightGray hover:bg-brandYellow hover:text-brandDarkText transition-colors flex items-center justify-center text-brandDarkText">
+                <i class="fa-solid fa-times text-xs"></i>
+            </button>
+        </div>
+
+        <!-- Cart Items Box (Dynamic rendering inside) -->
+        <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-6">
+            <!-- Simulated item 1 -->
+            <div class="flex items-center gap-4 border-b border-gray-100 pb-4 relative">
+                <div class="w-16 h-16 rounded-xl bg-brandLightGray flex items-center justify-center border border-gray-200">
+                    <i class="fa-solid fa-couch text-brandCharcoal text-lg"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <h4 class="font-bold text-sm text-brandDarkText truncate">Comferiws Work System</h4>
+                    <p class="text-xs text-brandMuted">Color: Pure Alabaster</p>
+                    <div class="flex items-center justify-between mt-1">
+                        <span class="font-bold text-sm text-brandDarkText">$1,867</span>
+                        <div class="flex items-center gap-2">
+                            <button onclick="updateQty(0, -1)" class="text-gray-500 hover:text-brandYellowDark"><i class="fa-solid fa-minus text-[10px]"></i></button>
+                            <span class="text-xs font-bold px-2 bg-brandLightGray rounded">1</span>
+                            <button onclick="updateQty(0, 1)" class="text-gray-500 hover:text-brandYellowDark"><i class="fa-solid fa-plus text-[10px]"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="removeItem(0)" class="text-gray-300 hover:text-rose-500 absolute top-0 right-0"><i class="fa-solid fa-trash-can text-xs"></i></button>
+            </div>
+        </div>
+
+        <!-- Cart Footer / Totals and Action buttons -->
+        <div class="p-6 border-t border-gray-200 bg-brandLightGray/50 space-y-6">
+            <div class="space-y-2 text-sm text-brandDarkText">
+                <div class="flex justify-between">
+                    <span class="text-brandMuted">Subtotal</span>
+                    <span class="font-bold" id="cart-subtotal">$1,867</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-brandMuted">Premium Insured Shipping</span>
+                    <span class="font-bold text-emerald-600">FREE</span>
+                </div>
+                <div class="flex justify-between text-base border-t border-gray-200 pt-3">
+                    <span class="font-black">Total (USD)</span>
+                    <span class="font-black text-brandYellowDark" id="cart-total">$1,867</span>
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                <button onclick="checkout()" class="w-full bg-brandYellow hover:bg-brandYellowDark text-brandDarkText font-black py-4 rounded text-xs uppercase tracking-wider shadow-md transition-all">
+                    SECURE ORDER CHECKOUT
+                </button>
+                <button onclick="toggleCart()" class="w-full text-center text-xs text-brandMuted hover:text-brandDarkText font-bold">
+                    CONTINUE BROWSING
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BLACKOUT COVER ON CART ACTIVATED -->
+    <div id="cart-backdrop" onclick="toggleCart()" class="fixed inset-0 bg-brandDarkText/40 backdrop-blur-sm z-40 hidden transition-opacity duration-500"></div>
+
+
+    <!-- REALISTIC USER INTERACTIVE TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-6 left-6 z-50 bg-brandDarkText text-white px-5 py-3.5 rounded-xl shadow-2xl flex items-center gap-3 border border-brandYellow transform translate-y-24 opacity-0 transition-all duration-300">
+        <div class="w-6 h-6 rounded-full bg-brandYellow text-brandDarkText flex items-center justify-center text-xs">
+            <i class="fa-solid fa-check"></i>
+        </div>
+        <div>
+            <p id="toast-message" class="text-xs font-bold">Notification triggered successfully.</p>
+        </div>
+    </div>
+
+
+    <!-- CLIENT SIDE INTERACTION JAVASCRIPT LOGIC -->
+    <script>
+        // Core interactive states
+        let currentSlide = 3; // Starting at exactly '03' as pictured in the source image
+        let currentColor = '#FFFFFF';
+        let currentColorLabel = 'Pure Alabaster';
+        
+        // Setup initial Cart
+        let cartItems = [
+            { id: 1, name: "Comferiws Work System", price: 1867, qty: 1, color: "Pure Alabaster" }
+        ];
+
+        // Slide Database to simulate premium changes
+        const slides = {
+            1: {
+                title: "Comferiws Soft",
+                tag: "SERIES 01 // MODULAR",
+                desc: "An adaptive lounger designed with soft elastomeric memory fibers, combining deep physical ergonomics with lightweight minimal workspace structures.",
+                price: "$1,450",
+                originalPrice: "$1,890",
+                badge: "15% Off",
+                bgCircle: "#E05A47" // coral
+            },
+            2: {
+                title: "AeroGlide Task",
+                tag: "SERIES 02 // EXECUTIVE",
+                desc: "Premium grade aluminum core matched with active tilt kinetics. Perfect visual balance and supreme posture stabilization built for creative spaces.",
+                price: "$2,240",
+                originalPrice: "$2,850",
+                badge: "20% Off",
+                bgCircle: "#4B8BBE" // blue
+            },
+            3: {
+                title: "Comferiws",
+                tag: "SERIES 03 // ERGONOMIC",
+                desc: "We are a design-forward workspace solutions company. Engineered with smart lumbar adaptivity, breathable custom fiber mesh, and sleek synchronous kinetics.",
+                price: "$1,867",
+                originalPrice: "$2,543",
+                badge: "20% Off",
+                bgCircle: "#F3C536" // yellow
+            },
+            4: {
+                title: "Zenith Executive",
+                tag: "SERIES 04 // PLATINUM",
+                desc: "Uncompromising support built from high-tensile carbon polymers. Provides auto-adjusting tension mesh that maps natural lumbar curve changes.",
+                price: "$2,999",
+                originalPrice: "$3,600",
+                badge: "15% Off",
+                bgCircle: "#313538" // charcoal
+            }
+        };
+
+        // Smoothly change Slides
+        function changeSlide(slideNum) {
+            currentSlide = slideNum;
+            const data = slides[slideNum];
+            
+            // Fade out graphic and text
+            const textElements = ['hero-title', 'hero-series-tag', 'hero-desc', 'hero-price', 'hero-original-price', 'badge-pct'];
+            textElements.forEach(id => {
+                document.getElementById(id).style.opacity = '0';
+                document.getElementById(id).style.transform = 'translateY(10px)';
+            });
+            document.getElementById('product-graphic-container').style.opacity = '0';
+            document.getElementById('product-graphic-container').style.transform = 'scale(0.95)';
+
+            setTimeout(() => {
+                // Apply slide updates
+                document.getElementById('hero-title').innerText = data.title;
+                document.getElementById('hero-series-tag').innerText = data.tag;
+                document.getElementById('hero-desc').innerText = data.desc;
+                document.getElementById('hero-price').innerText = data.price;
+                document.getElementById('hero-original-price').innerText = data.originalPrice;
+                document.getElementById('badge-pct').innerText = data.badge;
+
+                // Shift background decorative circle colors smoothly
+                document.getElementById('hero-bg-circle').style.backgroundColor = data.bgCircle;
+
+                // Adjust the chair seat rendering colors to match slide themes slightly if desired
+                if(slideNum === 1) {
+                    setSeatColor('#E05A47', 'Sienna Terracotta', false);
+                } else if(slideNum === 2) {
+                    setSeatColor('#4B8BBE', 'Aero Glacier', false);
+                } else if(slideNum === 3) {
+                    setSeatColor('#FFFFFF', 'Pure Alabaster', false);
+                } else if(slideNum === 4) {
+                    setSeatColor('#313538', 'Carbon Black', false);
+                }
+
+                // Update active step labels classes
+                for (let i = 1; i <= 4; i++) {
+                    const btn = document.getElementById(`step-btn-${i}`);
+                    if (i === slideNum) {
+                        btn.className = "transition-all duration-300 py-1 px-2.5 rounded hover:text-brandYellow font-extrabold text-white bg-brandCharcoal/20 lg:bg-white/25 scale-125 shadow-sm";
+                    } else {
+                        btn.className = "transition-all duration-300 py-1 px-2 rounded hover:text-brandYellow text-gray-400 opacity-60";
+                    }
+                }
+
+                // Fade back in
+                textElements.forEach(id => {
+                    document.getElementById(id).style.opacity = '1';
+                    document.getElementById(id).style.transform = 'translateY(0)';
+                });
+                document.getElementById('product-graphic-container').style.opacity = '1';
+                document.getElementById('product-graphic-container').style.transform = 'scale(1) translateY(0)';
+            }, 300);
+        }
+
+        // Stepper Navigation Buttons
+        function navigateSlide(direction) {
+            let target = currentSlide;
+            if (direction === 'next') {
+                target = currentSlide === 4 ? 1 : currentSlide + 1;
+            } else {
+                target = currentSlide === 1 ? 4 : currentSlide - 1;
+            }
+            changeSlide(target);
+        }
+
+        // Live Seat Color Switcher Controls
+        function setSeatColor(hex, label, triggerNotify = true) {
+            currentColor = hex;
+            currentColorLabel = label;
+            document.getElementById('chair-seat-color').setAttribute('fill', hex);
+            document.getElementById('color-name').innerText = label;
+            
+            if (triggerNotify) {
+                showToast(`Visualizer updated seat cover to: ${label}`);
+            }
+        }
+
+        // Trigger hotspots detail box update
+        function triggerHotspot(id) {
+            const defaultBox = document.getElementById('hotspot-default');
+            const activeBox = document.getElementById('hotspot-active');
+            
+            defaultBox.classList.add('hidden');
+            activeBox.classList.remove('hidden');
+
+            const contentMap = {
+                'backrest': {
+                    tag: 'NODE A // MAIN BACKREST',
+                    title: 'Precision Slatted Framework',
+                    desc: 'Modeled after high-performance racing dynamics. Made with specialized composite mesh fibers from reinforced carbon polymers to encourage micro-motion ventilation.',
+                    metric: '1,000,000+ Tilt Cycles Verified'
+                },
+                'armrest': {
+                    tag: 'NODE B // ARM ASSEMBLY',
+                    title: '4D Spatial Orientation Adjusters',
+                    desc: 'Supports horizontal slides, high vertical offsets, lateral pivots, and rotations, effectively dispersing pressure around the upper neck and rotator cuff structures.',
+                    metric: 'Multi-axis Pivot Lock Approved'
+                },
+                'lumbar': {
+                    tag: 'NODE C // POSTURE CORE',
+                    title: 'Autonomic Self-Adjusting Spine Core',
+                    desc: 'Automatically adjusts the support tension profile based on dynamic weight shifts, maintaining spinal lordosis without manual physical dialing.',
+                    metric: '98.4% Posture Correcting Match'
+                },
+                'lift': {
+                    tag: 'NODE D // MECHANIC BASE',
+                    title: 'Insured Gas Lift & Smooth Recalibration',
+                    desc: 'Heavy-duty steel pneumatic gas lift ensures effortless elevation transitions. Coupled with synchronous dynamic tilt, maintaining line-of-sight tracking.',
+                    metric: 'Exceeds ANSI/BIFMA Safety Standard'
+                }
+            };
+
+            const data = contentMap[id];
+            
+            // Animate transition
+            activeBox.style.opacity = '0';
+            activeBox.style.transform = 'translateY(5px)';
+            
+            setTimeout(() => {
+                document.getElementById('hotspot-tag').innerText = data.tag;
+                document.getElementById('hotspot-title').innerText = data.title;
+                document.getElementById('hotspot-description').innerText = data.desc;
+                document.getElementById('hotspot-metric').innerText = data.metric;
+                
+                activeBox.style.opacity = '1';
+                activeBox.style.transform = 'translateY(0)';
+            }, 150);
+        }
+
+        // Trigger Toast notifications dynamically
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').innerText = msg;
+            
+            toast.style.transform = 'translateY(0)';
+            toast.style.opacity = '1';
+
+            setTimeout(() => {
+                toast.style.transform = 'translateY(100px)';
+                toast.style.opacity = '0';
+            }, 3000);
+        }
+
+        // Cart Visibility Handlers
+        function toggleCart() {
+            const sidebar = document.getElementById('sidebar-cart');
+            const backdrop = document.getElementById('cart-backdrop');
+            
+            if (sidebar.classList.contains('translate-x-full')) {
+                sidebar.classList.remove('translate-x-full');
+                backdrop.classList.remove('hidden');
+                renderCart();
+            } else {
+                sidebar.classList.add('translate-x-full');
+                backdrop.classList.add('hidden');
+            }
+        }
+
+        // Add Current Configuration to Cart
+        function addToCartCurrent() {
+            const activeItemName = slides[currentSlide].title + " Work System";
+            const priceVal = parseInt(slides[currentSlide].price.replace(/[^0-9]/g, ''));
+            
+            addToCart(activeItemName, priceVal, currentColorLabel);
+        }
+
+        // Standard Add To Cart Function
+        function addToCart(name, price, color = "Pure Alabaster") {
+            const existing = cartItems.find(item => item.name === name && item.color === color);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cartItems.push({
+                    id: Date.now(),
+                    name: name,
+                    price: price,
+                    qty: 1,
+                    color: color
+                });
+            }
+            showToast(`${name} added to cart!`);
+            renderCart();
+            
+            // Auto open the cart sidebar to encourage order completion
+            setTimeout(() => {
+                const sidebar = document.getElementById('sidebar-cart');
+                if (sidebar.classList.contains('translate-x-full')) {
+                    toggleCart();
+                }
+            }, 500);
+        }
+
+        // Update quantity
+        function updateQty(index, amt) {
+            cartItems[index].qty += amt;
+            if (cartItems[index].qty <= 0) {
+                cartItems.splice(index, 1);
+            }
+            renderCart();
+        }
+
+        // Remove item
+        function removeItem(index) {
+            const name = cartItems[index].name;
+            cartItems.splice(index, 1);
+            renderCart();
+            showToast(`${name} removed from cart.`);
+        }
+
+        // Render Cart Details into Sidebar
+        function renderCart() {
+            const container = document.getElementById('cart-items-container');
+            const badgeCount = document.getElementById('cart-count');
+            
+            if (cartItems.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-20 space-y-4">
+                        <i class="fa-solid fa-basket-shopping text-4xl text-gray-300"></i>
+                        <p class="text-sm font-bold text-brandMuted">Your cart feels incredibly empty.</p>
+                        <button onclick="toggleCart()" class="text-xs bg-brandYellow font-extrabold text-brandDarkText px-4 py-2 rounded">START BROWSING</button>
+                    </div>
+                `;
+                badgeCount.innerText = "0";
+                document.getElementById('cart-subtotal').innerText = "$0";
+                document.getElementById('cart-total').innerText = "$0";
+                return;
+            }
+
+            // Calculate total items
+            let totalQty = 0;
+            let subtotal = 0;
+            let html = '';
+
+            cartItems.forEach((item, index) => {
+                totalQty += item.qty;
+                subtotal += item.price * item.qty;
+                
+                html += `
+                    <div class="flex items-center gap-4 border-b border-gray-100 pb-4 relative transition-all">
+                        <div class="w-16 h-16 rounded-xl bg-brandLightGray flex items-center justify-center border border-gray-200">
+                            <i class="fa-solid fa-couch text-brandCharcoal text-lg"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h4 class="font-bold text-sm text-brandDarkText truncate">${item.name}</h4>
+                            <p class="text-xs text-brandMuted">Color: ${item.color}</p>
+                            <div class="flex items-center justify-between mt-1">
+                                <span class="font-bold text-sm text-brandDarkText">$${(item.price * item.qty).toLocaleString()}</span>
+                                <div class="flex items-center gap-2">
+                                    <button onclick="updateQty(${index}, -1)" class="text-gray-400 hover:text-brandYellowDark p-1"><i class="fa-solid fa-minus text-[10px]"></i></button>
+                                    <span class="text-xs font-bold px-2 py-0.5 bg-brandLightGray rounded">${item.qty}</span>
+                                    <button onclick="updateQty(${index}, 1)" class="text-gray-400 hover:text-brandYellowDark p-1"><i class="fa-solid fa-plus text-[10px]"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="removeItem(${index})" class="text-gray-300 hover:text-rose-500 absolute top-0 right-0 p-1"><i class="fa-solid fa-trash-can text-xs"></i></button>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+            badgeCount.innerText = totalQty;
+            document.getElementById('cart-subtotal').innerText = `$${subtotal.toLocaleString()}`;
+            document.getElementById('cart-total').innerText = `$${subtotal.toLocaleString()}`;
+        }
+
+        // Simulate checkout order completion
+        function checkout() {
+            if (cartItems.length === 0) {
+                showToast("Cart is empty! Choose a configured chair.");
+                return;
+            }
+            showToast("Redirecting securely to secure payment gateway...");
+            setTimeout(() => {
+                cartItems = [];
+                renderCart();
+                toggleCart();
+                showToast("Order completed! Thank you for trusting CIRAWT.");
+            }, 1500);
+        }
+
+        // Manual scroll helper
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            showToast("Customize your build above.");
+        }
+
+        // Accordion trigger for FAQ section
+        function toggleFaq(num) {
+            const ans = document.getElementById(`faq-ans-${num}`);
+            const icon = document.getElementById(`faq-icon-${num}`);
+            
+            if (ans.classList.contains('hidden')) {
+                ans.classList.remove('hidden');
+                icon.innerHTML = `<i class="fa-solid fa-minus"></i>`;
+            } else {
+                ans.classList.add('hidden');
+                icon.innerHTML = `<i class="fa-solid fa-plus"></i>`;
+            }
+        }
+
+        // Wishlist visual trigger
+        function toggleWishlist(btn) {
+            const heart = btn.querySelector('#wishlist-icon');
+            if (heart.classList.contains('fa-regular')) {
+                heart.classList.remove('fa-regular');
+                heart.classList.add('fa-solid', 'text-rose-500');
+                showToast("Added configuration to your account wishlist.");
+            } else {
+                heart.classList.remove('fa-solid', 'text-rose-500');
+                heart.classList.add('fa-regular');
+                showToast("Removed from your wishlist.");
+            }
+        }
+
+        // Testimonial shift helper
+        function shiftReview(dir) {
+            const container = document.getElementById('reviews-carousel');
+            const scrollAmt = 350;
+            if (dir === 'next') {
+                container.scrollBy({ left: scrollAmt, behavior: 'smooth' });
+            } else {
+                container.scrollBy({ left: -scrollAmt, behavior: 'smooth' });
+            }
+        }
+
+        // Setup page state on initial boot
+        window.addEventListener('DOMContentLoaded', () => {
+            renderCart();
+        });
+    </script>
+</body>
+</html>
+5

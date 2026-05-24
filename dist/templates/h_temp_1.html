@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guofeng Elegance - Chinese Aesthetic Portal</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts for Calligraphy, Serif & Aesthetic Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@300;400;600;900&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            jade: {
+              50: '#f4f7f5',
+              100: '#e5ebe6',
+              200: '#ccd9d0',
+              300: '#a3baa9',
+              400: '#75967f',
+              500: '#3d6754', // Main Jade Green
+              600: '#305242',
+              700: '#254033',
+              800: '#1b2d24',
+              900: '#121f19',
+            },
+            cinnabar: {
+              500: '#b83b30', // Sunset Cinnabar Red
+              600: '#9b2f26',
+            },
+            gold: {
+              300: '#e4cd9e',
+              400: '#d9b46e', // Imperial Gold
+              500: '#bca054',
+            },
+            parchment: {
+              100: '#fcfbf7', // Pure silk paper
+              200: '#f6f4ed', // Textured rice paper
+              300: '#ebe7db',
+            }
+          },
+          fontFamily: {
+            serif: ['Noto Serif SC', 'serif'],
+            calligraphy: ['Ma Shan Zheng', 'cursive'],
+            cinzel: ['Cinzel', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Rice paper custom texture overlay */
+    .rice-paper {
+      background-color: #f6f4ed;
+      background-image: 
+        radial-gradient(rgba(0,0,0,0.02) 1px, transparent 0),
+        radial-gradient(rgba(0,0,0,0.01) 1px, transparent 0);
+      background-size: 8px 8px;
+      background-position: 0 0, 4px 4px;
+      position: relative;
+    }
+    .rice-paper::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      opacity: 0.04;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    /* Traditional Chinese vertical writing style */
+    .vertical-text {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+    }
+
+    /* Soft fluid breathing animation for main moon-gate/circle elements */
+    @keyframes breathing {
+      0%, 100% { transform: scale(1); opacity: 0.95; }
+      50% { transform: scale(1.02); opacity: 1; }
+    }
+    .animate-breath {
+      animation: breathing 8s ease-in-out infinite;
+    }
+
+    /* Custom scrollbar to match the design language */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f6f4ed;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #3d6754;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #b83b30;
+    }
+
+    /* Shimmer effect for buttons */
+    .gold-shimmer {
+      position: relative;
+      overflow: hidden;
+    }
+    .gold-shimmer::after {
+      content: '';
+      position: absolute;
+      top: -50%; left: -60%; width: 30%; height: 200%;
+      background: rgba(255, 255, 255, 0.25);
+      transform: rotate(30deg);
+      transition: all 0.6s ease;
+    }
+    .gold-shimmer:hover::after {
+      left: 130%;
+    }
+
+    /* Fancy Corner Borders */
+    .traditional-corner {
+      position: relative;
+    }
+    .traditional-corner::before, .traditional-corner::after {
+      content: "";
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-color: #3d6754;
+      border-style: solid;
+      pointer-events: none;
+    }
+    /* Top Left Corner */
+    .corner-tl::before {
+      top: 8px; left: 8px;
+      border-width: 1px 0 0 1px;
+    }
+    /* Top Right Corner */
+    .corner-tr::after {
+      top: 8px; right: 8px;
+      border-width: 1px 1px 0 0;
+    }
+    /* Bottom Left Corner */
+    .corner-bl::before {
+      bottom: 8px; left: 8px;
+      border-width: 0 0 1px 1px;
+    }
+    /* Bottom Right Corner */
+    .corner-br::after {
+      bottom: 8px; right: 8px;
+      border-width: 0 1px 1px 0;
+    }
+  </style>
+</head>
+<body class="rice-paper text-jade-900 font-serif min-h-screen selection:bg-jade-100 overflow-x-hidden">
+
+  <!-- Drifting Petals Canvas Background -->
+  <canvas id="petalCanvas" class="fixed inset-0 pointer-events-none z-10"></canvas>
+
+  <!-- Navigation Bar -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-parchment-200/80 border-b border-gold-400/20 px-6 py-4 transition-all duration-300">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <!-- Calligraphic Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-full border border-jade-500/30 flex items-center justify-center bg-white/50 shadow-inner group-hover:border-cinnabar-500/50 transition-colors">
+          <span class="font-calligraphy text-2xl text-jade-500 group-hover:text-cinnabar-500 transition-colors">墨</span>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-calligraphy text-xl tracking-widest text-jade-800">创意中国风</span>
+          <span class="font-cinzel text-[9px] tracking-[0.25em] text-gold-500 uppercase -mt-1">Eastern Aesthetics</span>
+        </div>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold tracking-wider text-jade-700">
+        <a href="#about" class="hover:text-cinnabar-500 transition-colors relative group py-1">
+          山水画意 / Concept
+          <span class="absolute bottom-0 left-1/2 w-0 h-[1px] bg-cinnabar-500 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+        </a>
+        <a href="#scroll" class="hover:text-cinnabar-500 transition-colors relative group py-1">
+          长卷展示 / Heritage scroll
+          <span class="absolute bottom-0 left-1/2 w-0 h-[1px] bg-cinnabar-500 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+        </a>
+        <a href="#inkwell" class="hover:text-cinnabar-500 transition-colors relative group py-1">
+          泼墨挥毫 / Ink Canvas
+          <span class="absolute bottom-0 left-1/2 w-0 h-[1px] bg-cinnabar-500 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+        </a>
+        <a href="#muse" class="hover:text-cinnabar-500 transition-colors relative group py-1 text-cinnabar-500 font-bold">
+          墨海诗情 / AI Poet Muse
+          <span class="absolute bottom-0 left-0 w-full h-[1px] bg-cinnabar-500/50"></span>
+        </a>
+      </nav>
+
+      <!-- Action Utilities -->
+      <div class="flex items-center gap-4">
+        <!-- Relaxing Ambient Audio Control -->
+        <button id="zenAudioBtn" class="p-2.5 rounded-full border border-jade-500/20 bg-white/40 hover:bg-white text-jade-600 hover:text-cinnabar-500 transition-all duration-300 relative group" title="Toggle Zen Ambient Guzheng">
+          <i class="fa-solid fa-wind text-sm animate-pulse"></i>
+          <span class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-jade-800 text-parchment-100 text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Zen Music</span>
+        </button>
+        
+        <!-- Experience Trigger -->
+        <a href="#muse" class="gold-shimmer hidden sm:inline-flex items-center justify-center px-4 py-2 text-xs uppercase tracking-widest font-semibold text-white bg-jade-500 hover:bg-jade-600 rounded-sm shadow-md transition-colors border border-gold-400/30">
+          墨客体验
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Audio Player Elements -->
+  <audio id="ambientFlute" loop src="https://assets.mixkit.co/active_storage/sfx/123/123-120.wav"></audio>
+
+  <!-- HERO SECTION: Recreating the atmosphere of the inspiration graphic -->
+  <section class="relative min-h-[90vh] flex flex-col justify-between py-12 px-6 overflow-hidden">
+    <!-- Floating Ink Mountain Silhouette Backdrops -->
+    <div class="absolute bottom-0 left-0 w-full opacity-15 pointer-events-none z-0">
+      <svg viewBox="0 0 1440 320" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
+        <path d="M0,288L80,266.7C160,245,320,203,480,202.7C640,203,800,245,960,245.3C1120,245,1280,203,1360,181.3L1440,160L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z" fill="#3d6754"></path>
+        <path d="M0,192L120,208C240,224,480,256,720,250.7C960,245,1200,203,1320,181.3L1440,160L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z" fill="#254033"></path>
+      </svg>
+    </div>
+
+    <!-- Stylized rising sun (Cinnabar) in bottom right, matching inspiration image -->
+    <div class="absolute bottom-24 right-12 md:right-32 w-28 h-28 md:w-36 md:h-36 rounded-full bg-gradient-to-tr from-cinnabar-500 to-amber-500 blur-sm opacity-80 z-0 shadow-[0_0_50px_rgba(184,59,48,0.3)] animate-breath"></div>
+
+    <!-- Content Layout -->
+    <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-20 my-auto">
+      
+      <!-- Left decorative quote / traditional poem tag -->
+      <div class="hidden lg:flex lg:col-span-2 flex-col items-center gap-6">
+        <div class="vertical-text font-calligraphy text-2xl tracking-[0.4em] text-jade-700/80 border-r border-dashed border-jade-500/20 pr-6">
+          一弹流水一双引，千古知音最难寻。
+        </div>
+        <div class="w-1 h-20 bg-gradient-to-b from-jade-500/40 to-transparent"></div>
+      </div>
+
+      <!-- Center Feature: The Moon Gate Frame, matching inspiration aesthetics -->
+      <div class="lg:col-span-8 flex flex-col items-center justify-center text-center">
+        <!-- Moon Gate Circular Graphic -->
+        <div class="relative w-72 h-72 sm:w-96 sm:h-96 rounded-full border border-dashed border-jade-500/30 flex items-center justify-center p-3 animate-breath shadow-[0_0_30px_rgba(61,103,84,0.05)] bg-white/10 backdrop-blur-xs">
+          <!-- Inner concentric golden circles -->
+          <div class="absolute inset-2 rounded-full border border-gold-400/20"></div>
+          <div class="absolute inset-8 rounded-full border border-jade-500/10"></div>
+          
+          <!-- Outer orbital dots -->
+          <div class="absolute w-2 h-2 rounded-full bg-jade-500/40 top-0 left-1/2 -translate-x-1/2 -translate-y-1"></div>
+          <div class="absolute w-1.5 h-1.5 rounded-full bg-cinnabar-500/50 bottom-1/4 right-0"></div>
+
+          <!-- Watercolor circular portal contents -->
+          <div class="w-full h-full rounded-full bg-gradient-to-b from-jade-50 to-jade-100 overflow-hidden relative flex items-center justify-center">
+            <!-- Watercolor splash decoration (CSS gradient blend) -->
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(163,184,153,0.3)_0%,transparent_70%)]"></div>
+            
+            <!-- Traditional Cherry Blossom/Plum Blossom Branches (SVGs) -->
+            <svg class="absolute top-4 left-4 w-44 h-44 opacity-80" viewBox="0 0 100 100" fill="none">
+              <path d="M10,80 Q30,60 50,70 T90,50" stroke="#3d6754" stroke-width="1.5" fill="none"/>
+              <path d="M30,65 Q45,45 60,50" stroke="#3d6754" stroke-width="1" fill="none"/>
+              <!-- Flowers -->
+              <circle cx="28" cy="62" r="3" fill="#b83b30" opacity="0.9"/>
+              <circle cx="48" cy="68" r="4" fill="#b83b30" opacity="0.9"/>
+              <circle cx="62" cy="52" r="3.5" fill="#fcfbf7" stroke="#b83b30" stroke-width="0.5"/>
+              <circle cx="80" cy="51" r="2.5" fill="#b83b30"/>
+            </svg>
+            
+            <!-- Vertical Calligraphy Main Title inside the circle -->
+            <div class="z-10 flex flex-col items-center">
+              <h1 class="font-calligraphy text-5xl sm:text-6xl text-jade-900 tracking-[0.25em] vertical-text select-none my-4">
+                创意中国风
+              </h1>
+              <span class="font-cinzel text-xs tracking-[0.3em] text-gold-500 uppercase mt-2">New Chinese Chic</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Subtitles & Call-to-action below the Moon Gate -->
+        <div class="mt-8 max-w-xl px-4">
+          <p class="font-serif text-jade-700 leading-relaxed text-sm sm:text-base tracking-wide">
+            融合现代交互艺术与古典东方水墨美学，探寻虚实相生的意境，重构五千年神州文化风骨。
+          </p>
+          
+          <!-- Metainfo like in the inspiration template -->
+          <div class="mt-6 flex flex-wrap justify-center gap-x-8 gap-y-2 text-xs text-jade-600/70 border-t border-b border-jade-500/10 py-3">
+            <span><i class="fa-solid fa-feather-pointed mr-2 text-gold-400"></i>设计系统: 墨画江南</span>
+            <span><i class="fa-solid fa-clock mr-2 text-gold-400"></i>时间: 丙申年仲夏</span>
+          </div>
+
+          <!-- Buttons -->
+          <div class="mt-8 flex items-center justify-center gap-4">
+            <a href="#muse" class="gold-shimmer px-6 py-3 bg-cinnabar-500 hover:bg-cinnabar-600 text-white rounded-xs shadow-md font-semibold tracking-wider text-sm transition-all duration-300 border border-gold-400/20">
+              <i class="fa-solid fa-wand-magic-sparkles mr-2"></i> 唤醒墨客 AI Muse
+            </a>
+            <a href="#scroll" class="px-6 py-3 border border-jade-500/30 hover:border-cinnabar-500 hover:bg-white/40 text-jade-800 rounded-xs font-semibold tracking-wider text-sm transition-all duration-300">
+              品阅长卷
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right decorative elements -->
+      <div class="hidden lg:flex lg:col-span-2 flex-col items-center justify-center gap-6">
+        <div class="border border-gold-400/30 p-2 bg-white/40 rounded-sm">
+          <div class="vertical-text font-serif text-[11px] tracking-widest text-gold-500 uppercase py-4 px-2 border border-gold-400/10">
+            ELEGANT MINIMALISM • EASTERN SPIRIT
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Scroll down indicator -->
+    <div class="flex flex-col items-center gap-1 text-xs text-jade-500/60 mt-12 animate-bounce">
+      <span>向下滚动 探索江南</span>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+  </section>
+
+  <!-- CONCEPT SHOWCASE SECTION: "Chapters" representation matching the circles from inspiration image -->
+  <section id="about" class="py-24 px-6 border-t border-gold-400/10 bg-gradient-to-b from-parchment-200 to-parchment-100 relative">
+    <!-- Traditional corners -->
+    <div class="absolute inset-0 pointer-events-none traditional-corner corner-tl corner-tr corner-bl corner-br opacity-40"></div>
+
+    <div class="max-w-7xl mx-auto">
+      
+      <!-- Section Header -->
+      <div class="text-center mb-16">
+        <div class="inline-block p-1 border-b border-gold-400/30 pb-3 mb-3">
+          <span class="font-calligraphy text-2xl text-cinnabar-500">水墨意境 • 四大美学</span>
+        </div>
+        <h2 class="font-serif text-3xl sm:text-4xl text-jade-900 tracking-widest font-semibold">四时之序 • 万物和谐</h2>
+        <p class="text-xs text-gold-500 uppercase tracking-[0.3em] mt-2">The Four Domains of Classical Design</p>
+      </div>
+
+      <!-- Showcase Circles / Cards Container -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        
+        <!-- Chapter 1: Ink and Brush (墨) -->
+        <div class="bg-white/40 hover:bg-white border border-jade-500/10 rounded-sm p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 relative group overflow-hidden">
+          <div class="absolute top-2 right-2 font-calligraphy text-7xl text-jade-100 group-hover:text-jade-200/50 transition-colors select-none">壹</div>
+          
+          <div class="w-16 h-16 rounded-full border border-jade-500/20 flex items-center justify-center bg-parchment-100 mb-6 group-hover:border-cinnabar-500/50 transition-colors">
+            <i class="fa-solid fa-paintbrush text-xl text-jade-600 group-hover:text-cinnabar-500 transition-colors"></i>
+          </div>
+          
+          <h3 class="font-serif text-lg font-semibold text-jade-800 mb-2">墨韵留白 / Ink Emptiness</h3>
+          <p class="text-xs text-jade-600/80 leading-relaxed">
+            “留白天地宽”，水墨画最贵在意境的虚实相生。多一笔则满，少一笔则空，追求精神的洒脱与无限的想象。
+          </p>
+          <div class="mt-4 pt-4 border-t border-dashed border-jade-500/10 flex items-center justify-between text-xs text-gold-500 font-semibold">
+            <span>探索墨韵</span>
+            <i class="fa-solid fa-arrow-right-long group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </div>
+
+        <!-- Chapter 2: Jade and Ceramics (玉) -->
+        <div class="bg-white/40 hover:bg-white border border-jade-500/10 rounded-sm p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 relative group overflow-hidden">
+          <div class="absolute top-2 right-2 font-calligraphy text-7xl text-jade-100 group-hover:text-jade-200/50 transition-colors select-none">贰</div>
+          
+          <div class="w-16 h-16 rounded-full border border-jade-500/20 flex items-center justify-center bg-parchment-100 mb-6 group-hover:border-cinnabar-500/50 transition-colors">
+            <i class="fa-solid fa-gem text-xl text-jade-600 group-hover:text-cinnabar-500 transition-colors"></i>
+          </div>
+          
+          <h3 class="font-serif text-lg font-semibold text-jade-800 mb-2">翠玉玲珑 / Precious Jade</h3>
+          <p class="text-xs text-jade-600/80 leading-relaxed">
+            君子比德于玉，温润而泽。古典器物不求闪耀夺目，而求手感温润，色泽古朴雅致，于内敛中现乾坤。
+          </p>
+          <div class="mt-4 pt-4 border-t border-dashed border-jade-500/10 flex items-center justify-between text-xs text-gold-500 font-semibold">
+            <span>鉴赏金玉</span>
+            <i class="fa-solid fa-arrow-right-long group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </div>
+
+        <!-- Chapter 3: Ancient Music (乐) -->
+        <div class="bg-white/40 hover:bg-white border border-jade-500/10 rounded-sm p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 relative group overflow-hidden">
+          <div class="absolute top-2 right-2 font-calligraphy text-7xl text-jade-100 group-hover:text-jade-200/50 transition-colors select-none">叁</div>
+          
+          <div class="w-16 h-16 rounded-full border border-jade-500/20 flex items-center justify-center bg-parchment-100 mb-6 group-hover:border-cinnabar-500/50 transition-colors">
+            <i class="fa-solid fa-guitar text-xl text-jade-600 group-hover:text-cinnabar-500 transition-colors"></i>
+          </div>
+          
+          <h3 class="font-serif text-lg font-semibold text-jade-800 mb-2">雅乐天籁 / Ethereal Music</h3>
+          <p class="text-xs text-jade-600/80 leading-relaxed">
+            五音相谐，宫商角徵羽。古筝之清越、古琴之旷远、竹笛之空灵，洗涤尘嚣，静听山河风雨声。
+          </p>
+          <div class="mt-4 pt-4 border-t border-dashed border-jade-500/10 flex items-center justify-between text-xs text-gold-500 font-semibold">
+            <span>静心倾听</span>
+            <i class="fa-solid fa-arrow-right-long group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </div>
+
+        <!-- Chapter 4: Gardens and Pavilions (园) -->
+        <div class="bg-white/40 hover:bg-white border border-jade-500/10 rounded-sm p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 relative group overflow-hidden">
+          <div class="absolute top-2 right-2 font-calligraphy text-7xl text-jade-100 group-hover:text-jade-200/50 transition-colors select-none">肆</div>
+          
+          <div class="w-16 h-16 rounded-full border border-jade-500/20 flex items-center justify-center bg-parchment-100 mb-6 group-hover:border-cinnabar-500/50 transition-colors">
+            <i class="fa-solid fa-gopuram text-xl text-jade-600 group-hover:text-cinnabar-500 transition-colors"></i>
+          </div>
+          
+          <h3 class="font-serif text-lg font-semibold text-jade-800 mb-2">庭院山水 / Sacred Gardens</h3>
+          <p class="text-xs text-jade-600/80 leading-relaxed">
+            虽由人作，宛自天开。一桥一水、亭台楼阁，将浩瀚的自然山水浓缩于咫尺庭院之中，天人合一。
+          </p>
+          <div class="mt-4 pt-4 border-t border-dashed border-jade-500/10 flex items-center justify-between text-xs text-gold-500 font-semibold">
+            <span>闲游亭台</span>
+            <i class="fa-solid fa-arrow-right-long group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- INTERACTIVE SCROLL SHOWCASE (長卷) -->
+  <section id="scroll" class="py-24 px-6 border-t border-gold-400/10 bg-parchment-200 overflow-hidden relative">
+    <div class="max-w-7xl mx-auto">
+      
+      <!-- Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+        <div>
+          <div class="inline-block p-1 border-b border-gold-400/30 pb-2 mb-2">
+            <span class="font-calligraphy text-xl text-cinnabar-500">水墨丹青</span>
+          </div>
+          <h2 class="font-serif text-3xl font-semibold text-jade-900 tracking-wider">传世历史长卷 / The Living Scroll</h2>
+          <p class="text-xs text-gold-500 uppercase tracking-widest mt-1">Interactive Scroll Exploration</p>
+        </div>
+        <p class="max-w-md text-xs text-jade-600 leading-relaxed mt-4 md:mt-0">
+          点击下方两侧按钮或在长卷上左右拖拽，如同缓缓展开千年宣纸古画，饱览高山流水、雅士品茗、落日余晖。
+        </p>
+      </div>
+
+      <!-- The Horizontal Interactive Scroll Wrapper -->
+      <div class="relative bg-white/30 border border-gold-400/20 rounded-md p-4 md:p-8 shadow-[inset_0_0_20px_rgba(0,0,0,0.03)]">
+        <!-- Roller/Spindle Decoration Left -->
+        <div class="absolute left-1 top-1/2 -translate-y-1/2 w-4 h-[90%] bg-amber-900/80 rounded-full shadow-lg z-20 hidden md:block border-l-2 border-gold-400"></div>
+        <!-- Roller/Spindle Decoration Right -->
+        <div class="absolute right-1 top-1/2 -translate-y-1/2 w-4 h-[90%] bg-amber-900/80 rounded-full shadow-lg z-20 hidden md:block border-r-2 border-gold-400"></div>
+
+        <!-- Scroll navigation buttons -->
+        <button id="scrollLeftBtn" class="absolute left-6 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 hover:bg-white text-jade-800 hover:text-cinnabar-500 shadow-md z-30 transition-all border border-jade-500/10 flex items-center justify-center">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button id="scrollRightBtn" class="absolute right-6 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 hover:bg-white text-jade-800 hover:text-cinnabar-500 shadow-md z-30 transition-all border border-jade-500/10 flex items-center justify-center">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+
+        <!-- Horizontal Scroll Container -->
+        <div id="scrollContainer" class="flex overflow-x-auto gap-8 py-4 px-12 scroll-smooth select-none cursor-grab active:cursor-grabbing" style="scrollbar-width: none;">
+          
+          <!-- Card 1: Mountain landscape -->
+          <div class="min-w-[320px] max-w-[320px] bg-parchment-100 border border-jade-500/10 rounded-sm p-6 shadow-sm flex-shrink-0 flex flex-col justify-between">
+            <div>
+              <div class="h-40 bg-gradient-to-b from-jade-100 to-transparent rounded-xs relative overflow-hidden mb-4 border border-jade-500/5">
+                <!-- SVG traditional mountain graphic -->
+                <svg viewBox="0 0 100 100" class="absolute bottom-0 left-0 w-full h-3/4 opacity-40">
+                  <path d="M0,100 L30,40 L60,80 L80,50 L100,100 Z" fill="#3d6754"></path>
+                </svg>
+                <div class="absolute top-4 right-4 bg-cinnabar-500 text-white font-calligraphy py-2 px-1 text-xs tracking-wider rounded-xs">
+                  云山起伏
+                </div>
+              </div>
+              <h3 class="font-serif text-lg font-semibold text-jade-800 mb-2">远山苍茫 / Mist Over Peaks</h3>
+              <p class="text-xs text-jade-600 leading-relaxed">
+                高山耸立，白云缭绕。国画不画具体的空气，仅凭墨色的干湿浓淡，勾勒出烟雨江南的高远与深邃。
+              </p>
+            </div>
+            <div class="border-t border-dashed border-jade-500/10 pt-4 mt-4 text-[11px] text-gold-500">
+              <i class="fa-solid fa-scroll mr-2"></i>卷一 • 笔墨勾勒
+            </div>
+          </div>
+
+          <!-- Card 2: Tea ceremony -->
+          <div class="min-w-[320px] max-w-[320px] bg-parchment-100 border border-jade-500/10 rounded-sm p-6 shadow-sm flex-shrink-0 flex flex-col justify-between">
+            <div>
+              <div class="h-40 bg-gradient-to-b from-jade-100 to-transparent rounded-xs relative overflow-hidden mb-4 border border-jade-500/5">
+                <!-- Tea ceremony circle styling -->
+                <div class="absolute inset-4 rounded-full border border-gold-400/10 flex items-center justify-center">
+                  <div class="w-20 h-20 rounded-full border border-dashed border-jade-500/20 flex items-center justify-center">
+                    <span class="font-calligraphy text-2xl text-jade-600">茗</span>
+                  </div>
+                </div>
+                <div class="absolute top-4 right-4 bg-gold-400 text-white font-calligraphy py-2 px-1 text-xs tracking-wider rounded-xs">
+                  清心品茗
+                </div>
+              </div>
+              <h3 class="font-serif text-lg font-semibold text-jade-800 mb-2">茶禅一味 / Zen Tea Way</h3>
+              <p class="text-xs text-jade-600 leading-relaxed">
+                一盏温茶，半日闲暇。茶道不仅是品尝自然的味道，更是修身养性，在茶叶的浮沉间体会人生的得失起伏。
+              </p>
+            </div>
+            <div class="border-t border-dashed border-jade-500/10 pt-4 mt-4 text-[11px] text-gold-500">
+              <i class="fa-solid fa-scroll mr-2"></i>卷二 • 品茗悟道
+            </div>
+          </div>
+
+          <!-- Card 3: The Cinnabar Sun & Crane -->
+          <div class="min-w-[320px] max-w-[320px] bg-parchment-100 border border-jade-500/10 rounded-sm p-6 shadow-sm flex-shrink-0 flex flex-col justify-between">
+            <div>
+              <div class="h-40 bg-gradient-to-b from-jade-100 to-transparent rounded-xs relative overflow-hidden mb-4 border border-jade-500/5">
+                <!-- Golden/cinnabar SVG -->
+                <svg viewBox="0 0 100 100" class="absolute inset-0 w-full h-full">
+                  <circle cx="50" cy="50" r="25" fill="#b83b30" opacity="0.15" />
+                  <!-- Flying Crane path outline -->
+                  <path d="M30,50 Q50,30 70,50 Q50,70 30,50 Z" stroke="#3d6754" stroke-width="1" fill="none" opacity="0.6"/>
+                  <circle cx="50" cy="50" r="12" fill="#b83b30" opacity="0.7" />
+                </svg>
+                <div class="absolute top-4 right-4 bg-cinnabar-500 text-white font-calligraphy py-2 px-1 text-xs tracking-wider rounded-xs">
+                  瑞鹤迎晖
+                </div>
+              </div>
+              <h3 class="font-serif text-lg font-semibold text-jade-800 mb-2">白鹤亮翅 / Dance of Cranes</h3>
+              <p class="text-xs text-jade-600 leading-relaxed">
+                仙鹤自古便是长寿与高洁的化身。其振翅欲飞之姿，飘逸洒脱，犹如世外高人挣脱凡尘，羽化登仙。
+              </p>
+            </div>
+            <div class="border-t border-dashed border-jade-500/10 pt-4 mt-4 text-[11px] text-gold-500">
+              <i class="fa-solid fa-scroll mr-2"></i>卷三 • 飞仙逸兴
+            </div>
+          </div>
+
+          <!-- Card 4: Bamboo forest shadow -->
+          <div class="min-w-[320px] max-w-[320px] bg-parchment-100 border border-jade-500/10 rounded-sm p-6 shadow-sm flex-shrink-0 flex flex-col justify-between">
+            <div>
+              <div class="h-40 bg-gradient-to-b from-jade-100 to-transparent rounded-xs relative overflow-hidden mb-4 border border-jade-500/5">
+                <svg viewBox="0 0 100 100" class="absolute bottom-0 left-0 w-full h-4/5 opacity-30">
+                  <path d="M20,100 L20,10 M25,60 L40,50 M25,40 L10,35" stroke="#3d6754" stroke-width="2"/>
+                  <path d="M60,100 L60,20 M65,70 L80,60 M65,50 L50,45" stroke="#3d6754" stroke-width="1.5"/>
+                </svg>
+                <div class="absolute top-4 right-4 bg-gold-400 text-white font-calligraphy py-2 px-1 text-xs tracking-wider rounded-xs">
+                  虚心傲骨
+                </div>
+              </div>
+              <h3 class="font-serif text-lg font-semibold text-jade-800 mb-2">竹影婆娑 / Whisper of Bamboo</h3>
+              <p class="text-xs text-jade-600 leading-relaxed">
+                劲竹傲霜，中空外直。狂风过而不折，暴雨洗而愈翠，是古典名士最推崇的精神象征——高洁不屈。
+              </p>
+            </div>
+            <div class="border-t border-dashed border-jade-500/10 pt-4 mt-4 text-[11px] text-gold-500">
+              <i class="fa-solid fa-scroll mr-2"></i>卷四 • 竹林清风
+            </div>
+          </div>
+
+          <!-- Card 5: Classical Pavilion -->
+          <div class="min-w-[320px] max-w-[320px] bg-parchment-100 border border-jade-500/10 rounded-sm p-6 shadow-sm flex-shrink-0 flex flex-col justify-between">
+            <div>
+              <div class="h-40 bg-gradient-to-b from-jade-100 to-transparent rounded-xs relative overflow-hidden mb-4 border border-jade-500/5">
+                <svg viewBox="0 0 100 100" class="absolute bottom-0 left-1/2 -translate-x-1/2 w-4/5 h-4/5 opacity-40">
+                  <path d="M20,90 L80,90 M30,90 L30,50 M70,90 L70,50 M10,50 Q50,20 90,50 Z" stroke="#3d6754" stroke-width="2" fill="none"/>
+                  <path d="M40,50 L40,90 M60,50 L60,90" stroke="#3d6754" stroke-width="1" fill="none"/>
+                </svg>
+                <div class="absolute top-4 right-4 bg-cinnabar-500 text-white font-calligraphy py-2 px-1 text-xs tracking-wider rounded-xs">
+                  江南听雨
+                </div>
+              </div>
+              <h3 class="font-serif text-lg font-semibold text-jade-800 mb-2">亭台雨歇 / Rain in Pavilions</h3>
+              <p class="text-xs text-jade-600 leading-relaxed">
+                听雨打芭蕉，凭栏望断鸿。古典园林里的亭台轩阁，皆是为游人寄托情思所设，坐中尽享四时风光。
+              </p>
+            </div>
+            <div class="border-t border-dashed border-jade-500/10 pt-4 mt-4 text-[11px] text-gold-500">
+              <i class="fa-solid fa-scroll mr-2"></i>卷五 • 园林幽思
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- INTERACTIVE INK DRAWING BOARD (泼墨挥毫) -->
+  <section id="inkwell" class="py-24 px-6 border-t border-gold-400/10 bg-parchment-100 relative">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Text intro -->
+        <div class="lg:col-span-4">
+          <div class="inline-block p-1 border-b border-gold-400/30 pb-2 mb-2">
+            <span class="font-calligraphy text-xl text-cinnabar-500">落笔生花</span>
+          </div>
+          <h2 class="font-serif text-3xl font-semibold text-jade-900 tracking-wider">泼墨山水体验区</h2>
+          <p class="text-xs text-gold-500 uppercase tracking-widest mt-1">Interactive Inkwash Canvas</p>
+          
+          <p class="text-xs text-jade-600 leading-relaxed mt-6">
+            在右侧的白宣纸上移动鼠标或点击。每一次挥毫，都会在纸上留下温润的水墨晕染。水墨会随着时间慢慢淡化，展现自然界中“无常”与“消逝”之美。
+          </p>
+
+          <!-- Interactive Brush Controls -->
+          <div class="mt-8 space-y-4">
+            <div>
+              <label class="block text-xs font-semibold text-jade-800 mb-2">墨色浓度 / Ink Opacity</label>
+              <div class="flex items-center gap-4">
+                <input id="inkOpacityRange" type="range" min="10" max="100" value="60" class="w-full accent-jade-500">
+                <span id="inkOpacityVal" class="text-xs font-bold text-jade-600">60%</span>
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-jade-800 mb-2">笔锋大小 / Brush Size</label>
+              <div class="flex items-center gap-4">
+                <input id="brushSizeRange" type="range" min="10" max="120" value="45" class="w-full accent-jade-500">
+                <span id="brushSizeVal" class="text-xs font-bold text-jade-600">45px</span>
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-jade-800 mb-2">墨彩选择 / Hue Select</label>
+              <div class="flex items-center gap-2">
+                <button onclick="setInkColor('#2c3539')" class="w-6 h-6 rounded-full bg-[#2c3539] border border-gold-400 active-color-btn relative" title="Classic Charcoal Ink"></button>
+                <button onclick="setInkColor('#3d6754')" class="w-6 h-6 rounded-full bg-[#3d6754] border border-gold-400/20" title="Sage Green Ink"></button>
+                <button onclick="setInkColor('#b83b30')" class="w-6 h-6 rounded-full bg-[#b83b30] border border-gold-400/20" title="Cinnabar Red Ink"></button>
+                <button onclick="setInkColor('#c5a059')" class="w-6 h-6 rounded-full bg-[#c5a059] border border-gold-400/20" title="Imperial Gold Ink"></button>
+              </div>
+            </div>
+            <button id="clearInkBtn" class="mt-4 px-4 py-2 border border-cinnabar-500/30 text-cinnabar-500 hover:bg-cinnabar-500 hover:text-white rounded-xs text-xs tracking-wider transition-colors">
+              <i class="fa-solid fa-eraser mr-2"></i>清空墨纸 / Clear Page
+            </button>
+          </div>
+        </div>
+
+        <!-- The Canvas Board Container -->
+        <div class="lg:col-span-8">
+          <div class="relative bg-white border border-gold-400/30 rounded-sm shadow-[0_4px_30px_rgba(0,0,0,0.02)] overflow-hidden cursor-crosshair">
+            <!-- Fancy traditional thin gold trim inside -->
+            <div class="absolute inset-2 border border-gold-400/10 pointer-events-none"></div>
+            
+            <canvas id="inkCanvas" class="w-full h-[400px] block bg-parchment-100"></canvas>
+            
+            <!-- Beautiful scroll seal graphic inside bottom right -->
+            <div class="absolute bottom-6 right-6 font-calligraphy text-cinnabar-500 text-sm select-none pointer-events-none opacity-40 border border-cinnabar-500 px-1 py-2 transform rotate-6 bg-white/40">
+              江南雅赏
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- GEMINI POWERED SECTION: AI POET MUSE (墨海诗情) -->
+  <section id="muse" class="py-24 px-6 border-t border-gold-400/10 bg-gradient-to-b from-parchment-200 to-parchment-100 relative">
+    <div class="max-w-4xl mx-auto">
+      
+      <!-- Section Header -->
+      <div class="text-center mb-12">
+        <div class="inline-block p-1 border-b border-gold-400/30 pb-3 mb-3">
+          <span class="font-calligraphy text-2xl text-cinnabar-500">墨客雅集</span>
+        </div>
+        <h2 class="font-serif text-3xl sm:text-4xl text-jade-900 tracking-widest font-semibold">AI 诗家画意 / The AI Ink Muse</h2>
+        <p class="text-xs text-gold-500 uppercase tracking-[0.3em] mt-2">Generate classical Chinese poetry with Gemini</p>
+      </div>
+
+      <!-- Generator Core Interface -->
+      <div class="bg-white/70 backdrop-blur-md border border-gold-400/30 rounded-sm p-6 sm:p-10 shadow-[0_10px_40px_rgba(61,103,84,0.05)] relative traditional-corner corner-tl corner-tr corner-bl corner-br">
+        
+        <p class="text-xs text-jade-600/90 leading-relaxed text-center mb-8">
+          输入你心中的东方意象（如：竹林风雨、小桥流水、清风明月、塞外寒霜），AI 诗圣将为您即兴创作一首五言或七言绝句，并附带唯美中英文解析与古音朗诵。
+        </p>
+
+        <!-- Topic Inputs & Selectors -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div>
+            <label class="block text-xs font-semibold text-jade-800 mb-2">东方意象 / Topic Theme</label>
+            <div class="relative">
+              <input id="poeticTheme" type="text" placeholder="例如: 竹林风雨, 孤舟泛海..." class="w-full px-4 py-3 bg-white border border-jade-500/20 focus:border-cinnabar-500 focus:ring-1 focus:ring-cinnabar-500/30 rounded-xs text-sm text-jade-900 placeholder:text-jade-500/40 outline-none transition-all">
+              <i class="fa-solid fa-feather-pointed absolute right-4 top-1/2 -translate-y-1/2 text-jade-400"></i>
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-jade-800 mb-2">诗歌体裁 / Format Style</label>
+            <div class="grid grid-cols-2 gap-3">
+              <button onclick="setPoetryStyle('7')" id="styleBtn7" class="px-4 py-2.5 bg-jade-500 text-white rounded-xs text-xs font-semibold tracking-wider transition-colors border border-jade-500">七言绝句 (Seven-char)</button>
+              <button onclick="setPoetryStyle('5')" id="styleBtn5" class="px-4 py-2.5 bg-white text-jade-700 hover:bg-jade-50 rounded-xs text-xs font-semibold tracking-wider transition-colors border border-jade-500/20">五言绝句 (Five-char)</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-8">
+          <label class="block text-xs font-semibold text-jade-800 mb-2">诗意滤镜 / Atmosphere Filter</label>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="addAtmosphereTag('凄美荒凉')" class="px-3 py-1.5 rounded-full border border-jade-500/10 bg-white hover:border-cinnabar-500/50 hover:bg-cinnabar-50/10 text-xs text-jade-700 transition-all">凄美荒凉 / Desolate</button>
+            <button onclick="addAtmosphereTag('豪放洒脱')" class="px-3 py-1.5 rounded-full border border-jade-500/10 bg-white hover:border-cinnabar-500/50 hover:bg-cinnabar-50/10 text-xs text-jade-700 transition-all">豪放洒脱 / Heroic</button>
+            <button onclick="addAtmosphereTag('恬静空灵')" class="px-3 py-1.5 rounded-full border border-jade-500/10 bg-white hover:border-cinnabar-500/50 hover:bg-cinnabar-50/10 text-xs text-jade-700 transition-all">恬静空灵 / Ethereal</button>
+            <button onclick="addAtmosphereTag('古朴悲壮')" class="px-3 py-1.5 rounded-full border border-jade-500/10 bg-white hover:border-cinnabar-500/50 hover:bg-cinnabar-50/10 text-xs text-jade-700 transition-all">古朴悲壮 / Classic Sorrow</button>
+          </div>
+        </div>
+
+        <!-- Generate Action -->
+        <div class="flex flex-col items-center justify-center">
+          <button id="generatePoemBtn" class="gold-shimmer w-full max-w-sm py-3.5 bg-cinnabar-500 hover:bg-cinnabar-600 text-white font-semibold tracking-widest text-sm rounded-xs shadow-md transition-all border border-gold-400/20">
+            <i class="fa-solid fa-paintbrush mr-2"></i> 即兴挥毫 / Compose Poem
+          </button>
+          
+          <p id="loadingText" class="text-xs text-jade-600 mt-4 hidden animate-pulse">
+            <i class="fa-solid fa-spinner fa-spin mr-2"></i> 诗圣正在研墨落笔，推敲诗律，请稍候...
+          </p>
+        </div>
+
+        <!-- Render Output Container -->
+        <div id="poemOutput" class="mt-12 hidden p-6 sm:p-10 border border-gold-400/20 bg-parchment-100 rounded-xs transition-all duration-500">
+          
+          <!-- Outer border decorative lines -->
+          <div class="flex flex-col md:flex-row gap-8 items-stretch">
+            
+            <!-- Traditional Vertical Poem Display Box -->
+            <div class="flex-1 flex flex-col items-center justify-center border-r border-dashed border-jade-500/10 pr-0 md:pr-8 py-4">
+              <!-- Beautiful concentric decoration -->
+              <div class="w-12 h-12 rounded-full border border-dashed border-cinnabar-500/30 flex items-center justify-center bg-white mb-6 animate-breath">
+                <span class="font-calligraphy text-lg text-cinnabar-500">律</span>
+              </div>
+              
+              <!-- Real Classical Vertical Layout -->
+              <div id="verticalPoemContainer" class="flex justify-center items-start gap-8 select-none font-calligraphy text-2xl sm:text-3xl text-jade-900 tracking-[0.35em] bg-white/40 p-6 rounded-xs border border-jade-500/5">
+                <!-- Dynamically populated vertical character rows -->
+              </div>
+            </div>
+
+            <!-- Translation, analysis and audio controls -->
+            <div class="flex-1 flex flex-col justify-between py-2">
+              <div>
+                <h4 class="font-serif font-bold text-sm text-jade-800 mb-2">诗家译意 / Modern Insight</h4>
+                <p id="modernTranslation" class="text-xs text-jade-600 leading-relaxed mb-4">
+                  <!-- Modern Chinese translation -->
+                </p>
+
+                <h4 class="font-serif font-bold text-sm text-jade-800 mb-2">English Translation</h4>
+                <p id="englishTranslation" class="text-xs text-jade-600/80 italic leading-relaxed mb-6">
+                  <!-- English Translation -->
+                </p>
+              </div>
+
+              <!-- Traditional Auditory Reading Controls -->
+              <div class="bg-white/60 p-4 rounded-xs border border-jade-500/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-full bg-jade-500/10 border border-jade-500/20 flex items-center justify-center text-jade-600">
+                    <i class="fa-solid fa-volume-high animate-bounce"></i>
+                  </div>
+                  <div>
+                    <h5 class="text-xs font-bold text-jade-800">听琴墨诵 / Hear the Verse</h5>
+                    <p class="text-[10px] text-jade-500/70">Powered by Gemini Ambient Voice</p>
+                  </div>
+                </div>
+                
+                <button id="ttsPlayBtn" class="px-4 py-2 bg-jade-500 hover:bg-jade-600 text-white rounded-xs text-xs font-semibold tracking-wider transition-colors shadow-sm">
+                  <i class="fa-solid fa-play mr-2"></i> 开启朗诵 / Listen Now
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- STATS & AESTHETIC VISUALS (水墨指数) -->
+  <section class="py-24 px-6 border-t border-gold-400/10 bg-parchment-200 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Visual Column (Matches 75%, 60%, 45% circles from inspiration image) -->
+        <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-3 gap-8">
+          
+          <!-- Circle 1: Heritage Index -->
+          <div class="flex flex-col items-center text-center p-6 bg-white/40 border border-jade-500/5 rounded-xs shadow-sm hover:shadow-md transition-shadow">
+            <div class="relative w-36 h-36 flex items-center justify-center">
+              <!-- Background Ring -->
+              <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="40" stroke="#ccd9d0" stroke-width="4" fill="none" opacity="0.3"></circle>
+                <!-- Jade Ring filled to 75% -->
+                <circle cx="50" cy="50" r="40" stroke="#3d6754" stroke-width="5" fill="none" stroke-dasharray="251.2" stroke-dashoffset="62.8" class="transition-all duration-1000"></circle>
+              </svg>
+              <!-- Percentage text -->
+              <span class="absolute text-2xl font-bold font-serif text-jade-900">75%</span>
+            </div>
+            <h4 class="font-serif font-bold text-sm text-jade-800 mt-4 mb-1">国画神韵 / Drawing Spirit</h4>
+            <p class="text-[11px] text-jade-500/80 leading-relaxed">墨迹干湿得当，写意山水，浓淡留白尽显精妙风度。</p>
+          </div>
+
+          <!-- Circle 2: Calligraphy rhythm -->
+          <div class="flex flex-col items-center text-center p-6 bg-white/40 border border-jade-500/5 rounded-xs shadow-sm hover:shadow-md transition-shadow">
+            <div class="relative w-36 h-36 flex items-center justify-center">
+              <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="40" stroke="#ccd9d0" stroke-width="4" fill="none" opacity="0.3"></circle>
+                <!-- Jade Ring filled to 60% -->
+                <circle cx="50" cy="50" r="40" stroke="#3d6754" stroke-width="5" fill="none" stroke-dasharray="251.2" stroke-dashoffset="100.5" class="transition-all duration-1000"></circle>
+              </svg>
+              <span class="absolute text-2xl font-bold font-serif text-jade-900">60%</span>
+            </div>
+            <h4 class="font-serif font-bold text-sm text-jade-800 mt-4 mb-1">笔法风骨 / Calligraphy Force</h4>
+            <p class="text-[11px] text-jade-500/80 leading-relaxed">藏锋处如龙虎之威，提按轻重展现传统书法的力量之感。</p>
+          </div>
+
+          <!-- Circle 3: Natural Harmony -->
+          <div class="flex flex-col items-center text-center p-6 bg-white/40 border border-jade-500/5 rounded-xs shadow-sm hover:shadow-md transition-shadow">
+            <div class="relative w-36 h-36 flex items-center justify-center">
+              <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="40" stroke="#ccd9d0" stroke-width="4" fill="none" opacity="0.3"></circle>
+                <!-- Jade Ring filled to 45% -->
+                <circle cx="50" cy="50" r="40" stroke="#3d6754" stroke-width="5" fill="none" stroke-dasharray="251.2" stroke-dashoffset="138.1" class="transition-all duration-1000"></circle>
+              </svg>
+              <span class="absolute text-2xl font-bold font-serif text-jade-900">45%</span>
+            </div>
+            <h4 class="font-serif font-bold text-sm text-jade-800 mt-4 mb-1">天地合一 / Cosmos Harmony</h4>
+            <p class="text-[11px] text-jade-500/80 leading-relaxed">四时变化，五行共鸣。天人造化，于细微之处寻天真之乐。</p>
+          </div>
+
+        </div>
+
+        <!-- Info Column -->
+        <div class="lg:col-span-4">
+          <div class="inline-block p-1 border-b border-gold-400/30 pb-2 mb-2">
+            <span class="font-calligraphy text-xl text-cinnabar-500">数理雅韵</span>
+          </div>
+          <h2 class="font-serif text-3xl font-semibold text-jade-900 tracking-wider">天工造物指数</h2>
+          <p class="text-xs text-gold-500 uppercase tracking-widest mt-1">Aesthetics of Precision</p>
+          
+          <p class="text-xs text-jade-600 leading-relaxed mt-6">
+            以古典比例设计而出的黄金平衡。我们将古人的太极双鱼图、宫廷度量衡、甚至古筝琴弦的震动弧度转化为优雅的数据视觉交互，在精密计算中再现千年的浪漫智慧。
+          </p>
+
+          <blockquote class="mt-6 border-l-2 border-gold-400 pl-4 py-2 italic text-xs text-jade-700 bg-white/20">
+            “大音希声，大象无形。不言其极，其道大成。”
+          </blockquote>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- NEWSLETTER / CTA (画廊寄情) -->
+  <section class="py-24 px-6 border-t border-gold-400/10 bg-gradient-to-b from-parchment-100 to-parchment-200 relative overflow-hidden">
+    <!-- Cherry branch visual background on the side -->
+    <div class="absolute -right-12 top-0 w-80 h-80 opacity-15 pointer-events-none">
+      <svg viewBox="0 0 100 100" class="w-full h-full text-jade-600" fill="none" stroke="currentColor">
+        <path d="M0,0 Q50,40 100,50" stroke-width="1.5"/>
+        <circle cx="40" cy="30" r="4" fill="currentColor"/>
+        <circle cx="70" cy="45" r="3.5" fill="currentColor"/>
+      </svg>
+    </div>
+
+    <div class="max-w-4xl mx-auto text-center relative z-10">
+      <div class="inline-block p-1 border-b border-gold-400/30 pb-2 mb-2">
+        <span class="font-calligraphy text-2xl text-cinnabar-500">雅书投书</span>
+      </div>
+      <h2 class="font-serif text-3xl sm:text-4xl text-jade-900 font-semibold tracking-wider">订阅江南美学画报</h2>
+      <p class="text-xs text-gold-500 uppercase tracking-[0.25em] mt-2">Sign up for our aesthetic newsletter</p>
+      
+      <p class="max-w-xl mx-auto text-xs text-jade-600/90 leading-relaxed mt-6">
+        每月，我们都将整理最新的传世书画修复动态、东方建筑空间摄影、传统工艺美学发现和人工智能艺术探索，打包一封唯美的卷轴呈献给您的邮箱。
+      </p>
+
+      <!-- Input Form -->
+      <form onsubmit="handleSubscribe(event)" class="mt-10 max-w-md mx-auto flex flex-col sm:flex-row gap-3">
+        <input type="email" required placeholder="请输入您的雅邮 / Enter your email" class="flex-1 px-4 py-3 bg-white/80 border border-jade-500/20 focus:border-cinnabar-500 focus:ring-1 focus:ring-cinnabar-500/30 rounded-xs text-sm text-jade-900 outline-none transition-all">
+        <button type="submit" class="gold-shimmer px-6 py-3 bg-jade-500 hover:bg-jade-600 text-white font-semibold tracking-wider text-xs uppercase rounded-xs transition-colors border border-gold-400/20 whitespace-nowrap">
+          立即订阅 / Subscribe
+        </button>
+      </form>
+      <p id="subscribeSuccess" class="text-xs text-cinnabar-500 font-semibold mt-4 hidden">
+        <i class="fa-solid fa-envelope-open-text mr-1"></i> 已将“美学飞鸽”寄送至您的信箱，感谢品鉴。
+      </p>
+    </div>
+  </section>
+
+  <!-- LUXURIOUS FOOTER -->
+  <footer class="bg-jade-900 text-parchment-200 py-16 px-6 border-t border-gold-400/20 relative">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 relative z-10">
+      
+      <!-- Brand column -->
+      <div class="md:col-span-4 space-y-6">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-full border border-gold-400/30 flex items-center justify-center bg-white/5">
+            <span class="font-calligraphy text-2xl text-gold-400">雅</span>
+          </div>
+          <div>
+            <span class="font-calligraphy text-2xl tracking-widest text-parchment-100">创意中国风</span>
+            <div class="font-cinzel text-[10px] tracking-widest text-gold-400 uppercase -mt-1">Eastern Elegance</div>
+          </div>
+        </div>
+        <p class="text-xs text-parchment-300/80 leading-relaxed max-w-sm">
+          用数字触笔留白山河，将水墨意蕴溶入虚拟维度。东方美学不只是一个风格，更是浸入骨血的温柔雅气。
+        </p>
+        <div class="flex items-center gap-4 text-parchment-300">
+          <a href="#" class="hover:text-gold-400 transition-colors"><i class="fa-brands fa-weixin text-lg"></i></a>
+          <a href="#" class="hover:text-gold-400 transition-colors"><i class="fa-brands fa-weibo text-lg"></i></a>
+          <a href="#" class="hover:text-gold-400 transition-colors"><i class="fa-brands fa-xhs text-lg"></i></a>
+          <a href="#" class="hover:text-gold-400 transition-colors"><i class="fa-solid fa-music text-lg"></i></a>
+        </div>
+      </div>
+
+      <!-- Links Column 1 -->
+      <div class="md:col-span-3 space-y-4">
+        <h4 class="font-serif font-semibold text-sm text-gold-400 tracking-wider">雅集书画 / Portals</h4>
+        <ul class="text-xs space-y-2.5 text-parchment-300/80">
+          <li><a href="#about" class="hover:text-gold-400 transition-colors">山水写意 / Concept</a></li>
+          <li><a href="#scroll" class="hover:text-gold-400 transition-colors">传世卷轴 / Heritage Scroll</a></li>
+          <li><a href="#inkwell" class="hover:text-gold-400 transition-colors">水墨挥毫 / Ink Canvas</a></li>
+          <li><a href="#muse" class="hover:text-gold-400 transition-colors">AI 雅集 / Poet Muse</a></li>
+        </ul>
+      </div>
+
+      <!-- Links Column 2 -->
+      <div class="md:col-span-3 space-y-4">
+        <h4 class="font-serif font-semibold text-sm text-gold-400 tracking-wider">传统风骨 / Spirit</h4>
+        <ul class="text-xs space-y-2.5 text-parchment-300/80">
+          <li><a href="#" class="hover:text-gold-400 transition-colors">虚极静笃 / Zen Philosophy</a></li>
+          <li><a href="#" class="hover:text-gold-400 transition-colors">君子温润 / Precious Jade</a></li>
+          <li><a href="#" class="hover:text-gold-400 transition-colors">墨气磅礴 / Powerful Strokes</a></li>
+          <li><a href="#" class="hover:text-gold-400 transition-colors">天地大美 / Universe Rhythm</a></li>
+        </ul>
+      </div>
+
+      <!-- Seal column -->
+      <div class="md:col-span-2 flex flex-col items-center md:items-end justify-center">
+        <!-- SVG Chinese traditional wax seal stamp -->
+        <div class="w-20 h-20 border border-gold-400/30 bg-cinnabar-500 flex items-center justify-center p-1 shadow-[0_0_15px_rgba(184,59,48,0.3)] animate-breath">
+          <div class="w-full h-full border border-double border-white/60 flex items-center justify-center p-1">
+            <span class="font-calligraphy text-2xl text-white select-none leading-none vertical-text text-center font-bold tracking-widest">
+              大美中国
+            </span>
+          </div>
+        </div>
+        <span class="text-[9px] text-parchment-300/60 font-cinzel mt-3">PROUDLY PRESENTED</span>
+      </div>
+
+    </div>
+
+    <!-- Fine Print / Rights -->
+    <div class="max-w-7xl mx-auto mt-16 pt-8 border-t border-gold-400/10 flex flex-col sm:flex-row justify-between items-center text-xs text-parchment-300/60 gap-4">
+      <p>© 2026 创意中国风 墨影乾坤 联合实验室. All traditional rights reserved.</p>
+      <div class="flex gap-6">
+        <a href="#" class="hover:text-gold-400 transition-colors">隐逸条款 / Privacy</a>
+        <a href="#" class="hover:text-gold-400 transition-colors">水墨规范 / Code</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT LOGIC & EXPERIENTIAL INTERACTION -->
+  <script>
+    // System Config & Global Variables
+    const apiKey = ""; // Environment handles Key automatically at runtime
+    let generatedAudioWav = null;
+    let selectedAtmosphereTags = [];
+    let currentSelectedStyle = "7"; // Default Seven-character (七言绝句)
+    let currentInkColor = "#2c3539"; // Default Charcoal Black
+
+    // Fallbacks & Safety constants
+    const FALLBACK_POEMS = {
+      '7': {
+        poem: "清风细雨过竹林，\n孤舟影乱水波深。\n独饮清茗听远笛，\n月落平湖照古琴。",
+        translation: "清凉的细雨穿过幽深的翠竹，孤独的小舟在深沉的水波中摇曳。独自品尝一盏温热的香茗静听远方的笛声，当月亮西沉在平静的湖面时，那皎洁的光芒恰好洒落在古琴之上。",
+        english: "Cool winds and light rain drift through the bamboo woods,\nA lonely boat cast shadows on the deep water's waves.\nSipping pure tea alone, listening to the distant flute,\nAs the moon descends upon the calm lake, lighting up the old zither."
+      },
+      '5': {
+        poem: "孤帆远山夕，\n清江竹影稀。\n月高风起落，\n寒客抱琴归。",
+        translation: "孤独的船帆逐渐消失在落日余晖的高山中，清澈的江水两岸竹影已经渐渐稀疏。明月挂在天空，风忽起忽落，清寒的雅士怀抱着古琴踏上归家的旅程。",
+        english: "A lonely sail melts into the sunset peaks,\nAlong the clear river, bamboo shadows grow thin.\nThe moon hangs high as the mountain breeze rises,\nA traveler carrying his zither returns in the autumn chill."
+      }
+    };
+
+    // Initialize Canvas on Document Load
+    window.onload = function() {
+      initPetalCanvas();
+      initInkCanvas();
+      initAudioInteractions();
+    };
+
+    /* -------------------------------------------
+     * 1. DRIFTING CHERRY BLOSSOM CANVASES SYSTEM
+     * ------------------------------------------- */
+    function initPetalCanvas() {
+      const canvas = document.getElementById('petalCanvas');
+      const ctx = canvas.getContext('2d');
+      let petals = [];
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      class Petal {
+        constructor() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height - canvas.height;
+          this.size = Math.random() * 8 + 4;
+          this.speedY = Math.random() * 1.5 + 0.8;
+          this.speedX = Math.random() * 0.8 - 0.2;
+          this.rotation = Math.random() * 360;
+          this.rotationSpeed = Math.random() * 1.5 - 0.75;
+          // Soft pink and white petals matching classical blossom aesthetics
+          this.color = `rgba(${Math.floor(Math.random() * 40) + 215}, ${Math.floor(Math.random() * 40) + 110}, ${Math.floor(Math.random() * 40) + 120}, ${Math.random() * 0.4 + 0.35})`;
+        }
+
+        update() {
+          this.y += this.speedY;
+          this.x += this.speedX;
+          this.rotation += this.rotationSpeed;
+
+          // If petal drifts off screen, reset it to the top
+          if (this.y > canvas.height) {
+            this.y = -10;
+            this.x = Math.random() * canvas.width;
+          }
+          if (this.x > canvas.width || this.x < 0) {
+            this.x = Math.random() * canvas.width;
+          }
+        }
+
+        draw() {
+          ctx.save();
+          ctx.translate(this.x, this.y);
+          ctx.rotate((this.rotation * Math.PI) / 180);
+          ctx.fillStyle = this.color;
+          
+          // Draw standard delicate cherry blossom petal leaf shape
+          ctx.beginPath();
+          ctx.moveTo(0, 0);
+          ctx.quadraticCurveTo(this.size * 1.5, -this.size * 0.5, this.size, this.size);
+          ctx.quadraticCurveTo(-this.size * 0.5, this.size * 1.5, 0, 0);
+          ctx.fill();
+          
+          ctx.restore();
+        }
+      }
+
+      // Populate array with 35 drifting petals
+      for (let i = 0; i < 35; i++) {
+        petals.push(new Petal());
+      }
+
+      function animateLoop() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        petals.forEach(p => {
+          p.update();
+          p.draw();
+        });
+        requestAnimationFrame(animateLoop);
+      }
+      animateLoop();
+    }
+
+
+    /* -------------------------------------------
+     * 2. INTERACTIVE INK SPLASH BOARD
+     * ------------------------------------------- */
+    function initInkCanvas() {
+      const canvas = document.getElementById('inkCanvas');
+      const ctx = canvas.getContext('2d');
+      let drawing = false;
+      let inkSplots = [];
+
+      // Scale canvas to match bounding box dimensions correctly
+      function resizeInkCanvas() {
+        const rect = canvas.parentNode.getBoundingClientRect();
+        canvas.width = rect.width;
+        canvas.height = 400; // Constrain height comfortably
+        drawParchmentBase();
+      }
+
+      function drawParchmentBase() {
+        // Soft gradient representing traditional raw silk / paper base
+        ctx.fillStyle = "#fcfbf7";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+
+      resizeInkCanvas();
+      window.addEventListener('resize', resizeInkCanvas);
+
+      // Splot representing an elegant water ink splot with fading bleed
+      class InkSplot {
+        constructor(x, y, radius, maxOpacity, color) {
+          this.x = x;
+          this.y = y;
+          this.radius = radius;
+          this.opacity = maxOpacity;
+          this.color = color;
+          this.bleedRadius = radius * 1.4;
+        }
+
+        draw() {
+          if (this.opacity <= 0.01) return;
+          
+          ctx.save();
+          // Complex radial watercolor bleed representation
+          let grad = ctx.createRadialGradient(this.x, this.y, this.radius * 0.2, this.x, this.y, this.bleedRadius);
+          
+          // Custom color parsing
+          let hex = this.color;
+          let r = parseInt(hex.slice(1, 3), 16);
+          let g = parseInt(hex.slice(3, 5), 16);
+          let b = parseInt(hex.slice(5, 7), 16);
+
+          grad.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${this.opacity})`);
+          grad.addColorStop(0.5, `rgba(${r}, ${g}, ${b}, ${this.opacity * 0.4})`);
+          grad.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
+
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.bleedRadius, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
+
+        decay() {
+          // Slow organic decay to symbolize transient art
+          this.opacity -= 0.003;
+          this.bleedRadius += 0.15; // Soft bleed expansion
+        }
+      }
+
+      function getMousePos(evt) {
+        const rect = canvas.getBoundingClientRect();
+        return {
+          x: evt.clientX - rect.left,
+          y: evt.clientY - rect.top
+        };
+      }
+
+      // Handle standard drawing events
+      function startDraw(e) {
+        drawing = true;
+        drawInk(e);
+      }
+
+      function stopDraw() {
+        drawing = false;
+      }
+
+      function drawInk(e) {
+        if (!drawing) return;
+        const pos = getMousePos(e);
+        
+        // Grab values from sliders
+        const opacityVal = parseFloat(document.getElementById('inkOpacityRange').value) / 100;
+        const sizeVal = parseFloat(document.getElementById('brushSizeRange').value);
+        
+        // Create a new ink spot
+        inkSplots.push(new InkSplot(pos.x, pos.y, sizeVal, opacityVal, currentSelectedStyleColor));
+      }
+
+      // Hook up both desktop mouse and touch interactions
+      let currentSelectedStyleColor = currentInkColor;
+      
+      canvas.addEventListener('mousedown', startDraw);
+      canvas.addEventListener('mouseup', stopDraw);
+      canvas.addEventListener('mouseleave', stopDraw);
+      canvas.addEventListener('mousemove', drawInk);
+
+      canvas.addEventListener('touchstart', (e) => {
+        startDraw(e.touches[0]);
+        e.preventDefault();
+      });
+      canvas.addEventListener('touchend', stopDraw);
+      canvas.addEventListener('touchmove', (e) => {
+        drawInk(e.touches[0]);
+        e.preventDefault();
+      });
+
+      // Simple animation loop for decaying ink washes
+      function updateCanvasLoop() {
+        drawParchmentBase();
+        
+        // Filter out decayed splots and draw the active ones
+        inkSplots = inkSplots.filter(splot => splot.opacity > 0.01);
+        inkSplots.forEach(splot => {
+          splot.decay();
+          splot.draw();
+        });
+
+        requestAnimationFrame(updateCanvasLoop);
+      }
+      updateCanvasLoop();
+
+      // Clear button hook
+      document.getElementById('clearInkBtn').onclick = () => {
+        inkSplots = [];
+      };
+
+      // Range sliders indicators
+      const opInput = document.getElementById('inkOpacityRange');
+      const opVal = document.getElementById('inkOpacityVal');
+      opInput.oninput = () => { opVal.innerText = `${opInput.value}%`; };
+
+      const sizeInput = document.getElementById('brushSizeRange');
+      const sizeVal = document.getElementById('brushSizeVal');
+      sizeInput.oninput = () => { sizeVal.innerText = `${sizeInput.value}px`; };
+
+      // Setter helper
+      window.setInkColor = (hex) => {
+        currentSelectedStyleColor = hex;
+        // Visual indicator styling
+        document.querySelectorAll('[title*="Ink"]').forEach(btn => {
+          btn.classList.remove('border-gold-400');
+          btn.classList.add('border-gold-400/20');
+        });
+        event.target.classList.add('border-gold-400');
+        event.target.classList.remove('border-gold-400/20');
+      };
+    }
+
+
+    /* -------------------------------------------
+     * 3. SOOTHING AMBIENT SOUND GENERATOR
+     * ------------------------------------------- */
+    function initAudioInteractions() {
+      const audioBtn = document.getElementById('zenAudioBtn');
+      const flute = document.getElementById('ambientFlute');
+      let audioCtx = null;
+      let synthInterval = null;
+      let isPlaying = false;
+
+      // Traditional 5-note pentatonic scale frequencies (宮商角徵羽 - C Major Pentatonic)
+      const pentatonicScale = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25, 587.33, 659.25, 783.99, 880.00];
+
+      function playGuzhengPluck() {
+        if (!audioCtx) return;
+        
+        const osc = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        const delay = audioCtx.createDelay();
+        const delayGain = audioCtx.createGain();
+
+        // High quality physical modeling pluck approximation
+        osc.type = 'triangle';
+        
+        // Grab random pentatonic frequency
+        const freq = pentatonicScale[Math.floor(Math.random() * pentatonicScale.length)];
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+        // Intricate Guzheng vibration pluck: rapid micro-pitch fluctuations (vibrato)
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        osc.frequency.linearRampToValueAtTime(freq + (Math.random() * 8 - 4), audioCtx.currentTime + 0.5);
+
+        // Sharp pluck attack, long slow organic decay
+        gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+        gainNode.gain.linearRampToValueAtTime(0.2, audioCtx.currentTime + 0.02);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 2.5);
+
+        // Feedback Echo (simulating grand courtyard pavilion resonance)
+        delay.delayTime.value = 0.45;
+        delayGain.gain.value = 0.35;
+
+        // Connections
+        osc.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        
+        // Feed pluck into echo delay
+        gainNode.connect(delay);
+        delay.connect(delayGain);
+        delayGain.connect(audioCtx.destination);
+        // Delay loop
+        delayGain.connect(delay);
+
+        osc.start();
+        osc.stop(audioCtx.currentTime + 3);
+      }
+
+      function toggleZenAmbience() {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+
+        if (isPlaying) {
+          // Pause Audio
+          flute.pause();
+          clearInterval(synthInterval);
+          audioBtn.innerHTML = '<i class="fa-solid fa-wind text-sm"></i>';
+          audioBtn.classList.remove('bg-cinnabar-500', 'text-white');
+          isPlaying = false;
+        } else {
+          // Play Audio
+          if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+          }
+          flute.play().catch(e => console.log("Interactivity audio unlocked on gesture"));
+          
+          // Start the procedural Guzheng random pluck generator
+          synthInterval = setInterval(() => {
+            // Random plucks every few seconds representing sporadic strings drifting in wind
+            if (Math.random() > 0.4) {
+              playGuzhengPluck();
+              // Occasional double pluck for harmony
+              if (Math.random() > 0.7) {
+                setTimeout(playGuzhengPluck, 150);
+              }
+            }
+          }, 1800);
+
+          audioBtn.innerHTML = '<i class="fa-solid fa-music text-sm animate-spin" style="animation-duration: 8s;"></i>';
+          audioBtn.classList.add('bg-cinnabar-500', 'text-white');
+          isPlaying = true;
+        }
+      }
+
+      audioBtn.onclick = toggleZenAmbience;
+    }
+
+
+    /* -------------------------------------------
+     * 4. AI INK MUSE COMPOSER (GEMINI INTEGRATION)
+     * ------------------------------------------- */
+    
+    // Toggle Poetry Style (Seven character or Five character)
+    window.setPoetryStyle = (style) => {
+      currentSelectedStyle = style;
+      const btn7 = document.getElementById('styleBtn7');
+      const btn5 = document.getElementById('styleBtn5');
+      if (style === '7') {
+        btn7.className = "px-4 py-2.5 bg-jade-500 text-white rounded-xs text-xs font-semibold tracking-wider transition-colors border border-jade-500";
+        btn5.className = "px-4 py-2.5 bg-white text-jade-700 hover:bg-jade-50 rounded-xs text-xs font-semibold tracking-wider transition-colors border border-jade-500/20";
+      } else {
+        btn5.className = "px-4 py-2.5 bg-jade-500 text-white rounded-xs text-xs font-semibold tracking-wider transition-colors border border-jade-500";
+        btn7.className = "px-4 py-2.5 bg-white text-jade-700 hover:bg-jade-50 rounded-xs text-xs font-semibold tracking-wider transition-colors border border-jade-500/20";
+      }
+    };
+
+    // Toggle Atmosphere tag helpers
+    window.addAtmosphereTag = (tag) => {
+      const input = document.getElementById('poeticTheme');
+      let currentVal = input.value.trim();
+      if (currentVal) {
+        input.value = `${currentVal}, ${tag}`;
+      } else {
+        input.value = tag;
+      }
+      input.focus();
+    };
+
+    // Gemini API Request & Formatting Orchestration
+    document.getElementById('generatePoemBtn').onclick = async () => {
+      const themeVal = document.getElementById('poeticTheme').value.trim() || "江南烟雨竹林";
+      const btn = document.getElementById('generatePoemBtn');
+      const loader = document.getElementById('loadingText');
+      const output = document.getElementById('poemOutput');
+
+      // Show loader state
+      btn.disabled = true;
+      loader.classList.remove('hidden');
+
+      // Construct system instructions and prompts to prompt structured response matching the UI needs
+      const systemPrompt = `You are a legendary ancient Chinese Zen poet. Your task is to compose a beautiful, rhythmically perfect Classical Chinese Poem (Jueju 绝句) based on the user's requested theme. You must follow the exact structure:
+      If style is 7: 4 lines of exactly 7 characters each.
+      If style is 5: 4 lines of exactly 5 characters each.
+
+      You must return the response in strict JSON format. No extra markdown explanation around the JSON block.
+      Format:
+      {
+        "poemLines": ["Line 1 with punctuation", "Line 2 with punctuation", "Line 3 with punctuation", "Line 4 with punctuation"],
+        "translation": "Deep elegant poetic modern Chinese translation...",
+        "english": "Beautiful poetic English translation..."
+      }`;
+
+      const userQuery = `Compose a ${currentSelectedStyle === '7' ? 'Seven-character Jueju (七言绝句)' : 'Five-character Jueju (五言绝句)'} classical poem based on the theme: "${themeVal}". Focus heavily on traditional ink wash painterly aesthetics.`;
+
+      try {
+        let resultData = null;
+        
+        if (apiKey) {
+          // Perform live API call to Gemini 2.5 Flash Preview with structured output configuration
+          const response = await fetchWithRetry(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: userQuery }] }],
+              systemInstruction: { parts: [{ text: systemPrompt }] },
+              generationConfig: {
+                responseMimeType: "application/json",
+                responseSchema: {
+                  type: "OBJECT",
+                  properties: {
+                    poemLines: { type: "ARRAY", items: { type: "STRING" } },
+                    translation: { type: "STRING" },
+                    english: { type: "STRING" }
+                  },
+                  required: ["poemLines", "translation", "english"]
+                }
+              }
+            })
+          });
+
+          const data = await response.json();
+          const jsonText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+          resultData = JSON.parse(jsonText);
+        } else {
+          // Graceful simulated delay to match physical model loading state + local high-fidelity fallback
+          await new Promise(r => setTimeout(r, 1500));
+          resultData = {
+            poemLines: FALLBACK_POEMS[currentSelectedStyle].poem.split('\n'),
+            translation: FALLBACK_POEMS[currentSelectedStyle].translation,
+            english: FALLBACK_POEMS[currentSelectedStyle].english
+          };
+        }
+
+        // Render Generated outputs beautifully in vertical layout
+        renderVerticalPoem(resultData.poemLines);
+        document.getElementById('modernTranslation').innerText = resultData.translation;
+        document.getElementById('englishTranslation').innerText = resultData.english;
+
+        // Reveal container smoothly
+        output.classList.remove('hidden');
+        output.scrollIntoView({ behavior: 'smooth' });
+
+        // Set up the speech generator payload
+        window.currentPoemText = resultData.poemLines.join(' ');
+
+      } catch (err) {
+        console.error("API Call error:", err);
+        // Fallback UI to prevent user frustration
+        const fallback = FALLBACK_POEMS[currentSelectedStyle];
+        renderVerticalPoem(fallback.poem.split('\n'));
+        document.getElementById('modernTranslation').innerText = fallback.translation;
+        document.getElementById('englishTranslation').innerText = fallback.english;
+        output.classList.remove('hidden');
+        output.scrollIntoView({ behavior: 'smooth' });
+      } finally {
+        btn.disabled = false;
+        loader.classList.add('hidden');
+      }
+    };
+
+    // Exponential Backoff Fetch Helper
+    async function fetchWithRetry(url, options, retries = 5, delay = 1000) {
+      try {
+        const response = await fetch(url, options);
+        if (!response.ok) throw new Error(`HTTP status ${response.status}`);
+        return response;
+      } catch (err) {
+        if (retries > 0) {
+          await new Promise(resolve => setTimeout(resolve, delay));
+          return fetchWithRetry(url, options, retries - 1, delay * 2);
+        }
+        throw err;
+      }
+    }
+
+    // Traditional vertical typesetting layout helper
+    function renderVerticalPoem(lines) {
+      const container = document.getElementById('verticalPoemContainer');
+      container.innerHTML = ''; // Reset
+
+      // Render lines right-to-left as per ancient scrolls
+      for (let i = lines.length - 1; i >= 0; i--) {
+        const lineText = lines[i].replace(/[，。？！、]/g, '').trim();
+        const punctuation = lines[i].match(/[，。？！、]/)?.[0] || '';
+        
+        const column = document.createElement('div');
+        column.className = 'vertical-text flex flex-col items-center gap-1.5 border-l border-dashed border-jade-500/10 pl-6 last:border-l-0';
+        
+        // Output each character with elegant calligraphy font
+        for (let char of lineText) {
+          const charSpan = document.createElement('span');
+          charSpan.className = 'hover:text-cinnabar-500 transition-colors duration-200 cursor-default';
+          charSpan.innerText = char;
+          column.appendChild(charSpan);
+        }
+
+        // Add subtle punctuation space/mark below if exists
+        if (punctuation) {
+          const puncSpan = document.createElement('span');
+          puncSpan.className = 'text-base text-cinnabar-500/70 mt-2 font-bold';
+          puncSpan.innerText = punctuation;
+          column.appendChild(puncSpan);
+        }
+
+        container.appendChild(column);
+      }
+    }
+
+
+    /* -------------------------------------------
+     * 5. HIGH-QUALITY GEMINI TTS ORCHESTRATION
+     * ------------------------------------------- */
+    document.getElementById('ttsPlayBtn').onclick = async () => {
+      const playBtn = document.getElementById('ttsPlayBtn');
+      const textToSpeak = window.currentPoemText || "清风细雨过竹林，孤舟影乱水波深。";
+      
+      playBtn.disabled = true;
+      playBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> 奏乐诵读中...';
+
+      // Advanced text-to-speech utilizing gemini-2.5-flash-preview-tts with "Leda" (serene voice style)
+      const payload = {
+        contents: [{ parts: [{ text: `Say solemnly, in a slow, peaceful, and extremely traditional poetic tempo: ${textToSpeak}` }] }],
+        generationConfig: {
+          responseModalities: ["AUDIO"],
+          speechConfig: {
+            voiceConfig: {
+              prebuiltVoiceConfig: {
+                voiceName: "Leda" // Ideal peaceful voice for reading Chinese poems
+              }
+            }
+          }
+        },
+        model: "gemini-2.5-flash-preview-tts"
+      };
+
+      try {
+        if (!apiKey) {
+          // Play simulated zither chime if no key is present to guarantee aesthetic feedback
+          playProceduralTraditionalBell();
+          await new Promise(r => setTimeout(r, 1500));
+          alert("提示: 在没有API密钥的环境中，已播放内置琴磬之音模拟。");
+        } else {
+          const response = await fetchWithRetry(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          const result = await response.json();
+          const base64Audio = result.candidates?.[0]?.content?.parts?.find(p => p.inlineData)?.inlineData?.data;
+          
+          if (base64Audio) {
+            // Transform raw PCM binary stream from Gemini TTS into high quality browser playable WAV
+            const wavBuffer = pcmToWav(base64Audio, 24000); // Default Gemini TTS sample rate is 24KHz
+            const blob = new Blob([wavBuffer], { type: 'audio/wav' });
+            const url = URL.createObjectURL(blob);
+            const audio = new Audio(url);
+            audio.play();
+          }
+        }
+      } catch (err) {
+        console.error("TTS generation error:", err);
+        playProceduralTraditionalBell();
+      } finally {
+        playBtn.disabled = false;
+        playBtn.innerHTML = '<i class="fa-solid fa-play mr-2"></i> 开启朗诵 / Listen Now';
+      }
+    };
+
+    // Client-side quick helper function to synthesize a zen bowl chime via Web Audio API
+    function playProceduralTraditionalBell() {
+      const actx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = actx.createOscillator();
+      const gain = actx.createGain();
+      
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(440, actx.currentTime); // Standard Zen chime frequency
+      
+      // Decay profile
+      gain.gain.setValueAtTime(0.3, actx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + 3);
+
+      osc.connect(gain);
+      gain.connect(actx.destination);
+      osc.start();
+      osc.stop(actx.currentTime + 3);
+    }
+
+    // PCM-to-WAV ArrayBuffer encoder utility function
+    function pcmToWav(base64Data, sampleRate) {
+      const byteCharacters = atob(base64Data);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const pcmBuffer = new Int16Array(byteArray.buffer);
+
+      const buffer = new ArrayBuffer(44 + pcmBuffer.length * 2);
+      const view = new DataView(buffer);
+
+      // RIFF identifier
+      writeString(view, 0, 'RIFF');
+      // File length
+      view.setUint32(4, 36 + pcmBuffer.length * 2, true);
+      // RIFF type
+      writeString(view, 8, 'WAVE');
+      // Format chunk identifier
+      writeString(view, 12, 'fmt ');
+      // Format chunk length
+      view.setUint32(16, 16, true);
+      // Sample format (raw PCM)
+      view.setUint16(20, 1, true);
+      // Channel count (1 channel)
+      view.setUint16(22, 1, true);
+      // Sample rate
+      view.setUint32(24, sampleRate, true);
+      // Byte rate (sample rate * block align)
+      view.setUint32(28, sampleRate * 2, true);
+      // Block align (channel count * bytes per sample)
+      view.setUint16(32, 2, true);
+      // Bits per sample
+      view.setUint16(34, 16, true);
+      // Data chunk identifier
+      writeString(view, 36, 'data');
+      // Chunk length
+      view.setUint32(40, pcmBuffer.length * 2, true);
+
+      // Write PCM data
+      let offset = 44;
+      for (let i = 0; i < pcmBuffer.length; i++, offset += 2) {
+        view.setInt16(offset, pcmBuffer[i], true);
+      }
+
+      return buffer;
+    }
+
+    function writeString(view, offset, string) {
+      for (let i = 0; i < string.length; i++) {
+        view.setUint8(offset + i, string.charCodeAt(i));
+      }
+    }
+
+
+    /* -------------------------------------------
+     * 6. DRAGGABLE SCROLL COMPONENT CONTROLLER
+     * ------------------------------------------- */
+    const scrollContainer = document.getElementById('scrollContainer');
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    // Side navigation button click offsets
+    document.getElementById('scrollLeftBtn').onclick = () => {
+      scrollContainer.scrollBy({ left: -320, behavior: 'smooth' });
+    };
+    document.getElementById('scrollRightBtn').onclick = () => {
+      scrollContainer.scrollBy({ left: 320, behavior: 'smooth' });
+    };
+
+    // Grab-to-drag mouse scroll mechanics
+    scrollContainer.addEventListener('mousedown', (e) => {
+      isDown = true;
+      startX = e.pageX - scrollContainer.offsetLeft;
+      scrollLeft = scrollContainer.scrollLeft;
+    });
+    scrollContainer.addEventListener('mouseleave', () => { isDown = false; });
+    scrollContainer.addEventListener('mouseup', () => { isDown = false; });
+    scrollContainer.addEventListener('mousemove', (e) => {
+      if(!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - scrollContainer.offsetLeft;
+      const walk = (x - startX) * 1.5; // Drag sensitivity
+      scrollContainer.scrollLeft = scrollLeft - walk;
+    });
+
+
+    /* -------------------------------------------
+     * 7. SUBSCRIPTION SUCCESS POPUP
+     * ------------------------------------------- */
+    window.handleSubscribe = (e) => {
+      e.preventDefault();
+      document.getElementById('subscribeSuccess').classList.remove('hidden');
+      e.target.reset();
+    };
+  </script>
+</body>
+</html>
+2

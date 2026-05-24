@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VR PARK SOLUTIONS - Premium Futuristic Immersive Ecosystem</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        vrBlue: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            200: '#b9defe',
+                            300: '#7cc2fd',
+                            400: '#36a2fa',
+                            500: '#0c85eb',
+                            600: '#0267c7',
+                            700: '#0352a1',
+                            800: '#074685',
+                            900: '#0c3b6e',
+                            950: '#06254a',
+                        },
+                        cyberNeon: '#10b981',
+                        cyberBlue: '#38bdf8',
+                        cyberPurple: '#a855f7',
+                        cyberPink: '#ec4899',
+                        futuristGrey: '#e2e8f0',
+                        brandBg: '#f8fafc',
+                        brandPanel: '#ffffff',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        futuristic: ['Orbitron', 'Chakra Petch', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'neon-blue': '0 0 15px rgba(56, 189, 248, 0.25)',
+                        'neon-purple': '0 0 20px rgba(168, 85, 247, 0.2)',
+                        'cyber-card': '0 10px 30px -10px rgba(12, 133, 235, 0.08)',
+                        'glass': 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.6), 0 10px 30px -10px rgba(0, 0, 0, 0.04)',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(224, 239, 254, 0.6) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(243, 232, 255, 0.6) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 1) 0%, rgba(241, 245, 249, 0.7) 100%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+
+        .futuristic-font {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 0.1em;
+        }
+
+        .cyber-text-gradient {
+            background: linear-gradient(135deg, #0f172a 30%, #0352a1 70%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Metallic Chrome Liquids mimicking the inspiration image */
+        .chrome-liquid {
+            background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.9) 0%, rgba(210,225,245,0.7) 30%, rgba(140,170,205,0.4) 70%, rgba(80,110,145,0.8) 100%);
+            box-shadow: 
+                inset -10px -10px 25px rgba(0,0,0,0.15),
+                inset 10px 10px 20px rgba(255,255,255,0.9),
+                0 15px 35px rgba(30,50,90,0.12);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.5);
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            animation: morphing 18s ease-in-out infinite;
+        }
+
+        .chrome-liquid-sm {
+            background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.95) 0%, rgba(225,235,250,0.8) 35%, rgba(160,185,215,0.5) 75%, rgba(100,125,160,0.8) 100%);
+            box-shadow: 
+                inset -5px -5px 15px rgba(0,0,0,0.12),
+                inset 5px 5px 12px rgba(255,255,255,0.9),
+                0 10px 25px rgba(30,50,90,0.08);
+            border: 1px solid rgba(255,255,255,0.6);
+            border-radius: 50% 50% 30% 70% / 50% 60% 40% 60%;
+            animation: morphing-reverse 14s ease-in-out infinite;
+        }
+
+        @keyframes morphing {
+            0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(0deg); }
+            33% { border-radius: 60% 40% 50% 50% / 50% 30% 70% 50%; transform: rotate(120deg); }
+            66% { border-radius: 50% 60% 30% 70% / 55% 55% 45% 55%; transform: rotate(240deg); }
+            100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(360deg); }
+        }
+
+        @keyframes morphing-reverse {
+            0% { border-radius: 50% 50% 30% 70% / 50% 60% 40% 60%; transform: rotate(360deg) scale(0.95); }
+            50% { border-radius: 30% 70% 60% 40% / 60% 40% 60% 40%; transform: rotate(180deg) scale(1.05); }
+            100% { border-radius: 50% 50% 30% 70% / 50% 60% 40% 60%; transform: rotate(0deg) scale(0.95); }
+        }
+
+        /* Subtle scanner line animation */
+        .scanner-line {
+            background: linear-gradient(to bottom, rgba(56, 189, 248, 0) 0%, rgba(56, 189, 248, 0.4) 50%, rgba(56, 189, 248, 0) 100%);
+            animation: scan 4s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { top: -10%; }
+            100% { top: 110%; }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Neon outline active indicators */
+        .active-neon-glow {
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.45), inset 0 0 10px rgba(56, 189, 248, 0.15);
+            border-color: rgba(56, 189, 248, 0.6) !important;
+        }
+
+        /* Ambient glowing circles behind panels */
+        .ambient-glow {
+            filter: blur(80px);
+            opacity: 0.15;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased selection:bg-vrBlue-200 selection:text-vrBlue-900">
+
+    <!-- Ambient Glowing Backdrops -->
+    <div class="fixed top-24 left-[10%] w-[350px] h-[350px] rounded-full bg-vrBlue-300 ambient-glow z-0"></div>
+    <div class="fixed top-[60%] right-[10%] w-[450px] h-[450px] rounded-full bg-purple-300 ambient-glow z-0"></div>
+    <div class="fixed bottom-10 left-[20%] w-[300px] h-[300px] rounded-full bg-cyan-300 ambient-glow z-0"></div>
+
+    <!-- MAIN NOTIFICATION TOAST (Global Design System feedback) -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 ease-out pointer-events-none">
+        <div class="bg-white/95 border border-vrBlue-200 backdrop-blur-xl shadow-2xl rounded-2xl p-4 flex items-center space-x-3 max-w-sm">
+            <div class="w-10 h-10 rounded-xl bg-vrBlue-50 flex items-center justify-center text-vrBlue-500 border border-vrBlue-100">
+                <i id="toast-icon" class="fa-solid fa-bell"></i>
+            </div>
+            <div>
+                <h4 id="toast-title" class="font-bold text-slate-900 text-sm">System Update</h4>
+                <p id="toast-message" class="text-slate-600 text-xs mt-0.5">Custom layout configuration deployed.</p>
+            </div>
+            <button onclick="hideToast()" class="text-slate-400 hover:text-slate-600 transition-colors pl-2">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- TOP HEADER / MULTI-LEVEL SYSTEM NAVBAR -->
+    <header class="sticky top-0 z-40 w-full bg-white/70 backdrop-blur-md border-b border-slate-200/60 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo brand matching inspiration style -->
+                <div class="flex items-center space-x-3 cursor-pointer group" onclick="scrollToTop()">
+                    <div class="relative w-10 h-10 flex items-center justify-center rounded-xl bg-gradient-to-tr from-vrBlue-600 to-vrBlue-400 shadow-md shadow-vrBlue-200 group-hover:rotate-6 transition-transform duration-300">
+                        <i class="fa-solid fa-cubes text-white text-lg"></i>
+                        <span class="absolute -top-1 -right-1 w-3 h-3 bg-cyberNeon rounded-full animate-ping"></span>
+                        <span class="absolute -top-1 -right-1 w-3 h-3 bg-cyberNeon rounded-full"></span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="futuristic-font font-black text-slate-900 text-base tracking-wider leading-none">VR PARK</span>
+                        <span class="text-[10px] text-vrBlue-600 font-bold tracking-[0.25em] leading-none uppercase mt-0.5">SOLUTIONS</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation Elements -->
+                <nav class="hidden md:flex items-center space-x-1 bg-slate-100/80 p-1.5 rounded-full border border-slate-200/50">
+                    <a href="#home" class="px-5 py-2 text-xs font-bold uppercase tracking-wider text-slate-800 rounded-full hover:bg-white hover:text-vrBlue-600 transition-all duration-200">Home</a>
+                    <a href="#simulators" class="px-5 py-2 text-xs font-bold uppercase tracking-wider text-slate-800 rounded-full hover:bg-white hover:text-vrBlue-600 transition-all duration-200">Simulator Ecosystem</a>
+                    <a href="#configurator" class="px-5 py-2 text-xs font-bold uppercase tracking-wider text-slate-800 rounded-full hover:bg-white hover:text-vrBlue-600 transition-all duration-200">Interactive Configurator</a>
+                    <a href="#telemetry" class="px-5 py-2 text-xs font-bold uppercase tracking-wider text-slate-800 rounded-full hover:bg-white hover:text-vrBlue-600 transition-all duration-200">System Live Status</a>
+                    <a href="#about" class="px-5 py-2 text-xs font-bold uppercase tracking-wider text-slate-800 rounded-full hover:bg-white hover:text-vrBlue-600 transition-all duration-200">About US</a>
+                </nav>
+
+                <!-- Premium CTA & Search Bar -->
+                <div class="hidden lg:flex items-center space-x-4">
+                    <!-- Search Input Design System -->
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fa-solid fa-magnifying-glass text-slate-400 text-xs"></i>
+                        </span>
+                        <input type="text" placeholder="Explore VR products..." class="w-48 bg-slate-100 hover:bg-slate-200/70 focus:bg-white focus:ring-2 focus:ring-vrBlue-500 focus:outline-none transition-all duration-200 text-xs rounded-full py-2 pl-9 pr-4 text-slate-700 placeholder-slate-400 border border-transparent focus:border-transparent">
+                    </div>
+
+                    <!-- CTA Action -->
+                    <a href="#configurator" class="relative group overflow-hidden bg-slate-900 text-white px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-vrBlue-600 hover:scale-105 active:scale-95 transition-all duration-200 flex items-center space-x-2 shadow-md">
+                        <span>Get Free Proposal</span>
+                        <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Trigger -->
+                <button id="mobile-menu-btn" class="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-slate-100 border border-slate-200 text-slate-700 hover:bg-slate-200 transition-colors">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 border-b border-slate-200/80 backdrop-blur-xl transition-all duration-300">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#home" class="block px-4 py-2.5 text-sm font-semibold rounded-xl hover:bg-slate-100 text-slate-800">Home Overview</a>
+                <a href="#simulators" class="block px-4 py-2.5 text-sm font-semibold rounded-xl hover:bg-slate-100 text-slate-800">Simulator Lineups</a>
+                <a href="#configurator" class="block px-4 py-2.5 text-sm font-semibold rounded-xl hover:bg-slate-100 text-slate-800">Dynamic Setup Configurator</a>
+                <a href="#telemetry" class="block px-4 py-2.5 text-sm font-semibold rounded-xl hover:bg-slate-100 text-slate-800">Telemetry Monitoring</a>
+                <a href="#about" class="block px-4 py-2.5 text-sm font-semibold rounded-xl hover:bg-slate-100 text-slate-800">About US & Contact</a>
+                <div class="pt-4 border-t border-slate-100 flex flex-col space-y-3 px-4">
+                    <input type="text" placeholder="Search parameters..." class="w-full bg-slate-100 text-xs rounded-xl py-3 px-4 border border-slate-200/50">
+                    <a href="#configurator" class="w-full bg-vrBlue-600 text-center text-white py-3 rounded-xl text-xs font-bold uppercase tracking-wider block">Get Free Design Proposal</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN BODY CONTAINER -->
+    <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+
+        <!-- DECORATIVE CHROME LIQUID METALLIC BLOB (AS SEEN IN INSPIRATION IMAGE) -->
+        <div class="absolute -left-12 top-28 w-40 h-40 chrome-liquid hidden lg:block select-none z-10"></div>
+        <div class="absolute right-[22%] top-[40%] w-24 h-24 chrome-liquid-sm hidden xl:block select-none z-10"></div>
+        <div class="absolute -right-16 top-[70%] w-48 h-48 chrome-liquid hidden lg:block select-none z-10"></div>
+        <div class="absolute left-[3%] bottom-[12%] w-28 h-28 chrome-liquid-sm hidden lg:block select-none z-10"></div>
+
+        <!-- HERO SECTION (Matches layout and elements of left preview page in image) -->
+        <section id="home" class="pt-12 pb-20 relative">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Content: High-end Title, Robot & Futuristic Styling -->
+                <div class="lg:col-span-7 flex flex-col space-y-8">
+                    
+                    <!-- Futuristic Premium Breadcrumb Badge -->
+                    <div class="inline-flex items-center self-start space-x-2 bg-gradient-to-r from-vrBlue-50 to-white border border-vrBlue-200/60 rounded-full px-4 py-1.5 shadow-sm">
+                        <span class="w-2 h-2 rounded-full bg-cyberBlue animate-pulse"></span>
+                        <span class="text-[10px] font-bold tracking-[0.2em] text-vrBlue-600 uppercase">NEXT-GEN VR ADVENTURE HUBS</span>
+                    </div>
+
+                    <!-- Hero Title inspired by "VIRTUAL REALITY" heading in graphic -->
+                    <div class="relative">
+                        <h1 class="font-extrabold text-5xl sm:text-6xl md:text-7xl tracking-tight leading-none text-slate-900">
+                            VIRTUAL<br>
+                            <span class="cyber-text-gradient futuristic-font">REALITY</span>
+                        </h1>
+                        <!-- Floating system parameters graphic -->
+                        <div class="absolute -right-6 top-1/2 -translate-y-1/2 hidden md:block select-none">
+                            <span class="text-[11px] font-bold text-slate-400 rotate-90 inline-block tracking-[0.5em] origin-center uppercase">VIRTUAL REALITY</span>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Robot Avatar panel (The robot wearing blue headset) -->
+                    <div class="relative bg-white/60 backdrop-blur-xl border border-white p-6 rounded-3xl shadow-glass flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-8 overflow-hidden group">
+                        <!-- Headlight scanner ambient element -->
+                        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-vrBlue-100/10 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-[2.5s] ease-out"></div>
+                        
+                        <!-- Premium Interactive SVG Robot Graphic inspired directly by image -->
+                        <div class="relative w-36 h-36 flex-shrink-0 bg-gradient-to-b from-slate-50 to-slate-200 border border-slate-300/40 rounded-2xl flex items-center justify-center p-4 shadow-inner group-hover:scale-105 transition-all duration-500">
+                            <!-- SVG Robot -->
+                            <svg viewBox="0 0 120 120" class="w-full h-full drop-shadow-lg">
+                                <!-- Body/Shoulders -->
+                                <path d="M40 95 C40 85, 80 85, 80 95" fill="#cbd5e1" stroke="#94a3b8" stroke-width="2"/>
+                                <!-- Neck -->
+                                <rect x="55" y="78" width="10" height="10" rx="3" fill="#64748b"/>
+                                <!-- Head -->
+                                <rect x="35" y="38" width="50" height="42" rx="18" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2"/>
+                                <!-- Ear elements -->
+                                <rect x="29" y="50" width="6" height="15" rx="3" fill="#94a3b8"/>
+                                <rect x="85" y="50" width="6" height="15" rx="3" fill="#94a3b8"/>
+                                <!-- Headset (Directly inspired by image) -->
+                                <rect x="31" y="44" width="58" height="18" rx="8" fill="#1e293b" class="shadow-lg"/>
+                                <!-- Headset glowing strip -->
+                                <rect x="36" y="51" width="48" height="4" rx="2" fill="#38bdf8">
+                                    <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite" />
+                                </rect>
+                                <!-- Interactive blinking camera/sensor on forehead -->
+                                <circle cx="60" cy="40" r="2.5" fill="#ef4444">
+                                    <animate attributeName="opacity" values="0.2;1;0.2" dur="1s" repeatCount="indefinite" />
+                                </circle>
+                                <!-- Robot limbs waving gesture -->
+                                <path d="M30 85 Q20 75 22 65" fill="none" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+                                <circle cx="22" cy="65" r="4" fill="#64748b"/>
+                            </svg>
+                            <!-- Touch gesture interactive tag -->
+                            <span class="absolute bottom-1 right-1 text-[8px] bg-cyberBlue/20 text-vrBlue-700 px-1.5 py-0.5 rounded font-bold uppercase tracking-wider">ROBO-ASSISTANT v2</span>
+                        </div>
+
+                        <!-- Explanatory pitch for VR business ecosystem -->
+                        <div class="flex-1 space-y-3 text-center md:text-left">
+                            <h3 class="text-base font-bold text-slate-900 futuristic-font uppercase">Leke VR Ecosystem Suite</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Deploy turnkey VR amusement platforms. Integrating industrial hardware, immersive simulators, and synchronized visual control systems. Accelerate investment returns with curated contents.
+                            </p>
+                            <!-- Animated live micro statistics -->
+                            <div class="flex flex-wrap items-center justify-center md:justify-start gap-3 pt-1">
+                                <span class="text-[10px] bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full font-bold flex items-center">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1 animate-ping"></span> 100% Active Server uptime
+                                </span>
+                                <span class="text-[10px] bg-purple-50 text-purple-700 border border-purple-200 px-2 py-0.5 rounded-full font-bold">
+                                    SDK v4.12 Deployed
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- THREE KEY METRIC BADGES (Directly matching 1000+, 7000000+, 700+ stat block from graphic) -->
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="bg-gradient-to-b from-white/90 to-slate-50/90 border border-slate-200/50 p-5 rounded-2xl shadow-glass text-center group hover:-translate-y-1 transition-transform duration-300">
+                            <span class="block text-2xl sm:text-3xl font-extrabold text-slate-900 futuristic-font">1000+</span>
+                            <span class="text-[10px] text-slate-500 uppercase font-semibold tracking-wider block mt-1">Global Stores</span>
+                        </div>
+                        <div class="bg-gradient-to-b from-white/90 to-slate-50/90 border border-slate-200/50 p-5 rounded-2xl shadow-glass text-center group hover:-translate-y-1 transition-transform duration-300 relative overflow-hidden">
+                            <!-- Glow highlighting central statistic -->
+                            <div class="absolute inset-0 bg-vrBlue-100/10 pointer-events-none"></div>
+                            <span class="block text-2xl sm:text-3xl font-extrabold text-vrBlue-600 futuristic-font">7M+</span>
+                            <span class="text-[10px] text-slate-500 uppercase font-semibold tracking-wider block mt-1">Active Consumers</span>
+                        </div>
+                        <div class="bg-gradient-to-b from-white/90 to-slate-50/90 border border-slate-200/50 p-5 rounded-2xl shadow-glass text-center group hover:-translate-y-1 transition-transform duration-300">
+                            <span class="block text-2xl sm:text-3xl font-extrabold text-slate-900 futuristic-font">700+</span>
+                            <span class="text-[10px] text-slate-500 uppercase font-semibold tracking-wider block mt-1">Quality Contents</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Content: Showcase Hero Mockup representing VR Center design solutions -->
+                <div class="lg:col-span-5 flex flex-col space-y-6">
+                    <!-- The 100-150m² Standar VR Center block from the inspiration image -->
+                    <div class="bg-white/80 backdrop-blur-xl border border-white p-6 rounded-[32px] shadow-glass relative overflow-hidden group">
+                        
+                        <!-- Header within card -->
+                        <div class="flex items-center justify-between mb-4 pb-4 border-b border-slate-100">
+                            <div>
+                                <span class="text-[9px] uppercase tracking-widest text-vrBlue-500 font-bold block">Featured Configuration</span>
+                                <h3 class="text-base font-bold text-slate-900 futuristic-font">STANDAR VR CENTER</h3>
+                            </div>
+                            <span class="bg-slate-900 text-white text-[10px] font-bold px-3 py-1 rounded-full futuristic-font">100 - 150m²</span>
+                        </div>
+
+                        <!-- 3D/Isometric Concept Render Panel -->
+                        <div class="relative bg-gradient-to-b from-slate-950 to-slate-900 rounded-2xl p-4 overflow-hidden h-64 flex flex-col justify-between border border-slate-800 shadow-inner group-hover:shadow-neon-blue transition-shadow duration-500">
+                            <!-- Neon grids & stars background representation -->
+                            <div class="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px] opacity-40"></div>
+                            
+                            <!-- Scanner laser line traveling vertically -->
+                            <div class="absolute left-0 w-full h-12 scanner-line pointer-events-none"></div>
+
+                            <!-- Decorative glowing VR booth rendering (matches Leke VR blue and red neon strip design from upload) -->
+                            <div class="relative w-full h-full flex items-center justify-center">
+                                <div class="w-[85%] h-[75%] bg-slate-900/90 border-2 border-dashed border-vrBlue-500/30 rounded-xl relative p-3 flex flex-col justify-between">
+                                    
+                                    <!-- Neon cyan glowing line system representation -->
+                                    <div class="absolute inset-0 border border-vrBlue-500 rounded-xl shadow-neon-blue opacity-85"></div>
+                                    <div class="absolute top-2 right-2 flex space-x-1">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-cyberPink"></span>
+                                        <span class="w-1.5 h-1.5 rounded-full bg-cyberBlue animate-ping"></span>
+                                    </div>
+
+                                    <!-- Simulated interactive layout view -->
+                                    <div class="grid grid-cols-4 gap-2 mt-2">
+                                        <div class="bg-vrBlue-950/80 border border-vrBlue-500/50 rounded-lg p-1.5 text-center flex flex-col justify-center items-center h-16 hover:bg-vrBlue-900/80 transition-all cursor-pointer">
+                                            <i class="fa-solid fa-headset text-cyberBlue text-xs mb-1"></i>
+                                            <span class="text-[8px] text-white font-bold leading-none">P1</span>
+                                        </div>
+                                        <div class="bg-vrBlue-950/80 border border-vrBlue-500/50 rounded-lg p-1.5 text-center flex flex-col justify-center items-center h-16 hover:bg-vrBlue-900/80 transition-all cursor-pointer">
+                                            <i class="fa-solid fa-truck-ramp-box text-cyberPurple text-xs mb-1"></i>
+                                            <span class="text-[8px] text-white font-bold leading-none">P2</span>
+                                        </div>
+                                        <div class="bg-vrBlue-950/80 border border-vrBlue-500/50 rounded-lg p-1.5 text-center flex flex-col justify-center items-center h-16 hover:bg-vrBlue-900/80 transition-all cursor-pointer">
+                                            <i class="fa-solid fa-chair text-cyberPink text-xs mb-1"></i>
+                                            <span class="text-[8px] text-white font-bold leading-none">P3</span>
+                                        </div>
+                                        <div class="bg-vrBlue-950/80 border border-vrBlue-500/50 rounded-lg p-1.5 text-center flex flex-col justify-center items-center h-16 hover:bg-vrBlue-900/80 transition-all cursor-pointer animate-pulse">
+                                            <i class="fa-solid fa-gamepad text-cyberNeon text-xs mb-1"></i>
+                                            <span class="text-[8px] text-white font-bold leading-none">P4</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center justify-between text-[10px] text-slate-400 mt-2 bg-slate-950/90 px-3 py-1.5 rounded-lg border border-slate-800">
+                                        <span>Capacity: <strong class="text-white">6 to 10 VR Machines</strong></span>
+                                        <span class="text-cyberBlue font-bold">Standard Layout</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Info details under illustration -->
+                        <p class="text-xs text-slate-600 mt-4 leading-relaxed">
+                            A highly optimized standard floor setup recommendation requiring 100-150m². Equipped with multi-game options, decentralized management kiosks, and localized content delivery.
+                        </p>
+
+                        <!-- Bottom Interactive Button -->
+                        <div class="mt-5 flex items-center justify-between">
+                            <span class="text-[11px] font-bold uppercase text-slate-400 tracking-wider">Leke VR Park Solutions</span>
+                            <button onclick="openConfigurator('Standard VR Center', 120)" class="text-xs font-bold text-vrBlue-600 hover:text-vrBlue-800 flex items-center space-x-1.5 transition-all">
+                                <span>Simulate This Setup</span>
+                                <i class="fa-solid fa-angle-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Info Panel - Mini Bento style -->
+                    <div class="bg-white/60 backdrop-blur-md border border-white p-5 rounded-2xl shadow-glass flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center text-cyberPurple border border-purple-100">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-slate-800">Preloaded Games Library</h4>
+                                <p class="text-[10px] text-slate-500">Updated weekly with premium global content</p>
+                            </div>
+                        </div>
+                        <span class="text-[10px] bg-slate-100 text-slate-700 px-3 py-1 rounded-full font-bold">724 Active Titles</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- VR SIMULATOR LINEUP SECTION (Corresponds to "VR SIMULATOR" product catalog on right page of inspiration image) -->
+        <section id="simulators" class="py-16 border-t border-slate-200/50">
+            
+            <!-- Section Title matching premium aesthetics -->
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+                <span class="text-[10px] bg-vrBlue-100 text-vrBlue-700 border border-vrBlue-200 font-bold tracking-[0.25em] px-4 py-1.5 rounded-full uppercase inline-block">ENGINEERED IMMERSION</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 futuristic-font">VR SIMULATOR PORTFOLIO</h2>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    Explore high-throughput cinematic attraction systems. Every hardware model possesses localized force-feedback, real-time kinetic rotation, and automated ticketing integrations.
+                </p>
+            </div>
+
+            <!-- Main Interactive Simulator Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <!-- 1. Flying Cinema (VR 360 Cinema Chair) -->
+                <div class="bg-white/90 backdrop-blur-xl border border-slate-200/40 rounded-3xl p-5 hover:shadow-cyber-card hover:border-vrBlue-300 transition-all duration-300 flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase block tracking-wider">VR 360 Cinema Chair</span>
+                        
+                        <!-- Visual representation block -->
+                        <div class="relative bg-slate-50 border border-slate-200/50 rounded-2xl h-44 flex items-center justify-center overflow-hidden group-hover:bg-vrBlue-50/50 transition-colors">
+                            <!-- Custom SVG depiction of futuristic seat -->
+                            <svg viewBox="0 0 100 100" class="w-32 h-32 text-slate-800 drop-shadow-md">
+                                <rect x="30" y="20" width="40" height="50" rx="8" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2"/>
+                                <rect x="35" y="25" width="30" height="35" rx="5" fill="#0f172a"/>
+                                <rect x="38" y="30" width="24" height="20" rx="2" fill="#38bdf8" opacity="0.8"/>
+                                <!-- Armrests -->
+                                <rect x="22" y="50" width="8" height="25" rx="4" fill="#94a3b8"/>
+                                <rect x="70" y="50" width="8" height="25" rx="4" fill="#94a3b8"/>
+                                <!-- Motion base -->
+                                <path d="M25 80 L75 80 L85 90 L15 90 Z" fill="#64748b"/>
+                                <circle cx="50" cy="85" r="4" fill="#f43f5e" class="animate-pulse"/>
+                            </svg>
+                            <!-- Motion specifications tag -->
+                            <span class="absolute bottom-2 right-2 text-[9px] bg-white text-slate-700 px-2 py-0.5 rounded border border-slate-200 font-bold">360° Rotation</span>
+                        </div>
+
+                        <div>
+                            <h3 class="text-base font-bold text-slate-900 futuristic-font">Flying Cinema</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed mt-2">
+                                Heavy kinetic platform delivering breathtaking flight simulations and extreme velocity dynamics.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-[10px] bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full font-bold">1-Player Option</span>
+                        <button onclick="openProductModal('Flying Cinema', 'Extreme velocity 360° motion system optimized for dynamic aerial experiences. Integrated wind effects, high fidelity stereo sound, and structural roll-cage features.')" class="bg-slate-900 text-white text-xs px-4 py-2 rounded-xl font-bold hover:bg-vrBlue-600 transition-colors">
+                            Explore
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 2. Space Shuttle 2.0 (VR Cinema Chair) -->
+                <div class="bg-white/90 backdrop-blur-xl border border-slate-200/40 rounded-3xl p-5 hover:shadow-cyber-card hover:border-vrBlue-300 transition-all duration-300 flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase block tracking-wider">VR Cinema Chair</span>
+                        
+                        <!-- Visual representation block -->
+                        <div class="relative bg-slate-50 border border-slate-200/50 rounded-2xl h-44 flex items-center justify-center overflow-hidden group-hover:bg-vrBlue-50/50 transition-colors">
+                            <!-- Custom SVG depiction of space pod simulator -->
+                            <svg viewBox="0 0 100 100" class="w-32 h-32 text-slate-800 drop-shadow-md">
+                                <rect x="25" y="15" width="50" height="60" rx="12" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+                                <rect x="32" y="22" width="36" height="30" rx="6" fill="#0c1017"/>
+                                <!-- Glowing console screen inside cockpit -->
+                                <circle cx="50" cy="35" r="10" fill="#a855f7" opacity="0.7">
+                                    <animate attributeName="opacity" values="0.4;0.9;0.4" dur="1.5s" repeatCount="indefinite"/>
+                                </circle>
+                                <!-- Outer aesthetic wings -->
+                                <path d="M25 35 L10 55 L25 55 Z" fill="#64748b"/>
+                                <path d="M75 35 L90 55 L75 55 Z" fill="#64748b"/>
+                                <!-- Hydraulic actuators -->
+                                <line x1="40" y1="75" x2="35" y2="90" stroke="#cbd5e1" stroke-width="4"/>
+                                <line x1="60" y1="75" x2="65" y2="90" stroke="#cbd5e1" stroke-width="4"/>
+                                <rect x="20" y="90" width="60" height="6" fill="#475569"/>
+                            </svg>
+                            <!-- Motion specifications tag -->
+                            <span class="absolute bottom-2 right-2 text-[9px] bg-white text-slate-700 px-2 py-0.5 rounded border border-slate-200 font-bold">3-Axis Motion</span>
+                        </div>
+
+                        <div>
+                            <h3 class="text-base font-bold text-slate-900 futuristic-font">Space Shuttle 2.0</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed mt-2">
+                                Encapsulated spaceship capsule simulation perfect for premium cosmic exploration and deep-sea dives.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-[10px] bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full font-bold">2-Player Option</span>
+                        <button onclick="openProductModal('Space Shuttle 2.0', 'Double-seat encapsulated immersive spaceship simulator. Heavy feedback vibration, integrated environmental fans, and multi-game synchronization capability.')" class="bg-slate-900 text-white text-xs px-4 py-2 rounded-xl font-bold hover:bg-vrBlue-600 transition-colors">
+                            Explore
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3. Corps Pro (Self-service Platform) -->
+                <div class="bg-white/90 backdrop-blur-xl border border-slate-200/40 rounded-3xl p-5 hover:shadow-cyber-card hover:border-vrBlue-300 transition-all duration-300 flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase block tracking-wider">Self-service Platform</span>
+                        
+                        <!-- Visual representation block -->
+                        <div class="relative bg-slate-50 border border-slate-200/50 rounded-2xl h-44 flex items-center justify-center overflow-hidden group-hover:bg-vrBlue-50/50 transition-colors">
+                            <!-- Custom SVG depiction of self-service machine kiosk -->
+                            <svg viewBox="0 0 100 100" class="w-32 h-32 text-slate-800 drop-shadow-md">
+                                <rect x="35" y="10" width="30" height="80" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="2"/>
+                                <rect x="40" y="20" width="20" height="25" rx="2" fill="#0f172a"/>
+                                <rect x="42" y="22" width="16" height="12" fill="#10b981">
+                                    <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite"/>
+                                </rect>
+                                <!-- Interactive button array visual -->
+                                <circle cx="45" cy="55" r="2.5" fill="#38bdf8"/>
+                                <circle cx="55" cy="55" r="2.5" fill="#a855f7"/>
+                                <circle cx="45" cy="65" r="2.5" fill="#f43f5e"/>
+                                <circle cx="55" cy="65" r="2.5" fill="#e2e8f0"/>
+                                <!-- Attached Headset schematic -->
+                                <path d="M50 45 L25 45 C20 45 20 55 25 55" fill="none" stroke="#64748b" stroke-width="2" stroke-dasharray="2 1"/>
+                                <rect x="18" y="48" width="10" height="12" rx="2" fill="#334155"/>
+                            </svg>
+                            <!-- Motion specifications tag -->
+                            <span class="absolute bottom-2 right-2 text-[9px] bg-white text-slate-700 px-2 py-0.5 rounded border border-slate-200 font-bold">Autonomous SDK</span>
+                        </div>
+
+                        <div>
+                            <h3 class="text-base font-bold text-slate-900 futuristic-font">Corps Pro</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed mt-2">
+                                Unattended automated standing kiosk offering swipe-and-play operations to minimize storefront staffing.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-[10px] bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full font-bold">Unattended VR</span>
+                        <button onclick="openProductModal('Corps Pro', 'Self-service standalone terminal designed for shopping malls and retail centers. Features coin-operated/digital wallet payment, dynamic automated headset retraction system, and minimal maintenance design.')" class="bg-slate-900 text-white text-xs px-4 py-2 rounded-xl font-bold hover:bg-vrBlue-600 transition-colors">
+                            Explore
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 4. X-Space (VR Free Roam Arena) -->
+                <div class="bg-white/90 backdrop-blur-xl border border-slate-200/40 rounded-3xl p-5 hover:shadow-cyber-card hover:border-vrBlue-300 transition-all duration-300 flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase block tracking-wider">VR Free Roam Arena</span>
+                        
+                        <!-- Visual representation block -->
+                        <div class="relative bg-slate-50 border border-slate-200/50 rounded-2xl h-44 flex items-center justify-center overflow-hidden group-hover:bg-vrBlue-50/50 transition-colors">
+                            <!-- Custom SVG depiction of multiplayer arena setup -->
+                            <svg viewBox="0 0 100 100" class="w-32 h-32 text-slate-800 drop-shadow-md">
+                                <polygon points="15,80 50,20 85,80" fill="none" stroke="#cbd5e1" stroke-width="2"/>
+                                <ellipse cx="50" cy="80" rx="35" ry="12" fill="#cbd5e1" opacity="0.4"/>
+                                <circle cx="50" cy="80" r="4" fill="#0267c7"/>
+                                <!-- Player indicators -->
+                                <circle cx="35" cy="78" r="3" fill="#ef4444"/>
+                                <circle cx="65" cy="78" r="3" fill="#10b981"/>
+                                <!-- Overhead sensors -->
+                                <rect x="40" y="15" width="20" height="6" rx="2" fill="#1e293b"/>
+                                <line x1="50" y1="21" x2="35" y2="78" stroke="#38bdf8" stroke-dasharray="3 3"/>
+                                <line x1="50" y1="21" x2="65" y2="78" stroke="#38bdf8" stroke-dasharray="3 3"/>
+                            </svg>
+                            <!-- Motion specifications tag -->
+                            <span class="absolute bottom-2 right-2 text-[9px] bg-white text-slate-700 px-2 py-0.5 rounded border border-slate-200 font-bold">Multiplayer Grid</span>
+                        </div>
+
+                        <div>
+                            <h3 class="text-base font-bold text-slate-900 futuristic-font">X-Space</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed mt-2">
+                                Collaborative multiplayer platform for physical tracking, perfect for tactical team shooters and room-scale escapes.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-[10px] bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full font-bold">4-8 Players</span>
+                        <button onclick="openProductModal('X-Space', 'State-of-the-art room-scale free roam setup. Offers high fidelity precision ultra-wide tracking systems, custom tactical haptic rifles, and competitive arena titles.')" class="bg-slate-900 text-white text-xs px-4 py-2 rounded-xl font-bold hover:bg-vrBlue-600 transition-colors">
+                            Explore
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- INTERACTIVE DESIGN SYSTEM CUSTOM CONFIGURATOR SECTION (A brand-new premium feature bringing the "Standard VR Center 100-150m²" block to life) -->
+        <section id="configurator" class="py-16 border-t border-slate-200/50">
+            <div class="bg-gradient-to-tr from-slate-900 to-slate-950 text-white rounded-[40px] p-8 md:p-12 relative overflow-hidden shadow-2xl border border-slate-800">
+                
+                <!-- Ambiance background details -->
+                <div class="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-25"></div>
+                <div class="absolute -top-24 -left-24 w-80 h-80 bg-vrBlue-500/20 rounded-full blur-[80px]"></div>
+                <div class="absolute -bottom-24 -right-24 w-80 h-80 bg-cyberPurple/20 rounded-full blur-[80px]"></div>
+
+                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Configurator Left Controls Panel -->
+                    <div class="lg:col-span-6 space-y-8">
+                        <div>
+                            <span class="text-cyberBlue text-[10px] font-bold tracking-[0.25em] uppercase block mb-2">DYNAMIC DESIGN STUDIO</span>
+                            <h2 class="text-3xl sm:text-4xl font-extrabold futuristic-font tracking-tight">CONFIGURE YOUR HUB</h2>
+                            <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                                Select layout models or scale custom dimensions. Real-time predictive algorithm computes capacity limits, recommended machines, power outputs, and investment projections.
+                            </p>
+                        </div>
+
+                        <!-- Real-time Controls -->
+                        <div class="space-y-6 bg-slate-900/50 border border-slate-800 p-6 rounded-3xl backdrop-blur-md">
+                            
+                            <!-- Floor Size Slider -->
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center text-xs font-bold">
+                                    <span class="text-slate-300">HUB TARGET AREA</span>
+                                    <span class="text-cyberBlue futuristic-font" id="area-val">120 m²</span>
+                                </div>
+                                <input type="range" id="input-area" min="50" max="400" value="120" step="10" oninput="updateConfigurator()" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyberBlue">
+                                <div class="flex justify-between text-[10px] text-slate-500">
+                                    <span>50 m² (Micro)</span>
+                                    <span>400 m² (Massive Park)</span>
+                                </div>
+                            </div>
+
+                            <!-- Hardware Priority Selector -->
+                            <div class="space-y-3">
+                                <label class="text-xs font-bold text-slate-300 block">PRIMARY ATTRACTION MODEL</label>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <button onclick="setPriority('cinematic', this)" class="priority-btn px-3 py-2.5 rounded-xl border border-slate-700/60 bg-slate-950 hover:bg-slate-800 hover:border-slate-600 transition-all text-left group active-neon-glow">
+                                        <span class="text-[10px] text-slate-500 block uppercase font-bold tracking-wider">Cinematic</span>
+                                        <span class="text-xs font-bold text-white block mt-1">Pod Seating</span>
+                                    </button>
+                                    <button onclick="setPriority('action', this)" class="priority-btn px-3 py-2.5 rounded-xl border border-slate-700/60 bg-slate-950 hover:bg-slate-800 hover:border-slate-600 transition-all text-left group">
+                                        <span class="text-[10px] text-slate-500 block uppercase font-bold tracking-wider">High Action</span>
+                                        <span class="text-xs font-bold text-white block mt-1">360° Motion</span>
+                                    </button>
+                                    <button onclick="setPriority('freeroam', this)" class="priority-btn px-3 py-2.5 rounded-xl border border-slate-700/60 bg-slate-950 hover:bg-slate-800 hover:border-slate-600 transition-all text-left group">
+                                        <span class="text-[10px] text-slate-500 block uppercase font-bold tracking-wider">Tactical</span>
+                                        <span class="text-xs font-bold text-white block mt-1">Free Roam</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Additional Options (Toggles) -->
+                            <div class="space-y-3">
+                                <label class="text-xs font-bold text-slate-300 block">SYSTEM MODIFIERS</label>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <!-- Unattended Operations -->
+                                    <label class="flex items-center justify-between p-3 rounded-xl bg-slate-950 border border-slate-800 cursor-pointer hover:border-slate-700 transition-colors">
+                                        <div class="flex items-center space-x-2">
+                                            <i class="fa-solid fa-robot text-cyberNeon text-xs"></i>
+                                            <span class="text-xs font-medium text-slate-300">Self-Service SDK</span>
+                                        </div>
+                                        <input type="checkbox" id="toggle-unattended" onchange="updateConfigurator()" class="w-4 h-4 rounded text-vrBlue-600 focus:ring-vrBlue-500 focus:ring-2 bg-slate-800 border-slate-700">
+                                    </label>
+                                    <!-- Premium Sound System -->
+                                    <label class="flex items-center justify-between p-3 rounded-xl bg-slate-950 border border-slate-800 cursor-pointer hover:border-slate-700 transition-colors">
+                                        <div class="flex items-center space-x-2">
+                                            <i class="fa-solid fa-volume-high text-cyberPink text-xs"></i>
+                                            <span class="text-xs font-medium text-slate-300">Spatial Audio Kit</span>
+                                        </div>
+                                        <input type="checkbox" id="toggle-audio" onchange="updateConfigurator()" class="w-4 h-4 rounded text-vrBlue-600 focus:ring-vrBlue-500 focus:ring-2 bg-slate-800 border-slate-700" checked>
+                                    </label>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Configurator Right Output Results Panel -->
+                    <div class="lg:col-span-6 flex flex-col justify-between h-full space-y-6">
+                        <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800/80 p-6 rounded-3xl flex flex-col justify-between h-full relative">
+                            <!-- Header status readout -->
+                            <div class="flex justify-between items-center pb-4 border-b border-slate-800">
+                                <span class="text-[10px] bg-cyberBlue/10 text-cyberBlue border border-cyberBlue/20 px-3 py-1 rounded-full font-bold uppercase tracking-wider">Dynamic Estimate Engine</span>
+                                <span class="text-xs text-slate-500" id="preset-lbl">Configuration: Custom 120m²</span>
+                            </div>
+
+                            <!-- Real-time dynamic visual telemetry stats -->
+                            <div class="grid grid-cols-2 gap-4 my-6">
+                                <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800">
+                                    <span class="text-[10px] uppercase font-bold text-slate-500 block">Recommended Machines</span>
+                                    <span class="text-2xl sm:text-3xl font-extrabold text-white futuristic-font block mt-1" id="rec-machines">8 units</span>
+                                    <p class="text-[10px] text-slate-400 mt-1">Optimized for safety spacing</p>
+                                </div>
+                                <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800">
+                                    <span class="text-[10px] uppercase font-bold text-slate-500 block">Est. Concurrent Players</span>
+                                    <span class="text-2xl sm:text-3xl font-extrabold text-cyberBlue futuristic-font block mt-1" id="rec-players">16 Players</span>
+                                    <p class="text-[10px] text-slate-400 mt-1">Peak customer throughput</p>
+                                </div>
+                                <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800">
+                                    <span class="text-[10px] uppercase font-bold text-slate-500 block">Required Power Load</span>
+                                    <span class="text-2xl sm:text-3xl font-extrabold text-white futuristic-font block mt-1" id="rec-power">14.5 kW</span>
+                                    <p class="text-[10px] text-slate-400 mt-1">Average structural rating</p>
+                                </div>
+                                <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800">
+                                    <span class="text-[10px] uppercase font-bold text-slate-500 block">Projected Weekly Revenue</span>
+                                    <span class="text-2xl sm:text-3xl font-extrabold text-emerald-400 futuristic-font block mt-1" id="rec-revenue">$9,600</span>
+                                    <p class="text-[10px] text-emerald-500/80 font-semibold mt-1">Est. Payback: ~4 Months</p>
+                                </div>
+                            </div>
+
+                            <p class="text-[11px] text-slate-400 leading-relaxed text-center italic">
+                                *Calculations are simulated forecasts utilizing spatial density modeling. Actual site performance varies by geographic location & store marketing.
+                            </p>
+
+                            <!-- Call to action button with state update feedback -->
+                            <div class="mt-6 flex flex-col md:flex-row gap-3">
+                                <button onclick="deployConfig()" class="flex-1 bg-gradient-to-r from-vrBlue-600 to-vrBlue-500 text-white font-bold text-xs uppercase tracking-wider py-4 rounded-xl hover:scale-[1.02] active:scale-95 transition-all shadow-md shadow-vrBlue-500/10">
+                                    Deploy Configuration To Proposal
+                                </button>
+                                <button onclick="resetConfig()" class="px-4 py-4 border border-slate-700 text-slate-400 font-semibold text-xs rounded-xl hover:bg-slate-800 transition-colors">
+                                    Reset
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- TELEMETRY / DIGITAL TWIN DASHBOARD PREVIEW (Showcases beautiful premium dashboard preview to complete real-world tech theme) -->
+        <section id="telemetry" class="py-16 border-t border-slate-200/50">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Telemetry Intro Text -->
+                <div class="lg:col-span-4 space-y-6">
+                    <span class="text-[10px] bg-purple-100 text-cyberPurple border border-purple-200 font-bold tracking-[0.25em] px-4 py-1.5 rounded-full uppercase inline-block">Real-time Operations</span>
+                    <h2 class="text-3xl font-extrabold text-slate-900 futuristic-font">DIGITAL TWIN TELEMETRY</h2>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Every VR simulator operates via a decentralized dashboard, allowing park owners to track headset connectivity, component heat, coin transaction speeds, and localized gameplay sessions.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3 p-3 bg-white/70 rounded-xl border border-slate-200/50">
+                            <i class="fa-solid fa-server text-vrBlue-500 text-sm"></i>
+                            <div>
+                                <h4 class="text-xs font-bold text-slate-800">Dynamic Load Balancer</h4>
+                                <p class="text-[10px] text-slate-500">Auto-routes gameplay streaming queues</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 p-3 bg-white/70 rounded-xl border border-slate-200/50">
+                            <i class="fa-solid fa-shield-halved text-cyberNeon text-sm"></i>
+                            <div>
+                                <h4 class="text-xs font-bold text-slate-800">Decentralized Authorization</h4>
+                                <p class="text-[10px] text-slate-500">Encrypted payments & GDPR-compliant stats</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Live Dashboard Preview Box -->
+                <div class="lg:col-span-8">
+                    <div class="bg-white border border-slate-200 shadow-xl rounded-[32px] overflow-hidden">
+                        
+                        <!-- Dashboard Mockup Header -->
+                        <div class="bg-slate-950 text-white px-6 py-4 flex items-center justify-between border-b border-slate-800">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-3 h-3 bg-emerald-500 rounded-full animate-ping"></span>
+                                <span class="text-xs font-bold futuristic-font tracking-wider text-slate-200">LIVE HUB TELEMETRY: PARK_042</span>
+                            </div>
+                            <!-- Small toggle telemetry view switches -->
+                            <div class="flex space-x-1">
+                                <span class="bg-slate-800 text-[9px] text-slate-400 px-2 py-0.5 rounded font-mono">NODE_US_EAST_01</span>
+                            </div>
+                        </div>
+
+                        <!-- Live Graph & Component Monitor -->
+                        <div class="p-6 bg-slate-50 grid grid-cols-1 md:grid-cols-12 gap-6">
+                            
+                            <!-- Graph Telemetry Display -->
+                            <div class="md:col-span-8 space-y-4">
+                                <div class="bg-white p-4 rounded-2xl border border-slate-200/60 shadow-sm">
+                                    <div class="flex justify-between items-center mb-3">
+                                        <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wide">Dynamic Machine Output (Live)</h4>
+                                        <span class="text-[10px] bg-vrBlue-50 text-vrBlue-600 px-2.5 py-0.5 rounded-full font-bold">100Hz updates</span>
+                                    </div>
+                                    <!-- Embedded Interactive HTML Canvas for Live telemetry graph simulation -->
+                                    <div class="relative w-full h-44 bg-slate-950 rounded-xl overflow-hidden">
+                                        <canvas id="telemetryCanvas" class="w-full h-full"></canvas>
+                                    </div>
+                                </div>
+                                
+                                <!-- Quick Diagnostic readouts -->
+                                <div class="grid grid-cols-3 gap-3">
+                                    <div class="bg-white p-3 rounded-xl border border-slate-200/60 text-center">
+                                        <span class="text-[9px] text-slate-400 font-bold block uppercase">AVG FPS</span>
+                                        <span class="text-base font-bold text-slate-800 futuristic-font mt-0.5 block">89.4 <span class="text-xs text-emerald-500">▲</span></span>
+                                    </div>
+                                    <div class="bg-white p-3 rounded-xl border border-slate-200/60 text-center">
+                                        <span class="text-[9px] text-slate-400 font-bold block uppercase">LATENCY</span>
+                                        <span class="text-base font-bold text-slate-800 futuristic-font mt-0.5 block">12ms <span class="text-xs text-vrBlue-500">▼</span></span>
+                                    </div>
+                                    <div class="bg-white p-3 rounded-xl border border-slate-200/60 text-center">
+                                        <span class="text-[9px] text-slate-400 font-bold block uppercase">TEMP STATUS</span>
+                                        <span class="text-base font-bold text-slate-800 futuristic-font mt-0.5 block text-emerald-600">38°C</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- List of active components in telemetry simulation -->
+                            <div class="md:col-span-4 space-y-3">
+                                <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider block mb-1">Simulator Status</h4>
+                                
+                                <!-- Unit 01 status -->
+                                <div class="p-3 bg-white rounded-xl border border-slate-200/60 flex items-center justify-between">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+                                        <span class="text-xs font-bold text-slate-800">Flying Cinema #1</span>
+                                    </div>
+                                    <span class="text-[10px] text-slate-500">In-game (4m)</span>
+                                </div>
+
+                                <!-- Unit 02 status -->
+                                <div class="p-3 bg-white rounded-xl border border-slate-200/60 flex items-center justify-between">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+                                        <span class="text-xs font-bold text-slate-800">Space Shuttle #1</span>
+                                    </div>
+                                    <span class="text-[10px] text-slate-500">In-game (8m)</span>
+                                </div>
+
+                                <!-- Unit 03 status -->
+                                <div class="p-3 bg-white rounded-xl border border-slate-200/60 flex items-center justify-between">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-2 h-2 rounded-full bg-yellow-500"></div>
+                                        <span class="text-xs font-bold text-slate-800">Corps Pro Terminal</span>
+                                    </div>
+                                    <span class="text-[10px] text-slate-500">Idle</span>
+                                </div>
+
+                                <!-- Live Interactive system trigger button -->
+                                <button onclick="simulateDisruptiveError()" class="w-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold py-3 rounded-xl uppercase tracking-wider transition-colors">
+                                    Trigger Error Simulator
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ABOUT US SECTION (Directly matching corporate description from upload image) -->
+        <section id="about" class="py-16 border-t border-slate-200/50">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Details: Brand Mission Statement -->
+                <div class="lg:col-span-6 space-y-6">
+                    <span class="text-[10px] bg-vrBlue-50 text-vrBlue-600 border border-vrBlue-200 font-bold tracking-[0.25em] px-4 py-1.5 rounded-full uppercase inline-block">CORPORATE ARCHITECTURE</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 futuristic-font">ABOUT US</h2>
+                    
+                    <div class="text-xs text-slate-600 leading-relaxed space-y-4">
+                        <p>
+                            <strong>LEKE VR Technology Co., Ltd.</strong> is a high-tech enterprise integrating research and development, production, design, and marketing. We focus deeply on VR, AR, MR, AI and other innovation technologies. We provide various high fidelity VR Simulators and professional virtual reality park solutions. Welcome to contact us!
+                        </p>
+                        <p>
+                            LEKE VR has served more than 70 million users worldwide. Our company's virtual reality products have been exported to more than 40 countries and regions such as UK, USA, Japan, Korea, Dubai, Croatia, Indonesia, Australia, Singapore, Taiwan.
+                        </p>
+                    </div>
+
+                    <!-- Client Testimonial slider / showcase -->
+                    <div class="bg-white/70 backdrop-blur-md p-5 rounded-2xl border border-slate-200/50 relative overflow-hidden">
+                        <p class="text-xs text-slate-600 italic">
+                            "Leke VR's Space Shuttle and automated platform allowed us to reach store payback within five months of our initial setup launch in New York. The automated ticketing integration was incredibly smooth."
+                        </p>
+                        <div class="flex items-center justify-between mt-4 pt-4 border-t border-slate-100">
+                            <div>
+                                <span class="font-bold text-xs text-slate-900 block">Marcus Vance</span>
+                                <span class="text-[9px] text-slate-400 font-semibold block uppercase">Chief of Operations, ArcX Arena Group</span>
+                            </div>
+                            <!-- Small 5-star rating representation -->
+                            <div class="flex space-x-1 text-yellow-400 text-[10px]">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Details: Interactive Contact Form -->
+                <div class="lg:col-span-6">
+                    <div class="bg-white border border-slate-200/60 shadow-xl rounded-[32px] p-6 md:p-8 relative">
+                        
+                        <div class="mb-6">
+                            <h3 class="text-lg font-bold text-slate-900 futuristic-font">REQUEST A CUSTOM SITE PROPOSAL</h3>
+                            <p class="text-xs text-slate-500 mt-1">Receive complete site designs, equipment catalogs, and return schedules within 24 hours.</p>
+                        </div>
+
+                        <!-- Real interactive contact capture -->
+                        <form id="proposal-form" onsubmit="handleFormSubmission(event)" class="space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="space-y-1.5">
+                                    <label class="text-xs font-bold text-slate-700 block">Your Name</label>
+                                    <input type="text" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs focus:ring-2 focus:ring-vrBlue-500 focus:outline-none focus:bg-white transition-all">
+                                </div>
+                                <div class="space-y-1.5">
+                                    <label class="text-xs font-bold text-slate-700 block">Corporate Email Address</label>
+                                    <input type="email" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs focus:ring-2 focus:ring-vrBlue-500 focus:outline-none focus:bg-white transition-all">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="space-y-1.5">
+                                    <label class="text-xs font-bold text-slate-700 block">Primary Target Location Country</label>
+                                    <input type="text" placeholder="e.g. United States, United Kingdom" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs focus:ring-2 focus:ring-vrBlue-500 focus:outline-none focus:bg-white transition-all">
+                                </div>
+                                <div class="space-y-1.5">
+                                    <label class="text-xs font-bold text-slate-700 block">Desired Budget Scale</label>
+                                    <select class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs focus:ring-2 focus:ring-vrBlue-500 focus:outline-none focus:bg-white transition-all">
+                                        <option>$20k - $50k (Micro Hub)</option>
+                                        <option>$50k - $100k (Standard Space)</option>
+                                        <option>$100k - $250k (Major Immersive Center)</option>
+                                        <option>$250k+ (Complete Franchise Flagship)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="space-y-1.5">
+                                <label class="text-xs font-bold text-slate-700 block">Additional Custom Requirements or Notes</label>
+                                <textarea rows="3" placeholder="Tell us about your floor layout goals or spatial bounds..." class="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs focus:ring-2 focus:ring-vrBlue-500 focus:outline-none focus:bg-white transition-all"></textarea>
+                            </div>
+
+                            <!-- Click to sign up button -->
+                            <button type="submit" class="w-full bg-slate-900 hover:bg-vrBlue-600 text-white font-bold text-xs uppercase tracking-wider py-4 rounded-xl transition-colors shadow-md shadow-slate-900/10 flex items-center justify-center space-x-2">
+                                <span>Generate Digital Proposal</span>
+                                <i class="fa-solid fa-file-invoice-dollar"></i>
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- FREQUENTLY ASKED QUESTIONS SECTION (Polished Accordion Interaction Component) -->
+        <section id="faq" class="py-16 border-t border-slate-200/50">
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+                <span class="text-[10px] bg-slate-100 text-slate-600 border border-slate-200 font-bold tracking-[0.25em] px-4 py-1.5 rounded-full uppercase inline-block">FREQUENT INQUIRIES</span>
+                <h2 class="text-3xl font-extrabold text-slate-900 futuristic-font">SOLUTIONS FAQ</h2>
+            </div>
+
+            <!-- Accordion Grid -->
+            <div class="max-w-4xl mx-auto space-y-4">
+                
+                <!-- FAQ 1 -->
+                <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden transition-all duration-300">
+                    <button onclick="toggleAccordion(1)" class="w-full text-left px-6 py-5 flex items-center justify-between font-bold text-slate-800 text-xs sm:text-sm hover:bg-slate-50/50 transition-colors">
+                        <span>WHAT TECHNICAL WARRANTY AND SERVICE DEPLOYMENTS ARE INCLUDED WITH LEKE HARDWARE?</span>
+                        <i id="faq-icon-1" class="fa-solid fa-plus text-slate-400 transition-transform"></i>
+                    </button>
+                    <div id="faq-content-1" class="hidden px-6 pb-5 text-xs text-slate-600 leading-relaxed border-t border-slate-100/60 pt-4 bg-slate-50/30">
+                        All physical simulators ship with an extensive 12-month structural and hydraulic warranty. We maintain critical spare parts depots in North America, United Kingdom, and Australia to facilitate prompt 48-hour part fulfillment schedules.
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden transition-all duration-300">
+                    <button onclick="toggleAccordion(2)" class="w-full text-left px-6 py-5 flex items-center justify-between font-bold text-slate-800 text-xs sm:text-sm hover:bg-slate-50/50 transition-colors">
+                        <span>HOW DO WE ACQUIRE FRESH GAME TITLES, AND WHAT ARE THE LICENSING DETAILS?</span>
+                        <i id="faq-icon-2" class="fa-solid fa-plus text-slate-400 transition-transform"></i>
+                    </button>
+                    <div id="faq-content-2" class="hidden px-6 pb-5 text-xs text-slate-600 leading-relaxed border-t border-slate-100/60 pt-4 bg-slate-50/30">
+                        Games are hosted on our proprietary automated content cloud distribution platform. Hub managers select games through their administrator control portal, paying licensing fees either via a per-play model or monthly flat-rate passes.
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden transition-all duration-300">
+                    <button onclick="toggleAccordion(3)" class="w-full text-left px-6 py-5 flex items-center justify-between font-bold text-slate-800 text-xs sm:text-sm hover:bg-slate-50/50 transition-colors">
+                        <span>CAN LEKE PLATFORMS INTEGRATE WITH EXISTING VENUE TICKETING OR POS CLIENTS?</span>
+                        <i id="faq-icon-3" class="fa-solid fa-plus text-slate-400 transition-transform"></i>
+                    </button>
+                    <div id="faq-content-3" class="hidden px-6 pb-5 text-xs text-slate-600 leading-relaxed border-t border-slate-100/60 pt-4 bg-slate-50/30">
+                        Yes, our API and software core support generic webhook outputs and REST bindings. This enables easy integration with legacy amusement ticketing software, RFID bands, and global QR wallet scanners.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- PRODUCT EXPLORATION MODAL (Dynamic Details, specifications sheet and pricing estimate simulated generator) -->
+    <div id="product-modal" class="fixed inset-0 z-50 bg-slate-950/40 backdrop-blur-md flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-[32px] border border-slate-200/80 shadow-2xl max-w-2xl w-full overflow-hidden transform scale-95 transition-transform duration-300">
+            
+            <!-- Modal Header details -->
+            <div class="bg-slate-900 text-white px-6 py-5 flex items-center justify-between">
+                <div>
+                    <span class="text-[10px] text-cyberBlue font-bold tracking-widest uppercase block">Product Specifications Sheet</span>
+                    <h3 id="modal-product-title" class="text-base font-bold futuristic-font">Simulator</h3>
+                </div>
+                <button onclick="closeProductModal()" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 transition-colors flex items-center justify-center">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content & Pricing Interactive Simulation -->
+            <div class="p-6 md:p-8 space-y-6">
+                <div>
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-2">Technical Description</h4>
+                    <p id="modal-product-desc" class="text-xs text-slate-600 leading-relaxed">Product description text...</p>
+                </div>
+
+                <!-- Interactive Hardware spec matrix -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-slate-100">
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/50">
+                        <span class="text-[9px] text-slate-400 font-bold block uppercase">Response Speed</span>
+                        <span class="text-xs font-bold text-slate-800 block mt-1">~0.015s</span>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/50">
+                        <span class="text-[9px] text-slate-400 font-bold block uppercase">Maximum Payload</span>
+                        <span class="text-xs font-bold text-slate-800 block mt-1">280kg / seat</span>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/50">
+                        <span class="text-[9px] text-slate-400 font-bold block uppercase">Standard Input</span>
+                        <span class="text-xs font-bold text-slate-800 block mt-1">AC 380V / 3 Phase</span>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/50">
+                        <span class="text-[9px] text-slate-400 font-bold block uppercase">HMD Compatibility</span>
+                        <span class="text-xs font-bold text-slate-800 block mt-1">HMD Dynamic v3</span>
+                    </div>
+                </div>
+
+                <!-- Dynamic pricing estimate calculator block -->
+                <div class="bg-slate-50/80 p-5 rounded-2xl border border-slate-200/60 space-y-3">
+                    <div class="flex items-center justify-between text-xs font-bold text-slate-700">
+                        <span>Estimate Equipment & Delivery Package</span>
+                        <span class="text-vrBlue-600 font-extrabold text-base" id="modal-calculated-pricing">$24,500</span>
+                    </div>
+                    <p class="text-[10px] text-slate-500 leading-relaxed">
+                        Includes standard physical simulator unit, primary installation supervisor manual, basic spatial configuration guides, and initial 3-month trial software tokens.
+                    </p>
+                    <div class="flex space-x-2 pt-2">
+                        <button onclick="requestSpecProposal()" class="flex-1 bg-slate-900 hover:bg-vrBlue-600 text-white font-bold text-xs py-3 rounded-xl uppercase tracking-wider transition-all">
+                            Add to My Custom proposal
+                        </button>
+                        <button onclick="closeProductModal()" class="px-4 py-3 border border-slate-300 text-slate-600 font-bold text-xs rounded-xl hover:bg-slate-100 transition-all">
+                            Back to Lineups
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- COMPLETE DESIGN SYSTEM FOOTER (Matches clean look and contains comprehensive links and social buttons) -->
+    <footer class="bg-slate-900 text-slate-400 pt-16 pb-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 pb-12 border-b border-slate-800">
+                
+                <!-- Left Details -->
+                <div class="md:col-span-5 space-y-6">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 flex items-center justify-center rounded-xl bg-gradient-to-tr from-vrBlue-600 to-vrBlue-400 text-white shadow-md">
+                            <i class="fa-solid fa-cubes text-lg"></i>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="futuristic-font font-black text-white text-base tracking-wider leading-none">VR PARK</span>
+                            <span class="text-[10px] text-vrBlue-400 font-bold tracking-[0.25em] leading-none uppercase mt-0.5">SOLUTIONS</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Pioneering high-throughput immersive entertainment venues worldwide. We design, manufacture, and license turnkey virtual reality amusement systems for shopping malls, theme parks, and family centers.
+                    </p>
+                    <div class="flex space-x-3 pt-2">
+                        <a href="#" class="w-8 h-8 rounded-lg bg-slate-800 text-white hover:bg-vrBlue-500 flex items-center justify-center transition-colors"><i class="fa-brands fa-facebook-f text-xs"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-lg bg-slate-800 text-white hover:bg-vrBlue-500 flex items-center justify-center transition-colors"><i class="fa-brands fa-twitter text-xs"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-lg bg-slate-800 text-white hover:bg-vrBlue-500 flex items-center justify-center transition-colors"><i class="fa-brands fa-linkedin-in text-xs"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-lg bg-slate-800 text-white hover:bg-vrBlue-500 flex items-center justify-center transition-colors"><i class="fa-brands fa-youtube text-xs"></i></a>
+                    </div>
+                </div>
+
+                <!-- Center Quicklinks -->
+                <div class="md:col-span-3 space-y-4">
+                    <h4 class="text-xs font-bold text-white uppercase tracking-widest futuristic-font">VR Products</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#simulators" class="hover:text-white transition-colors">Flying Cinema</a></li>
+                        <li><a href="#simulators" class="hover:text-white transition-colors">Space Shuttle 2.0</a></li>
+                        <li><a href="#simulators" class="hover:text-white transition-colors">Corps Pro Platform</a></li>
+                        <li><a href="#simulators" class="hover:text-white transition-colors">X-Space Arena</a></li>
+                        <li><a href="#simulators" class="hover:text-white transition-colors">Dynamic Racing Pods</a></li>
+                    </ul>
+                </div>
+
+                <!-- Right Quicklinks -->
+                <div class="md:col-span-4 space-y-4">
+                    <h4 class="text-xs font-bold text-white uppercase tracking-widest futuristic-font">Our Location</h4>
+                    <p class="text-xs leading-relaxed text-slate-400">
+                        <strong>Leke VR Technology Headquarters</strong><br>
+                        Floor 4, Block C, Sci-Tech Innovation Center, High-Tech Industrial Zone, Guangzhou, China
+                    </p>
+                    <div class="pt-2">
+                        <a href="mailto:solutions@lekevr.com" class="text-xs text-vrBlue-400 hover:text-vrBlue-300 font-bold block mb-1">solutions@lekevr.com</a>
+                        <span class="text-xs text-slate-500">Corporate hotline: +86 400-123-4567</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500">
+                <p>© 2026 LEKE VR Technology Co., Ltd. All Rights Reserved. Turnkey amusement deployment specialists.</p>
+                <div class="flex space-x-4 mt-4 sm:mt-0">
+                    <a href="#" class="hover:underline">Legal Policy</a>
+                    <a href="#" class="hover:underline">Compliance</a>
+                    <a href="#" class="hover:underline">Site Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- SCRIPTS FOR ADVANCED INTERACTIONS -->
+    <script>
+        // Global variables for active layouts
+        let selectedPriority = 'cinematic';
+        let currentPricing = 24500;
+
+        // On document load setup
+        window.onload = function() {
+            // Initiate real-time telemetry graph simulation
+            initTelemetryGraph();
+            // Perform default configurator calculations
+            updateConfigurator();
+        }
+
+        // Telemetry Chart Simulator
+        let telemetryCanvas = document.getElementById('telemetryCanvas');
+        let ctx = telemetryCanvas.getContext('2d');
+        let telemetryPoints = [];
+        const maxPoints = 50;
+        let simErrorState = false;
+
+        // Initialize points array
+        for (let i = 0; i < maxPoints; i++) {
+            telemetryPoints.push(50 + Math.random() * 20);
+        }
+
+        function initTelemetryGraph() {
+            // Resize canvas to parent container scale
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            
+            // Start live animation loop
+            requestAnimationFrame(drawTelemetryLoop);
+        }
+
+        function resizeCanvas() {
+            let container = telemetryCanvas.parentElement;
+            telemetryCanvas.width = container.clientWidth;
+            telemetryCanvas.height = container.clientHeight;
+        }
+
+        // Draw and update telemetry loop representing real time headset and load activity
+        function drawTelemetryLoop() {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, telemetryCanvas.width, telemetryCanvas.height);
+
+            // Add dynamic values
+            let lastVal = telemetryPoints[telemetryPoints.length - 1];
+            let variation = simErrorState ? (Math.random() * 40 - 20) : (Math.random() * 10 - 5);
+            let newVal = lastVal + variation;
+            if (newVal < 10) newVal = 10;
+            if (newVal > telemetryCanvas.height - 10) newVal = telemetryCanvas.height - 10;
+
+            telemetryPoints.shift();
+            telemetryPoints.push(newVal);
+
+            // Draw grid lines
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+            ctx.lineWidth = 1;
+            for (let i = 20; i < telemetryCanvas.height; i += 20) {
+                ctx.beginPath();
+                ctx.moveTo(0, i);
+                ctx.lineTo(telemetryCanvas.width, i);
+                ctx.stroke();
+            }
+
+            // Draw line graph
+            ctx.beginPath();
+            ctx.strokeStyle = simErrorState ? '#ef4444' : '#38bdf8';
+            ctx.lineWidth = 2.5;
+            
+            let step = telemetryCanvas.width / (maxPoints - 1);
+            for (let i = 0; i < telemetryPoints.length; i++) {
+                let x = i * step;
+                // Invert y axis for canvas standard orientation
+                let y = telemetryCanvas.height - telemetryPoints[i];
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+            ctx.stroke();
+
+            // Gradient filling path under graph
+            ctx.lineTo(telemetryCanvas.width, telemetryCanvas.height);
+            ctx.lineTo(0, telemetryCanvas.height);
+            ctx.closePath();
+            let grad = ctx.createLinearGradient(0, 0, 0, telemetryCanvas.height);
+            grad.addColorStop(0, simErrorState ? 'rgba(239, 68, 68, 0.25)' : 'rgba(56, 189, 248, 0.2)');
+            grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+            ctx.fillStyle = grad;
+            ctx.fill();
+
+            // Display current telemetry status text overlays
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '10px monospace';
+            ctx.fillText(simErrorState ? 'CRITICAL SYSTEM ANOMALY SIMULATED' : 'STABLE CONNECTIVITY SPECTRUM', 12, 22);
+
+            setTimeout(() => {
+                requestAnimationFrame(drawTelemetryLoop);
+            }, 50);
+        }
+
+        // Trigger random live simulation error in dashboard representation
+        function simulateDisruptiveError() {
+            simErrorState = true;
+            showToast('System Telemetry Warning', 'High component thermal loads simulated. Auto throttling triggered.', 'fa-triangle-exclamation');
+            setTimeout(() => {
+                simErrorState = false;
+                showToast('System Telemetry Restored', 'Heat sink values back within threshold limits.', 'fa-circle-check');
+            }, 6000);
+        }
+
+
+        // Configurator logic and calculations
+        function setPriority(type, btnElement) {
+            selectedPriority = type;
+            
+            // Remove active style from all priority buttons
+            document.querySelectorAll('.priority-btn').forEach(btn => {
+                btn.classList.remove('active-neon-glow');
+            });
+            
+            // Add active style to selected button
+            btnElement.classList.add('active-neon-glow');
+            
+            updateConfigurator();
+        }
+
+        // Dynamic calculator based on sliders, priority models, and system features
+        function updateConfigurator() {
+            let areaVal = parseInt(document.getElementById('input-area').value);
+            document.getElementById('area-val').textContent = areaVal + " m²";
+
+            // Multipliers for layouts
+            let machineMultiplier = 0.06; // 0.06 machine per sq meter standard
+            if (selectedPriority === 'cinematic') machineMultiplier = 0.05;
+            if (selectedPriority === 'freeroam') machineMultiplier = 0.04;
+
+            let calculatedMachines = Math.max(2, Math.round(areaVal * machineMultiplier));
+            let calculatedPlayers = calculatedMachines * 2;
+            if (selectedPriority === 'cinematic') calculatedPlayers = calculatedMachines * 3;
+            if (selectedPriority === 'freeroam') calculatedPlayers = calculatedMachines * 4;
+
+            // Power loads estimates (1.8kW average per high kinetic simulator)
+            let basePowerLoad = calculatedMachines * 1.8;
+            if (document.getElementById('toggle-audio').checked) basePowerLoad += 1.5;
+
+            // Revenue projections based on average ticket pricing
+            let averageTicketPrice = 15;
+            let occupancyRate = 0.30; // 30% average weekly uptime
+            let weeklyHours = 70;
+            let weeklyRevenue = Math.round(calculatedPlayers * occupancyRate * weeklyHours * averageTicketPrice);
+
+            // Update UI fields
+            document.getElementById('rec-machines').textContent = calculatedMachines + " units";
+            document.getElementById('rec-players').textContent = calculatedPlayers + " concurrent";
+            document.getElementById('rec-power').textContent = basePowerLoad.toFixed(1) + " kW";
+            document.getElementById('rec-revenue').textContent = "$" + weeklyRevenue.toLocaleString();
+            
+            // Update Configuration label
+            let preset = "Custom Setup " + areaVal + "m²";
+            if (areaVal >= 100 && areaVal <= 150) preset = "Standard VR Center (" + areaVal + "m²)";
+            if (areaVal > 250) preset = "Mega Park Area (" + areaVal + "m²)";
+            document.getElementById('preset-lbl').textContent = "Configuration: " + preset;
+        }
+
+        // Trigger dynamic pre-populated setups
+        function openConfigurator(presetName, targetArea) {
+            document.getElementById('input-area').value = targetArea;
+            document.getElementById('preset-lbl').textContent = "Preset Setup: " + presetName;
+            updateConfigurator();
+            document.getElementById('configurator').scrollIntoView({ behavior: 'smooth' });
+            showToast('Preset Deployed', presetName + ' configured in workspace calculator.', 'fa-circle-check');
+        }
+
+        function deployConfig() {
+            showToast('Configuration Saved', 'Your spatial selection parameters have been saved. Complete return of investment document prepared!', 'fa-circle-check');
+            // Scroll to Proposal capture
+            document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function resetConfig() {
+            document.getElementById('input-area').value = 120;
+            document.getElementById('toggle-unattended').checked = false;
+            document.getElementById('toggle-audio').checked = true;
+            updateConfigurator();
+            showToast('Workspace Reset', 'Parameters returned to base standards.', 'fa-rotate-right');
+        }
+
+
+        // Modal display systems
+        function openProductModal(title, description) {
+            document.getElementById('modal-product-title').textContent = title.toUpperCase();
+            document.getElementById('modal-product-desc').textContent = description;
+
+            // Generate premium pricing estimates based on components
+            let baseEstimate = 19500;
+            if (title.includes('Shuttle')) baseEstimate = 29500;
+            if (title.includes('Space')) baseEstimate = 48000;
+            if (title.includes('Corps')) baseEstimate = 14500;
+            
+            currentPricing = baseEstimate;
+            document.getElementById('modal-calculated-pricing').textContent = "$" + baseEstimate.toLocaleString();
+
+            let modal = document.getElementById('product-modal');
+            modal.classList.remove('hidden');
+            // Allow render before opacity transition
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.querySelector('div').classList.remove('scale-95');
+            }, 10);
+        }
+
+        function closeProductModal() {
+            let modal = document.getElementById('product-modal');
+            modal.classList.add('opacity-0');
+            modal.querySelector('div').classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function requestSpecProposal() {
+            closeProductModal();
+            showToast('Added to Proposal', 'Included in your custom equipment catalog schedule.', 'fa-circle-check');
+            document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+        }
+
+
+        // Interactive Accordions
+        function toggleAccordion(id) {
+            let content = document.getElementById('faq-content-' + id);
+            let icon = document.getElementById('faq-icon-' + id);
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.classList.remove('fa-plus');
+                icon.classList.add('fa-minus');
+            } else {
+                content.classList.add('hidden');
+                icon.classList.remove('fa-minus');
+                icon.classList.add('fa-plus');
+            }
+        }
+
+
+        // Proposal capture interaction
+        function handleFormSubmission(event) {
+            event.preventDefault();
+            showToast('Proposal Requested', 'Success! We have queued your spatial designs. Check inbox shortly.', 'fa-circle-check');
+            event.target.reset();
+        }
+
+
+        // Custom premium toast notifications
+        function showToast(title, message, iconName = 'fa-bell') {
+            let toast = document.getElementById('toast');
+            document.getElementById('toast-title').textContent = title;
+            document.getElementById('toast-message').textContent = message;
+            
+            // Set dynamic icon class
+            let iconEl = document.getElementById('toast-icon');
+            iconEl.className = 'fa-solid ' + iconName;
+
+            toast.classList.remove('pointer-events-none', 'translate-y-24', 'opacity-0');
+            
+            // Auto-hide toast after 5 seconds
+            setTimeout(() => {
+                hideToast();
+            }, 5000);
+        }
+
+        function hideToast() {
+            let toast = document.getElementById('toast');
+            toast.classList.add('pointer-events-none', 'translate-y-24', 'opacity-0');
+        }
+
+
+        // Mobile drawer system
+        let mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        let mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.remove('hidden');
+            } else {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+
+        // Close mobile drawer on route jump
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>
+4

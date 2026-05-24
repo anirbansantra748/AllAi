@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apin57 — Your Partner in Smarter Financial Decisions</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans for ultra-modern look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            bg: '#f3f4ec', // Primary off-white cream background
+                            bgDarker: '#eaece2', // Slightly darker cream for contrast
+                            forest: '#0f3d23', // Deep forest/dark green accent
+                            forestLight: '#185c36', // Lighter forest green
+                            lime: '#a3e635', // Vibrant neon-lime green
+                            limeHover: '#8be314',
+                            emerald: '#059669',
+                            darkCard: '#141816', // Dark interface color
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        sora: ['"Sora"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'premium': '0 25px 60px -15px rgba(15, 61, 35, 0.08)',
+                        'cardGlow': '0 0 40px rgba(163, 230, 53, 0.15)',
+                        'emeraldGlow': '0 20px 40px rgba(15, 61, 35, 0.12)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Animations and Complex Gradients */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(1deg); }
+        }
+        @keyframes orbit {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.05); }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        .animate-float-delayed {
+            animation: float 8s ease-in-out infinite;
+            animation-delay: 2s;
+        }
+        .animate-orbit-slow {
+            animation: orbit 120s linear infinite;
+        }
+        .animate-pulse-slow {
+            animation: pulse-slow 8s ease-in-out infinite;
+        }
+
+        /* 3D Perspective Setup for Cards */
+        .perspective-lg {
+            perspective: 1000px;
+        }
+        .preserve-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.15s ease-out;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f3f4ec;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0f3d23;
+            border-radius: 999px;
+        }
+    </style>
+</head>
+<body class="bg-brand-bg text-brand-forest antialiased min-h-screen relative overflow-x-hidden selection:bg-brand-lime selection:text-brand-forest">
+
+    <!-- Global Background Elements (Ambient lighting & Orbits) -->
+    <div class="absolute top-0 right-0 w-[80vw] h-[80vw] max-w-[1200px] rounded-full bg-gradient-to-bl from-brand-lime/10 via-brand-forest/5 to-transparent filter blur-[120px] -z-10 pointer-events-none"></div>
+    <div class="absolute top-[40%] left-[-200px] w-[600px] h-[600px] rounded-full bg-brand-lime/5 filter blur-[100px] -z-10 pointer-events-none"></div>
+
+    <!-- NOTIFICATION SYSTEM (Custom Premium Modal Toast) -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-brand-forest text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 border border-brand-lime/20 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="w-8 h-8 rounded-full bg-brand-lime flex items-center justify-center text-brand-forest">
+            <i class="fa-solid id-badge fa-check font-bold"></i>
+        </div>
+        <div>
+            <p class="font-bold text-sm text-brand-lime" id="toast-title">Notification</p>
+            <p class="text-xs text-slate-300" id="toast-msg">Action performed successfully.</p>
+        </div>
+    </div>
+
+    <!-- MODAL POPUP FOR CONVENIENCE (WATCH VIDEO SIMULATION) -->
+    <div id="videoModal" class="fixed inset-0 bg-brand-forest/80 backdrop-blur-md z-50 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300">
+        <div class="bg-brand-bg text-brand-forest rounded-[2.5rem] p-8 max-w-2xl w-full mx-4 border border-brand-forest/10 shadow-2xl relative">
+            <button onclick="toggleVideoModal(false)" class="absolute top-6 right-6 w-12 h-12 rounded-full bg-brand-forest/5 hover:bg-brand-forest/10 flex items-center justify-center text-xl transition-all">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="mb-6">
+                <span class="bg-brand-forest text-brand-lime text-xs font-semibold px-4 py-1.5 rounded-full uppercase tracking-wider">Product Showcase</span>
+                <h3 class="text-3xl font-bold font-sora mt-3">Welcome to Apin57</h3>
+                <p class="text-sm text-brand-forest/70 mt-1">Discover how our dynamic cards, predictive wallets, and real-time planning tools adapt to your financial style.</p>
+            </div>
+            <!-- Dynamic Simulated Player -->
+            <div class="relative aspect-video rounded-3xl overflow-hidden bg-brand-forest flex flex-col justify-between p-6 group shadow-lg border border-brand-lime/10">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10"></div>
+                <!-- Abstract visual art simulation inside video player -->
+                <div class="absolute inset-0 z-0 flex items-center justify-center opacity-40">
+                    <div class="w-64 h-64 rounded-full bg-brand-lime border-4 border-brand-lime/30 animate-pulse-slow"></div>
+                    <div class="w-96 h-96 absolute rounded-full border border-dashed border-white/20 animate-spin-slow"></div>
+                </div>
+                
+                <div class="z-20 self-end w-full flex items-center justify-between">
+                    <div>
+                        <p class="text-white text-lg font-bold">Smart Onboarding Video</p>
+                        <p class="text-brand-lime text-xs">Apin57 Platform • 1 min 24 secs</p>
+                    </div>
+                    <button onclick="playSimulation(this)" class="w-14 h-14 rounded-full bg-brand-lime text-brand-forest flex items-center justify-center hover:scale-105 transition-all shadow-lg shadow-brand-lime/20">
+                        <i class="fa-solid fa-play text-xl ml-1"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="mt-6 flex justify-end gap-3">
+                <button onclick="toggleVideoModal(false)" class="px-6 py-3 rounded-full bg-brand-forest text-white text-sm font-semibold hover:bg-brand-forestLight transition-all">Close Window</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="w-full max-w-7xl mx-auto px-6 py-6 flex items-center justify-between relative z-40">
+        <!-- Brand Logo (Apin57 Style) -->
+        <a href="#" class="flex items-center gap-2 group">
+            <div class="flex items-center">
+                <!-- SVG styled precisely matching Apin57 brand structure -->
+                <svg width="44" height="44" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="group-hover:rotate-[10deg] transition-transform duration-300">
+                    <rect width="100" height="100" rx="26" fill="#0f3d23"/>
+                    <path d="M30 65V35H45C52 35 56 39 56 46C56 53 52 57 45 57H38V65H30ZM38 49H45C48 49 49.5 48 49.5 46C49.5 44 48 43 45 43H38V49Z" fill="#a3e635"/>
+                    <path d="M68 35L54 65H60L74 35H68Z" fill="#a3e635"/>
+                    <circle cx="50" cy="50" r="45" stroke="#a3e635" stroke-opacity="0.15" stroke-width="4"/>
+                </svg>
+                <div class="ml-3 flex flex-col justify-center">
+                    <span class="font-sora text-2xl font-black tracking-tight leading-none text-brand-forest">APIN<span class="text-brand-lime filter drop-shadow-[0_2px_4px_rgba(15,61,35,0.2)]">57</span></span>
+                    <span class="text-[9px] uppercase tracking-[0.3em] font-semibold text-brand-forest/50 leading-none mt-1">Smart Wealth</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Desktop Navigation Menu -->
+        <nav class="hidden md:flex items-center gap-1 bg-brand-bgDarker/60 backdrop-blur-md px-3 py-2 rounded-full border border-brand-forest/5 shadow-inner">
+            <a href="#features" class="px-5 py-2 rounded-full text-sm font-semibold hover:bg-brand-forest hover:text-white transition-all duration-300">Features</a>
+            <a href="#how-it-works" class="px-5 py-2 rounded-full text-sm font-semibold hover:bg-brand-forest hover:text-white transition-all duration-300">How it Works</a>
+            <a href="#pricing" class="px-5 py-2 rounded-full text-sm font-semibold hover:bg-brand-forest hover:text-white transition-all duration-300">Pricing</a>
+            <a href="#about" class="px-5 py-2 rounded-full text-sm font-semibold hover:bg-brand-forest hover:text-white transition-all duration-300">About</a>
+            <a href="#testimonials" class="px-5 py-2 rounded-full text-sm font-semibold hover:bg-brand-forest hover:text-white transition-all duration-300">Testimonials</a>
+            <a href="#contact" class="px-5 py-2 rounded-full text-sm font-semibold hover:bg-brand-forest hover:text-white transition-all duration-300">Contact</a>
+        </nav>
+
+        <!-- Right Buttons -->
+        <div class="flex items-center gap-4">
+            <a href="#wallet" class="hidden sm:inline-block text-sm font-semibold hover:text-emerald-700 transition-colors">Log In</a>
+            <button onclick="triggerCTA()" class="bg-transparent border border-brand-forest text-brand-forest px-6 py-2.5 rounded-full text-sm font-bold hover:bg-brand-forest hover:text-white transition-all duration-300 hover:scale-105 active:scale-95 shadow-sm">
+                Get Started
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN BODY CONTAINER -->
+    <main class="w-full max-w-7xl mx-auto px-6 pt-10 pb-24">
+        
+        <!-- HERO SECTION -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center min-h-[75vh]">
+            <!-- Hero Left: Text Content & Tags -->
+            <div class="lg:col-span-6 space-y-8 flex flex-col justify-center">
+                <div class="inline-flex items-center gap-2 bg-brand-forest/5 border border-brand-forest/5 pl-3 pr-4 py-1.5 rounded-full max-w-fit">
+                    <span class="w-2.5 h-2.5 rounded-full bg-brand-lime animate-ping"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-brand-lime absolute"></span>
+                    <span class="text-xs font-bold tracking-wide uppercase text-brand-forest/80 ml-1">v2.5 Platform Online</span>
+                </div>
+
+                <h1 class="text-5xl md:text-6xl xl:text-7xl font-bold font-sora tracking-tight leading-[1.08] text-brand-forest">
+                    Your Partner in Smarter <span class="bg-gradient-to-r from-brand-forestLight to-brand-emerald bg-clip-text text-transparent">Financial</span> <br>
+                    <span class="relative inline-block mt-1">
+                        <span class="relative z-10 text-brand-forest">Decisions</span>
+                        <!-- Abstract underline vector simulation -->
+                        <span class="absolute bottom-1.5 left-0 w-full h-3 bg-brand-lime/40 rounded-full -z-10 transform scale-x-105"></span>
+                    </span>
+                </h1>
+
+                <p class="text-base md:text-lg text-brand-forest/70 max-w-lg leading-relaxed font-sans">
+                    Take control of your money with tools designed to help you save more, invest wisely, and plan ahead — effortlessly.
+                </p>
+
+                <!-- Hero Action Buttons -->
+                <div class="flex flex-wrap items-center gap-4">
+                    <button onclick="triggerCTA()" class="bg-brand-lime hover:bg-brand-limeHover text-brand-forest px-8 py-4 rounded-full font-bold shadow-premium hover:shadow-brand-lime/20 hover:scale-105 transition-all duration-300 flex items-center gap-2">
+                        Talk to an Expert
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                    <button onclick="toggleVideoModal(true)" class="group flex items-center gap-3 px-6 py-4 rounded-full hover:bg-brand-forest/5 transition-all">
+                        <div class="w-11 h-11 rounded-full border border-brand-forest flex items-center justify-center text-sm group-hover:bg-brand-forest group-hover:text-white transition-all">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                        <span class="font-bold text-sm">Watch Video</span>
+                    </button>
+                </div>
+
+                <!-- Custom Dividers & Filter Tags (Direct copy of aesthetic tags from image) -->
+                <div class="pt-6 space-y-4 border-t border-brand-forest/10">
+                    <p class="text-xs uppercase font-bold tracking-wider text-brand-forest/50">Explore Dynamic Analytics</p>
+                    <div class="flex flex-wrap gap-2.5" id="hero-tags">
+                        <button onclick="filterMetrics('insights', this)" class="tag-btn active px-4 py-2 text-xs font-semibold rounded-full border border-brand-forest text-white bg-brand-forest shadow-sm hover:scale-105 transition-all duration-300">
+                            Market Insights
+                        </button>
+                        <button onclick="filterMetrics('invest', this)" class="tag-btn px-4 py-2 text-xs font-semibold rounded-full border border-brand-forest/20 text-brand-forest hover:border-brand-forest hover:bg-brand-forest/5 hover:scale-105 transition-all duration-300">
+                            Invest
+                        </button>
+                        <button onclick="filterMetrics('grow', this)" class="tag-btn px-4 py-2 text-xs font-semibold rounded-full border border-brand-forest/20 text-brand-forest hover:border-brand-forest hover:bg-brand-forest/5 hover:scale-105 transition-all duration-300">
+                            Grow
+                        </button>
+                        <button onclick="filterMetrics('plan', this)" class="tag-btn px-4 py-2 text-xs font-semibold rounded-full border border-brand-forest/20 text-brand-forest hover:border-brand-forest hover:bg-brand-forest/5 hover:scale-105 transition-all duration-300">
+                            Plan
+                        </button>
+                        <button onclick="filterMetrics('budget', this)" class="tag-btn px-4 py-2 text-xs font-semibold rounded-full border border-brand-forest/20 text-brand-forest hover:border-brand-forest hover:bg-brand-forest/5 hover:scale-105 transition-all duration-300">
+                            Budget
+                        </button>
+                        <button onclick="filterMetrics('tips', this)" class="tag-btn px-4 py-2 text-xs font-semibold rounded-full border border-brand-forest/20 text-brand-forest hover:border-brand-forest hover:bg-brand-forest/5 hover:scale-105 transition-all duration-300">
+                            Expert Tips
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Right: Interactive 3D Orbit Graphics -->
+            <div class="lg:col-span-6 relative h-[600px] flex items-center justify-center">
+                <!-- Glowing central backdrop -->
+                <div class="absolute w-[450px] h-[450px] rounded-full bg-gradient-to-tr from-brand-lime/20 via-transparent to-brand-emerald/10 animate-pulse-slow filter blur-3xl"></div>
+
+                <!-- Orbit lines (SVG matching design precision) -->
+                <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div class="absolute w-[500px] h-[500px] rounded-full border border-brand-forest/5 animate-orbit-slow flex items-center justify-center">
+                        <div class="absolute top-0 left-1/2 -ml-2 w-4 h-4 rounded-full bg-brand-lime shadow-premium"></div>
+                    </div>
+                    <div class="absolute w-[360px] h-[360px] rounded-full border border-dashed border-brand-forest/10 animate-spin-slow"></div>
+                </div>
+
+                <!-- Dynamic Live Interactive Cards with Tilt Support -->
+                <div class="relative w-full max-w-[480px] h-[400px] perspective-lg flex items-center justify-center">
+                    
+                    <!-- Floating Widget 1: Statistics Micro-Widget -->
+                    <div class="absolute top-4 left-6 z-30 bg-white/85 backdrop-blur-md rounded-2xl p-4 shadow-premium border border-brand-forest/5 w-48 transition-all hover:scale-105" id="stats-mini-widget">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-[10px] font-bold text-brand-forest/60 uppercase tracking-widest">Live Performance</span>
+                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        </div>
+                        <div class="flex justify-between items-end gap-1.5 h-14" id="stats-bars">
+                            <!-- Dynamically controlled stats bars -->
+                            <div class="w-full bg-brand-forest/10 rounded-t-sm h-[40%]" title="Jan"></div>
+                            <div class="w-full bg-brand-forest/10 rounded-t-sm h-[65%]" title="Feb"></div>
+                            <div class="w-full bg-brand-forest/10 rounded-t-sm h-[50%]" title="Mar"></div>
+                            <div class="w-full bg-brand-lime rounded-t-sm h-[85%] relative" title="Apr">
+                                <span class="absolute top-[-15px] left-1/2 -translate-x-1/2 text-[8px] font-bold">+85%</span>
+                            </div>
+                            <div class="w-full bg-brand-forest rounded-t-sm h-[70%]" title="May"></div>
+                            <div class="w-full bg-brand-forestLight rounded-t-sm h-[95%]" title="Jun"></div>
+                        </div>
+                        <div class="mt-3 flex justify-between text-[10px] font-semibold text-brand-forest/50">
+                            <span>Q1 Metrics</span>
+                            <span id="metric-value" class="text-brand-forestLight font-bold">$34,204.00</span>
+                        </div>
+                    </div>
+
+                    <!-- CARD 1: Forest/Vibrant Teal Card with Mouse Hover Tilt -->
+                    <div id="card-forest" class="absolute w-[290px] h-[180px] bg-gradient-to-br from-[#0c2b1a] to-[#124d2c] rounded-[1.5rem] p-5 text-white shadow-emeraldGlow z-20 border border-white/10 preserve-3d cursor-pointer transform -rotate-12 translate-x-[-40px] translate-y-[-20px] hover:translate-y-[-30px] transition-transform duration-300">
+                        <div class="h-full flex flex-col justify-between">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-[10px] uppercase opacity-60 tracking-wider">Apin Platinum</p>
+                                    <h4 class="text-xs font-semibold mt-0.5">VISA Gold</h4>
+                                </div>
+                                <svg class="w-10 h-7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="7" cy="12" r="7" fill="#F97316" fill-opacity="0.9"/>
+                                    <circle cx="17" cy="12" r="7" fill="#F59E0B" fill-opacity="0.8"/>
+                                </svg>
+                            </div>
+                            <div class="my-3">
+                                <p class="text-base font-mono tracking-widest">5337 8662 4901 3294</p>
+                            </div>
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <p class="text-[8px] uppercase opacity-50 tracking-wider">Card Holder</p>
+                                    <p class="text-xs font-bold font-sora">Maria Smith</p>
+                                </div>
+                                <div>
+                                    <p class="text-[8px] uppercase opacity-50 tracking-wider">Expiry</p>
+                                    <p class="text-xs font-bold">10/31</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CARD 2: Neon Lime Card (Highly prominent, placed dynamically below) -->
+                    <div id="card-lime" class="absolute w-[290px] h-[180px] bg-gradient-to-br from-[#a3e635] via-[#86efac] to-[#a3e635] rounded-[1.5rem] p-5 text-brand-forest shadow-premium z-10 border border-white/40 preserve-3d cursor-pointer transform rotate-6 translate-x-[40px] translate-y-[50px] hover:translate-y-[40px] transition-transform duration-300">
+                        <div class="h-full flex flex-col justify-between">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-[10px] uppercase font-extrabold opacity-70 tracking-wider">Apin Premium</p>
+                                    <h4 class="text-xs font-extrabold mt-0.5">VISA Infinite</h4>
+                                </div>
+                                <i class="fa-solid fa-wifi text-lg opacity-80"></i>
+                            </div>
+                            <div class="my-3">
+                                <p class="text-base font-bold font-mono tracking-widest text-brand-forest/90">5337 8662 4901 3294</p>
+                            </div>
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <p class="text-[8px] uppercase font-bold opacity-60 tracking-wider">Card Holder</p>
+                                    <p class="text-xs font-black font-sora">Bianca Taylor</p>
+                                </div>
+                                <div>
+                                    <p class="text-[8px] uppercase font-bold opacity-60 tracking-wider">Expiry</p>
+                                    <p class="text-xs font-black">03/24</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Decorative Floating UI Badges -->
+                    <div class="absolute bottom-6 left-12 z-30 bg-brand-forest text-white px-4 py-2.5 rounded-full flex items-center gap-2 shadow-xl hover:scale-105 transition-all text-xs">
+                        <div class="w-5 h-5 rounded-full bg-brand-lime flex items-center justify-center text-[10px] text-brand-forest">
+                            <i class="fa-solid fa-arrow-trend-up"></i>
+                        </div>
+                        <span class="font-bold">Income Tracking</span>
+                        <span class="text-brand-lime font-black">+14.2%</span>
+                    </div>
+
+                    <div class="absolute top-1/2 right-4 z-30 w-10 h-10 rounded-full bg-brand-lime flex items-center justify-center shadow-lg text-brand-forest hover:scale-110 transition-all cursor-pointer" onclick="toggleActiveStats()">
+                        <i class="fa-solid fa-chart-pie"></i>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- BRAND LOGO MARQUEE (PARTNER COMPANIES) -->
+        <section class="py-16 border-t border-b border-brand-forest/10 mt-12 bg-brand-bgDarker/40 rounded-[2.5rem] px-8">
+            <p class="text-center text-xs font-bold uppercase tracking-widest text-brand-forest/50 mb-10">Trusted &amp; Integrated with the Best</p>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8 items-center justify-center opacity-80">
+                <!-- Plaid Logo Style SVG -->
+                <div class="flex items-center justify-center gap-2 group cursor-pointer">
+                    <i class="fa-solid fa-shuffle text-2xl text-brand-forest group-hover:text-brand-emerald transition-colors"></i>
+                    <span class="font-sora font-extrabold text-xl group-hover:text-brand-emerald transition-colors">PLAID</span>
+                </div>
+                <!-- Visa Modern SVG -->
+                <div class="flex items-center justify-center gap-1 group cursor-pointer">
+                    <i class="fa-brands fa-cc-visa text-3xl text-brand-forest group-hover:text-blue-700 transition-colors"></i>
+                    <span class="font-sans font-black text-xl italic group-hover:text-blue-700 transition-colors">VISA</span>
+                </div>
+                <!-- Mastercard Modern SVG -->
+                <div class="flex items-center justify-center gap-2 group cursor-pointer">
+                    <i class="fa-brands fa-cc-mastercard text-3xl text-brand-forest group-hover:text-orange-500 transition-colors"></i>
+                    <span class="font-sans font-bold text-lg group-hover:text-orange-500 transition-colors">Mastercard</span>
+                </div>
+                <!-- Forbes SVG-like text -->
+                <div class="flex items-center justify-center group cursor-pointer">
+                    <span class="font-serif font-black text-2xl tracking-tighter text-brand-forest group-hover:opacity-80 transition-opacity">Forbes</span>
+                </div>
+                <!-- Deloitte style text -->
+                <div class="flex items-center justify-center group cursor-pointer">
+                    <span class="font-sans font-extrabold text-xl tracking-tight text-brand-forest group-hover:text-emerald-600 transition-colors">Deloitte<span class="text-brand-lime text-2xl leading-none">.</span></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRODUCT PHILOSOPHY & SUB-HERO -->
+        <section id="features" class="py-24 space-y-16">
+            <div class="max-w-4xl space-y-6">
+                <div class="inline-flex items-center gap-2 bg-brand-forest text-brand-lime text-xs font-semibold px-4 py-1.5 rounded-full uppercase tracking-wider">
+                    Features
+                </div>
+                <h2 class="text-3xl md:text-5xl font-extrabold font-sora tracking-tight leading-snug">
+                    Achieve <span class="text-brand-emerald">financial clarity</span> and take control of your future with tools designed to simplify, streamline, and personalize your <span class="bg-gradient-to-r from-brand-emerald to-brand-forestLight bg-clip-text text-transparent">money management</span> — all in one secure platform.
+                </h2>
+                <p class="text-brand-forest/60 max-w-xl text-sm font-semibold">Everything you need, nothing you don't. Experience intelligent planning that adjusts dynamically to your transaction flows.</p>
+            </div>
+
+            <!-- FEATURE GRID CARDS (Matching aesthetic color layout & illustrations) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Feature Card 1: Visual Art Style Card -->
+                <div class="bg-brand-lime/30 rounded-[2rem] p-8 border border-brand-lime/40 flex flex-col justify-between h-[420px] shadow-sm hover:shadow-premium hover:-translate-y-2 transition-all duration-300 group">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-brand-forest text-brand-lime flex items-center justify-center text-xl shadow-md">
+                            <i class="fa-solid fa-wallet"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold font-sora">Dynamic Wallet Adaptability</h3>
+                        <p class="text-sm text-brand-forest/80 leading-relaxed">Instantly adjust cards, thresholds, and limits to customize your dynamic daily transactions with zero delay.</p>
+                    </div>
+                    <!-- Minimal simulated aesthetic vector illustration of hand holding wallet -->
+                    <div class="relative w-full h-32 rounded-2xl bg-brand-forest/5 border border-brand-forest/10 overflow-hidden flex items-center justify-center mt-6">
+                        <div class="w-20 h-20 rounded-full bg-brand-lime/80 absolute -bottom-4 -left-4 animate-pulse-slow"></div>
+                        <div class="w-24 h-16 bg-brand-forest rounded-xl z-10 flex flex-col justify-between p-3 text-white shadow-lg">
+                            <div class="w-4 h-4 rounded-full bg-brand-lime/40"></div>
+                            <div class="h-1.5 w-12 bg-white/20 rounded"></div>
+                        </div>
+                        <!-- Tiny coin SVGs -->
+                        <div class="absolute right-8 top-6 text-brand-forest opacity-30 text-xl"><i class="fa-solid fa-coins animate-float"></i></div>
+                    </div>
+                </div>
+
+                <!-- Feature Card 2: Green Gradient Aesthetic Card -->
+                <div class="bg-brand-forest text-white rounded-[2rem] p-8 border border-brand-forestLight/20 flex flex-col justify-between h-[420px] shadow-emeraldGlow hover:-translate-y-2 transition-all duration-300 relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand-lime/10 rounded-full filter blur-xl pointer-events-none"></div>
+                    <div class="space-y-4 z-10">
+                        <div class="w-12 h-12 rounded-2xl bg-brand-lime text-brand-forest flex items-center justify-center text-xl shadow-md">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold font-sora">Automated Budgeting &amp; Alerts</h3>
+                        <p class="text-sm text-white/80 leading-relaxed">Create custom budgets and get real-time alerts to stay on track every month with automated intelligence.</p>
+                    </div>
+                    <!-- Minimal Abstract Chart Representation -->
+                    <div class="mt-6 bg-white/5 rounded-2xl p-4 border border-white/10 z-10">
+                        <div class="flex justify-between items-center text-xs text-brand-lime font-bold mb-2">
+                            <span>Dynamic Budget Limit</span>
+                            <span>78% Met</span>
+                        </div>
+                        <div class="w-full bg-white/10 h-2.5 rounded-full overflow-hidden">
+                            <div class="bg-brand-lime h-full rounded-full transition-all duration-1000" style="width: 78%;"></div>
+                        </div>
+                        <div class="mt-3 flex gap-2 text-[10px] text-white/60 font-semibold justify-between">
+                            <span>Spent: $3,240</span>
+                            <span class="text-brand-lime">Remaining: $860</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature Card 3: Soft Cream Minimal Card -->
+                <div class="bg-[#eaece2] rounded-[2rem] p-8 border border-brand-forest/5 flex flex-col justify-between h-[420px] shadow-sm hover:shadow-premium hover:-translate-y-2 transition-all duration-300 group">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-brand-forest text-brand-lime flex items-center justify-center text-xl shadow-md">
+                            <i class="fa-solid fa-grip-vertical"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold font-sora">Unified Account Dashboard</h3>
+                        <p class="text-sm text-brand-forest/80 leading-relaxed">View all your bank accounts, credit cards, and transactions in one completely intuitive and modern environment.</p>
+                    </div>
+                    <!-- Interactive Visual Dashboard mockup element -->
+                    <div class="bg-white rounded-2xl p-4 border border-brand-forest/5 shadow-inner space-y-2 mt-6">
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="font-bold text-brand-forest">Checking Acct</span>
+                            <span class="text-emerald-600 font-bold">$12,401.90</span>
+                        </div>
+                        <div class="h-[1px] bg-brand-forest/5 w-full"></div>
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="font-bold text-brand-forest">Investment Index</span>
+                            <span class="text-emerald-600 font-bold">$41,080.45</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature Card 4: Light Accent Yellowish/Lime Highlight Card -->
+                <div class="bg-brand-lime/10 rounded-[2rem] p-8 border border-brand-lime/20 flex flex-col justify-between h-[420px] shadow-sm hover:shadow-premium hover:-translate-y-2 transition-all duration-300 group">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-brand-forest text-brand-lime flex items-center justify-center text-xl shadow-md">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold font-sora">Personalized Insights</h3>
+                        <p class="text-sm text-brand-forest/80 leading-relaxed">Get smart, actionable advice based on your precise spending habits, monthly goals, and long term investments.</p>
+                    </div>
+                    <!-- Dynamic Tip Trigger simulation -->
+                    <div class="bg-brand-forest text-white rounded-2xl p-4 space-y-2 text-xs mt-6 border border-brand-forestLight/20 relative overflow-hidden">
+                        <span class="absolute top-[-10px] right-[-10px] text-brand-lime/10 text-6xl font-black font-sora">$</span>
+                        <div class="flex items-center gap-1.5 text-brand-lime font-bold">
+                            <i class="fa-solid fa-lightbulb"></i>
+                            <span>Apin Intelligence</span>
+                        </div>
+                        <p class="text-white/80 leading-relaxed font-semibold">"Reduce dining expense by 4% to achieve your 'Vacation Fund' goal 12 days faster!"</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- INTERACTIVE ROI PLANNER / GROWTH CALCULATOR (Premium Add-On Section) -->
+        <section class="py-16 bg-[#eaece2]/60 rounded-[3rem] border border-brand-forest/5 px-8 md:px-12 my-12 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-lime/10 rounded-full filter blur-3xl pointer-events-none"></div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="bg-brand-forest text-brand-lime text-xs font-semibold px-4 py-1.5 rounded-full uppercase tracking-wider">Growth Planner</span>
+                    <h3 class="text-3xl md:text-4xl font-extrabold font-sora tracking-tight leading-snug">Calculate your wealth trajectory in seconds</h3>
+                    <p class="text-sm text-brand-forest/70 leading-relaxed">Adjust your initial balance and recurring monthly deposits to see the compound intelligence of investing with Apin57's automated market models.</p>
+                    
+                    <!-- Dynamic inputs -->
+                    <div class="space-y-5 pt-4">
+                        <div>
+                            <div class="flex justify-between text-xs font-bold text-brand-forest uppercase tracking-wider mb-2">
+                                <span>Initial Investment</span>
+                                <span class="text-brand-emerald text-sm" id="val-initial">$10,000</span>
+                            </div>
+                            <input id="range-initial" type="range" min="1000" max="100000" step="1000" value="10000" class="w-full h-2 bg-brand-forest/10 rounded-lg appearance-none cursor-pointer accent-brand-forest" oninput="calculateWealth()">
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-bold text-brand-forest uppercase tracking-wider mb-2">
+                                <span>Monthly Contribution</span>
+                                <span class="text-brand-emerald text-sm" id="val-monthly">$500</span>
+                            </div>
+                            <input id="range-monthly" type="range" min="50" max="5000" step="50" value="500" class="w-full h-2 bg-brand-forest/10 rounded-lg appearance-none cursor-pointer accent-brand-forest" oninput="calculateWealth()">
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-bold text-brand-forest uppercase tracking-wider mb-2">
+                                <span>Time Horizon (Years)</span>
+                                <span class="text-brand-emerald text-sm" id="val-years">10 Years</span>
+                            </div>
+                            <input id="range-years" type="range" min="1" max="30" step="1" value="10" class="w-full h-2 bg-brand-forest/10 rounded-lg appearance-none cursor-pointer accent-brand-forest" oninput="calculateWealth()">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calculator Display -->
+                <div class="lg:col-span-7 bg-brand-forest text-white rounded-[2.5rem] p-8 md:p-10 shadow-premium relative overflow-hidden border border-brand-forestLight/20">
+                    <div class="absolute -top-12 -right-12 w-48 h-48 bg-brand-lime/10 rounded-full filter blur-2xl"></div>
+                    
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8 pb-8 border-b border-white/10">
+                        <div>
+                            <p class="text-xs font-bold uppercase tracking-widest text-brand-lime">Estimated Total Wealth</p>
+                            <h4 class="text-4xl md:text-5xl font-black font-sora tracking-tight text-white mt-1" id="wealth-result">$112,492.00</h4>
+                        </div>
+                        <div class="bg-white/5 border border-white/10 px-4 py-2.5 rounded-2xl text-xs">
+                            <p class="text-white/60">Total Profit Earned</p>
+                            <p class="text-brand-lime font-black text-lg mt-0.5" id="profit-result">$42,492.00</p>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic SVG Line Chart Simulation -->
+                    <div class="relative w-full h-48 bg-white/5 rounded-2xl p-4 overflow-hidden border border-white/10">
+                        <div class="absolute inset-0 flex flex-col justify-between p-4 opacity-10 pointer-events-none">
+                            <div class="w-full h-[1px] bg-white"></div>
+                            <div class="w-full h-[1px] bg-white"></div>
+                            <div class="w-full h-[1px] bg-white"></div>
+                        </div>
+                        <!-- SVG line drawn dynamically by JS code -->
+                        <svg id="wealth-chart" class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <path id="chart-path" d="M 0 90 Q 25 75, 50 60 T 100 20" fill="none" stroke="#a3e635" stroke-width="3" stroke-linecap="round"></path>
+                            <!-- Fill Area -->
+                            <path id="chart-fill" d="M 0 90 Q 25 75, 50 60 T 100 20 L 100 100 L 0 100 Z" fill="url(#lime-gradient)" opacity="0.15"></path>
+                            
+                            <defs>
+                                <linearGradient id="lime-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#a3e635" />
+                                    <stop offset="100%" stop-color="#a3e635" stop-opacity="0" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        
+                        <div class="absolute bottom-2 left-4 text-[9px] font-bold text-white/50">Year 0</div>
+                        <div class="absolute bottom-2 right-4 text-[9px] font-bold text-white/50" id="chart-year-label">Year 10</div>
+                    </div>
+
+                    <div class="mt-6 flex flex-wrap gap-4 justify-between items-center text-xs">
+                        <div class="flex items-center gap-2">
+                            <div class="w-3 h-3 rounded-full bg-brand-lime"></div>
+                            <span class="text-white/80 font-semibold">Assuming 8.2% annual growth rate</span>
+                        </div>
+                        <button onclick="saveProjection()" class="bg-brand-lime hover:bg-brand-limeHover text-brand-forest font-bold px-5 py-2.5 rounded-full transition-all flex items-center gap-1.5">
+                            <i class="fa-solid fa-bookmark text-[10px]"></i>
+                            Save Projection
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- INTERACTIVE WALLET SYSTEM (3 Easy Steps to Start) -->
+        <section id="how-it-works" class="py-24 space-y-16">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                
+                <!-- Wallet interactive widget (Left side) -->
+                <div class="lg:col-span-6 relative flex justify-center lg:justify-start" id="wallet">
+                    <!-- Subtle Glow Ring surrounding wallet -->
+                    <div class="absolute w-[440px] h-[440px] rounded-full bg-brand-lime/10 border-4 border-dashed border-brand-lime/20 animate-spin-slow"></div>
+                    
+                    <!-- THE WIDGET (Direct Replication from image style with complete interactive mechanics) -->
+                    <div class="relative w-full max-w-[420px] bg-[#141816] text-white rounded-[2.5rem] p-7 md:p-8 shadow-2xl border border-white/10 overflow-hidden">
+                        
+                        <!-- Top Header inside card widget -->
+                        <div class="flex justify-between items-center mb-8">
+                            <div class="flex items-center gap-2.5">
+                                <div class="w-8 h-5 rounded bg-white/10 flex items-center justify-center border border-white/10">
+                                    <span class="text-[9px] font-bold">USD</span>
+                                </div>
+                                <span class="text-xs font-bold text-white/70">US Dollar Available Balance</span>
+                            </div>
+                            <!-- Eye Mask Toggle -->
+                            <button onclick="toggleBalanceMask()" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-sm hover:bg-white/10 transition-all text-slate-300" title="Mask Account Balance">
+                                <i id="mask-icon" class="fa-regular fa-eye-slash"></i>
+                            </button>
+                        </div>
+
+                        <!-- Current Balance Dynamic Value -->
+                        <div class="space-y-1 mb-8 relative">
+                            <p class="text-xs uppercase font-extrabold tracking-widest text-brand-lime/80">Available Total Balance</p>
+                            <h3 class="text-4xl md:text-5xl font-black font-sora tracking-tight mt-1 transition-all duration-300" id="wallet-balance">$ 47,586.32</h3>
+                        </div>
+
+                        <!-- QUICK ACTIONS BAR -->
+                        <div class="grid grid-cols-3 gap-3 mb-8">
+                            <button onclick="openActionModal('request')" class="bg-white/5 border border-white/10 hover:bg-white/10 text-white rounded-2xl py-3.5 px-2 flex flex-col items-center justify-center gap-2 transition-all group">
+                                <div class="w-8 h-8 rounded-full bg-brand-lime text-brand-forest flex items-center justify-center text-xs font-bold group-hover:scale-110 transition-all">
+                                    <i class="fa-solid fa-arrow-down"></i>
+                                </div>
+                                <span class="text-[11px] font-bold">Request</span>
+                            </button>
+                            <button onclick="openActionModal('transfer')" class="bg-white/5 border border-white/10 hover:bg-white/10 text-white rounded-2xl py-3.5 px-2 flex flex-col items-center justify-center gap-2 transition-all group">
+                                <div class="w-8 h-8 rounded-full bg-brand-lime text-brand-forest flex items-center justify-center text-xs font-bold group-hover:scale-110 transition-all">
+                                    <i class="fa-solid fa-arrow-up"></i>
+                                </div>
+                                <span class="text-[11px] font-bold">Transfer</span>
+                            </button>
+                            <!-- Plus / Deposit Trigger -->
+                            <button onclick="openActionModal('deposit')" class="bg-brand-lime hover:bg-brand-limeHover text-brand-forest rounded-2xl py-3.5 px-2 flex flex-col items-center justify-center gap-2 transition-all group">
+                                <div class="w-8 h-8 rounded-full bg-brand-forest text-brand-lime flex items-center justify-center text-xs font-bold group-hover:rotate-90 transition-all">
+                                    <i class="fa-solid fa-plus"></i>
+                                </div>
+                                <span class="text-[11px] font-black">Quick Deposit</span>
+                            </button>
+                        </div>
+
+                        <!-- INTERACTIVE DIALOG OVERLAYS (Simulated action states in widget) -->
+                        <div id="widget-overlay" class="h-0 opacity-0 bg-[#0c2b1a]/95 absolute bottom-0 left-0 right-0 rounded-t-[2.5rem] p-6 transition-all duration-300 z-30 flex flex-col justify-between overflow-hidden">
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="text-lg font-bold font-sora text-brand-lime" id="overlay-title">Action</h4>
+                                    <button onclick="closeActionModal()" class="text-white/60 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+                                </div>
+                                <div id="overlay-input-container" class="space-y-3">
+                                    <!-- Dynamic Inputs Inserted Here -->
+                                </div>
+                            </div>
+                            <button id="overlay-submit-btn" onclick="executeWidgetAction()" class="w-full bg-brand-lime text-brand-forest font-bold py-3.5 rounded-2xl hover:scale-[1.02] active:scale-[0.98] transition-all text-xs uppercase tracking-wider">Confirm Transaction</button>
+                        </div>
+
+                        <!-- Mini Transaction History log -->
+                        <div class="space-y-3 pt-6 border-t border-white/10">
+                            <p class="text-[10px] uppercase font-bold tracking-wider text-white/40">Recent Activity</p>
+                            <div class="space-y-2 max-h-24 overflow-y-auto pr-1" id="transaction-list">
+                                <div class="flex justify-between items-center text-xs py-1">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-6 h-6 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-[10px]"><i class="fa-solid fa-arrow-left"></i></div>
+                                        <span class="font-bold text-white/80">Received from Alice</span>
+                                    </div>
+                                    <span class="text-emerald-500 font-bold">+$250.00</span>
+                                </div>
+                                <div class="flex justify-between items-center text-xs py-1">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-6 h-6 rounded-full bg-red-500/10 text-red-500 flex items-center justify-center text-[10px]"><i class="fa-solid fa-arrow-right"></i></div>
+                                        <span class="font-bold text-white/80">Monthly Subscription</span>
+                                    </div>
+                                    <span class="text-white/60">-$14.99</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Three steps list description (Right side) -->
+                <div class="lg:col-span-6 space-y-10">
+                    <div class="space-y-4">
+                        <span class="bg-brand-forest text-brand-lime text-xs font-semibold px-4 py-1.5 rounded-full uppercase tracking-wider">How to Start</span>
+                        <h3 class="text-3xl md:text-5xl font-extrabold font-sora tracking-tight leading-tight">Start Managing Your Money in 3 Easy Steps</h3>
+                        <p class="text-brand-forest/70 text-sm">Follow these simple phases to integrate Apin57 with your current banking style seamlessly.</p>
+                    </div>
+
+                    <div class="space-y-8">
+                        <!-- Step 1 -->
+                        <div class="flex gap-5 group cursor-pointer">
+                            <div class="w-14 h-14 rounded-2xl bg-brand-lime text-brand-forest flex items-center justify-center text-2xl font-black shadow-md flex-shrink-0 group-hover:scale-105 transition-all duration-300">
+                                01
+                            </div>
+                            <div class="space-y-1.5">
+                                <h4 class="text-lg font-bold font-sora">Sign Up and Connect Accounts</h4>
+                                <p class="text-sm text-brand-forest/70 leading-relaxed">Securely link your bank accounts, credit cards, and wallets using bank-level encrypted integration.</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="flex gap-5 group cursor-pointer">
+                            <div class="w-14 h-14 rounded-2xl bg-[#eaece2] text-brand-forest flex items-center justify-center text-2xl font-black shadow-md flex-shrink-0 group-hover:scale-105 transition-all duration-300">
+                                02
+                            </div>
+                            <div class="space-y-1.5">
+                                <h4 class="text-lg font-bold font-sora">Smart Investment Insights</h4>
+                                <p class="text-sm text-brand-forest/70 leading-relaxed">Get AI-backed investment suggestions tailored specifically to your financial baseline and risk tolerance.</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="flex gap-5 group cursor-pointer">
+                            <div class="w-14 h-14 rounded-2xl bg-[#eaece2] text-brand-forest flex items-center justify-center text-2xl font-black shadow-md flex-shrink-0 group-hover:scale-105 transition-all duration-300">
+                                03
+                            </div>
+                            <div class="space-y-1.5">
+                                <h4 class="text-lg font-bold font-sora">Secure Multi-Account Sync</h4>
+                                <p class="text-sm text-brand-forest/70 leading-relaxed">Monitor progress anytime knowing every dashboard and device stays automatically updated and perfectly encrypted.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- PRICING SECTION -->
+        <section id="pricing" class="py-24 space-y-16">
+            <div class="text-center max-w-2xl mx-auto space-y-4">
+                <span class="bg-brand-forest text-brand-lime text-xs font-semibold px-4 py-1.5 rounded-full uppercase tracking-wider">Pricing Plans</span>
+                <h2 class="text-3xl md:text-5xl font-extrabold font-sora tracking-tight leading-tight">Choose the perfect plan for your financial scale</h2>
+                <p class="text-brand-forest/70 text-sm">Flexible tiers to adapt to individuals, families, and businesses. Change or upgrade anytime.</p>
+                
+                <!-- Toggle Switch -->
+                <div class="pt-4 flex items-center justify-center gap-3">
+                    <span id="label-monthly" class="text-sm font-bold text-brand-forest">Monthly</span>
+                    <button onclick="togglePricingDuration()" id="pricing-toggle" class="w-14 h-8 bg-brand-forest rounded-full p-1 transition-all duration-300 relative flex items-center">
+                        <div id="pricing-dot" class="w-6 h-6 bg-brand-lime rounded-full absolute left-1 transition-all duration-300"></div>
+                    </button>
+                    <span id="label-yearly" class="text-sm font-bold text-brand-forest/50">Yearly <span class="bg-brand-lime text-brand-forest text-[10px] font-black px-2 py-0.5 rounded-full ml-1">Save 20%</span></span>
+                </div>
+            </div>
+
+            <!-- Pricing Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Plan 1: Starter -->
+                <div class="bg-white rounded-[2.5rem] p-8 border border-brand-forest/5 shadow-sm hover:shadow-premium hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between h-[520px]">
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-xs font-extrabold uppercase tracking-widest text-brand-forest/50">Starter Tier</p>
+                            <h3 class="text-3xl font-bold font-sora mt-2">Basic</h3>
+                        </div>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-4xl font-extrabold font-sora" id="price-basic">$0</span>
+                            <span class="text-xs font-semibold text-brand-forest/60">/ month</span>
+                        </div>
+                        <p class="text-xs text-brand-forest/70">Ideal for exploring smart analytics, keeping manual transactions, and planning basics.</p>
+                        <div class="h-[1px] bg-brand-forest/10"></div>
+                        <ul class="space-y-3.5 text-xs font-semibold text-brand-forest/80">
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-brand-emerald"></i> Up to 2 connected accounts</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-brand-emerald"></i> Manual ledger inputs</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-brand-emerald"></i> Weekly dynamic insights</li>
+                            <li class="text-brand-forest/35 flex items-center gap-2.5"><i class="fa-solid fa-xmark"></i> Real-time automated sync</li>
+                            <li class="text-brand-forest/35 flex items-center gap-2.5"><i class="fa-solid fa-xmark"></i> Expert consultation</li>
+                        </ul>
+                    </div>
+                    <button onclick="triggerCTA()" class="w-full bg-[#eaece2] hover:bg-brand-forest hover:text-white text-brand-forest font-bold py-4 rounded-full transition-all text-xs uppercase tracking-wider">Start for Free</button>
+                </div>
+
+                <!-- Plan 2: Premium (Recommended) -->
+                <div class="bg-brand-forest text-white rounded-[2.5rem] p-8 border border-brand-forestLight/20 shadow-emeraldGlow hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between h-[520px] relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-brand-lime text-brand-forest text-[10px] font-black uppercase tracking-wider px-5 py-2 rounded-bl-3xl">Most Popular</div>
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-xs font-bold uppercase tracking-widest text-brand-lime">Accelerated Wealth</p>
+                            <h3 class="text-3xl font-bold font-sora mt-2">Plus Smart</h3>
+                        </div>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-4xl font-extrabold font-sora text-brand-lime" id="price-plus">$14</span>
+                            <span class="text-xs font-semibold text-white/60">/ month</span>
+                        </div>
+                        <p class="text-xs text-white/70">Optimized for ambitious savers, multi-bank management, and custom automated budget plans.</p>
+                        <div class="h-[1px] bg-white/10"></div>
+                        <ul class="space-y-3.5 text-xs font-semibold text-white/90">
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-brand-lime"></i> Unlimited bank/card integrations</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-brand-lime"></i> Instant automated smart-sync</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-brand-lime"></i> Predictive AI spend analytics</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-brand-lime"></i> Priority dynamic alert filters</li>
+                            <li class="text-white/40 flex items-center gap-2.5"><i class="fa-solid fa-xmark"></i> 1-on-1 advisor matching</li>
+                        </ul>
+                    </div>
+                    <button onclick="triggerCTA()" class="w-full bg-brand-lime hover:bg-brand-limeHover text-brand-forest font-black py-4 rounded-full transition-all text-xs uppercase tracking-wider shadow-lg shadow-brand-lime/10">Upgrade to Plus</button>
+                </div>
+
+                <!-- Plan 3: Executive -->
+                <div class="bg-white rounded-[2.5rem] p-8 border border-brand-forest/5 shadow-sm hover:shadow-premium hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between h-[520px]">
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-xs font-extrabold uppercase tracking-widest text-brand-forest/50">Exclusive tier</p>
+                            <h3 class="text-3xl font-bold font-sora mt-2">Executive</h3>
+                        </div>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-4xl font-extrabold font-sora" id="price-executive">$49</span>
+                            <span class="text-xs font-semibold text-brand-forest/60">/ month</span>
+                        </div>
+                        <p class="text-xs text-brand-forest/70">For high-net-worth portfolios requiring direct financial advisors and maximum automation.</p>
+                        <div class="h-[1px] bg-brand-forest/10"></div>
+                        <ul class="space-y-3.5 text-xs font-semibold text-brand-forest/80">
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-brand-emerald"></i> Dedicated financial advisory matchmaking</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-brand-emerald"></i> Absolute priority automated sync</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-brand-emerald"></i> Custom visual portfolios and PDF reports</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-brand-emerald"></i> Live tax optimization engine</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-brand-emerald"></i> 24/7 Premium direct support</li>
+                        </ul>
+                    </div>
+                    <button onclick="triggerCTA()" class="w-full bg-[#eaece2] hover:bg-brand-forest hover:text-white text-brand-forest font-bold py-4 rounded-full transition-all text-xs uppercase tracking-wider">Start Executive</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS SLIDER SECTION -->
+        <section id="testimonials" class="py-24 bg-brand-bgDarker/50 rounded-[3rem] px-8 md:px-16 my-12 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-64 h-64 bg-brand-lime/5 rounded-full filter blur-2xl"></div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Left Quote Badge -->
+                <div class="lg:col-span-4 space-y-6">
+                    <span class="bg-brand-forest text-brand-lime text-xs font-semibold px-4 py-1.5 rounded-full uppercase tracking-wider">Success Stories</span>
+                    <h3 class="text-3xl md:text-4xl font-extrabold font-sora tracking-tight leading-tight">Hear it straight from our users</h3>
+                    <p class="text-brand-forest/60 text-sm leading-relaxed">Discover why over 140,000 active planners trust Apin57 to safeguard and amplify their wealth trajectory.</p>
+                    
+                    <div class="flex gap-3">
+                        <button onclick="prevTestimonial()" class="w-12 h-12 rounded-full bg-brand-forest text-brand-lime hover:bg-brand-forestLight transition-all flex items-center justify-center text-sm shadow">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </button>
+                        <button onclick="nextTestimonial()" class="w-12 h-12 rounded-full bg-brand-forest text-brand-lime hover:bg-brand-forestLight transition-all flex items-center justify-center text-sm shadow">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Slider Container -->
+                <div class="lg:col-span-8 relative min-h-[250px] flex items-center">
+                    <!-- Slide 1 -->
+                    <div class="testimonial-slide opacity-100 transition-all duration-500 block w-full bg-white rounded-[2rem] p-8 md:p-10 border border-brand-forest/5 shadow-premium space-y-6">
+                        <p class="text-lg md:text-xl font-medium font-sans leading-relaxed text-brand-forest">
+                            "Apin57 transformed our home budget mapping overnight. Synchronizing multiple credit cards and looking at immediate, predictive advice changed everything. Plus, the dynamic visuals look stunning on mobile."
+                        </p>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-brand-lime/30 overflow-hidden flex items-center justify-center text-brand-forest font-bold text-lg">
+                                SC
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-base">Sarah Connor</h4>
+                                <p class="text-xs text-brand-forest/60">Creative Director, Apex Dynamics</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="testimonial-slide opacity-0 absolute transition-all duration-500 hidden w-full bg-white rounded-[2rem] p-8 md:p-10 border border-brand-forest/5 shadow-premium space-y-6">
+                        <p class="text-lg md:text-xl font-medium font-sans leading-relaxed text-brand-forest">
+                            "The predictive insights saved me close to $600 in premium recurring subscriptions within the very first month. Using the Unified Dashboard, managing my personal accounts and LLC took mere minutes!"
+                        </p>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-brand-forest text-brand-lime overflow-hidden flex items-center justify-center font-bold text-lg">
+                                MT
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-base">Marcus Thompson</h4>
+                                <p class="text-xs text-brand-forest/60">Tech Investor &amp; Advisor</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="testimonial-slide opacity-0 absolute transition-all duration-500 hidden w-full bg-white rounded-[2rem] p-8 md:p-10 border border-brand-forest/5 shadow-premium space-y-6">
+                        <p class="text-lg md:text-xl font-medium font-sans leading-relaxed text-brand-forest">
+                            "Using basic platforms meant hours of formatting and export steps. With Apin57, everything happens in the background. The ROI planner is remarkably precise. Highest recommendation."
+                        </p>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-800 overflow-hidden flex items-center justify-center font-bold text-lg">
+                                KB
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-base">Kathleen Bennett</h4>
+                                <p class="text-xs text-brand-forest/60">Operations Manager, Deloitte Sync</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA SECTION (GET IN TOUCH / APPOINTMENT) -->
+        <section id="contact" class="py-24 space-y-12">
+            <div class="bg-brand-forest text-white rounded-[3rem] p-8 md:p-16 relative overflow-hidden shadow-emeraldGlow border border-brand-forestLight/20 text-center space-y-8 max-w-5xl mx-auto">
+                <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-brand-lime/10 rounded-full filter blur-3xl"></div>
+                <div class="absolute -top-24 -right-24 w-64 h-64 bg-brand-lime/10 rounded-full filter blur-3xl"></div>
+
+                <div class="max-w-2xl mx-auto space-y-4 relative z-10">
+                    <span class="bg-white/10 text-brand-lime text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider border border-white/5">Start Today</span>
+                    <h2 class="text-4xl md:text-6xl font-extrabold font-sora tracking-tight leading-none">Ready to take control of your financial destiny?</h2>
+                    <p class="text-white/70 text-sm md:text-base">Join over 140,000+ smart planners and connect with our expert support team to find your financial blueprint.</p>
+                </div>
+
+                <!-- Custom Inline Contact & Booking form -->
+                <div class="max-w-md mx-auto relative z-10">
+                    <form onsubmit="handleContactSubmit(event)" class="bg-white/5 border border-white/10 rounded-3xl p-5 md:p-6 space-y-4">
+                        <div class="grid grid-cols-2 gap-3">
+                            <input type="text" placeholder="Your Name" required class="bg-white/10 text-white placeholder-white/50 text-xs rounded-xl px-4 py-3.5 outline-none focus:bg-white/20 transition-all border border-transparent focus:border-brand-lime/30">
+                            <input type="email" placeholder="Your Email" required class="bg-white/10 text-white placeholder-white/50 text-xs rounded-xl px-4 py-3.5 outline-none focus:bg-white/20 transition-all border border-transparent focus:border-brand-lime/30">
+                        </div>
+                        <input type="text" placeholder="Desired Financial Focus (e.g. Invest)" class="w-full bg-white/10 text-white placeholder-white/50 text-xs rounded-xl px-4 py-3.5 outline-none focus:bg-white/20 transition-all border border-transparent focus:border-brand-lime/30">
+                        <button type="submit" class="w-full bg-brand-lime hover:bg-brand-limeHover text-brand-forest font-black py-4 rounded-xl text-xs uppercase tracking-wider transition-all hover:scale-[1.02] active:scale-[0.98]">
+                            Request Discovery Session
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-forest text-white/80 py-16 border-t border-brand-forestLight/20 relative z-10" id="about">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <!-- Brand Column -->
+            <div class="space-y-6">
+                <div class="flex items-center gap-2">
+                    <svg width="34" height="34" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="100" height="100" rx="26" fill="#a3e635"/>
+                        <path d="M30 65V35H45C52 35 56 39 56 46C56 53 52 57 45 57H38V65H30ZM38 49H45C48 49 49.5 48 49.5 46C49.5 44 48 43 45 43H38V49Z" fill="#0f3d23"/>
+                        <path d="M68 35L54 65H60L74 35H68Z" fill="#0f3d23"/>
+                    </svg>
+                    <span class="font-sora text-xl font-bold tracking-tight text-white">APIN<span class="text-brand-lime">57</span></span>
+                </div>
+                <p class="text-xs text-white/60 leading-relaxed">
+                    Innovative asset control, predictive budgeting dashboards, and modern wealth growth solutions for global operators.
+                </p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-8 h-8 rounded-full bg-white/5 hover:bg-brand-lime hover:text-brand-forest flex items-center justify-center transition-all text-xs text-white/80"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-white/5 hover:bg-brand-lime hover:text-brand-forest flex items-center justify-center transition-all text-xs text-white/80"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-white/5 hover:bg-brand-lime hover:text-brand-forest flex items-center justify-center transition-all text-xs text-white/80"><i class="fa-brands fa-github"></i></a>
+                </div>
+            </div>
+
+            <!-- Links Column 1: Products -->
+            <div class="space-y-4">
+                <h4 class="text-sm font-bold text-brand-lime uppercase tracking-widest">Products</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="#wallet" class="hover:text-white transition-colors">Unified Wallet</a></li>
+                    <li><a href="#features" class="hover:text-white transition-colors">AI Insights Engine</a></li>
+                    <li><a href="#features" class="hover:text-white transition-colors">Predictive Alerts</a></li>
+                    <li><a href="#pricing" class="hover:text-white transition-colors">Premium Cards</a></li>
+                </ul>
+            </div>
+
+            <!-- Links Column 2: Resources -->
+            <div class="space-y-4">
+                <h4 class="text-sm font-bold text-brand-lime uppercase tracking-widest">Resources</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="#" class="hover:text-white transition-colors">Security &amp; Encryption</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Developer API</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Help &amp; Documentation</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">System Status</a></li>
+                </ul>
+            </div>
+
+            <!-- Links Column 3: Legal -->
+            <div class="space-y-4">
+                <h4 class="text-sm font-bold text-brand-lime uppercase tracking-widest">Company &amp; Legal</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="#" class="hover:text-white transition-colors">About Apin57</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">CCPA Compliance</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-white/40">
+            <p>© 2026 Apin57 Financial Technologies, Inc. All rights reserved.</p>
+            <p>Made with premium intent based on design language parameters.</p>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT MECHANICS -->
+    <script>
+        // WALLET DATA & CONTROL SYSTEM
+        let balance = 47586.32;
+        let isMasked = false;
+        let activeOverlayAction = null;
+
+        // Interactive dynamic tags metrics mapping
+        const tagMetrics = {
+            insights: { label: "Insights Q2 Forecast", value: "$52,890.00", bars: [30, 45, 60, 90, 80, 95] },
+            invest: { label: "Index Investment Total", value: "$41,080.45", bars: [10, 20, 40, 50, 75, 88] },
+            grow: { label: "Estimated Compound Growth", value: "$112,492.00", bars: [20, 35, 55, 75, 85, 99] },
+            plan: { label: "Retirement Baseline Goal", value: "$250,000.00", bars: [15, 25, 45, 60, 70, 90] },
+            budget: { label: "Current Budget Safe Limit", value: "$4,200.00", bars: [70, 80, 50, 40, 30, 20] },
+            tips: { label: "Weekly Advisory Savings", value: "$640.00", bars: [50, 60, 70, 80, 90, 100] }
+        };
+
+        // Initialize functions
+        window.onload = function() {
+            calculateWealth();
+            setupCardTilt();
+        }
+
+        // Show premium toast notifications
+        function showNotification(title, msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-title').innerText = title;
+            document.getElementById('toast-msg').innerText = msg;
+            
+            toast.style.transform = 'translateY(0)';
+            toast.style.opacity = '1';
+            
+            setTimeout(() => {
+                toast.style.transform = 'translateY(24px)';
+                toast.style.opacity = '0';
+            }, 4000);
+        }
+
+        // 3D Card Hover / Mouse Move Tilt logic
+        function setupCardTilt() {
+            const cardForest = document.getElementById('card-forest');
+            const cardLime = document.getElementById('card-lime');
+
+            const applyTilt = (element, factorX = 15, factorY = 15) => {
+                element.addEventListener('mousemove', (e) => {
+                    const rect = element.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const rx = ((y / rect.height) - 0.5) * -factorX;
+                    const ry = ((x / rect.width) - 0.5) * factorY;
+                    
+                    element.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) scale(1.04) translateZ(10px)`;
+                });
+
+                element.addEventListener('mouseleave', () => {
+                    element.style.transform = '';
+                    element.style.transition = 'transform 0.5s ease';
+                });
+                
+                element.addEventListener('mouseenter', () => {
+                    element.style.transition = 'none';
+                });
+            };
+
+            applyTilt(cardForest, 20, 20);
+            applyTilt(cardLime, 20, 20);
+        }
+
+        // Toggle balance hiding
+        function toggleBalanceMask() {
+            isMasked = !isMasked;
+            const balanceEl = document.getElementById('wallet-balance');
+            const maskIcon = document.getElementById('mask-icon');
+            
+            if (isMasked) {
+                balanceEl.innerText = "$ ••••••••";
+                maskIcon.className = "fa-regular fa-eye";
+                showNotification("Privacy Activated", "Available balance has been masked.");
+            } else {
+                balanceEl.innerText = `$ ${balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                maskIcon.className = "fa-regular fa-eye-slash";
+                showNotification("Privacy Deactivated", "Wallet balance visible.");
+            }
+        }
+
+        // Open Wallet Dialog overlays
+        function openActionModal(action) {
+            const overlay = document.getElementById('widget-overlay');
+            const title = document.getElementById('overlay-title');
+            const container = document.getElementById('overlay-input-container');
+            activeOverlayAction = action;
+
+            let html = '';
+            if (action === 'request') {
+                title.innerText = 'Request Payment';
+                html = `
+                    <p class="text-xs text-white/60 mb-2">Generate a quick secure request link.</p>
+                    <input id="modal-amount" type="number" placeholder="Enter Amount ($)" class="w-full bg-white/10 text-white rounded-xl p-3 text-sm outline-none border border-transparent focus:border-brand-lime" value="100">
+                    <input id="modal-note" type="text" placeholder="Sender Name or Reason" class="w-full bg-white/10 text-white rounded-xl p-3 text-sm outline-none border border-transparent focus:border-brand-lime" value="Request from Business">
+                `;
+            } else if (action === 'transfer') {
+                title.innerText = 'Secure Transfer';
+                html = `
+                    <p class="text-xs text-white/60 mb-2">Send money instantly to other verified accounts.</p>
+                    <input id="modal-amount" type="number" placeholder="Enter Amount ($)" class="w-full bg-white/10 text-white rounded-xl p-3 text-sm outline-none border border-transparent focus:border-brand-lime" value="500">
+                    <input id="modal-destination" type="text" placeholder="Recipient routing, email or phone" class="w-full bg-white/10 text-white rounded-xl p-3 text-sm outline-none border border-transparent focus:border-brand-lime" value="alice@apindesign.com">
+                `;
+            } else if (action === 'deposit') {
+                title.innerText = 'Quick Deposit';
+                html = `
+                    <p class="text-xs text-white/60 mb-2">Deposit instant liquidity into this USD available balance.</p>
+                    <input id="modal-amount" type="number" placeholder="Amount to add ($)" class="w-full bg-white/10 text-white rounded-xl p-3 text-sm outline-none border border-transparent focus:border-brand-lime" value="1000">
+                    <select id="modal-source" class="w-full bg-brand-forestLight text-white rounded-xl p-3 text-sm outline-none">
+                        <option value="Checking">Plaid linked Savings Acct</option>
+                        <option value="Card">Visa Platinum Debit</option>
+                    </select>
+                `;
+            }
+
+            container.innerHTML = html;
+            overlay.style.height = '100%';
+            overlay.style.opacity = '1';
+        }
+
+        // Close Action Modal inside widget
+        function closeActionModal() {
+            const overlay = document.getElementById('widget-overlay');
+            overlay.style.height = '0';
+            overlay.style.opacity = '0';
+            activeOverlayAction = null;
+        }
+
+        // Execute dynamic action inside wallet
+        function executeWidgetAction() {
+            const amountVal = parseFloat(document.getElementById('modal-amount').value);
+            if (isNaN(amountVal) || amountVal <= 0) {
+                showNotification("Invalid Transaction", "Please specify a correct payment amount.");
+                return;
+            }
+
+            const transactionList = document.getElementById('transaction-list');
+            const newLog = document.createElement('div');
+            newLog.className = "flex justify-between items-center text-xs py-1";
+
+            if (activeOverlayAction === 'transfer') {
+                if (amountVal > balance) {
+                    showNotification("Insufficient Funds", "Your available balance is insufficient to process this transfer.");
+                    return;
+                }
+                balance -= amountVal;
+                const dest = document.getElementById('modal-destination').value;
+                newLog.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <div class="w-6 h-6 rounded-full bg-red-500/10 text-red-500 flex items-center justify-center text-[10px]"><i class="fa-solid fa-arrow-right"></i></div>
+                        <span class="font-bold text-white/80">Sent to ${dest}</span>
+                    </div>
+                    <span class="text-white/60">-$${amountVal.toLocaleString('en-US', { minimumFractionDigits: 2 })}</span>
+                `;
+                showNotification("Transfer Complete", `Successfully sent $${amountVal.toLocaleString()} to ${dest}.`);
+            } else if (activeOverlayAction === 'deposit') {
+                balance += amountVal;
+                const source = document.getElementById('modal-source').value;
+                newLog.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <div class="w-6 h-6 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-[10px]"><i class="fa-solid fa-arrow-left"></i></div>
+                        <span class="font-bold text-white/80">Deposit from ${source}</span>
+                    </div>
+                    <span class="text-emerald-500 font-bold">+$${amountVal.toLocaleString('en-US', { minimumFractionDigits: 2 })}</span>
+                `;
+                showNotification("Deposit Received", `Successfully added $${amountVal.toLocaleString()} to available balance.`);
+            } else if (activeOverlayAction === 'request') {
+                const note = document.getElementById('modal-note').value;
+                newLog.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <div class="w-6 h-6 rounded-full bg-amber-500/10 text-amber-500 flex items-center justify-center text-[10px]"><i class="fa-solid fa-link"></i></div>
+                        <span class="font-bold text-white/80">Requested link: ${note}</span>
+                    </div>
+                    <span class="text-amber-500 font-bold">$${amountVal.toLocaleString('en-US', { minimumFractionDigits: 2 })}</span>
+                `;
+                showNotification("Request Created", `Link copied to clipboard for $${amountVal.toLocaleString()} to ${note}.`);
+            }
+
+            // Update balance display
+            if (!isMasked) {
+                document.getElementById('wallet-balance').innerText = `$ ${balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            }
+            
+            // Insert log at the top of recent history
+            transactionList.insertBefore(newLog, transactionList.firstChild);
+            closeActionModal();
+        }
+
+        // Toggle pricing plan periods
+        let isYearlyPricing = false;
+        function togglePricingDuration() {
+            isYearlyPricing = !isYearlyPricing;
+            const dot = document.getElementById('pricing-dot');
+            const lblMonthly = document.getElementById('label-monthly');
+            const lblYearly = document.getElementById('label-yearly');
+
+            const priceBasic = document.getElementById('price-basic');
+            const pricePlus = document.getElementById('price-plus');
+            const priceExecutive = document.getElementById('price-executive');
+
+            if (isYearlyPricing) {
+                dot.style.left = '24px';
+                lblMonthly.className = "text-sm font-bold text-brand-forest/50";
+                lblYearly.className = "text-sm font-bold text-brand-forest";
+                
+                // 20% discount on prices
+                priceBasic.innerText = "$0";
+                pricePlus.innerText = "$11";
+                priceExecutive.innerText = "$39";
+                showNotification("Yearly Discount", "Applied 20% discount to all recurring pricing plans!");
+            } else {
+                dot.style.left = '4px';
+                lblMonthly.className = "text-sm font-bold text-brand-forest";
+                lblYearly.className = "text-sm font-bold text-brand-forest/50";
+                
+                // Normal prices
+                priceBasic.innerText = "$0";
+                pricePlus.innerText = "$14";
+                priceExecutive.innerText = "$49";
+            }
+        }
+
+        // Hero Filter Tags Interaction
+        function filterMetrics(tag, btn) {
+            // Remove active classes
+            const btns = document.querySelectorAll('.tag-btn');
+            btns.forEach(b => {
+                b.className = "tag-btn px-4 py-2 text-xs font-semibold rounded-full border border-brand-forest/20 text-brand-forest hover:border-brand-forest hover:bg-brand-forest/5 hover:scale-105 transition-all duration-300";
+            });
+
+            // Set active
+            btn.className = "tag-btn active px-4 py-2 text-xs font-semibold rounded-full border border-brand-forest text-white bg-brand-forest shadow-sm hover:scale-105 transition-all duration-300";
+
+            // Grab metric map
+            const data = tagMetrics[tag];
+            if (data) {
+                document.getElementById('metric-value').innerText = data.value;
+                const statsBars = document.getElementById('stats-bars').children;
+                
+                // Transition bars inside micro-widget
+                for (let i = 0; i < statsBars.length; i++) {
+                    const barValue = data.bars[i] || 50;
+                    statsBars[i].style.height = `${barValue}%`;
+                }
+                showNotification("Filtered View", `Displaying dynamic trajectory analytics for ${data.label}.`);
+            }
+        }
+
+        // ROI Calculator Growth Simulator
+        function calculateWealth() {
+            const initial = parseFloat(document.getElementById('range-initial').value);
+            const monthly = parseFloat(document.getElementById('range-monthly').value);
+            const years = parseInt(document.getElementById('range-years').value);
+
+            // Display values
+            document.getElementById('val-initial').innerText = `$${initial.toLocaleString()}`;
+            document.getElementById('val-monthly').innerText = `$${monthly.toLocaleString()}`;
+            document.getElementById('val-years').innerText = `${years} ${years === 1 ? 'Year' : 'Years'}`;
+            document.getElementById('chart-year-label').innerText = `Year ${years}`;
+
+            // Compute compound intelligence wealth (8.2% annual growth mapped monthly)
+            const r = 0.082 / 12;
+            const months = years * 12;
+            let total = initial;
+            let totalDeposited = initial;
+
+            let points = [];
+            for (let i = 1; i <= months; i++) {
+                total = (total * (1 + r)) + monthly;
+                totalDeposited += monthly;
+                // sample 6 points for SVG mapping
+                if (i % Math.ceil(months / 6) === 0 || i === months) {
+                    points.push(total);
+                }
+            }
+
+            const profit = Math.max(0, total - totalDeposited);
+
+            // Update UI displays
+            document.getElementById('wealth-result').innerText = `$${Math.round(total).toLocaleString()}`;
+            document.getElementById('profit-result').innerText = `$${Math.round(profit).toLocaleString()}`;
+
+            // Re-draw dynamic SVG paths based on projections
+            const maxVal = Math.max(...points) || 1000;
+            const minVal = initial;
+            const svgWidth = 100;
+            const svgHeight = 100;
+
+            let dPath = `M 0 90`; // Start coordinates
+            let fPath = `M 0 90`;
+
+            points.forEach((val, idx) => {
+                const x = ((idx + 1) / points.length) * svgWidth;
+                // normalized height mapping high values towards top (lower Y in SVG space)
+                const y = 90 - (((val - minVal) / (maxVal - minVal || 1)) * 70);
+                dPath += ` L ${x} ${y}`;
+                fPath += ` L ${x} ${y}`;
+            });
+
+            fPath += ` L 100 100 L 0 100 Z`;
+
+            document.getElementById('chart-path').setAttribute('d', dPath);
+            document.getElementById('chart-fill').setAttribute('d', fPath);
+        }
+
+        // Testimonial Carousels
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.testimonial-slide');
+
+        function showSlide(index) {
+            slides.forEach((slide, idx) => {
+                slide.className = "testimonial-slide opacity-0 absolute transition-all duration-500 hidden w-full bg-white rounded-[2rem] p-8 md:p-10 border border-brand-forest/5 shadow-premium space-y-6";
+                if (idx === index) {
+                    slide.className = "testimonial-slide opacity-100 transition-all duration-500 block w-full bg-white rounded-[2rem] p-8 md:p-10 border border-brand-forest/5 shadow-premium space-y-6";
+                }
+            });
+        }
+
+        function nextTestimonial() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        function prevTestimonial() {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        // Other Interactive Actions (CTA / Forms)
+        function triggerCTA() {
+            showNotification("Welcome Aboard!", "Setting up discovery credentials... Feel free to try our live calculators!");
+            // Scroll smoothly to contact booking form
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function saveProjection() {
+            showNotification("Projection Saved", "Financial projection saved successfully to your offline portfolio index.");
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            showNotification("Booking Initiated", "Our premium financial partners have received your baseline focus details. We'll be in touch!");
+            e.target.reset();
+        }
+
+        function toggleVideoModal(show) {
+            const modal = document.getElementById('videoModal');
+            if (show) {
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                modal.classList.add('opacity-100');
+            } else {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                modal.classList.remove('opacity-100');
+            }
+        }
+
+        function playSimulation(btn) {
+            showNotification("Streaming Active", "Displaying structural platform walkthrough simulation inside video context.");
+            btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i>`;
+            setTimeout(() => {
+                btn.innerHTML = `<i class="fa-solid fa-pause text-xl ml-0.5"></i>`;
+            }, 1500);
+        }
+
+        function toggleActiveStats() {
+            // Swap card positions inside 3D space
+            const forest = document.getElementById('card-forest');
+            const lime = document.getElementById('card-lime');
+            
+            const tempStyle = forest.className;
+            forest.className = lime.className;
+            lime.className = tempStyle;
+            
+            showNotification("Perspective Shifted", "Swapped active primary platform visual cards.");
+        }
+    </script>
+</body>
+</html>
+22

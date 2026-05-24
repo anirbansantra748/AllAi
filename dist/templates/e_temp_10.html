@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GILLS — Asian Cafe</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,700;0,900;1,400&family=Playfair+Display:ital@0;1&display=swap');
+
+        :root {
+            --primary-red: #E61E25;
+            --charcoal: #0D0D0D;
+            --marble: #F5F5F3;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--marble);
+            color: var(--charcoal);
+            overflow-x: hidden;
+        }
+
+        .serif-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Marble texture overlay effect */
+        .marble-bg {
+            background-color: #F5F5F3;
+            background-image: 
+                radial-gradient(rgba(0,0,0,0.03) 1px, transparent 0),
+                radial-gradient(rgba(230,30,37,0.02) 2px, transparent 0);
+            background-size: 24px 24px;
+            background-position: 0 0, 12px 12px;
+            position: relative;
+        }
+
+        .marble-bg::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0.04;
+            pointer-events: none;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            z-index: 999;
+        }
+
+        /* Large Blurred Red Spray effect inspired exactly by the GILLS background logo */
+        .gills-spray-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .spray-text {
+            color: var(--primary-red);
+            font-size: clamp(8rem, 25vw, 24rem);
+            font-weight: 900;
+            line-height: 0.75;
+            letter-spacing: -0.06em;
+            filter: blur(12px) contrast(1.8);
+            opacity: 0.85;
+            user-select: none;
+            text-transform: uppercase;
+        }
+
+        /* Hand-drawn scribble animations */
+        .hand-drawn-circle {
+            stroke: var(--primary-red);
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawCircle 2s ease-out forwards;
+        }
+
+        @keyframes drawCircle {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        /* Smooth tab transition */
+        .page-fade-in {
+            animation: pageFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes pageFade {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F5F5F3;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-red);
+            border-radius: 4px;
+        }
+
+        /* Marquee Text Animation */
+        .marquee-wrapper {
+            overflow: hidden;
+            white-space: nowrap;
+            display: flex;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 25s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+        }
+
+        /* Floating elements */
+        .float-subtle {
+            animation: subtleFloat 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes subtleFloat {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-8px) rotate(1deg); }
+        }
+
+        /* Custom Checkbox Red Marker styling */
+        .custom-checkbox:checked + label .checkmark-marker {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="marble-bg min-h-screen flex flex-col justify-between selection:bg-red-600 selection:text-white">
+
+    <!-- TOP HEADER & BRAND DECORATION -->
+    <header class="w-full max-w-6xl mx-auto px-4 pt-6 z-50">
+        <div class="flex justify-between items-start border-b border-black/10 pb-4">
+            <div>
+                <a href="#home" onclick="navigateTo('home')" class="group flex items-baseline gap-2">
+                    <span class="text-3xl font-black tracking-tighter text-[#0D0D0D] group-hover:text-red-600 transition-colors duration-300">GILLS</span>
+                    <span class="text-xs font-bold tracking-widest text-red-600 uppercase">asian cafe</span>
+                </a>
+                <p class="text-[10px] uppercase text-black/50 tracking-wider mt-1">японская классика & авторский взгляд</p>
+            </div>
+
+            <!-- Language / Status Indicator -->
+            <div class="hidden md:flex items-center gap-6 text-[11px] font-bold tracking-wider uppercase">
+                <span class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    Мы открыты: 12:00 — 23:00
+                </span>
+                <span class="text-black/30">|</span>
+                <a href="tel:+78129990022" class="hover:text-red-600 transition-colors">+7 (812) 999-00-22</a>
+            </div>
+
+            <!-- Delivery Quick Cart Indicator -->
+            <div class="relative">
+                <button onclick="toggleCart()" class="flex items-center gap-2 bg-black text-white px-3 py-1.5 rounded-full text-xs font-bold hover:bg-red-600 transition-all duration-300">
+                    <i data-lucide="shopping-bag" class="w-3.5 h-3.5"></i>
+                    <span class="hidden sm:inline">КОРЗИНА</span>
+                    <span id="cart-badge" class="bg-red-600 text-white rounded-full text-[9px] px-1.5 py-0.5 ml-1">0</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- MAIN NAVIGATION (Styled exactly from inspiration tabs layout) -->
+        <nav class="flex justify-between items-center py-5 text-sm font-black uppercase tracking-wider overflow-x-auto whitespace-nowrap">
+            <div class="flex gap-6 sm:gap-10 md:gap-16">
+                <a href="#menu" onclick="navigateTo('menu')" id="nav-menu" class="nav-link hover:text-red-600 transition-all relative py-1">
+                    меню
+                </a>
+                <a href="#delivery" onclick="navigateTo('delivery')" id="nav-delivery" class="nav-link hover:text-red-600 transition-all relative py-1">
+                    доставка
+                </a>
+                <a href="#reserve" onclick="navigateTo('reserve')" id="nav-reserve" class="nav-link text-red-600 transition-all relative py-1">
+                    резерв
+                    <!-- Hand drawn marker circle simulated precisely with SVG overlay -->
+                    <span class="absolute -inset-x-3 -inset-y-1 pointer-events-none opacity-90">
+                        <svg class="w-full h-full" viewBox="0 0 100 40" fill="none" preserveAspectRatio="none">
+                            <path class="hand-drawn-circle" d="M5,20 C15,5 85,3 95,18 C100,32 30,38 8,24" stroke="#E61E25" stroke-width="2.5" stroke-linecap="round"></path>
+                        </svg>
+                    </span>
+                </a>
+                <a href="#about" onclick="navigateTo('about')" id="nav-about" class="nav-link hover:text-red-600 transition-all relative py-1">
+                    о нас
+                </a>
+            </div>
+            
+            <!-- Quick reservation callout -->
+            <div class="hidden lg:block text-right">
+                <span class="text-[10px] text-black/50 block tracking-widest uppercase">Санкт-Петербург</span>
+                <span class="text-xs font-bold uppercase tracking-wide">Рядом с Казанским собором</span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN BODY CONTENT AREA -->
+    <main class="flex-grow w-full max-w-6xl mx-auto px-4 pb-16 relative z-10">
+
+        <!-- PAGE 1: HOME (Inspiration Replication and Hub) -->
+        <section id="page-home" class="page-fade-in block">
+            <!-- Massive spray overlay behind the central section -->
+            <div class="relative w-full py-10 md:py-20 flex flex-col justify-center items-center select-none gills-spray-container">
+                <div class="absolute inset-0 flex justify-center items-center z-0">
+                    <div class="spray-text font-black">GILLS</div>
+                </div>
+                
+                <!-- Overlay details matching the aesthetic marks in the image -->
+                <div class="absolute right-[20%] top-[15%] text-xs font-bold text-black tracking-widest z-10 hidden sm:block">
+                    <span class="block">gills-box</span>
+                    <span class="block text-red-600">sushi</span>
+                </div>
+                
+                <div class="absolute left-[15%] bottom-[15%] text-right font-black z-10 hidden sm:block">
+                    <span class="block text-2xl tracking-tighter text-black">asian</span>
+                    <span class="block text-xs uppercase tracking-widest text-red-600 -mt-1">cafe</span>
+                </div>
+
+                <!-- Abstract scribble mark inside GILLS -->
+                <div class="absolute top-[28%] left-[62%] w-10 h-10 text-red-600 float-subtle opacity-80 z-20">
+                    <svg viewBox="0 0 100 100" class="w-full h-full stroke-current fill-none" stroke-width="4">
+                        <path d="M10,30 L90,20 M15,45 L85,45 M5,70 L95,65 M40,10 L45,90 M65,5 L60,95" stroke-linecap="round" />
+                    </svg>
+                </div>
+
+                <!-- Centered Hero Text Content -->
+                <div class="relative z-10 text-center px-4 max-w-2xl pointer-events-auto">
+                    <h1 class="text-5xl sm:text-7xl font-black tracking-tighter text-black uppercase mb-3">SUSHI</h1>
+                    <p class="text-base sm:text-lg font-bold tracking-wider max-w-lg mx-auto text-black/80 leading-snug">
+                        НЕБОЛЬШОЕ ЯПОНСКОЕ КАФЕ РЯДОМ С КАЗАНСКИМ СОБОРОМ
+                    </p>
+                    <div class="mt-6 flex flex-wrap justify-center gap-4">
+                        <button onclick="navigateTo('menu')" class="px-6 py-3 bg-black hover:bg-red-600 text-white font-bold text-xs uppercase tracking-widest rounded-none transition-all duration-300 transform hover:-translate-y-1">
+                            ОТКРЫТЬ МЕНЮ
+                        </button>
+                        <button onclick="navigateTo('reserve')" class="px-6 py-3 border-2 border-black text-black hover:border-red-600 hover:text-red-600 font-bold text-xs uppercase tracking-widest rounded-none transition-all duration-300">
+                            ЗАБРОНИРОВАТЬ СТОЛ
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IMAGE GALLERY GRID WITH TEXT INFO BLOCK - AS IN THE ORIGINAL IMAGE -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 mt-12 items-stretch">
+                
+                <!-- Eye Close-up Feature Banner (Left Block) -->
+                <div class="md:col-span-4 relative group overflow-hidden bg-zinc-900 flex items-center min-h-[220px]">
+                    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&q=80&w=600');"></div>
+                    <!-- Red subtle vignette overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-red-950/70 via-black/10 to-transparent"></div>
+                    <div class="absolute bottom-4 left-4 right-4 z-10">
+                        <span class="text-white text-xs font-black tracking-widest uppercase block mb-1">GILLS LOOK</span>
+                        <h3 class="text-white text-lg font-bold uppercase tracking-tight">Эстетика в деталях</h3>
+                    </div>
+                </div>
+
+                <!-- Center Content: Sushi display & description as structured in template -->
+                <div class="md:col-span-5 bg-white/70 backdrop-blur-md p-6 sm:p-8 border border-black/5 flex flex-col justify-between relative">
+                    <!-- Red scribbled cross on the top left -->
+                    <div class="absolute top-4 left-4 text-red-600 font-black text-2xl select-none leading-none">✖</div>
+                    
+                    <div>
+                        <span class="text-xs font-bold text-red-600 uppercase tracking-widest block mb-4">концепт</span>
+                        <h2 class="text-xl sm:text-2xl font-black uppercase tracking-tight mb-4">
+                            ОСНОВНЫЕ БЛЮДА — ЭТО СУШИ И АВТОРСКИЕ РОЛЛЫ
+                        </h2>
+                        <p class="text-xs text-black/70 leading-relaxed space-y-3">
+                            В нашей карте представлены вина из Старого и Нового света, разнообразие традиционных японских напитков и авторская коктейльная карта, которая идеально подчеркнет вкус блюд.
+                        </p>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-black/10 flex justify-between items-center">
+                        <button onclick="navigateTo('about')" class="group flex items-center gap-2 text-xs font-black tracking-widest uppercase text-red-600 hover:text-black transition-colors duration-300">
+                            УЗНАТЬ ПОДРОБНЕЕ 
+                            <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Food Highlight block (Right Block) -->
+                <div class="md:col-span-3 relative group overflow-hidden bg-neutral-900 min-h-[220px]">
+                    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&q=80&w=500');"></div>
+                    <div class="absolute inset-0 bg-black/30 group-hover:bg-red-950/20 transition-all duration-300"></div>
+                    <!-- Scribbled hand-written overlay -->
+                    <div class="absolute top-4 right-4 text-white font-black italic tracking-widest text-xs py-1 px-2 border border-white/30 backdrop-blur-md">
+                        #NEW_ROLL
+                    </div>
+                    <div class="absolute bottom-4 left-4 z-10 text-white">
+                        <span class="text-[10px] text-red-400 font-bold uppercase tracking-widest block">под заказ</span>
+                        <h4 class="text-sm font-bold uppercase tracking-wider">Опаленный лосось & трюфель</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TEAM / DREAM TEAM HUB HIGHLIGHT - AS FOOTER BLOCK IN IMAGE -->
+            <div class="mt-12">
+                <div class="flex justify-between items-baseline mb-6 border-b border-black/10 pb-3">
+                    <h3 class="text-xs font-black uppercase tracking-widest text-black">DREAM TEAM / КОМАНДА</h3>
+                    <a href="#about" onclick="navigateTo('about')" class="text-xs font-bold text-red-600 hover:underline">СТАНЬ ЧАСТЬЮ НАШЕЙ КОМАНДЫ</a>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <!-- Kitchen team card -->
+                    <div class="group bg-white p-4 border border-black/5 flex flex-col justify-between hover:border-red-600 transition-all duration-300">
+                        <div class="relative overflow-hidden mb-3 aspect-video">
+                            <img src="https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&q=80&w=500" alt="Kitchen Team" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                            <span class="absolute bottom-2 left-2 bg-black text-white text-[9px] font-bold px-1.5 py-0.5 tracking-wider uppercase">KITCHEN</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm uppercase">Дмитрий Репин</h4>
+                            <p class="text-xs text-black/60">Шеф-повар. Поиск чистого вкуса и баланса Азии.</p>
+                        </div>
+                    </div>
+
+                    <!-- Service team card -->
+                    <div class="group bg-white p-4 border border-black/5 flex flex-col justify-between hover:border-red-600 transition-all duration-300">
+                        <div class="relative overflow-hidden mb-3 aspect-video">
+                            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&q=80&w=500" alt="Service Team" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                            <span class="absolute bottom-2 left-2 bg-red-600 text-white text-[9px] font-bold px-1.5 py-0.5 tracking-wider uppercase">SERVICE</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm uppercase">Елена Сомова</h4>
+                            <p class="text-xs text-black/60">Шеф-сомелье. Идеальный пейринг к сложным вкусам.</p>
+                        </div>
+                    </div>
+
+                    <!-- Atmosphere highlight card -->
+                    <div class="group bg-neutral-900 p-6 text-white flex flex-col justify-between hover:bg-black transition-all duration-300 relative">
+                        <!-- Hand drawn heart marker simulated in background -->
+                        <div class="absolute bottom-2 right-2 text-red-600 opacity-60 w-16 h-16 pointer-events-none float-subtle">
+                            <svg viewBox="0 0 100 100" class="w-full h-full stroke-current fill-none" stroke-width="5">
+                                <path d="M50,30 C50,10 10,10 10,40 C10,70 50,90 50,90 C50,90 90,70 90,40 C90,10 50,10 50,30 Z" stroke-linecap="round"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="text-red-500 text-[10px] font-bold tracking-widest uppercase block mb-1">ФИЛОСОФИЯ</span>
+                            <h4 class="font-black text-lg uppercase tracking-tight leading-tight mb-2">Наш фокус — безупречность и искренность</h4>
+                        </div>
+                        <p class="text-xs text-white/70">Мы строим комьюнити, где каждый гость чувствует себя особенным.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 2: MENU (Interactive Catalog) -->
+        <section id="page-menu" class="page-fade-in hidden">
+            <!-- Header of Menu with Category Selectors -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-8 border-b border-black/10 pb-6">
+                <div>
+                    <span class="text-xs font-bold text-red-600 tracking-widest uppercase block mb-1">gastronomy</span>
+                    <h2 class="text-4xl font-black uppercase tracking-tighter">МЕНЮ БЛЮД</h2>
+                </div>
+                <!-- Categories navigation bar -->
+                <div class="flex flex-wrap gap-2 text-xs font-black uppercase tracking-wider">
+                    <button onclick="filterMenu('all')" class="menu-cat-btn px-4 py-2 bg-black text-white rounded-none transition-all" id="btn-cat-all">Все</button>
+                    <button onclick="filterMenu('rolls')" class="menu-cat-btn px-4 py-2 bg-white text-black hover:bg-black/5 border border-black/10 rounded-none transition-all" id="btn-cat-rolls">Роллы</button>
+                    <button onclick="filterMenu('sushi')" class="menu-cat-btn px-4 py-2 bg-white text-black hover:bg-black/5 border border-black/10 rounded-none transition-all" id="btn-cat-sushi">Суши & Сашими</button>
+                    <button onclick="filterMenu('hot')" class="menu-cat-btn px-4 py-2 bg-white text-black hover:bg-black/5 border border-black/10 rounded-none transition-all" id="btn-cat-hot">Горячее</button>
+                    <button onclick="filterMenu('drinks')" class="menu-cat-btn px-4 py-2 bg-white text-black hover:bg-black/5 border border-black/10 rounded-none transition-all" id="btn-cat-drinks">Напитки & Коктейли</button>
+                </div>
+            </div>
+
+            <!-- Interactive Menu Grid -->
+            <div id="menu-items-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Javascript will render menu items dynamically -->
+            </div>
+
+            <!-- Quality & Sourcing disclaimer banner -->
+            <div class="mt-12 bg-white border border-black/10 p-6 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex gap-4 items-center">
+                    <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center text-red-600 shrink-0">
+                        <i data-lucide="shield-check" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm uppercase">Контроль свежести</h4>
+                        <p class="text-xs text-black/60">Вся рыба поставляется ежедневно ранним утром напрямую от проверенных дистрибьюторов.</p>
+                    </div>
+                </div>
+                <button onclick="navigateTo('about')" class="text-xs font-black uppercase tracking-widest bg-black text-white px-6 py-3 hover:bg-red-600 transition-colors">ПОДРОБНЕЕ О КУХНЕ</button>
+            </div>
+        </section>
+
+        <!-- PAGE 3: DELIVERY (Cart and Ordering) -->
+        <section id="page-delivery" class="page-fade-in hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Delivery info & Item selection form -->
+                <div class="lg:col-span-8 space-y-6">
+                    <div class="border-b border-black/10 pb-4">
+                        <span class="text-xs font-bold text-red-600 tracking-widest uppercase block mb-1">быстро & надежно</span>
+                        <h2 class="text-4xl font-black uppercase tracking-tighter">СЛУЖБА ДОСТАВКИ</h2>
+                        <p class="text-xs text-black/60 mt-1">Доставим любимые блюда японской кухни в течение 45-60 минут. Бесплатная доставка при заказе от 3000₽.</p>
+                    </div>
+
+                    <!-- Step-by-step Checkout Accordion -->
+                    <div class="space-y-4">
+                        <!-- Step 1: Delivery Details -->
+                        <div class="bg-white p-6 border border-black/10">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="w-6 h-6 bg-red-600 text-white rounded-full text-xs font-bold flex items-center justify-center">1</span>
+                                <h3 class="font-bold uppercase text-sm tracking-wider">Адрес & время доставки</h3>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="text-[10px] uppercase font-bold tracking-wider text-black/60 block mb-1">Имя получателя</label>
+                                    <input id="del-name" type="text" placeholder="Введите имя" class="w-full bg-neutral-100 border-0 focus:ring-2 focus:ring-red-600 p-2.5 text-xs outline-none font-bold">
+                                </div>
+                                <div>
+                                    <label class="text-[10px] uppercase font-bold tracking-wider text-black/60 block mb-1">Номер телефона</label>
+                                    <input id="del-phone" type="tel" placeholder="+7 (___) ___-__-__" class="w-full bg-neutral-100 border-0 focus:ring-2 focus:ring-red-600 p-2.5 text-xs outline-none font-bold">
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="text-[10px] uppercase font-bold tracking-wider text-black/60 block mb-1">Адрес доставки в Санкт-Петербурге</label>
+                                    <input id="del-address" type="text" placeholder="Улица, дом, квартира, подъезд" class="w-full bg-neutral-100 border-0 focus:ring-2 focus:ring-red-600 p-2.5 text-xs outline-none font-bold">
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="text-[10px] uppercase font-bold tracking-wider text-black/60 block mb-1">Комментарий к заказу</label>
+                                    <input id="del-comment" type="text" placeholder="Приборы, бесконтактная доставка, код домофона и т.д." class="w-full bg-neutral-100 border-0 focus:ring-2 focus:ring-red-600 p-2.5 text-xs outline-none">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Payment options -->
+                        <div class="bg-white p-6 border border-black/10">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="w-6 h-6 bg-red-600 text-white rounded-full text-xs font-bold flex items-center justify-center">2</span>
+                                <h3 class="font-bold uppercase text-sm tracking-wider">Способ оплаты</h3>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                <label class="border-2 border-black p-3 flex flex-col justify-between items-start cursor-pointer hover:border-red-600 transition-colors">
+                                    <div class="flex justify-between w-full items-center">
+                                        <i data-lucide="credit-card" class="w-4 h-4 text-red-600"></i>
+                                        <input type="radio" name="payment" value="card" checked class="accent-red-600">
+                                    </div>
+                                    <span class="text-xs font-bold uppercase tracking-wider block mt-4">Картой на сайте</span>
+                                </label>
+                                <label class="border-2 border-zinc-200 p-3 flex flex-col justify-between items-start cursor-pointer hover:border-black transition-colors">
+                                    <div class="flex justify-between w-full items-center">
+                                        <i data-lucide="hand-coins" class="w-4 h-4"></i>
+                                        <input type="radio" name="payment" value="courier-card" class="accent-red-600">
+                                    </div>
+                                    <span class="text-xs font-bold uppercase tracking-wider block mt-4">Картой курьеру</span>
+                                </label>
+                                <label class="border-2 border-zinc-200 p-3 flex flex-col justify-between items-start cursor-pointer hover:border-black transition-colors">
+                                    <div class="flex justify-between w-full items-center">
+                                        <i data-lucide="wallet" class="w-4 h-4"></i>
+                                        <input type="radio" name="payment" value="cash" class="accent-red-600">
+                                    </div>
+                                    <span class="text-xs font-bold uppercase tracking-wider block mt-4">Наличными</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shopping Cart Summary -->
+                <div class="lg:col-span-4">
+                    <div class="bg-white border-2 border-black p-6 sticky top-6">
+                        <div class="flex justify-between items-center border-b border-black pb-3 mb-4">
+                            <h3 class="font-black uppercase tracking-tight text-lg">ВАШ ЗАКАЗ</h3>
+                            <button onclick="clearCart()" class="text-[10px] text-red-600 font-bold uppercase hover:underline">Очистить</button>
+                        </div>
+
+                        <!-- Scrollable Cart List -->
+                        <div id="cart-items-list" class="space-y-4 max-h-[300px] overflow-y-auto pr-1">
+                            <!-- Populated by JavaScript -->
+                            <div class="text-center py-8 text-black/40 text-xs">
+                                <i data-lucide="shopping-basket" class="w-8 h-8 mx-auto mb-2 opacity-55"></i>
+                                Корзина пока пуста.<br>Добавьте блюда в меню!
+                            </div>
+                        </div>
+
+                        <!-- Totals Area -->
+                        <div class="border-t border-black/10 mt-6 pt-4 space-y-2 text-xs">
+                            <div class="flex justify-between">
+                                <span class="text-black/60">Сумма заказа:</span>
+                                <span id="cart-subtotal" class="font-bold">0 ₽</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-black/60">Доставка:</span>
+                                <span id="cart-shipping" class="font-bold">0 ₽</span>
+                            </div>
+                            <div class="flex justify-between border-t border-black pt-2 text-sm">
+                                <span class="font-black uppercase">ИТОГО К ОПЛАТЕ:</span>
+                                <span id="cart-total" class="font-black text-red-600">0 ₽</span>
+                            </div>
+                        </div>
+
+                        <!-- Order Trigger Button -->
+                        <button onclick="submitOrder()" class="w-full bg-red-600 hover:bg-black text-white font-black text-center py-4 uppercase text-xs tracking-widest mt-6 transition-all duration-300">
+                            ОФОРМИТЬ ДОСТАВКУ
+                        </button>
+
+                        <div class="mt-4 text-[10px] text-black/50 text-center leading-tight">
+                            Нажимая кнопку, вы подтверждаете согласие на обработку персональных данных.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 4: RESERVE (Table reservation simulator) -->
+        <section id="page-reserve" class="page-fade-in hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Left Details and Interactive Grid simulator -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div>
+                        <span class="text-xs font-bold text-red-600 tracking-widest uppercase block mb-1">атмосфера</span>
+                        <h2 class="text-4xl font-black uppercase tracking-tighter">РЕЗЕРВ СТОЛИКА</h2>
+                        <p class="text-xs text-black/60 mt-1">Выберите желаемую зону и время. Мы сохраним для вас лучший столик у окна или возле открытой кухни.</p>
+                    </div>
+
+                    <!-- Interactive Restaurant Map Representation -->
+                    <div class="bg-black text-white p-6 rounded-none relative overflow-hidden">
+                        <!-- Red Spray Paint Background effect inside reservation panel -->
+                        <div class="absolute -top-12 -right-12 w-48 h-48 bg-red-600 rounded-full filter blur-3xl opacity-30 pointer-events-none"></div>
+                        
+                        <div class="flex justify-between items-center border-b border-white/10 pb-3 mb-6">
+                            <h3 class="text-xs font-bold tracking-widest uppercase text-white/70">ИНТЕРАКТИВНАЯ КАРТА ЗАЛА</h3>
+                            <span class="text-[10px] bg-red-600 text-white font-bold px-2 py-0.5 rounded-full uppercase">KAZAN VIEW</span>
+                        </div>
+
+                        <!-- Dining Room Grid Plan Layout -->
+                        <div class="grid grid-cols-3 gap-4 text-center">
+                            <!-- Row 1 -->
+                            <button onclick="selectTable(1, 'Панорамный вид у окна (2 персоны)')" id="table-1" class="table-selector border border-white/20 p-4 hover:border-red-600 hover:bg-red-950/20 transition-all flex flex-col justify-between items-center h-28">
+                                <span class="text-[10px] text-white/50 block">СТОЛ 01</span>
+                                <div class="w-8 h-8 rounded-full border-2 border-red-600 flex items-center justify-center text-xs font-bold text-red-600">2</div>
+                                <span class="text-[9px] font-bold uppercase tracking-widest text-red-400">У окна</span>
+                            </button>
+
+                            <button onclick="selectTable(2, 'VIP-зона у камина (4 персоны)')" id="table-2" class="table-selector border border-white/20 p-4 hover:border-red-600 hover:bg-red-950/20 transition-all flex flex-col justify-between items-center h-28">
+                                <span class="text-[10px] text-white/50 block">СТОЛ 02</span>
+                                <div class="w-12 h-8 rounded-lg border-2 border-dashed border-emerald-500 flex items-center justify-center text-xs font-bold text-emerald-500">4</div>
+                                <span class="text-[9px] font-bold uppercase tracking-widest text-emerald-400">Свободен</span>
+                            </button>
+
+                            <button onclick="selectTable(3, 'Рядом с открытой кухней (2 персоны)')" id="table-3" class="table-selector border border-white/20 p-4 hover:border-red-600 hover:bg-red-950/20 transition-all flex flex-col justify-between items-center h-28">
+                                <span class="text-[10px] text-white/50 block">СТОЛ 03</span>
+                                <div class="w-8 h-8 rounded-full border-2 border-emerald-500 flex items-center justify-center text-xs font-bold text-emerald-500">2</div>
+                                <span class="text-[9px] font-bold uppercase tracking-widest text-emerald-400">Свободен</span>
+                            </button>
+
+                            <!-- Row 2 -->
+                            <button onclick="selectTable(4, 'Большой семейный стол (6 персон)')" id="table-4" class="table-selector border border-white/20 p-4 hover:border-red-600 hover:bg-red-950/20 transition-all flex flex-col justify-between items-center h-28">
+                                <span class="text-[10px] text-white/50 block">СТОЛ 04</span>
+                                <div class="w-16 h-8 rounded-xl border-2 border-emerald-500 flex items-center justify-center text-xs font-bold text-emerald-500">6</div>
+                                <span class="text-[9px] font-bold uppercase tracking-widest text-emerald-400">Свободен</span>
+                            </button>
+
+                            <!-- Table Reserved simulated -->
+                            <button class="border border-white/10 bg-white/5 p-4 flex flex-col justify-between items-center h-28 cursor-not-allowed opacity-40">
+                                <span class="text-[10px] text-white/30 block">СТОЛ 05</span>
+                                <span class="text-xs font-bold text-red-600">ЗАНЯТ</span>
+                                <span class="text-[9px] font-bold uppercase tracking-widest text-white/30">Chef Table</span>
+                            </button>
+
+                            <button onclick="selectTable(6, 'Камерный столик для двоих (2 персоны)')" id="table-6" class="table-selector border border-white/20 p-4 hover:border-red-600 hover:bg-red-950/20 transition-all flex flex-col justify-between items-center h-28">
+                                <span class="text-[10px] text-white/50 block">СТОЛ 06</span>
+                                <div class="w-8 h-8 rounded-full border-2 border-emerald-500 flex items-center justify-center text-xs font-bold text-emerald-500">2</div>
+                                <span class="text-[9px] font-bold uppercase tracking-widest text-emerald-400">Свободен</span>
+                            </button>
+                        </div>
+
+                        <!-- Legend -->
+                        <div class="mt-6 pt-4 border-t border-white/10 flex justify-center gap-6 text-[10px] uppercase font-bold tracking-widest">
+                            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 bg-emerald-500 rounded-full"></span> Свободен</span>
+                            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 bg-red-600 rounded-full"></span> Выбран вами</span>
+                            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 bg-white/20 rounded-full"></span> Занят</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side form -->
+                <div class="lg:col-span-5 bg-white border-2 border-black p-6">
+                    <h3 class="font-black uppercase tracking-tight text-lg border-b border-black pb-3 mb-6">ДАННЫЕ РЕЗЕРВА</h3>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="text-[10px] uppercase font-bold tracking-wider text-black/60 block mb-1">Выбранный столик</label>
+                            <input id="selected-table-input" type="text" readonly value="Стол не выбран (выберите на карте)" class="w-full bg-red-50 text-red-600 border-0 p-3 text-xs font-bold outline-none">
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-[10px] uppercase font-bold tracking-wider text-black/60 block mb-1">Дата</label>
+                                <input id="res-date" type="date" class="w-full bg-neutral-100 border-0 p-2.5 text-xs font-bold outline-none">
+                            </div>
+                            <div>
+                                <label class="text-[10px] uppercase font-bold tracking-wider text-black/60 block mb-1">Время</label>
+                                <select id="res-time" class="w-full bg-neutral-100 border-0 p-2.5 text-xs font-bold outline-none">
+                                    <option>12:00</option>
+                                    <option>14:00</option>
+                                    <option>16:00</option>
+                                    <option selected>18:00</option>
+                                    <option>20:00</option>
+                                    <option>22:00</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="text-[10px] uppercase font-bold tracking-wider text-black/60 block mb-1">Имя гостя</label>
+                            <input id="res-name" type="text" placeholder="Укажите ваше имя" class="w-full bg-neutral-100 border-0 p-2.5 text-xs font-bold outline-none">
+                        </div>
+
+                        <div>
+                            <label class="text-[10px] uppercase font-bold tracking-wider text-black/60 block mb-1">Номер телефона</label>
+                            <input id="res-phone" type="tel" placeholder="+7 (___) ___-__-__" class="w-full bg-neutral-100 border-0 p-2.5 text-xs font-bold outline-none">
+                        </div>
+
+                        <div>
+                            <label class="text-[10px] uppercase font-bold tracking-wider text-black/60 block mb-1">Особые пожелания</label>
+                            <textarea id="res-notes" placeholder="Аллергии, повод для встречи, предпочтения по декору" class="w-full bg-neutral-100 border-0 p-2.5 text-xs outline-none h-20 resize-none"></textarea>
+                        </div>
+
+                        <button onclick="submitReservation()" class="w-full bg-black hover:bg-red-600 text-white font-black text-center py-4 uppercase text-xs tracking-widest mt-4 transition-all duration-300">
+                            ПОДТВЕРДИТЬ БРОНИРОВАНИЕ
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- PAGE 5: ABOUT (Our philosophy and Dream Team submission) -->
+        <section id="page-about" class="page-fade-in hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Our philosophy column -->
+                <div class="lg:col-span-6 space-y-6">
+                    <div>
+                        <span class="text-xs font-bold text-red-600 tracking-widest uppercase block mb-1">gills philosophy</span>
+                        <h2 class="text-5xl font-black uppercase tracking-tighter leading-none mb-4">ВКУС, СТИЛЬ & ЧЕСТНОСТЬ</h2>
+                        <p class="serif-font text-xl italic text-neutral-700 leading-relaxed">
+                            «Мы создали GILLS как альтернативу вычурным пафосным ресторанам. Наш фокус — чистый вкус рыбы в обрамлении лаконичного скандинавского дизайна и паназиатского колорита.»
+                        </p>
+                    </div>
+
+                    <div class="space-y-4 text-xs text-black/70 leading-relaxed">
+                        <p>
+                            Расположенное в самом историческом сердце Санкт-Петербурга, кафе GILLS сочетает в себе динамичный дух современного мегаполиса и верность классическим кулинарным традициям Японии.
+                        </p>
+                        <p>
+                            В нашем меню нет ничего лишнего — только идеально подобранные ингредиенты, кристально свежие морепродукты премиум-класса и деликатные авторские соусы, разработанные нашей креативной командой шефов.
+                        </p>
+                    </div>
+
+                    <div class="pt-6 border-t border-black/10 grid grid-cols-2 gap-4">
+                        <div>
+                            <span class="text-2xl font-black text-red-600 block">35+</span>
+                            <span class="text-[10px] uppercase font-bold tracking-widest text-black/50">Авторских рецептов</span>
+                        </div>
+                        <div>
+                            <span class="text-2xl font-black text-red-600 block">45 мин</span>
+                            <span class="text-[10px] uppercase font-bold tracking-widest text-black/50">Среднее время доставки</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Join the Dream Team Submission form -->
+                <div class="lg:col-span-6 bg-white border-2 border-black p-8 relative">
+                    <!-- Red paint blot effect top right -->
+                    <div class="absolute -top-6 -right-6 w-20 h-20 text-red-600 opacity-80 pointer-events-none float-subtle">
+                        <svg viewBox="0 0 100 100" class="w-full h-full fill-current">
+                            <path d="M30,80 C10,60 10,30 30,10 C50,0 80,10 90,30 C100,50 80,90 50,100 C40,100 35,90 30,80 Z" />
+                        </svg>
+                    </div>
+
+                    <span class="text-xs font-bold text-red-600 tracking-widest uppercase block mb-1">dream team</span>
+                    <h3 class="text-2xl font-black uppercase tracking-tight mb-2">ПРИСОЕДИНЯЙСЯ К КОМАНДЕ</h3>
+                    <p class="text-xs text-black/60 mb-6">Мы всегда в поиске талантливых суши-шефов, поваров горячего цеха и харизматичных официантов.</p>
+
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-[10px] uppercase font-bold tracking-wider block mb-1 text-black/70">Ваше имя</label>
+                                <input id="team-name" type="text" placeholder="Иван" class="w-full bg-neutral-100 border-0 p-2.5 text-xs font-bold outline-none">
+                            </div>
+                            <div>
+                                <label class="text-[10px] uppercase font-bold tracking-wider block mb-1 text-black/70">Телефон</label>
+                                <input id="team-phone" type="tel" placeholder="+7" class="w-full bg-neutral-100 border-0 p-2.5 text-xs font-bold outline-none">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="text-[10px] uppercase font-bold tracking-wider block mb-1 text-black/70">Желаемая вакансия</label>
+                            <select id="team-role" class="w-full bg-neutral-100 border-0 p-2.5 text-xs font-bold outline-none">
+                                <option>Повар суши-бара</option>
+                                <option>Повар горячего цеха</option>
+                                <option>Официант</option>
+                                <option>Администратор зала</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="text-[10px] uppercase font-bold tracking-wider block mb-1 text-black/70">Пару слов о вашем опыте</label>
+                            <textarea id="team-exp" placeholder="Расскажите о предыдущих местах работы..." class="w-full bg-neutral-100 border-0 p-2.5 text-xs outline-none h-20 resize-none"></textarea>
+                        </div>
+
+                        <button onclick="submitVacancy()" class="w-full bg-black hover:bg-red-600 text-white font-black py-4 uppercase text-xs tracking-widest mt-4 transition-all duration-300">
+                            ОТПРАВИТЬ РЕЗЮМЕ
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- CUSTOM MARQUEE FOOTER SECTION -->
+    <div class="w-full bg-black text-white py-4 overflow-hidden select-none">
+        <div class="marquee-wrapper">
+            <div class="marquee-content text-xs font-black tracking-widest uppercase flex gap-12 whitespace-nowrap">
+                <span>✦ FRESH FISH DAILY DELIVERED ✦ ONLY THE BEST QUALITY IN ST. PETERSBURG ✦ GILLS CAFE BY KAZANSKY ✦ SUSHI & COCKTAILS ✦</span>
+                <span>✦ FRESH FISH DAILY DELIVERED ✦ ONLY THE BEST QUALITY IN ST. PETERSBURG ✦ GILLS CAFE BY KAZANSKY ✦ SUSHI & COCKTAILS ✦</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN FOOTER CONTROLS AND DETAILS -->
+    <footer class="w-full bg-neutral-950 text-neutral-400 py-12 relative z-10 border-t border-white/10">
+        <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <!-- Brand Column -->
+            <div class="space-y-4">
+                <span class="text-2xl font-black tracking-tighter text-white block">GILLS</span>
+                <p class="text-xs text-neutral-500 leading-relaxed">
+                    Премиальная паназиатская кухня в авторском прочтении с быстрой доставкой по Санкт-Петербургу.
+                </p>
+                <div class="flex gap-3 text-white">
+                    <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-red-600 hover:text-white transition-all"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-red-600 hover:text-white transition-all"><i data-lucide="send" class="w-4 h-4"></i></a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-red-600 hover:text-white transition-all"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <div class="space-y-3">
+                <h4 class="text-xs font-bold text-white tracking-wider uppercase mb-1">Навигация</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="#menu" onclick="navigateTo('menu')" class="hover:text-white transition-colors">Меню блюд</a></li>
+                    <li><a href="#delivery" onclick="navigateTo('delivery')" class="hover:text-white transition-colors">Служба доставки</a></li>
+                    <li><a href="#reserve" onclick="navigateTo('reserve')" class="hover:text-white transition-colors">Зарезервировать стол</a></li>
+                    <li><a href="#about" onclick="navigateTo('about')" class="hover:text-white transition-colors">О нашей концепции</a></li>
+                </ul>
+            </div>
+
+            <!-- Contacts Info -->
+            <div class="space-y-3">
+                <h4 class="text-xs font-bold text-white tracking-wider uppercase mb-1">Контакты</h4>
+                <ul class="space-y-2 text-xs">
+                    <li class="flex items-center gap-2"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-red-600"></i> Санкт-Петербург, Казанская ул., 8-10</li>
+                    <li class="flex items-center gap-2"><i data-lucide="phone" class="w-3.5 h-3.5 text-red-600"></i> +7 (812) 999-00-22</li>
+                    <li class="flex items-center gap-2"><i data-lucide="mail" class="w-3.5 h-3.5 text-red-600"></i> info@gillscafe.ru</li>
+                </ul>
+            </div>
+
+            <!-- Live Guestbook/Feedback widget -->
+            <div class="space-y-3">
+                <h4 class="text-xs font-bold text-white tracking-wider uppercase mb-1">Написать отзыв</h4>
+                <div class="space-y-2">
+                    <input id="feedback-text" type="text" placeholder="Ваше мнение..." class="w-full bg-white/5 text-xs text-white border-0 p-2 outline-none focus:ring-1 focus:ring-red-600">
+                    <button onclick="submitFeedback()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold text-[10px] py-2 uppercase tracking-wider transition-all">Отправить</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-6xl mx-auto px-4 mt-8 pt-8 border-t border-white/5 text-center md:text-left flex flex-col md:flex-row justify-between text-[11px] text-neutral-600">
+            <p>© 2026 GILLS Asian Cafe & Restaurant. Все права защищены.</p>
+            <p class="mt-2 md:mt-0">Разработано в рамках нового фирменного стиля GILLS BRANDING.</p>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE SIDE CART MODAL / PANEL -->
+    <div id="side-cart" class="fixed inset-y-0 right-0 w-full sm:w-96 bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out border-l border-black/10 flex flex-col justify-between p-6">
+        <div>
+            <div class="flex justify-between items-center border-b border-black/10 pb-4 mb-4">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="shopping-cart" class="text-red-600 w-5 h-5"></i>
+                    <h3 class="font-black uppercase tracking-tight text-lg">Корзина</h3>
+                </div>
+                <button onclick="toggleCart()" class="text-black hover:text-red-600"><i data-lucide="x" class="w-6 h-6"></i></button>
+            </div>
+
+            <!-- Dynamic Cart Container -->
+            <div id="side-cart-list" class="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
+                <!-- Cart list injected by js -->
+            </div>
+        </div>
+
+        <!-- Footer totals & checkout button inside side panel -->
+        <div class="border-t border-black/10 pt-4">
+            <div class="flex justify-between text-sm mb-4">
+                <span class="font-bold uppercase tracking-wider">Итоговая сумма:</span>
+                <span id="side-cart-total" class="font-black text-red-600 text-lg">0 ₽</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2">
+                <button onclick="toggleCart()" class="border border-black text-black text-xs font-bold py-3 uppercase tracking-wider hover:bg-neutral-100 transition-all text-center">Продолжить</button>
+                <button onclick="goToCheckout()" class="bg-red-600 hover:bg-black text-white text-xs font-black py-3 uppercase tracking-wider transition-all text-center">Оформить</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- GENERAL MESSAGE BOX MODAL (Instead of forbidden alert()) -->
+    <div id="alert-modal" class="fixed inset-0 bg-black/75 z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white border-2 border-red-600 p-8 max-w-md w-full relative">
+            <div class="absolute top-4 right-4 text-red-600 font-black text-xl cursor-pointer select-none" onclick="closeAlert()">✖</div>
+            <div class="text-center space-y-4">
+                <div id="alert-icon-container" class="w-16 h-16 mx-auto bg-red-100 rounded-full flex items-center justify-center text-red-600">
+                    <i data-lucide="check-circle" class="w-8 h-8"></i>
+                </div>
+                <h3 id="alert-title" class="text-xl font-black uppercase tracking-tight">УСПЕШНО</h3>
+                <p id="alert-message" class="text-xs text-black/70 leading-relaxed"></p>
+                <button onclick="closeAlert()" class="px-6 py-2.5 bg-black hover:bg-red-600 text-white font-bold text-xs uppercase tracking-widest rounded-none transition-colors">
+                    ОК
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Database of menu items with Russian localization matching local authentic vibe
+        const MENU_DATA = [
+            {
+                id: 'r1',
+                name: 'Опаленный ролл с лососем и трюфелем',
+                category: 'rolls',
+                description: 'Камчатский краб, авокадо, слайсы свежего лосося под нежным соусом из белого трюфеля.',
+                price: 890,
+                weight: '260 г',
+                image: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&q=80&w=400'
+            },
+            {
+                id: 'r2',
+                name: 'Ролл Филадельфия GILLS',
+                category: 'rolls',
+                description: 'Классический ролл в премиальной интерпретации. Много лосося, нежный сливочный сыр, икра тобико.',
+                price: 790,
+                weight: '280 г',
+                image: 'https://images.unsplash.com/photo-1611143669185-af224c5e3252?auto=format&fit=crop&q=80&w=400'
+            },
+            {
+                id: 'r3',
+                name: 'Ролл с тунцом и манго',
+                category: 'rolls',
+                description: 'Филе тунца блюфин, спелое тайское манго, соус унаги, кунжут юдзу.',
+                price: 850,
+                weight: '245 г',
+                image: 'https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&q=80&w=400'
+            },
+            {
+                id: 's1',
+                name: 'Суши Тунец Блюфин (2 шт)',
+                category: 'sushi',
+                description: 'Свежайший японский тунец на фирменном заправленном рисе.',
+                price: 450,
+                weight: '60 г',
+                image: 'https://images.unsplash.com/photo-1534482421-64566f976cfa?auto=format&fit=crop&q=80&w=400'
+            },
+            {
+                id: 's2',
+                name: 'Сашими Лосось премиум',
+                category: 'sushi',
+                description: 'Слайсы охлажденного мурманского лосося с маринованным имбирем и дайконом.',
+                price: 690,
+                weight: '120 г',
+                image: 'https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?auto=format&fit=crop&q=80&w=400'
+            },
+            {
+                id: 'h1',
+                name: 'Утиная грудка с соусом хойсин',
+                category: 'hot',
+                description: 'Нежная утиная грудка су-вид, пряное пюре из батата, оригинальный соус на основе сливы и пяти специй.',
+                price: 920,
+                weight: '320 г',
+                image: 'https://images.unsplash.com/photo-1514516345957-556ca7d90a29?auto=format&fit=crop&q=80&w=400'
+            },
+            {
+                id: 'h2',
+                name: 'Гребешок с кремом из цветной капусты',
+                category: 'hot',
+                description: 'Обжаренный сахалинский гребешок, крем из печеной цветной капусты, кокосовый соус юдзу.',
+                price: 980,
+                weight: '210 г',
+                image: 'https://images.unsplash.com/photo-1532636875304-0c8fe119ff91?auto=format&fit=crop&q=80&w=400'
+            },
+            {
+                id: 'd1',
+                name: 'Коктейль "Осака Сауэр"',
+                category: 'drinks',
+                description: 'Японский виски, домашний ликер личи, сироп лемонграсса, яичный белок.',
+                price: 620,
+                weight: '150 мл',
+                image: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=400'
+            },
+            {
+                id: 'd2',
+                name: 'Зеленый чай Сенча Премиум',
+                category: 'drinks',
+                description: 'Аутентичный японский листовой чай с глубоким травянистым вкусом.',
+                price: 350,
+                weight: '500 мл',
+                image: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&q=80&w=400'
+            }
+        ];
+
+        // Core State
+        let cart = [];
+        let selectedTableId = null;
+
+        // Initialize App
+        window.addEventListener('DOMContentLoaded', () => {
+            // Setup Lucide Icons
+            lucide.createIcons();
+            
+            // Check Hash route on load
+            const hash = window.location.hash.replace('#', '') || 'home';
+            navigateTo(hash);
+
+            // Render all items in catalog
+            renderMenu('all');
+            
+            // Initialize forms listeners
+            setupPhoneMasks();
+        });
+
+        // Custom router for tab switching
+        function navigateTo(pageId) {
+            // Hide all pages
+            const pages = ['home', 'menu', 'delivery', 'reserve', 'about'];
+            pages.forEach(p => {
+                const el = document.getElementById(`page-${p}`);
+                if (el) el.classList.add('hidden');
+                
+                // Reset nav style
+                const navLink = document.getElementById(`nav-${p}`);
+                if (navLink) {
+                    if (p === 'reserve') {
+                        // Keeps special red circle, does not override classes directly
+                    } else {
+                        navLink.classList.remove('text-red-600', 'font-black');
+                        navLink.classList.add('text-black', 'hover:text-red-600');
+                    }
+                }
+            });
+
+            // Show active page
+            const activePage = document.getElementById(`page-${pageId}`);
+            if (activePage) {
+                activePage.classList.remove('hidden');
+                activePage.classList.add('page-fade-in');
+            }
+
+            // Highlight active link
+            const activeNavLink = document.getElementById(`nav-${pageId}`);
+            if (activeNavLink && pageId !== 'reserve') {
+                activeNavLink.classList.add('text-red-600', 'font-black');
+            }
+
+            // Scroll to top of content
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Render Menu Catalog Cards
+        function renderMenu(categoryFilter = 'all') {
+            const grid = document.getElementById('menu-items-grid');
+            if (!grid) return;
+
+            grid.innerHTML = '';
+            const filtered = categoryFilter === 'all' 
+                ? MENU_DATA 
+                : MENU_DATA.filter(item => item.category === categoryFilter);
+
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'group bg-white border border-black/10 overflow-hidden flex flex-col justify-between hover:shadow-lg transition-all duration-300';
+                card.innerHTML = `
+                    <div>
+                        <div class="relative overflow-hidden aspect-video bg-neutral-100">
+                            <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <span class="absolute top-2 right-2 bg-black text-white text-[10px] font-bold px-2 py-0.5 tracking-wider">
+                                ${item.weight}
+                            </span>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-black text-base uppercase tracking-tight mb-2 group-hover:text-red-600 transition-colors">${item.name}</h3>
+                            <p class="text-xs text-black/60 line-clamp-3">${item.description}</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0 border-t border-black/5 mt-auto flex justify-between items-center bg-neutral-50/50">
+                        <span class="text-base font-black text-black">${item.price} ₽</span>
+                        <button onclick="addToCart('${item.id}')" class="flex items-center gap-1.5 bg-black hover:bg-red-600 text-white font-black text-[10px] uppercase tracking-widest px-4 py-2 transition-colors">
+                            <i data-lucide="plus" class="w-3.5 h-3.5"></i> Добавить
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            lucide.createIcons();
+        }
+
+        // Filter active category highlighted buttons
+        function filterMenu(category) {
+            // Update active style buttons
+            const buttons = document.querySelectorAll('.menu-cat-btn');
+            buttons.forEach(btn => {
+                btn.className = 'menu-cat-btn px-4 py-2 bg-white text-black hover:bg-black/5 border border-black/10 rounded-none transition-all';
+            });
+
+            const activeBtn = document.getElementById(`btn-cat-${category}`);
+            if (activeBtn) {
+                activeBtn.className = 'menu-cat-btn px-4 py-2 bg-black text-white rounded-none transition-all';
+            }
+
+            renderMenu(category);
+        }
+
+        // Cart State Management
+        function addToCart(itemId) {
+            const item = MENU_DATA.find(i => i.id === itemId);
+            if (!item) return;
+
+            const existing = cart.find(i => i.id === itemId);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ ...item, quantity: 1 });
+            }
+
+            updateCartUI();
+            
+            // Visual trigger/notification inside footer badge
+            const badge = document.getElementById('cart-badge');
+            badge.classList.add('scale-125', 'bg-emerald-500');
+            setTimeout(() => {
+                badge.classList.remove('scale-125', 'bg-emerald-500');
+            }, 300);
+        }
+
+        function removeFromCart(itemId) {
+            cart = cart.filter(item => item.id !== itemId);
+            updateCartUI();
+        }
+
+        function changeQty(itemId, amount) {
+            const item = cart.find(i => i.id === itemId);
+            if (!item) return;
+
+            item.quantity += amount;
+            if (item.quantity <= 0) {
+                removeFromCart(itemId);
+            } else {
+                updateCartUI();
+            }
+        }
+
+        function clearCart() {
+            cart = [];
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            // Badges
+            const totalCount = cart.reduce((acc, item) => acc + item.quantity, 0);
+            document.getElementById('cart-badge').innerText = totalCount;
+
+            // Delivery page cart list renderer
+            const cartItemsContainer = document.getElementById('cart-items-list');
+            const sideCartContainer = document.getElementById('side-cart-list');
+
+            const renderItemRow = (item) => `
+                <div class="flex justify-between items-center bg-neutral-50 p-3 border border-black/5">
+                    <div class="flex-grow">
+                        <h4 class="text-xs font-bold uppercase tracking-tight">${item.name}</h4>
+                        <span class="text-[10px] text-black/50">${item.price} ₽ x ${item.quantity}</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="changeQty('${item.id}', -1)" class="w-5 h-5 bg-black/5 hover:bg-black/20 text-xs font-bold flex items-center justify-center">-</button>
+                        <span class="text-xs font-bold w-4 text-center">${item.quantity}</span>
+                        <button onclick="changeQty('${item.id}', 1)" class="w-5 h-5 bg-black/5 hover:bg-black/20 text-xs font-bold flex items-center justify-center">+</button>
+                        <button onclick="removeFromCart('${item.id}')" class="text-red-600 hover:text-black ml-1"><i data-lucide="trash" class="w-3.5 h-3.5"></i></button>
+                    </div>
+                </div>
+            `;
+
+            // Setup HTML lists
+            if (cart.length === 0) {
+                const emptyStateHtml = `
+                    <div class="text-center py-8 text-black/40 text-xs">
+                        <i data-lucide="shopping-basket" class="w-8 h-8 mx-auto mb-2 opacity-55"></i>
+                        Корзина пока пуста.<br>Добавьте вкусные блюда в меню!
+                    </div>
+                `;
+                if (cartItemsContainer) cartItemsContainer.innerHTML = emptyStateHtml;
+                if (sideCartContainer) sideCartContainer.innerHTML = emptyStateHtml;
+            } else {
+                const listHtml = cart.map(item => renderItemRow(item)).join('');
+                if (cartItemsContainer) cartItemsContainer.innerHTML = listHtml;
+                if (sideCartContainer) sideCartContainer.innerHTML = listHtml;
+            }
+
+            // Calculations
+            const subtotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+            const shipping = subtotal > 3000 || subtotal === 0 ? 0 : 350;
+            const total = subtotal + shipping;
+
+            document.getElementById('cart-subtotal').innerText = `${subtotal} ₽`;
+            document.getElementById('cart-shipping').innerText = shipping === 0 ? 'Бесплатно' : `${shipping} ₽`;
+            document.getElementById('cart-total').innerText = `${total} ₽`;
+            document.getElementById('side-cart-total').innerText = `${total} ₽`;
+
+            lucide.createIcons();
+        }
+
+        // Side Drawer Toggle
+        function toggleCart() {
+            const drawer = document.getElementById('side-cart');
+            if (drawer.classList.contains('translate-x-full')) {
+                drawer.classList.remove('translate-x-full');
+            } else {
+                drawer.classList.add('translate-x-full');
+            }
+        }
+
+        function goToCheckout() {
+            toggleCart();
+            navigateTo('delivery');
+        }
+
+        // Reservation Map Selection logic
+        function selectTable(id, description) {
+            selectedTableId = id;
+            
+            // Remove selection class from all
+            const selectors = document.querySelectorAll('.table-selector');
+            selectors.forEach(sel => {
+                sel.classList.remove('border-red-600', 'bg-red-950/20');
+                sel.classList.add('border-white/20');
+            });
+
+            // Highlight selected
+            const activeSel = document.getElementById(`table-${id}`);
+            if (activeSel) {
+                activeSel.classList.remove('border-white/20');
+                activeSel.classList.add('border-red-600', 'bg-red-950/20');
+            }
+
+            // Set text label in reservation form
+            document.getElementById('selected-table-input').value = `СТОЛ ${id} — ${description}`;
+        }
+
+        // Alerts helper
+        function showAlert(title, text, isSuccess = true) {
+            document.getElementById('alert-title').innerText = title;
+            document.getElementById('alert-message').innerText = text;
+            
+            const iconContainer = document.getElementById('alert-icon-container');
+            if (isSuccess) {
+                iconContainer.className = "w-16 h-16 mx-auto bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600";
+                iconContainer.innerHTML = `<i data-lucide="check-circle" class="w-8 h-8"></i>`;
+            } else {
+                iconContainer.className = "w-16 h-16 mx-auto bg-red-100 rounded-full flex items-center justify-center text-red-600";
+                iconContainer.innerHTML = `<i data-lucide="alert-triangle" class="w-8 h-8"></i>`;
+            }
+            
+            document.getElementById('alert-modal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeAlert() {
+            document.getElementById('alert-modal').classList.add('hidden');
+        }
+
+        // Submit Delivery Order Simulator
+        function submitOrder() {
+            const name = document.getElementById('del-name').value.trim();
+            const phone = document.getElementById('del-phone').value.trim();
+            const address = document.getElementById('del-address').value.trim();
+
+            if (cart.length === 0) {
+                showAlert('Внимание', 'Ваша корзина пуста. Выберите блюда из меню для оформления доставки.', false);
+                return;
+            }
+
+            if (!name || !phone || !address) {
+                showAlert('Заполните данные', 'Пожалуйста, укажите имя, контактный телефон и точный адрес доставки.', false);
+                return;
+            }
+
+            // Simulate server response
+            const total = document.getElementById('cart-total').innerText;
+            showAlert(
+                'Заказ оформлен!', 
+                `Уважаемый(ая) ${name}, ваш заказ на сумму ${total} успешно принят! Курьер свяжется с вами по номеру ${phone} в течение 45 минут.`,
+                true
+            );
+
+            // Clean cart state after successful purchase
+            clearCart();
+            document.getElementById('del-name').value = '';
+            document.getElementById('del-phone').value = '';
+            document.getElementById('del-address').value = '';
+            document.getElementById('del-comment').value = '';
+        }
+
+        // Submit Table Booking Simulator
+        function submitReservation() {
+            const table = document.getElementById('selected-table-input').value;
+            const date = document.getElementById('res-date').value;
+            const name = document.getElementById('res-name').value.trim();
+            const phone = document.getElementById('res-phone').value.trim();
+
+            if (!selectedTableId) {
+                showAlert('Выберите стол', 'Пожалуйста, выберите подходящий столик на интерактивной карте зала слева.', false);
+                return;
+            }
+
+            if (!date || !name || !phone) {
+                showAlert('Заполните форму', 'Пожалуйста, укажите дату, ваше имя и контактный телефон.', false);
+                return;
+            }
+
+            showAlert(
+                'Резерв подтвержден!',
+                `Уважаемый(ая) ${name}, ${table} зарезервирован на ваше имя на дату ${date} в ${document.getElementById('res-time').value}. Ждем вас!`,
+                true
+            );
+
+            // Reset Reservation Form
+            document.getElementById('selected-table-input').value = 'Стол не выбран (выберите на карте)';
+            document.getElementById('res-date').value = '';
+            document.getElementById('res-name').value = '';
+            document.getElementById('res-phone').value = '';
+            document.getElementById('res-notes').value = '';
+            
+            // Clear selection classes
+            const selectors = document.querySelectorAll('.table-selector');
+            selectors.forEach(sel => {
+                sel.classList.remove('border-red-600', 'bg-red-950/20');
+                sel.classList.add('border-white/20');
+            });
+            selectedTableId = null;
+        }
+
+        // Submit Vacancy application
+        function submitVacancy() {
+            const name = document.getElementById('team-name').value.trim();
+            const phone = document.getElementById('team-phone').value.trim();
+            const role = document.getElementById('team-role').value;
+
+            if (!name || !phone) {
+                showAlert('Внимание', 'Пожалуйста, укажите ваше имя и контактный телефон для связи.', false);
+                return;
+            }
+
+            showAlert(
+                'Резюме отправлено',
+                `Спасибо, ${name}! Мы получили вашу заявку на позицию "${role}". Отдел кадров свяжется с вами в течение рабочего дня.`,
+                true
+            );
+
+            document.getElementById('team-name').value = '';
+            document.getElementById('team-phone').value = '';
+            document.getElementById('team-exp').value = '';
+        }
+
+        // Submit guest feedback
+        function submitFeedback() {
+            const txt = document.getElementById('feedback-text').value.trim();
+            if (!txt) {
+                showAlert('Внимание', 'Пожалуйста, напишите ваш отзыв перед отправкой.', false);
+                return;
+            }
+
+            showAlert(
+                'Благодарим за отзыв!',
+                'Ваш отзыв передан руководству ресторана. Мы постоянно совершенствуемся благодаря вам.',
+                true
+            );
+            document.getElementById('feedback-text').value = '';
+        }
+
+        // Simple helper helper to setup placeholder formatting
+        function setupPhoneMasks() {
+            const inputs = ['del-phone', 'res-phone', 'team-phone'];
+            inputs.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.addEventListener('focus', () => {
+                        if (!el.value) el.value = '+7 ';
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+9

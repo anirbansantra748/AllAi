@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShanShui — The Zen Design Collective & Tea Sanctuary</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for exquisite serif and sans-serif pairing -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@200;300;400;500;600&family=Noto+Serif+SC:wght@300;400;600;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome for clean layout icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Cinzel', 'Noto Serif SC', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        parchment: {
+                            50: '#FDFDF9',
+                            100: '#FAF7F0',
+                            200: '#F3EFE3',
+                            300: '#EAE2D1',
+                            900: '#1C1A14'
+                        },
+                        ink: {
+                            50: '#F0F3F4',
+                            300: '#9FB1BC',
+                            500: '#5C6B73',
+                            700: '#3A4B53',
+                            900: '#1E2522'
+                        },
+                        blossom: {
+                            100: '#FFF0F2',
+                            300: '#F8C8D1',
+                            500: '#E25F70',
+                            700: '#B03649'
+                        }
+                    },
+                    letterSpacing: {
+                        widest: '.25em',
+                        extra: '.4em',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* CSS Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF7F0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #9FB1BC;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #5C6B73;
+        }
+
+        /* SVG Paper Texture overlay */
+        .paper-grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            opacity: 0.04;
+        }
+
+        /* Floating Blossom animation */
+        @keyframes drift {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.9;
+            }
+            90% {
+                opacity: 0.9;
+            }
+            100% {
+                transform: translate(-150px, 800px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .petal {
+            position: absolute;
+            background: radial-gradient(circle, #FFF0F2 0%, #F8C8D1 70%, #E25F70 100%);
+            border-radius: 15% 100% 15% 100%;
+            pointer-events: none;
+            z-index: 40;
+            box-shadow: 0 2px 5px rgba(226, 95, 112, 0.15);
+        }
+
+        /* Mist animation */
+        @keyframes driftMist {
+            0% { transform: translateX(-5%); }
+            50% { transform: translateX(5%); }
+            100% { transform: translateX(-5%); }
+        }
+        .mist-layer {
+            animation: driftMist 45s ease-in-out infinite;
+        }
+
+        /* Calligraphy stamp bounce */
+        .stamp-glow {
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .stamp-glow:hover {
+            box-shadow: 0 0 15px rgba(226, 95, 112, 0.4);
+            transform: scale(1.05) rotate(-2deg);
+        }
+
+        /* Ink Bleed Hover Effect */
+        .ink-bleed-btn {
+            position: relative;
+            overflow: hidden;
+            transition: color 0.4s ease;
+        }
+        .ink-bleed-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: #1E2522;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+            z-index: -1;
+        }
+        .ink-bleed-btn:hover::after {
+            width: 300%;
+            height: 300%;
+        }
+        .ink-bleed-btn:hover {
+            color: #FAF7F0 !important;
+        }
+
+        /* Elegant Zen pulse */
+        @keyframes pulseRing {
+            0% { transform: scale(0.95); opacity: 0.5; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(0.95); opacity: 0.5; }
+        }
+        .zen-pulse {
+            animation: pulseRing 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-parchment-100 text-ink-900 font-sans selection:bg-blossom-300 relative overflow-x-hidden">
+
+    <!-- Paper Grain SVG Filter Base -->
+    <svg class="paper-grain" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+        <filter id="noiseFilter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
+            <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.15 0" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#noiseFilter)" />
+    </svg>
+
+    <!-- Interactive Falling Blossoms Container -->
+    <div id="petal-container" class="absolute top-0 left-0 w-full h-[300vh] pointer-events-none overflow-hidden z-20"></div>
+
+    <!-- MAIN IMMERSIVE AUDIO / NAVIGATION SYSTEM -->
+    <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b border-ink-300/10 backdrop-blur-md bg-parchment-100/85 px-6 lg:px-16 py-4 flex justify-between items-center">
+        <!-- Brand Mark -->
+        <a href="#" class="flex items-center space-x-3 group">
+            <div class="relative w-9 h-9 flex items-center justify-center bg-blossom-700 text-parchment-100 rounded-sm font-serif text-lg font-bold stamp-glow shadow-sm">
+                山
+                <span class="absolute -bottom-1 -right-1 text-[8px] bg-ink-900 text-parchment-100 px-0.5 scale-90 rounded">水</span>
+            </div>
+            <div class="flex flex-col">
+                <span class="font-serif tracking-widest text-sm font-semibold uppercase text-ink-900 group-hover:text-blossom-700 transition-colors">SHAN SHUI</span>
+                <span class="text-[9px] tracking-extra uppercase text-ink-500 font-sans -mt-1">Atelier & Sanctuary</span>
+            </div>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center space-x-10 text-xs tracking-extra font-medium uppercase text-ink-700">
+            <a href="#about" class="hover:text-blossom-500 transition-colors duration-300">Our Origin</a>
+            <a href="#services" class="hover:text-blossom-500 transition-colors duration-300">Ateliers</a>
+            <a href="#experience" class="hover:text-blossom-500 transition-colors duration-300">Zen Ritual</a>
+            <a href="#portfolio" class="hover:text-blossom-500 transition-colors duration-300">The Gallery</a>
+            <a href="#contact" class="hover:text-blossom-500 transition-colors duration-300">Presence</a>
+        </nav>
+
+        <!-- Right Side: Soundscape controller & CTA -->
+        <div class="flex items-center space-x-4">
+            <!-- Soundscape Ambient Synth -->
+            <button id="soundscape-btn" class="group relative flex items-center justify-center space-x-2 border border-ink-300/30 px-3 py-1.5 rounded-full hover:bg-parchment-200 transition-all text-xs text-ink-700">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blossom-500 opacity-75"></span>
+                    <span id="sound-indicator" class="relative inline-flex rounded-full h-2 w-2 bg-ink-500"></span>
+                </span>
+                <span class="font-sans text-[10px] tracking-widest uppercase">Chimes: Off</span>
+            </button>
+            
+            <a href="#contact" class="hidden sm:inline-block ink-bleed-btn bg-transparent border border-ink-900 text-ink-900 px-5 py-2 text-xs tracking-widest uppercase font-medium rounded-sm">
+                Enquire
+            </a>
+
+            <!-- Mobile menu button -->
+            <button id="mobile-menu-toggle" class="md:hidden text-ink-900 hover:text-blossom-500 focus:outline-none">
+                <i class="fa-solid fa-bars-staggered text-xl"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="fixed inset-0 bg-parchment-100 z-40 transform translate-x-full transition-transform duration-500 ease-in-out md:hidden flex flex-col justify-center items-center space-y-8 text-center px-6">
+        <button id="mobile-menu-close" class="absolute top-6 right-6 text-2xl text-ink-900 hover:text-blossom-500">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="w-12 h-12 flex items-center justify-center bg-blossom-700 text-parchment-100 rounded-sm font-serif text-2xl font-bold stamp-glow mb-4">
+            山
+        </div>
+        <nav class="flex flex-col space-y-6 text-sm tracking-widest uppercase font-medium">
+            <a href="#about" class="mobile-link text-ink-900 hover:text-blossom-500 transition-colors">Our Origin</a>
+            <a href="#services" class="mobile-link text-ink-900 hover:text-blossom-500 transition-colors">Ateliers</a>
+            <a href="#experience" class="mobile-link text-ink-900 hover:text-blossom-500 transition-colors">Zen Ritual</a>
+            <a href="#portfolio" class="mobile-link text-ink-900 hover:text-blossom-500 transition-colors">The Gallery</a>
+            <a href="#contact" class="mobile-link text-ink-900 hover:text-blossom-500 transition-colors">Presence</a>
+        </nav>
+        <div class="h-[1px] w-24 bg-ink-300/30 my-4"></div>
+        <a href="#contact" class="mobile-link ink-bleed-btn border border-ink-900 px-8 py-3 text-xs tracking-extra uppercase font-semibold">
+            Begin Journey
+        </a>
+    </div>
+
+    <!-- HERO SECTION (ATMOSPHERIC DEEP SCENERY) -->
+    <section class="relative min-h-screen pt-24 flex flex-col justify-between overflow-hidden border-b border-ink-300/10">
+        <!-- SVG Hand-Drawn Spring Branch (Top Left Corner Break-Frame) -->
+        <div class="absolute top-0 left-0 w-[45%] md:w-[25%] max-w-[400px] pointer-events-none z-30 select-none">
+            <svg class="w-full h-auto opacity-90 drop-shadow-sm" viewBox="0 0 350 350" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Branches -->
+                <path d="M0 0C45 60 110 90 180 110C210 118 250 112 280 120" stroke="#3A2D28" stroke-width="4" stroke-linecap="round"/>
+                <path d="M80 43C120 70 160 65 190 55C210 48 230 35 250 20" stroke="#3A2D28" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M125 79C145 110 175 125 210 135" stroke="#3A2D28" stroke-width="2" stroke-linecap="round"/>
+                <path d="M180 110C190 145 220 170 250 185" stroke="#3A2D28" stroke-width="2" stroke-linecap="round"/>
+                <path d="M220 115C240 100 270 95 295 90" stroke="#3A2D28" stroke-width="1.5" stroke-linecap="round"/>
+
+                <!-- Delicate Petal clusters (Plum/Cherry Blossom) -->
+                <!-- Cluster 1 -->
+                <circle cx="140" cy="72" r="10" fill="#E25F70" opacity="0.85"/>
+                <circle cx="142" cy="74" r="7" fill="#FFF0F2" opacity="0.95"/>
+                <circle cx="140" cy="72" r="2" fill="#F8C8D1"/>
+
+                <circle cx="110" cy="55" r="8" fill="#E25F70" opacity="0.85"/>
+                <circle cx="109" cy="53" r="6" fill="#FFF0F2" opacity="0.95"/>
+
+                <!-- Cluster 2 -->
+                <circle cx="190" cy="105" r="12" fill="#E25F70" opacity="0.85"/>
+                <circle cx="193" cy="107" r="9" fill="#FFF0F2" opacity="0.95"/>
+                <circle cx="190" cy="105" r="3" fill="#B03649"/>
+                
+                <circle cx="215" cy="130" r="9" fill="#E25F70" opacity="0.8"/>
+                <circle cx="213" cy="128" r="7" fill="#FFF0F2" opacity="0.9"/>
+
+                <!-- Cluster 3 -->
+                <circle cx="265" cy="115" r="11" fill="#E25F70" opacity="0.85"/>
+                <circle cx="267" cy="117" r="8" fill="#FFF0F2" opacity="0.95"/>
+                <circle cx="264" cy="114" r="2" fill="#B03649"/>
+
+                <!-- Buds along the tips -->
+                <circle cx="280" cy="120" r="4" fill="#E25F70"/>
+                <circle cx="295" cy="90" r="3" fill="#E25F70"/>
+                <circle cx="250" cy="20" r="3" fill="#E25F70"/>
+                <circle cx="250" cy="185" r="4" fill="#E25F70"/>
+            </svg>
+        </div>
+
+        <!-- Ambient Rising Soft Crimson Sun/Red Stamp Aura -->
+        <div class="absolute right-[12%] top-[15%] w-32 h-32 md:w-48 md:h-48 rounded-full bg-gradient-to-tr from-blossom-500/10 to-blossom-500/30 filter blur-xl pointer-events-none select-none"></div>
+
+        <!-- The Hero Title Area -->
+        <div class="container mx-auto px-6 lg:px-16 pt-16 md:pt-28 pb-6 flex flex-col justify-start relative z-30">
+            <div class="max-w-4xl">
+                <!-- Tiny Subtitle with crimson stamp design -->
+                <div class="flex items-center space-x-3 mb-6">
+                    <span class="w-8 h-[1px] bg-blossom-500"></span>
+                    <span class="text-xs tracking-extra uppercase text-ink-700 font-medium">DESIGN, TEA, & ATELIER RITUALS</span>
+                    <span class="text-[9px] bg-blossom-500/10 text-blossom-700 px-2 py-0.5 border border-blossom-500/30 rounded font-serif">印</span>
+                </div>
+
+                <!-- Grand Heading mimicking ancient poetry & modern structure -->
+                <h1 class="font-serif text-4xl sm:text-5xl lg:text-7xl font-light text-ink-900 leading-[1.15] mb-8">
+                    Whispers of <span class="font-normal italic text-ink-700">the Mist</span>,<br>
+                    Silence of the <span class="font-normal border-b-2 border-blossom-500/40 pb-1 text-blossom-700">Brush</span>.
+                </h1>
+
+                <!-- Brand Pitch -->
+                <p class="font-sans text-sm md:text-base text-ink-700 font-light leading-relaxed max-w-xl mb-10 tracking-wide">
+                    Where ancient Chinese ink-wash aesthetic meets modern design minimalism. We curate sublime spaces, brand experiences, and physical rituals that allow the soul to breathe.
+                </p>
+
+                <!-- Interactive CTA Buttons -->
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center space-y-4 sm:space-y-0 sm:space-x-6">
+                    <a href="#services" class="ink-bleed-btn inline-flex justify-center items-center bg-ink-900 border border-ink-900 text-parchment-100 px-8 py-4 text-xs tracking-extra uppercase font-semibold rounded-sm transition-all shadow-md">
+                        Explore Ateliers <i class="fa-solid fa-arrow-right-long ml-3"></i>
+                    </a>
+                    <a href="#experience" class="inline-flex justify-center items-center border border-ink-500/40 text-ink-900 hover:bg-parchment-200 px-8 py-4 text-xs tracking-extra uppercase font-medium rounded-sm transition-all">
+                        Experience Tea Ritual
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ATMOSPHERIC SCENERY MOUNTAINS BACKGROUND (RISING FROM THE BOTTOM) -->
+        <div class="relative w-full h-[320px] md:h-[450px] overflow-hidden select-none pointer-events-none z-10 flex flex-col justify-end">
+            <!-- Sky/Sun back layer -->
+            <div class="absolute inset-0 flex items-center justify-end pr-[15%] pb-36">
+                <!-- Red Traditional Sun -->
+                <div class="w-14 h-14 md:w-20 md:h-20 rounded-full bg-gradient-to-t from-blossom-700 to-blossom-500/70 opacity-80 shadow-[0_0_20px_rgba(226,95,112,0.3)]"></div>
+            </div>
+
+            <!-- Drifting Birds Silhouette Layer -->
+            <div class="absolute top-[10%] left-[30%] w-64 h-24 opacity-60">
+                <svg class="w-full h-full text-ink-700" viewBox="0 0 200 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 20C15 17 20 22 25 25C23 18 18 12 10 20Z" fill="currentColor"/>
+                    <path d="M45 15C50 12 55 17 60 20C58 13 53 7 45 15Z" fill="currentColor"/>
+                    <path d="M80 35C83 33 87 36 90 38C89 34 86 31 80 35Z" fill="currentColor"/>
+                    <path d="M110 25C114 22 119 26 123 29C121 23 117 18 110 25Z" fill="currentColor"/>
+                    <!-- Flying V-formation birds -->
+                    <path d="M135 45L140 43L142 46L139 48L135 45Z" fill="currentColor"/>
+                    <path d="M150 50L154 48L156 51L153 53L150 50Z" fill="currentColor"/>
+                    <path d="M165 47L168 45L170 48L167 50L165 47Z" fill="currentColor"/>
+                </svg>
+            </div>
+
+            <!-- Layer 4: Distant Pale Mountains (Mountain Ridge Backdrop) -->
+            <div class="absolute bottom-0 w-full transform translate-y-8 z-0 opacity-40">
+                <svg class="w-full h-auto" viewBox="0 0 1440 320" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                    <path d="M0 320V120L180 180L360 110L540 210L720 160L900 240L1080 140L1260 220L1440 100V320H0Z" fill="url(#mountainGradFar)"/>
+                    <defs>
+                        <linearGradient id="mountainGradFar" x1="720" y1="100" x2="720" y2="320" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#8AA29E" stop-opacity="0.6"/>
+                            <stop offset="100%" stop-color="#F3EFE3" stop-opacity="0.9"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+
+            <!-- Layer 3: Misty Middle Mountains -->
+            <div class="absolute bottom-0 w-full transform translate-y-4 z-10 opacity-60">
+                <svg class="w-full h-auto" viewBox="0 0 1440 320" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                    <path d="M0 320V160L120 130L280 210L480 140L640 220L820 150L980 210L1140 120L1300 180L1440 110V320H0Z" fill="url(#mountainGradMid)"/>
+                    <defs>
+                        <linearGradient id="mountainGradMid" x1="720" y1="110" x2="720" y2="320" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#5C6B73" stop-opacity="0.75"/>
+                            <stop offset="100%" stop-color="#EAE2D1" stop-opacity="0.9"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+
+            <!-- Layer 2: Misty Fog Atmospheric Wave (CSS animated) -->
+            <div class="absolute bottom-0 w-[120%] h-32 z-20 opacity-40 mist-layer select-none pointer-events-none">
+                <svg class="w-full h-full" viewBox="0 0 1800 150" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                    <path d="M0 150V50C300 120 600 20 900 80C1200 10 1500 110 1800 50V150H0Z" fill="url(#mistGrad)"/>
+                    <defs>
+                        <linearGradient id="mistGrad" x1="900" y1="10" x2="900" y2="150" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#FAF7F0" stop-opacity="0.1"/>
+                            <stop offset="50%" stop-color="#FAF7F0" stop-opacity="0.8"/>
+                            <stop offset="100%" stop-color="#FAF7F0" stop-opacity="1"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+
+            <!-- Layer 1: Foreground Detailed Ink-wash Mountains (High Contrast Charcoal & Soft reflection) -->
+            <div class="relative w-full z-30 transform translate-y-1">
+                <!-- Tiny Fishing Boat SVG floating on foreground water edge -->
+                <div class="absolute top-[5%] left-[25%] md:left-[35%] w-16 h-8 opacity-80 animate-pulse duration-1000">
+                    <svg class="w-full h-full text-ink-900" viewBox="0 0 100 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Tiny boat -->
+                        <path d="M20 30C40 30 50 28 65 32C55 35 30 35 20 30Z" fill="currentColor"/>
+                        <!-- Fisherman -->
+                        <circle cx="48" cy="24" r="2.5" fill="currentColor"/>
+                        <!-- Fishing pole -->
+                        <line x1="48" y1="24" x2="68" y2="15" stroke="currentColor" stroke-width="0.75"/>
+                        <!-- Water ripples -->
+                        <path d="M10 34C30 34 50 35 80 33" stroke="currentColor" stroke-width="0.5" stroke-dasharray="4 2" opacity="0.4"/>
+                    </svg>
+                </div>
+
+                <svg class="w-full h-auto" viewBox="0 0 1440 320" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                    <!-- Crisp mountain details with delicate overlay lines mimicking paper-brush borders -->
+                    <path d="M0 320V200L150 240L280 180L450 250L600 170L780 230L950 160L1120 220L1300 140L1440 210V320H0Z" fill="url(#mountainGradFore)"/>
+                    
+                    <!-- Delicate sketch highlights overlapping ridges -->
+                    <path d="M0 200L150 240" stroke="#3A4B53" stroke-width="0.75" opacity="0.5"/>
+                    <path d="M150 240L280 180" stroke="#1E2522" stroke-width="0.75" opacity="0.4"/>
+                    <path d="M280 180L450 250" stroke="#3A4B53" stroke-width="0.75" opacity="0.5"/>
+                    <path d="M600 170L780 230" stroke="#1E2522" stroke-width="0.75" opacity="0.4"/>
+                    <path d="M950 160L1120 220" stroke="#3A4B53" stroke-width="0.75" opacity="0.5"/>
+
+                    <defs>
+                        <linearGradient id="mountainGradFore" x1="720" y1="140" x2="720" y2="320" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#3A4B53" stop-opacity="0.95"/>
+                            <stop offset="40%" stop-color="#1E2522" stop-opacity="0.9"/>
+                            <stop offset="100%" stop-color="#FAF7F0" stop-opacity="1"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: THE ATELIER PHILOSOPHY & METRICS -->
+    <section id="about" class="py-24 bg-parchment-200/50 relative border-b border-ink-300/10">
+        <!-- Floating Cherry Blossom Branch (Mid right) -->
+        <div class="absolute right-0 top-1/4 w-[20%] max-w-[250px] opacity-60 pointer-events-none select-none">
+            <svg class="w-full h-auto transform scale-x-[-1]" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0C50 40 100 60 160 80" stroke="#3A2D28" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="100" cy="50" r="8" fill="#E25F70" opacity="0.75"/>
+                <circle cx="102" cy="52" r="5" fill="#FFF0F2" opacity="0.9"/>
+                <circle cx="130" cy="65" r="9" fill="#E25F70" opacity="0.75"/>
+                <circle cx="132" cy="67" r="6" fill="#FFF0F2" opacity="0.9"/>
+            </svg>
+        </div>
+
+        <div class="container mx-auto px-6 lg:px-16">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                
+                <!-- Philosophy Text Column -->
+                <div class="lg:col-span-7">
+                    <div class="mb-4 flex items-center space-x-2 text-xs tracking-widest text-blossom-700 font-medium">
+                        <span class="inline-block w-4 h-[1px] bg-blossom-500"></span>
+                        <span>ATELIER GENESIS</span>
+                    </div>
+                    <h2 class="font-serif text-3xl sm:text-5xl font-light text-ink-900 leading-tight mb-8">
+                        The convergence of <br><span class="italic font-normal text-ink-700">ink, breath, and spatial silence</span>.
+                    </h2>
+                    
+                    <div class="space-y-6 text-ink-700 font-light text-sm sm:text-base leading-relaxed tracking-wide">
+                        <p>
+                            We believe that spaces and visual cultures should reflect the depth of stillness. Our work draws directly from the <em>"Three Far Distances"</em> parameter of Chinese classical landscaping: atmospheric altitude, layered mist, and profound flat expanse.
+                        </p>
+                        <p class="border-l-2 border-blossom-500/40 pl-6 my-6 italic text-ink-900 font-sans">
+                            "When ink meets paper, it expresses the state of the artist's mind. When modern geometry meets empty space, it allows the inhabitant to return to quietude."
+                        </p>
+                        <p>
+                            From identity design for high-end boutique hotels to our bespoke wellness spaces and hand-pressed organic teas, we maintain a singular, uninterrupted thread of premium tranquility.
+                        </p>
+                    </div>
+
+                    <!-- Authentic Signature Red Chop stamp -->
+                    <div class="mt-8 flex items-center space-x-4">
+                        <div class="w-12 h-12 border-2 border-blossom-700 flex items-center justify-center font-serif text-blossom-700 font-bold p-1 stamp-glow select-none pointer-events-auto" title="Seal of Serenity">
+                            <span class="text-xs tracking-tighter leading-none text-center block">山水<br>精神</span>
+                        </div>
+                        <div>
+                            <p class="font-serif text-xs uppercase tracking-widest text-ink-900 font-semibold">The Seal of ShanShui</p>
+                            <p class="text-[10px] text-ink-500 tracking-wider">Original Design & Sensory Collection • Registered 2026</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Visual Panel with traditional grid line design -->
+                <div class="lg:col-span-5 relative">
+                    <div class="border border-ink-300/30 p-8 sm:p-12 bg-parchment-100 rounded-sm relative shadow-sm">
+                        <!-- Red Corner Accents -->
+                        <span class="absolute top-2 left-2 w-3 h-3 border-t border-l border-blossom-500"></span>
+                        <span class="absolute top-2 right-2 w-3 h-3 border-t border-r border-blossom-500"></span>
+                        <span class="absolute bottom-2 left-2 w-3 h-3 border-b border-l border-blossom-500"></span>
+                        <span class="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-blossom-500"></span>
+
+                        <h3 class="font-serif text-xs uppercase tracking-extra text-ink-500 mb-8 border-b border-ink-300/20 pb-4">SANCTUARY RATIOS</h3>
+
+                        <div class="space-y-8">
+                            <div>
+                                <div class="flex justify-between items-baseline mb-2">
+                                    <span class="font-serif text-xs uppercase tracking-widest text-ink-900 font-medium">Spacial Air & Breathable White</span>
+                                    <span class="text-xs font-serif text-blossom-700">65%</span>
+                                </div>
+                                <div class="w-full bg-parchment-200 h-[3px]">
+                                    <div class="bg-gradient-to-r from-ink-700 to-blossom-500 h-[3px]" style="width: 65%"></div>
+                                </div>
+                                <p class="text-[10px] text-ink-500 mt-1 font-light tracking-wide">Empty margins left entirely raw for mental expansion</p>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between items-baseline mb-2">
+                                    <span class="font-serif text-xs uppercase tracking-widest text-ink-900 font-medium">Organic Handcrafted Elements</span>
+                                    <span class="text-xs font-serif text-blossom-700">100%</span>
+                                </div>
+                                <div class="w-full bg-parchment-200 h-[3px]">
+                                    <div class="bg-gradient-to-r from-ink-700 to-blossom-500 h-[3px]" style="width: 100%"></div>
+                                </div>
+                                <p class="text-[10px] text-ink-500 mt-1 font-light tracking-wide">All pigments and materials prepared with local techniques</p>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between items-baseline mb-2">
+                                    <span class="font-serif text-xs uppercase tracking-widest text-ink-900 font-medium">Global Calm Sanctuaries Built</span>
+                                    <span class="text-xs font-serif text-blossom-700">42+</span>
+                                </div>
+                                <div class="w-full bg-parchment-200 h-[3px]">
+                                    <div class="bg-gradient-to-r from-ink-700 to-blossom-500 h-[3px]" style="width: 80%"></div>
+                                </div>
+                                <p class="text-[10px] text-ink-500 mt-1 font-light tracking-wide">Premium environments crafted spanning 12 countries</p>
+                            </div>
+                        </div>
+
+                        <!-- Aesthetic Watermark Stamp -->
+                        <div class="mt-8 border-t border-ink-300/20 pt-6 flex justify-between items-center text-ink-500 text-[10px] tracking-widest uppercase">
+                            <span>Established MMXXIV</span>
+                            <span>Tokyo • Shanghai • Kyoto</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: THE ATELIERS (THREE CORE PILLARS/SERVICES) -->
+    <section id="services" class="py-24 relative overflow-hidden">
+        <div class="container mx-auto px-6 lg:px-16">
+            
+            <!-- Section Header -->
+            <div class="text-center max-w-2xl mx-auto mb-20">
+                <span class="text-xs tracking-extra uppercase text-blossom-700 font-semibold inline-block mb-3">Our Dedicated Portals</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-light text-ink-900 leading-tight">
+                    Creative disciplines <br>curated with <span class="italic text-ink-700">absolute intent</span>
+                </h2>
+                <div class="w-16 h-[1px] bg-blossom-500 mx-auto mt-6"></div>
+            </div>
+
+            <!-- Service Pillars Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Pillar 1: Spatial Ink -->
+                <div class="group border border-ink-300/30 p-10 bg-parchment-100/50 hover:bg-parchment-200 hover:border-blossom-500/30 transition-all duration-500 flex flex-col justify-between rounded-sm relative shadow-sm hover:shadow-md">
+                    <!-- Subtle Watercolor Back-shadow (Interactive) -->
+                    <div class="absolute inset-0 bg-radial-gradient from-blossom-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+
+                    <div>
+                        <!-- Column Icon & Stamp -->
+                        <div class="flex justify-between items-center mb-10">
+                            <span class="text-xs font-serif text-ink-500 tracking-extra">01 / PILLAR</span>
+                            <div class="w-10 h-10 rounded-full border border-ink-300/40 flex items-center justify-center text-ink-700 group-hover:bg-blossom-500 group-hover:text-parchment-100 transition-colors">
+                                <i class="fa-solid fa-compass-drafting text-sm"></i>
+                            </div>
+                        </div>
+
+                        <h3 class="font-serif text-xl sm:text-2xl font-light text-ink-900 group-hover:text-blossom-700 transition-colors mb-4">
+                            Spatial & Architecture
+                        </h3>
+                        
+                        <p class="font-sans text-xs sm:text-sm text-ink-700 font-light leading-relaxed tracking-wide mb-8">
+                            We design physical micro-sanctuaries, luxury tearooms, and bespoke gardens leveraging spatial harmony, shadowplay, natural timbers, and raw stone textures.
+                        </p>
+                    </div>
+
+                    <div>
+                        <ul class="space-y-2 text-[11px] uppercase tracking-widest text-ink-500 group-hover:text-ink-700 mb-8 border-t border-ink-300/20 pt-6">
+                            <li><i class="fa-solid fa-chevron-right text-[8px] mr-2 text-blossom-500"></i> Zen Interior Layouts</li>
+                            <li><i class="fa-solid fa-chevron-right text-[8px] mr-2 text-blossom-500"></i> Organic Lighting Design</li>
+                            <li><i class="fa-solid fa-chevron-right text-[8px] mr-2 text-blossom-500"></i> Tea House Consulting</li>
+                        </ul>
+                        <a href="#contact" class="inline-flex items-center text-xs tracking-widest uppercase font-semibold text-ink-900 hover:text-blossom-700 transition-colors">
+                            Enquire Atelier <i class="fa-solid fa-arrow-right-long ml-2 transform group-hover:translate-x-1.5 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Pillar 2: Brand & Brushwork -->
+                <div class="group border border-ink-300/30 p-10 bg-parchment-100/50 hover:bg-parchment-200 hover:border-blossom-500/30 transition-all duration-500 flex flex-col justify-between rounded-sm relative shadow-sm hover:shadow-md">
+                    <div class="absolute inset-0 bg-radial-gradient from-blossom-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-10">
+                            <span class="text-xs font-serif text-ink-500 tracking-extra">02 / PILLAR</span>
+                            <div class="w-10 h-10 rounded-full border border-ink-300/40 flex items-center justify-center text-ink-700 group-hover:bg-blossom-500 group-hover:text-parchment-100 transition-colors">
+                                <i class="fa-solid fa-paintbrush text-sm"></i>
+                            </div>
+                        </div>
+
+                        <h3 class="font-serif text-xl sm:text-2xl font-light text-ink-900 group-hover:text-blossom-700 transition-colors mb-4">
+                            Ink & Identity
+                        </h3>
+                        
+                        <p class="font-sans text-xs sm:text-sm text-ink-700 font-light leading-relaxed tracking-wide mb-8">
+                            Premium visual identities, custom calligraphy logos, hand-pressed textured business cards, and digital expressions that maintain quiet sophistication.
+                        </p>
+                    </div>
+
+                    <div>
+                        <ul class="space-y-2 text-[11px] uppercase tracking-widest text-ink-500 group-hover:text-ink-700 mb-8 border-t border-ink-300/20 pt-6">
+                            <li><i class="fa-solid fa-chevron-right text-[8px] mr-2 text-blossom-500"></i> Hand-Drawn Calligraphy</li>
+                            <li><i class="fa-solid fa-chevron-right text-[8px] mr-2 text-blossom-500"></i> Tactile Identity Papers</li>
+                            <li><i class="fa-solid fa-chevron-right text-[8px] mr-2 text-blossom-500"></i> High-End Packaging</li>
+                        </ul>
+                        <a href="#contact" class="inline-flex items-center text-xs tracking-widest uppercase font-semibold text-ink-900 hover:text-blossom-700 transition-colors">
+                            Enquire Atelier <i class="fa-solid fa-arrow-right-long ml-2 transform group-hover:translate-x-1.5 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Pillar 3: Curated Tea Rituals -->
+                <div class="group border border-ink-300/30 p-10 bg-parchment-100/50 hover:bg-parchment-200 hover:border-blossom-500/30 transition-all duration-500 flex flex-col justify-between rounded-sm relative shadow-sm hover:shadow-md">
+                    <div class="absolute inset-0 bg-radial-gradient from-blossom-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-10">
+                            <span class="text-xs font-serif text-ink-500 tracking-extra">03 / PILLAR</span>
+                            <div class="w-10 h-10 rounded-full border border-ink-300/40 flex items-center justify-center text-ink-700 group-hover:bg-blossom-500 group-hover:text-parchment-100 transition-colors">
+                                <i class="fa-solid fa-mug-hot text-sm"></i>
+                            </div>
+                        </div>
+
+                        <h3 class="font-serif text-xl sm:text-2xl font-light text-ink-900 group-hover:text-blossom-700 transition-colors mb-4">
+                            Cloud & Leaf
+                        </h3>
+                        
+                        <p class="font-sans text-xs sm:text-sm text-ink-700 font-light leading-relaxed tracking-wide mb-8">
+                            Sourcing and pressing rare, hand-picked tea harvests from ancient wild arbor forests, designed specifically for visual reflection and mindful preparation.
+                        </p>
+                    </div>
+
+                    <div>
+                        <ul class="space-y-2 text-[11px] uppercase tracking-widest text-ink-500 group-hover:text-ink-700 mb-8 border-t border-ink-300/20 pt-6">
+                            <li><i class="fa-solid fa-chevron-right text-[8px] mr-2 text-blossom-500"></i> Rare White & Puerh Tea</li>
+                            <li><i class="fa-solid fa-chevron-right text-[8px] mr-2 text-blossom-500"></i> Handmade Ceramics</li>
+                            <li><i class="fa-solid fa-chevron-right text-[8px] mr-2 text-blossom-500"></i> Private Tea ceremonies</li>
+                        </ul>
+                        <a href="#contact" class="inline-flex items-center text-xs tracking-widest uppercase font-semibold text-ink-900 hover:text-blossom-700 transition-colors">
+                            Enquire Atelier <i class="fa-solid fa-arrow-right-long ml-2 transform group-hover:translate-x-1.5 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE SECTION: THE ZEN TEA CEREMONY SIMULATOR -->
+    <section id="experience" class="py-24 bg-parchment-200/50 border-t border-b border-ink-300/10 relative">
+        <div class="container mx-auto px-6 lg:px-16">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                
+                <!-- Graphic Preview & Interactive Panel -->
+                <div class="lg:col-span-6 flex flex-col justify-center items-center">
+                    <div class="w-full max-w-md bg-parchment-100 border border-ink-300/30 p-8 rounded-sm relative shadow-sm overflow-hidden flex flex-col items-center justify-center min-h-[400px]">
+                        
+                        <!-- Visual representation of the active state -->
+                        <div id="ritual-graphic" class="relative w-48 h-48 mb-8 flex items-center justify-center transition-all duration-700">
+                            <!-- SVG Ceramics / Leaf / Water Steam -->
+                            <svg class="w-full h-full text-ink-700" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Steam Lines -->
+                                <g id="steam-lines" class="opacity-0 transition-opacity duration-500">
+                                    <path d="M85 40C85 30 90 25 88 15" stroke="#E25F70" stroke-width="1.5" stroke-linecap="round" class="animate-pulse"/>
+                                    <path d="M100 45C100 35 105 30 102 18" stroke="#E25F70" stroke-width="1.5" stroke-linecap="round" class="animate-pulse"/>
+                                    <path d="M115 42C115 32 110 27 112 17" stroke="#E25F70" stroke-width="1.5" stroke-linecap="round" class="animate-pulse"/>
+                                </g>
+                                
+                                <!-- Ceramic Bowl Outline -->
+                                <path d="M50 100C50 150 150 150 150 100H50Z" fill="#EAE2D1" stroke="#3A4B53" stroke-width="2"/>
+                                <rect x="85" y="140" width="30" height="8" rx="2" fill="#3A4B53"/>
+
+                                <!-- Inside Liquid -->
+                                <path id="tea-liquid" d="M52 100C80 112 120 112 148 100C148 125 52 125 52 100Z" fill="#C1384E" class="transition-all duration-700" opacity="0"/>
+                                
+                                <!-- Decorative Leaf -->
+                                <path id="ritual-leaf" d="M100 90C110 90 120 75 115 65C105 65 95 80 100 90Z" fill="#5C6B73" class="transition-all duration-500 origin-center"/>
+                            </svg>
+                            <!-- Ambient glowing ring inside visualizer -->
+                            <div class="absolute inset-0 rounded-full border border-blossom-500/10 zen-pulse pointer-events-none"></div>
+                        </div>
+
+                        <!-- Mini audio feedback visualizer -->
+                        <div class="h-4 flex items-center space-x-1 mb-4">
+                            <span class="w-1 h-2 bg-ink-300/50 rounded-full transition-all duration-300"></span>
+                            <span class="w-1 h-3 bg-blossom-500 rounded-full transition-all duration-300"></span>
+                            <span class="w-1 h-4 bg-ink-700 rounded-full transition-all duration-300"></span>
+                            <span class="w-1 h-2 bg-ink-300/50 rounded-full transition-all duration-300"></span>
+                        </div>
+
+                        <!-- Active Step Text Block -->
+                        <div class="text-center min-h-[60px]">
+                            <p id="ritual-step-num" class="text-[10px] tracking-extra uppercase text-blossom-700 font-bold mb-1">STEP 01</p>
+                            <h4 id="ritual-step-title" class="font-serif text-lg font-medium text-ink-900 mb-2">Preheat the Vessel</h4>
+                            <p id="ritual-step-desc" class="text-xs text-ink-500 font-light max-w-sm px-4">Introduce warm thermal water to wake the clay and release cold static energy.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Explanation & Controls Column -->
+                <div class="lg:col-span-6">
+                    <div class="mb-4 flex items-center space-x-2 text-xs tracking-widest text-blossom-700 font-medium">
+                        <span class="inline-block w-4 h-[1px] bg-blossom-500"></span>
+                        <span>INTERACTIVE MEDITATION</span>
+                    </div>
+                    
+                    <h2 class="font-serif text-3xl sm:text-5xl font-light text-ink-900 leading-tight mb-6">
+                        The Art of <br><span class="italic text-ink-700">Slowing Down</span>
+                    </h2>
+
+                    <p class="font-sans text-xs sm:text-sm text-ink-700 font-light leading-relaxed mb-10 tracking-wide">
+                        Explore the four phases of the traditional tea ceremony ritual. Slow down your breath, click each phase to experience the sensory transformation, and listen to the delicate wind chime responses.
+                    </p>
+
+                    <!-- Interactive Step Buttons -->
+                    <div class="space-y-4">
+                        <!-- Step 1 Trigger -->
+                        <button onclick="activateRitualStep(1)" class="ritual-btn w-full flex items-center justify-between p-4 border border-blossom-500 text-left bg-parchment-100 rounded-sm transition-all focus:outline-none">
+                            <div class="flex items-center space-x-4">
+                                <span class="font-serif text-xs text-blossom-700 font-bold">01</span>
+                                <span class="font-serif text-sm font-semibold tracking-wider text-ink-900">Preheat Vessel (溫壺)</span>
+                            </div>
+                            <span class="text-xs text-blossom-500"><i class="fa-solid fa-circle-play"></i></span>
+                        </button>
+
+                        <!-- Step 2 Trigger -->
+                        <button onclick="activateRitualStep(2)" class="ritual-btn w-full flex items-center justify-between p-4 border border-ink-300/30 hover:border-blossom-500/40 text-left bg-transparent rounded-sm transition-all focus:outline-none">
+                            <div class="flex items-center space-x-4">
+                                <span class="font-serif text-xs text-ink-500 font-semibold">02</span>
+                                <span class="font-serif text-sm font-medium tracking-wider text-ink-700">Introduce Leaf (投茶)</span>
+                            </div>
+                            <span class="text-xs text-ink-300"><i class="fa-solid fa-circle-play"></i></span>
+                        </button>
+
+                        <!-- Step 3 Trigger -->
+                        <button onclick="activateRitualStep(3)" class="ritual-btn w-full flex items-center justify-between p-4 border border-ink-300/30 hover:border-blossom-500/40 text-left bg-transparent rounded-sm transition-all focus:outline-none">
+                            <div class="flex items-center space-x-4">
+                                <span class="font-serif text-xs text-ink-500 font-semibold">03</span>
+                                <span class="font-serif text-sm font-medium tracking-wider text-ink-700">The First Steep (沖泡)</span>
+                            </div>
+                            <span class="text-xs text-ink-300"><i class="fa-solid fa-circle-play"></i></span>
+                        </button>
+
+                        <!-- Step 4 Trigger -->
+                        <button onclick="activateRitualStep(4)" class="ritual-btn w-full flex items-center justify-between p-4 border border-ink-300/30 hover:border-blossom-500/40 text-left bg-transparent rounded-sm transition-all focus:outline-none">
+                            <div class="flex items-center space-x-4">
+                                <span class="font-serif text-xs text-ink-500 font-semibold">04</span>
+                                <span class="font-serif text-sm font-medium tracking-wider text-ink-700">Silent Tasting (品茗)</span>
+                            </div>
+                            <span class="text-xs text-ink-300"><i class="fa-solid fa-circle-play"></i></span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: THE GALLERY (PORTFOLIO SHOWCASE) -->
+    <section id="portfolio" class="py-24 relative">
+        <div class="container mx-auto px-6 lg:px-16">
+            
+            <!-- Section Header -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16">
+                <div>
+                    <span class="text-xs tracking-extra uppercase text-blossom-700 font-semibold inline-block mb-3">EXQUISITE ARTIFACTS</span>
+                    <h2 class="font-serif text-3xl sm:text-5xl font-light text-ink-900 leading-tight">
+                        Selected Masterpieces
+                    </h2>
+                </div>
+                <p class="font-sans text-xs sm:text-sm text-ink-500 font-light max-w-md mt-4 md:mt-0 tracking-wide leading-relaxed">
+                    A visual catalog of brand spaces, ink illustrations, and design packaging crafted in alignment with our principles of deep space and texture.
+                </p>
+            </div>
+
+            <!-- Showcase Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Project 1 -->
+                <div class="group border border-ink-300/30 p-4 bg-parchment-100 rounded-sm hover:shadow-md transition-shadow relative">
+                    <!-- Elegant visual mock frame using simple vector representation of mountains/sea -->
+                    <div class="w-full h-72 bg-gradient-to-tr from-ink-900 via-ink-700 to-ink-500 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-15 mix-blend-overlay paper-grain"></div>
+                        
+                        <!-- Dynamic Vector Mountain Art for mock -->
+                        <div class="absolute bottom-0 w-full opacity-30 transform scale-x-[-1]">
+                            <svg class="w-full h-full" viewBox="0 0 400 200" fill="none">
+                                <path d="M0 200V80L100 130L200 60L300 120L400 50V200H0Z" fill="#FAF7F0"/>
+                            </svg>
+                        </div>
+                        
+                        <!-- Glowing center Sun -->
+                        <div class="w-12 h-12 rounded-full bg-blossom-500 opacity-20 filter blur-md"></div>
+                        
+                        <!-- Elegant floating calligraphy in center -->
+                        <span class="font-serif text-parchment-100 text-3xl font-light tracking-widest opacity-80 group-hover:scale-110 transition-transform duration-700">空</span>
+                        
+                        <!-- Tag overlay -->
+                        <div class="absolute top-4 left-4 bg-parchment-100/95 text-ink-900 text-[9px] tracking-widest uppercase py-1 px-3 rounded-sm border border-ink-300/10 shadow-sm">
+                            Kyoto, Japan
+                        </div>
+                    </div>
+
+                    <!-- Label -->
+                    <div class="pt-6 pb-2 flex justify-between items-start">
+                        <div>
+                            <span class="text-[9px] text-blossom-700 font-serif tracking-widest uppercase">SPATIAL SCENERY</span>
+                            <h3 class="font-serif text-lg font-light text-ink-900 group-hover:text-blossom-700 transition-colors mt-1">The KONG Tea House</h3>
+                        </div>
+                        <div class="w-7 h-7 border border-ink-300/40 flex items-center justify-center rounded-full text-xs text-ink-500 group-hover:bg-blossom-500 group-hover:text-parchment-100 transition-colors">
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="group border border-ink-300/30 p-4 bg-parchment-100 rounded-sm hover:shadow-md transition-shadow relative">
+                    <div class="w-full h-72 bg-gradient-to-tr from-ink-700 via-ink-500 to-ink-300 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-15 mix-blend-overlay paper-grain"></div>
+                        
+                        <!-- Dynamic Vector lines simulating mountain streams -->
+                        <div class="absolute bottom-0 w-full opacity-20">
+                            <svg class="w-full h-full" viewBox="0 0 400 200" fill="none">
+                                <path d="M0 150C100 100 200 200 300 120C350 100 380 140 400 110" stroke="#FAF7F0" stroke-width="2"/>
+                            </svg>
+                        </div>
+
+                        <span class="font-serif text-parchment-100 text-3xl font-light tracking-widest opacity-80 group-hover:scale-110 transition-transform duration-700">流</span>
+
+                        <div class="absolute top-4 left-4 bg-parchment-100/95 text-ink-900 text-[9px] tracking-widest uppercase py-1 px-3 rounded-sm border border-ink-300/10 shadow-sm">
+                            Identity Design
+                        </div>
+                    </div>
+
+                    <div class="pt-6 pb-2 flex justify-between items-start">
+                        <div>
+                            <span class="text-[9px] text-blossom-700 font-serif tracking-widest uppercase">BRAND ATELIER</span>
+                            <h3 class="font-serif text-lg font-light text-ink-900 group-hover:text-blossom-700 transition-colors mt-1">LIU Flowing Ink</h3>
+                        </div>
+                        <div class="w-7 h-7 border border-ink-300/40 flex items-center justify-center rounded-full text-xs text-ink-500 group-hover:bg-blossom-500 group-hover:text-parchment-100 transition-colors">
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="group border border-ink-300/30 p-4 bg-parchment-100 rounded-sm hover:shadow-md transition-shadow relative">
+                    <div class="w-full h-72 bg-gradient-to-tr from-blossom-700 via-blossom-500 to-blossom-300/50 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-15 mix-blend-overlay paper-grain"></div>
+                        
+                        <div class="absolute bottom-0 w-full opacity-40">
+                            <svg class="w-full h-full" viewBox="0 0 400 200" fill="none">
+                                <circle cx="200" cy="100" r="40" stroke="#FAF7F0" stroke-width="1" stroke-dasharray="5 5"/>
+                            </svg>
+                        </div>
+
+                        <span class="font-serif text-parchment-100 text-3xl font-light tracking-widest opacity-80 group-hover:scale-110 transition-transform duration-700">和</span>
+
+                        <div class="absolute top-4 left-4 bg-parchment-100/95 text-ink-900 text-[9px] tracking-widest uppercase py-1 px-3 rounded-sm border border-ink-300/10 shadow-sm">
+                            Atelier Sourcing
+                        </div>
+                    </div>
+
+                    <div class="pt-6 pb-2 flex justify-between items-start">
+                        <div>
+                            <span class="text-[9px] text-blossom-700 font-serif tracking-widest uppercase">CERAMICS & TEA</span>
+                            <h3 class="font-serif text-lg font-light text-ink-900 group-hover:text-blossom-700 transition-colors mt-1">HE Accord Stoneware</h3>
+                        </div>
+                        <div class="w-7 h-7 border border-ink-300/40 flex items-center justify-center rounded-full text-xs text-ink-500 group-hover:bg-blossom-500 group-hover:text-parchment-100 transition-colors">
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: ZEN TESTIMONIAL / EMBEDDED POEM -->
+    <section class="py-24 bg-parchment-200/50 relative border-t border-b border-ink-300/10">
+        <!-- Floating Chimes Graphic Background -->
+        <div class="absolute left-10 top-1/2 -translate-y-1/2 w-48 h-48 opacity-10 pointer-events-none select-none hidden md:block">
+            <svg class="w-full h-full text-ink-900 animate-pulse" viewBox="0 0 100 100" fill="currentColor">
+                <circle cx="50" cy="10" r="2"/>
+                <line x1="50" y1="10" x2="50" y2="50" stroke="currentColor" stroke-width="0.5"/>
+                <rect x="47" y="50" width="6" height="15" rx="1"/>
+                <line x1="50" y1="65" x2="50" y2="90" stroke="currentColor" stroke-width="0.25"/>
+                <path d="M48 90C48 90 46 95 50 97C54 95 52 90 52 90H48Z"/>
+            </svg>
+        </div>
+
+        <div class="container mx-auto px-6 lg:px-16 text-center max-w-3xl">
+            <!-- Decorative Lotus Bud SVG -->
+            <div class="w-12 h-12 mx-auto mb-8 text-blossom-500">
+                <svg class="w-full h-full" viewBox="0 0 100 100" fill="currentColor">
+                    <path d="M50 15C50 15 35 45 35 60C35 70 42 75 50 75C58 75 65 70 65 60C65 45 50 15 50 15ZM50 25C53 35 59 50 59 60C59 65 55 68 50 68C45 68 41 65 41 60C41 50 47 35 50 25Z"/>
+                </svg>
+            </div>
+            
+            <p class="font-serif text-xl sm:text-2xl md:text-3xl font-light italic text-ink-900 leading-relaxed mb-8">
+                "ShanShui did not merely design our mountain resort; they designed the silence that surrounds it. Our guests describe the lobby not as a room, but as a deep breath."
+            </p>
+            
+            <div class="w-8 h-[1px] bg-blossom-500 mx-auto mb-4"></div>
+            
+            <span class="font-serif text-xs uppercase tracking-extra text-ink-900 font-semibold block">Master Xun</span>
+            <span class="text-[10px] uppercase text-ink-500 tracking-widest block mt-1">Founder, Cloud-Mist Hot Spring Retreat</span>
+        </div>
+    </section>
+
+    <!-- CONTACT & ENQUIRY ATELIER (MAP/INFO GRID) -->
+    <section id="contact" class="py-24 relative">
+        <div class="container mx-auto px-6 lg:px-16">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+                
+                <!-- Left Hand Side: Contact Info mimicking back of the inspiration business card -->
+                <div class="lg:col-span-5 border border-ink-300/30 p-8 sm:p-12 bg-parchment-100 rounded-sm relative shadow-sm flex flex-col justify-between min-h-[500px]">
+                    <!-- Subtle traditional patterns and frame -->
+                    <span class="absolute top-2 left-2 w-3 h-3 border-t border-l border-ink-500/40"></span>
+                    <span class="absolute top-2 right-2 w-3 h-3 border-t border-r border-ink-500/40"></span>
+                    <span class="absolute bottom-2 left-2 w-3 h-3 border-b border-l border-ink-500/40"></span>
+                    <span class="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-ink-500/40"></span>
+
+                    <div>
+                        <!-- Logo & Title on Card -->
+                        <div class="flex items-center space-x-3 mb-10 pb-6 border-b border-ink-300/20">
+                            <div class="w-8 h-8 flex items-center justify-center bg-blossom-700 text-parchment-100 rounded-sm font-serif text-sm font-bold stamp-glow shadow-sm">
+                                攝
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="font-serif tracking-widest text-xs font-semibold uppercase text-ink-900">攝圖网 | 设计</span>
+                                <span class="text-[8px] tracking-widest uppercase text-ink-500 font-sans -mt-1">Creative Sanctuary Collective</span>
+                            </div>
+                        </div>
+
+                        <!-- Card Fields matching inspiration language -->
+                        <div class="space-y-8">
+                            <div>
+                                <h4 class="font-serif text-[10px] uppercase tracking-extra text-ink-500 mb-1">Office Presence</h4>
+                                <p class="text-xs sm:text-sm text-ink-900 font-medium leading-relaxed font-serif">
+                                    上海市浦东新区东方路 3539<br>
+                                    <span class="text-xs text-ink-500 font-sans">Pudong District, Shanghai, PRC</span>
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 class="font-serif text-[10px] uppercase tracking-extra text-ink-500 mb-1">Direct Connection</h4>
+                                <p class="text-xs sm:text-sm text-ink-900 font-medium font-sans">
+                                    021-80187116
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 class="font-serif text-[10px] uppercase tracking-extra text-ink-500 mb-1">Digital Correspondence</h4>
+                                <p class="text-xs sm:text-sm text-ink-900 font-medium font-sans mb-1">
+                                    shetuwang@123.com
+                                </p>
+                                <p class="text-[11px] text-ink-500 font-sans">
+                                    http://www.699pic.com
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Traditional QR Code / Seal alignment -->
+                    <div class="mt-12 pt-6 border-t border-ink-300/20 flex justify-between items-center">
+                        <div class="flex items-center space-x-3">
+                            <!-- Simulated elegant vector QR stamp placeholder -->
+                            <div class="w-12 h-12 border border-ink-300/50 p-1 bg-parchment-200 rounded-sm flex flex-wrap gap-[2px]">
+                                <span class="w-2.5 h-2.5 bg-ink-900"></span>
+                                <span class="w-2.5 h-2.5 bg-ink-300/40"></span>
+                                <span class="w-2.5 h-2.5 bg-ink-900"></span>
+                                <span class="w-2.5 h-2.5 bg-ink-900"></span>
+                                <span class="w-2.5 h-2.5 bg-ink-300/40"></span>
+                                <span class="w-2.5 h-2.5 bg-ink-900"></span>
+                                <span class="w-2.5 h-2.5 bg-ink-900"></span>
+                                <span class="w-2.5 h-2.5 bg-ink-300/40"></span>
+                                <span class="w-2.5 h-2.5 bg-ink-900"></span>
+                                <span class="w-2.5 h-2.5 bg-ink-900"></span>
+                                <span class="w-2.5 h-2.5 bg-ink-300/40"></span>
+                                <span class="w-2.5 h-2.5 bg-ink-900"></span>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="text-[9px] uppercase tracking-widest text-ink-900 font-semibold font-serif">WeChat / Line Scan</span>
+                                <span class="text-[8px] text-ink-500 uppercase tracking-widest">Connect for instant dialogue</span>
+                            </div>
+                        </div>
+
+                        <!-- Mini Wax Seal Signoff -->
+                        <div class="w-10 h-10 rounded-full bg-blossom-700 text-parchment-100 flex items-center justify-center font-serif text-sm font-bold shadow-md transform rotate-12 stamp-glow">
+                            誠
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Hand Side: Interactive Form -->
+                <div class="lg:col-span-7 flex flex-col justify-center">
+                    <div class="mb-8">
+                        <span class="text-xs tracking-extra uppercase text-blossom-700 font-semibold inline-block mb-3">BEGIN INK CONVERSATION</span>
+                        <h3 class="font-serif text-2xl sm:text-4xl font-light text-ink-900">Seek Serenity for Your Next Endeavor</h3>
+                    </div>
+
+                    <!-- Minimalist Elegant Form -->
+                    <form id="enquiry-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <!-- Name input -->
+                            <div class="flex flex-col border-b border-ink-300/40 py-2 focus-within:border-blossom-500 transition-colors">
+                                <label class="text-[10px] tracking-widest uppercase text-ink-500 mb-1 font-serif">YOUR DESIGNATION / NAME</label>
+                                <input type="text" required class="bg-transparent border-none text-ink-900 text-sm font-sans focus:outline-none w-full py-1 placeholder-ink-300" placeholder="e.g. Honorable Guest">
+                            </div>
+                            <!-- Email input -->
+                            <div class="flex flex-col border-b border-ink-300/40 py-2 focus-within:border-blossom-500 transition-colors">
+                                <label class="text-[10px] tracking-widest uppercase text-ink-500 mb-1 font-serif">CORRESPONDENCE EMAIL</label>
+                                <input type="email" required class="bg-transparent border-none text-ink-900 text-sm font-sans focus:outline-none w-full py-1 placeholder-ink-300" placeholder="e.g. calm@example.com">
+                            </div>
+                        </div>
+
+                        <!-- Service Select Option -->
+                        <div class="flex flex-col border-b border-ink-300/40 py-2 focus-within:border-blossom-500 transition-colors">
+                            <label class="text-[10px] tracking-widest uppercase text-ink-500 mb-1 font-serif">THE INTENDED ATELIER</label>
+                            <select class="bg-transparent border-none text-ink-900 text-sm font-sans focus:outline-none w-full py-1">
+                                <option value="spatial" class="bg-parchment-100 text-ink-900">Spatial & Architecture (山水居)</option>
+                                <option value="branding" class="bg-parchment-100 text-ink-900">Identity & Calligraphy (水墨) </option>
+                                <option value="tea" class="bg-parchment-100 text-ink-900">Cloud & Leaf Sourcing (雨前茶)</option>
+                            </select>
+                        </div>
+
+                        <!-- Message Input -->
+                        <div class="flex flex-col border-b border-ink-300/40 py-2 focus-within:border-blossom-500 transition-colors">
+                            <label class="text-[10px] tracking-widest uppercase text-ink-500 mb-1 font-serif">YOUR REVERIE / BRIEF</label>
+                            <textarea rows="4" required class="bg-transparent border-none text-ink-900 text-sm font-sans focus:outline-none w-full py-1 placeholder-ink-300 resize-none" placeholder="Share your vision or spatial timeline with us..."></textarea>
+                        </div>
+
+                        <!-- Form status message -->
+                        <div id="form-status" class="hidden text-xs text-blossom-700 font-serif tracking-widest uppercase transition-all">
+                            <!-- Will be populated via JS -->
+                        </div>
+
+                        <!-- Submit Button styled like seal ink -->
+                        <div>
+                            <button type="submit" class="ink-bleed-btn bg-ink-900 border border-ink-900 text-parchment-100 px-8 py-4 text-xs tracking-extra uppercase font-semibold rounded-sm transition-all shadow-md">
+                                Seal & Dispatch Message
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-ink-900 text-parchment-300 py-16 relative overflow-hidden border-t border-ink-700/50">
+        <!-- Drifting misty backdrop in footer -->
+        <div class="absolute inset-0 opacity-5 mix-blend-overlay paper-grain"></div>
+
+        <div class="container mx-auto px-6 lg:px-16 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 pb-12 border-b border-ink-700/60">
+                
+                <!-- Col 1: Brand & Logo -->
+                <div class="md:col-span-1">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-8 h-8 flex items-center justify-center bg-blossom-700 text-parchment-100 rounded-sm font-serif text-sm font-bold stamp-glow shadow-sm">
+                            山
+                        </div>
+                        <span class="font-serif tracking-widest text-sm font-semibold uppercase text-parchment-100">SHAN SHUI</span>
+                    </div>
+                    <p class="text-xs text-parchment-300/70 font-light tracking-wide leading-relaxed">
+                        Expanding the visual landscape of ancient ink wash paintings into absolute, physical spaces and timeless corporate identities.
+                    </p>
+                </div>
+
+                <!-- Col 2: Navigation -->
+                <div>
+                    <h4 class="font-serif text-[10px] uppercase tracking-extra text-blossom-300 mb-4">ATELIERS</h4>
+                    <ul class="space-y-3 text-xs text-parchment-300/70 font-light tracking-widest">
+                        <li><a href="#services" class="hover:text-blossom-300 transition-colors">Residential Spaces</a></li>
+                        <li><a href="#services" class="hover:text-blossom-300 transition-colors">Traditional Tearooms</a></li>
+                        <li><a href="#services" class="hover:text-blossom-300 transition-colors">Packaging Design</a></li>
+                        <li><a href="#services" class="hover:text-blossom-300 transition-colors">Tea harvests</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Principles -->
+                <div>
+                    <h4 class="font-serif text-[10px] uppercase tracking-extra text-blossom-300 mb-4">PRINCIPLES</h4>
+                    <ul class="space-y-3 text-xs text-parchment-300/70 font-light tracking-widest">
+                        <li><a href="#" class="hover:text-blossom-300 transition-colors">Atmospheric Expanse</a></li>
+                        <li><a href="#" class="hover:text-blossom-300 transition-colors">Raw Craftsmanship</a></li>
+                        <li><a href="#" class="hover:text-blossom-300 transition-colors">Quietude & Balance</a></li>
+                        <li><a href="#" class="hover:text-blossom-300 transition-colors">Sustainable Wood & Stone</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Newsletter -->
+                <div>
+                    <h4 class="font-serif text-[10px] uppercase tracking-extra text-blossom-300 mb-4">THE CHRONICLE</h4>
+                    <p class="text-xs text-parchment-300/70 font-light mb-4 leading-relaxed tracking-wide">
+                        Receive subtle sensory thoughts on spatial layout and tea collection cycles. No spam, only serenity.
+                    </p>
+                    <div class="flex border-b border-parchment-300/30 pb-1">
+                        <input type="email" placeholder="Email coordinates" class="bg-transparent border-none text-xs text-parchment-100 focus:outline-none w-full placeholder-parchment-300/40">
+                        <button class="text-parchment-100 hover:text-blossom-300 transition-colors"><i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Copyright and legal -->
+            <div class="pt-8 flex flex-col sm:flex-row justify-between items-center text-[10px] text-parchment-300/50 tracking-widest uppercase">
+                <span>© 2026 SHAN SHUI ATELIER. ALL RIGHTS SECURED.</span>
+                <span class="flex space-x-6 mt-4 sm:mt-0">
+                    <a href="#" class="hover:text-blossom-300">Privacy Sanctuary</a>
+                    <a href="#" class="hover:text-blossom-300">Terms of Ink</a>
+                    <a href="#" class="hover:text-blossom-300">Kyoto Sourcing</a>
+                </span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE SCRIPTS -->
+    <script>
+        // WEB AUDIO SYSTEM FOR SOOTHING CHIMES (ULTRA-PREMIUM SENSORY INTERACTION)
+        let audioCtx = null;
+        let chimeModeEnabled = false;
+
+        const soundBtn = document.getElementById('soundscape-btn');
+        const soundIndicator = document.getElementById('sound-indicator');
+
+        // Toggle soundscape active trigger
+        soundBtn.addEventListener('click', () => {
+            if (!audioCtx) {
+                // Initialize Web Audio API on first user gesture
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            
+            chimeModeEnabled = !chimeModeEnabled;
+            if (chimeModeEnabled) {
+                soundIndicator.classList.remove('bg-ink-500');
+                soundIndicator.classList.add('bg-blossom-500');
+                soundBtn.querySelector('span:last-child').innerText = "Chimes: Active";
+                playZenChime(330); // Play introductory soft chime
+                setTimeout(() => playZenChime(440), 200);
+            } else {
+                soundIndicator.classList.remove('bg-blossom-500');
+                soundIndicator.classList.add('bg-ink-500');
+                soundBtn.querySelector('span:last-child').innerText = "Chimes: Off";
+            }
+        });
+
+        // Generate customized synthesized bell/chime frequencies for Zen mood
+        function playZenChime(frequency = 440, volume = 0.25) {
+            if (!audioCtx || !chimeModeEnabled) return;
+
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+
+            osc.type = 'triangle'; // Pure, gentle warm tone
+            osc.frequency.setValueAtTime(frequency, audioCtx.currentTime);
+            
+            // Gain envelope to simulate chime decay
+            gainNode.gain.setValueAtTime(volume, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 3.5); // long organic release
+
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            osc.start();
+            osc.stop(audioCtx.currentTime + 3.5);
+        }
+
+        // Add soft interactive triggers to all buttons and cards so they sound like subtle wind chimes when hovered
+        document.querySelectorAll('a, button, .ritual-btn, .group').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                if (chimeModeEnabled) {
+                    // Pick beautiful harmonic notes in a pentatonic scale
+                    const scale = [523.25, 587.33, 659.25, 783.99, 880.00, 1046.50]; // Pentatonic C Major
+                    const randomNote = scale[Math.floor(Math.random() * scale.length)];
+                    playZenChime(randomNote, 0.08); // quiet, subtle backdrop chime
+                }
+            });
+        });
+
+        // INTERACTIVE FALLING BLOSSOM PETALS GENERATOR
+        const petalContainer = document.getElementById('petal-container');
+        const maxPetals = 25;
+
+        function createPetal() {
+            if (petalContainer.children.length >= maxPetals) return;
+
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            
+            // Random sizes, start positions, and anim durations
+            const size = Math.random() * 8 + 6; // 6px to 14px
+            petal.style.width = `${size}px`;
+            petal.style.height = `${size * 1.4}px`;
+            
+            petal.style.left = `${Math.random() * 100}vw`;
+            petal.style.top = `-${Math.random() * 100 + 50}px`;
+            
+            const duration = Math.random() * 15 + 12; // 12s to 27s slow float
+            petal.style.animation = `drift ${duration}s linear infinite`;
+            petal.style.animationDelay = `${Math.random() * 5}s`;
+
+            // Append and clear when finished animation loop to prevent leaking memory
+            petalContainer.appendChild(petal);
+            setTimeout(() => {
+                petal.remove();
+            }, (duration + 5) * 1000);
+        }
+
+        // Fill background with soft petals periodically
+        setInterval(createPetal, 1500);
+        for (let i = 0; i < 12; i++) {
+            createPetal();
+        }
+
+        // MOBILE NAVIGATION CONTROL
+        const mobileToggle = document.getElementById('mobile-menu-toggle');
+        const mobileClose = document.getElementById('mobile-menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileToggle.addEventListener('click', () => {
+            mobileMenu.classList.remove('translate-x-full');
+        });
+
+        const closeMobile = () => {
+            mobileMenu.classList.add('translate-x-full');
+        };
+
+        mobileClose.addEventListener('click', closeMobile);
+        mobileLinks.forEach(link => link.addEventListener('click', closeMobile));
+
+        // ZEN TEA CEREMONY SIMULATOR PHASES
+        const ritualSteps = {
+            1: {
+                title: "Preheat the Vessel (溫壺)",
+                num: "STEP 01",
+                desc: "Introduce pure thermal spring water to wake the clay of the vessel and release stored energy. Listen to the gentle ring of warm porcelain.",
+                liquidOpacity: 0.1,
+                liquidColor: "#EAE2D1",
+                leafScale: 1,
+                leafRotate: 0,
+                steamOpacity: 0.4
+            },
+            2: {
+                title: "Introduce the Dry Leaves (投茶)",
+                num: "STEP 02",
+                desc: "Gently let wild organic white tea leaves descend onto the warm, dry clay. Take a slow deep breath as dry aromatics begin to blossom.",
+                liquidOpacity: 0.0,
+                liquidColor: "transparent",
+                leafScale: 1.5,
+                leafRotate: 45,
+                steamOpacity: 0.0
+            },
+            3: {
+                title: "The First Water Steep (沖泡)",
+                num: "STEP 03",
+                desc: "Pour pure 85°C high-mountain water in circular streams over the center. Watch the mist spiral upward as the leaves unfurl.",
+                liquidOpacity: 0.75,
+                liquidColor: "#C1384E",
+                leafScale: 1.1,
+                leafRotate: 180,
+                steamOpacity: 1.0
+            },
+            4: {
+                title: "Quietude & Silent Savoring (品茗)",
+                num: "STEP 04",
+                desc: "Decant the vibrant tea nectar into cups of quiet presence. Savor the sweet apricot notes, letting complete stillness fill your space.",
+                liquidOpacity: 0.9,
+                liquidColor: "#E25F70",
+                leafScale: 0.8,
+                leafRotate: 240,
+                steamOpacity: 0.5
+            }
+        };
+
+        function activateRitualStep(stepIndex) {
+            // Highlight active trigger button
+            const buttons = document.querySelectorAll('.ritual-btn');
+            buttons.forEach((btn, index) => {
+                if (index === stepIndex - 1) {
+                    btn.classList.remove('border-ink-300/30', 'bg-transparent');
+                    btn.classList.add('border-blossom-500', 'bg-parchment-100');
+                    btn.querySelector('span:last-child').className = "text-xs text-blossom-500";
+                } else {
+                    btn.classList.add('border-ink-300/30', 'bg-transparent');
+                    btn.classList.remove('border-blossom-500', 'bg-parchment-100');
+                    btn.querySelector('span:last-child').className = "text-xs text-ink-300";
+                }
+            });
+
+            // Update DOM with step data
+            const stepData = ritualSteps[stepIndex];
+            document.getElementById('ritual-step-num').innerText = stepData.num;
+            document.getElementById('ritual-step-title').innerText = stepData.title;
+            document.getElementById('ritual-step-desc').innerText = stepData.desc;
+
+            // Update interactive graphic variables
+            const steamGroup = document.getElementById('steam-lines');
+            const teaLiquid = document.getElementById('tea-liquid');
+            const ritualLeaf = document.getElementById('ritual-leaf');
+
+            // Apply SVG transformations smoothly
+            steamGroup.style.opacity = stepData.steamOpacity;
+            teaLiquid.style.opacity = stepData.liquidOpacity;
+            teaLiquid.setAttribute('fill', stepData.liquidColor);
+            
+            ritualLeaf.style.transform = `scale(${stepData.leafScale}) rotate(${stepData.leafRotate}deg)`;
+
+            // Trigger beautiful synthesized chimes corresponding to the step complexity
+            if (chimeModeEnabled) {
+                const baseFrequencies = { 1: 330, 2: 440, 3: 554.37, 4: 659.25 };
+                playZenChime(baseFrequencies[stepIndex], 0.3);
+                // add harmonious ripple delay sound
+                setTimeout(() => playZenChime(baseFrequencies[stepIndex] * 1.5, 0.1), 150);
+            }
+        }
+
+        // ENQUIRY FORM DISPATCH (MOCK REAL EXPERIENCE)
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const statusDiv = document.getElementById('form-status');
+            statusDiv.classList.remove('hidden');
+            statusDiv.innerText = "Dispatching sealed letter across the hills...";
+            statusDiv.style.color = "#3A4B53";
+
+            // Sound feedback for submission
+            if (chimeModeEnabled) {
+                playZenChime(523.25, 0.2);
+                setTimeout(() => playZenChime(659.25, 0.2), 150);
+                setTimeout(() => playZenChime(783.99, 0.2), 300);
+            }
+
+            // Simulate transition completion
+            setTimeout(() => {
+                statusDiv.innerText = "Your reverie has been sealed and cataloged. Expect correspondence as the morning mist clears.";
+                statusDiv.style.color = "#C1384E";
+                event.target.reset();
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
+3

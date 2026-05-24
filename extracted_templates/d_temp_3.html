@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASTRO. Winter Armor II - Technical Explorer</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts for premium technical & clean sans-serif typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        astro: {
+                            beige: '#F4F1EA',
+                            clay: '#EBE7DD',
+                            border: '#D9D3C5',
+                            dark: '#1C1A17',
+                            orange: '#FF6B00',
+                            orangeHover: '#E05300',
+                            grayText: '#625E56',
+                            glow: 'rgba(255, 107, 0, 0.15)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Premium custom styling to match the paper-textured studio lighting of the image */
+        body {
+            background: radial-gradient(circle at 50% 50%, #EAB580 0%, #D87D39 50%, #9F4612 100%);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Ambient studio glow background elements */
+        .ambient-glow {
+            box-shadow: 0 0 100px 20px rgba(255, 107, 0, 0.25);
+        }
+
+        /* Marbled physical paper background style for the main UI sheet */
+        .paper-canvas {
+            background-color: #F4F1EA;
+            background-image: 
+                radial-gradient(at 20% 20%, rgba(244, 241, 234, 1) 0%, rgba(239, 236, 229, 0.9) 100%),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3联%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.015'/%3E%3C/svg%3E");
+        }
+
+        /* Subtle tactical scanline overlay for the blueprint feel */
+        .scanlines {
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0, 0, 0, 0.02) 50%,
+                rgba(0, 0, 0, 0.02)
+            );
+            background-size: 100% 4px;
+        }
+
+        /* Custom scrollbar to keep layout pristine */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F4F1EA;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D9D3C5;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FF6B00;
+        }
+
+        /* Micro-interactions for buttons & links */
+        .tech-border-anim {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .tech-border-anim:hover {
+            border-color: #FF6B00;
+            box-shadow: 0 0 12px rgba(255, 107, 0, 0.2);
+        }
+
+        /* Custom styling for the glowing tactical hot spots */
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.3); opacity: 0.4; }
+        }
+        .pulse-glow {
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="p-3 md:p-6 lg:p-10 flex flex-col justify-center items-center font-sans antialiased selection:bg-astro-orange selection:text-white">
+
+    <!-- Global Floating Action Status (Interactive Sound/Blueprint controls) -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 items-end">
+        <div id="quickStatusToast" class="hidden bg-astro-dark text-white text-xs px-3 py-2 rounded-lg shadow-xl border border-astro-orange/30 font-mono transition-all duration-300">
+            [SYS] Updated specs.
+        </div>
+    </div>
+
+    <!-- MAIN IMMERSIVE CONTAINER: Replicates the pristine, shadowed, central tablet layout from your image -->
+    <main class="paper-canvas w-full max-w-7xl rounded-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] border border-[#E1DCD0] overflow-hidden flex flex-col relative">
+        <div class="scanlines absolute inset-0 pointer-events-none opacity-40"></div>
+        
+        <!-- HEADER / NAVIGATION BAR -->
+        <header class="relative z-10 px-6 py-5 border-b border-astro-border flex items-center justify-between">
+            <div class="flex items-center gap-12">
+                <!-- Branding -->
+                <a href="#" class="group flex items-center gap-3">
+                    <span class="font-mono text-xl font-bold tracking-[0.25em] text-astro-dark transition-all group-hover:text-astro-orange">ASTRO.</span>
+                    <span class="px-1.5 py-0.5 bg-astro-orange text-white text-[9px] font-mono rounded font-medium tracking-wider">M-02</span>
+                </a>
+                
+                <!-- Desktop Nav Navigation -->
+                <nav class="hidden md:flex items-center gap-8 text-[11px] font-mono tracking-widest text-astro-grayText">
+                    <a href="#products" class="hover:text-astro-orange transition-colors">PRODUCTS</a>
+                    <a href="#specifications" class="hover:text-astro-orange transition-colors">SPECIFICATIONS</a>
+                    <a href="#expedition" class="hover:text-astro-orange transition-colors">EXPEDITIONS</a>
+                    <a href="#heritage" class="hover:text-astro-orange transition-colors font-semibold text-astro-dark flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-astro-orange"></span>
+                        TACTICAL LAB
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Utility Action Bar (Search, Bag, Account, Simulation Controls) -->
+            <div class="flex items-center gap-6 text-astro-dark">
+                <!-- Simulation HUD Active indicator -->
+                <div class="hidden sm:flex items-center gap-2 px-3 py-1 bg-astro-clay border border-astro-border rounded-full text-[10px] font-mono text-astro-grayText">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    HUD LINK ACTIVE
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <button id="searchBtn" class="p-2 hover:text-astro-orange hover:bg-astro-clay rounded-lg transition-all" title="Search catalog">
+                        <i class="fa-solid fa-magnifying-glass text-sm"></i>
+                    </button>
+                    <button onclick="toggleCart()" class="p-2 hover:text-astro-orange hover:bg-astro-clay rounded-lg transition-all relative" title="View cargo bag">
+                        <i class="fa-solid fa-briefcase text-sm"></i>
+                        <span id="cartCount" class="absolute -top-1 -right-1 bg-astro-dark text-white font-mono text-[9px] w-4.5 h-4.5 rounded-full flex items-center justify-center border border-astro-beige hidden">0</span>
+                    </button>
+                    <button class="p-2 hover:text-astro-orange hover:bg-astro-clay rounded-lg transition-all" title="User access">
+                        <i class="fa-regular fa-user text-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- PRODUCT SHOWCASE HERO: Splits into left params, central rotating dynamic interactive schematic preview, right selector panel -->
+        <section class="relative grid grid-cols-1 lg:grid-cols-12 border-b border-astro-border min-h-[680px]">
+            
+            <!-- LEFT PANEL: Product Specs & Schematic Interactive Map Info (4 cols) -->
+            <div class="lg:col-span-4 p-6 sm:p-8 flex flex-col justify-between border-r border-astro-border relative">
+                
+                <!-- Background grid accent for blueprint look -->
+                <div class="absolute inset-0 bg-[linear-gradient(to_right,#EFECE5_1px,transparent_1px),linear-gradient(to_bottom,#EFECE5_1px,transparent_1px)] bg-[size:24px_24px] opacity-60 pointer-events-none"></div>
+
+                <!-- Product Introduction Metadata -->
+                <div class="relative z-10">
+                    <span class="text-xs font-mono tracking-[0.2em] text-astro-orange font-bold">NEW RELEASE // MK-II</span>
+                    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-astro-dark mt-2 mb-1 uppercase font-sans">
+                        Astro <br>Winter Armor II
+                    </h1>
+                    
+                    <!-- Dynamic Rating Badge & Code -->
+                    <div class="flex items-center gap-4 mt-3 mb-6">
+                        <span class="font-mono text-lg font-bold text-astro-dark" id="displayPrice">$560</span>
+                        <div class="h-4 w-px bg-astro-border"></div>
+                        <span class="text-[10px] font-mono bg-astro-clay px-2.5 py-1 border border-astro-border rounded text-astro-grayText tracking-widest">UNIT-0925</span>
+                    </div>
+
+                    <!-- Description Segment with toggleable details -->
+                    <div class="border-t border-astro-border pt-4">
+                        <span class="text-[11px] font-mono tracking-widest text-astro-dark uppercase block mb-2 font-bold">DESCRIPTION</span>
+                        <p id="productDesc" class="text-xs text-astro-grayText leading-relaxed transition-all duration-300">
+                            A heavy duty arctic modular puffer jacket that marries the extreme elegance of high-orbit retro exploration style with thermal resilience required for planetary expeditions. Enveloped in a soothing matte shell, it serves as an impenetrable defense for your winter adventures.
+                        </p>
+                        
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="text-[9px] font-mono px-2 py-1 bg-astro-clay border border-astro-border rounded-md text-astro-dark">
+                                <i class="fa-solid fa-shield-halved text-astro-orange mr-1"></i> Gore-Tex Pro
+                            </span>
+                            <span class="text-[9px] font-mono px-2 py-1 bg-astro-clay border border-astro-border rounded-md text-astro-dark">
+                                <i class="fa-solid fa-snowflake text-astro-orange mr-1"></i> -30°C Tested
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INTERACTIVE: Live Schematic Hotspot Inspector (Updates on hover of jacket hotspots) -->
+                <div class="relative z-10 mt-8 pt-6 border-t border-astro-border bg-astro-clay/50 p-4 rounded-xl border border-astro-border">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-[10px] font-mono tracking-widest text-astro-dark font-bold uppercase flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-astro-orange animate-pulse"></span>
+                            SCHEMATIC HUD
+                        </span>
+                        <span class="text-[9px] font-mono text-astro-orange" id="hudCoords">SYS_READY</span>
+                    </div>
+                    
+                    <!-- Dynamic display dependent on user interaction -->
+                    <div class="min-h-[80px]" id="schematicInspector">
+                        <h4 class="text-xs font-bold text-astro-dark uppercase mb-1" id="inspectorTitle">Tap/Hover the Orange Hotspots</h4>
+                        <p class="text-[11px] text-astro-grayText leading-normal" id="inspectorText">
+                            Click or hover the glowing technical target dots on the central jacket visual to dissect the armor layers, high-output thermal valves, and storage attachments.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Custom Collapsible Specification Accordions to match image text lists -->
+                <div class="mt-6 space-y-2 relative z-10">
+                    <div class="border border-astro-border rounded-lg overflow-hidden bg-astro-beige">
+                        <button onclick="toggleAccordion('acc1')" class="w-full text-left px-4 py-3 flex items-center justify-between hover:bg-astro-clay/50 transition-colors">
+                            <span class="text-xs font-mono tracking-wider font-semibold text-astro-dark uppercase">LOREM IPSUM DOLOR</span>
+                            <i id="acc1-icon" class="fa-solid fa-chevron-down text-[10px] text-astro-grayText transition-transform"></i>
+                        </button>
+                        <div id="acc1" class="hidden px-4 pb-3 text-[11px] text-astro-grayText leading-relaxed">
+                            Engineered with double-layered thermal chambers that trap body heat inside micro-air pathways, offering robust defense during fast temperature drops.
+                        </div>
+                    </div>
+                    
+                    <div class="border border-astro-border rounded-lg overflow-hidden bg-astro-beige">
+                        <button onclick="toggleAccordion('acc2')" class="w-full text-left px-4 py-3 flex items-center justify-between hover:bg-astro-clay/50 transition-colors">
+                            <span class="text-xs font-mono tracking-wider font-semibold text-astro-dark uppercase">ASTRONAUTICAL DESIGN</span>
+                            <i id="acc2-icon" class="fa-solid fa-chevron-down text-[10px] text-astro-grayText transition-transform"></i>
+                        </button>
+                        <div id="acc2" class="hidden px-4 pb-3 text-[11px] text-astro-grayText leading-relaxed">
+                            Each seam is double-welded using custom reinforced space-grade thread to handle atmospheric pressures up to 1.4 ATM.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- CENTRAL DYNAMIC PRODUCT PREVIEW PANEL (5 cols) -->
+            <div class="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-center items-center relative min-h-[400px]">
+                <!-- Technical Ring grid absolute backdrop -->
+                <div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+                    <svg class="w-4/5 h-4/5 animate-[spin_60s_linear_infinite]" viewBox="0 0 200 200">
+                        <circle cx="100" cy="100" r="90" stroke="#FF6B00" stroke-width="0.5" fill="none" stroke-dasharray="4 4" />
+                        <circle cx="100" cy="100" r="70" stroke="#FF6B00" stroke-width="0.75" fill="none" />
+                        <line x1="100" y1="0" x2="100" y2="200" stroke="#FF6B00" stroke-width="0.2" />
+                        <line x1="0" y1="100" x2="200" y2="100" stroke="#FF6B00" stroke-width="0.2" />
+                    </svg>
+                </div>
+
+                <!-- Toggle Blueprint Overlay Switch -->
+                <div class="absolute top-4 left-4 z-20">
+                    <button onclick="toggleBlueprint()" class="px-3 py-1.5 bg-astro-clay/80 backdrop-blur border border-astro-border rounded-full text-[10px] font-mono text-astro-dark flex items-center gap-2 hover:border-astro-orange transition-all shadow-sm">
+                        <i class="fa-solid fa-circle-nodes text-astro-orange" id="blueprintIndicator"></i>
+                        <span>GRID LAYOUT: <span id="blueprintStatus" class="font-bold">ON</span></span>
+                    </button>
+                </div>
+
+                <!-- Custom Vector Jacket Graphics (Highly polished, scalable SVG that supports clean color themes dynamically) -->
+                <div id="jacketGraphicsContainer" class="w-full max-w-[340px] aspect-square relative z-10 transition-transform duration-500 hover:scale-105">
+                    
+                    <!-- Blueprint visual grids over the jacket when active -->
+                    <div id="blueprintLines" class="absolute inset-0 pointer-events-none border-2 border-dashed border-astro-orange/20 rounded-xl transition-all duration-300">
+                        <!-- Horizontal technical guideline -->
+                        <div class="absolute top-1/2 left-0 right-0 h-px bg-astro-orange/20"></div>
+                        <!-- Vertical technical guideline -->
+                        <div class="absolute left-1/2 top-0 bottom-0 w-px bg-astro-orange/20"></div>
+                        <!-- Coordinate flags -->
+                        <span class="absolute top-2 left-2 font-mono text-[8px] text-astro-orange/50">X: 104.9</span>
+                        <span class="absolute bottom-2 right-2 font-mono text-[8px] text-astro-orange/50">Y: 290.3</span>
+                    </div>
+
+                    <!-- Dynamic SVG jacket that recolors via JavaScript -->
+                    <svg id="jacketSvg" viewBox="0 0 400 400" class="w-full h-full drop-shadow-[0_20px_35px_rgba(0,0,0,0.15)] transition-all duration-500">
+                        <!-- Background Glow behind the coat -->
+                        <circle cx="200" cy="200" r="140" fill="url(#ambientGlowGrad)" opacity="0.6"/>
+                        
+                        <!-- Definitions for gradients -->
+                        <defs>
+                            <radialGradient id="ambientGlowGrad" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%" stop-color="#FF6B00" stop-opacity="0.25" />
+                                <stop offset="100%" stop-color="#F4F1EA" stop-opacity="0" />
+                            </radialGradient>
+                            
+                            <!-- Dynamic colors applied dynamically -->
+                            <linearGradient id="bodyColor" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" id="jacketGradStart" stop-color="#E8E2D5" />
+                                <stop offset="100%" id="jacketGradEnd" stop-color="#C5BDB0" />
+                            </linearGradient>
+                            
+                            <linearGradient id="liningColor" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#FF5100" />
+                                <stop offset="100%" stop-color="#E04800" />
+                            </linearGradient>
+
+                            <linearGradient id="pocketColor" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" id="pocketGradStart" stop-color="#EFECE5" />
+                                <stop offset="100%" id="pocketGradEnd" stop-color="#DCD6CB" />
+                            </linearGradient>
+                        </defs>
+
+                        <!-- JACKET VECTOR PARTS -->
+                        <!-- Hood interior lining -->
+                        <path d="M140,110 Q200,50 260,110 L240,120 Q200,80 160,120 Z" fill="url(#liningColor)" />
+                        <!-- Hood exterior -->
+                        <path d="M140,110 Q200,45 260,110 L270,125 Q200,60 130,125 Z" fill="url(#bodyColor)" stroke="#AB9F8E" stroke-width="1.5" />
+                        
+                        <!-- Collar area -->
+                        <path d="M150,120 L250,120 L260,140 L140,140 Z" fill="url(#bodyColor)" stroke="#9E9281" stroke-width="1" />
+                        <path d="M155,123 L245,123 L250,132 L150,132 Z" fill="url(#liningColor)" />
+
+                        <!-- Main Torso Left Puff -->
+                        <path d="M140,140 Q170,140 200,150 L200,210 Q160,200 130,210 Z" fill="url(#bodyColor)" stroke="#AB9F8E" stroke-width="1.2" />
+                        <!-- Torso Puff Layer 2 -->
+                        <path d="M130,210 Q165,210 200,220 L200,280 Q165,275 125,290 Z" fill="url(#bodyColor)" stroke="#AB9F8E" stroke-width="1.2" />
+                        <!-- Torso Puff Layer 3 -->
+                        <path d="M125,290 Q165,290 200,295 L200,350 Q160,345 130,350 Z" fill="url(#bodyColor)" stroke="#AB9F8E" stroke-width="1.2" />
+
+                        <!-- Main Torso Right Puff -->
+                        <path d="M260,140 Q230,140 200,150 L200,210 Q240,200 270,210 Z" fill="url(#bodyColor)" stroke="#AB9F8E" stroke-width="1.2" />
+                        <!-- Torso Puff Layer 2 Right -->
+                        <path d="M270,210 Q235,210 200,220 L200,280 Q235,275 275,290 Z" fill="url(#bodyColor)" stroke="#AB9F8E" stroke-width="1.2" />
+                        <!-- Torso Puff Layer 3 Right -->
+                        <path d="M275,290 Q235,290 200,295 L200,350 Q240,345 270,350 Z" fill="url(#bodyColor)" stroke="#AB9F8E" stroke-width="1.2" />
+
+                        <!-- Decorative Tech-lines Blueprint details directly onto the torso SVG -->
+                        <circle cx="230" cy="175" r="14" fill="none" stroke="#FF6B00" stroke-width="1" stroke-dasharray="3 3" class="opacity-80" />
+                        <circle cx="230" cy="175" r="5" fill="#FF6B00" class="opacity-80" />
+                        <line x1="230" y1="161" x2="230" y2="189" stroke="#FF6B00" stroke-width="0.5" />
+                        <line x1="216" y1="175" x2="244" y2="175" stroke="#FF6B00" stroke-width="0.5" />
+
+                        <!-- Left Sleeve Puffs -->
+                        <path d="M135,145 Q100,160 110,195 Q130,210 140,200 Z" fill="url(#bodyColor)" stroke="#AB9F8E" stroke-width="1" />
+                        <path d="M110,195 Q90,220 100,250 Q120,260 135,250 Z" fill="url(#bodyColor)" stroke="#AB9F8E" stroke-width="1" />
+                        <path d="M100,250 Q80,280 95,310 L115,305 Z" fill="url(#bodyColor)" stroke="#AB9F8E" stroke-width="1" />
+                        <!-- Left Cuff -->
+                        <path d="M95,310 L108,307 L115,318 L102,322 Z" fill="#D2C7B7" stroke="#9A8E7E" stroke-width="1" />
+
+                        <!-- Right Sleeve Puffs -->
+                        <path d="M265,145 Q300,160 290,195 Q270,210 260,200 Z" fill="url(#bodyColor)" stroke="#AB9F8E" stroke-width="1" />
+                        <path d="M290,195 Q310,220 300,250 Q280,260 265,250 Z" fill="url(#bodyColor)" stroke="#AB9F8E" stroke-width="1" />
+                        <path d="M300,250 Q320,280 305,310 L285,305 Z" fill="url(#bodyColor)" stroke="#AB9F8E" stroke-width="1" />
+                        <!-- Right Cuff -->
+                        <path d="M305,310 L292,307 L285,318 L298,322 Z" fill="#D2C7B7" stroke="#9A8E7E" stroke-width="1" />
+
+                        <!-- Distinctive Left Side Sleeve Pouch (Astro Utility Pocket in bright signature Orange, matching image) -->
+                        <path d="M285,190 L310,195 L310,225 L285,220 Z" fill="url(#liningColor)" stroke="#D43E00" stroke-width="1" />
+                        <path d="M285,190 L310,195 L305,185 L282,180 Z" fill="#1C1A17" /> <!-- Black flap -->
+
+                        <!-- Center Premium Metal Zipper line -->
+                        <line x1="200" y1="140" x2="200" y2="350" stroke="#1C1A17" stroke-width="3" />
+                        <rect x="197" y="160" width="6" height="12" rx="2" fill="#FF6B00" />
+                        <rect x="197" y="240" width="6" height="12" rx="2" fill="#1C1A17" />
+
+                        <!-- Subtle retro-futuristic grid graphics on jacket panels -->
+                        <path d="M150,160 L180,160 L180,190" fill="none" stroke="#A69886" stroke-width="0.75" stroke-dasharray="2 2" />
+                        <path d="M150,225 L180,225 L180,255" fill="none" stroke="#A69886" stroke-width="0.75" stroke-dasharray="2 2" />
+                    </svg>
+
+                    <!-- INTERACTIVE HOTSPOTS OVERLAY (Positioned to perfectly align with the coat components) -->
+                    <!-- Hotspot 1: High Insulation Hood -->
+                    <div class="absolute top-[16%] left-[50%] -translate-x-1/2 -translate-y-1/2 group cursor-pointer" 
+                         onmouseover="inspectHotspot('hood')" onmouseout="clearInspector()" onclick="inspectHotspot('hood')">
+                        <div class="relative flex items-center justify-center">
+                            <span class="absolute inline-flex h-6 w-6 rounded-full bg-astro-orange opacity-40 pulse-glow"></span>
+                            <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-astro-orange border-2 border-white shadow-md"></span>
+                        </div>
+                    </div>
+
+                    <!-- Hotspot 2: Tactical Arm Pocket -->
+                    <div class="absolute top-[51%] right-[18%] -translate-y-1/2 group cursor-pointer" 
+                         onmouseover="inspectHotspot('pocket')" onmouseout="clearInspector()" onclick="inspectHotspot('pocket')">
+                        <div class="relative flex items-center justify-center">
+                            <span class="absolute inline-flex h-6 w-6 rounded-full bg-astro-dark opacity-40 pulse-glow"></span>
+                            <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-astro-dark border-2 border-white shadow-md"></span>
+                        </div>
+                    </div>
+
+                    <!-- Hotspot 3: Internal Reactor Core Shell -->
+                    <div class="absolute top-[44%] left-[58%] -translate-x-1/2 -translate-y-1/2 group cursor-pointer" 
+                         onmouseover="inspectHotspot('core')" onmouseout="clearInspector()" onclick="inspectHotspot('core')">
+                        <div class="relative flex items-center justify-center">
+                            <span class="absolute inline-flex h-6 w-6 rounded-full bg-astro-orange opacity-40 pulse-glow"></span>
+                            <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-astro-orange border-2 border-white shadow-md"></span>
+                        </div>
+                    </div>
+
+                    <!-- Hotspot 4: Dynamic Welded Seam Stitch -->
+                    <div class="absolute bottom-[24%] left-[28%] -translate-x-1/2 -translate-y-1/2 group cursor-pointer" 
+                         onmouseover="inspectHotspot('seams')" onmouseout="clearInspector()" onclick="inspectHotspot('seams')">
+                        <div class="relative flex items-center justify-center">
+                            <span class="absolute inline-flex h-6 w-6 rounded-full bg-astro-orange opacity-40 pulse-glow"></span>
+                            <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-astro-orange border-2 border-white shadow-md"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer label within the central display -->
+                <div class="text-center mt-6 z-10">
+                    <p class="text-[9px] font-mono tracking-widest text-astro-dark font-semibold uppercase">DESIGNED IN SAN FRANCISCO // MK-02B</p>
+                    <p class="text-[9px] font-mono tracking-widest text-astro-grayText mt-1 uppercase">FABRIC AND STITCHED IN BANGLADESH</p>
+                </div>
+            </div>
+
+            <!-- RIGHT PANEL: CONFIGURATOR (Sizes, Premium Swatches, Action Elements) (3 cols) -->
+            <div class="lg:col-span-3 p-6 sm:p-8 flex flex-col justify-between border-l border-astro-border bg-astro-clay/20">
+                
+                <!-- SIZE SELECTOR -->
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-[11px] font-mono tracking-widest text-astro-dark font-bold uppercase">SIZE</span>
+                        <button onclick="toggleSizeGuide()" class="text-[10px] font-mono text-astro-orange underline hover:text-astro-orangeHover transition-colors">SIZE GUIDE</button>
+                    </div>
+
+                    <!-- Size Circle Grid -->
+                    <div class="grid grid-cols-4 gap-2" id="sizeGridContainer">
+                        <button onclick="selectSize('S')" class="size-btn py-3 bg-astro-beige border border-astro-border rounded-lg text-xs font-mono font-medium text-astro-dark hover:border-astro-orange transition-all">S</button>
+                        <button onclick="selectSize('M')" class="size-btn py-3 bg-astro-dark border border-astro-dark rounded-lg text-xs font-mono font-bold text-white transition-all ring-2 ring-astro-orange/30">M</button>
+                        <button onclick="selectSize('L')" class="size-btn py-3 bg-astro-beige border border-astro-border rounded-lg text-xs font-mono font-medium text-astro-dark hover:border-astro-orange transition-all">L</button>
+                        <button onclick="selectSize('XL')" class="size-btn py-3 bg-astro-beige border border-astro-border rounded-lg text-xs font-mono font-medium text-astro-dark hover:border-astro-orange transition-all">XL</button>
+                    </div>
+
+                    <!-- Animated Size Warning Helper / Availability indicator -->
+                    <p class="text-[10px] text-astro-grayText mt-2.5 font-mono" id="sizeStatus">
+                        <span class="inline-block w-1.5 h-1.5 bg-emerald-500 rounded-full mr-1"></span> size M fits 175-185cm standard build.
+                    </p>
+                </div>
+
+                <!-- PREMIUM COLOR SWATCH SYSTEM WITH PREVIEW THUMBNAILS (Just like the image layout) -->
+                <div class="my-8">
+                    <span class="text-[11px] font-mono tracking-widest text-astro-dark font-bold uppercase block mb-3">COLOR SELECTION</span>
+                    
+                    <div class="space-y-3">
+                        <!-- Swatch 1: Retro Beige (Default) -->
+                        <button onclick="changeColor('beige')" id="swatch-beige" class="color-swatch-btn w-full flex items-center justify-between p-2.5 rounded-lg border-2 border-astro-orange bg-astro-beige transition-all text-left">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-md bg-[#E8E2D5] border border-astro-border flex items-center justify-center text-[10px] font-mono text-astro-orange">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-astro-dark">BEIGE / SAND</p>
+                                    <p class="text-[9px] font-mono text-astro-grayText">Retro Lunar Spec</p>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-mono bg-astro-clay text-astro-dark px-1.5 py-0.5 rounded border border-astro-border font-bold">BASE</span>
+                        </button>
+
+                        <!-- Swatch 2: Obsidian Black -->
+                        <button onclick="changeColor('black')" id="swatch-black" class="color-swatch-btn w-full flex items-center justify-between p-2.5 rounded-lg border border-astro-border bg-white hover:border-astro-orange/50 transition-all text-left">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-md bg-[#2B2925] border border-astro-dark flex items-center justify-center"></div>
+                                <div>
+                                    <p class="text-xs font-bold text-astro-dark">OBSIDIAN / ONYX</p>
+                                    <p class="text-[9px] font-mono text-astro-grayText">Shadow Stealth</p>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-mono text-astro-grayText">+ $20</span>
+                        </button>
+
+                        <!-- Swatch 3: Ember Red -->
+                        <button onclick="changeColor('red')" id="swatch-red" class="color-swatch-btn w-full flex items-center justify-between p-2.5 rounded-lg border border-astro-border bg-white hover:border-astro-orange/50 transition-all text-left">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-md bg-[#BF360C] border border-red-900 flex items-center justify-center"></div>
+                                <div>
+                                    <p class="text-xs font-bold text-astro-dark">EMBER / TACTICAL</p>
+                                    <p class="text-[9px] font-mono text-astro-grayText">Thermal Extreme</p>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-mono text-astro-grayText">+ $10</span>
+                        </button>
+
+                        <!-- Swatch 4: Galactic White -->
+                        <button onclick="changeColor('white')" id="swatch-white" class="color-swatch-btn w-full flex items-center justify-between p-2.5 rounded-lg border border-astro-border bg-white hover:border-astro-orange/50 transition-all text-left">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-md bg-[#FBFBFA] border border-astro-border flex items-center justify-center"></div>
+                                <div>
+                                    <p class="text-xs font-bold text-astro-dark">NEBULA / WHITE</p>
+                                    <p class="text-[9px] font-mono text-astro-grayText">Deep Vacuum Spec</p>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-mono text-astro-orange font-bold">HOT</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- INTERACTIVE MAIN CALL TO ACTION BUTTONS -->
+                <div class="space-y-3 pt-4 border-t border-astro-border">
+                    <!-- Favorite Action -->
+                    <button id="favBtn" onclick="toggleFavorite()" class="w-full py-3 bg-transparent border border-astro-border rounded-full text-xs font-mono font-bold tracking-widest text-astro-dark uppercase hover:bg-astro-clay transition-all flex items-center justify-center gap-2">
+                        <i class="fa-regular fa-heart text-astro-orange" id="favHeart"></i>
+                        <span id="favText">FAVORITE UNIT</span>
+                    </button>
+
+                    <!-- Add to Bag Action (Transforms dynamically to indicate state) -->
+                    <button id="addBagBtn" onclick="handleAddToBag()" class="w-full py-4.5 bg-astro-orange hover:bg-astro-orangeHover text-white rounded-full text-xs font-mono font-bold tracking-[0.2em] uppercase transition-all flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(255,107,0,0.3)] hover:shadow-[0_4px_25px_rgba(255,107,0,0.45)]">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span>ADD TO CARGO BAG</span>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- HIGH-DENSITY GRID: 4-COLUMN SPECIFICATION CARDS (Matching the bottom line item boxes of the image) -->
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-b border-astro-border divide-y md:divide-y-0 md:divide-x divide-astro-border bg-white/40">
+            
+            <!-- Spec Card 1: Color treatment -->
+            <div class="p-6 flex flex-col justify-between hover:bg-astro-clay/10 transition-colors">
+                <div>
+                    <span class="text-[10px] font-mono tracking-widest text-astro-orange font-extrabold uppercase block mb-1">01 / REINFORCEMENT</span>
+                    <h3 class="text-sm font-bold text-astro-dark uppercase mb-2">3X BEIGEWASHED SHELL</h3>
+                </div>
+                <div class="mt-4">
+                    <p class="text-xs text-astro-grayText leading-relaxed">
+                        The matte beige color pigment is bonded via high-pressure molecular washes with orange tactical highlights to retain maximum solar absorption while remaining highly invisible to radar scanning arrays.
+                    </p>
+                    <div class="mt-3 flex items-center gap-1.5 text-[10px] font-mono text-astro-orange">
+                        <i class="fa-solid fa-shield"></i>
+                        <span>REINFORCED ANODE SHIELD</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spec Card 2: Insulation puff technology -->
+            <div class="p-6 flex flex-col justify-between hover:bg-astro-clay/10 transition-colors">
+                <div>
+                    <span class="text-[10px] font-mono tracking-widest text-astro-orange font-extrabold uppercase block mb-1">02 / AERODYNAMICS</span>
+                    <h3 class="text-sm font-bold text-astro-dark uppercase mb-2">34 AREAS PUFFED SHELL</h3>
+                </div>
+                <div class="mt-4">
+                    <p class="text-xs text-astro-grayText leading-relaxed">
+                        Optimized chamber divisions with 34 individual heat capture panels that dynamically trap and distribute body heat according to core biometric pressure mapping. Provides extreme warmth without restricting flight rotation.
+                    </p>
+                    <div class="mt-3 flex items-center gap-1.5 text-[10px] font-mono text-astro-dark">
+                        <i class="fa-solid fa-wind text-emerald-600"></i>
+                        <span>THERMAL INDEX: GRADE-9</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spec Card 3: Extreme Thermal insulation -->
+            <div class="p-6 flex flex-col justify-between hover:bg-astro-clay/10 transition-colors">
+                <div>
+                    <span class="text-[10px] font-mono tracking-widest text-astro-orange font-extrabold uppercase block mb-1">03 / METRIC RESISTANCE</span>
+                    <h3 class="text-sm font-bold text-astro-dark uppercase mb-2">THERMAL MATRIX (-30°C)</h3>
+                </div>
+                <div class="mt-4">
+                    <p class="text-xs text-astro-grayText leading-relaxed">
+                        Specifically designed to survive sub-zero pressure environments, freezing high-altitude winds, and extreme environments. Internal carbon grids harness electrical fields to maintain steady interior humidity.
+                    </p>
+                    <div class="mt-3 flex items-center gap-1.5 text-[10px] font-mono text-astro-dark">
+                        <i class="fa-solid fa-temperature-low text-blue-500"></i>
+                        <span>CRITICAL PROTECTION BLOCK</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spec Card 4: Futuristic Tech Graphics -->
+            <div class="p-6 flex flex-col justify-between hover:bg-astro-clay/10 transition-colors">
+                <div>
+                    <span class="text-[10px] font-mono tracking-widest text-astro-orange font-extrabold uppercase block mb-1">04 / SYSTEM TELEMETRY</span>
+                    <h3 class="text-sm font-bold text-astro-dark uppercase mb-2">INTEGRATED GRAPHICS</h3>
+                </div>
+                <div class="mt-4">
+                    <p class="text-xs text-astro-grayText leading-relaxed">
+                        Features highly detailed, retro-reflective tactical telemetry decals along the left sleeve and upper back panel that reflect planetary beacon frequencies for deep-orbit landing crew identification.
+                    </p>
+                    <div class="mt-3 flex items-center gap-1.5 text-[10px] font-mono text-astro-orange">
+                        <i class="fa-solid fa-network-wired"></i>
+                        <span>RFID TRACKING INCORPORATED</span>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- EXPEDITION LEVEL CONFIGURATOR: Interactive Simulator for Environmental Extremes -->
+        <section id="expedition" class="p-6 sm:p-10 border-b border-astro-border bg-gradient-to-br from-[#EFECE5] to-[#E5E0D5] relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-96 h-96 bg-astro-orange/5 rounded-full filter blur-3xl pointer-events-none"></div>
+            
+            <div class="relative z-10 max-w-4xl mx-auto">
+                <span class="text-[10px] font-mono tracking-[0.3em] text-astro-orange uppercase block mb-2 font-bold">// REAL-TIME HARNESS SIMULATION</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-astro-dark uppercase mb-4">TACTICAL SIMULATOR: ATMOSPHERE TOLERANCE</h2>
+                <p class="text-xs sm:text-sm text-astro-grayText mb-8 max-w-2xl leading-relaxed">
+                    Adjust the sliders below to simulate severe planetary weather systems. See how the Astro Winter Armor II's integrated smart micro-valves adjust their thermal matrix dynamically to keep you within homeostatic limits.
+                </p>
+
+                <!-- Interactive Simulator Slider Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 bg-astro-beige p-6 rounded-xl border border-astro-border shadow-sm">
+                    
+                    <!-- Slider 1: Atmospheric Temperature -->
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-mono font-bold text-astro-dark uppercase">PLANETARY TEMP</span>
+                            <span id="tempVal" class="text-xs font-mono font-bold text-astro-orange">-15°C</span>
+                        </div>
+                        <input type="range" id="tempSlider" min="-50" max="10" value="-15" oninput="runSim()" class="w-full accent-astro-orange cursor-pointer bg-astro-clay h-2 rounded-lg">
+                        <div class="flex justify-between text-[9px] font-mono text-astro-grayText mt-1">
+                            <span>-50°C</span>
+                            <span>NORMAL</span>
+                            <span>10°C</span>
+                        </div>
+                    </div>
+
+                    <!-- Slider 2: Wind Velocity -->
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-mono font-bold text-astro-dark uppercase">WIND SPEED</span>
+                            <span id="windVal" class="text-xs font-mono font-bold text-astro-orange">45 km/h</span>
+                        </div>
+                        <input type="range" id="windSlider" min="0" max="120" value="45" oninput="runSim()" class="w-full accent-astro-orange cursor-pointer bg-astro-clay h-2 rounded-lg">
+                        <div class="flex justify-between text-[9px] font-mono text-astro-grayText mt-1">
+                            <span>STILL</span>
+                            <span>STORM</span>
+                            <span>120 km/h</span>
+                        </div>
+                    </div>
+
+                    <!-- Slider 3: Air Pressure -->
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-mono font-bold text-astro-dark uppercase">ATM PRESSURE</span>
+                            <span id="pressVal" class="text-xs font-mono font-bold text-astro-orange">1.0 ATM</span>
+                        </div>
+                        <input type="range" id="pressSlider" min="0" max="2" step="0.1" value="1.0" oninput="runSim()" class="w-full accent-astro-orange cursor-pointer bg-astro-clay h-2 rounded-lg">
+                        <div class="flex justify-between text-[9px] font-mono text-astro-grayText mt-1">
+                            <span>0.2 ATM</span>
+                            <span>TERRESTRIAL</span>
+                            <span>2.0 ATM</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Simulation Output Panel -->
+                <div class="mt-6 p-4 rounded-xl border border-astro-orange/20 bg-astro-dark text-white font-mono text-xs flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded bg-astro-orange/20 border border-astro-orange flex items-center justify-center animate-pulse">
+                            <i class="fa-solid fa-heart-pulse text-astro-orange"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-gray-400">ARMOR SUIT DIAGNOSTIC STATUS</p>
+                            <p class="font-bold text-sm tracking-wide text-[#EAE6DF]" id="diagResult">THERMO-STABLE: OPTIMAL CHAMBER PRESSURE</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-6">
+                        <div>
+                            <p class="text-[10px] text-gray-400 text-right">SUIT EFFICIENCY</p>
+                            <p class="font-bold text-sm text-right text-emerald-400" id="efficiencyVal">98.4%</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-gray-400 text-right">HEATER DRAW</p>
+                            <p class="font-bold text-sm text-right text-astro-orange" id="heatDrawVal">12 Watts</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CUSTOMIZE SUIT SECTION: Add attachments (Highly premium utility layout) -->
+        <section id="specifications" class="p-6 sm:p-10 border-b border-astro-border bg-astro-beige">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-8">
+                    <div>
+                        <span class="text-[10px] font-mono tracking-[0.3em] text-astro-orange uppercase block mb-2 font-bold">// MODULAR UPGRADE KIT</span>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-astro-dark uppercase">ARMOR ATTACHMENTS</h2>
+                    </div>
+                    <span class="text-[11px] font-mono text-astro-grayText tracking-wide mt-2 md:mt-0">CUSTOMIZE GEAR WITH QUICK-ATTACH HARDWARE</span>
+                </div>
+
+                <!-- Attachments Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    
+                    <!-- Upgrade 1 -->
+                    <div id="card-acc-1" class="border border-astro-border bg-white rounded-xl p-5 hover:border-astro-orange transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-3">
+                                <span class="text-[9px] font-mono px-2 py-0.5 bg-[#FFF0E5] text-astro-orange rounded font-bold uppercase">ARMOR LAYER</span>
+                                <span class="text-xs font-mono font-bold text-astro-dark">$85</span>
+                            </div>
+                            <h4 class="text-sm font-bold text-astro-dark uppercase mb-1">Magnetic Hood Visor</h4>
+                            <p class="text-[11px] text-astro-grayText leading-normal mb-4">
+                                Space-grade polycarbonate clear shield that clips onto the hood lip. Polarizes solar radiation instantly.
+                            </p>
+                        </div>
+                        <button onclick="toggleUpgrade(1, 85)" id="btn-acc-1" class="w-full py-2 bg-astro-clay border border-astro-border text-[11px] font-mono font-bold tracking-wider rounded-lg text-astro-dark hover:border-astro-orange transition-all">
+                            EQUIP UPGRADE
+                        </button>
+                    </div>
+
+                    <!-- Upgrade 2 -->
+                    <div id="card-acc-2" class="border border-astro-border bg-white rounded-xl p-5 hover:border-astro-orange transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-3">
+                                <span class="text-[9px] font-mono px-2 py-0.5 bg-[#FFF0E5] text-astro-orange rounded font-bold uppercase">TECH PACK</span>
+                                <span class="text-xs font-mono font-bold text-astro-dark">$110</span>
+                            </div>
+                            <h4 class="text-sm font-bold text-astro-dark uppercase mb-1">Solar Heat Backplate</h4>
+                            <p class="text-[11px] text-astro-grayText leading-normal mb-4">
+                                Thin external photovoltaic matrix panel that charges internal jacket system battery while trekking under orbit suns.
+                            </p>
+                        </div>
+                        <button onclick="toggleUpgrade(2, 110)" id="btn-acc-2" class="w-full py-2 bg-astro-clay border border-astro-border text-[11px] font-mono font-bold tracking-wider rounded-lg text-astro-dark hover:border-astro-orange transition-all">
+                            EQUIP UPGRADE
+                        </button>
+                    </div>
+
+                    <!-- Upgrade 3 -->
+                    <div id="card-acc-3" class="border border-astro-border bg-white rounded-xl p-5 hover:border-astro-orange transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-3">
+                                <span class="text-[9px] font-mono px-2 py-0.5 bg-[#FFF0E5] text-astro-orange rounded font-bold uppercase">CARGO PACK</span>
+                                <span class="text-xs font-mono font-bold text-astro-dark">$45</span>
+                            </div>
+                            <h4 class="text-sm font-bold text-astro-dark uppercase mb-1">Dual Mag-Lock Pouches</h4>
+                            <p class="text-[11px] text-astro-grayText leading-normal mb-4">
+                                Two auxiliary magnetic storage cubes that snap lock safely onto the left/right lower ribs of the puffer jacket.
+                            </p>
+                        </div>
+                        <button onclick="toggleUpgrade(3, 45)" id="btn-acc-3" class="w-full py-2 bg-astro-clay border border-astro-border text-[11px] font-mono font-bold tracking-wider rounded-lg text-astro-dark hover:border-astro-orange transition-all">
+                            EQUIP UPGRADE
+                        </button>
+                    </div>
+
+                </div>
+
+                <!-- Customizer Summary Section -->
+                <div class="mt-8 pt-6 border-t border-astro-border flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-layer-group text-astro-orange text-lg"></i>
+                        <div>
+                            <h5 class="text-xs font-bold text-astro-dark uppercase">ACTIVE GEAR SET</h5>
+                            <p id="upgradeCountText" class="text-[11px] text-astro-grayText">Jacket base configured without external attachment modules.</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-[10px] text-astro-grayText uppercase">COMBINED VALUE</p>
+                        <p id="totalConfiguredPrice" class="text-xl font-bold text-astro-orange font-mono">$560</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- EXPEDITION LOGS: USER TESTIMONIALS WITH REAL ENVIRONMENT CONDITIONS -->
+        <section id="heritage" class="p-6 sm:p-10 bg-white/50 border-b border-astro-border relative">
+            <div class="max-w-4xl mx-auto">
+                <span class="text-[10px] font-mono tracking-[0.3em] text-astro-orange uppercase block mb-2 font-bold">// DEEP FIELD INTELLIGENCE</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-astro-dark uppercase mb-8">EXPEDITION PILOT REPORT</h2>
+
+                <!-- Review Block Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    
+                    <!-- Pilot Review 1 -->
+                    <div class="border border-astro-border p-6 rounded-xl bg-astro-beige/40 flex flex-col justify-between">
+                        <div>
+                            <!-- Star rate / Location Badge -->
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center gap-1 text-astro-orange text-[11px]">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                                <span class="text-[9px] font-mono px-2 py-0.5 bg-astro-clay text-astro-dark rounded">CODENAME: NEPTUNE-9</span>
+                            </div>
+
+                            <p class="text-xs text-astro-dark italic leading-relaxed mb-4">
+                                "The wind shear on the high ridge reached 75 km/h at -24°C, but inside the Armor II I felt completely cocooned. The dynamic micro-valves along the chest trapped warmth beautifully. The high matte finish held up exceptionally against freezing ice sleet."
+                            </p>
+                        </div>
+                        <div class="border-t border-astro-border pt-4 flex items-center justify-between">
+                            <div>
+                                <h5 class="text-xs font-bold text-astro-dark">Capt. Marcus Vance</h5>
+                                <p class="text-[9px] font-mono text-astro-grayText">Svalbard Trek Crew Leader</p>
+                            </div>
+                            <span class="text-[10px] font-mono text-emerald-600 font-semibold uppercase">VERIFIED RIG</span>
+                        </div>
+                    </div>
+
+                    <!-- Pilot Review 2 -->
+                    <div class="border border-astro-border p-6 rounded-xl bg-astro-beige/40 flex flex-col justify-between">
+                        <div>
+                            <!-- Star rate / Location Badge -->
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center gap-1 text-astro-orange text-[11px]">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                                <span class="text-[9px] font-mono px-2 py-0.5 bg-astro-clay text-astro-dark rounded">CODENAME: ALPS-CROSS</span>
+                            </div>
+
+                            <p class="text-xs text-astro-dark italic leading-relaxed mb-4">
+                                "I was skeptical about the 34-chamber layout system thinking it would feel stiff, but the flexibility when skiing was fantastic. The orange sleeve storage pockets were quick to unfasten with freezing ski gloves. Absolute masterclass in utility design!"
+                            </p>
+                        </div>
+                        <div class="border-t border-astro-border pt-4 flex items-center justify-between">
+                            <div>
+                                <h5 class="text-xs font-bold text-astro-dark">Eliza Thorne</h5>
+                                <p class="text-[9px] font-mono text-astro-grayText">Alpine Solo Expeditioner</p>
+                            </div>
+                            <span class="text-[10px] font-mono text-emerald-600 font-semibold uppercase">VERIFIED RIG</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER: Coordinates, licensing specs, newsletter -->
+        <footer class="relative z-10 p-6 sm:p-10 bg-astro-dark text-white font-mono text-xs">
+            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+                
+                <!-- Brand metadata -->
+                <div class="space-y-4">
+                    <p class="text-lg font-bold tracking-[0.25em] text-white">ASTRO.</p>
+                    <p class="text-[11px] text-gray-400 leading-relaxed">
+                        High-altitude outer survival hardware. Engineered inside terrestrial pressure grids to sustain homeostatic performance under hostile climates.
+                    </p>
+                    <p class="text-[10px] text-astro-orange">
+                        LAT: 37.7749° N // LON: 122.4194° W
+                    </p>
+                </div>
+
+                <!-- Specs links -->
+                <div>
+                    <h5 class="text-xs font-bold text-white uppercase tracking-wider mb-4 border-b border-gray-800 pb-2">// HARDWARE CLASS</h5>
+                    <ul class="space-y-2 text-[11px] text-gray-400">
+                        <li><a href="#" class="hover:text-astro-orange transition-colors">ARMOR MK-I CHASSIS</a></li>
+                        <li><a href="#" class="hover:text-astro-orange transition-colors">LUNAR GLOVE ASSEMBLIES</a></li>
+                        <li><a href="#" class="hover:text-astro-orange transition-colors">COMPRESSOR UNITS</a></li>
+                        <li><a href="#" class="hover:text-astro-orange transition-colors">WIND BREAK MEMBRANES</a></li>
+                    </ul>
+                </div>
+
+                <!-- Resource links -->
+                <div>
+                    <h5 class="text-xs font-bold text-white uppercase tracking-wider mb-4 border-b border-gray-800 pb-2">// SYSTEM ARCHIVE</h5>
+                    <ul class="space-y-2 text-[11px] text-gray-400">
+                        <li><a href="#" class="hover:text-astro-orange transition-colors">FLIGHT TELEMETRY DATA</a></li>
+                        <li><a href="#" class="hover:text-astro-orange transition-colors">MATERIAL BIOCOMPATIBILITY</a></li>
+                        <li><a href="#" class="hover:text-astro-orange transition-colors">DISTRIBUTED REPAIR CLINICS</a></li>
+                        <li><a href="#" class="hover:text-astro-orange transition-colors">WARRANTY DEED PROTOCOL</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter Input with premium orange accent button -->
+                <div>
+                    <h5 class="text-xs font-bold text-white uppercase tracking-wider mb-4 border-b border-gray-800 pb-2">// SUBSYSTEM NOTIFICATIONS</h5>
+                    <p class="text-[11px] text-gray-400 mb-3">Subscribe to register your unit telemetry and unlock automatic flight warranty updates.</p>
+                    <div class="flex items-center rounded-lg overflow-hidden border border-gray-700 bg-zinc-900 p-1">
+                        <input type="email" placeholder="SECURE_EMAIL@DOM" class="w-full bg-transparent px-2.5 py-1 text-xs text-white focus:outline-none placeholder:text-gray-600">
+                        <button onclick="triggerNotification('Registration key issued via secure protocol.')" class="px-3 py-1 bg-astro-orange hover:bg-astro-orangeHover text-white rounded font-bold text-[10px] tracking-wider transition-colors">
+                            ENLIST
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Legal line in design style -->
+            <div class="max-w-6xl mx-auto mt-10 pt-6 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between text-[10px] text-gray-500 gap-4">
+                <p>© 2026 ASTRO INC. ALL TACTICAL GEAR PATENTS VALIDATED AT LUNAR REGISTRY.</p>
+                <div class="flex items-center gap-4">
+                    <a href="#" class="hover:text-white transition-colors">SECURITY DEED</a>
+                    <a href="#" class="hover:text-white transition-colors">COMMS GRID</a>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- INTERACTIVE SIZE GUIDE MODAL (Hidden by default) -->
+    <div id="sizeGuideModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-astro-beige max-w-lg w-full rounded-xl border border-astro-border p-6 shadow-2xl relative">
+            <button onclick="toggleSizeGuide()" class="absolute top-4 right-4 text-astro-dark hover:text-astro-orange text-lg">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </button>
+            <h3 class="text-lg font-bold text-astro-dark uppercase font-sans mb-1">ASTRO ARMOR REGULATION SIZING</h3>
+            <p class="text-xs text-astro-grayText font-mono mb-4">M-02 STANDARD SYSTEM CONFIGURATION MEASUREMENTS</p>
+            
+            <table class="w-full text-left text-xs font-mono border-collapse">
+                <thead>
+                    <tr class="border-b border-astro-border text-astro-orange bg-astro-clay/50">
+                        <th class="p-2">SIZE</th>
+                        <th class="p-2">HEIGHT RANGE</th>
+                        <th class="p-2">CHEST PANEL</th>
+                        <th class="p-2">ARM INSEAM</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-astro-border text-astro-dark">
+                    <tr>
+                        <td class="p-2 font-bold">S</td>
+                        <td class="p-2">165 - 174 cm</td>
+                        <td class="p-2">92 - 98 cm</td>
+                        <td class="p-2">61 cm</td>
+                    </tr>
+                    <tr class="bg-astro-clay/20">
+                        <td class="p-2 font-bold">M</td>
+                        <td class="p-2">175 - 184 cm</td>
+                        <td class="p-2">99 - 106 cm</td>
+                        <td class="p-2">63 cm</td>
+                    </tr>
+                    <tr>
+                        <td class="p-2 font-bold">L</td>
+                        <td class="p-2">185 - 192 cm</td>
+                        <td class="p-2">107 - 114 cm</td>
+                        <td class="p-2">65 cm</td>
+                    </tr>
+                    <tr class="bg-astro-clay/20">
+                        <td class="p-2 font-bold">XL</td>
+                        <td class="p-2">193 - 200+ cm</td>
+                        <td class="p-2">115 - 124 cm</td>
+                        <td class="p-2">67 cm</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <p class="text-[11px] text-astro-grayText mt-4 leading-normal italic">
+                * Note: If you plan on configuring the solar battery attachment module, we strongly recommend going up one size index to allocate necessary chassis backspace.
+            </p>
+        </div>
+    </div>
+
+    <!-- CARGO BAG (CART) SLIDEOUT SYSTEM (Hidden by default) -->
+    <div id="cartSlideout" class="fixed inset-y-0 right-0 w-full max-w-md bg-astro-beige border-l border-astro-border z-50 transform translate-x-full transition-transform duration-300 ease-in-out shadow-2xl flex flex-col justify-between">
+        
+        <!-- Cart Header -->
+        <div class="p-6 border-b border-astro-border flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-briefcase text-astro-orange"></i>
+                <h4 class="font-bold text-astro-dark uppercase">ACTIVE CARGO BAY</h4>
+            </div>
+            <button onclick="toggleCart()" class="text-astro-dark hover:text-astro-orange">
+                <i class="fa-solid fa-arrow-right-long text-lg"></i>
+            </button>
+        </div>
+
+        <!-- Cart Items -->
+        <div class="p-6 flex-1 overflow-y-auto space-y-4" id="cartItemsList">
+            <!-- Dynamic Cart Contents generated by Javascript -->
+            <div class="text-center py-10 text-astro-grayText" id="emptyCartMsg">
+                <i class="fa-solid fa-box-open text-3xl mb-3 opacity-35"></i>
+                <p class="text-xs font-mono">CARGO PORT IS EMPTY</p>
+                <p class="text-[10px] mt-1">Add Astro jackets and modules to load flight crates.</p>
+            </div>
+        </div>
+
+        <!-- Cart Total Summary -->
+        <div class="p-6 border-t border-astro-border bg-astro-clay/30">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-mono text-astro-grayText">LOAD STATUS</span>
+                <span class="text-xs font-mono text-emerald-600 font-bold uppercase">READY FOR FLIGHT</span>
+            </div>
+            <div class="flex items-center justify-between mb-4">
+                <span class="text-sm font-bold text-astro-dark">TOTAL WEIGHT VALUE</span>
+                <span id="cartTotalVal" class="text-lg font-bold text-astro-orange font-mono">$0</span>
+            </div>
+            <button onclick="checkoutSim()" class="w-full py-3 bg-astro-dark hover:bg-zinc-800 text-white font-mono text-xs font-bold tracking-widest uppercase rounded-lg transition-colors flex items-center justify-center gap-2">
+                <span>APPROVE CARGO FOR TRANSIT</span>
+                <i class="fa-solid fa-plane-departure text-astro-orange"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT: Full interactive controls for hot-spot descriptions, customizable suit configurations, price engine and simulated checkout -->
+    <script>
+        // State variables
+        let selectedColor = 'beige';
+        let selectedSize = 'M';
+        let basePrice = 560;
+        let colorPriceOffset = 0;
+        let activeUpgrades = {}; // Stores upgrade ID: price values
+        let isFavorite = false;
+        let cargoBag = [];
+        let isBlueprintActive = true;
+
+        // Colors specifications matching theme system
+        const colorPresets = {
+            beige: {
+                title: 'ASTRO WINTER ARMOR II',
+                desc: 'A heavy duty arctic modular puffer jacket that marries the extreme elegance of high-orbit retro exploration style with thermal resilience required for planetary expeditions. Enveloped in a soothing matte shell, it serves as an impenetrable defense for your winter adventures.',
+                startGrad: '#E8E2D5',
+                endGrad: '#C5BDB0',
+                priceOffset: 0,
+                priceString: '$560'
+            },
+            black: {
+                title: 'ASTRO OBSIDIAN S-II',
+                desc: 'Special operations stealth variant engineered with light-absorbing carbon matrix fabrics. Perfect for tracking operations in absolute darkness or shadow-side landing coordinates. Minimizes bio-thermal signatures.',
+                startGrad: '#2B2925',
+                endGrad: '#161513',
+                priceOffset: 20,
+                priceString: '$580'
+            },
+            red: {
+                title: 'ASTRO THERMAL RED-II',
+                desc: 'High-visibility safety matrix coated shell built specifically for sub-glacial crevasse search and rescue units. Employs special heat-reflective polymers to protect operators in emergency environments.',
+                startGrad: '#BF360C',
+                endGrad: '#7F1D1D',
+                priceOffset: 10,
+                priceString: '$570'
+            },
+            white: {
+                title: 'ASTRO VACUUM WHITE-II',
+                desc: 'Extremely reflective lunar white surface treated with heavy dust-repelling fluoropolymers. Keeps critical technical systems clean from sticky abrasive soils and radioactive space dust.',
+                startGrad: '#FBFBFA',
+                endGrad: '#DEDEDA',
+                priceOffset: 30,
+                priceString: '$590'
+            }
+        };
+
+        // Schematic Hotspot definitions
+        const hotspots = {
+            hood: {
+                title: "O₂ Air Intake Hood Shield",
+                text: "The high collar and hood integrate a modular breathable barrier with micron-fine air mesh layers that scrub incoming atmospheric particulate while maximizing facial heat retention."
+            },
+            pocket: {
+                title: "Astro Utility Mag-Lock Arm Pouch",
+                text: "Positioned on the upper left arm, this easy-access pocket features a physical mechanical pull and integrated high-strength magnets that secure micro-tools even inside severe gravity drops."
+            },
+            core: {
+                title: "Aerogel Core Insulation Buffer",
+                text: "A 5mm inner pocket utilizing NASA-standard silica aerogels. Repels cold conductivity up to -45 degrees Celsius while keeping weight under 400 grams."
+            },
+            seams: {
+                title: "Reinforced Heat-Foil Weld Seams",
+                text: "All critical flex sectors are reinforced on the interior with thermal heat tape which prevents pressurized warm air from leaking during deep movement compression."
+            }
+        };
+
+        // 1. Initial State Sync
+        window.onload = function() {
+            updatePriceDisplay();
+            runSim(); // Pre-populate simulator telemetry
+        };
+
+        // 2. Color Swatch Picker function
+        function changeColor(colorKey) {
+            selectedColor = colorKey;
+            const preset = colorPresets[colorKey];
+            
+            // Adjust descriptive components
+            document.getElementById('productDesc').textContent = preset.desc;
+            document.getElementById('displayPrice').textContent = preset.priceString;
+            colorPriceOffset = preset.priceOffset;
+
+            // Update SVG jacket color gradients dynamically
+            document.getElementById('jacketGradStart').setAttribute('stop-color', preset.startGrad);
+            document.getElementById('jacketGradEnd').setAttribute('stop-color', preset.endGrad);
+
+            // Update Swatch CSS Selection styling (border overlays)
+            document.querySelectorAll('.color-swatch-btn').forEach(btn => {
+                btn.classList.remove('border-astro-orange', 'bg-astro-beige');
+                btn.classList.add('border-astro-border', 'bg-white');
+            });
+            const activeBtn = document.getElementById(`swatch-${colorKey}`);
+            activeBtn.classList.add('border-astro-orange', 'bg-astro-beige');
+            activeBtn.classList.remove('border-astro-border', 'bg-white');
+
+            updatePriceDisplay();
+            triggerToast(`[SYS] Suit loaded with ${colorKey.toUpperCase()} armor preset.`);
+        }
+
+        // 3. Size Switcher
+        function selectSize(size) {
+            selectedSize = size;
+            
+            // Re-style buttons in grid
+            const container = document.getElementById('sizeGridContainer');
+            container.querySelectorAll('button').forEach(btn => {
+                btn.className = "size-btn py-3 bg-astro-beige border border-astro-border rounded-lg text-xs font-mono font-medium text-astro-dark hover:border-astro-orange transition-all";
+            });
+
+            // Make active button stand out
+            event.target.className = "size-btn py-3 bg-astro-dark border border-astro-dark rounded-lg text-xs font-mono font-bold text-white transition-all ring-2 ring-astro-orange/30";
+
+            // Update descriptive label
+            const statusLabel = document.getElementById('sizeStatus');
+            if (size === 'S') {
+                statusLabel.innerHTML = `<span class="inline-block w-1.5 h-1.5 bg-yellow-500 rounded-full mr-1"></span> size S tailored for 165-174cm high-agility builds.`;
+            } else if (size === 'M') {
+                statusLabel.innerHTML = `<span class="inline-block w-1.5 h-1.5 bg-emerald-500 rounded-full mr-1"></span> size M fits 175-185cm standard build.`;
+            } else if (size === 'L') {
+                statusLabel.innerHTML = `<span class="inline-block w-1.5 h-1.5 bg-emerald-500 rounded-full mr-1"></span> size L tailored for 186-192cm rugged frames.`;
+            } else if (size === 'XL') {
+                statusLabel.innerHTML = `<span class="inline-block w-1.5 h-1.5 bg-rose-500 rounded-full mr-1"></span> size XL optimized for extra sub-suit thermal layering.`;
+            }
+
+            triggerToast(`[SYS] Set scale metric to size ${size}.`);
+        }
+
+        // 4. Hotspot inspector hover mechanics
+        function inspectHotspot(hotspotKey) {
+            const node = hotspots[hotspotKey];
+            document.getElementById('hudCoords').textContent = `LOCK: [${hotspotKey.toUpperCase()}]`;
+            document.getElementById('hudCoords').classList.add('text-astro-orange');
+            
+            document.getElementById('inspectorTitle').textContent = node.title;
+            document.getElementById('inspectorText').textContent = node.text;
+        }
+
+        function clearInspector() {
+            document.getElementById('hudCoords').textContent = "SYS_READY";
+            document.getElementById('hudCoords').classList.remove('text-astro-orange');
+            document.getElementById('inspectorTitle').textContent = "Hover Jacket Tech Elements";
+            document.getElementById('inspectorText').textContent = "Click or hover the glowing technical target dots on the central jacket visual to dissect the armor layers, high-output thermal valves, and storage attachments.";
+        }
+
+        // 5. Upgrade Attachment Selector
+        function toggleUpgrade(id, price) {
+            const card = document.getElementById(`card-acc-${id}`);
+            const btn = document.getElementById(`btn-acc-${id}`);
+
+            if (activeUpgrades[id]) {
+                // Remove upgrade
+                delete activeUpgrades[id];
+                card.classList.remove('border-astro-orange', 'bg-astro-orange/5');
+                card.classList.add('border-astro-border', 'bg-white');
+                btn.textContent = "EQUIP UPGRADE";
+                btn.className = "w-full py-2 bg-astro-clay border border-astro-border text-[11px] font-mono font-bold tracking-wider rounded-lg text-astro-dark hover:border-astro-orange transition-all";
+                triggerToast(`[UPGRADE] Detached upgrade kit module-0${id}.`);
+            } else {
+                // Add upgrade
+                activeUpgrades[id] = price;
+                card.classList.add('border-astro-orange', 'bg-astro-orange/5');
+                card.classList.remove('border-astro-border', 'bg-white');
+                btn.textContent = "EQUIPPED";
+                btn.className = "w-full py-2 bg-astro-orange border border-astro-orange text-[11px] font-mono font-bold tracking-wider rounded-lg text-white transition-all";
+                triggerToast(`[UPGRADE] Snapped lock upgrade kit module-0${id}.`);
+            }
+
+            // Sync total customized value calculation
+            updatePriceDisplay();
+        }
+
+        // Calculate combined dynamic configurations price
+        function calculateTotalPrice() {
+            let total = basePrice + colorPriceOffset;
+            Object.values(activeUpgrades).forEach(p => {
+                total += p;
+            });
+            return total;
+        }
+
+        function updatePriceDisplay() {
+            const total = calculateTotalPrice();
+            document.getElementById('totalConfiguredPrice').textContent = `$${total}`;
+            
+            // Sync summary text
+            const upgradeCount = Object.keys(activeUpgrades).length;
+            const textSummary = document.getElementById('upgradeCountText');
+            if (upgradeCount === 0) {
+                textSummary.textContent = "Jacket base configured without external attachment modules.";
+            } else {
+                textSummary.textContent = `Configured with ${upgradeCount} specialized environmental payload accessory modules.`;
+            }
+        }
+
+        // 6. Interactive Environmental Simulator Calculator logic
+        function runSim() {
+            const temp = parseInt(document.getElementById('tempSlider').value);
+            const wind = parseInt(document.getElementById('windSlider').value);
+            const press = parseFloat(document.getElementById('pressSlider').value);
+
+            // Display live slider values
+            document.getElementById('tempVal').textContent = `${temp}°C`;
+            document.getElementById('windVal').textContent = `${wind} km/h`;
+            document.getElementById('pressVal').textContent = `${press.toFixed(1)} ATM`;
+
+            // Core mathematical logic simulating dynamic suit reactions
+            let efficiency = 100 - (Math.abs(temp) * 0.15) - (wind * 0.1) - (Math.abs(1.0 - press) * 12);
+            efficiency = Math.max(45, Math.min(100, efficiency)); // Bound efficiency range
+
+            let heaterPower = 0;
+            if (temp < 0) {
+                heaterPower = Math.abs(temp) * 1.8 + (wind * 0.4);
+            } else {
+                heaterPower = 5; // Minimal operational drain
+            }
+            heaterPower = Math.min(150, Math.round(heaterPower));
+
+            // Generate contextual diagnostic readout
+            let diagText = "THERMO-STABLE: OPTIMAL CHAMBER TEMPERATURE";
+            let stateClass = "text-emerald-400";
+
+            if (temp < -40 || wind > 100) {
+                diagText = "WARNING: HIGH EXTERNAL FORCE. THERM-MATRIX OVERLOADED";
+                stateClass = "text-rose-500 animate-pulse";
+            } else if (temp < -25) {
+                diagText = "ACTIVE: MICRO-HEAT GENERATORS FIRED TO EXTREME MATRIX";
+                stateClass = "text-astro-orange";
+            } else if (press < 0.6) {
+                diagText = "PRESSURE REDUCED: CORE CHAMBERS STIFFENING INTERNAL GRID";
+                stateClass = "text-yellow-400";
+            }
+
+            // Write output
+            const diagLabel = document.getElementById('diagResult');
+            diagLabel.className = `font-bold text-xs sm:text-sm tracking-wide ${stateClass}`;
+            diagLabel.textContent = diagText;
+
+            document.getElementById('efficiencyVal').textContent = `${efficiency.toFixed(1)}%`;
+            document.getElementById('heatDrawVal').textContent = `${heaterPower} Watts`;
+        }
+
+        // 7. Toggle Accordion utility
+        function toggleAccordion(id) {
+            const block = document.getElementById(id);
+            const icon = document.getElementById(`${id}-icon`);
+            if (block.classList.contains('hidden')) {
+                block.classList.remove('hidden');
+                icon.className = "fa-solid fa-chevron-up text-[10px] text-astro-orange transition-transform";
+            } else {
+                block.classList.add('hidden');
+                icon.className = "fa-solid fa-chevron-down text-[10px] text-astro-grayText transition-transform";
+            }
+        }
+
+        // 8. Blueprint Grid Graphic Toggle
+        function toggleBlueprint() {
+            isBlueprintActive = !isBlueprintActive;
+            const lines = document.getElementById('blueprintLines');
+            const indicator = document.getElementById('blueprintIndicator');
+            const statusLabel = document.getElementById('blueprintStatus');
+
+            if (isBlueprintActive) {
+                lines.classList.remove('opacity-0');
+                indicator.className = "fa-solid fa-circle-nodes text-astro-orange";
+                statusLabel.textContent = "ON";
+                triggerToast("[HUD] Blueprints overlay enabled.");
+            } else {
+                lines.classList.add('opacity-0');
+                indicator.className = "fa-solid fa-circle-nodes text-astro-grayText";
+                statusLabel.textContent = "OFF";
+                triggerToast("[HUD] Blueprints overlay hidden.");
+            }
+        }
+
+        // 9. Interactive Favoriting
+        function toggleFavorite() {
+            isFavorite = !isFavorite;
+            const icon = document.getElementById('favHeart');
+            const txt = document.getElementById('favText');
+            
+            if (isFavorite) {
+                icon.className = "fa-solid fa-heart text-astro-orange animate-[ping_0.5s_1_ease-out]";
+                setTimeout(() => { icon.className = "fa-solid fa-heart text-astro-orange"; }, 500);
+                txt.textContent = "ARMOR UNIT SAVED";
+                triggerToast("[SYS] Model added to secure storage manifest.");
+            } else {
+                icon.className = "fa-regular fa-heart text-astro-orange";
+                txt.textContent = "FAVORITE UNIT";
+                triggerToast("[SYS] Model removed from storage manifest.");
+            }
+        }
+
+        // 10. Core Cargo Cart interactions
+        function toggleCart() {
+            const slideout = document.getElementById('cartSlideout');
+            slideout.classList.toggle('translate-x-full');
+        }
+
+        function toggleSizeGuide() {
+            const modal = document.getElementById('sizeGuideModal');
+            modal.classList.toggle('hidden');
+        }
+
+        function triggerToast(text) {
+            const toast = document.getElementById('quickStatusToast');
+            toast.textContent = text;
+            toast.classList.remove('hidden', 'opacity-0');
+            toast.classList.add('opacity-100');
+            
+            // Auto hide
+            setTimeout(() => {
+                toast.classList.remove('opacity-100');
+                toast.classList.add('opacity-0');
+                setTimeout(() => { toast.classList.add('hidden'); }, 300);
+            }, 3000);
+        }
+
+        function handleAddToBag() {
+            const jacketTitle = colorPresets[selectedColor].title;
+            const finalPrice = calculateTotalPrice();
+            
+            // Build item metadata
+            const item = {
+                id: Date.now(),
+                title: jacketTitle,
+                color: selectedColor,
+                size: selectedSize,
+                price: finalPrice,
+                upgrades: Object.keys(activeUpgrades).map(u => `Mod-0${u}`)
+            };
+
+            cargoBag.push(item);
+            updateCartUI();
+            
+            // Microanimation on button
+            const btn = document.getElementById('addBagBtn');
+            const oldHtml = btn.innerHTML;
+            btn.className = "w-full py-4.5 bg-emerald-600 text-white rounded-full text-xs font-mono font-bold tracking-[0.2em] uppercase transition-all flex items-center justify-center gap-2";
+            btn.innerHTML = `<i class="fa-solid fa-check"></i> LOADED TO CARGO BAY`;
+            
+            triggerToast(`[CARGO] ${jacketTitle} size ${selectedSize} secured.`);
+
+            setTimeout(() => {
+                btn.className = "w-full py-4.5 bg-astro-orange hover:bg-astro-orangeHover text-white rounded-full text-xs font-mono font-bold tracking-[0.2em] uppercase transition-all flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(255,107,0,0.3)]";
+                btn.innerHTML = oldHtml;
+            }, 2000);
+        }
+
+        function removeItem(id) {
+            cargoBag = cargoBag.filter(item => item.id !== id);
+            updateCartUI();
+            triggerToast("[CARGO] Purged item from transit load.");
+        }
+
+        function updateCartUI() {
+            const countBadge = document.getElementById('cartCount');
+            const list = document.getElementById('cartItemsList');
+            const emptyMsg = document.getElementById('emptyCartMsg');
+            const totalVal = document.getElementById('cartTotalVal');
+
+            // Set badge
+            if (cargoBag.length > 0) {
+                countBadge.textContent = cargoBag.length;
+                countBadge.classList.remove('hidden');
+                emptyMsg.classList.add('hidden');
+            } else {
+                countBadge.classList.add('hidden');
+                emptyMsg.classList.remove('hidden');
+            }
+
+            // Clear old non-empty list
+            const oldItems = list.querySelectorAll('.cargo-item-node');
+            oldItems.forEach(n => n.remove());
+
+            let runningSum = 0;
+            cargoBag.forEach(item => {
+                runningSum += item.price;
+                const node = document.createElement('div');
+                node.className = "cargo-item-node p-4 border border-astro-border rounded-xl bg-white shadow-sm flex items-start justify-between gap-4";
+                
+                // Construct inner layout
+                let upgradesListHtml = item.upgrades.length > 0 
+                    ? `<p class="text-[9px] font-mono text-astro-orange mt-1">Attachments: ${item.upgrades.join(', ')}</p>` 
+                    : ``;
+
+                node.innerHTML = `
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full" style="background-color: ${getColorHex(item.color)}"></span>
+                            <h5 class="text-xs font-bold text-astro-dark uppercase">${item.title}</h5>
+                        </div>
+                        <p class="text-[10px] font-mono text-astro-grayText mt-0.5">SIZE: ${item.size} // CODE-0${item.id.toString().slice(-4)}</p>
+                        ${upgradesListHtml}
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs font-bold font-mono text-astro-dark">$${item.price}</p>
+                        <button onclick="removeItem(${item.id})" class="text-[10px] text-rose-500 font-mono underline hover:text-rose-700 mt-2 block">PURGE</button>
+                    </div>
+                `;
+                list.appendChild(node);
+            });
+
+            totalVal.textContent = `$${runningSum}`;
+        }
+
+        function getColorHex(colorKey) {
+            switch(colorKey) {
+                case 'beige': return '#E8E2D5';
+                case 'black': return '#2B2925';
+                case 'red': return '#BF360C';
+                case 'white': return '#FBFBFA';
+                default: return '#E8E2D5';
+            }
+        }
+
+        function checkoutSim() {
+            if (cargoBag.length === 0) {
+                triggerToast("[ERROR] Cargo bay is currently unweighted.");
+                return;
+            }
+            
+            // Simulate launch order
+            triggerToast("[LAUNCH] Transmitting secure transit flight path...");
+            
+            const list = document.getElementById('cartItemsList');
+            list.innerHTML = `
+                <div class="text-center py-10 text-emerald-600 font-mono">
+                    <i class="fa-solid fa-circle-check text-4xl mb-3 animate-[bounce_1s_infinite]"></i>
+                    <p class="text-sm font-bold uppercase">SECURED FOR FLIGHT</p>
+                    <p class="text-[10px] text-astro-grayText mt-2">Transit coordinate lock assigned to base platform. Shipment dispatched.</p>
+                </div>
+            `;
+            cargoBag = [];
+            document.getElementById('cartCount').classList.add('hidden');
+            document.getElementById('cartTotalVal').textContent = "$0";
+        }
+    </script>
+</body>
+</html>
+4

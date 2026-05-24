@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BONSAI ATELIER — Premium Curated Specimen Hub & Academy</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Premium Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Playball&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Cinzel', 'serif'],
+            serif: ['Cormorant Garamond', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            accent: ['Playball', 'cursive'],
+          },
+          colors: {
+            sand: {
+              50: '#FAF8F5',
+              100: '#F3ECE0',
+              200: '#E6DCC8',
+              300: '#D9CBB0',
+              400: '#BFA88F',
+              500: '#A4876E',
+            },
+            charcoal: {
+              800: '#2C2520',
+              900: '#1F1A17',
+            },
+            zenGreen: {
+              300: '#8FA882',
+              600: '#4F5D46',
+              800: '#2D3E24',
+            }
+          },
+          animation: {
+            'float-slow': 'float 8s ease-in-out infinite',
+            'spin-slow': 'spin 25s linear infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F3ECE0;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #A4876E;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #2C2520;
+    }
+    
+    /* Japanese calligraphy watermark styling */
+    .kanji-watermark {
+      font-size: 40vw;
+      line-height: 1;
+      font-family: 'Cinzel', serif;
+      pointer-events: none;
+      user-select: none;
+      opacity: 0.022;
+      color: #000;
+      mix-blend-mode: multiply;
+    }
+  </style>
+</head>
+<body class="bg-sand-100 text-charcoal-800 font-sans selection:bg-zenGreen-600 selection:text-sand-50 overflow-x-hidden">
+
+  <!-- ================= NOTIFICATION SYSTEMS ================= -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3"></div>
+
+  <!-- ================= PREMIUM AUDIO ENGINE ================= -->
+  <script>
+    // Synthesis of high-end authentic Japanese Zen singing bowl & bell using Web Audio API
+    const playZenBell = (frequency = 144, type = "bell") => {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const ctx = new AudioContext();
+        
+        const now = ctx.currentTime;
+        
+        if (type === "bell") {
+          // Deep authentic low overtone bell
+          const masterGain = ctx.createGain();
+          masterGain.gain.setValueAtTime(0, now);
+          masterGain.gain.linearRampToValueAtTime(0.5, now + 0.02);
+          masterGain.gain.exponentialRampToValueAtTime(0.0001, now + 4.0);
+          
+          // Harmonious partials for real physical metal acoustics
+          const partials = [1.0, 1.5, 1.98, 2.44, 3.0, 4.1];
+          const gains = [1.0, 0.4, 0.3, 0.2, 0.1, 0.05];
+          
+          partials.forEach((p, idx) => {
+            const osc = ctx.createOscillator();
+            const oscGain = ctx.createGain();
+            
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(frequency * p, now);
+            
+            oscGain.gain.setValueAtTime(gains[idx], now);
+            oscGain.gain.exponentialRampToValueAtTime(0.001, now + (3.0 / p));
+            
+            osc.connect(oscGain);
+            oscGain.connect(masterGain);
+            osc.start(now);
+            osc.stop(now + 4);
+          });
+          
+          masterGain.connect(ctx.destination);
+        } else {
+          // High-frequency subtle chime
+          const osc = ctx.createOscillator();
+          const gainNode = ctx.createGain();
+          
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(frequency, now);
+          
+          gainNode.gain.setValueAtTime(0, now);
+          gainNode.gain.linearRampToValueAtTime(0.2, now + 0.01);
+          gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
+          
+          osc.connect(gainNode);
+          gainNode.connect(ctx.destination);
+          
+          osc.start();
+          osc.stop(now + 1);
+        }
+      } catch (e) {
+        console.warn("Audio Context not yet initialized/supported by browser interaction.");
+      }
+    };
+
+    const showToast = (message, title = "Zen Companion") => {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'bg-charcoal-800 text-sand-100 border border-sand-400/20 px-5 py-4 rounded-xl shadow-2xl flex items-start gap-4 transition-all duration-500 transform translate-y-4 opacity-0 max-w-sm';
+      toast.innerHTML = `
+        <div class="p-1 rounded-full bg-zenGreen-600/30 text-zenGreen-300">
+          <i data-lucide="lotus" class="w-5 h-5"></i>
+        </div>
+        <div class="flex-1">
+          <h4 class="font-display text-sm tracking-widest text-sand-300 uppercase">${title}</h4>
+          <p class="font-serif text-sm text-sand-200 mt-1">${message}</p>
+        </div>
+      `;
+      container.appendChild(toast);
+      lucide.createIcons();
+      setTimeout(() => {
+        toast.classList.remove('translate-y-4', 'opacity-0');
+      }, 50);
+      
+      // Auto-remove after 4.5s
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 500);
+      }, 4500);
+    };
+  </script>
+
+  <!-- ================= ATELIER NAVIGATION ================= -->
+  <header class="fixed top-0 left-0 w-full z-40 bg-sand-100/90 backdrop-blur-md border-b border-sand-200/50 transition-all duration-300">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+      <!-- Monogram Logo -->
+      <a href="#hero" class="flex items-center gap-3 group" onclick="playZenBell(180, 'chime')">
+        <div class="relative w-10 h-10 flex items-center justify-center border border-charcoal-800 rounded-lg overflow-hidden transition-all duration-500 group-hover:bg-charcoal-800 group-hover:text-sand-100">
+          <span class="font-display font-bold text-lg tracking-tighter">B</span>
+          <span class="absolute text-[8px] bottom-1 font-display tracking-widest opacity-70 group-hover:text-sand-300">M</span>
+        </div>
+        <div class="hidden sm:block">
+          <h1 class="font-display text-sm tracking-[0.25em] font-bold uppercase">Bonsai Atelier</h1>
+          <p class="font-serif text-[10px] tracking-widest text-charcoal-800/60 uppercase">— ISSUE Nº 27</p>
+        </div>
+      </a>
+
+      <!-- Premium Center Navigation -->
+      <nav class="hidden md:flex items-center gap-8 lg:gap-12 text-xs tracking-[0.2em] uppercase font-semibold">
+        <a href="#collection" class="hover:text-zenGreen-600 transition-colors py-2 relative group">
+          Collection
+          <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-zenGreen-600 transition-all duration-300 group-hover:w-full"></span>
+        </a>
+        <a href="#diagnostic" class="hover:text-zenGreen-600 transition-colors py-2 relative group">
+          Companion AI
+          <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-zenGreen-600 transition-all duration-300 group-hover:w-full"></span>
+        </a>
+        <a href="#masterclass" class="hover:text-zenGreen-600 transition-colors py-2 relative group">
+          Masterclass
+          <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-zenGreen-600 transition-all duration-300 group-hover:w-full"></span>
+        </a>
+        <a href="#bidding-vault" class="hover:text-zenGreen-600 transition-colors py-2 relative group">
+          Live Bidding
+          <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-zenGreen-600 transition-all duration-300 group-hover:w-full"></span>
+        </a>
+      </nav>
+
+      <!-- Right Interaction Set -->
+      <div class="flex items-center gap-6">
+        <span class="hidden xl:inline-block text-[11px] font-mono uppercase text-charcoal-800/60 bg-sand-200/50 px-3 py-1 rounded">
+          TOKYO TIME: <span id="tokyo-clock">00:00:00 JST</span>
+        </span>
+        
+        <button onclick="toggleMobileMenu()" class="p-2 border border-charcoal-800/20 hover:border-charcoal-800 rounded-lg transition-all" aria-label="Toggle menu">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Fullscreen Immersive Mobile Menu Overlay -->
+  <div id="mobile-menu" class="fixed inset-0 z-50 bg-charcoal-900 text-sand-100 transform translate-x-full transition-transform duration-700 ease-in-out flex flex-col justify-between p-10 lg:p-20">
+    <div class="flex justify-between items-center">
+      <div class="font-display text-xl tracking-[0.25em]">BONSAI ATELIER</div>
+      <button onclick="toggleMobileMenu()" class="p-3 border border-sand-100/20 hover:border-sand-100 rounded-full transition-all">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+    </div>
+    
+    <nav class="flex flex-col gap-6 lg:gap-10 my-auto">
+      <a onclick="toggleMobileMenu(); playZenBell(180, 'chime')" href="#collection" class="font-serif text-4xl lg:text-6xl hover:italic hover:pl-6 transition-all duration-300 text-sand-300 hover:text-sand-50">01. Master Collection</a>
+      <a onclick="toggleMobileMenu(); playZenBell(220, 'chime')" href="#diagnostic" class="font-serif text-4xl lg:text-6xl hover:italic hover:pl-6 transition-all duration-300 text-sand-300 hover:text-sand-50">02. Botanical Diagnostic</a>
+      <a onclick="toggleMobileMenu(); playZenBell(260, 'chime')" href="#masterclass" class="font-serif text-4xl lg:text-6xl hover:italic hover:pl-6 transition-all duration-300 text-sand-300 hover:text-sand-50">03. Masterclass Academy</a>
+      <a onclick="toggleMobileMenu(); playZenBell(300, 'chime')" href="#bidding-vault" class="font-serif text-4xl lg:text-6xl hover:italic hover:pl-6 transition-all duration-300 text-sand-300 hover:text-sand-50">04. Interactive Auction Vault</a>
+    </nav>
+
+    <div class="border-t border-sand-100/10 pt-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs tracking-wider text-sand-400">
+      <div>© 2026 BONSAI ATELIER. ALL RIGHTS RESERVED.</div>
+      <div class="flex gap-6">
+        <a href="#" class="hover:text-sand-100 transition-colors">INSTAGRAM</a>
+        <a href="#" class="hover:text-sand-100 transition-colors">PINTEREST</a>
+        <a href="#" class="hover:text-sand-100 transition-colors">TWITTER</a>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================= MAIN APP WRAPPER ================= -->
+  <main class="relative z-10 pt-20">
+
+    <!-- ================= HERO SECTION (RECREATION OF THE INSPIRED MASTERPIECE) ================= -->
+    <section id="hero" class="relative min-h-[90vh] flex items-center justify-center overflow-hidden px-6 lg:px-12 py-12 select-none">
+      
+      <!-- Calligraphy Canvas Overlay Backdrop -->
+      <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
+        <div class="kanji-watermark absolute transform -translate-y-12 select-none select-none font-serif">
+          盆栽
+        </div>
+      </div>
+
+      <!-- Hero Container for Layout Elements -->
+      <div class="max-w-[1400px] w-full mx-auto relative grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Background Massive Display Text -->
+        <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 flex flex-col items-center justify-center pointer-events-none z-0">
+          <h1 class="font-display text-[15vw] leading-none tracking-[0.18em] font-bold text-charcoal-800/10 uppercase select-none">
+            BONSAI
+          </h1>
+          <div class="font-accent text-[8vw] text-zenGreen-600/25 -mt-[6%] transform rotate-[-4deg] select-none">
+            Mania
+          </div>
+        </div>
+
+        <!-- Left Column: Legacy Meta -->
+        <div class="lg:col-span-3 flex flex-row lg:flex-col justify-between items-center lg:items-start gap-6 z-20">
+          <div class="flex items-center gap-3 lg:gap-4">
+            <span class="h-[1px] w-12 bg-charcoal-800"></span>
+            <p class="font-display text-xs lg:text-sm tracking-[0.25em] font-semibold text-charcoal-800">BORN IN 1882</p>
+          </div>
+          <div class="hidden lg:block text-xs uppercase tracking-widest text-charcoal-800/50 mt-12 font-semibold">
+            <p>Specimen ID: JP-882-SHI</p>
+            <p class="mt-1">Pot: Antique Yixing Zisha</p>
+          </div>
+        </div>
+
+        <!-- Center Column: Primary Interlocking Parallax Graphic -->
+        <div class="lg:col-span-6 flex justify-center items-center relative py-12 z-10 min-h-[400px]" id="hero-image-container">
+          <!-- Shadow base element -->
+          <div class="absolute bottom-12 w-[60%] h-8 bg-charcoal-900/10 rounded-full blur-xl transform scale-110 pointer-events-none"></div>
+
+          <!-- Master Bonsai Image Render Overlapping Layers -->
+          <div class="relative w-full max-w-[500px] transition-transform duration-300 ease-out cursor-grab active:cursor-grabbing hover:scale-[1.03]" id="parallax-target">
+            
+            <!-- White Jin Deadwood branch background overlapping effect -->
+            <div class="absolute inset-0 pointer-events-none bg-radial-gradient from-transparent to-sand-100 z-10"></div>
+            
+            <!-- Real-world Premium transparent-cutout mockup representation of the exact bonsai -->
+            <img 
+              src="https://images.unsplash.com/photo-1613143763660-f463200938b8?q=80&w=1200&auto=format&fit=crop" 
+              alt="Shohin Shimpaku Bonsai Heritage" 
+              class="w-full h-auto drop-shadow-[0_25px_40px_rgba(44,37,32,0.22)] object-contain relative z-20"
+            />
+            
+            <!-- Floating dust/zen glowing particles -->
+            <span class="absolute w-2 h-2 rounded-full bg-zenGreen-300/60 top-12 left-1/4 animate-float-slow filter blur-[1px]"></span>
+            <span class="absolute w-3 h-3 rounded-full bg-sand-300/50 bottom-24 right-1/4 animate-float-slow filter blur-[1px]" style="animation-delay: 3s"></span>
+          </div>
+        </div>
+
+        <!-- Right Column: Editorial & Read More -->
+        <div class="lg:col-span-3 flex flex-col justify-center items-start gap-6 z-20">
+          <div class="space-y-4">
+            <h3 class="font-display text-sm tracking-[0.2em] font-semibold text-charcoal-800 uppercase">SHOHIN SHIMPAKU BONSAI</h3>
+            <span class="block w-12 h-[1px] bg-charcoal-800/40"></span>
+            <p class="font-serif text-lg text-charcoal-800/80 leading-relaxed italic">
+              "The Shohin bonsai got a lot of attention at the 8th World Bonsai Convention. One of the most impressive was a shimpaku juniper with beautiful, intricate deadwood."
+            </p>
+          </div>
+
+          <!-- Premium Circular CTA -->
+          <a href="#collection" onclick="playZenBell(280, 'chime')" class="group relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-charcoal-800 rounded-full group bg-gradient-to-br from-charcoal-800 to-sand-500 hover:text-white focus:ring-4 focus:outline-none focus:ring-sand-200 mt-6">
+            <span class="relative px-5 py-3 transition-all ease-in duration-75 bg-sand-100 rounded-full group-hover:bg-opacity-0 group-hover:text-sand-100 flex items-center gap-3">
+              <span class="text-xs tracking-widest font-semibold uppercase">Examine Vault</span>
+              <i data-lucide="arrow-down-right" class="w-4 h-4 transform group-hover:rotate-45 transition-transform"></i>
+            </span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Bottom Slider / Specimen indicators -->
+      <div class="absolute bottom-10 left-6 lg:left-12 flex items-center gap-6 z-20">
+        <div class="flex items-center gap-3">
+          <span class="text-xs font-semibold tracking-wider font-mono">01</span>
+          <div class="w-24 h-[2px] bg-charcoal-800/20 relative overflow-hidden">
+            <div class="absolute top-0 left-0 h-full w-1/3 bg-charcoal-800 transition-all duration-500" id="hero-progress-bar"></div>
+          </div>
+          <span class="text-xs font-semibold tracking-wider font-mono text-charcoal-800/40">04</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MUSEUM COLLECTION SHOWCASE ================= -->
+    <section id="collection" class="bg-[#FAF8F5] py-24 px-6 lg:px-12 border-y border-sand-200/40 relative">
+      <div class="max-w-[1400px] mx-auto">
+        
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+          <div>
+            <span class="text-xs font-semibold uppercase tracking-[0.3em] text-zenGreen-600 block mb-3">THE PERMANENT ARCHIVE</span>
+            <h2 class="font-display text-4xl lg:text-5xl tracking-wide">Specimen Dossiers</h2>
+          </div>
+          <p class="max-w-md font-serif text-lg text-charcoal-800/70 leading-relaxed italic">
+            Each curated masterpiece holds generations of meticulous pruning, climate resilience, and artistic guidance. Filter through our exclusive vaults.
+          </p>
+        </div>
+
+        <!-- Specimen Filtering System -->
+        <div class="flex flex-wrap gap-3 mb-12" id="specimen-filters">
+          <button onclick="filterSpecimens('all')" class="specimen-filter-btn px-6 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase border border-charcoal-800 bg-charcoal-800 text-sand-100 transition-all">All Specimens</button>
+          <button onclick="filterSpecimens('conifer')" class="specimen-filter-btn px-6 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase border border-charcoal-800/20 text-charcoal-800 hover:border-charcoal-800 transition-all">Coniferous</button>
+          <button onclick="filterSpecimens('deciduous')" class="specimen-filter-btn px-6 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase border border-charcoal-800/20 text-charcoal-800 hover:border-charcoal-800 transition-all">Deciduous</button>
+          <button onclick="filterSpecimens('extreme-shari')" class="specimen-filter-btn px-6 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase border border-charcoal-800/20 text-charcoal-800 hover:border-charcoal-800 transition-all">Legacy Shari</button>
+        </div>
+
+        <!-- Dynamic Specimen Showcase Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="specimens-grid">
+          
+          <!-- Card 1 -->
+          <div class="specimen-card bg-sand-100 border border-sand-200/60 rounded-2xl overflow-hidden group hover:shadow-2xl hover:border-sand-400/30 transition-all duration-500 flex flex-col justify-between" data-category="conifer extreme-shari">
+            <div class="p-8 pb-0 relative">
+              <div class="flex justify-between items-start">
+                <span class="font-mono text-xs text-charcoal-800/50">VAULT: NO. 01</span>
+                <span class="bg-zenGreen-600/10 text-zenGreen-800 text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full">EST. 140 YRS</span>
+              </div>
+              <div class="h-64 my-6 flex items-center justify-center relative overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?q=80&w=800&auto=format&fit=crop" alt="Pinus Pentaphylla" class="h-full object-contain transform group-hover:scale-105 transition-transform duration-700">
+              </div>
+            </div>
+            <div class="p-8 pt-4 bg-sand-200/20 border-t border-sand-200/40">
+              <h3 class="font-display text-xl tracking-wide group-hover:text-zenGreen-600 transition-colors">Pinus Pentaphylla</h3>
+              <p class="font-serif italic text-sm text-charcoal-800/60 mb-6">Japanese Five-Needle White Pine</p>
+              
+              <div class="grid grid-cols-2 gap-4 border-t border-sand-200/60 pt-4 mb-6 text-xs font-mono uppercase tracking-wider text-charcoal-800/60">
+                <div>Origin: <span class="text-charcoal-800 font-semibold block">Nara, Japan</span></div>
+                <div>Wiring Pattern: <span class="text-charcoal-800 font-semibold block">Moyo-Gi</span></div>
+              </div>
+
+              <button onclick="openSpecimenDetail('five-needle')" class="w-full py-3 bg-charcoal-800 hover:bg-zenGreen-600 text-sand-50 text-xs font-semibold uppercase tracking-widest rounded-xl transition-all duration-300">
+                Inspect Document Details
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="specimen-card bg-sand-100 border border-sand-200/60 rounded-2xl overflow-hidden group hover:shadow-2xl hover:border-sand-400/30 transition-all duration-500 flex flex-col justify-between" data-category="deciduous">
+            <div class="p-8 pb-0 relative">
+              <div class="flex justify-between items-start">
+                <span class="font-mono text-xs text-charcoal-800/50">VAULT: NO. 02</span>
+                <span class="bg-zenGreen-600/10 text-zenGreen-800 text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full">EST. 85 YRS</span>
+              </div>
+              <div class="h-64 my-6 flex items-center justify-center relative overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?q=80&w=800&auto=format&fit=crop" alt="Acer Palmatum" class="h-full object-contain transform group-hover:scale-105 transition-transform duration-700">
+              </div>
+            </div>
+            <div class="p-8 pt-4 bg-sand-200/20 border-t border-sand-200/40">
+              <h3 class="font-display text-xl tracking-wide group-hover:text-zenGreen-600 transition-colors">Acer Palmatum</h3>
+              <p class="font-serif italic text-sm text-charcoal-800/60 mb-6">Kyoto Mountain Red Maple</p>
+              
+              <div class="grid grid-cols-2 gap-4 border-t border-sand-200/60 pt-4 mb-6 text-xs font-mono uppercase tracking-wider text-charcoal-800/60">
+                <div>Origin: <span class="text-charcoal-800 font-semibold block">Kyoto Outskirts</span></div>
+                <div>Wiring Pattern: <span class="text-charcoal-800 font-semibold block">Chokan Style</span></div>
+              </div>
+
+              <button onclick="openSpecimenDetail('red-maple')" class="w-full py-3 bg-charcoal-800 hover:bg-zenGreen-600 text-sand-50 text-xs font-semibold uppercase tracking-widest rounded-xl transition-all duration-300">
+                Inspect Document Details
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="specimen-card bg-sand-100 border border-sand-200/60 rounded-2xl overflow-hidden group hover:shadow-2xl hover:border-sand-400/30 transition-all duration-500 flex flex-col justify-between" data-category="conifer">
+            <div class="p-8 pb-0 relative">
+              <div class="flex justify-between items-start">
+                <span class="font-mono text-xs text-charcoal-800/50">VAULT: NO. 03</span>
+                <span class="bg-zenGreen-600/10 text-zenGreen-800 text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full">EST. 110 YRS</span>
+              </div>
+              <div class="h-64 my-6 flex items-center justify-center relative overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?q=80&w=800&auto=format&fit=crop" alt="Juniperus Chinensis" class="h-full object-contain transform group-hover:scale-105 transition-transform duration-700">
+              </div>
+            </div>
+            <div class="p-8 pt-4 bg-sand-200/20 border-t border-sand-200/40">
+              <h3 class="font-display text-xl tracking-wide group-hover:text-zenGreen-600 transition-colors">Juniperus Chinensis</h3>
+              <p class="font-serif italic text-sm text-charcoal-800/60 mb-6">Kishu Shimpaku Juniper</p>
+              
+              <div class="grid grid-cols-2 gap-4 border-t border-sand-200/60 pt-4 mb-6 text-xs font-mono uppercase tracking-wider text-charcoal-800/60">
+                <div>Origin: <span class="text-charcoal-800 font-semibold block">Kishu Region</span></div>
+                <div>Wiring Pattern: <span class="text-charcoal-800 font-semibold block">Shakan</span></div>
+              </div>
+
+              <button onclick="openSpecimenDetail('kishu-shimpaku')" class="w-full py-3 bg-charcoal-800 hover:bg-zenGreen-600 text-sand-50 text-xs font-semibold uppercase tracking-widest rounded-xl transition-all duration-300">
+                Inspect Document Details
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================= SPECIMEN DETAIL MODAL ================= -->
+    <div id="specimen-modal" class="fixed inset-0 z-50 bg-charcoal-900/85 backdrop-blur-md hidden items-center justify-center p-6 transition-all duration-500">
+      <div class="bg-sand-100 rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-sand-300 relative">
+        <button onclick="closeSpecimenDetail()" class="absolute top-6 right-6 p-2 rounded-full border border-charcoal-800/10 hover:border-charcoal-800 transition-colors z-10">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+
+        <div class="grid grid-cols-1 md:grid-cols-2">
+          <!-- Left side graphic -->
+          <div class="p-8 bg-sand-200/40 flex flex-col justify-between items-center relative border-b md:border-b-0 md:border-r border-sand-300/60">
+            <span class="font-display text-xs uppercase tracking-widest text-charcoal-800/50 self-start" id="modal-vault-id">VAULT ENTRY NO. 01</span>
+            <div class="h-80 w-full my-6 flex items-center justify-center">
+              <img id="modal-image" src="" alt="" class="h-full object-contain">
+            </div>
+            <div class="w-full flex justify-between text-xs font-mono tracking-widest text-charcoal-800/60">
+              <span>AGE: <strong id="modal-age" class="text-charcoal-800">140 YRS</strong></span>
+              <span>EST. VALUE: <strong id="modal-value" class="text-charcoal-800">¥1,850,000</strong></span>
+            </div>
+          </div>
+
+          <!-- Right side details -->
+          <div class="p-8 flex flex-col justify-between">
+            <div>
+              <span id="modal-scientific-family" class="text-xs uppercase tracking-[0.2em] font-semibold text-zenGreen-600 block mb-2">CUPRESSACEAE</span>
+              <h3 id="modal-title" class="font-display text-3xl tracking-wide text-charcoal-800 mb-2">Pinus Pentaphylla</h3>
+              <p id="modal-japanese-title" class="font-serif italic text-lg text-charcoal-800/60 mb-6">五葉松 — "Goyomatsu"</p>
+              
+              <div class="space-y-4 text-sm leading-relaxed text-charcoal-800/80 mb-8">
+                <p id="modal-description">This extraordinary five-needle pine is highly valued for its elegant, dark-blue foliage and dynamic needle-clustering. Over a century of structural styling gives it its trademark tiered cloud aesthetic.</p>
+                
+                <!-- Detailed Spec Grid -->
+                <div class="grid grid-cols-2 gap-4 border-t border-sand-300/40 pt-4 text-xs font-mono uppercase text-charcoal-800/70">
+                  <div>WIRING SCHEDULE: <span id="modal-wiring" class="block font-semibold text-charcoal-800 mt-1">Autumn & Winter</span></div>
+                  <div>LAST REPOT: <span id="modal-repot" class="block font-semibold text-charcoal-800 mt-1">April 2024</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Modal Action -->
+            <div class="flex gap-4">
+              <button onclick="playZenBell(120, 'bell'); showToast('Curator Consultation requested. We will contact your private coordinates.', 'Vault Consultation'); closeSpecimenDetail()" class="flex-1 py-4 bg-charcoal-800 hover:bg-zenGreen-600 text-sand-50 text-xs font-semibold uppercase tracking-widest rounded-xl transition-all duration-300">
+                Inquire Curation Consultation
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ================= BOTANICAL DIAGNOSTIC AI COMPANION ================= -->
+    <section id="diagnostic" class="py-24 px-6 lg:px-12 bg-charcoal-900 text-sand-100 relative overflow-hidden">
+      <!-- Ambient Zen Glow backdrop -->
+      <div class="absolute top-1/4 left-1/3 w-96 h-96 bg-zenGreen-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+      <div class="max-w-[1400px] mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+          
+          <!-- Control Panel -->
+          <div class="lg:col-span-5 space-y-8 relative z-10">
+            <div>
+              <span class="text-xs font-semibold uppercase tracking-[0.3em] text-zenGreen-300 block mb-3">ZEN COMPANION APPLICATION</span>
+              <h2 class="font-display text-4xl lg:text-5xl tracking-wide">Botanical Diagnostic</h2>
+              <p class="font-serif text-lg text-sand-300/70 mt-4 leading-relaxed italic">
+                Input your atmospheric conditions to simulate the specimen's water requirement, vegetative response, and master wiring stress limits in real time.
+              </p>
+            </div>
+
+            <!-- Interacting sliders and parameters -->
+            <div class="bg-charcoal-800/50 border border-sand-100/10 p-8 rounded-2xl space-y-6 backdrop-blur-md">
+              
+              <!-- Species Selector -->
+              <div class="space-y-2">
+                <label class="block text-xs font-mono uppercase tracking-widest text-sand-300">Select Species Genus</label>
+                <div class="grid grid-cols-3 gap-2">
+                  <button onclick="selectDiagSpecies('shimpaku')" id="btn-diag-shimpaku" class="diag-species-btn py-2.5 px-3 border border-sand-100/10 rounded-lg text-[10px] tracking-wider uppercase font-semibold text-center hover:bg-sand-100/5 transition-all bg-zenGreen-600 text-sand-100">Shimpaku Juniper</button>
+                  <button onclick="selectDiagSpecies('maple')" id="btn-diag-maple" class="diag-species-btn py-2.5 px-3 border border-sand-100/10 rounded-lg text-[10px] tracking-wider uppercase font-semibold text-center hover:bg-sand-100/5 transition-all">Mountain Maple</button>
+                  <button onclick="selectDiagSpecies('blackpine')" id="btn-diag-blackpine" class="diag-species-btn py-2.5 px-3 border border-sand-100/10 rounded-lg text-[10px] tracking-wider uppercase font-semibold text-center hover:bg-sand-100/5 transition-all">Black Pine</button>
+                </div>
+              </div>
+
+              <!-- Humidity Slider -->
+              <div class="space-y-3">
+                <div class="flex justify-between text-xs font-mono uppercase">
+                  <span>Relative Humidity</span>
+                  <span id="humidity-val" class="text-zenGreen-300">55%</span>
+                </div>
+                <input type="range" id="humidity-slider" min="10" max="100" value="55" class="w-full accent-zenGreen-300 cursor-ew-resize bg-charcoal-900 h-2 rounded-lg" oninput="updateDiagnostics()">
+              </div>
+
+              <!-- Solar Radiation Slider -->
+              <div class="space-y-3">
+                <div class="flex justify-between text-xs font-mono uppercase">
+                  <span>Solar Radiation Exposure</span>
+                  <span id="solar-val" class="text-zenGreen-300">350 W/m²</span>
+                </div>
+                <input type="range" id="solar-slider" min="0" max="1000" value="350" class="w-full accent-zenGreen-300 cursor-ew-resize bg-charcoal-900 h-2 rounded-lg" oninput="updateDiagnostics()">
+              </div>
+
+              <!-- Pruning Frequency Slider -->
+              <div class="space-y-3">
+                <div class="flex justify-between text-xs font-mono uppercase">
+                  <span>Structural Pruning Rate</span>
+                  <span id="pruning-val" class="text-zenGreen-300">Medium</span>
+                </div>
+                <input type="range" id="pruning-slider" min="1" max="3" value="2" class="w-full accent-zenGreen-300 cursor-ew-resize bg-charcoal-900 h-2 rounded-lg" oninput="updateDiagnostics()">
+              </div>
+
+              <!-- Diagnostic Action -->
+              <button onclick="diagnoseSpecimen()" class="w-full py-4 bg-sand-100 hover:bg-sand-200 text-charcoal-900 text-xs font-semibold uppercase tracking-widest rounded-xl transition-all duration-300 flex items-center justify-center gap-2">
+                <i data-lucide="activity" class="w-4 h-4"></i>
+                Simulate Reactive Output
+              </button>
+            </div>
+          </div>
+
+          <!-- Output Display / Reactive Visualizer -->
+          <div class="lg:col-span-7 flex flex-col justify-center gap-8 relative">
+            <div class="bg-charcoal-800/20 border border-sand-100/10 p-8 rounded-3xl relative z-10 flex flex-col md:flex-row gap-8 items-center">
+              
+              <!-- Live Canvas Visualizing the interactive wiring stress and needle thickness -->
+              <div class="w-48 h-48 md:w-64 md:h-64 flex flex-col justify-center items-center relative border border-sand-100/5 rounded-full p-4 bg-charcoal-900/50">
+                <svg id="vector-chart" class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="40" stroke="#1f1a17" stroke-width="6" fill="transparent" />
+                  <!-- Dynamic ring -->
+                  <circle id="vector-accent-ring" cx="50" cy="50" r="40" stroke="#8FA882" stroke-width="6" fill="transparent" stroke-dasharray="251.2" stroke-dashoffset="100" />
+                </svg>
+                <div class="absolute text-center">
+                  <span class="text-[10px] font-mono tracking-widest uppercase text-sand-400 block">Growth Quotient</span>
+                  <span id="vitality-quotient" class="font-display text-4xl text-sand-50 block mt-1">74%</span>
+                </div>
+              </div>
+
+              <!-- Analytical report -->
+              <div class="flex-1 space-y-4">
+                <h4 class="font-display text-lg tracking-wider text-sand-200">Environmental Diagnostics</h4>
+                
+                <div class="grid grid-cols-2 gap-4">
+                  <div class="bg-charcoal-900/40 p-4 rounded-xl border border-sand-100/5">
+                    <span class="text-[10px] text-sand-400 uppercase tracking-wider block">Est. Transpiration Rate</span>
+                    <span id="output-transpiration" class="text-xl font-mono text-sand-100 mt-1 block">4.2 ml/hr</span>
+                  </div>
+                  <div class="bg-charcoal-900/40 p-4 rounded-xl border border-sand-100/5">
+                    <span class="text-[10px] text-sand-400 uppercase tracking-wider block">Recommended Watering</span>
+                    <span id="output-watering" class="text-xl font-mono text-sand-100 mt-1 block">Every 48 hrs</span>
+                  </div>
+                </div>
+
+                <div class="space-y-2">
+                  <span class="text-[10px] text-sand-400 uppercase tracking-wider block">Seasonal Botanical Action Advice</span>
+                  <p id="output-diagnostic-text" class="font-serif text-sm italic text-sand-300 leading-relaxed">
+                    Under standard autumn humidity levels, prioritize apical wiring tension release. Minimize liquid fertilizer application until spring leaf bud emergence.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================= MASTERCLASS ATELIER ACADEMY ================= -->
+    <section id="masterclass" class="py-24 px-6 lg:px-12 bg-[#FAF8F5] relative">
+      <div class="max-w-[1400px] mx-auto">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+          <div>
+            <span class="text-xs font-semibold uppercase tracking-[0.3em] text-zenGreen-600 block mb-3">BONSAI MASTERCLASS ACADEMY</span>
+            <h2 class="font-display text-4xl lg:text-5xl tracking-wide">Learn True Pruning Artistry</h2>
+          </div>
+          <p class="max-w-md font-serif text-lg text-charcoal-800/70 leading-relaxed italic">
+            Schedule a virtual or physical session with senior masters from Tokyo, Saitama, and Kyoto. Learn traditional wiring, grafting, and moss-culturing.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          
+          <!-- Left Column: Master Profiles & Calendars -->
+          <div class="lg:col-span-8 space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              
+              <!-- Master 1 -->
+              <div onclick="selectMaster('Kenji Ozu')" class="master-card border border-sand-300 bg-sand-100/50 p-8 rounded-2xl cursor-pointer hover:border-charcoal-800 transition-all duration-300 flex gap-6 items-start active-master border-2 border-charcoal-800 bg-white shadow-xl">
+                <div class="w-16 h-16 rounded-full overflow-hidden bg-sand-300 shrink-0">
+                  <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop" alt="Master Kenji Ozu" class="w-full h-full object-cover">
+                </div>
+                <div>
+                  <h4 class="font-display text-lg tracking-wider text-charcoal-800">Master Kenji Ozu</h4>
+                  <p class="text-xs font-mono text-charcoal-800/60 uppercase mt-1">Saitama Bonsai Village</p>
+                  <p class="font-serif italic text-sm text-charcoal-800/70 mt-3">"Deadwood is the quiet record of seasonal transformation."</p>
+                  <span class="inline-block bg-zenGreen-600/10 text-zenGreen-800 text-[9px] uppercase font-bold tracking-widest px-2.5 py-1 rounded-full mt-4">Sargent Junipers</span>
+                </div>
+              </div>
+
+              <!-- Master 2 -->
+              <div onclick="selectMaster('Yukihiro Kobayashi')" class="master-card border border-sand-300 bg-sand-100/50 p-8 rounded-2xl cursor-pointer hover:border-charcoal-800 transition-all duration-300 flex gap-6 items-start">
+                <div class="w-16 h-16 rounded-full overflow-hidden bg-sand-300 shrink-0">
+                  <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&auto=format&fit=crop" alt="Master Yukihiro Kobayashi" class="w-full h-full object-cover">
+                </div>
+                <div>
+                  <h4 class="font-display text-lg tracking-wider text-charcoal-800">Yukihiro Kobayashi</h4>
+                  <p class="text-xs font-mono text-charcoal-800/60 uppercase mt-1">Kyoto Outskirts School</p>
+                  <p class="font-serif italic text-sm text-charcoal-800/70 mt-3">"Maples express spatial poetry on a grand scale."</p>
+                  <span class="inline-block bg-zenGreen-600/10 text-zenGreen-800 text-[9px] uppercase font-bold tracking-widest px-2.5 py-1 rounded-full mt-4">Mountain Maples</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Syllabus Timeline Accordion -->
+            <div class="bg-sand-100 border border-sand-300 p-8 rounded-3xl space-y-6">
+              <h4 class="font-display text-xl tracking-wider text-charcoal-800 border-b border-sand-300 pb-4">Workshop Curriculum Syllabus</h4>
+              
+              <div class="space-y-4">
+                <div class="flex items-start gap-4">
+                  <div class="bg-charcoal-800 text-sand-50 font-mono text-xs p-2 rounded-lg">Module 1</div>
+                  <div>
+                    <h5 class="text-sm font-semibold text-charcoal-800">Trunk Aesthetic Manipulation</h5>
+                    <p class="text-xs text-charcoal-800/60 font-serif italic mt-1">Manipulating standard tree structure and identifying the focal apex node.</p>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-4 border-t border-sand-300/60 pt-4">
+                  <div class="bg-charcoal-800 text-sand-50 font-mono text-xs p-2 rounded-lg">Module 2</div>
+                  <div>
+                    <h5 class="text-sm font-semibold text-charcoal-800">Shari & Jin Whittling Artistry</h5>
+                    <p class="text-xs text-charcoal-800/60 font-serif italic mt-1">Peeling back outer bark to model dynamic natural branch fracture aesthetics.</p>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-4 border-t border-sand-300/60 pt-4">
+                  <div class="bg-charcoal-800 text-sand-50 font-mono text-xs p-2 rounded-lg">Module 3</div>
+                  <div>
+                    <h5 class="text-sm font-semibold text-charcoal-800">Repotting & Soil Science Mechanics</h5>
+                    <p class="text-xs text-charcoal-800/60 font-serif italic mt-1">Optimal ratio formulation of Akadama, pumice, and volcanic black ash.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Live Booking Card -->
+          <div class="lg:col-span-4">
+            <div class="bg-charcoal-800 text-sand-100 p-8 rounded-3xl space-y-6 relative sticky top-24">
+              <div class="flex justify-between items-start">
+                <div>
+                  <span class="text-[10px] uppercase font-mono tracking-widest text-sand-300">Live Academy Booking</span>
+                  <h4 class="font-display text-xl tracking-wide text-sand-50 mt-1">Book Session</h4>
+                </div>
+                <div class="p-2 rounded-full bg-zenGreen-600/30 text-zenGreen-300">
+                  <i data-lucide="calendar" class="w-5 h-5"></i>
+                </div>
+              </div>
+
+              <!-- Selected Master Visual Indicator -->
+              <div class="bg-charcoal-900/40 p-4 rounded-xl border border-sand-100/5">
+                <span class="text-[10px] text-sand-400 uppercase tracking-widest block">Selected Mentor</span>
+                <span id="selected-mentor-name" class="font-serif text-lg text-sand-100 mt-1 block italic">Master Kenji Ozu</span>
+              </div>
+
+              <!-- Interactive Date Picker Form -->
+              <div class="space-y-4">
+                <div class="space-y-2">
+                  <label class="block text-[10px] text-sand-400 uppercase tracking-widest">Select Date</label>
+                  <select id="booking-date" class="w-full py-3 px-4 rounded-xl bg-charcoal-900 border border-sand-100/10 text-sand-100 text-sm focus:outline-none focus:border-zenGreen-300">
+                    <option value="June 12, 2026">June 12, 2026 — 09:00 JST</option>
+                    <option value="June 14, 2026">June 14, 2026 — 14:00 JST</option>
+                    <option value="June 18, 2026">June 18, 2026 — 11:00 JST</option>
+                  </select>
+                </div>
+
+                <div class="space-y-2">
+                  <label class="block text-[10px] text-sand-400 uppercase tracking-widest">Full Name</label>
+                  <input type="text" id="booking-name" placeholder="Enzo Ferrari" class="w-full py-3 px-4 rounded-xl bg-charcoal-900 border border-sand-100/10 text-sand-100 text-sm focus:outline-none focus:border-zenGreen-300">
+                </div>
+
+                <div class="space-y-2">
+                  <label class="block text-[10px] text-sand-400 uppercase tracking-widest">Email Coordinates</label>
+                  <input type="email" id="booking-email" placeholder="enzo@atelier.com" class="w-full py-3 px-4 rounded-xl bg-charcoal-900 border border-sand-100/10 text-sand-100 text-sm focus:outline-none focus:border-zenGreen-300">
+                </div>
+              </div>
+
+              <div class="border-t border-sand-100/10 pt-4 flex justify-between items-center text-xs">
+                <span class="text-sand-400">Total Workshop Cost:</span>
+                <span class="text-lg font-mono font-bold text-sand-50">¥35,000 JPY</span>
+              </div>
+
+              <button onclick="submitBooking()" class="w-full py-4 bg-sand-100 hover:bg-sand-200 text-charcoal-900 text-xs font-semibold uppercase tracking-widest rounded-xl transition-all duration-300 flex items-center justify-center gap-2">
+                Secure Reserved Slot
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================= INTERACTIVE LIVE AUCTION VAULT ================= -->
+    <section id="bidding-vault" class="py-24 px-6 lg:px-12 bg-charcoal-900 text-sand-100 border-t border-sand-100/10 relative overflow-hidden">
+      <!-- Calligraphy Canvas Overlay Backdrop -->
+      <div class="absolute inset-y-0 right-0 flex items-center pointer-events-none select-none overflow-hidden">
+        <div class="kanji-watermark select-none font-serif transform translate-x-1/3">
+          極
+        </div>
+      </div>
+
+      <div class="max-w-[1400px] mx-auto relative z-10">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+          <div>
+            <span class="text-xs font-semibold uppercase tracking-[0.3em] text-zenGreen-300 block mb-3">EXCLUSIVE PRIVATE ACQUISITION</span>
+            <h2 class="font-display text-4xl lg:text-5xl tracking-wide">Live Specimen Bidding Arena</h2>
+          </div>
+          <p class="max-w-md font-serif text-lg text-sand-300/70 leading-relaxed italic">
+            Enter private bids in our dynamic real-time simulated global market. Watch pricing histories adjust based on collectors' custom wiring demands.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Live Auction Card Display -->
+          <div class="lg:col-span-5 bg-charcoal-800 border border-sand-100/10 p-8 rounded-3xl space-y-6">
+            <div class="flex justify-between items-center">
+              <span class="font-mono text-xs text-zenGreen-300 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span> LIVE ARENA
+              </span>
+              <span class="text-xs text-sand-400 font-mono">LOT NO. 408</span>
+            </div>
+
+            <div class="h-64 my-6 flex items-center justify-center relative bg-charcoal-900/30 rounded-2xl overflow-hidden p-6 border border-sand-100/5">
+              <img src="https://images.unsplash.com/photo-1613143763660-f463200938b8?q=80&w=800&auto=format&fit=crop" alt="Shimpaku Auction specimen" class="h-full object-contain">
+            </div>
+
+            <div>
+              <h3 class="font-display text-2xl tracking-wide text-sand-100">Shimpaku Juniper "Ryumon"</h3>
+              <p class="font-serif italic text-sm text-sand-400 mt-1">Dragon Gate Cascade Bonsai — Estimated Age 210 Yrs</p>
+            </div>
+
+            <!-- Real-time dynamic bids list -->
+            <div class="space-y-3">
+              <h5 class="text-xs font-mono uppercase tracking-widest text-sand-400">Current Top Bids</h5>
+              <div id="bids-log" class="space-y-2 text-xs font-mono">
+                <!-- Injected programmatically -->
+                <div class="flex justify-between py-2 border-b border-sand-100/5 text-sand-300">
+                  <span>Collector: JP-993</span>
+                  <span>¥1,920,000 JPY</span>
+                </div>
+                <div class="flex justify-between py-2 border-b border-sand-100/5 text-sand-400">
+                  <span>Collector: US-044</span>
+                  <span>¥1,890,000 JPY</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bidding Interface & Price Vector Chart -->
+          <div class="lg:col-span-7 space-y-8">
+            <div class="bg-charcoal-800/50 border border-sand-100/10 p-8 rounded-3xl backdrop-blur-md space-y-6">
+              
+              <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+                <div>
+                  <span class="text-xs font-mono text-sand-400 block">CURRENT PRICE VALVE</span>
+                  <span id="current-price-display" class="font-display text-3xl md:text-4xl text-sand-50 block mt-1">¥1,920,000 JPY</span>
+                </div>
+                <div class="text-right sm:text-left">
+                  <span class="text-xs font-mono text-sand-400 block">ESTIMATED VALUATION</span>
+                  <span class="font-display text-lg text-zenGreen-300 block mt-1">¥2,500,000 JPY</span>
+                </div>
+              </div>
+
+              <!-- Interactive Custom Bid Input -->
+              <div class="space-y-2">
+                <label class="block text-xs font-mono uppercase tracking-widest text-sand-300">Increase Bid Increment</label>
+                <div class="flex gap-4">
+                  <input type="number" id="user-bid-amount" min="1950000" step="10000" value="1950000" class="flex-1 bg-charcoal-900 border border-sand-100/10 rounded-xl px-4 text-sand-100 font-mono text-lg focus:outline-none focus:border-zenGreen-300">
+                  <button onclick="placeUserBid()" class="px-8 py-4 bg-sand-100 hover:bg-sand-200 text-charcoal-900 text-xs font-bold uppercase tracking-widest rounded-xl transition-all duration-300">
+                    Place Bid
+                  </button>
+                </div>
+                <p class="text-[10px] text-sand-400 font-mono">Bidding requires minimum increment of ¥10,000 JPY</p>
+              </div>
+
+              <!-- Price Vector History Graph -->
+              <div class="space-y-4">
+                <div class="flex justify-between items-center text-xs font-mono">
+                  <span>Price History Trend</span>
+                  <span class="text-zenGreen-300 font-bold">+18.4% This Session</span>
+                </div>
+                <div class="h-48 border border-sand-100/5 rounded-2xl bg-charcoal-900/50 p-4 relative flex items-end">
+                  
+                  <!-- Dynamic Custom SVG Area Chart -->
+                  <svg id="bid-chart-svg" class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <!-- Smooth elegant line matching the aesthetic of the paper -->
+                    <path id="chart-line" d="M 0 90 L 20 85 L 40 70 L 60 62 L 80 50 L 100 42" fill="none" stroke="#8FA882" stroke-width="2" stroke-linecap="round"></path>
+                    <path id="chart-fill" d="M 0 90 L 20 85 L 40 70 L 60 62 L 80 50 L 100 42 L 100 100 L 0 100 Z" fill="url(#gradient-green)" opacity="0.15"></path>
+                    
+                    <defs>
+                      <linearGradient id="gradient-green" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#8FA882"></stop>
+                        <stop offset="100%" stop-color="#8FA882" stop-opacity="0"></stop>
+                      </linearGradient>
+                    </defs>
+                  </svg>
+
+                  <!-- Dynamic grid timelines -->
+                  <div class="absolute inset-0 flex justify-between p-4 pointer-events-none text-[8px] font-mono text-sand-400">
+                    <div class="flex flex-col justify-between h-full">
+                      <span>¥2.5M</span>
+                      <span>¥1.5M</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ================= ATELIER FOOTER ================= -->
+  <footer class="bg-charcoal-900 text-sand-100 pt-24 pb-12 border-t border-sand-100/10">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      
+      <!-- Top footer elements -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 pb-16 border-b border-sand-100/10">
+        
+        <!-- Atelier Brand Details -->
+        <div class="lg:col-span-4 space-y-6">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 flex items-center justify-center border border-sand-100 rounded-lg">
+              <span class="font-display font-bold text-sm">B</span>
+            </div>
+            <h4 class="font-display text-sm tracking-[0.2em] uppercase font-bold text-sand-50">Bonsai Atelier</h4>
+          </div>
+          <p class="font-serif italic text-base text-sand-400 leading-relaxed">
+            "In Zen gardens, we learn that growth occurs not when everything is added, but when everything is peeled away to allow the soul room to exist."
+          </p>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="lg:col-span-2 space-y-4">
+          <h5 class="text-xs font-mono uppercase tracking-widest text-sand-300">EXPLORE</h5>
+          <ul class="space-y-2 text-sm text-sand-400">
+            <li><a href="#collection" class="hover:text-sand-100 transition-colors">Specimens</a></li>
+            <li><a href="#diagnostic" class="hover:text-sand-100 transition-colors">Botanical Companion</a></li>
+            <li><a href="#masterclass" class="hover:text-sand-100 transition-colors">Academy</a></li>
+            <li><a href="#bidding-vault" class="hover:text-sand-100 transition-colors">Auction Arena</a></li>
+          </ul>
+        </div>
+
+        <!-- Newsletter curation signup -->
+        <div class="lg:col-span-4 space-y-4">
+          <h5 class="text-xs font-mono uppercase tracking-widest text-sand-300">THE BONSAI LETTERS</h5>
+          <p class="text-xs text-sand-400 leading-relaxed font-serif italic">Subscribe for limited invitations to Tokyo auctions, masterclasses, and digital care logs.</p>
+          
+          <form onsubmit="handleSubscribe(event)" class="flex gap-2">
+            <input type="email" id="newsletter-email" required placeholder="coordinates@domain.com" class="bg-charcoal-800 border border-sand-100/10 rounded-xl px-4 py-3 text-sand-100 text-sm focus:outline-none focus:border-zenGreen-300 flex-1">
+            <button type="submit" class="px-5 py-3 bg-sand-100 hover:bg-sand-200 text-charcoal-900 rounded-xl transition-all">
+              <i data-lucide="send" class="w-4 h-4"></i>
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- Bottom trademark metadata -->
+      <div class="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs tracking-wider text-sand-400">
+        <div>© 2026 BONSAI ATELIER. ALL DESIGN CODES PROTECTED BY ZEN CONCEPTS.</div>
+        <div class="flex gap-6">
+          <a href="#" class="hover:text-sand-100 transition-colors">TERMS OF ENTRY</a>
+          <a href="#" class="hover:text-sand-100 transition-colors">PRIVACY COORDINATES</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- ================= IMMERSIVE CONTROLLERS & ENGINE JS ================= -->
+  <script>
+    // System Initialization
+    document.addEventListener("DOMContentLoaded", () => {
+      lucide.createIcons();
+      updateTokyoClock();
+      setInterval(updateTokyoClock, 1000);
+      setupParallax();
+      updateDiagnostics();
+      initAuctionSimulator();
+    });
+
+    // Mobile Navigation overlay toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('translate-x-full');
+    }
+
+    // Tokyo Real-Time clock synchronizer
+    function updateTokyoClock() {
+      const options = {
+        timeZone: 'Asia/Tokyo',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+      };
+      const formatter = new Intl.DateTimeFormat([], options);
+      document.getElementById('tokyo-clock').innerText = formatter.format(new Date()) + " JST";
+    }
+
+    // Interactive Parallax mouse responder for premium editorial layered feel
+    function setupParallax() {
+      const container = document.getElementById('hero-image-container');
+      const target = document.getElementById('parallax-target');
+      
+      if (!container || !target) return;
+      
+      container.addEventListener('mousemove', (e) => {
+        const rect = container.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        
+        // Dynamic tilt matrix rotations
+        const rotX = (y / rect.height) * -15; 
+        const rotY = (x / rect.width) * 15;
+        
+        target.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.03, 1.03, 1.03)`;
+      });
+      
+      container.addEventListener('mouseleave', () => {
+        target.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      });
+    }
+
+    // Permanent Archive Specimen Filtering system
+    function filterSpecimens(category) {
+      playZenBell(400, 'chime');
+      const cards = document.querySelectorAll('.specimen-card');
+      const buttons = document.querySelectorAll('.specimen-filter-btn');
+
+      // Update Active filter button aesthetic
+      buttons.forEach(btn => {
+        btn.classList.remove('bg-charcoal-800', 'text-sand-100');
+        btn.classList.add('border-charcoal-800/20', 'text-charcoal-800');
+      });
+
+      // Find the clicked element
+      const targetBtn = Array.from(buttons).find(btn => 
+        btn.textContent.toLowerCase().includes(category === 'all' ? 'all' : category === 'conifer' ? 'coniferous' : category)
+      );
+      if (targetBtn) {
+        targetBtn.classList.remove('border-charcoal-800/20', 'text-charcoal-800');
+        targetBtn.classList.add('bg-charcoal-800', 'text-sand-100');
+      }
+
+      cards.forEach(card => {
+        if (category === 'all') {
+          card.style.display = 'flex';
+        } else {
+          const cats = card.getAttribute('data-category').split(' ');
+          if (cats.includes(category)) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        }
+      });
+    }
+
+    // Specimen Detailed Dossier Dataset
+    const specimenData = {
+      'five-needle': {
+        title: 'Pinus Pentaphylla',
+        scientific: 'PINACEAE',
+        japanese: '五葉松 — "Goyomatsu"',
+        vault: 'VAULT ENTRY NO. 01',
+        age: '140 YRS',
+        value: '¥1,850,000',
+        wiring: 'Autumn & Winter',
+        repot: 'April 2024',
+        image: 'https://images.unsplash.com/photo-1512428559087-560fa5ceab42?q=80&w=800&auto=format&fit=crop',
+        description: 'An exceptional Goyomatsu white pine with dramatic tiered cloud formations. Originally curated on the slopes of Nara mountains, this specimen has survived five generations of structural wiring.'
+      },
+      'red-maple': {
+        title: 'Acer Palmatum',
+        scientific: 'SAPINDACEAE',
+        japanese: '紅葉 — "Irohamomiji"',
+        vault: 'VAULT ENTRY NO. 02',
+        age: '85 YRS',
+        value: '¥1,450,000',
+        wiring: 'Spring Bud Break',
+        repot: 'March 2025',
+        image: 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?q=80&w=800&auto=format&fit=crop',
+        description: 'A stellar mountain maple of deep crimson hue. Famous for its magnificent root spread (Nebari) and extremely detailed branch ramification.'
+      },
+      'kishu-shimpaku': {
+        title: 'Juniperus Chinensis',
+        scientific: 'CUPRESSACEAE',
+        japanese: '真柏 — "Shimpaku"',
+        vault: 'VAULT ENTRY NO. 03',
+        age: '110 YRS',
+        value: '¥2,100,000',
+        wiring: 'Late Winter',
+        repot: 'October 2023',
+        image: 'https://images.unsplash.com/photo-1613143763660-f463200938b8?q=80&w=800&auto=format&fit=crop',
+        description: 'This Kishu Shimpaku shows natural, dramatic "Shari" (peeled branch deadwood) mimicking high windswept coastal cliffs. Very thick foliage pads.'
+      }
+    };
+
+    function openSpecimenDetail(id) {
+      playZenBell(144, 'bell');
+      const data = specimenData[id];
+      if (!data) return;
+
+      document.getElementById('modal-vault-id').innerText = data.vault;
+      document.getElementById('modal-title').innerText = data.title;
+      document.getElementById('modal-scientific-family').innerText = data.scientific;
+      document.getElementById('modal-japanese-title').innerText = data.japanese;
+      document.getElementById('modal-age').innerText = data.age;
+      document.getElementById('modal-value').innerText = data.value;
+      document.getElementById('modal-wiring').innerText = data.wiring;
+      document.getElementById('modal-repot').innerText = data.repot;
+      document.getElementById('modal-description').innerText = data.description;
+      document.getElementById('modal-image').src = data.image;
+
+      const modal = document.getElementById('specimen-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeSpecimenDetail() {
+      const modal = document.getElementById('specimen-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    // Botanical AI Diagnostic variables & slider events
+    let currentDiagSpecies = 'shimpaku';
+
+    function selectDiagSpecies(species) {
+      playZenBell(300, 'chime');
+      currentDiagSpecies = species;
+      
+      const btns = document.querySelectorAll('.diag-species-btn');
+      btns.forEach(btn => btn.classList.remove('bg-zenGreen-600', 'text-sand-100'));
+      
+      const activeBtn = document.getElementById(`btn-diag-${species}`);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-zenGreen-600', 'text-sand-100');
+      }
+      
+      updateDiagnostics();
+    }
+
+    function updateDiagnostics() {
+      const hum = document.getElementById('humidity-slider').value;
+      const solar = document.getElementById('solar-slider').value;
+      const prune = document.getElementById('pruning-slider').value;
+
+      document.getElementById('humidity-val').innerText = `${hum}%`;
+      document.getElementById('solar-val').innerText = `${solar} W/m²`;
+      document.getElementById('pruning-val').innerText = prune == 1 ? 'Minimal' : prune == 2 ? 'Medium' : 'Intense';
+
+      // Reactive calculations mimicking physiological responses
+      let baseTranspiration = 1.2;
+      let vitalQuotient = 80;
+      let wateringFreq = "Every 48 hrs";
+      let adviceText = "";
+
+      if (currentDiagSpecies === 'shimpaku') {
+        baseTranspiration = ((solar * 0.005) + (hum * 0.01)).toFixed(1);
+        vitalQuotient = Math.max(40, Math.min(100, Math.round(100 - Math.abs(50 - hum) - (solar > 800 ? 15 : 0))));
+        wateringFreq = hum > 70 ? "Every 72 hrs" : "Every 36 hrs";
+        adviceText = "Juniper foliage responds exceptionally well to overhead misting when relative humidity dips below 45%. Keep wiring tension moderate.";
+      } else if (currentDiagSpecies === 'maple') {
+        baseTranspiration = ((solar * 0.009) + (hum * 0.005)).toFixed(1);
+        vitalQuotient = Math.max(30, Math.min(100, Math.round(90 - Math.abs(60 - hum)*1.2 - (prune > 2 ? 10 : 0))));
+        wateringFreq = solar > 600 ? "Every 12-24 hrs" : "Every 36 hrs";
+        adviceText = "Deciduous Mountain Maples have fragile epidermal structures. Shield specimen foliage completely when Solar Radiation exceeds 600 W/m².";
+      } else {
+        // Black Pine
+        baseTranspiration = ((solar * 0.003) + (hum * 0.012)).toFixed(1);
+        vitalQuotient = Math.max(50, Math.min(100, Math.round(95 - Math.abs(40 - hum) - (solar < 200 ? 20 : 0))));
+        wateringFreq = hum > 60 ? "Every 96 hrs" : "Every 48 hrs";
+        adviceText = "Pinus Thunbergii requires maximum solar absorption to achieve optimal needle reduction. Retain highly aerated Akadama mixture.";
+      }
+
+      // Update vectors on display
+      document.getElementById('output-transpiration').innerText = `${baseTranspiration} ml/hr`;
+      document.getElementById('output-watering').innerText = wateringFreq;
+      document.getElementById('vitality-quotient').innerText = `${vitalQuotient}%`;
+      document.getElementById('output-diagnostic-text').innerText = adviceText;
+
+      // Animate dynamic vector circle
+      const circle = document.getElementById('vector-accent-ring');
+      if (circle) {
+        const strokeDashOffset = 251.2 - (251.2 * vitalQuotient) / 100;
+        circle.style.strokeDashoffset = strokeDashOffset;
+      }
+    }
+
+    function diagnoseSpecimen() {
+      playZenBell(180, 'bell');
+      showToast('Botanical Simulator running computational cycles. Advice synchronized.', 'Companion Diagnostic');
+    }
+
+    // Dynamic Live Auction Simulator System
+    let currentAuctionPrice = 1920000;
+    let biddingsDataset = [1750000, 1810000, 1850000, 1890000, 1920000];
+    const dummyCollectors = ['US-044', 'JP-993', 'CH-308', 'UK-550', 'IT-211'];
+
+    function initAuctionSimulator() {
+      // Setup dynamic bid charts & continuous interval events
+      updateBidCharts();
+      setInterval(() => {
+        // Occasional simulated competitor bid (25% chance every 8 seconds)
+        if (Math.random() > 0.75) {
+          simulateCompetitorBid();
+        }
+      }, 8000);
+    }
+
+    function updateBidCharts() {
+      // Dynamic rendering of custom SVG line/chart matching points
+      const chartLine = document.getElementById('chart-line');
+      const chartFill = document.getElementById('chart-fill');
+      
+      let dPath = "M 0 90";
+      let fillPath = "M 0 90";
+      
+      const widthStep = 100 / (biddingsDataset.length - 1);
+      const minVal = 1500000;
+      const maxVal = 2600000;
+      
+      biddingsDataset.forEach((val, idx) => {
+        const x = idx * widthStep;
+        const normalizedY = 90 - ((val - minVal) / (maxVal - minVal)) * 80;
+        
+        if (idx === 0) {
+          dPath = `M ${x} ${normalizedY}`;
+          fillPath = `M ${x} ${normalizedY}`;
+        } else {
+          dPath += ` L ${x} ${normalizedY}`;
+          fillPath += ` L ${x} ${normalizedY}`;
+        }
+      });
+      
+      fillPath += ` L 100 100 L 0 100 Z`;
+      
+      chartLine.setAttribute('d', dPath);
+      chartFill.setAttribute('d', fillPath);
+    }
+
+    function placeUserBid() {
+      const input = document.getElementById('user-bid-amount');
+      const value = parseInt(input.value);
+
+      if (value <= currentAuctionPrice) {
+        showToast(`Your bid must exceed the current price of ¥${currentAuctionPrice.toLocaleString()}`, 'Bidding Warning');
+        return;
+      }
+
+      playZenBell(300, 'bell');
+      currentAuctionPrice = value;
+      biddingsDataset.push(value);
+      
+      // Update bid UI log
+      const log = document.getElementById('bids-log');
+      const item = document.createElement('div');
+      item.className = "flex justify-between py-2 border-b border-sand-100/5 text-zenGreen-300 font-bold";
+      item.innerHTML = `<span>You (Collector)</span> <span>¥${value.toLocaleString()} JPY</span>`;
+      log.prepend(item);
+      
+      // Update displays
+      document.getElementById('current-price-display').innerText = `¥${value.toLocaleString()} JPY`;
+      document.getElementById('user-bid-amount').min = value + 10000;
+      document.getElementById('user-bid-amount').value = value + 10000;
+      
+      updateBidCharts();
+      showToast(`Premium Bid registered successfully at ¥${value.toLocaleString()} JPY.`, 'Auction Live');
+    }
+
+    function simulateCompetitorBid() {
+      const increment = Math.round((Math.random() * 40000 + 10000) / 10000) * 10000;
+      const competitorPrice = currentAuctionPrice + increment;
+      const competitorName = dummyCollectors[Math.floor(Math.random() * dummyCollectors.length)];
+
+      currentAuctionPrice = competitorPrice;
+      biddingsDataset.push(competitorPrice);
+
+      playZenBell(180, 'chime');
+      
+      const log = document.getElementById('bids-log');
+      const item = document.createElement('div');
+      item.className = "flex justify-between py-2 border-b border-sand-100/5 text-sand-300";
+      item.innerHTML = `<span>Collector: ${competitorName}</span> <span>¥${competitorPrice.toLocaleString()} JPY</span>`;
+      log.prepend(item);
+
+      document.getElementById('current-price-display').innerText = `¥${competitorPrice.toLocaleString()} JPY`;
+      document.getElementById('user-bid-amount').min = competitorPrice + 10000;
+      document.getElementById('user-bid-amount').value = competitorPrice + 10000;
+
+      updateBidCharts();
+      showToast(`New counter-bid of ¥${competitorPrice.toLocaleString()} received from ${competitorName}.`, 'Auction Bid Alert');
+    }
+
+    // Masterclass Booking Interface System
+    let activeMaster = 'Kenji Ozu';
+
+    function selectMaster(name) {
+      playZenBell(200, 'chime');
+      activeMaster = name;
+      
+      // Update UI cards aesthetic
+      const cards = document.querySelectorAll('.master-card');
+      cards.forEach(c => {
+        c.classList.remove('border-2', 'border-charcoal-800', 'bg-white', 'shadow-xl');
+      });
+      
+      const clickedCard = Array.from(cards).find(c => c.innerHTML.includes(name));
+      if (clickedCard) {
+        clickedCard.classList.add('border-2', 'border-charcoal-800', 'bg-white', 'shadow-xl');
+      }
+
+      document.getElementById('selected-mentor-name').innerText = name;
+    }
+
+    function submitBooking() {
+      const name = document.getElementById('booking-name').value;
+      const email = document.getElementById('booking-email').value;
+      const date = document.getElementById('booking-date').value;
+
+      if (!name || !email) {
+        showToast('Please submit complete coordinator credentials to secure booking.', 'Form Incomplete');
+        return;
+      }
+
+      playZenBell(100, 'bell');
+      showToast(`Workshop scheduled with ${activeMaster} for ${date}. Invoice coordinates sent to ${email}.`, 'Booking Complete');
+      
+      // Clear forms
+      document.getElementById('booking-name').value = "";
+      document.getElementById('booking-email').value = "";
+    }
+
+    // Newsletter Curator signup form handler
+    function handleSubscribe(event) {
+      event.preventDefault();
+      const email = document.getElementById('newsletter-email').value;
+      playZenBell(250, 'bell');
+      showToast(`We have successfully secured subscription to: ${email}`, 'Curator Letters');
+      document.getElementById('newsletter-email').value = "";
+    }
+  </script>
+</body>
+</html>
+2

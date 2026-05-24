@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARCTIC FREEDOM — Whales in Teriberka</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Space Grotesk (Tech/Premium Sans) & Syne (High-impact display) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Custom Font Configurations & Typography matching the premium design system */
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #0d0f12; /* Deep Slate Black */
+            color: #f1f5f9;
+            overflow-x: hidden;
+        }
+
+        .font-display {
+            font-family: 'Syne', sans-serif;
+        }
+
+        /* Custom Scrollbar to match the icy aesthetic */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d0f12;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #38bdf8;
+        }
+
+        /* Text Mask Effect inspired by "WHALE" container in inspiration image */
+        .text-mask-whale {
+            background-image: url('https://images.unsplash.com/photo-1518156677180-95a2893f3e9f?auto=format&fit=crop&w=1400&q=80');
+            background-size: cover;
+            background-position: center 30%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: oceanic-drift 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes oceanic-drift {
+            0% { background-position: center 30%; }
+            100% { background-position: center 60%; }
+        }
+
+        /* Subtle Aurora Glow background layer */
+        .aurora-glow {
+            background: radial-gradient(circle at 50% -20%, rgba(14, 116, 144, 0.25) 0%, rgba(15, 23, 42, 0) 60%),
+                        radial-gradient(circle at 10% 30%, rgba(56, 189, 248, 0.08) 0%, rgba(15, 23, 42, 0) 50%);
+        }
+
+        /* Custom border accent with glass reflection */
+        .border-technical {
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        /* Grid lines to simulate presentation template structure */
+        .bg-grid-tech {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.01) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body class="bg-grid-tech aurora-glow relative selection:bg-sky-500 selection:text-white">
+
+    <!-- Subtle interactive coordinate tracker that floats on custom position -->
+    <div id="coord-tracker" class="hidden md:flex fixed bottom-8 left-8 z-50 text-[10px] tracking-[0.2em] uppercase font-mono text-slate-500 bg-slate-950/80 backdrop-blur-md py-1 px-3 border border-white/5 rounded">
+        CURSOR LOC: <span id="lat-val" class="text-sky-400">69.1643° N</span>, <span id="lng-val" class="text-sky-400">35.1436° E</span>
+    </div>
+
+    <!-- Presentation Header info strip -->
+    <div class="w-full border-b border-white/5 py-2 px-6 flex justify-between items-center text-[10px] tracking-[0.3em] uppercase text-slate-500 font-medium z-50 relative">
+        <div class="flex items-center gap-2">
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>n_melchukova</span>
+        </div>
+        <div class="hidden sm:block">TERIBERKA, MURMANSK REGION</div>
+        <div class="flex items-center gap-4">
+            <span>ПРЕЗЕНТАЦИЯ</span>
+            <span class="text-white/40">(02)</span>
+        </div>
+    </div>
+
+    <!-- MAIN NAVBAR -->
+    <header class="sticky top-0 z-40 bg-[#0d0f12]/80 backdrop-blur-md border-b border-white/5 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Brand Logo with custom star indicator -->
+            <a href="#" class="flex items-center gap-3 group">
+                <span class="text-xs font-semibold tracking-[0.4em] text-white group-hover:text-sky-400 transition-colors">ARCTIC FREEDOM</span>
+                <span class="text-sky-400/80 text-xs animate-pulse">✦ + ✦</span>
+            </a>
+
+            <!-- Nav Links -->
+            <nav class="hidden md:flex items-center gap-8 text-xs tracking-[0.2em] uppercase text-slate-300">
+                <a href="#about" class="hover:text-white transition-colors">Philosophy</a>
+                <a href="#radar" class="hover:text-white transition-colors">Live Radar</a>
+                <a href="#expeditions" class="hover:text-white transition-colors">Expeditions</a>
+                <a href="#dashboard" class="hover:text-white transition-colors">Arctic Dashboard</a>
+            </nav>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-4">
+                <!-- Soundscape Engine Switch -->
+                <button onclick="toggleAudio()" id="audio-btn" class="flex items-center gap-2 border border-white/10 px-3 py-1.5 rounded-full text-[10px] tracking-widest uppercase hover:bg-white/5 transition-all text-slate-400">
+                    <i data-lucide="music" class="w-3.5 h-3.5 text-sky-400 animate-spin" style="animation-duration: 6s;"></i>
+                    <span id="audio-text">Soundscape Off</span>
+                </button>
+                <a href="#reserve" class="bg-white hover:bg-sky-400 hover:text-slate-950 transition-all text-slate-950 px-4 py-2 text-xs tracking-widest font-semibold uppercase rounded-sm">
+                    Book Journey
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION (Inspired directly by the First Slide) -->
+    <section class="relative min-h-[90vh] flex flex-col justify-center items-center py-12 px-6 overflow-hidden">
+        <!-- Floating tiny decorative elements -->
+        <div class="absolute top-12 left-12 text-[10px] tracking-[0.2em] text-slate-500 uppercase">
+            ARCTIC FREEDOM<br>
+            <span class="text-white/40">EXPLORATION INITIATIVE</span>
+        </div>
+        <div class="absolute top-12 right-12 text-[10px] tracking-[0.2em] text-slate-400 uppercase text-right">
+            ✦ + ✦<br>
+            <span class="text-sky-500 font-mono">69° 09' 00" N</span>
+        </div>
+
+        <div class="max-w-6xl w-full mx-auto relative z-10 text-center flex flex-col justify-center items-center">
+            <!-- Dynamic Micro Title -->
+            <div class="mb-4 text-xs sm:text-sm tracking-[0.4em] uppercase text-slate-300 font-medium animate-fade-in">
+                SEE WHALES IN TERIBERKA
+            </div>
+
+            <!-- Massive Text Mask Element (The showpiece of slide 1) -->
+            <div class="w-full relative select-none">
+                <h1 class="font-display text-[15vw] sm:text-[14vw] md:text-[13vw] font-black leading-[0.85] tracking-tighter text-mask-whale uppercase py-2">
+                    WHALE
+                </h1>
+                <!-- Subtext hovering elegantly across the letters -->
+                <div class="absolute inset-0 flex justify-center items-center pointer-events-none">
+                    <div class="w-full h-1/3 bg-gradient-to-t from-transparent via-[#0d0f12]/50 to-transparent flex items-center justify-center">
+                        <span class="text-[9px] md:text-xs tracking-[0.6em] text-sky-300 uppercase font-mono px-4 text-center">
+                            BREATHING OCEANS & DEEP WATERS OF THE NORTH
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coordinate / Technical details under the main header -->
+            <div class="mt-8 flex flex-col sm:flex-row gap-8 sm:gap-16 items-center text-left text-xs tracking-widest text-slate-400 max-w-2xl mx-auto border-t border-white/5 pt-8 w-full">
+                <div>
+                    <span class="text-white/40 block mb-1">COORDINATES</span>
+                    <span class="text-white font-mono">69.1643° N, 35.1436° E</span>
+                </div>
+                <div>
+                    <span class="text-white/40 block mb-1">BEST RUN PERIOD</span>
+                    <span class="text-white">MAY — SEPTEMBER</span>
+                </div>
+                <div>
+                    <span class="text-white/40 block mb-1">PROBABILITY</span>
+                    <span class="text-sky-400 font-semibold">94.2% ACTIVE RADAR</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scrolling indicator -->
+        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+            <span class="text-[9px] tracking-[0.3em] uppercase text-slate-500">SCROLL DOWN</span>
+            <div class="w-[1px] h-12 bg-gradient-to-b from-sky-500 to-transparent"></div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: THE PHILOSOPHY (Inspired by Slide 2) -->
+    <section id="about" class="py-24 border-t border-white/5 relative bg-[#0f1216]">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Left Info Block -->
+            <div class="lg:col-span-5 space-y-6">
+                <div class="text-[10px] tracking-[0.3em] uppercase text-sky-400">ARCTIC FREEDOM // ESSENCE</div>
+                <h2 class="font-display text-4xl sm:text-5xl font-extrabold leading-tight text-white tracking-tight uppercase">
+                    WE ARE <br>
+                    <span class="text-sky-300">IN LOVE</span>
+                </h2>
+                <p class="text-slate-400 text-sm tracking-wide leading-relaxed">
+                    With Murmansk nature and northern tourism. Our purpose is to build bridges between human exploration and the untouched, cold majesty of the Barents Sea.
+                </p>
+                <div class="pt-4 border-t border-white/5 flex gap-8">
+                    <div>
+                        <span class="text-2xl font-bold font-display text-white">450+</span>
+                        <p class="text-[9px] tracking-widest text-slate-500 uppercase">SIGHTINGS LOGGED</p>
+                    </div>
+                    <div>
+                        <span class="text-2xl font-bold font-display text-sky-400">100%</span>
+                        <p class="text-[9px] tracking-widest text-slate-500 uppercase">SAFETY RATIO</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Splitted Scenic Window -->
+            <div class="lg:col-span-7 relative group rounded-sm overflow-hidden border border-white/10 shadow-2xl">
+                <!-- Glowing corner details -->
+                <div class="absolute top-2 left-2 text-[8px] tracking-[0.2em] font-mono text-white/50 z-20">VIEW // RECON-1</div>
+                <div class="absolute bottom-2 right-2 text-[8px] tracking-[0.2em] font-mono text-white/50 z-20">TERIBERKA COAST LINE</div>
+                <div class="absolute top-2 right-2 text-sky-400 text-[10px] z-20">✦ + ✦</div>
+
+                <!-- Main atmospheric background image representing raw Murmansk Nature -->
+                <img src="https://images.unsplash.com/photo-1517411032315-54ef2cb783bb?auto=format&fit=crop&w=1200&q=80" 
+                     alt="Murmansk coast" 
+                     class="w-full h-[350px] object-cover filter saturate-75 brightness-75 group-hover:scale-105 transition-transform duration-700">
+                
+                <!-- Tint Overlay -->
+                <div class="absolute inset-0 bg-gradient-to-t from-[#0f1216] via-transparent to-transparent"></div>
+
+                <!-- Overlay Card Details -->
+                <div class="absolute bottom-6 left-6 right-6 flex flex-col md:flex-row md:justify-between md:items-end gap-4 z-10">
+                    <div>
+                        <span class="text-white font-mono text-xs uppercase block tracking-wider">MURMANSK OUTPOST</span>
+                        <span class="text-slate-400 text-[10px] tracking-widest uppercase">TERIBERKA BAY RADIAL ZONE</span>
+                    </div>
+                    <button class="text-xs tracking-widest uppercase text-sky-300 hover:text-white flex items-center gap-2 border border-sky-400/20 px-3 py-1.5 rounded-sm bg-sky-950/40 backdrop-blur-sm hover:bg-sky-500 hover:text-slate-950 transition-all">
+                        Discover Expedition Routes <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- INTERACTIVE RADAR SECTION (High Visual Density Feature) -->
+    <section id="radar" class="py-24 relative overflow-hidden bg-[#0d0f12] border-t border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col lg:flex-row gap-12 items-center">
+                
+                <!-- Interactive Sonar Radar Canvas Component -->
+                <div class="w-full lg:w-1/2 flex justify-center items-center relative">
+                    <!-- Background aesthetic grid -->
+                    <div class="absolute inset-0 bg-radial-gradient from-sky-950/20 to-transparent pointer-events-none"></div>
+                    <div class="relative w-[340px] h-[340px] sm:w-[420px] sm:h-[420px] rounded-full border border-sky-500/20 flex items-center justify-center bg-[#0f1115]">
+                        
+                        <!-- Internal scanning sweep line (handled by JS & Canvas) -->
+                        <canvas id="radar-canvas" width="420" height="420" class="absolute inset-0 z-10 w-full h-full"></canvas>
+
+                        <!-- Radial markers -->
+                        <div class="absolute w-[80%] h-[80%] rounded-full border border-dashed border-sky-500/10 pointer-events-none"></div>
+                        <div class="absolute w-[60%] h-[60%] rounded-full border border-sky-500/15 pointer-events-none"></div>
+                        <div class="absolute w-[40%] h-[40%] rounded-full border border-dashed border-sky-500/10 pointer-events-none"></div>
+                        <div class="absolute w-[20%] h-[20%] rounded-full border border-sky-500/20 pointer-events-none"></div>
+
+                        <!-- Center outpost node -->
+                        <div class="relative z-20 w-3 h-3 bg-sky-400 rounded-full shadow-[0_0_12px_rgba(56,189,248,0.8)]">
+                            <span class="absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75 animate-ping"></span>
+                        </div>
+
+                        <!-- Mini indicator labels -->
+                        <div class="absolute top-4 left-1/2 -translate-x-1/2 text-[8px] tracking-widest text-slate-500">000° NORTH</div>
+                        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-[8px] tracking-widest text-slate-500">180° SOUTH</div>
+                    </div>
+                </div>
+
+                <!-- Radar Control Panel details -->
+                <div class="w-full lg:w-1/2 space-y-6">
+                    <div class="text-[10px] tracking-[0.3em] uppercase text-sky-400">LIVE SONAR FEED</div>
+                    <h3 class="font-display text-3xl sm:text-4xl font-black text-white tracking-tight uppercase">
+                        REAL-TIME <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-emerald-400">POD TRACKER</span>
+                    </h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Our ocean acoustic system monitors active Orca and Blue Whale pods navigating through the deep continental shelf edges off Teriberka. Tap/Hover the radar map to inspect detected frequencies.
+                    </p>
+
+                    <!-- Realtime Sonar Logs -->
+                    <div class="space-y-3 bg-[#0f1115] border border-white/5 p-4 rounded-sm font-mono text-xs">
+                        <div class="flex justify-between items-center text-[10px] text-slate-500 uppercase border-b border-white/5 pb-2">
+                            <span>IDENTIFIER</span>
+                            <span>BEARING & RANGE</span>
+                            <span>STATUS</span>
+                        </div>
+                        <div class="flex justify-between items-center text-slate-300">
+                            <span class="flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse"></span>
+                                ORCA-P4
+                            </span>
+                            <span>28.4 km / North-East</span>
+                            <span class="text-emerald-400">STABLE FEED</span>
+                        </div>
+                        <div class="flex justify-between items-center text-slate-300">
+                            <span class="flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse"></span>
+                                BLUEW-09
+                            </span>
+                            <span>12.1 km / North</span>
+                            <span class="text-emerald-400">SURFACING NOW</span>
+                        </div>
+                        <div class="flex justify-between items-center text-slate-500">
+                            <span class="flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
+                                FEED-SYS-0
+                            </span>
+                            <span>-- / --</span>
+                            <span>SEARCHING SIGNAL</span>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <button onclick="pingSonar()" class="flex-1 bg-sky-950/60 border border-sky-400/30 text-sky-400 hover:bg-sky-400 hover:text-slate-950 px-4 py-2.5 rounded-sm text-xs tracking-widest font-semibold uppercase transition-all flex items-center justify-center gap-2">
+                            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Ping Local Sector
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: EXPEDITION HORIZON (Inspired by Slide 3) -->
+    <section id="expeditions" class="py-24 relative bg-[#0f1216]">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <!-- Header layout mimicking slide styling with minimal star badges -->
+            <div class="flex justify-between items-end border-b border-white/5 pb-8 mb-12">
+                <div>
+                    <span class="text-[10px] tracking-[0.3em] uppercase text-sky-400">EXPEDITION PLANS</span>
+                    <h2 class="font-display text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mt-1">
+                        EXPAND YOUR <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 to-white">HORIZONS</span>
+                    </h2>
+                </div>
+                <div class="text-right hidden sm:block text-xs tracking-widest text-slate-500 uppercase">
+                    ✦ + ✦<br>
+                    <span>SELECT EXCURSION TIER</span>
+                </div>
+            </div>
+
+            <!-- Expedition Interactive Horizon Customizer Widget -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Package Card 1 -->
+                <div class="bg-[#0c0e11] border border-white/10 p-6 rounded-sm relative group hover:border-sky-500/50 transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <span class="font-mono text-xs text-sky-400 tracking-widest">[ CODE: ARC-WHALE-01 ]</span>
+                            <span class="text-[10px] bg-sky-950 text-sky-300 px-2 py-0.5 rounded-sm tracking-widest uppercase">CLASSIC</span>
+                        </div>
+                        <h3 class="text-xl font-bold uppercase tracking-wide text-white mb-2">WHALE SEEKER</h3>
+                        <p class="text-slate-400 text-xs tracking-wide leading-relaxed mb-6">
+                            High-speed inflatable zodiac exploration into deep oceanic trenches. Optimized for close-encounter photography of migrating Humpbacks and Orcas.
+                        </p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="border-t border-white/5 pt-4 flex justify-between items-center text-xs">
+                            <span class="text-slate-500">EXPEDITION TERM</span>
+                            <span class="text-white font-mono">1 Day (~6h)</span>
+                        </div>
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="text-slate-500">DIFFICULTY RATING</span>
+                            <span class="text-amber-400">MODERATE</span>
+                        </div>
+                        <a href="#reserve" onclick="selectExpedition('Whale Seeker Classic')" class="w-full inline-block text-center bg-white/5 text-white hover:bg-white hover:text-slate-950 transition-all py-2 text-xs uppercase tracking-widest font-semibold rounded-sm">
+                            Select Route
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Package Card 2 (Featured / High-contrast layout) -->
+                <div class="bg-gradient-to-b from-sky-950/20 to-[#0c0e11] border-2 border-sky-400/40 p-6 rounded-sm relative group hover:border-sky-400 transition-all flex flex-col justify-between shadow-lg shadow-sky-500/5">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-sky-400 text-slate-950 px-3 py-0.5 text-[8px] font-black tracking-widest uppercase rounded-sm">
+                        MOST POPULAR
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <span class="font-mono text-xs text-sky-400 tracking-widest">[ CODE: ARC-EXP-02 ]</span>
+                            <span class="text-[10px] bg-sky-900 text-sky-200 px-2 py-0.5 rounded-sm tracking-widest uppercase">DEEP COLD</span>
+                        </div>
+                        <h3 class="text-xl font-bold uppercase tracking-wide text-white mb-2">POLAR FREEDOM</h3>
+                        <p class="text-slate-300 text-xs tracking-wide leading-relaxed mb-6">
+                            Immersive 3-day exploration with heated deep-sea vessels, expert marine biologists, coastal photography tours, and premium shore lodging in traditional red cabins.
+                        </p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="border-t border-white/5 pt-4 flex justify-between items-center text-xs">
+                            <span class="text-slate-400">EXPEDITION TERM</span>
+                            <span class="text-white font-mono">3 Days / 2 Nights</span>
+                        </div>
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="text-slate-400">DIFFICULTY RATING</span>
+                            <span class="text-emerald-400">EASY/COMFORT</span>
+                        </div>
+                        <a href="#reserve" onclick="selectExpedition('Polar Freedom Deluxe')" class="w-full inline-block text-center bg-sky-400 text-slate-950 hover:bg-sky-300 transition-all py-2 text-xs uppercase tracking-widest font-semibold rounded-sm">
+                            Select Route
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Package Card 3 -->
+                <div class="bg-[#0c0e11] border border-white/10 p-6 rounded-sm relative group hover:border-sky-500/50 transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <span class="font-mono text-xs text-sky-400 tracking-widest">[ CODE: ARC-AURORA-03 ]</span>
+                            <span class="text-[10px] bg-purple-950 text-purple-300 px-2 py-0.5 rounded-sm tracking-widest uppercase">PRO EXPLORE</span>
+                        </div>
+                        <h3 class="text-xl font-bold uppercase tracking-wide text-white mb-2">HORIZON HUNTER</h3>
+                        <p class="text-slate-400 text-xs tracking-wide leading-relaxed mb-6">
+                            A custom combined high-latitude ocean crossing and overnight Aurora Borealis hunt. Recommended for veteran explorers and wildlife photographers.
+                        </p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="border-t border-white/5 pt-4 flex justify-between items-center text-xs">
+                            <span class="text-slate-500">EXPEDITION TERM</span>
+                            <span class="text-white font-mono">5 Days / 4 Nights</span>
+                        </div>
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="text-slate-500">DIFFICULTY RATING</span>
+                            <span class="text-rose-400">DEMANDING</span>
+                        </div>
+                        <a href="#reserve" onclick="selectExpedition('Horizon Hunter Ultimate')" class="w-full inline-block text-center bg-white/5 text-white hover:bg-white hover:text-slate-950 transition-all py-2 text-xs uppercase tracking-widest font-semibold rounded-sm">
+                            Select Route
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 4: REAL-TIME ARCTIC METRIC DASHBOARD (Aesthetic Density Feature) -->
+    <section id="dashboard" class="py-24 border-t border-b border-white/5 relative bg-[#0b0c0f]">
+        <!-- Technical ambient background decoration -->
+        <div class="absolute inset-0 pointer-events-none opacity-15">
+            <div class="absolute top-10 left-10 w-96 h-96 rounded-full bg-cyan-500 filter blur-3xl"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-[10px] tracking-[0.3em] uppercase text-sky-400">ENVIRONMENTAL CONTROL</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-extrabold uppercase text-white tracking-tight mt-1">
+                    TERIBERKA METRICS ENGINE
+                </h2>
+                <p class="text-slate-400 text-xs tracking-wider uppercase mt-2">
+                    Live telemetry feed from northern scientific sensory node
+                </p>
+            </div>
+
+            <!-- Dashboard Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Metric 1 -->
+                <div class="bg-slate-950/60 border border-white/5 p-6 rounded-sm relative">
+                    <div class="text-slate-500 text-[10px] tracking-widest uppercase mb-4">TEMPERATURE // OCEAN</div>
+                    <div class="flex items-baseline justify-between">
+                        <span id="temp-val" class="font-display text-4xl font-extrabold text-white">+4.2°C</span>
+                        <span class="text-emerald-400 text-xs flex items-center gap-1 font-mono">
+                            <i data-lucide="trending-up" class="w-3 h-3"></i> STABLE
+                        </span>
+                    </div>
+                    <div class="mt-4 text-[9px] text-slate-400 font-mono tracking-wide">
+                        SENSORY OUTPOST: T-09 CAPE
+                    </div>
+                </div>
+
+                <!-- Metric 2 -->
+                <div class="bg-slate-950/60 border border-white/5 p-6 rounded-sm relative">
+                    <div class="text-slate-500 text-[10px] tracking-widest uppercase mb-4">KP-INDEX // AURORA</div>
+                    <div class="flex items-baseline justify-between">
+                        <span id="kp-val" class="font-display text-4xl font-extrabold text-sky-400">4.8 KP</span>
+                        <span class="text-sky-300 text-xs flex items-center gap-1 font-mono">
+                            HIGH VISIBILITY
+                        </span>
+                    </div>
+                    <div class="mt-4 text-[9px] text-slate-400 font-mono tracking-wide">
+                        SOLAR WIND ACTIVITY DETECTOR
+                    </div>
+                </div>
+
+                <!-- Metric 3 -->
+                <div class="bg-slate-950/60 border border-white/5 p-6 rounded-sm relative">
+                    <div class="text-slate-500 text-[10px] tracking-widest uppercase mb-4">WAVE RANGE // SEA STATE</div>
+                    <div class="flex items-baseline justify-between">
+                        <span id="wave-val" class="font-display text-4xl font-extrabold text-white">1.4 M</span>
+                        <span class="text-slate-400 text-xs font-mono">NEUTRAL</span>
+                    </div>
+                    <div class="mt-4 text-[9px] text-slate-400 font-mono tracking-wide">
+                        SURROUNDING BARENTS COAST
+                    </div>
+                </div>
+
+                <!-- Metric 4 -->
+                <div class="bg-slate-950/60 border border-white/5 p-6 rounded-sm relative">
+                    <div class="text-slate-500 text-[10px] tracking-widest uppercase mb-4">LOCAL STATION TIME</div>
+                    <div class="flex items-baseline justify-between">
+                        <span id="time-val" class="font-display text-4xl font-extrabold text-slate-300">16:36:25</span>
+                        <span class="text-sky-400 text-xs font-mono">UTC+3</span>
+                    </div>
+                    <div class="mt-4 text-[9px] text-slate-400 font-mono tracking-wide">
+                        MURMANSK REGIONAL HUB INDEX
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- EXPEDITION BOOKING & RESERVATION CTAs -->
+    <section id="reserve" class="py-24 relative overflow-hidden bg-[#0a0c0e]">
+        <div class="max-w-4xl mx-auto px-6 relative z-10">
+            <div class="bg-[#0f1216] border border-white/10 p-8 sm:p-12 rounded-sm shadow-2xl">
+                
+                <div class="text-center max-w-lg mx-auto mb-10">
+                    <span class="text-[10px] tracking-[0.3em] uppercase text-sky-400">RESERVATION SYSTEM</span>
+                    <h2 class="font-display text-3xl font-black uppercase text-white tracking-tight mt-1">
+                        PLAN YOUR EXCURSION
+                    </h2>
+                    <p class="text-slate-400 text-xs tracking-wide leading-relaxed mt-2">
+                        Complete our brief regional clearance form. Arctic Freedom representatives will establish immediate radio/encrypted communications within 3 hours.
+                    </p>
+                </div>
+
+                <!-- Interactive Booking Form -->
+                <form id="booking-form" onsubmit="handleBookingSubmit(event)" class="space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-[9px] tracking-widest uppercase text-slate-400 mb-2">FULL NAME / NOMINATIVE</label>
+                            <input type="text" required placeholder="Alex Mercer" class="w-full bg-[#14181f] border border-white/10 px-4 py-3 text-sm text-white focus:outline-none focus:border-sky-500 transition-colors rounded-sm placeholder-slate-600">
+                        </div>
+                        <div>
+                            <label class="block text-[9px] tracking-widest uppercase text-slate-400 mb-2">E-MAIL / ADDRESS</label>
+                            <input type="email" required placeholder="explorer@arctic.com" class="w-full bg-[#14181f] border border-white/10 px-4 py-3 text-sm text-white focus:outline-none focus:border-sky-500 transition-colors rounded-sm placeholder-slate-600">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-[9px] tracking-widest uppercase text-slate-400 mb-2">SELECT EXPEDITION ROUTE</label>
+                            <select id="exped-select" class="w-full bg-[#14181f] border border-white/10 px-4 py-3 text-sm text-white focus:outline-none focus:border-sky-500 transition-colors rounded-sm">
+                                <option value="Whale Seeker Classic">Whale Seeker Classic (1 Day)</option>
+                                <option value="Polar Freedom Deluxe" selected>Polar Freedom Deluxe (3 Days)</option>
+                                <option value="Horizon Hunter Ultimate">Horizon Hunter Ultimate (5 Days)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[9px] tracking-widest uppercase text-slate-400 mb-2">PREFERRED MONTH</label>
+                            <select class="w-full bg-[#14181f] border border-white/10 px-4 py-3 text-sm text-white focus:outline-none focus:border-sky-500 transition-colors rounded-sm">
+                                <option>May 2026</option>
+                                <option selected>June 2026</option>
+                                <option>July 2026</option>
+                                <option>August 2026</option>
+                                <option>September 2026</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="pt-4">
+                        <button type="submit" class="w-full bg-sky-400 hover:bg-sky-300 text-slate-950 font-semibold py-3 px-6 text-xs uppercase tracking-[0.2em] rounded-sm transition-colors flex items-center justify-center gap-2">
+                            Secure Spot and Clear Logistics <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Custom feedback state container -->
+                <div id="form-feedback" class="hidden mt-6 bg-emerald-950/50 border border-emerald-500/30 p-4 rounded-sm text-emerald-300 text-xs text-center font-mono">
+                    <span class="block font-semibold mb-1">TRANSMISSION ESTABLISHED</span>
+                    We have registered your details for the selected Expedition Route. A logistics consultant will ping you shortly.
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER (Matching Slide 3 layout) -->
+    <footer class="bg-[#090b0d] border-t border-white/5 py-12 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            
+            <div class="flex flex-col items-center md:items-start">
+                <div class="flex items-center gap-3">
+                    <span class="text-xs font-bold tracking-[0.4em] text-white">ARCTIC FREEDOM</span>
+                    <span class="text-sky-400 text-xs">✦ + ✦</span>
+                </div>
+                <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-2">
+                    NORTHERN TOUR EXPEDITIONS & WILDLIFE SAFARI
+                </p>
+            </div>
+
+            <!-- Bold high-impact phone number aligned directly with Slide 3 "CALL US" aesthetics -->
+            <div class="text-center md:text-right">
+                <span class="text-[10px] text-sky-400 tracking-[0.3em] uppercase block mb-1">CALL US DIRECTLY</span>
+                <a href="tel:79152555517" class="text-xl sm:text-2xl font-display font-extrabold text-white tracking-widest hover:text-sky-300 transition-colors block">
+                    7 915 255 55 17
+                </a>
+            </div>
+
+        </div>
+
+        <div class="max-w-7xl mx-auto border-t border-white/5 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center text-[10px] text-slate-500 tracking-widest uppercase">
+            <div>© 2026 ARCTIC FREEDOM. All Rights Reserved.</div>
+            <div class="flex gap-6 mt-4 sm:mt-0">
+                <a href="#" class="hover:text-white transition-colors">Safety Protocol</a>
+                <a href="#" class="hover:text-white transition-colors">Legal Coordinates</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE SCRIPTS -->
+    <script>
+        // Init Lucide icons
+        lucide.createIcons();
+
+        // Cursor Coordinate Tracker Logic
+        const coordTracker = document.getElementById('coord-tracker');
+        const latVal = document.getElementById('lat-val');
+        const lngVal = document.getElementById('lng-val');
+
+        document.addEventListener('mousemove', (e) => {
+            // Unhide coordinate overlay
+            coordTracker.classList.remove('hidden');
+            
+            // Generate simulated varying arctic coordinates based on mouse position
+            const widthPct = e.clientX / window.innerWidth;
+            const heightPct = e.clientY / window.innerHeight;
+
+            const lat = (69.1643 + (heightPct * 0.05)).toFixed(4);
+            const lng = (35.1436 + (widthPct * 0.05)).toFixed(4);
+
+            latVal.textContent = `${lat}° N`;
+            lngVal.textContent = `${lng}° E`;
+        });
+
+        // Interactive Radar Engine using HTML5 Canvas
+        const canvas = document.getElementById('radar-canvas');
+        const ctx = canvas.getContext('2d');
+        let angle = 0;
+        let radarActive = true;
+
+        // Custom simulated coordinates for whale pods
+        const targets = [
+            { x: 180, y: 120, size: 6, label: "ORCA-P4", opacity: 0 },
+            { x: 260, y: 240, size: 8, label: "BLUEW-09", opacity: 0 }
+        ];
+
+        function drawRadar() {
+            if (!radarActive) return;
+
+            // Transparent clearing to build sweep trails
+            ctx.fillStyle = 'rgba(13, 15, 18, 0.08)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = canvas.width / 2 - 10;
+
+            // Draw sweep line
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.25)';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            
+            const sweepX = centerX + Math.cos(angle) * radius;
+            const sweepY = centerY + Math.sin(angle) * radius;
+            ctx.lineTo(sweepX, sweepY);
+            ctx.stroke();
+
+            // Handle target fade in when sweep intersects them
+            targets.forEach(target => {
+                const dx = target.x - centerX;
+                const dy = target.y - centerY;
+                const targetAngle = Math.atan2(dy, dx);
+                
+                // Keep sweep angle between -PI and PI to match atan2
+                let normalizedSweep = angle % (Math.PI * 2);
+                if (normalizedSweep > Math.PI) normalizedSweep -= Math.PI * 2;
+
+                const diff = Math.abs(normalizedSweep - targetAngle);
+
+                // If sweep line is crossing target position
+                if (diff < 0.1) {
+                    target.opacity = 1.0;
+                }
+
+                if (target.opacity > 0) {
+                    // Draw detected node
+                    ctx.fillStyle = `rgba(56, 189, 248, ${target.opacity})`;
+                    ctx.beginPath();
+                    ctx.arc(target.x, target.y, target.size, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Ripple ring
+                    ctx.strokeStyle = `rgba(56, 189, 248, ${target.opacity * 0.4})`;
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.arc(target.x, target.y, target.size * 2, 0, Math.PI * 2);
+                    ctx.stroke();
+
+                    // Text label
+                    ctx.fillStyle = `rgba(186, 230, 253, ${target.opacity})`;
+                    ctx.font = '9px monospace';
+                    ctx.fillText(target.label, target.x + 12, target.y + 4);
+
+                    // Fade out target detection slowly over time
+                    target.opacity -= 0.005;
+                }
+            });
+
+            angle += 0.015;
+            requestAnimationFrame(drawRadar);
+        }
+
+        // Start radar on window load
+        window.onload = function() {
+            drawRadar();
+            updateLiveMetrics();
+            setInterval(updateLiveMetrics, 3000);
+        }
+
+        // Action when user clicks radar ping
+        function pingSonar() {
+            targets.forEach(target => target.opacity = 1.0);
+        }
+
+        // Selection binder for expeditions selection trigger
+        function selectExpedition(tierName) {
+            const dropdown = document.getElementById('exped-select');
+            if (dropdown) {
+                dropdown.value = tierName;
+            }
+        }
+
+        // Dynamic metrics fluctuation for visual authenticity
+        function updateLiveMetrics() {
+            // Vary ocean temp slightly around +4C
+            const tempVal = document.getElementById('temp-val');
+            const randomTemp = (4.1 + Math.random() * 0.3).toFixed(1);
+            if (tempVal) tempVal.innerText = `+${randomTemp}°C`;
+
+            // Vary wave heights around 1.4m
+            const waveVal = document.getElementById('wave-val');
+            const randomWave = (1.2 + Math.random() * 0.4).toFixed(1);
+            if (waveVal) waveVal.innerText = `${randomWave} M`;
+
+            // Keep time updated
+            const timeVal = document.getElementById('time-val');
+            if (timeVal) {
+                const now = new Date();
+                timeVal.innerText = now.toTimeString().split(' ')[0];
+            }
+        }
+
+        // Booking confirmation form submission
+        function handleBookingSubmit(event) {
+            event.preventDefault();
+            const form = document.getElementById('booking-form');
+            const feedback = document.getElementById('form-feedback');
+
+            if (form && feedback) {
+                form.classList.add('hidden');
+                feedback.classList.remove('hidden');
+            }
+        }
+
+        // Web Audio ambient soundscape trigger to construct rich atmosphere
+        let audioCtx;
+        let oceanNoiseNode;
+        let isAudioPlaying = false;
+
+        function toggleAudio() {
+            const btnText = document.getElementById('audio-text');
+            const btn = document.getElementById('audio-btn');
+
+            if (!audioCtx) {
+                // Initialize Web Audio context
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+
+            if (!isAudioPlaying) {
+                // Ocean swell sound synthezier loop using Audio Nodes
+                // Generate deep sea noise buffer
+                const bufferSize = audioCtx.sampleRate * 2;
+                const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                const output = noiseBuffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) {
+                    output[i] = Math.random() * 2 - 1;
+                }
+
+                // White noise generator
+                const whiteNoise = audioCtx.createBufferSource();
+                whiteNoise.buffer = noiseBuffer;
+                whiteNoise.loop = true;
+
+                // Deep water low-pass filters to emulate vast ocean currents
+                const filter = audioCtx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.value = 180;
+
+                // LFO (Low Frequency Oscillator) to model swell waves
+                const lfo = audioCtx.createOscillator();
+                lfo.frequency.value = 0.15; // Swell interval
+
+                const lfoGain = audioCtx.createGain();
+                lfoGain.gain.value = 80; // Modulate cut off
+
+                lfo.connect(lfoGain);
+                lfoGain.connect(filter.frequency);
+
+                // Master gain
+                oceanNoiseNode = audioCtx.createGain();
+                oceanNoiseNode.gain.value = 0.35; // Comfortable volume
+
+                // Connect paths
+                whiteNoise.connect(filter);
+                filter.connect(oceanNoiseNode);
+                oceanNoiseNode.connect(audioCtx.destination);
+
+                // Start audio
+                lfo.start();
+                whiteNoise.start();
+
+                isAudioPlaying = true;
+                btnText.textContent = "Soundscape Active";
+                btn.classList.add('border-sky-400', 'text-sky-300');
+            } else {
+                // Disconnect nodes to stop sound
+                if (oceanNoiseNode) {
+                    oceanNoiseNode.disconnect();
+                }
+                isAudioPlaying = false;
+                btnText.textContent = "Soundscape Off";
+                btn.classList.remove('border-sky-400', 'text-sky-300');
+            }
+        }
+    </script>
+</body>
+</html>
+5

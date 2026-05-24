@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>FIREBLOX — Digital Asset Infrastructure</title>
+
+<!-- Preconnect to Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,600&family=Barlow+Condensed:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg-base: #020202;
+  --bg-surface: #0a0a0a;
+  --bg-surface-hover: #111111;
+  --bg-surface-light: #161616;
+  
+  --border-light: rgba(255, 255, 255, 0.06);
+  --border-strong: rgba(255, 255, 255, 0.12);
+  --border-glow: rgba(230, 48, 48, 0.3);
+  
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.65);
+  --text-tertiary: rgba(255, 255, 255, 0.4);
+  
+  --accent-red: #e63030;
+  --accent-red-hover: #ff3b3b;
+  --accent-green: #16b450;
+  
+  --font-body: 'Barlow', sans-serif;
+  --font-condensed: 'Barlow Condensed', sans-serif;
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  --nav-height: 80px;
+  --section-padding-y: clamp(80px, 10vw, 140px);
+  --section-padding-x: clamp(24px, 5vw, 64px);
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--bg-base);
+}
+
+body {
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  min-height: 100vh;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+::selection {
+  background: var(--accent-red);
+  color: white;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: normal;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* Scroll Reveal Utility */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Base Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 36px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: none;
+  text-align: center;
+}
+
+.btn-primary {
+  background: var(--text-primary);
+  color: var(--bg-base);
+}
+.btn-primary:hover {
+  background: var(--accent-red);
+  color: var(--text-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(230, 48, 48, 0.2);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-strong);
+}
+.btn-outline:hover {
+  border-color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.btn-demo {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  cursor: pointer;
+  padding: 12px 24px;
+  transition: all 0.2s ease;
+}
+.btn-demo:hover {
+  border-color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-height);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--section-padding-x);
+  background: rgba(2, 2, 2, 0);
+  transition: background 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease;
+  border-bottom: 1px solid transparent;
+}
+
+nav.scrolled {
+  background: rgba(2, 2, 2, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.logo {
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.logo::before {
+  content: '';
+  display: block;
+  width: 8px; height: 8px;
+  background: var(--accent-red);
+  box-shadow: 0 0 10px var(--accent-red);
+}
+
+.nav-links {
+  display: none;
+  align-items: center;
+  gap: 40px;
+  list-style: none;
+}
+@media (min-width: 1024px) {
+  .nav-links { display: flex; }
+}
+
+.nav-links a {
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  cursor: pointer;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -6px; left: 0;
+  width: 100%; height: 2px;
+  background: var(--accent-red);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+.nav-links a:hover { color: var(--text-primary); }
+.nav-links a.active { color: var(--text-primary); }
+.nav-links a.active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  width: 24px;
+  z-index: 1001;
+}
+@media (min-width: 1024px) {
+  .hamburger { display: none; }
+}
+.hamburger span {
+  display: block;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 2px;
+  transition: 0.3s ease;
+  width: 100%;
+}
+.hamburger span:nth-child(2) { width: 70%; }
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); width: 100%; }
+
+/* Mobile Menu Overlay */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 2, 2, 0.98);
+  backdrop-filter: blur(20px);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.mobile-menu.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.mobile-menu a {
+  font-family: var(--font-condensed);
+  font-size: 32px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+}
+.mobile-menu a.active, .mobile-menu a:hover {
+  color: var(--text-primary);
+}
+
+.page {
+  display: none;
+  animation: fadePage 0.5s ease forwards;
+}
+.page.active {
+  display: block;
+}
+@keyframes fadePage {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section {
+  padding: var(--section-padding-y) var(--section-padding-x);
+  border-top: 1px solid var(--border-light);
+}
+
+.eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-red);
+  margin-bottom: 24px;
+  display: block;
+}
+
+.section-heading {
+  font-family: var(--font-condensed);
+  font-weight: 800;
+  font-size: clamp(40px, 6vw, 72px);
+  text-transform: uppercase;
+  line-height: 0.95;
+  color: var(--text-primary);
+  margin-bottom: 24px;
+}
+
+.section-heading-sm {
+  font-family: var(--font-condensed);
+  font-weight: 800;
+  font-size: clamp(32px, 4vw, 52px);
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--text-primary);
+  margin-bottom: 24px;
+}
+
+.section-body {
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  max-width: 600px;
+}
+
+/* Grids */
+.grid-2, .grid-3, .grid-4 {
+  display: grid;
+  gap: 1px;
+  background: var(--border-light);
+  border-top: 1px solid var(--border-light);
+}
+.grid-2 { grid-template-columns: 1fr; }
+.grid-3 { grid-template-columns: 1fr; }
+.grid-4 { grid-template-columns: 1fr; }
+
+@media (min-width: 768px) {
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* Split Layouts (Text + Image/Module) */
+.split-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 64px;
+  align-items: center;
+}
+@media (min-width: 1024px) {
+  .split-layout { grid-template-columns: 1fr 1fr; gap: 96px; }
+  .split-layout.uneven { grid-template-columns: 1fr 1.4fr; }
+}
+
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: var(--nav-height);
+  overflow: hidden;
+  background: var(--bg-base);
+}
+
+/* Hero Background Effects */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 0%, var(--bg-base) 80%);
+  z-index: 2;
+  pointer-events: none;
+}
+.hero-glow-blue {
+  position: absolute;
+  top: -10%; right: -5%;
+  width: 50vw; height: 50vw;
+  background: radial-gradient(circle, rgba(28, 78, 255, 0.15) 0%, transparent 60%);
+  filter: blur(80px);
+  z-index: 0;
+}
+.hero-glow-red {
+  position: absolute;
+  bottom: -10%; left: -5%;
+  width: 40vw; height: 40vw;
+  background: radial-gradient(circle, rgba(230, 48, 48, 0.12) 0%, transparent 60%);
+  filter: blur(80px);
+  z-index: 0;
+}
+
+/* Giant Background Text */
+.hero-bg-text {
+  position: absolute;
+  top: 15vh;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-size: clamp(80px, 20vw, 320px);
+  line-height: 0.8;
+  letter-spacing: -0.02em;
+  background: linear-gradient(180deg, #FFFFFF 0%, rgba(255,255,255,0.4) 40%, transparent 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0.8;
+  animation: fadeInDown 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* The Orb */
+.hero-orb-wrap {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(75%);
+  width: clamp(800px, 140vw, 2600px);
+  aspect-ratio: 1;
+  z-index: 3;
+  animation: orbRise 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.hero-orb {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 10%, #ff4d4d 0%, #a80000 30%, #1a0000 65%, #000000 100%);
+  box-shadow: 
+    0 0 160px rgba(230, 48, 48, 0.25),
+    inset 0 20px 40px rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+.hero-orb::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 80% 20%, rgba(110, 165, 255, 0.3) 0%, transparent 50%);
+  mix-blend-mode: screen;
+}
+
+/* Hero Content */
+.hero-content {
+  position: relative;
+  z-index: 10;
+  margin-top: auto;
+  padding: var(--section-padding-x);
+  padding-bottom: 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  animation: fadeInUp 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+  opacity: 0;
+}
+@media (min-width: 768px) {
+  .hero-content {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+}
+
+.hero-tagline {
+  font-family: var(--font-condensed);
+  font-weight: 800;
+  font-size: clamp(36px, 5vw, 64px);
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+.hero-tagline span {
+  display: block;
+  color: var(--text-tertiary);
+}
+.hero-desc {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 300px;
+}
+@media (min-width: 768px) {
+  .hero-desc { text-align: right; }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-40px); }
+  to { opacity: 0.8; transform: translateY(0); }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes orbRise {
+  from { transform: translateX(-50%) translateY(95%); opacity: 0; }
+  to { transform: translateX(-50%) translateY(75%); opacity: 1; }
+}
+
+.card {
+  background: var(--bg-base);
+  padding: clamp(32px, 4vw, 56px) clamp(24px, 3vw, 48px);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.4s ease;
+}
+.card:hover {
+  background: var(--bg-surface);
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-red), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.card:hover::before { opacity: 1; }
+
+.card-num {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--text-tertiary);
+  margin-bottom: 32px;
+}
+.card-icon {
+  width: 32px; height: 32px;
+  margin-bottom: 24px;
+  color: var(--text-primary);
+}
+.card-icon svg { width: 100%; height: 100%; stroke-width: 1.5; stroke: currentColor; fill: none; }
+
+.card-tags {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;
+}
+.tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border: 1px solid var(--border-strong);
+  color: var(--text-secondary);
+}
+
+.card-title {
+  font-family: var(--font-condensed);
+  font-weight: 700;
+  font-size: 22px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+.card-desc {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* Stats Cell */
+.stat-cell {
+  background: var(--bg-base);
+  padding: 56px var(--section-padding-x);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.stat-num {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 8vw, 96px);
+  line-height: 1;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+.stat-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+/* Marquees */
+.marquee-wrap {
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+  overflow: hidden;
+  padding: 20px 0;
+  background: var(--bg-base);
+  display: flex;
+}
+.marquee-track {
+  display: flex;
+  animation: marquee 30s linear infinite;
+  white-space: nowrap;
+}
+.marquee-item {
+  font-family: var(--font-display);
+  font-size: 32px;
+  color: var(--border-strong);
+  padding: 0 32px;
+  letter-spacing: 0.05em;
+}
+.marquee-item.red { color: rgba(230, 48, 48, 0.3); }
+
+.logo-marquee-wrap {
+  overflow: hidden;
+  padding: 32px 0;
+  border-top: 1px solid var(--border-light);
+  background: var(--bg-base);
+  display: flex;
+}
+.logo-item {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  padding: 0 48px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+.logo-item:hover { color: var(--text-primary); }
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Status Banner */
+.status-banner {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: rgba(22, 180, 80, 0.05);
+  border: 1px solid rgba(22, 180, 80, 0.2);
+  margin-top: 32px;
+}
+.status-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  box-shadow: 0 0 10px var(--accent-green);
+  animation: pulseGreen 2s infinite;
+}
+.status-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--accent-green);
+}
+@keyframes pulseGreen {
+  0% { box-shadow: 0 0 0 0 rgba(22, 180, 80, 0.4); }
+  70% { box-shadow: 0 0 0 6px rgba(22, 180, 80, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(22, 180, 80, 0); }
+}
+
+.dashboard-wrap {
+  background: var(--bg-base);
+  padding: var(--section-padding-y) var(--section-padding-x);
+  border-top: 1px solid var(--border-light);
+}
+.dashboard-inner {
+  border: 1px solid var(--border-strong);
+  background: var(--bg-surface);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+}
+.dash-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border-light);
+  background: var(--bg-base);
+}
+.dash-logo {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.dash-n {
+  width: 24px; height: 24px;
+  background: var(--accent-red);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 16px;
+}
+.dash-nav {
+  display: flex; gap: 24px; overflow-x: auto;
+}
+.dash-nav span {
+  font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--text-tertiary); cursor: pointer; padding: 4px 0; white-space: nowrap;
+}
+.dash-nav span.active { color: var(--text-primary); border-bottom: 1px solid var(--accent-red); }
+
+.dash-body {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1px;
+  background: var(--border-light);
+}
+.dash-kpi {
+  background: var(--bg-surface);
+  padding: 32px 24px;
+}
+.dash-kpi-label {
+  font-family: var(--font-mono); font-size: 11px; color: var(--text-tertiary);
+  text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px;
+}
+.dash-kpi-val {
+  font-family: var(--font-display); font-size: 48px; line-height: 1;
+}
+.dash-kpi-val.green { color: var(--accent-green); }
+.dash-kpi-val.red { color: var(--accent-red); }
+
+.dash-table-wrap {
+  grid-column: 1 / -1;
+  background: var(--bg-surface);
+  padding: 24px;
+  overflow-x: auto;
+}
+.dash-table-title {
+  font-family: var(--font-mono); font-size: 11px; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--text-secondary); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+.live-pill {
+  font-size: 9px; padding: 2px 8px; background: rgba(22, 180, 80, 0.1);
+  border: 1px solid rgba(22, 180, 80, 0.2); color: var(--accent-green);
+}
+table { width: 100%; border-collapse: collapse; min-width: 600px; }
+th {
+  font-family: var(--font-mono); font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--text-tertiary); padding: 12px;
+  text-align: left; border-bottom: 1px solid var(--border-strong);
+}
+td {
+  font-size: 14px; color: var(--text-secondary); padding: 16px 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+tr:hover td { background: rgba(255,255,255,0.02); }
+tr:last-child td { border-bottom: none; }
+td.mono { font-family: var(--font-mono); color: var(--text-primary); font-size: 13px;}
+td.green-val { color: var(--accent-green); font-weight: 500; }
+
+/* Visual Orb (Inner Pages) */
+.orb-module {
+  position: relative; height: 400px; display: flex; align-items: center; justify-content: center;
+}
+.inner-orb {
+  width: 200px; height: 200px; border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ff4d4d 0%, #a80000 50%, #000 100%);
+  box-shadow: 0 0 80px rgba(230, 48, 48, 0.3);
+  z-index: 2;
+}
+.orbit-ring {
+  position: absolute; border: 1px solid var(--border-strong); border-radius: 50%;
+  animation: spin 20s linear infinite;
+}
+.orbit-ring:nth-child(1) { width: 300px; height: 300px; }
+.orbit-ring:nth-child(2) { width: 400px; height: 400px; animation-duration: 30s; animation-direction: reverse; }
+.orbit-dot {
+  position: absolute; top: -4px; left: 50%; transform: translateX(-50%);
+  width: 8px; height: 8px; border-radius: 50%; background: var(--accent-red);
+  box-shadow: 0 0 12px var(--accent-red);
+}
+
+.inner-hero {
+  position: relative;
+  padding: calc(var(--nav-height) + 80px) var(--section-padding-x) 100px;
+  background: var(--bg-base);
+  border-bottom: 1px solid var(--border-light);
+  overflow: hidden;
+}
+.inner-hero::before {
+  content: ''; position: absolute; top: 0; right: 0; width: 60%; height: 100%;
+  background: radial-gradient(ellipse at 80% 20%, rgba(230, 48, 48, 0.1) 0%, transparent 70%);
+  filter: blur(60px); pointer-events: none;
+}
+.page-label {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--accent-red); margin-bottom: 24px; display: block;
+}
+.page-title {
+  font-family: var(--font-display); font-size: clamp(64px, 10vw, 140px);
+  line-height: 0.85; letter-spacing: -0.01em; margin-bottom: 32px;
+}
+
+/* Pricing Grid */
+.pricing-card {
+  background: var(--bg-base); padding: 56px 48px; position: relative;
+}
+.pricing-card.featured {
+  background: linear-gradient(180deg, rgba(230,48,48,0.05) 0%, var(--bg-base) 100%);
+  box-shadow: inset 0 0 0 1px var(--border-glow);
+}
+.pricing-badge {
+  position: absolute; top: 0; left: 48px; transform: translateY(-50%);
+  font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 6px 16px; background: var(--accent-red); color: white;
+}
+.price-tier { font-family: var(--font-mono); font-size: 11px; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: 16px; display: block;}
+.price-name { font-family: var(--font-condensed); font-size: 40px; font-weight: 800; text-transform: uppercase; margin-bottom: 12px; line-height: 1;}
+.price-features { list-style: none; margin: 32px 0 40px; display: flex; flex-direction: column; gap: 16px;}
+.price-features li { display: flex; gap: 12px; color: var(--text-secondary); font-size: 15px;}
+.price-features li::before { content: '—'; color: var(--accent-red); font-weight: 700;}
+
+/* CTA Banner */
+.cta-banner {
+  background: var(--bg-surface-light);
+  padding: var(--section-padding-y) var(--section-padding-x);
+  border-top: 1px solid var(--border-light);
+  display: flex; flex-direction: column; gap: 40px;
+  position: relative; overflow: hidden;
+}
+@media (min-width: 768px) {
+  .cta-banner { flex-direction: row; justify-content: space-between; align-items: center; }
+}
+.cta-heading {
+  font-family: var(--font-condensed); font-weight: 800; font-size: clamp(40px, 5vw, 64px);
+  text-transform: uppercase; line-height: 1; margin-bottom: 16px;
+}
+.cta-heading em { font-style: normal; color: var(--text-tertiary); }
+
+/* Forms */
+.form-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+@media (min-width: 768px) { .form-grid { grid-template-columns: 1fr 1fr; } }
+.form-group { display: flex; flex-direction: column; gap: 8px; }
+.form-group.full { grid-column: 1 / -1; }
+.form-group label { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; color: var(--text-tertiary); }
+.form-control {
+  background: rgba(255,255,255,0.02); border: 1px solid var(--border-strong);
+  color: var(--text-primary); padding: 16px; font-family: var(--font-body); font-size: 15px;
+  border-radius: 2px; transition: border-color 0.3s ease; width: 100%; outline: none;
+}
+.form-control:focus { border-color: var(--text-primary); background: rgba(255,255,255,0.05); }
+textarea.form-control { min-height: 140px; resize: vertical; }
+
+/* Timeline */
+.timeline-items { display: flex; flex-direction: column; }
+.tl-item {
+  display: grid; grid-template-columns: 1fr; gap: 16px;
+  padding: 40px 0; border-bottom: 1px solid var(--border-light);
+}
+@media (min-width: 768px) {
+  .tl-item { grid-template-columns: 120px 1fr; gap: 48px; }
+}
+.tl-year { font-family: var(--font-display); font-size: 48px; color: var(--border-strong); line-height: 1;}
+
+/* Footer */
+footer {
+  padding: 80px var(--section-padding-x) 40px;
+  border-top: 1px solid var(--border-light);
+  background: var(--bg-base);
+}
+.footer-grid {
+  display: grid; grid-template-columns: 1fr; gap: 48px;
+}
+@media (min-width: 768px) {
+  .footer-grid { grid-template-columns: 2fr repeat(3, 1fr); }
+}
+.footer-col h4 {
+  font-family: var(--font-mono); font-size: 11px; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--text-tertiary); margin-bottom: 24px;
+}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+.footer-col ul a { font-size: 14px; color: var(--text-secondary); transition: color 0.2s; cursor:pointer;}
+.footer-col ul a:hover { color: var(--text-primary); }
+
+.footer-bottom {
+  margin-top: 80px; padding-top: 32px; border-top: 1px solid var(--border-light);
+  display: flex; flex-direction: column; gap: 16px;
+}
+@media (min-width: 768px) {
+  .footer-bottom { flex-direction: row; justify-content: space-between; align-items: center; }
+}
+.footer-bottom p { font-family: var(--font-mono); font-size: 11px; color: var(--text-tertiary); }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-family: var(--font-mono); font-size: 11px; color: var(--text-tertiary); text-transform: uppercase;}
+.footer-links a:hover { color: var(--text-secondary); }
+</style>
+</head>
+<body>
+
+<nav id="mainNav">
+  <div class="logo" onclick="goPage('home')">FIREBLOX</div>
+  <ul class="nav-links">
+    <li><a onclick="goPage('products')" data-page="products">Products</a></li>
+    <li><a onclick="goPage('solutions')" data-page="solutions">Solutions</a></li>
+    <li><a onclick="goPage('platform')" data-page="platform">Platform</a></li>
+    <li><a onclick="goPage('network')" data-page="network">Network</a></li>
+    <li><a onclick="goPage('company')" data-page="company">Company</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="btn-demo" onclick="goPage('feasibility')">Request Feasibility</button>
+    <div class="hamburger" id="hamburgerBtn"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a onclick="goPage('products'); closeMenu()">Products</a>
+  <a onclick="goPage('solutions'); closeMenu()">Solutions</a>
+  <a onclick="goPage('platform'); closeMenu()">Platform</a>
+  <a onclick="goPage('network'); closeMenu()">Network</a>
+  <a onclick="goPage('company'); closeMenu()">Company</a>
+  <button class="btn btn-primary" style="margin-top:24px" onclick="goPage('feasibility'); closeMenu()">Check Feasibility</button>
+</div>
+
+<div class="page active" id="page-home">
+  
+  <section class="hero">
+    <div class="hero-glow-blue"></div>
+    <div class="hero-glow-red"></div>
+    
+    <div class="hero-bg-text">BLOCKCHAIN</div>
+    
+    <div class="hero-orb-wrap">
+      <div class="hero-orb"></div>
+    </div>
+    
+    <div class="hero-content">
+      <div class="hero-tagline">
+        Digital Asset
+        <span>Infrastructure</span>
+      </div>
+      <div class="hero-desc">
+        Digital asset infrastructure built for scale and trusted for security.
+      </div>
+    </div>
+  </section>
+
+  <div class="logo-marquee-wrap" style="padding: 24px 0;">
+    <div class="marquee-track" style="animation-duration: 40s;">
+      <span class="logo-item" style="font-style:italic">Revolut</span>
+      <span class="logo-item">Triple·A</span>
+      <span class="logo-item" style="font-weight:900">BYB|T</span>
+      <span class="logo-item" style="font-weight:900; letter-spacing:0.1em">VISA</span>
+      <span class="logo-item">worldpay</span>
+      <span class="logo-item">⊙ Bridge</span>
+      <!-- Duplicate -->
+      <span class="logo-item" style="font-style:italic">Revolut</span>
+      <span class="logo-item">Triple·A</span>
+      <span class="logo-item" style="font-weight:900">BYB|T</span>
+      <span class="logo-item" style="font-weight:900; letter-spacing:0.1em">VISA</span>
+      <span class="logo-item">worldpay</span>
+      <span class="logo-item">⊙ Bridge</span>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <div class="stat-cell reveal"><div class="stat-num">$6T+</div><div class="stat-label">Assets Transferred</div></div>
+    <div class="stat-cell reveal"><div class="stat-num">1,800+</div><div class="stat-label">Institutional Clients</div></div>
+    <div class="stat-cell reveal"><div class="stat-num">50+</div><div class="stat-label">Blockchain Networks</div></div>
+  </div>
+
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="marquee-item">SECURITY</span><span class="marquee-item red">——</span>
+      <span class="marquee-item">COMPLIANCE</span><span class="marquee-item red">——</span>
+      <span class="marquee-item">SCALE</span><span class="marquee-item red">——</span>
+      <span class="marquee-item">CUSTODY</span><span class="marquee-item red">——</span>
+      <span class="marquee-item">DEFI</span><span class="marquee-item red">——</span>
+      <span class="marquee-item">WEB3</span><span class="marquee-item red">——</span>
+      <!-- Duplicate -->
+      <span class="marquee-item">SECURITY</span><span class="marquee-item red">——</span>
+      <span class="marquee-item">COMPLIANCE</span><span class="marquee-item red">——</span>
+      <span class="marquee-item">SCALE</span><span class="marquee-item red">——</span>
+      <span class="marquee-item">CUSTODY</span><span class="marquee-item red">——</span>
+      <span class="marquee-item">DEFI</span><span class="marquee-item red">——</span>
+      <span class="marquee-item">WEB3</span><span class="marquee-item red">——</span>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container split-layout">
+      <div class="reveal">
+        <span class="eyebrow">The Infrastructure</span>
+        <h2 class="section-heading">The Infrastructure Behind Your Digital Assets.</h2>
+        <p class="section-body" style="margin-bottom: 40px;">Most custodians hand you an API and disappear. Fireblox is different. We deliver dedicated, institutional-grade digital asset infrastructure with real-time visibility into every wallet, every transaction, every SLA — through a platform your compliance team actually wants to use.</p>
+        <button class="btn btn-outline" onclick="goPage('platform')">See the Platform</button>
+      </div>
+      <div class="orb-module reveal">
+        <div class="orbit-ring"></div>
+        <div class="orbit-ring"></div>
+        <div class="inner-orb"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="logo-marquee-wrap">
+    <div class="marquee-track">
+      <span class="logo-item">J.P. Morgan</span><span class="logo-item">Goldman Sachs</span>
+      <span class="logo-item">BlackRock</span><span class="logo-item">Fidelity</span>
+      <span class="logo-item">Deutsche Bank</span><span class="logo-item">Standard Chartered</span>
+      <span class="logo-item">BNY Mellon</span><span class="logo-item">Coinbase</span>
+      <!-- Duplicate -->
+      <span class="logo-item">J.P. Morgan</span><span class="logo-item">Goldman Sachs</span>
+      <span class="logo-item">BlackRock</span><span class="logo-item">Fidelity</span>
+      <span class="logo-item">Deutsche Bank</span><span class="logo-item">Standard Chartered</span>
+      <span class="logo-item">BNY Mellon</span><span class="logo-item">Coinbase</span>
+    </div>
+  </div>
+
+  <section class="section" style="padding-bottom: 40px;">
+    <div class="container reveal">
+      <span class="eyebrow">What We Deliver</span>
+      <h2 class="section-heading-sm" style="max-width:600px;">Connectivity products built for institutions that don't compromise.</h2>
+    </div>
+  </section>
+
+  <div class="grid-3">
+    <div class="card reveal">
+      <div class="card-num">01</div>
+      <div class="card-tags"><span class="tag">MPC</span><span class="tag">Symmetric</span><span class="tag">SLA</span></div>
+      <h3 class="card-title">MPC Wallet Technology</h3>
+      <p class="card-desc">Dedicated, symmetric key management with guaranteed SLA. No seed phrases, no single points of failure, no compromise.</p>
+    </div>
+    <div class="card reveal">
+      <div class="card-num">02</div>
+      <div class="card-tags"><span class="tag">Private</span><span class="tag">Multi-chain</span><span class="tag">QoS</span></div>
+      <h3 class="card-title">Policy Engine</h3>
+      <p class="card-desc">Private multi-chain transaction governance with quality-of-service controls and customizable approval workflows.</p>
+    </div>
+    <div class="card reveal">
+      <div class="card-num">03</div>
+      <div class="card-tags"><span class="tag">Hybrid</span><span class="tag">App-Aware</span></div>
+      <h3 class="card-title">DeFi & Web3 Access</h3>
+      <p class="card-desc">Application-aware routing across hybrid on-chain and off-chain environments with centralized control and audit logs.</p>
+    </div>
+    <div class="card reveal">
+      <div class="card-num">04</div>
+      <div class="card-tags"><span class="tag">Firewall</span><span class="tag">AML</span><span class="tag">Monitoring</span></div>
+      <h3 class="card-title">Compliance Suite</h3>
+      <p class="card-desc">Enterprise-grade AML screening, transaction monitoring, and regulatory reporting — fully managed at the infrastructure layer.</p>
+    </div>
+    <div class="card reveal">
+      <div class="card-num">05</div>
+      <div class="card-tags"><span class="tag">CEX</span><span class="tag">DEX</span><span class="tag">Peering</span></div>
+      <h3 class="card-title">Exchange Connect</h3>
+      <p class="card-desc">Direct connectivity to CEX and DEX platforms with private peering for low-latency order execution and settlement.</p>
+    </div>
+    <div class="card reveal">
+      <div class="card-num">06</div>
+      <div class="card-tags"><span class="tag">EVM</span><span class="tag">Non-EVM</span><span class="tag">L2</span></div>
+      <h3 class="card-title">Multi-Chain Support</h3>
+      <p class="card-desc">50+ blockchains including all major EVM chains, Solana, Cosmos, and leading Layer 2 networks under a single unified API.</p>
+    </div>
+  </div>
+
+  <div class="dashboard-wrap">
+    <div class="container reveal">
+      <span class="eyebrow">Live Platform</span>
+      <h2 class="section-heading-sm">Every wallet. Every metric. One dashboard.</h2>
+      <p class="section-body" style="margin-bottom: 48px;">No more calling your account manager for a status update. Monitor, transact, raise tickets — all in real-time.</p>
+      
+      <div class="dashboard-inner">
+        <div class="dash-header">
+          <div class="dash-logo"><div class="dash-n">F</div>FIREBLOX</div>
+          <div class="dash-nav">
+            <span class="active">Wallets</span><span>Network</span><span>Tickets</span><span>Orders</span><span>Billing</span>
+          </div>
+        </div>
+        <div class="dash-body">
+          <div class="dash-kpi"><div class="dash-kpi-label">Active Wallets</div><div class="dash-kpi-val">248</div></div>
+          <div class="dash-kpi"><div class="dash-kpi-label">Wallets at Risk</div><div class="dash-kpi-val red">0</div></div>
+          <div class="dash-kpi"><div class="dash-kpi-label">Current SLA</div><div class="dash-kpi-val green">99.97%</div></div>
+          <div class="dash-kpi"><div class="dash-kpi-label">Open Tickets</div><div class="dash-kpi-val">3</div></div>
+          <div class="dash-table-wrap">
+            <div class="dash-table-title">Wallet Health <span class="live-pill">LIVE</span></div>
+            <table>
+              <thead><tr><th>Wallet ID</th><th>Type</th><th>Balance</th><th>Last Tx</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td class="mono">ETH-INST-001</td><td><span class="tag">MPC</span></td><td class="mono">$42,300,000</td><td>2m ago</td><td class="green-val">● Healthy</td></tr>
+                <tr><td class="mono">BTC-CUST-014</td><td><span class="tag">Cold</span></td><td class="mono">$218,000,000</td><td>1h ago</td><td class="green-val">● Healthy</td></tr>
+                <tr><td class="mono">SOL-DeFi-007</td><td><span class="tag">Hot</span></td><td class="mono">$8,100,000</td><td>12m ago</td><td class="green-val">● Healthy</td></tr>
+                <tr><td class="mono">USDC-TR-033</td><td><span class="tag">MPC</span></td><td class="mono">$95,000,000</td><td>5m ago</td><td class="green-val">● Healthy</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-banner">
+    <div class="reveal">
+      <h2 class="cta-heading">Ready to verify?<br><em>See what Tier-1 looks like.</em></h2>
+      <p class="section-body">Check feasibility at your institution in under 24 hours.</p>
+    </div>
+    <div class="reveal" style="display:flex;flex-direction:column;align-items:flex-start;gap:16px;">
+      <button class="btn btn-primary" onclick="goPage('feasibility')">Check Feasibility</button>
+      <span style="font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary);text-transform:uppercase;">Free check · No commitment</span>
+    </div>
+  </div>
+</div>
+<!-- /page-home -->
+
+<div class="page" id="page-products">
+  <div class="inner-hero">
+    <div class="container reveal">
+      <span class="page-label">Products</span>
+      <h1 class="page-title">Built for Institutions.<br>Trusted by Scale.</h1>
+      <p class="section-body">Every product in the Fireblox suite is engineered for institutional-grade performance, compliance, and reliability — with zero compromise on security or transparency.</p>
+    </div>
+  </div>
+
+  <div class="grid-3" style="border-top:none">
+    <div class="card reveal">
+      <div class="card-num">01</div>
+      <div class="card-tags"><span class="tag">MPC</span><span class="tag">Cold</span><span class="tag">Hot</span></div>
+      <h3 class="card-title">MPC Wallet Technology</h3>
+      <p class="card-desc">Eliminate single points of failure with our proprietary multi-party computation. No seed phrases, no private key exposure — ever. Supports cold, warm and hot wallet policies from a single unified interface.</p>
+    </div>
+    <div class="card reveal">
+      <div class="card-num">02</div>
+      <div class="card-tags"><span class="tag">Governance</span><span class="tag">Automation</span></div>
+      <h3 class="card-title">Policy Engine</h3>
+      <p class="card-desc">Define transaction rules, approval chains, and automated workflows at the wallet, user, and asset level. Real-time policy enforcement with full audit trail and rollback capability.</p>
+    </div>
+    <div class="card reveal">
+      <div class="card-num">03</div>
+      <div class="card-tags"><span class="tag">DEX</span><span class="tag">CEX</span><span class="tag">L2</span></div>
+      <h3 class="card-title">DeFi & Web3 Access</h3>
+      <p class="card-desc">Connect to 200+ DeFi protocols and dApps with enterprise-grade security policies. WalletConnect, Metamask Institutional, and direct smart contract interaction.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container reveal">
+      <span class="eyebrow">Pricing</span>
+      <h2 class="section-heading">Simple, Transparent Pricing</h2>
+    </div>
+  </section>
+  
+  <div class="grid-3">
+    <div class="pricing-card reveal">
+      <span class="price-tier">Starter</span>
+      <h3 class="price-name">Growth</h3>
+      <p class="section-body" style="font-size:14px; margin-bottom:32px; padding-bottom:32px; border-bottom:1px solid var(--border-light)">For emerging institutions and crypto-native firms getting started.</p>
+      <ul class="price-features">
+        <li>Up to 50 wallets</li>
+        <li>5 blockchain networks</li>
+        <li>Basic policy engine</li>
+        <li>REST API access</li>
+      </ul>
+      <button class="btn btn-outline" style="width:100%" onclick="goPage('feasibility')">Get Started</button>
+    </div>
+    <div class="pricing-card featured reveal">
+      <div class="pricing-badge">Most Popular</div>
+      <span class="price-tier">Enterprise</span>
+      <h3 class="price-name">Professional</h3>
+      <p class="section-body" style="font-size:14px; margin-bottom:32px; padding-bottom:32px; border-bottom:1px solid var(--border-light)">For banks, funds, and exchanges that need full compliance coverage.</p>
+      <ul class="price-features">
+        <li>Unlimited wallets</li>
+        <li>All 50+ blockchains</li>
+        <li>Advanced policy engine</li>
+        <li>AML/KYT compliance</li>
+      </ul>
+      <button class="btn btn-primary" style="width:100%" onclick="goPage('feasibility')">Request Demo</button>
+    </div>
+    <div class="pricing-card reveal">
+      <span class="price-tier">Global</span>
+      <h3 class="price-name">Sovereign</h3>
+      <p class="section-body" style="font-size:14px; margin-bottom:32px; padding-bottom:32px; border-bottom:1px solid var(--border-light)">For central banks and Tier-1 financial institutions.</p>
+      <ul class="price-features">
+        <li>On-premises deployment</li>
+        <li>Custom chain integrations</li>
+        <li>White-label platform</li>
+        <li>24/7 dedicated SRE team</li>
+      </ul>
+      <button class="btn btn-outline" style="width:100%" onclick="goPage('feasibility')">Contact Sales</button>
+    </div>
+  </div>
+</div>
+<!-- /page-products -->
+
+<div class="page" id="page-feasibility">
+  <div class="inner-hero">
+    <div class="container reveal">
+      <span class="page-label">Request Feasibility</span>
+      <h1 class="page-title">Check Feasibility at<br>Your Institution.</h1>
+      <p class="section-body">Tell us about your setup. We'll come back within 24 hours with a full feasibility assessment — which chains, which products, and what a deployment would look like for your specific context.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container split-layout uneven">
+      <div class="reveal">
+        <span class="eyebrow">Get Started</span>
+        <h2 class="section-heading-sm">Fill in your details</h2>
+        <form class="form-grid" onsubmit="event.preventDefault(); alert('Request submitted. We will contact you within 24 hours.');">
+          <div class="form-group"><label>First Name</label><input type="text" class="form-control" placeholder="Arjun" required></div>
+          <div class="form-group"><label>Last Name</label><input type="text" class="form-control" placeholder="Mehta" required></div>
+          <div class="form-group"><label>Work Email</label><input type="email" class="form-control" placeholder="arjun@institution.com" required></div>
+          <div class="form-group"><label>Phone</label><input type="tel" class="form-control" placeholder="+1 (555) 000-0000"></div>
+          <div class="form-group full"><label>Institution Name</label><input type="text" class="form-control" placeholder="Global Capital Partners" required></div>
+          <div class="form-group full"><label>Institution Type</label>
+            <select class="form-control" required>
+              <option value="">Select type…</option>
+              <option>Bank / Fintech</option>
+              <option>Hedge Fund / Asset Manager</option>
+              <option>Crypto Exchange</option>
+            </select>
+          </div>
+          <div class="form-group full"><label>Tell us more</label><textarea class="form-control" placeholder="What blockchains are you targeting? What's your current custody setup?"></textarea></div>
+          <div class="form-group full">
+            <button type="submit" class="btn btn-primary" style="align-self: flex-start;">Submit Request</button>
+          </div>
+        </form>
+      </div>
+      
+      <div class="reveal" style="display:flex; flex-direction:column; gap:24px;">
+        <div style="padding:48px; background:var(--bg-surface); border:1px solid var(--border-strong);">
+          <span class="eyebrow">What happens next</span>
+          <div class="timeline-items" style="gap:32px;">
+            <div style="display:flex; gap:24px;">
+              <div style="font-family:var(--font-mono); font-size:12px; color:var(--text-tertiary);">01</div>
+              <div><h4 style="font-size:16px; margin-bottom:8px;">Technical Review</h4><p style="font-size:14px; color:var(--text-secondary);">Our solutions team reviews your requirements against our infrastructure.</p></div>
+            </div>
+            <div style="display:flex; gap:24px;">
+              <div style="font-family:var(--font-mono); font-size:12px; color:var(--text-tertiary);">02</div>
+              <div><h4 style="font-size:16px; margin-bottom:8px;">24h Report</h4><p style="font-size:14px; color:var(--text-secondary);">Receive a tailored assessment on supported chains and timelines.</p></div>
+            </div>
+            <div style="display:flex; gap:24px;">
+              <div style="font-family:var(--font-mono); font-size:12px; color:var(--text-tertiary);">03</div>
+              <div><h4 style="font-size:16px; margin-bottom:8px;">Live Demo</h4><p style="font-size:14px; color:var(--text-secondary);">We walk you through the platform specifically configured for your context.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- (Placeholders for other pages to ensure routing works without breaking) -->
+<div class="page" id="page-solutions"><div class="inner-hero"><div class="container"><h1 class="page-title">Solutions</h1><p class="section-body">Infrastructure tailored for your specific institution type.</p></div></div></div>
+<div class="page" id="page-platform"><div class="inner-hero"><div class="container"><h1 class="page-title">Platform</h1><p class="section-body">The single pane of glass for all your digital asset operations.</p></div></div></div>
+<div class="page" id="page-network"><div class="inner-hero"><div class="container"><h1 class="page-title">Network</h1><p class="section-body">Direct node infrastructure across 50+ blockchains.</p></div></div></div>
+<div class="page" id="page-company"><div class="inner-hero"><div class="container"><h1 class="page-title">Company</h1><p class="section-body">The team building the infrastructure that didn't exist.</p></div></div></div>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="logo" style="margin-bottom:24px">FIREBLOX</div>
+        <p class="section-body" style="font-size:14px; margin-bottom:24px;">The enterprise digital asset infrastructure company.</p>
+        <div class="status-banner" style="margin-top:0; padding:8px 16px;">
+          <div class="status-dot"></div><div class="status-text">All Systems Operational</div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Platform</h4>
+        <ul>
+          <li><a onclick="goPage('products')">MPC Wallets</a></li>
+          <li><a onclick="goPage('products')">Policy Engine</a></li>
+          <li><a onclick="goPage('platform')">Compliance</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a onclick="goPage('company')">About</a></li>
+          <li><a onclick="goPage('company')">Careers</a></li>
+          <li><a onclick="goPage('feasibility')">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">API Docs</a></li>
+          <li><a href="#">SDK Reference</a></li>
+          <li><a href="#">System Status</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Fireblox Inc. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Nav Scroll Effect
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 30);
+});
+
+// Mobile Menu Toggle
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+
+hamburgerBtn.addEventListener('click', () => {
+  hamburgerBtn.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+});
+
+function closeMenu() {
+  hamburgerBtn.classList.remove('open');
+  mobileMenu.classList.remove('open');
+}
+
+// Page Router
+function goPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.toggle('active', a.dataset.page === name);
+  });
+  
+  window.scrollTo({top: 0, behavior: 'instant'});
+  
+  // Re-trigger reveal animations
+  setTimeout(initReveal, 50);
+}
+
+// Intersection Observer for Reveal Animations
+function initReveal() {
+  const reveals = document.querySelectorAll('.page.active .reveal');
+  
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    root: null,
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px"
+  });
+
+  reveals.forEach(reveal => {
+    reveal.classList.remove('active');
+    revealObserver.observe(reveal);
+  });
+}
+
+// Run on load
+document.addEventListener('DOMContentLoaded', initReveal);
+</script>
+</body>
+</html>I0

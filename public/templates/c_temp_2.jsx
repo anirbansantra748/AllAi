@@ -1,0 +1,363 @@
+import React, { useState, useEffect } from 'react';
+import { Play, Menu, X, ChevronRight, Monitor, ShieldAlert, ArrowLeft, Search, Bell } from 'lucide-react';
+
+// --- MOCK DATA ---
+const SERIES_DATA = {
+  id: 'chernobyl',
+  title: 'SILENT ZONE',
+  description: 'The historical mini-series created by Craig Mazin. A terrifying deep dive into the exclusion zones, exploring the history, the aftermath, and the people left behind in the most dangerous places on Earth.',
+  episodes: [
+    {
+      id: 1,
+      num: '01',
+      title: '1:23:45',
+      subtitle: 'The Beginning',
+      date: 'MAY 6, 2019',
+      duration: '58m',
+      // Using cinematic portraits/scenes to mimic the intense vibe
+      heroImage: 'https://images.unsplash.com/photo-1542281286-9e0a16bb7366?auto=format&fit=crop&q=80&w=1200',
+      thumbImage: 'https://images.unsplash.com/photo-1505528636545-28842e472288?auto=format&fit=crop&q=80&w=300'
+    },
+    {
+      id: 2,
+      num: '02',
+      title: 'Please Remain Calm',
+      subtitle: 'Evacuation',
+      date: 'MAY 13, 2019',
+      duration: '1h 5m',
+      heroImage: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=1200',
+      thumbImage: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=300'
+    },
+    {
+      id: 3,
+      num: '03',
+      title: 'Open Wide, O Earth',
+      subtitle: 'The Miners',
+      date: 'MAY 20, 2019',
+      duration: '1h 2m',
+      heroImage: 'https://images.unsplash.com/photo-1506509536862-28b76a084c8a?auto=format&fit=crop&q=80&w=1200',
+      thumbImage: 'https://images.unsplash.com/photo-1506509536862-28b76a084c8a?auto=format&fit=crop&q=80&w=300'
+    },
+    {
+      id: 4,
+      num: '04',
+      title: 'The Happiness of All Mankind',
+      subtitle: 'Cleanup',
+      date: 'MAY 27, 2019',
+      duration: '1h 5m',
+      heroImage: 'https://images.unsplash.com/photo-1473170611423-22489201d919?auto=format&fit=crop&q=80&w=1200',
+      thumbImage: 'https://images.unsplash.com/photo-1473170611423-22489201d919?auto=format&fit=crop&q=80&w=300'
+    },
+    {
+      id: 5,
+      num: '05',
+      title: 'Vichnaya Pamyat',
+      subtitle: 'The Trial',
+      date: 'JUNE 3, 2019',
+      duration: '1h 12m',
+      heroImage: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&q=80&w=1200',
+      thumbImage: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&q=80&w=300'
+    }
+  ]
+};
+
+const EXPLORE_DATA = [
+  { id: '1', title: 'DEEP SEA', category: 'NATURE', image: 'https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?auto=format&fit=crop&q=80&w=600' },
+  { id: '2', title: 'APOLLO', category: 'HISTORY', image: 'https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?auto=format&fit=crop&q=80&w=600' },
+  { id: '3', title: 'THE FALL', category: 'CRIME', image: 'https://images.unsplash.com/photo-1557053964-937650b63311?auto=format&fit=crop&q=80&w=600' },
+  { id: '4', title: 'COLD WAR', category: 'HISTORY', image: 'https://images.unsplash.com/photo-1542281286-9e0a16bb7366?auto=format&fit=crop&q=80&w=600' },
+];
+
+export default function App() {
+  const [currentView, setCurrentView] = useState('home'); // 'home' | 'explore'
+  const [activeEpisode, setActiveEpisode] = useState(SERIES_DATA.episodes[0]);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [animateImg, setAnimateImg] = useState(false);
+
+  // Trigger animation when episode changes
+  useEffect(() => {
+    setAnimateImg(true);
+    const timer = setTimeout(() => setAnimateImg(false), 500);
+    return () => clearTimeout(timer);
+  }, [activeEpisode]);
+
+  return (
+    <div className="min-h-screen bg-[#9ba8a6] text-white font-sans overflow-hidden selection:bg-white/30">
+      {/* Dynamic Background matching active episode */}
+      <div 
+        className="fixed inset-0 bg-cover bg-center transition-all duration-1000 ease-in-out scale-105 opacity-20 mix-blend-overlay"
+        style={{ backgroundImage: `url(${activeEpisode.heroImage})` }}
+      />
+      
+      {/* Main App Container */}
+      <div className="relative min-h-screen flex items-center justify-center p-4 lg:p-8">
+        
+        {currentView === 'home' ? (
+          <div className="relative w-full max-w-[1400px] h-[800px] lg:h-[700px] flex items-center">
+            
+            {/* The Overlapping Play Button (Positioned outside the card on desktop) */}
+            <button 
+              onClick={() => setIsVideoPlaying(true)}
+              className="absolute z-50 left-0 lg:-left-10 top-1/2 -translate-y-1/2 w-20 h-20 bg-black rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300 shadow-[0_0_40px_rgba(0,0,0,0.5)] group hidden lg:flex"
+            >
+              <Play className="w-8 h-8 text-white fill-white group-hover:text-gray-300 transition-colors ml-1" />
+            </button>
+
+            {/* THE GLASS CARD */}
+            <div className="relative w-full h-full rounded-3xl shadow-2xl flex flex-col lg:flex-row">
+              
+              {/* Card Background Container (Overflow hidden for rings) */}
+              <div className="absolute inset-0 rounded-3xl overflow-hidden bg-gradient-to-r from-white/20 via-black/40 to-[#1a1c1e] backdrop-blur-md border border-white/10">
+                {/* Concentric Rings Pattern */}
+                <div className="absolute left-[30%] top-1/2 -translate-y-1/2 w-[800px] h-[800px] opacity-10 pointer-events-none">
+                  <div className="absolute inset-0 border-[2px] border-white rounded-full"></div>
+                  <div className="absolute inset-8 border-[1px] border-white rounded-full"></div>
+                  <div className="absolute inset-16 border-[1px] border-white rounded-full"></div>
+                  <div className="absolute inset-32 border-[1px] border-white rounded-full"></div>
+                  <div className="absolute inset-48 border-[1px] border-white rounded-full"></div>
+                </div>
+              </div>
+
+              {/* LEFT CONTENT AREA */}
+              <div className="relative z-20 flex-1 p-8 lg:p-16 flex flex-col justify-between">
+                
+                {/* Header / Logo Area */}
+                <div className="flex items-center space-x-2">
+                  <span className="text-3xl font-black tracking-tighter">ECHOES</span>
+                  <div className="w-2 h-2 rounded-full bg-white/50 mt-1"></div>
+                </div>
+
+                {/* Main Text Content */}
+                <div className="max-w-md mt-auto lg:mb-12">
+                  <h1 className="text-5xl lg:text-7xl font-black uppercase tracking-tight mb-6 text-white drop-shadow-lg">
+                    {SERIES_DATA.title}
+                  </h1>
+                  <p className="text-sm lg:text-base text-gray-300 leading-relaxed font-light mb-8 lg:mb-0">
+                    {SERIES_DATA.description}
+                  </p>
+                  
+                  {/* Mobile Play Button */}
+                  <button 
+                    onClick={() => setIsVideoPlaying(true)}
+                    className="lg:hidden flex items-center space-x-3 bg-black text-white px-6 py-3 rounded-full mb-8 hover:bg-gray-900 transition-colors"
+                  >
+                    <Play className="w-5 h-5 fill-white" />
+                    <span className="font-semibold tracking-wide uppercase text-sm">Watch Episode</span>
+                  </button>
+                </div>
+
+                {/* Bottom Left Date/Number indicator */}
+                <div className="flex items-end space-x-4">
+                  <span className="text-6xl lg:text-8xl font-bold leading-none tracking-tighter opacity-80">
+                    {activeEpisode.num}
+                  </span>
+                  <div className="flex items-center space-x-2 mb-2 lg:mb-4 text-sm font-semibold tracking-widest uppercase cursor-pointer hover:text-gray-300 transition-colors group">
+                    <span>{activeEpisode.date}</span>
+                    <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </div>
+              </div>
+
+              {/* CENTER "BREAK-OUT" IMAGE */}
+              <div className="absolute left-[50%] -translate-x-1/2 top-[-5%] bottom-[-5%] w-full lg:w-[45%] z-30 pointer-events-none hidden lg:block">
+                <img 
+                  src={activeEpisode.heroImage} 
+                  alt="Hero" 
+                  className={`w-full h-full object-cover object-center rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.6)] border border-white/5 transition-all duration-700 ${animateImg ? 'scale-95 opacity-80 blur-sm' : 'scale-100 opacity-100 blur-0'}`}
+                />
+                {/* Gradient overlay to blend the bottom */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-2xl"></div>
+              </div>
+
+              {/* RIGHT SIDEBAR (Navigation & Episodes) */}
+              <div className="relative z-20 w-full lg:w-[400px] p-8 flex flex-col">
+                
+                {/* Top Right Controls */}
+                <div className="flex justify-end items-center space-x-4 mb-12">
+                  <div className="flex space-x-2">
+                    <span className="px-2 py-1 border border-white/30 rounded text-xs font-semibold tracking-wider text-white/70">HD</span>
+                    <span className="px-2 py-1 border border-white/30 rounded text-xs font-semibold tracking-wider text-white/70">18+</span>
+                  </div>
+                  <button 
+                    onClick={() => setIsMenuOpen(true)}
+                    className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded flex items-center justify-center transition-colors"
+                  >
+                    <Menu className="w-5 h-5" />
+                  </button>
+                </div>
+
+                {/* Episodes List */}
+                <div className="flex-1 overflow-y-auto pr-2 space-y-1 scrollbar-hide flex flex-col justify-center">
+                  {SERIES_DATA.episodes.map((ep) => (
+                    <button
+                      key={ep.id}
+                      onClick={() => setActiveEpisode(ep)}
+                      className={`w-full text-left group flex items-center space-x-4 p-3 rounded-xl transition-all duration-300 ${
+                        activeEpisode.id === ep.id 
+                          ? 'bg-white/10 shadow-lg scale-105' 
+                          : 'hover:bg-white/5 opacity-60 hover:opacity-100'
+                      }`}
+                    >
+                      {/* Episode Meta */}
+                      <div className="flex-1 flex flex-col items-end justify-center pr-4">
+                         <span className={`text-xl font-bold tracking-tighter ${activeEpisode.id === ep.id ? 'text-white' : 'text-gray-400'}`}>
+                           {ep.num}
+                         </span>
+                         <span className="text-xs text-gray-400 mt-1">{ep.duration}</span>
+                      </div>
+                      
+                      {/* Text & Thumbnail */}
+                      <div className="w-[180px] flex flex-col items-end text-right">
+                        <span className="text-sm font-semibold truncate w-full">{ep.title}</span>
+                        <span className="text-xs text-gray-400 truncate w-full">{ep.subtitle}</span>
+                      </div>
+                      
+                      {/* Thumbnail */}
+                      <div className="relative w-20 h-14 rounded overflow-hidden flex-shrink-0 border border-white/10">
+                        <img 
+                          src={ep.thumbImage} 
+                          alt={ep.title} 
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                        {/* Play Overlay on hover */}
+                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                          <Play className="w-4 h-4 text-white fill-white" />
+                        </div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        ) : (
+          /* EXPLORE VIEW */
+          <div className="w-full max-w-7xl h-[80vh] flex flex-col">
+            <div className="flex justify-between items-center mb-12">
+              <button 
+                onClick={() => setCurrentView('home')}
+                className="flex items-center space-x-2 text-white/70 hover:text-white transition-colors"
+              >
+                <ArrowLeft className="w-5 h-5" />
+                <span className="font-semibold uppercase tracking-widest text-sm">Back to Home</span>
+              </button>
+              <h2 className="text-3xl font-black tracking-widest">EXPLORE LIBRARY</h2>
+              <button onClick={() => setIsMenuOpen(true)} className="p-2 bg-white/10 rounded hover:bg-white/20">
+                <Menu className="w-6 h-6" />
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {EXPLORE_DATA.map((item) => (
+                <div key={item.id} className="group relative h-[400px] rounded-2xl overflow-hidden cursor-pointer">
+                  <img src={item.image} alt={item.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity" />
+                  <div className="absolute bottom-0 left-0 p-6">
+                    <span className="text-xs font-bold text-[#8ea09b] tracking-widest mb-2 block">{item.category}</span>
+                    <h3 className="text-2xl font-black text-white">{item.title}</h3>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* FULL SCREEN NAVIGATION MENU */}
+      <div className={`fixed inset-0 bg-[#121415] z-[100] transition-transform duration-500 ease-in-out flex flex-col ${isMenuOpen ? 'translate-y-0' : '-translate-y-full'}`}>
+        <div className="p-8 flex justify-between items-center border-b border-white/10">
+           <span className="text-2xl font-black tracking-tighter text-white">ECHOES</span>
+           <button 
+             onClick={() => setIsMenuOpen(false)}
+             className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/20 transition-colors"
+           >
+             <X className="w-6 h-6 text-white" />
+           </button>
+        </div>
+        
+        <div className="flex-1 flex flex-col lg:flex-row">
+          <div className="flex-1 flex flex-col justify-center px-12 lg:px-32 space-y-8">
+            {['Home', 'Series', 'Movies', 'My List'].map((item) => (
+              <button 
+                key={item}
+                onClick={() => {
+                  setCurrentView(item === 'Home' ? 'home' : 'explore');
+                  setIsMenuOpen(false);
+                }}
+                className="text-4xl lg:text-7xl font-black text-left text-white/50 hover:text-white transition-colors uppercase tracking-tight flex items-center group"
+              >
+                <span className="group-hover:translate-x-4 transition-transform">{item}</span>
+              </button>
+            ))}
+          </div>
+          <div className="w-full lg:w-1/3 bg-black/40 p-12 flex flex-col justify-between border-l border-white/5">
+             <div className="space-y-6 text-white/60 text-lg">
+               <p className="hover:text-white cursor-pointer transition-colors">Settings</p>
+               <p className="hover:text-white cursor-pointer transition-colors">Account</p>
+               <p className="hover:text-white cursor-pointer transition-colors">Help Center</p>
+             </div>
+             <div className="flex space-x-6">
+                <Search className="w-6 h-6 text-white/60 hover:text-white cursor-pointer" />
+                <Bell className="w-6 h-6 text-white/60 hover:text-white cursor-pointer" />
+             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* VIDEO PLAYER MODAL */}
+      {isVideoPlaying && (
+        <div className="fixed inset-0 z-[200] bg-black flex items-center justify-center animate-in fade-in duration-300">
+          <button 
+            onClick={() => setIsVideoPlaying(false)}
+            className="absolute top-8 right-8 text-white/50 hover:text-white z-[210] transition-colors"
+          >
+            <X className="w-10 h-10" />
+          </button>
+          
+          <div className="relative w-full max-w-6xl aspect-video bg-[#111] rounded-2xl overflow-hidden shadow-2xl border border-white/10 flex items-center justify-center group">
+            {/* Fake Video Player UI */}
+            <img 
+              src={activeEpisode.heroImage} 
+              alt="Video" 
+              className="absolute inset-0 w-full h-full object-cover opacity-60"
+            />
+            <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors"></div>
+            
+            <div className="z-10 flex flex-col items-center animate-pulse">
+              <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-md mb-4">
+                 <Play className="w-10 h-10 text-white fill-white ml-2" />
+              </div>
+              <p className="text-white font-bold tracking-widest text-sm uppercase">Loading Stream...</p>
+            </div>
+
+            {/* Fake progress bar */}
+            <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="flex justify-between text-xs font-semibold mb-2">
+                 <span>0:00</span>
+                 <span>{activeEpisode.duration}</span>
+              </div>
+              <div className="w-full h-1.5 bg-white/20 rounded-full overflow-hidden">
+                <div className="w-1/3 h-full bg-red-600 rounded-full"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Custom styles to hide scrollbar for the sleek look */}
+      <style dangerouslySetInnerHTML={{__html: `
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+      `}} />
+    </div>
+  );
+}
+3

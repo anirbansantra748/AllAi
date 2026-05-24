@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZineForge — Interactive Retro Collage Art & Social Media Post Builder</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@700&family=Playfair+Display:ital,wght@0,700;1,400&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons (CDN) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Space Grotesk"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif'],
+            hand: ['"Caveat"', 'cursive'],
+            sketch: ['"Architects Daughter"', 'cursive'],
+          },
+          colors: {
+            paper: {
+              50: '#fbfbf8',
+              100: '#f4f1eb',
+              200: '#eadecf',
+              300: '#d5c4b1',
+            },
+            crimson: {
+              DEFAULT: '#a82020',
+              50: '#fef2f2',
+              100: '#fee2e2',
+              600: '#be123c',
+              700: '#be123c',
+              800: '#991b1b',
+              900: '#7f1d1d',
+            },
+            charcoal: {
+              DEFAULT: '#1c1917',
+              light: '#292524',
+              dark: '#0c0a09',
+            }
+          },
+          boxShadow: {
+            'retro-sm': '2px 2px 0px 0px rgba(28, 25, 23, 1)',
+            'retro': '5px 5px 0px 0px rgba(28, 25, 23, 1)',
+            'retro-lg': '8px 8px 0px 0px rgba(28, 25, 23, 1)',
+            'retro-xl': '12px 12px 0px 0px rgba(28, 25, 23, 1)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Paper Noise Overlay */
+    .paper-noise {
+      background-image: radial-gradient(rgba(0,0,0,0.15) 1px, transparent 0), radial-gradient(rgba(0,0,0,0.1) 1px, transparent 0);
+      background-size: 8px 8px;
+      background-position: 0 0, 4px 4px;
+    }
+    
+    .paper-fiber {
+      background-color: #f4f1eb;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3联%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+    }
+
+    /* Distressed custom clip-paths for torn-paper aesthetic */
+    .torn-edge-bottom {
+      clip-path: polygon(0% 0%, 100% 0%, 100% 92%, 98% 95%, 95% 90%, 92% 94%, 88% 91%, 85% 96%, 80% 92%, 75% 95%, 71% 91%, 67% 94%, 63% 90%, 59% 95%, 54% 91%, 50% 94%, 46% 91%, 42% 95%, 38% 91%, 33% 96%, 29% 92%, 25% 95%, 21% 91%, 17% 94%, 13% 91%, 9% 96%, 5% 91%, 0% 95%);
+    }
+
+    .torn-edge-top {
+      clip-path: polygon(0% 8%, 4% 3%, 9% 9%, 13% 4%, 17% 9%, 22% 3%, 26% 8%, 31% 4%, 35% 9%, 40% 3%, 44% 8%, 49% 4%, 53% 9%, 57% 3%, 62% 8%, 66% 4%, 71% 9%, 75% 3%, 80% 8%, 84% 4%, 89% 9%, 93% 3%, 97% 8%, 100% 4%, 100% 100%, 0% 100%);
+    }
+
+    .torn-strip {
+      clip-path: polygon(0% 12%, 5% 5%, 10% 14%, 15% 6%, 20% 15%, 25% 7%, 30% 14%, 35% 5%, 40% 12%, 45% 4%, 50% 15%, 55% 6%, 60% 13%, 65% 5%, 70% 14%, 75% 7%, 80% 13%, 85% 5%, 90% 15%, 95% 6%, 100% 11%, 100% 88%, 95% 95%, 90% 86%, 85% 94%, 80% 87%, 75% 94%, 70% 86%, 65% 95%, 60% 87%, 55% 94%, 50% 85%, 45% 95%, 40% 88%, 35% 94%, 30% 86%, 25% 94%, 20% 86%, 15% 93%, 10% 85%, 5% 94%, 0% 87%);
+    }
+
+    /* Halftone overlay pattern */
+    .halftone {
+      background-image: radial-gradient(circle, currentColor 1px, transparent 1px);
+      background-size: 6px 6px;
+    }
+
+    /* Hide default focus ring but keep accessible */
+    *:focus-visible {
+      outline: 3px solid #a82020;
+    }
+
+    /* Handheld/Touch rotation adjustments */
+    .collage-item {
+      touch-action: none;
+      user-select: none;
+    }
+
+    /* Realistic tape styling */
+    .tape-strip {
+      background: rgba(225, 215, 185, 0.6);
+      backdrop-filter: blur(1px);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      transform: rotate(-3deg);
+    }
+  </style>
+</head>
+<body class="paper-fiber text-charcoal min-h-screen selection:bg-crimson selection:text-white overflow-x-hidden relative">
+
+  <!-- TOP DECORATIVE TORN NEWSPRINT STRIP -->
+  <div class="w-full bg-charcoal text-paper-100 text-xs py-2 px-4 uppercase tracking-widest font-mono flex justify-between items-center z-50 relative overflow-hidden">
+    <div class="flex items-center space-x-6 animate-pulse">
+      <span>● SYSTEM STATUS: ARTISTIC LIBERATION ACTIVE</span>
+      <span class="hidden md:inline">▲ COLLAGE ART EDITION v4.1</span>
+      <span class="hidden lg:inline">■ TOTAL ASSETS LOADED: 942</span>
+    </div>
+    <div class="flex items-center space-x-4">
+      <span class="font-bold text-crimson-600">DIY DESIGN PROTOCOLS ENGAGED</span>
+    </div>
+  </div>
+
+  <!-- STICKY RETRO NAVBAR -->
+  <header class="border-b-4 border-charcoal bg-paper-100 sticky top-0 z-40 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
+      <!-- Logo -->
+      <a href="#" class="group flex items-center space-x-2">
+        <div class="relative bg-crimson p-2 border-2 border-charcoal shadow-retro-sm group-hover:translate-x-1 group-hover:translate-y-1 group-hover:shadow-none transition-all">
+          <span class="font-serif font-bold text-xl text-paper-100 italic tracking-tighter">Z</span>
+        </div>
+        <div>
+          <span class="font-sans font-extrabold text-xl tracking-tight uppercase block leading-none">ZineForge</span>
+          <span class="font-hand text-sm text-crimson leading-none block -mt-1">social collage lab</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center space-x-8 font-medium">
+        <a href="#playground" class="hover:text-crimson hover:underline underline-offset-4 transition-colors">Collage Maker</a>
+        <a href="#features" class="hover:text-crimson hover:underline underline-offset-4 transition-colors">Tools</a>
+        <a href="#gallery" class="hover:text-crimson hover:underline underline-offset-4 transition-colors">Inspiration</a>
+        <a href="#pricing" class="hover:text-crimson hover:underline underline-offset-4 transition-colors">Creator Pass</a>
+      </nav>
+
+      <!-- Action Button -->
+      <div class="flex items-center space-x-4">
+        <a href="#playground" class="px-5 py-2 border-2 border-charcoal bg-crimson text-white font-bold text-sm uppercase tracking-wider shadow-retro hover:bg-crimson-800 hover:-translate-y-1 hover:translate-x-1 hover:shadow-[3px_3px_0px_0px_rgba(28,25,23,1)] transition-all">
+          Build a Post!
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION WITH VINTAGE COLLAGE EXPLOSION -->
+  <section class="relative pt-10 pb-20 border-b-4 border-charcoal overflow-hidden bg-paper-50">
+    <!-- Decorative Stamp Background Elements -->
+    <div class="absolute top-10 right-10 opacity-10 pointer-events-none transform rotate-12 select-none hidden lg:block">
+      <svg width="200" height="200" viewBox="0 0 100 100" class="text-charcoal fill-current">
+        <path d="M10,10 H90 V90 H10 Z" stroke="currentColor" stroke-dasharray="2" fill="none"/>
+        <circle cx="50" cy="50" r="30" fill="none" stroke="currentColor"/>
+        <text x="50" y="55" font-family="serif" font-size="8" text-anchor="middle" font-weight="bold">POSTES AIRMAIL</text>
+      </svg>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <!-- Left Column: Copy -->
+      <div class="lg:col-span-5 space-y-8 z-10 relative">
+        <!-- Badge -->
+        <div class="inline-block relative">
+          <span class="bg-yellow-100 text-charcoal border-2 border-charcoal px-3 py-1 font-sketch text-xs font-bold uppercase tracking-wider rotate-[-2deg] block shadow-retro-sm">
+            ⚡ Trending Collage Art Engine
+          </span>
+          <!-- Curved vector arrow drawn inline pointing to title -->
+          <div class="absolute -right-16 -bottom-10 w-16 h-12 text-crimson transform scale-x-[-1] pointer-events-none hidden md:block">
+            <svg class="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10,10 C40,20 60,50 50,80" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="4 4"/>
+              <path d="M35,65 L50,80 L65,70" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <h1 class="text-5xl md:text-6xl font-sans font-extrabold tracking-tight text-charcoal leading-none">
+          CRAFT RADICAL <br>
+          <span class="relative inline-block my-1 text-paper-50 bg-charcoal px-4 py-2 rotate-[1.5deg] border-2 border-charcoal shadow-retro">
+            SOCIAL POSTS
+          </span><br>
+          <span class="font-serif italic font-normal text-crimson">Collage art style.</span>
+        </h1>
+
+        <p class="text-lg md:text-xl text-stone-700 font-sans leading-relaxed max-w-xl">
+          Break the bounds of standard, sterile grids. Forge magnificent, surrealistic, retro-textured, and vintage newspaper collages that demand attention on feed. Free your digital soul.
+        </p>
+
+        <!-- CTAs -->
+        <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+          <a href="#playground" class="group relative px-8 py-4 border-3 border-charcoal bg-crimson text-white font-extrabold text-lg uppercase tracking-wider shadow-retro hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all w-full sm:w-auto text-center">
+            <span>START CRAFTING LAB</span>
+            <i data-lucide="arrow-right" class="inline-block ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+          </a>
+          <a href="#gallery" class="px-8 py-4 border-3 border-charcoal bg-paper-100 text-charcoal font-bold text-lg uppercase tracking-wider hover:bg-paper-200 transition-all w-full sm:w-auto text-center shadow-retro-sm">
+            View Templates
+          </a>
+        </div>
+
+        <!-- Handwritten annotation -->
+        <div class="flex items-center space-x-3 text-crimson pt-4">
+          <i data-lucide="sparkles" class="w-5 h-5 flex-shrink-0"></i>
+          <span class="font-hand text-2xl font-bold">Absolutely no design experience required! DIY mode active.</span>
+        </div>
+      </div>
+
+      <!-- Right Column: Visual Universe Representation -->
+      <div class="lg:col-span-7 relative flex justify-center items-center py-8">
+        <!-- Master Collage Mockup Frame simulating the exact image's core feel -->
+        <div class="relative w-full max-w-[500px] aspect-[4/5] bg-paper-100 border-4 border-charcoal shadow-retro-xl p-6 paper-fiber flex flex-col justify-between overflow-hidden">
+          
+          <!-- Newsprint background halftone detail -->
+          <div class="absolute inset-0 halftone opacity-5 pointer-events-none"></div>
+
+          <!-- Ripped top newspaper strip -->
+          <div class="absolute top-0 left-0 right-0 h-16 bg-stone-300 border-b-2 border-charcoal opacity-45 transform rotate-[-1deg] overflow-hidden flex items-center p-2">
+            <span class="text-[9px] font-mono text-charcoal-dark uppercase tracking-tighter opacity-70">
+              The Daily Collage Epoch // Vol 99 No. 402 // World Awakens From Digital Slumber // Surrealism Prevails Over Simple Boxes
+            </span>
+          </div>
+
+          <!-- Collage Elements Stack (Aesthetic Replica of Visual Vibe) -->
+          <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <!-- 1. Red Sun in Center Background -->
+            <div class="w-64 h-64 bg-gradient-to-br from-crimson to-crimson-800 rounded-full border-2 border-charcoal opacity-95 relative flex items-center justify-center animate-[spin_60s_linear_infinite] shadow-lg">
+              <!-- Internal distressed concentric circles -->
+              <div class="w-48 h-48 rounded-full border border-dashed border-paper-100 opacity-30"></div>
+              <div class="w-24 h-24 rounded-full border border-double border-paper-100 opacity-40"></div>
+            </div>
+
+            <!-- 2. Retro Moon overlay inside sun -->
+            <div class="absolute w-12 h-12 rounded-full bg-paper-300 border border-charcoal left-[32%] top-[34%] transform -rotate-12 overflow-hidden shadow-inner opacity-90">
+              <div class="w-4 h-4 rounded-full bg-stone-400 absolute top-1 left-2 opacity-50"></div>
+              <div class="w-3 h-3 rounded-full bg-stone-400 absolute bottom-2 right-2 opacity-30"></div>
+            </div>
+
+            <!-- 3. Mini Flying Birds SVG -->
+            <svg class="absolute w-24 h-16 text-charcoal-dark top-[28%] left-[28%] opacity-80" viewBox="0 0 100 50">
+              <path d="M10,20 Q20,10 30,20 Q40,10 50,20" stroke="currentColor" stroke-width="2" fill="none"/>
+              <path d="M40,35 Q48,28 56,35 Q64,28 72,35" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <path d="M15,40 Q21,35 27,40 Q33,35 39,40" stroke="currentColor" stroke-width="1" fill="none"/>
+            </svg>
+
+            <!-- 4. Vintage Landmark elements (Pisa & Brandenburg style silhouettes) -->
+            <div class="absolute bottom-[28%] left-[10%] w-24 h-48 opacity-90 transform -rotate-6 scale-90 select-none">
+              <!-- Pisa Leaning Tower Silhouette represented as detailed SVG -->
+              <svg viewBox="0 0 100 200" class="w-full h-full text-stone-800 drop-shadow-md">
+                <rect x="25" y="10" width="50" height="170" fill="#292524" rx="2"/>
+                <line x1="25" y1="30" x2="75" y2="30" stroke="#f4f1eb" stroke-width="3"/>
+                <line x1="25" y1="60" x2="75" y2="60" stroke="#f4f1eb" stroke-width="3"/>
+                <line x1="25" y1="90" x2="75" y2="90" stroke="#f4f1eb" stroke-width="3"/>
+                <line x1="25" y1="120" x2="75" y2="120" stroke="#f4f1eb" stroke-width="3"/>
+                <line x1="25" y1="150" x2="75" y2="150" stroke="#f4f1eb" stroke-width="3"/>
+                <circle cx="50" cy="20" r="5" fill="#f4f1eb"/>
+              </svg>
+            </div>
+
+            <div class="absolute bottom-[28%] right-[10%] w-32 h-36 opacity-75 transform rotate-3 select-none">
+              <!-- Roman Colosseum graphic simulation -->
+              <svg viewBox="0 0 120 80" class="w-full h-full text-stone-700">
+                <path d="M10,70 L110,70 L110,30 L10,40 Z" fill="#44403c"/>
+                <line x1="10" y1="50" x2="110" y2="50" stroke="#f4f1eb" stroke-width="2"/>
+                <circle cx="25" cy="45" r="4" fill="#f4f1eb"/>
+                <circle cx="45" cy="45" r="4" fill="#f4f1eb"/>
+                <circle cx="65" cy="45" r="4" fill="#f4f1eb"/>
+                <circle cx="85" cy="45" r="4" fill="#f4f1eb"/>
+              </svg>
+            </div>
+
+            <!-- 5. Classic Sculpture Overlay (Horse and warrior replica silhouette) -->
+            <div class="absolute bottom-[20%] left-[15%] w-44 h-44 transform -rotate-3 select-none">
+              <svg viewBox="0 0 200 200" class="w-full h-full text-stone-900 drop-shadow-[5px_5px_0px_rgba(255,255,255,0.7)]">
+                <!-- Detailed vector path resembling a majestic rearing horse with warrior -->
+                <path d="M 50 180 Q 40 140 60 110 T 80 80 Q 90 70 85 50 Q 100 40 110 55 T 100 85 Q 110 100 130 90 T 150 120 Q 160 140 140 160 T 100 180 Z" fill="currentColor"/>
+                <circle cx="115" cy="50" r="4" fill="#f4f1eb"/>
+                <!-- Spear or sword line -->
+                <line x1="110" y1="40" x2="160" y2="10" stroke="currentColor" stroke-width="3"/>
+              </svg>
+            </div>
+
+            <!-- 6. Camera-Headed Man Dressed in Suit -->
+            <div class="absolute bottom-[16%] right-[18%] w-32 h-56 transform rotate-2 select-none z-10">
+              <!-- Suited body -->
+              <svg viewBox="0 0 100 200" class="w-full h-full">
+                <!-- Torso, Arms and legs in gray scale vintage style -->
+                <path d="M 25,60 L 75,60 L 85,120 L 70,120 L 75,180 L 60,180 L 55,130 L 45,130 L 40,180 L 25,180 L 30,120 L 15,120 Z" fill="#292524" stroke="#1c1917" stroke-width="2"/>
+                <!-- White shirt V collar -->
+                <polygon points="40,60 60,60 50,75" fill="#f5f5f4"/>
+                <!-- Dark bow tie -->
+                <polygon points="45,63 55,63 50,67" fill="#0c0a09"/>
+                <polygon points="45,67 55,67 50,63" fill="#0c0a09"/>
+                
+                <!-- Vintage Camera as the head -->
+                <g transform="translate(20, 15) scale(0.6)">
+                  <rect x="10" y="20" width="80" height="50" fill="#1c1917" rx="5" stroke="#f4f1eb" stroke-width="2"/>
+                  <!-- Lens -->
+                  <circle cx="50" cy="45" r="18" fill="#44403c" stroke="#f4f1eb" stroke-width="3"/>
+                  <circle cx="50" cy="45" r="8" fill="#1c1917"/>
+                  <!-- Flash bulb & controls -->
+                  <rect x="20" y="10" width="15" height="10" fill="#be123c" rx="2"/>
+                  <circle cx="75" cy="30" r="4" fill="#d6d3d1"/>
+                  <!-- Hand drawn flash sparks -->
+                  <path d="M5,15 L15,22 M85,15 L75,22" stroke="#be123c" stroke-width="2"/>
+                </g>
+              </svg>
+            </div>
+
+            <!-- 7. Vintage Red Tram in Foreground -->
+            <div class="absolute bottom-[5%] left-[24%] w-52 h-32 transform -rotate-[2deg] z-20 select-none">
+              <!-- Retro tram simulation with windows, tracks and glowing crimson red theme -->
+              <svg viewBox="0 0 200 120" class="w-full h-full drop-shadow-xl">
+                <!-- Body -->
+                <rect x="10" y="30" width="180" height="70" fill="#a82020" rx="6" stroke="#1c1917" stroke-width="3"/>
+                <rect x="15" y="40" width="170" height="25" fill="#1c1917" rx="3"/>
+                <!-- Glass/windows separation -->
+                <rect x="20" y="43" width="20" height="18" fill="#eadecf"/>
+                <rect x="45" y="43" width="20" height="18" fill="#eadecf"/>
+                <rect x="70" y="43" width="20" height="18" fill="#eadecf"/>
+                <rect x="95" y="43" width="20" height="18" fill="#eadecf"/>
+                <rect x="120" y="43" width="20" height="18" fill="#eadecf"/>
+                <rect x="145" y="43" width="20" height="18" fill="#eadecf"/>
+                <!-- Tram Number / Destination plate -->
+                <rect x="85" y="15" width="30" height="15" fill="#f4f1eb" stroke="#1c1917" stroke-width="2"/>
+                <text x="100" y="27" font-family="sans-serif" font-size="9" font-weight="bold" text-anchor="middle" fill="#1c1917">115</text>
+                <!-- Wheels & track line -->
+                <circle cx="50" cy="103" r="10" fill="#1c1917"/>
+                <circle cx="150" cy="103" r="10" fill="#1c1917"/>
+                <line x1="0" y1="110" x2="200" y2="100" stroke="#1c1917" stroke-width="4"/>
+              </svg>
+            </div>
+            
+            <!-- 8. Realist green hedge bar under tram -->
+            <div class="absolute bottom-[10%] left-[5%] right-[5%] h-5 bg-stone-900 border-2 border-charcoal opacity-95 flex overflow-hidden">
+              <!-- Pixelated / Textured hedge mimic -->
+              <div class="w-full h-full bg-emerald-950 halftone text-emerald-600"></div>
+            </div>
+          </div>
+
+          <!-- Bottom Branding & Stamp text -->
+          <div class="z-20 flex justify-between items-end">
+            <div class="bg-charcoal text-paper-100 px-3 py-1 text-xs uppercase font-mono tracking-wider rotate-[-1deg] border border-stone-800">
+              EXPLORE COLLAGE ARTWORKS
+            </div>
+            
+            <div class="text-right flex flex-col items-end">
+              <span class="font-hand text-xl font-bold text-crimson leading-none rotate-[4deg] block">Please!</span>
+              <span class="font-hand text-lg text-charcoal leading-none block">Build Yours Below</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Custom Tape overlays securing the frame Corners to simulate physical board -->
+        <div class="absolute -top-2 -left-2 w-20 h-6 tape-strip -rotate-45"></div>
+        <div class="absolute -bottom-1 -right-4 w-24 h-7 tape-strip rotate-[30deg]"></div>
+        
+        <!-- Hanging Hand-Drawn Note Card -->
+        <div class="absolute -bottom-12 -left-6 bg-yellow-100 border-2 border-charcoal p-3 shadow-retro rotate-[-6deg] hidden sm:block max-w-[200px]">
+          <p class="font-hand text-charcoal text-base leading-tight font-bold">
+            "We do NOT duplicate sterile layouts. We cut, paste, and rewrite rules!"
+          </p>
+          <div class="flex justify-end mt-1 text-crimson text-xs font-mono">— FOUNDER Z.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TORN EDGE SEPARATOR -->
+    <div class="absolute bottom-0 left-0 right-0 h-8 bg-paper-100 torn-edge-bottom border-b border-charcoal"></div>
+  </section>
+
+  <!-- INTERACTIVE LIVE PLAYGROUND / BUILDER SECTION -->
+  <section id="playground" class="py-20 bg-paper-100 relative border-b-4 border-charcoal">
+    <!-- Grid overlay background to reinforce workspace feel -->
+    <div class="absolute inset-0 paper-noise opacity-30 pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 md:px-8 relative">
+      <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+        <span class="text-crimson font-hand text-3xl font-bold block transform rotate-[-1deg]">No code. No complexity. Just Raw Creation.</span>
+        <h2 class="text-4xl md:text-5xl font-sans font-extrabold tracking-tight uppercase">
+          DIY Collage <span class="text-crimson font-serif italic lowercase">playground</span>
+        </h2>
+        <p class="text-stone-700 font-sans">
+          Click elements on the left catalog to spawn them onto your scrapbook workspace. Drag, scale, rotate, and layer them to craft a gorgeous aesthetic post!
+        </p>
+      </div>
+
+      <!-- MAIN PLAYGROUND WORKSPACE GRID -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- LEFT: Element Library Panel -->
+        <div class="lg:col-span-4 bg-paper-50 border-4 border-charcoal shadow-retro p-6 space-y-6">
+          <div class="border-b-2 border-charcoal pb-4">
+            <h3 class="font-sans font-extrabold text-xl uppercase text-charcoal flex items-center">
+              <i data-lucide="scissors" class="w-5 h-5 mr-2 text-crimson"></i>
+              Cutout Bin
+            </h3>
+            <p class="text-xs text-stone-600 mt-1">Tap elements below to spawn onto the canvas</p>
+          </div>
+
+          <!-- Category Tags -->
+          <div class="flex flex-wrap gap-2">
+            <button class="px-3 py-1 bg-charcoal text-paper-100 text-xs font-bold rounded" onclick="filterAssetBin('all')">All Cutouts</button>
+            <button class="px-3 py-1 bg-paper-200 hover:bg-paper-300 text-charcoal text-xs font-bold rounded" onclick="filterAssetBin('figures')">Figures</button>
+            <button class="px-3 py-1 bg-paper-200 hover:bg-paper-300 text-charcoal text-xs font-bold rounded" onclick="filterAssetBin('structures')">Monuments</button>
+            <button class="px-3 py-1 bg-paper-200 hover:bg-paper-300 text-charcoal text-xs font-bold rounded" onclick="filterAssetBin('accents')">Doodles</button>
+          </div>
+
+          <!-- Catalog Grid -->
+          <div id="catalog-bin" class="grid grid-cols-3 gap-3 max-h-[350px] overflow-y-auto pr-2">
+            <!-- Asset 1: Red Sun -->
+            <div onclick="spawnAsset('sun')" class="group cursor-pointer border-2 border-stone-300 hover:border-crimson p-2 rounded bg-white transition-all flex flex-col items-center justify-center text-center hover:scale-105" data-category="accents">
+              <div class="w-12 h-12 rounded-full bg-crimson opacity-90 mb-1"></div>
+              <span class="text-[10px] font-mono font-bold uppercase">Red Sun</span>
+            </div>
+
+            <!-- Asset 2: Leaning Tower -->
+            <div onclick="spawnAsset('tower')" class="group cursor-pointer border-2 border-stone-300 hover:border-crimson p-2 rounded bg-white transition-all flex flex-col items-center justify-center text-center hover:scale-105" data-category="structures">
+              <svg viewBox="0 0 100 200" class="w-10 h-12 text-stone-700">
+                <rect x="35" y="10" width="30" height="170" fill="currentColor"/>
+                <line x1="35" y1="40" x2="65" y2="40" stroke="#fff" stroke-width="2"/>
+                <line x1="35" y1="80" x2="65" y2="80" stroke="#fff" stroke-width="2"/>
+                <line x1="35" y1="120" x2="65" y2="120" stroke="#fff" stroke-width="2"/>
+              </svg>
+              <span class="text-[10px] font-mono font-bold uppercase">Tower</span>
+            </div>
+
+            <!-- Asset 3: Suited Figure -->
+            <div onclick="spawnAsset('man')" class="group cursor-pointer border-2 border-stone-300 hover:border-crimson p-2 rounded bg-white transition-all flex flex-col items-center justify-center text-center hover:scale-105" data-category="figures">
+              <svg viewBox="0 0 100 200" class="w-8 h-12 text-charcoal-light">
+                <rect x="30" y="50" width="40" height="130" fill="currentColor"/>
+                <circle cx="50" cy="30" r="15" fill="#a82020"/>
+              </svg>
+              <span class="text-[10px] font-mono font-bold uppercase">Gentleman</span>
+            </div>
+
+            <!-- Asset 4: Colosseum -->
+            <div onclick="spawnAsset('colosseum')" class="group cursor-pointer border-2 border-stone-300 hover:border-crimson p-2 rounded bg-white transition-all flex flex-col items-center justify-center text-center hover:scale-105" data-category="structures">
+              <svg viewBox="0 0 120 80" class="w-12 h-10 text-stone-600">
+                <path d="M10,70 L110,70 L100,20 L20,20 Z" fill="currentColor"/>
+              </svg>
+              <span class="text-[10px] font-mono font-bold uppercase">Colosseum</span>
+            </div>
+
+            <!-- Asset 5: Red Tram -->
+            <div onclick="spawnAsset('tram')" class="group cursor-pointer border-2 border-stone-300 hover:border-crimson p-2 rounded bg-white transition-all flex flex-col items-center justify-center text-center hover:scale-105" data-category="structures">
+              <div class="w-12 h-8 bg-crimson border border-charcoal rounded flex items-center justify-center">
+                <div class="w-3 h-3 bg-stone-900 rounded-full"></div>
+                <div class="w-3 h-3 bg-stone-900 rounded-full ml-2"></div>
+              </div>
+              <span class="text-[10px] font-mono font-bold uppercase">Tram 115</span>
+            </div>
+
+            <!-- Asset 6: Flying Birds -->
+            <div onclick="spawnAsset('birds')" class="group cursor-pointer border-2 border-stone-300 hover:border-crimson p-2 rounded bg-white transition-all flex flex-col items-center justify-center text-center hover:scale-105" data-category="accents">
+              <svg viewBox="0 0 100 50" class="w-10 h-8 text-charcoal-light">
+                <path d="M10,20 Q20,10 30,20 Q40,10 50,20" stroke="currentColor" stroke-width="2" fill="none"/>
+              </svg>
+              <span class="text-[10px] font-mono font-bold uppercase">Birds</span>
+            </div>
+
+            <!-- Asset 7: Hand Scribble Circle -->
+            <div onclick="spawnAsset('circle')" class="group cursor-pointer border-2 border-stone-300 hover:border-crimson p-2 rounded bg-white transition-all flex flex-col items-center justify-center text-center hover:scale-105" data-category="accents">
+              <svg viewBox="0 0 100 100" class="w-10 h-10 text-crimson">
+                <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="2 2"/>
+              </svg>
+              <span class="text-[10px] font-mono font-bold uppercase">Ink Ring</span>
+            </div>
+
+            <!-- Asset 8: Greek Statue -->
+            <div onclick="spawnAsset('statue')" class="group cursor-pointer border-2 border-stone-300 hover:border-crimson p-2 rounded bg-white transition-all flex flex-col items-center justify-center text-center hover:scale-105" data-category="figures">
+              <svg viewBox="0 0 100 150" class="w-8 h-12 text-stone-500">
+                <path d="M20,130 Q30,80 50,50 T80,10 L50,130 Z" fill="currentColor"/>
+              </svg>
+              <span class="text-[10px] font-mono font-bold uppercase">Greek Head</span>
+            </div>
+
+            <!-- Asset 9: Retro Arrow -->
+            <div onclick="spawnAsset('arrow')" class="group cursor-pointer border-2 border-stone-300 hover:border-crimson p-2 rounded bg-white transition-all flex flex-col items-center justify-center text-center hover:scale-105" data-category="accents">
+              <svg viewBox="0 0 100 50" class="w-12 h-6 text-crimson">
+                <path d="M10,25 L90,25 M70,10 L90,25 L70,40" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              </svg>
+              <span class="text-[10px] font-mono font-bold uppercase">Scribble →</span>
+            </div>
+          </div>
+
+          <!-- Quick Text Input Layer -->
+          <div class="border-t-2 border-charcoal pt-4 space-y-2">
+            <span class="block text-xs font-mono font-bold uppercase">Add Handwritten Headline</span>
+            <div class="flex gap-2">
+              <input id="custom-text-input" type="text" placeholder="e.g. Please! Click Here" class="w-full px-3 py-2 text-sm border-2 border-charcoal bg-white font-sans focus:outline-none focus:ring-2 focus:ring-crimson">
+              <button onclick="spawnCustomText()" class="px-4 py-2 bg-charcoal text-paper-100 text-xs font-bold uppercase tracking-wider border-2 border-charcoal shadow-retro-sm active:translate-x-0.5 active:translate-y-0.5 active:shadow-none">Add</button>
+            </div>
+          </div>
+
+          <!-- Element Transformer Controls (Dynamic to selected item) -->
+          <div id="transformer-controls" class="border-t-2 border-charcoal pt-4 space-y-3 opacity-60 pointer-events-none transition-all duration-200">
+            <div class="flex justify-between items-center">
+              <span class="text-xs font-mono font-bold uppercase text-crimson">Selected Item Controls</span>
+              <button onclick="deselectActiveItem()" class="text-[10px] text-charcoal underline hover:text-crimson font-mono">Deselect</button>
+            </div>
+            <!-- Sliders -->
+            <div class="space-y-1">
+              <label class="text-[11px] font-mono flex justify-between"><span>Rotate:</span> <span id="val-rotate">0°</span></label>
+              <input id="control-rotate" type="range" min="-180" max="180" value="0" class="w-full accent-crimson" oninput="updateActiveElementTransform()">
+            </div>
+            <div class="space-y-1">
+              <label class="text-[11px] font-mono flex justify-between"><span>Scale:</span> <span id="val-scale">1.0x</span></label>
+              <input id="control-scale" type="range" min="0.3" max="2.5" step="0.1" value="1.0" class="w-full accent-crimson" oninput="updateActiveElementTransform()">
+            </div>
+            <!-- Z-index arranging -->
+            <div class="flex justify-between gap-2 pt-1">
+              <button onclick="adjustZIndex(1)" class="w-1/2 py-1.5 bg-paper-200 hover:bg-paper-300 border border-charcoal text-xs font-bold rounded">Bring Forward</button>
+              <button onclick="adjustZIndex(-1)" class="w-1/2 py-1.5 bg-paper-200 hover:bg-paper-300 border border-charcoal text-xs font-bold rounded">Send Backward</button>
+            </div>
+            <button onclick="deleteActiveElement()" class="w-full py-1.5 bg-red-100 hover:bg-red-200 border-2 border-red-800 text-red-800 text-xs font-bold rounded uppercase tracking-wider">
+              Delete Cutout
+            </button>
+          </div>
+        </div>
+
+        <!-- CENTER/RIGHT: Creative Live Canvas Workspace -->
+        <div class="lg:col-span-8 flex flex-col items-center">
+          
+          <!-- Control bar for Canvas -->
+          <div class="w-full flex justify-between items-center bg-charcoal text-paper-100 px-4 py-2 border-t-4 border-x-4 border-charcoal text-xs font-mono">
+            <span class="flex items-center"><span class="w-2.5 h-2.5 bg-green-500 rounded-full inline-block mr-2 animate-pulse"></span> CANVAS v1.0.0</span>
+            <div class="flex items-center space-x-4">
+              <button onclick="clearCanvas()" class="hover:text-crimson-600 font-bold transition-all">Clear Board</button>
+              <button onclick="resetCanvasToDefault()" class="hover:text-crimson-600 font-bold transition-all">Reset to Default</button>
+            </div>
+          </div>
+
+          <!-- THE SCALABLE CANVAS -->
+          <div id="canvas-container" class="relative w-full max-w-[550px] aspect-[4/5] bg-paper-50 border-4 border-charcoal shadow-retro-lg overflow-hidden paper-fiber select-none cursor-crosshair">
+            <!-- Subtle backdrop newspaper lines -->
+            <div class="absolute inset-0 halftone opacity-5 pointer-events-none"></div>
+
+            <!-- Dynamic Collage Objects Container -->
+            <div id="canvas-workspace" class="absolute inset-0 w-full h-full">
+              <!-- Default Initial Spawned Elements for Instant Aesthetic Glory -->
+              <!-- Element: Red Sun Background -->
+              <div id="default-sun" class="collage-item absolute left-[15%] top-[15%] cursor-grab active:cursor-grabbing text-center active-item" style="transform: translate(20px, 40px) rotate(-15deg) scale(1.1); z-index: 10;" onclick="selectElement(this, event)">
+                <div class="w-48 h-48 bg-gradient-to-tr from-crimson to-crimson-700 rounded-full border border-charcoal opacity-90 shadow-md flex items-center justify-center">
+                  <div class="w-32 h-32 rounded-full border border-dashed border-paper-100 opacity-20"></div>
+                </div>
+              </div>
+
+              <!-- Element: Tower -->
+              <div id="default-tower" class="collage-item absolute left-[5%] bottom-[20%] cursor-grab active:cursor-grabbing text-center" style="transform: translate(15px, 0px) rotate(-8deg) scale(0.9); z-index: 15;" onclick="selectElement(this, event)">
+                <svg viewBox="0 0 100 200" class="w-32 h-56 text-stone-800 drop-shadow-lg">
+                  <rect x="25" y="10" width="50" height="170" fill="#292524" rx="2"/>
+                  <line x1="25" y1="30" x2="75" y2="30" stroke="#f4f1eb" stroke-width="3"/>
+                  <line x1="25" y1="65" x2="75" y2="65" stroke="#f4f1eb" stroke-width="3"/>
+                  <line x1="25" y1="100" x2="75" y2="100" stroke="#f4f1eb" stroke-width="3"/>
+                  <line x1="25" y1="135" x2="75" y2="135" stroke="#f4f1eb" stroke-width="3"/>
+                </svg>
+              </div>
+
+              <!-- Element: Hand drawn arrow -->
+              <div id="default-arrow" class="collage-item absolute right-[15%] bottom-[12%] cursor-grab active:cursor-grabbing text-center" style="transform: translate(0px, 0px) rotate(10deg) scale(1.2); z-index: 30;" onclick="selectElement(this, event)">
+                <div class="flex flex-col items-center">
+                  <svg viewBox="0 0 100 50" class="w-24 h-12 text-crimson">
+                    <path d="M10,25 L90,25 M70,10 L90,25 L70,40" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                  </svg>
+                  <span class="font-hand text-xl font-bold text-crimson -mt-2">Drag anything!</span>
+                </div>
+              </div>
+
+              <!-- Element: Camera Man -->
+              <div id="default-man" class="collage-item absolute right-[10%] bottom-[15%] cursor-grab active:cursor-grabbing text-center" style="transform: translate(0px, 0px) rotate(4deg) scale(1.1); z-index: 20;" onclick="selectElement(this, event)">
+                <div class="w-32 h-56 relative">
+                  <svg viewBox="0 0 100 200" class="w-full h-full">
+                    <path d="M 25,60 L 75,60 L 85,120 L 70,120 L 75,180 L 60,180 L 55,130 L 45,130 L 40,180 L 25,180 L 30,120 L 15,120 Z" fill="#292524" stroke="#1c1917" stroke-width="2"/>
+                    <polygon points="40,60 60,60 50,75" fill="#f5f5f4"/>
+                    <polygon points="45,63 55,63 50,67" fill="#0c0a09"/>
+                    <polygon points="45,67 55,67 50,63" fill="#0c0a09"/>
+                    
+                    <g transform="translate(20, 15) scale(0.6)">
+                      <rect x="10" y="20" width="80" height="50" fill="#1c1917" rx="5" stroke="#f4f1eb" stroke-width="2"/>
+                      <circle cx="50" cy="45" r="18" fill="#44403c" stroke="#f4f1eb" stroke-width="3"/>
+                      <circle cx="50" cy="45" r="8" fill="#1c1917"/>
+                      <rect x="20" y="10" width="15" height="10" fill="#be123c" rx="2"/>
+                      <circle cx="75" cy="30" r="4" fill="#d6d3d1"/>
+                    </g>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Foreground dynamic helper badge when user is dragging -->
+            <div class="absolute bottom-4 left-4 bg-charcoal text-paper-100 border-2 border-charcoal px-3 py-1 text-xs font-mono rotate-[-1deg] uppercase tracking-wider shadow-retro-sm">
+              ▲ Design Mode: Interactive Canvas
+            </div>
+          </div>
+
+          <!-- Bottom Action Buttons for Canvas Export -->
+          <div class="w-full max-w-[550px] mt-4 flex justify-between gap-4">
+            <button onclick="triggerRenderCelebration()" class="w-full py-3 bg-crimson hover:bg-crimson-800 text-white font-extrabold text-sm uppercase tracking-wider border-2 border-charcoal shadow-retro hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all">
+              ⚡ Finalize & Download Collage
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SUCCESS EXPORT MODAL (CONSTRUCTED AS SCRAPBOOK MODAL) -->
+  <div id="export-modal" class="fixed inset-0 bg-charcoal/85 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-paper-100 border-4 border-charcoal max-w-md w-full p-6 shadow-retro-xl relative paper-fiber">
+      <!-- Ripped top border -->
+      <div class="absolute -top-3 left-0 right-0 h-4 bg-stone-300 torn-strip"></div>
+      
+      <!-- Close Button -->
+      <button onclick="closeModal()" class="absolute top-4 right-4 bg-charcoal text-white hover:bg-crimson p-1.5 border border-charcoal">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="text-center space-y-4 pt-4">
+        <div class="w-16 h-16 bg-green-100 text-green-800 border-2 border-charcoal rounded-full flex items-center justify-center mx-auto transform rotate-12">
+          <i data-lucide="check-circle" class="w-10 h-10"></i>
+        </div>
+        
+        <h3 class="font-sans font-extrabold text-2xl uppercase tracking-tight text-charcoal">COLLAGE FORGED!</h3>
+        <p class="text-sm font-sans text-stone-700">
+          Your stunning retro-surrealist creation has been rendered down to a high-resolution PNG. We've packaged the layout, textures, and ink variables beautifully!
+        </p>
+
+        <!-- Simulated output container -->
+        <div class="border-2 border-charcoal bg-stone-200 p-2 text-xs font-mono uppercase tracking-widest text-stone-600 rounded">
+          Filename: zineforge_artwork_9402.png
+        </div>
+
+        <div class="space-y-2 pt-4">
+          <button onclick="closeModal()" class="w-full py-3 bg-crimson text-white font-extrabold text-sm uppercase tracking-wider border-2 border-charcoal shadow-retro hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all">
+            Share to Socials
+          </button>
+          <button onclick="closeModal()" class="w-full py-2 bg-paper-200 text-charcoal font-bold text-xs uppercase border border-charcoal hover:bg-paper-300">
+            Keep Editing
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES: THE COLLAGE REVOLUTION TOOLS -->
+  <section id="features" class="py-20 bg-paper-50 relative border-b-4 border-charcoal">
+    <div class="absolute inset-0 halftone opacity-5 pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto px-4 md:px-8">
+      
+      <!-- Segment Title -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
+        <div class="space-y-2">
+          <span class="text-crimson font-hand text-3xl font-bold block transform -rotate-2">Everything You Need To Stand Out</span>
+          <h2 class="text-4xl md:text-5xl font-sans font-extrabold tracking-tight uppercase">THE CUT & PAINT ENGINE</h2>
+        </div>
+        <p class="text-stone-700 font-sans max-w-md mt-4 md:mt-0">
+          ZineForge brings physical collage and distressed tactile textures straight to your web browser with absolute elegance.
+        </p>
+      </div>
+
+      <!-- Feature Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        
+        <!-- Feature 1 -->
+        <div class="group bg-paper-100 border-3 border-charcoal p-6 relative shadow-retro hover:translate-y-1 hover:translate-x-1 hover:shadow-none transition-all">
+          <!-- Yellow Tape Accent -->
+          <div class="absolute -top-3 left-1/4 w-20 h-5 bg-yellow-200/70 rotate-[2deg] shadow-sm"></div>
+          
+          <div class="w-12 h-12 bg-crimson text-paper-50 flex items-center justify-center border-2 border-charcoal mb-6 mt-2">
+            <i data-lucide="scissors" class="w-6 h-6"></i>
+          </div>
+          
+          <h3 class="font-sans font-extrabold text-xl uppercase mb-3">AI Background Eraser</h3>
+          <p class="text-sm text-stone-700 font-sans leading-relaxed">
+            Instantly erase backgrounds from any photograph to create perfect, high-contrast, stencil-like collage cutouts.
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="group bg-paper-100 border-3 border-charcoal p-6 relative shadow-retro hover:translate-y-1 hover:translate-x-1 hover:shadow-none transition-all">
+          <!-- Tape Accent -->
+          <div class="absolute -top-3 left-1/3 w-24 h-5 bg-stone-300/80 -rotate-[3deg] shadow-sm"></div>
+
+          <div class="w-12 h-12 bg-stone-800 text-paper-50 flex items-center justify-center border-2 border-charcoal mb-6 mt-2">
+            <i data-lucide="layers" class="w-6 h-6"></i>
+          </div>
+
+          <h3 class="font-sans font-extrabold text-xl uppercase mb-3">Tactile Grain & Ink</h3>
+          <p class="text-sm text-stone-700 font-sans leading-relaxed">
+            Apply halftone dot matrices, ink bleed filters, distressed newsprint overlays, and physical cardboard drop shadows with one slider.
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="group bg-paper-100 border-3 border-charcoal p-6 relative shadow-retro hover:translate-y-1 hover:translate-x-1 hover:shadow-none transition-all">
+          <!-- Tape Accent -->
+          <div class="absolute -top-3 right-1/4 w-16 h-5 bg-yellow-200/50 rotate-[4deg] shadow-sm"></div>
+
+          <div class="w-12 h-12 bg-crimson text-paper-50 flex items-center justify-center border-2 border-charcoal mb-6 mt-2">
+            <i data-lucide="file-text" class="w-6 h-6"></i>
+          </div>
+
+          <h3 class="font-sans font-extrabold text-xl uppercase mb-3">Typography Stencils</h3>
+          <p class="text-sm text-stone-700 font-sans leading-relaxed">
+            Choose from distressed letterpress fonts, raw marker scripts, cursive notes, and custom ripped label templates.
+          </p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="group bg-paper-100 border-3 border-charcoal p-6 relative shadow-retro hover:translate-y-1 hover:translate-x-1 hover:shadow-none transition-all">
+          <!-- Tape Accent -->
+          <div class="absolute -top-3 left-1/4 w-20 h-5 bg-stone-400/30 rotate-[-1deg] shadow-sm"></div>
+
+          <div class="w-12 h-12 bg-stone-800 text-paper-50 flex items-center justify-center border-2 border-charcoal mb-6 mt-2">
+            <i data-lucide="stamp" class="w-6 h-6"></i>
+          </div>
+
+          <h3 class="font-sans font-extrabold text-xl uppercase mb-3">Vintage Asset Vault</h3>
+          <p class="text-sm text-stone-700 font-sans leading-relaxed">
+            Access thousands of licensed public-domain statues, architectural layouts, vintage vehicles, retro cameras, and handwritten annotations.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- COLLAGE INSPIRATION SHOWCASE -->
+  <section id="gallery" class="py-20 bg-paper-100 relative border-b-4 border-charcoal">
+    <div class="absolute inset-0 paper-noise opacity-20 pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto px-4 md:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+        <span class="text-crimson font-hand text-3xl font-bold block transform rotate-1">Behold The Creative Rebellion</span>
+        <h2 class="text-4xl md:text-5xl font-sans font-extrabold tracking-tight uppercase">CREATOR TEMPLATE FEED</h2>
+        <p class="text-stone-700 font-sans text-sm">
+          Click on any template to clone its variables directly onto your interactive playground workspace.
+        </p>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Grid Item 1: Dadaist Dream -->
+        <div class="group border-3 border-charcoal bg-paper-50 p-4 shadow-retro hover:scale-[1.01] transition-all flex flex-col justify-between">
+          <div class="aspect-[4/5] bg-paper-200 border-2 border-charcoal relative overflow-hidden flex items-center justify-center">
+            <!-- Simulated collage item -->
+            <div class="absolute w-40 h-40 rounded-full bg-crimson opacity-80 scale-110"></div>
+            <div class="absolute font-serif italic text-4xl text-stone-900 tracking-tighter opacity-70">DADAIST</div>
+            <!-- Sketchy Arrow SVG -->
+            <svg class="absolute w-24 h-12 text-stone-900 transform rotate-12" viewBox="0 0 100 50">
+              <path d="M10,25 L90,25" stroke="currentColor" stroke-width="2"/>
+              <path d="M70,10 L90,25 L70,40" stroke="currentColor" stroke-width="2" fill="none"/>
+            </svg>
+            <div class="absolute bottom-4 left-4 bg-yellow-100 border border-charcoal px-2 py-0.5 text-[10px] uppercase font-mono tracking-wider rotate-[-2deg]">
+              No. 402 / PARIS
+            </div>
+          </div>
+          <div class="pt-4 flex justify-between items-center">
+            <div>
+              <span class="block font-sans font-extrabold text-lg uppercase tracking-tight">Dadaist Dream</span>
+              <span class="font-hand text-crimson text-sm font-bold">Used by 4,209 Creators</span>
+            </div>
+            <button onclick="cloneTemplate('dadaist')" class="px-3 py-1 bg-charcoal text-paper-100 hover:bg-crimson text-xs font-bold uppercase tracking-wider transition-colors">
+              Clone
+            </button>
+          </div>
+        </div>
+
+        <!-- Grid Item 2: Retro Stamp Tram -->
+        <div class="group border-3 border-charcoal bg-paper-50 p-4 shadow-retro hover:scale-[1.01] transition-all flex flex-col justify-between">
+          <div class="aspect-[4/5] bg-paper-200 border-2 border-charcoal relative overflow-hidden flex items-center justify-center">
+            <!-- Simulated collage item -->
+            <div class="absolute w-44 h-24 bg-crimson opacity-90 transform -rotate-12 flex flex-col justify-center items-center text-paper-100 px-3">
+              <span class="font-serif text-3xl font-bold italic tracking-wider leading-none">TRAMWAY</span>
+              <span class="text-[9px] font-mono tracking-widest mt-1">LINE 115</span>
+            </div>
+            <!-- Leaning structure -->
+            <div class="absolute right-4 top-4 w-12 h-36 bg-stone-800 opacity-60 transform rotate-12"></div>
+            <!-- Vintage stamp badge overlay -->
+            <div class="absolute bottom-4 right-4 bg-paper-100 border-2 border-charcoal p-2 transform rotate-[15deg] flex flex-col items-center">
+              <span class="text-[8px] font-mono font-bold leading-none">POSTES</span>
+              <span class="font-hand text-xs text-crimson leading-none font-bold">12c</span>
+            </div>
+          </div>
+          <div class="pt-4 flex justify-between items-center">
+            <div>
+              <span class="block font-sans font-extrabold text-lg uppercase tracking-tight">Retro Tramway</span>
+              <span class="font-hand text-crimson text-sm font-bold">Used by 8,110 Creators</span>
+            </div>
+            <button onclick="cloneTemplate('tramway')" class="px-3 py-1 bg-charcoal text-paper-100 hover:bg-crimson text-xs font-bold uppercase tracking-wider transition-colors">
+              Clone
+            </button>
+          </div>
+        </div>
+
+        <!-- Grid Item 3: Athenian Grid -->
+        <div class="group border-3 border-charcoal bg-paper-50 p-4 shadow-retro hover:scale-[1.01] transition-all flex flex-col justify-between">
+          <div class="aspect-[4/5] bg-paper-200 border-2 border-charcoal relative overflow-hidden flex items-center justify-center">
+            <!-- Simulated Greek sculpture and modern text collage -->
+            <div class="absolute w-36 h-48 bg-stone-900 text-stone-300 opacity-90 flex items-center justify-center p-4">
+              <span class="font-serif italic font-normal text-6xl opacity-30">V</span>
+            </div>
+            <div class="absolute w-full h-full halftone opacity-10"></div>
+            <div class="absolute top-10 left-10 text-crimson font-hand text-3xl font-bold rotate-[-15deg]">Athens!</div>
+            <div class="absolute bottom-10 right-6 font-mono text-xs font-bold bg-charcoal text-paper-100 px-2 py-1 rotate-[4deg]">
+              SURREAL APOCALYPSE
+            </div>
+          </div>
+          <div class="pt-4 flex justify-between items-center">
+            <div>
+              <span class="block font-sans font-extrabold text-lg uppercase tracking-tight">Athenian Revolt</span>
+              <span class="font-hand text-crimson text-sm font-bold">Used by 2,940 Creators</span>
+            </div>
+            <button onclick="cloneTemplate('athenian')" class="px-3 py-1 bg-charcoal text-paper-100 hover:bg-crimson text-xs font-bold uppercase tracking-wider transition-colors">
+              Clone
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CREATOR PASS PRICING (POSTAGE STAMP PRICING) -->
+  <section id="pricing" class="py-20 bg-paper-50 relative border-b-4 border-charcoal">
+    <div class="absolute inset-0 paper-noise opacity-30 pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto px-4 md:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+        <span class="text-crimson font-hand text-3xl font-bold block transform -rotate-1">Unlock Endless Artistic Assets</span>
+        <h2 class="text-4xl md:text-5xl font-sans font-extrabold tracking-tight uppercase">CREATOR PASS TIERS</h2>
+        <p class="text-stone-700 font-sans">
+          Simple pricing models tailored for professional zine-publishers, visual content creators, and hobbyists alike.
+        </p>
+      </div>
+
+      <!-- Pricing Cards Wrapper -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        
+        <!-- Plan 1: Free Cutout -->
+        <div class="bg-paper-100 border-4 border-charcoal p-8 relative shadow-retro flex flex-col justify-between">
+          <!-- Tape overlay top center -->
+          <div class="absolute -top-3 left-1/3 w-28 h-5 bg-stone-300/60 rotate-2"></div>
+          
+          <div class="space-y-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <span class="text-xs font-mono font-bold uppercase text-stone-500">Tier One</span>
+                <h3 class="font-sans font-extrabold text-2xl uppercase">Free Cutout</h3>
+              </div>
+              <span class="font-serif italic font-normal text-3xl text-charcoal">$0</span>
+            </div>
+            
+            <p class="text-sm font-sans text-stone-700 leading-relaxed">
+              Unlock the foundational interactive builder canvas, essential monuments, and basic newspaper textures with zero strings attached.
+            </p>
+
+            <ul class="space-y-3 text-sm text-charcoal font-sans pt-4 border-t border-dashed border-charcoal">
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-crimson mr-2"></i> Standard interactive canvas access</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-crimson mr-2"></i> 25 high-definition cutouts</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-crimson mr-2"></i> PNG download format</li>
+              <li class="flex items-center text-stone-400 line-through"><i data-lucide="x" class="w-4 h-4 mr-2"></i> Commercial license grant</li>
+            </ul>
+          </div>
+
+          <div class="pt-8">
+            <a href="#playground" class="block w-full text-center py-3 bg-paper-200 border-2 border-charcoal font-bold text-sm uppercase tracking-wider shadow-retro-sm hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all">
+              Launch Free Mode
+            </a>
+          </div>
+        </div>
+
+        <!-- Plan 2: Collage Monarch (Most Popular) -->
+        <div class="bg-yellow-50 border-4 border-crimson p-8 relative shadow-retro flex flex-col justify-between">
+          <!-- Stamp style overlay top-right corner -->
+          <div class="absolute -top-3 right-6 bg-crimson text-paper-50 font-sketch text-[10px] font-bold px-3 py-1 rotate-[-3deg] uppercase shadow-sm border border-charcoal">
+            ⭐ Recommended
+          </div>
+          
+          <div class="space-y-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <span class="text-xs font-mono font-bold uppercase text-crimson">Tier Two</span>
+                <h3 class="font-sans font-extrabold text-2xl uppercase text-crimson">Collage Monarch</h3>
+              </div>
+              <div class="text-right">
+                <span class="font-serif italic font-normal text-3xl text-charcoal">$19</span>
+                <span class="block text-[10px] font-mono uppercase text-stone-500">One-time payment</span>
+              </div>
+            </div>
+            
+            <p class="text-sm font-sans text-stone-700 leading-relaxed">
+              Gain full, lifetime access to our premium texture library, custom SVG stamp creators, advanced grain controls, and high-res layout models.
+            </p>
+
+            <ul class="space-y-3 text-sm text-charcoal font-sans pt-4 border-t border-dashed border-crimson">
+              <li class="flex items-center font-bold text-crimson"><i data-lucide="check" class="w-4 h-4 text-crimson mr-2"></i> Unlimited Interactive Canvas Workspace</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-crimson mr-2"></i> 1,500+ premium surrealist cutouts</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-crimson mr-2"></i> Vector SVG & PNG downloads</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-crimson mr-2"></i> Lifetime asset updates</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-crimson mr-2"></i> Full commercial license rights</li>
+            </ul>
+          </div>
+
+          <div class="pt-8">
+            <button onclick="triggerRenderCelebration()" class="w-full text-center py-3 bg-crimson text-white font-extrabold text-sm uppercase tracking-wider border-2 border-charcoal shadow-retro hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all">
+              ⚡ Get Lifetime pass
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- COLLAGE STYLE FOOTER -->
+  <footer class="bg-charcoal text-paper-200 border-t-4 border-charcoal relative py-16 overflow-hidden">
+    <!-- Crumpled newspaper footer backdrop overlay -->
+    <div class="absolute inset-0 halftone opacity-5 pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 z-10 relative">
+      
+      <!-- Brand column -->
+      <div class="lg:col-span-4 space-y-6">
+        <a href="#" class="flex items-center space-x-2 text-paper-100">
+          <div class="bg-crimson p-2 border-2 border-stone-800 shadow-retro-sm">
+            <span class="font-serif font-bold text-xl text-paper-100 italic">Z</span>
+          </div>
+          <span class="font-sans font-extrabold text-xl tracking-tight uppercase">ZineForge</span>
+        </a>
+        <p class="text-sm text-paper-300 font-sans leading-relaxed">
+          ZineForge is a collaborative experimental digital playground where design restrictions vanish. We empower individuals to break standard boundaries and build stunning tactile social assets.
+        </p>
+        <div class="flex space-x-4">
+          <a href="#" class="p-2 border border-paper-300 hover:bg-crimson hover:text-white transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+          <a href="#" class="p-2 border border-paper-300 hover:bg-crimson hover:text-white transition-colors"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+          <a href="#" class="p-2 border border-paper-300 hover:bg-crimson hover:text-white transition-colors"><i data-lucide="chrome" class="w-5 h-5"></i></a>
+        </div>
+      </div>
+
+      <!-- Quick Nav -->
+      <div class="lg:col-span-4 grid grid-cols-2 gap-8">
+        <div class="space-y-4">
+          <span class="block font-sans font-bold text-sm uppercase text-paper-50 border-b border-paper-300 pb-2">Navigation</span>
+          <ul class="space-y-2 text-xs text-paper-300">
+            <li><a href="#playground" class="hover:underline hover:text-crimson">Collage Maker</a></li>
+            <li><a href="#features" class="hover:underline hover:text-crimson">Visual Tools</a></li>
+            <li><a href="#gallery" class="hover:underline hover:text-crimson">Inspiration</a></li>
+            <li><a href="#pricing" class="hover:underline hover:text-crimson">Creator Pass</a></li>
+          </ul>
+        </div>
+        <div class="space-y-4">
+          <span class="block font-sans font-bold text-sm uppercase text-paper-50 border-b border-paper-300 pb-2">Legal Artifacts</span>
+          <ul class="space-y-2 text-xs text-paper-300">
+            <li><a href="#" class="hover:underline hover:text-crimson">Terms of Collage</a></li>
+            <li><a href="#" class="hover:underline hover:text-crimson">Fair Use & Assets</a></li>
+            <li><a href="#" class="hover:underline hover:text-crimson">Creator Manifesto</a></li>
+            <li><a href="#" class="hover:underline hover:text-crimson">Contact Dispatch</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Newsletter structured as an envelope stamp -->
+      <div class="lg:col-span-4 bg-stone-800 border-2 border-paper-300 p-6 relative">
+        <span class="block font-sans font-bold text-sm uppercase text-paper-50 mb-3">Newsletter Dispatch</span>
+        <p class="text-xs text-paper-300 leading-relaxed mb-4">
+          Sign up to receive free high-definition raw cutouts weekly directly in your mailbox!
+        </p>
+        <div class="space-y-2">
+          <input type="email" placeholder="agent@dadaist.com" class="w-full px-3 py-2 text-xs border border-paper-300 bg-charcoal text-paper-100 placeholder-stone-500 focus:outline-none focus:ring-1 focus:ring-crimson">
+          <button class="w-full py-2 bg-crimson hover:bg-crimson-800 text-white text-xs font-bold uppercase tracking-wider transition-all">
+            Join the Rebellion
+          </button>
+        </div>
+        <!-- Absolute vintage stamp in corner of newsletter -->
+        <div class="absolute -top-3 -right-3 bg-paper-100 border border-charcoal text-charcoal px-2 py-0.5 text-[8px] font-mono rotate-12">
+          AIR MAIL
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Legal disclaimer and bottom torn detail -->
+    <div class="max-w-7xl mx-auto px-4 md:px-8 mt-16 pt-8 border-t border-stone-800 flex flex-col md:flex-row justify-between text-xs text-stone-400 font-mono">
+      <span>© 2026 ZINEFORGE CORP. LICENSED SURREALISM DISPATCH.</span>
+      <span class="mt-2 md:mt-0">MADE WITH CUTS, INK, & REBELLION.</span>
+    </div>
+  </footer>
+
+  <!-- DYNAMIC LOGIC FOR INTERACTIVE CANVAS -->
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Collage State Management
+    let activeElement = null;
+    let selectedElementsList = [];
+    let canvasWorkspace = document.getElementById('canvas-workspace');
+    let transformerControls = document.getElementById('transformer-controls');
+    
+    // UI control sliders
+    let controlRotate = document.getElementById('control-rotate');
+    let controlScale = document.getElementById('control-scale');
+    let valRotate = document.getElementById('val-rotate');
+    let valScale = document.getElementById('val-scale');
+
+    // Drag-and-drop state
+    let isDragging = false;
+    let currentX;
+    let currentY;
+    let initialX;
+    let initialY;
+    let xOffset = 0;
+    let yOffset = 0;
+
+    // Default assets database
+    const assetLibrary = {
+      sun: {
+        html: `<div class="w-48 h-48 bg-gradient-to-tr from-crimson to-crimson-700 rounded-full border border-charcoal opacity-90 shadow-md flex items-center justify-center">
+                  <div class="w-32 h-32 rounded-full border border-dashed border-paper-100 opacity-20"></div>
+               </div>`,
+        name: 'Red Sun'
+      },
+      tower: {
+        html: `<svg viewBox="0 0 100 200" class="w-32 h-56 text-stone-800 drop-shadow-lg">
+                  <rect x="25" y="10" width="50" height="170" fill="#292524" rx="2"/>
+                  <line x1="25" y1="30" x2="75" y2="30" stroke="#f4f1eb" stroke-width="3"/>
+                  <line x1="25" y1="65" x2="75" y2="65" stroke="#f4f1eb" stroke-width="3"/>
+                  <line x1="25" y1="100" x2="75" y2="100" stroke="#f4f1eb" stroke-width="3"/>
+                  <line x1="25" y1="135" x2="75" y2="135" stroke="#f4f1eb" stroke-width="3"/>
+               </svg>`,
+        name: 'Tower'
+      },
+      man: {
+        html: `<div class="w-32 h-56 relative">
+                  <svg viewBox="0 0 100 200" class="w-full h-full">
+                    <path d="M 25,60 L 75,60 L 85,120 L 70,120 L 75,180 L 60,180 L 55,130 L 45,130 L 40,180 L 25,180 L 30,120 L 15,120 Z" fill="#292524" stroke="#1c1917" stroke-width="2"/>
+                    <polygon points="40,60 60,60 50,75" fill="#f5f5f4"/>
+                    <polygon points="45,63 55,63 50,67" fill="#0c0a09"/>
+                    <polygon points="45,67 55,67 50,63" fill="#0c0a09"/>
+                    <g transform="translate(20, 15) scale(0.6)">
+                      <rect x="10" y="20" width="80" height="50" fill="#1c1917" rx="5" stroke="#f4f1eb" stroke-width="2"/>
+                      <circle cx="50" cy="45" r="18" fill="#44403c" stroke="#f4f1eb" stroke-width="3"/>
+                      <circle cx="50" cy="45" r="8" fill="#1c1917"/>
+                      <rect x="20" y="10" width="15" height="10" fill="#be123c" rx="2"/>
+                      <circle cx="75" cy="30" r="4" fill="#d6d3d1"/>
+                    </g>
+                  </svg>
+               </div>`,
+        name: 'Gentleman'
+      },
+      colosseum: {
+        html: `<svg viewBox="0 0 120 80" class="w-44 h-32 text-stone-700 drop-shadow-md">
+                <path d="M10,70 L110,70 L110,30 L10,40 Z" fill="#44403c" stroke="#1c1917" stroke-width="2"/>
+                <line x1="10" y1="50" x2="110" y2="50" stroke="#f4f1eb" stroke-width="2"/>
+                <circle cx="25" cy="45" r="4" fill="#f4f1eb"/>
+                <circle cx="45" cy="45" r="4" fill="#f4f1eb"/>
+                <circle cx="65" cy="45" r="4" fill="#f4f1eb"/>
+                <circle cx="85" cy="45" r="4" fill="#f4f1eb"/>
+              </svg>`,
+        name: 'Colosseum'
+      },
+      tram: {
+        html: `<svg viewBox="0 0 200 120" class="w-52 h-32 drop-shadow-xl">
+                <rect x="10" y="30" width="180" height="70" fill="#a82020" rx="6" stroke="#1c1917" stroke-width="3"/>
+                <rect x="15" y="40" width="170" height="25" fill="#1c1917" rx="3"/>
+                <rect x="20" y="43" width="20" height="18" fill="#eadecf"/>
+                <rect x="45" y="43" width="20" height="18" fill="#eadecf"/>
+                <rect x="70" y="43" width="20" height="18" fill="#eadecf"/>
+                <rect x="95" y="43" width="20" height="18" fill="#eadecf"/>
+                <rect x="120" y="43" width="20" height="18" fill="#eadecf"/>
+                <rect x="145" y="43" width="20" height="18" fill="#eadecf"/>
+                <rect x="85" y="15" width="30" height="15" fill="#f4f1eb" stroke="#1c1917" stroke-width="2"/>
+                <text x="100" y="27" font-family="sans-serif" font-size="9" font-weight="bold" text-anchor="middle" fill="#1c1917">115</text>
+                <circle cx="50" cy="103" r="10" fill="#1c1917"/>
+                <circle cx="150" cy="103" r="10" fill="#1c1917"/>
+                <line x1="0" y1="110" x2="200" y2="100" stroke="#1c1917" stroke-width="4"/>
+              </svg>`,
+        name: 'Tram 115'
+      },
+      birds: {
+        html: `<svg class="w-24 h-16 text-charcoal-dark" viewBox="0 0 100 50">
+              <path d="M10,20 Q20,10 30,20 Q40,10 50,20" stroke="currentColor" stroke-width="2.5" fill="none"/>
+              <path d="M40,35 Q48,28 56,35 Q64,28 72,35" stroke="currentColor" stroke-width="2" fill="none"/>
+            </svg>`,
+        name: 'Birds'
+      },
+      circle: {
+        html: `<svg viewBox="0 0 100 100" class="w-28 h-28 text-crimson">
+                <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="10 15"/>
+              </svg>`,
+        name: 'Ink Circle'
+      },
+      statue: {
+        html: `<svg viewBox="0 0 100 150" class="w-32 h-48 text-stone-500 drop-shadow-md">
+                <path d="M 50 10 Q 70 20 65 50 T 55 110 T 45 140 L 35 140 L 40 80 Q 25 70 30 50 Z" fill="currentColor" stroke="#1c1917" stroke-width="2"/>
+                <circle cx="55" cy="40" r="3" fill="#fff"/>
+              </svg>`,
+        name: 'Greek Statue'
+      },
+      arrow: {
+        html: `<svg viewBox="0 0 100 50" class="w-28 h-12 text-crimson">
+                <path d="M10,25 C40,10 60,40 90,25" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none"/>
+                <path d="M70,10 L90,25 L75,40" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none"/>
+              </svg>`,
+        name: 'Scribble Arrow'
+      }
+    };
+
+    // Filter cutouts in Left Catalog
+    function filterAssetBin(category) {
+      let catalogBin = document.getElementById('catalog-bin');
+      let items = catalogBin.children;
+      for (let item of items) {
+        if (category === 'all' || item.getAttribute('data-category') === category) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Spawn an element onto the workspace
+    function spawnAsset(assetType) {
+      if (!assetLibrary[assetType]) return;
+
+      const randomId = 'asset-' + Date.now();
+      const div = document.createElement('div');
+      div.id = randomId;
+      div.className = 'collage-item absolute cursor-grab active:cursor-grabbing text-center';
+      
+      // Starting coordinates centered with variance
+      const randomOffset = () => Math.floor(Math.random() * 60) - 30;
+      const x = 150 + randomOffset();
+      const y = 200 + randomOffset();
+      
+      div.style.left = '0px';
+      div.style.top = '0px';
+      div.style.transform = `translate(${x}px, ${y}px) rotate(0deg) scale(1.0)`;
+      div.style.zIndex = 25;
+      
+      div.innerHTML = assetLibrary[assetType].html;
+      
+      // Bind click event
+      div.onclick = function(e) {
+        selectElement(div, e);
+      };
+      
+      canvasWorkspace.appendChild(div);
+      selectElement(div);
+    }
+
+    // Spawn custom text input
+    function spawnCustomText() {
+      const textInput = document.getElementById('custom-text-input');
+      const text = textInput.value.trim();
+      if (!text) return;
+
+      const randomId = 'text-' + Date.now();
+      const div = document.createElement('div');
+      div.id = randomId;
+      div.className = 'collage-item absolute cursor-grab active:cursor-grabbing text-center font-hand text-3xl font-extrabold text-crimson drop-shadow-sm select-none';
+      
+      const x = 120;
+      const y = 180;
+      div.style.left = '0px';
+      div.style.top = '0px';
+      div.style.transform = `translate(${x}px, ${y}px) rotate(-4deg) scale(1.1)`;
+      div.style.zIndex = 35;
+      div.innerText = text;
+
+      div.onclick = function(e) {
+        selectElement(div, e);
+      };
+
+      canvasWorkspace.appendChild(div);
+      selectElement(div);
+      textInput.value = ''; // clear input
+    }
+
+    // Clone templates to workspace helper
+    function cloneTemplate(templateName) {
+      clearCanvas();
+      if (templateName === 'dadaist') {
+        spawnAsset('sun');
+        spawnAsset('birds');
+        spawnAsset('statue');
+        // Set specific transforms for styling consistency
+        setTimeout(() => {
+          let items = canvasWorkspace.children;
+          if(items[0]) items[0].style.transform = "translate(50px, 40px) rotate(-10deg) scale(1.1)";
+          if(items[1]) items[1].style.transform = "translate(180px, 80px) rotate(15deg) scale(1.0)";
+          if(items[2]) items[2].style.transform = "translate(120px, 150px) rotate(-5deg) scale(1.2)";
+        }, 50);
+      } else if (templateName === 'tramway') {
+        spawnAsset('tram');
+        spawnAsset('tower');
+        spawnAsset('circle');
+        setTimeout(() => {
+          let items = canvasWorkspace.children;
+          if(items[0]) items[0].style.transform = "translate(80px, 220px) rotate(-2deg) scale(1.1)";
+          if(items[1]) items[1].style.transform = "translate(30px, 20px) rotate(-15deg) scale(0.9)";
+          if(items[2]) items[2].style.transform = "translate(220px, 60px) rotate(45deg) scale(1.0)";
+        }, 50);
+      } else if (templateName === 'athenian') {
+        spawnAsset('statue');
+        spawnAsset('arrow');
+        spawnAsset('sun');
+        setTimeout(() => {
+          let items = canvasWorkspace.children;
+          if(items[0]) items[0].style.transform = "translate(100px, 110px) rotate(0deg) scale(1.3)";
+          if(items[1]) items[1].style.transform = "translate(180px, 320px) rotate(10deg) scale(1.1)";
+          if(items[2]) items[2].style.transform = "translate(140px, 50px) rotate(-25deg) scale(0.8)";
+        }, 50);
+      }
+      
+      // Scroll to playground
+      document.getElementById('playground').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Select Collage Item
+    function selectElement(el, event) {
+      if (event) event.stopPropagation();
+      
+      // Remove visual active class from all items
+      let items = canvasWorkspace.getElementsByClassName('collage-item');
+      for (let item of items) {
+        item.classList.remove('border-2', 'border-dashed', 'border-crimson', 'p-1', 'bg-paper-100/10');
+      }
+
+      activeElement = el;
+      activeElement.classList.add('border-2', 'border-dashed', 'border-crimson', 'p-1', 'bg-paper-100/10');
+
+      // Enable and populate controls panel
+      transformerControls.classList.remove('opacity-60', 'pointer-events-none');
+      
+      // Parse current transforms
+      const transform = activeElement.style.transform;
+      let r = 0, s = 1.0;
+      
+      const rotateMatch = transform.match(/rotate\(([^)]+)deg\)/);
+      if (rotateMatch) r = parseInt(rotateMatch[1]);
+      
+      const scaleMatch = transform.match(/scale\(([^)]+)\)/);
+      if (scaleMatch) s = parseFloat(scaleMatch[1]);
+
+      controlRotate.value = r;
+      controlScale.value = s;
+      
+      valRotate.innerText = r + '°';
+      valScale.innerText = s.toFixed(1) + 'x';
+    }
+
+    // Deselect active element
+    function deselectActiveItem() {
+      if (activeElement) {
+        activeElement.classList.remove('border-2', 'border-dashed', 'border-crimson', 'p-1', 'bg-paper-100/10');
+        activeElement = null;
+      }
+      transformerControls.classList.add('opacity-60', 'pointer-events-none');
+    }
+
+    // Click canvas container to deselect active items
+    document.getElementById('canvas-container').onclick = function(e) {
+      if (e.target.id === 'canvas-container' || e.target.id === 'canvas-workspace') {
+        deselectActiveItem();
+      }
+    };
+
+    // Update selected element transformation values from controls
+    function updateActiveElementTransform() {
+      if (!activeElement) return;
+      
+      const rot = controlRotate.value;
+      const scl = controlScale.value;
+      
+      valRotate.innerText = rot + '°';
+      valScale.innerText = parseFloat(scl).toFixed(1) + 'x';
+
+      // Keep original translation coordinate values
+      const currentTransform = activeElement.style.transform;
+      const translateMatch = currentTransform.match(/translate\(([^,]+)px,\s*([^)]+)px\)/);
+      
+      let tx = 0, ty = 0;
+      if (translateMatch) {
+        tx = parseInt(translateMatch[1]);
+        ty = parseInt(translateMatch[2]);
+      }
+
+      activeElement.style.transform = `translate(${tx}px, ${ty}px) rotate(${rot}deg) scale(${scl})`;
+    }
+
+    // Delete active cutout
+    function deleteActiveElement() {
+      if (!activeElement) return;
+      activeElement.remove();
+      deselectActiveItem();
+    }
+
+    // Clear Canvas Completely
+    function clearCanvas() {
+      canvasWorkspace.innerHTML = '';
+      deselectActiveItem();
+    }
+
+    // Reset Canvas to Inspiration Setup
+    function resetCanvasToDefault() {
+      clearCanvas();
+      
+      // Re-create the 4 awesome visual building blocks matching standard design structure
+      const defaultSun = document.createElement('div');
+      defaultSun.className = 'collage-item absolute cursor-grab active:cursor-grabbing text-center';
+      defaultSun.style.left = '0px';
+      defaultSun.style.top = '0px';
+      defaultSun.style.transform = 'translate(100px, 40px) rotate(-15deg) scale(1.1)';
+      defaultSun.style.zIndex = 10;
+      defaultSun.innerHTML = assetLibrary.sun.html;
+      defaultSun.onclick = function(e) { selectElement(defaultSun, e); };
+      
+      const defaultTower = document.createElement('div');
+      defaultTower.className = 'collage-item absolute cursor-grab active:cursor-grabbing text-center';
+      defaultTower.style.left = '0px';
+      defaultTower.style.top = '0px';
+      defaultTower.style.transform = 'translate(15px, 150px) rotate(-8deg) scale(0.9)';
+      defaultTower.style.zIndex = 15;
+      defaultTower.innerHTML = assetLibrary.tower.html;
+      defaultTower.onclick = function(e) { selectElement(defaultTower, e); };
+
+      const defaultArrow = document.createElement('div');
+      defaultArrow.className = 'collage-item absolute cursor-grab active:cursor-grabbing text-center';
+      defaultArrow.style.left = '0px';
+      defaultArrow.style.top = '0px';
+      defaultArrow.style.transform = 'translate(220px, 320px) rotate(10deg) scale(1.2)';
+      defaultArrow.style.zIndex = 30;
+      defaultArrow.innerHTML = `<div class="flex flex-col items-center">
+                                  <svg viewBox="0 0 100 50" class="w-24 h-12 text-crimson">
+                                    <path d="M10,25 L90,25 M70,10 L90,25 L70,40" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                  </svg>
+                                  <span class="font-hand text-xl font-bold text-crimson -mt-2">Drag anything!</span>
+                                </div>`;
+      defaultArrow.onclick = function(e) { selectElement(defaultArrow, e); };
+
+      const defaultMan = document.createElement('div');
+      defaultMan.className = 'collage-item absolute cursor-grab active:cursor-grabbing text-center';
+      defaultMan.style.left = '0px';
+      defaultMan.style.top = '0px';
+      defaultMan.style.transform = 'translate(240px, 100px) rotate(4deg) scale(1.1)';
+      defaultMan.style.zIndex = 20;
+      defaultMan.innerHTML = assetLibrary.man.html;
+      defaultMan.onclick = function(e) { selectElement(defaultMan, e); };
+
+      canvasWorkspace.appendChild(defaultSun);
+      canvasWorkspace.appendChild(defaultTower);
+      canvasWorkspace.appendChild(defaultArrow);
+      canvasWorkspace.appendChild(defaultMan);
+      
+      deselectActiveItem();
+    }
+
+    // Adjust Z-Index Layer order
+    function adjustZIndex(val) {
+      if (!activeElement) return;
+      let currentZ = parseInt(activeElement.style.zIndex) || 10;
+      let newZ = Math.max(1, currentZ + (val * 5));
+      activeElement.style.zIndex = newZ;
+    }
+
+    // Dragging Logic integration
+    const container = document.getElementById('canvas-container');
+
+    container.addEventListener('touchstart', dragStart, { passive: false });
+    container.addEventListener('touchend', dragEnd, { passive: false });
+    container.addEventListener('touchmove', drag, { passive: false });
+
+    container.addEventListener('mousedown', dragStart);
+    container.addEventListener('mouseup', dragEnd);
+    container.addEventListener('mousemove', drag);
+
+    function dragStart(e) {
+      const targetItem = e.target.closest('.collage-item');
+      if (!targetItem) return;
+
+      activeElement = targetItem;
+      selectElement(activeElement);
+
+      // Parse existing translate values
+      const transform = activeElement.style.transform;
+      const translateMatch = transform.match(/translate\(([^,]+)px,\s*([^)]+)px\)/);
+      
+      if (translateMatch) {
+        xOffset = parseInt(translateMatch[1]);
+        yOffset = parseInt(translateMatch[2]);
+      } else {
+        xOffset = 0;
+        yOffset = 0;
+      }
+
+      if (e.type === "touchstart") {
+        initialX = e.touches[0].clientX - xOffset;
+        initialY = e.touches[0].clientY - yOffset;
+      } else {
+        initialX = e.clientX - xOffset;
+        initialY = e.clientY - yOffset;
+      }
+
+      isDragging = true;
+    }
+
+    function dragEnd() {
+      initialX = currentX;
+      initialY = currentY;
+      isDragging = false;
+    }
+
+    function drag(e) {
+      if (!isDragging || !activeElement) return;
+      
+      e.preventDefault();
+
+      if (e.type === "touchmove") {
+        currentX = e.touches[0].clientX - initialX;
+        currentY = e.touches[0].clientY - initialY;
+      } else {
+        currentX = e.clientX - initialX;
+        currentY = e.clientY - initialY;
+      }
+
+      // Constrain inside container with padding
+      const rect = container.getBoundingClientRect();
+      const currentTransform = activeElement.style.transform;
+      
+      // Parse rotation and scale parameters so we don't clear them
+      let rot = 0, scl = 1.0;
+      const rotateMatch = currentTransform.match(/rotate\(([^)]+)deg\)/);
+      if (rotateMatch) rot = parseInt(rotateMatch[1]);
+      const scaleMatch = currentTransform.match(/scale\(([^)]+)\)/);
+      if (scaleMatch) scl = parseFloat(scaleMatch[1]);
+
+      // Apply the translation
+      activeElement.style.transform = `translate(${currentX}px, ${currentY}px) rotate(${rot}deg) scale(${scl})`;
+    }
+
+    // Trigger Render Modal
+    function triggerRenderCelebration() {
+      document.getElementById('export-modal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('export-modal').classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
+9

@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antique Parian - Fine Neoclassical Porcelain Salon</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        parianDark: '#1a1b1b',
+                        parianCharcoal: '#222424',
+                        parianGold: '#D8C293',
+                        parianGoldHover: '#E5D6B8',
+                        parianSoftWhite: '#F5F5F3',
+                        parianMuted: '#8A8D8D'
+                    },
+                    fontFamily: {
+                        serif: ['Cinzel', 'Playfair Display', 'serif'],
+                        sans: ['Inter', 'Sofia Pro', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts for Neoclassical Sophistication -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Custom slow rotations for astronomical orbital elements in the background */
+        @keyframes slow-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes reverse-spin {
+            from { transform: rotate(360deg); }
+            to { transform: rotate(0deg); }
+        }
+        .orbit-bg {
+            animation: slow-spin 120s linear infinite;
+        }
+        .orbit-bg-reverse {
+            animation: reverse-spin 180s linear infinite;
+        }
+        /* Glassmorphism utility */
+        .glass-card {
+            background: rgba(34, 36, 36, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(216, 194, 147, 0.15);
+        }
+        .glass-header {
+            background: rgba(26, 27, 27, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(216, 194, 147, 0.1);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1b1b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D8C293;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #E5D6B8;
+        }
+    </style>
+</head>
+<body class="bg-parianDark text-parianSoftWhite font-sans min-h-screen overflow-x-hidden relative">
+
+    <!-- Ambient Orbital Background Lines (Inspired directly by the source image design) -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <!-- Golden Orbit Ring 1 -->
+        <div class="orbit-bg absolute -top-[10%] -left-[10%] w-[80vw] h-[80vw] rounded-full border border-parianGold/10 flex items-center justify-center">
+            <div class="w-[60vw] h-[60vw] rounded-full border border-dashed border-parianGold/5"></div>
+            <!-- Small orbital node particle -->
+            <div class="absolute top-[20%] left-[20%] w-2 h-2 rounded-full bg-parianGold/40 blur-[1px]"></div>
+        </div>
+        <!-- Golden Orbit Ring 2 -->
+        <div class="orbit-bg-reverse absolute -bottom-[20%] -right-[15%] w-[90vw] h-[90vw] rounded-full border border-parianGold/10 flex items-center justify-center">
+            <div class="w-[70vw] h-[70vw] rounded-full border border-dashed border-parianGold/5"></div>
+            <div class="absolute bottom-[30%] right-[10%] w-3 h-3 rounded-full bg-parianGold/30"></div>
+        </div>
+        <!-- Ambient Radial Highlight Gradients mimicking original web layout -->
+        <div class="absolute top-[20%] right-[10%] w-[450px] h-[450px] rounded-full bg-parianGold/5 blur-[120px]"></div>
+        <div class="absolute bottom-[10%] left-[5%] w-[600px] h-[600px] rounded-full bg-parianGold/5 blur-[150px]"></div>
+    </div>
+
+    <!-- MAIN HEADER -->
+    <header class="glass-header sticky top-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
+            <!-- Brand / Logo -->
+            <a href="#" onclick="switchTab('hero-section')" class="flex flex-col select-none group focus:outline-none">
+                <span class="font-serif text-xl tracking-[0.3em] text-parianGold group-hover:text-parianSoftWhite transition-all uppercase">Antique Parian</span>
+                <span class="text-[9px] uppercase tracking-[0.4em] text-parianMuted mt-0.5">Rare Biscuit Porcelain Antiques</span>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-xs font-medium uppercase tracking-[0.2em] text-parianSoftWhite/85">
+                <button onclick="switchTab('hero-section')" id="nav-hero-section" class="nav-link hover:text-parianGold transition-colors pb-1 border-b border-transparent">Home</button>
+                <button onclick="switchTab('about-section')" id="nav-about-section" class="nav-link hover:text-parianGold transition-colors pb-1 border-b border-transparent">About Parian</button>
+                <button onclick="switchTab('catalog-section')" id="nav-catalog-section" class="nav-link hover:text-parianGold transition-colors pb-1 border-b border-transparent">Collection</button>
+                <button onclick="switchTab('simulator-section')" id="nav-simulator-section" class="nav-link hover:text-parianGold transition-colors pb-1 border-b border-transparent">Exhibition Simulator</button>
+                <button onclick="switchTab('contact-section')" id="nav-contact-section" class="nav-link hover:text-parianGold transition-colors pb-1 border-b border-transparent">Contact</button>
+            </nav>
+
+            <!-- Action Buttons / Cart Icon -->
+            <div class="flex items-center space-x-6">
+                <!-- Inquiry Cart trigger -->
+                <button onclick="toggleInquirySheet()" class="relative p-2.5 rounded-full border border-parianGold/20 hover:border-parianGold/60 hover:bg-parianCharcoal transition-all focus:outline-none" title="View Private Inquiry Cart">
+                    <i class="fa-solid fa-cube text-parianGold text-sm"></i>
+                    <!-- Notification dot for cart items -->
+                    <span id="cart-dot" class="hidden absolute top-0 right-0 w-3 h-3 bg-red-500 rounded-full border-2 border-parianDark animate-ping"></span>
+                    <span id="cart-count" class="hidden absolute -top-1 -right-1 w-4 h-4 bg-parianGold text-parianDark text-[9px] font-bold rounded-full flex items-center justify-center">0</span>
+                </button>
+                
+                <!-- Private Valuation CTA -->
+                <button onclick="switchTab('contact-section'); prefillInquiry('Consignment / Valuation')" class="hidden sm:inline-flex px-5 py-2.5 rounded-full bg-gradient-to-r from-parianGold to-parianGold/80 hover:from-parianGoldHover hover:to-parianGold text-parianDark text-xs font-semibold tracking-[0.15em] uppercase shadow-lg shadow-parianGold/10 hover:shadow-parianGold/20 transition-all duration-300">
+                    Consign a Piece
+                </button>
+
+                <!-- Mobile menu toggle -->
+                <button onclick="toggleMobileMenu()" class="md:hidden text-parianSoftWhite hover:text-parianGold focus:outline-none">
+                    <i id="menu-icon" class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Dropdown Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden bg-parianCharcoal/95 border-b border-parianGold/10 py-6 px-4 absolute left-0 w-full transition-all">
+            <div class="flex flex-col space-y-4 text-xs tracking-[0.2em] uppercase text-center">
+                <button onclick="switchTab('hero-section'); toggleMobileMenu()" class="py-2 hover:text-parianGold text-parianSoftWhite">Home</button>
+                <button onclick="switchTab('about-section'); toggleMobileMenu()" class="py-2 hover:text-parianGold text-parianSoftWhite">About Parian</button>
+                <button onclick="switchTab('catalog-section'); toggleMobileMenu()" class="py-2 hover:text-parianGold text-parianSoftWhite">Collection</button>
+                <button onclick="switchTab('simulator-section'); toggleMobileMenu()" class="py-2 hover:text-parianGold text-parianSoftWhite">Exhibition Simulator</button>
+                <button onclick="switchTab('contact-section'); toggleMobileMenu()" class="py-2 hover:text-parianGold text-parianSoftWhite">Contact</button>
+                <button onclick="switchTab('contact-section'); toggleMobileMenu(); prefillInquiry('Consignment / Valuation')" class="mt-4 mx-auto w-4/5 py-2.5 rounded-full bg-parianGold text-parianDark font-bold">Consign a Piece</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENT TABS WRAPPER -->
+    <main class="relative z-10">
+
+        <!-- SECTION 1: HOME/HERO (Matching primary showcase frame in the design) -->
+        <section id="hero-section" class="tab-content min-h-[calc(100vh-6rem)] flex items-center py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Left Hero Content Info -->
+                    <div class="lg:col-span-6 flex flex-col justify-center space-y-8 text-left z-10">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-12 h-[1px] bg-parianGold"></span>
+                            <span class="text-[10px] sm:text-xs uppercase tracking-[0.4em] text-parianGold font-medium">Circa 1842 - 1890</span>
+                        </div>
+                        
+                        <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl tracking-wide leading-tight text-white">
+                            Antique <br class="hidden sm:inline"/>
+                            <span class="text-parianGold font-light italic">Parian</span>
+                        </h1>
+                        
+                        <p class="text-parianMuted text-sm sm:text-base leading-relaxed max-w-lg font-light">
+                            Discover exquisite Parian biscuit porcelain busts and neoclassical sculptures. Exquisite works of art commissioned by elite Victorian society, recreating the serene grandeur of classic Grecian and Roman marble.
+                        </p>
+                        
+                        <!-- Mini Bullet Details in inspired layout -->
+                        <div class="grid grid-cols-2 gap-4 border-t border-b border-parianGold/15 py-6 my-4 text-xs tracking-wider">
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 rounded-full bg-parianGold"></span>
+                                <span class="text-parianSoftWhite/80">Copeland & Garrett</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 rounded-full bg-parianGold"></span>
+                                <span class="text-parianSoftWhite/80">Minton Ceramic Works</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 rounded-full bg-parianGold"></span>
+                                <span class="text-parianSoftWhite/80">Veiled Sculpture Masters</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 rounded-full bg-parianGold"></span>
+                                <span class="text-parianSoftWhite/80">R&L Statuary Artisans</span>
+                            </div>
+                        </div>
+
+                        <!-- Main Interactive CTAs -->
+                        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
+                            <button onclick="switchTab('catalog-section')" class="px-8 py-4 rounded-full bg-parianGold hover:bg-parianGoldHover text-parianDark font-semibold text-xs tracking-[0.2em] uppercase transition-all shadow-xl shadow-parianGold/10">
+                                Explore Collection
+                            </button>
+                            <button onclick="switchTab('simulator-section')" class="px-8 py-4 rounded-full border border-parianGold/30 hover:border-parianGold hover:bg-parianCharcoal text-parianSoftWhite font-semibold text-xs tracking-[0.2em] uppercase transition-all">
+                                Try Simulator <i class="fa-solid fa-cube ml-2 text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right Hero Sculptural Spotlight (Direct recreation of the golden ring-encased bust artwork in the inspiration) -->
+                    <div class="lg:col-span-6 relative flex justify-center items-center py-12 lg:py-0">
+                        <div class="relative w-[320px] h-[320px] sm:w-[420px] sm:h-[420px] flex items-center justify-center">
+                            
+                            <!-- Large decorative orbital ring framing sculpture -->
+                            <div class="absolute inset-0 rounded-full border border-parianGold/20 orbit-bg">
+                                <div class="absolute -top-1 left-1/2 w-3 h-3 bg-parianGold rounded-full shadow-lg shadow-parianGold"></div>
+                            </div>
+                            <!-- Medium ring -->
+                            <div class="absolute w-[85%] h-[85%] rounded-full border border-dashed border-parianMuted/20 orbit-bg-reverse"></div>
+                            <!-- Solid backdrop background glow -->
+                            <div class="absolute w-[70%] h-[70%] rounded-full bg-parianCharcoal/80 border border-parianGold/30 shadow-2xl flex items-center justify-center overflow-hidden">
+                                <div class="absolute inset-0 bg-gradient-to-t from-parianDark via-transparent to-transparent opacity-60"></div>
+                            </div>
+
+                            <!-- Interactive SVG Apollo Classical Bust (High fidelity vector with shading mimicking authentic Parian Marble) -->
+                            <div class="absolute z-10 w-[75%] h-[75%] flex justify-center items-center pointer-events-auto cursor-pointer group" onclick="switchTab('simulator-section')" title="Configure in Exhibition Simulator">
+                                <svg id="apollo-svg-hero" class="w-full h-full drop-shadow-[0_15px_30px_rgba(255,255,255,0.08)] transform group-hover:scale-105 transition-transform duration-500" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <!-- Sophisticated Marble Shading Gradients -->
+                                        <linearGradient id="marbleBase" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#ffffff"/>
+                                            <stop offset="60%" stop-color="#f5f2eb"/>
+                                            <stop offset="100%" stop-color="#cfc9bf"/>
+                                        </linearGradient>
+                                        <linearGradient id="marbleShadow" x1="0%" y1="0%" x2="0%" y2="100%">
+                                            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+                                            <stop offset="100%" stop-color="#8c8577" stop-opacity="0.3"/>
+                                        </linearGradient>
+                                        <radialGradient id="haloGlow" cx="50%" cy="50%" r="50%">
+                                            <stop offset="0%" stop-color="#d4af37" stop-opacity="0.25"/>
+                                            <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+                                        </radialGradient>
+                                    </defs>
+                                    <!-- Dynamic Golden Light Backing Halo -->
+                                    <circle cx="100" cy="100" r="85" fill="url(#haloGlow)" />
+                                    <!-- Pedestal Pillar base -->
+                                    <path d="M70,165 L130,165 L125,185 L75,185 Z" fill="url(#marbleBase)" stroke="#e4ded5" stroke-width="0.5"/>
+                                    <ellipse cx="100" cy="165" rx="30" ry="6" fill="#ded7cb" opacity="0.8"/>
+                                    <!-- Pedestal Shaft -->
+                                    <path d="M85,130 L115,130 L110,165 L90,165 Z" fill="url(#marbleBase)" opacity="0.9"/>
+                                    <path d="M85,130 Q100,135 115,130" fill="none" stroke="#cfc9bf" stroke-width="0.75"/>
+                                    <!-- Apollo Chest & Shoulders -->
+                                    <path d="M50,115 C55,100 68,90 75,95 C82,100 85,108 85,120 C85,125 75,132 70,135 C55,132 45,125 50,115 Z" fill="url(#marbleBase)"/>
+                                    <path d="M150,115 C145,100 132,90 125,95 C118,100 115,108 115,120 C115,125 125,132 130,135 C145,132 155,125 150,115 Z" fill="url(#marbleBase)"/>
+                                    <path d="M60,115 Q100,140 140,115 C145,122 135,135 100,142 C65,135 55,122 60,115 Z" fill="url(#marbleBase)"/>
+                                    <!-- Drapery / Cloak (Highly Classical) -->
+                                    <path d="M52,112 Q75,130 95,115 Q125,100 148,112 C135,130 65,130 52,112 Z" fill="#e9e5dc" stroke="#c0b8aa" stroke-width="0.5"/>
+                                    <path d="M68,118 Q100,133 132,118" fill="none" stroke="#b0a89a" stroke-width="0.75"/>
+                                    <!-- Neck and Jaw -->
+                                    <path d="M90,85 L110,85 L112,105 L88,105 Z" fill="url(#marbleBase)"/>
+                                    <path d="M88,105 C95,112 105,112 112,105 Z" fill="#ded7cb"/>
+                                    <!-- Classical Sculpted Face Outline -->
+                                    <path d="M82,58 C82,45 100,35 118,45 C122,55 120,75 115,82 C108,88 95,88 88,82 C82,75 82,65 82,58 Z" fill="url(#marbleBase)"/>
+                                    <path d="M102,48 C115,48 118,65 115,82 C102,88 92,75 102,48 Z" fill="#ffffff" opacity="0.5"/>
+                                    <!-- Classical Curled Hair Details -->
+                                    <path d="M80,55 Q74,48 84,40 Q94,32 110,36 Q126,40 120,52 Q115,58 118,62" fill="none" stroke="#cfc9bf" stroke-width="3"/>
+                                    <path d="M82,50 Q78,42 88,38 Q100,32 114,38" fill="none" stroke="#bda890" stroke-width="2"/>
+                                    <circle cx="85" cy="46" r="3" fill="#cfc9bf"/>
+                                    <circle cx="95" cy="40" r="3.5" fill="#cfc9bf"/>
+                                    <circle cx="106" cy="39" r="4" fill="#cfc9bf"/>
+                                    <circle cx="116" cy="44" r="3" fill="#cfc9bf"/>
+                                    <circle cx="120" cy="52" r="3.5" fill="#cfc9bf"/>
+                                    <!-- Greek Nose & Brow Line -->
+                                    <path d="M100,48 L100,68 L104,70" fill="none" stroke="#a49c8f" stroke-width="1.5" stroke-linecap="round"/>
+                                    <!-- Lips (soft neoclassical pout) -->
+                                    <path d="M96,77 Q100,75 104,77 Q100,80 96,77 Z" fill="#b0a89a" opacity="0.8"/>
+                                    <!-- Eyes shadow/contours -->
+                                    <path d="M92,58 Q95,57 98,59" fill="none" stroke="#a49c8f" stroke-width="1.25"/>
+                                    <path d="M106,58 Q109,57 112,59" fill="none" stroke="#a49c8f" stroke-width="1.25"/>
+                                </svg>
+                            </div>
+
+                            <!-- Decorative aesthetic indicator buttons mimicking elements on the left side of images -->
+                            <div class="absolute left-0 bottom-[10%] flex flex-col space-y-3 z-25">
+                                <span class="w-1.5 h-1.5 rounded-full bg-parianGold"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-parianMuted/30"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-parianMuted/30"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-parianMuted/30"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: ABOUT / HISTORY (Veiled bust frame recreation & historical context) -->
+        <section id="about-section" class="tab-content hidden py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Header of the Editorial Segment -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-parianGold/10 pb-8 mb-12">
+                    <div class="max-w-xl">
+                        <span class="text-xs uppercase tracking-[0.3em] text-parianGold block mb-2">History & Craft</span>
+                        <h2 class="font-serif text-3xl sm:text-5xl tracking-wide text-white">About Parian Ware</h2>
+                    </div>
+                    <p class="text-parianMuted text-xs sm:text-sm max-w-md mt-4 md:mt-0 leading-relaxed font-light">
+                        First developed around 1842 by Copeland & Garrett, this unglazed biscuit porcelain captures the soft, light-absorbing qualities of Carrara marble.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <!-- Elegant Custom Veiled Lady Artwork representation -->
+                    <div class="lg:col-span-5 flex justify-center order-last lg:order-first">
+                        <div class="relative w-[280px] h-[360px] sm:w-[340px] sm:h-[440px] rounded-2xl glass-card overflow-hidden p-6 border border-parianGold/20 flex flex-col items-center justify-between shadow-2xl">
+                            <!-- Circular accent -->
+                            <div class="absolute top-8 w-48 h-48 rounded-full border border-parianGold/10"></div>
+                            
+                            <!-- Detailed SVG of Veiled Lady Sculpture -->
+                            <div class="w-full h-[80%] flex justify-center items-center relative z-10">
+                                <svg class="w-[85%] h-full filter drop-shadow-[0_12px_24px_rgba(255,255,255,0.06)]" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <linearGradient id="veiledGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#ffffff"/>
+                                            <stop offset="70%" stop-color="#fdfbfa"/>
+                                            <stop offset="100%" stop-color="#dfd9cd"/>
+                                        </linearGradient>
+                                        <linearGradient id="veilLines" x1="0%" y1="0%" x2="100%" y2="0%">
+                                            <stop offset="0%" stop-color="rgba(255,255,255,0.5)"/>
+                                            <stop offset="50%" stop-color="rgba(196,186,170,0.35)"/>
+                                            <stop offset="100%" stop-color="rgba(255,255,255,0.1)"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <!-- Base Pedestal -->
+                                    <path d="M65,190 L135,190 L130,225 L70,225 Z" fill="url(#veiledGlow)" stroke="#cfc9bf" stroke-width="0.5"/>
+                                    <ellipse cx="100" cy="190" rx="35" ry="6" fill="#ded7cb" opacity="0.8"/>
+                                    <!-- Pedestal Trim -->
+                                    <rect x="75" y="150" width="50" height="40" fill="url(#veiledGlow)" opacity="0.9"/>
+                                    <!-- Veiled Bust Shoulders & Drape -->
+                                    <path d="M45,145 C45,130 55,115 70,118 C85,120 100,122 115,118 C130,115 140,130 140,145 C140,170 120,180 100,180 C80,180 45,170 45,145 Z" fill="url(#veiledGlow)"/>
+                                    <!-- Veiled Head Structure -->
+                                    <path d="M78,65 C78,45 92,30 105,32 C118,34 122,50 122,70 C122,88 115,108 100,108 C85,108 78,85 78,65 Z" fill="url(#veiledGlow)"/>
+                                    
+                                    <!-- The Elegant Translucent Veil Overlay Details -->
+                                    <!-- Vertical draping ridges over head & face -->
+                                    <path d="M85,32 Q95,45 90,85 T90,140" fill="none" stroke="url(#veilLines)" stroke-width="1.5" opacity="0.85"/>
+                                    <path d="M93,31 Q100,45 100,85 T100,140" fill="none" stroke="url(#veilLines)" stroke-width="2" opacity="0.95"/>
+                                    <path d="M103,31 Q105,45 108,85 T110,140" fill="none" stroke="url(#veilLines)" stroke-width="2.5" opacity="0.9"/>
+                                    <path d="M112,33 Q112,45 115,85 T120,140" fill="none" stroke="url(#veilLines)" stroke-width="1.5" opacity="0.8"/>
+                                    
+                                    <!-- Translucent shroud lines across forehead -->
+                                    <path d="M82,55 Q100,68 118,55" fill="none" stroke="#d5cebf" stroke-width="0.75" opacity="0.8"/>
+                                    <!-- Face silhouette visible through veil -->
+                                    <path d="M87,70 Q100,74 113,70" fill="none" stroke="#cfc9bf" stroke-width="0.5"/>
+                                    <path d="M95,82 Q100,86 105,82" fill="none" stroke="#cfc9bf" stroke-width="0.5"/>
+                                    <!-- Shroud Crown -->
+                                    <path d="M86,34 C94,22 108,22 114,34 Z" fill="#ffffff" opacity="0.4"/>
+                                    <!-- Base shadows -->
+                                    <ellipse cx="100" cy="180" rx="30" ry="4" fill="#a49c8f" opacity="0.4"/>
+                                </svg>
+                            </div>
+
+                            <div class="text-center">
+                                <span class="text-[10px] tracking-[0.3em] uppercase text-parianGold font-bold">Featured Artwork</span>
+                                <p class="font-serif text-sm text-parianSoftWhite/90 mt-1">"The Veiled Bride" after Monti</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Editorial Content Grid -->
+                    <div class="lg:col-span-7 space-y-8">
+                        <div class="space-y-4">
+                            <span class="text-parianGold text-xs uppercase tracking-[0.2em] font-medium block">The Neoclassical Revival</span>
+                            <h3 class="font-serif text-2xl sm:text-3xl tracking-wide text-white">An Artistic Revolution in Porcelain</h3>
+                            <p class="text-parianMuted text-sm sm:text-base leading-relaxed font-light">
+                                In Victorian Great Britain, high classical sculpture of Greece and Rome was the absolute pinnacle of cultural taste. However, large marble works were incredibly expensive and exclusive to aristocracy.
+                            </p>
+                            <p class="text-parianMuted text-sm sm:text-base leading-relaxed font-light">
+                                The invention of Parian ware allowed manufacturers to cast high-quality sculptural replicas in durable, cleanable biscuit porcelain. Known as "Parian" because it closely mirrored the prized pristine white marble from the Greek island of <span class="text-parianGold font-semibold">Paros</span>.
+                            </p>
+                        </div>
+
+                        <!-- Historical Timeline / Producers Grid -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                            <div class="p-5 rounded-xl border border-parianGold/10 bg-parianCharcoal/40 space-y-2">
+                                <h4 class="font-serif text-parianGold text-lg tracking-wider">Copeland & Garrett</h4>
+                                <p class="text-parianMuted text-xs leading-relaxed">
+                                    The legendary Stoke-on-Trent factory that first manufactured "Statuary Porcelain" in 1842. Famed for partnering with prominent artists of the Royal Academy.
+                                </p>
+                            </div>
+
+                            <div class="p-5 rounded-xl border border-parianGold/10 bg-parianCharcoal/40 space-y-2">
+                                <h4 class="font-serif text-parianGold text-lg tracking-wider">The Great Exhibition of 1851</h4>
+                                <p class="text-parianMuted text-xs leading-relaxed">
+                                    Parian ware was the absolute sensation of Crystal Palace Exhibition, bought directly by Queen Victoria herself and establishing a massive global phenomenon.
+                                </p>
+                            </div>
+
+                            <div class="p-5 rounded-xl border border-parianGold/10 bg-parianCharcoal/40 space-y-2">
+                                <h4 class="font-serif text-parianGold text-lg tracking-wider">Minton Ceramic Works</h4>
+                                <p class="text-parianMuted text-xs leading-relaxed">
+                                    Pioneers of intricate casting, releasing remarkable parian statuettes including masterfully modeled veiled ladies and allegorical classical muses.
+                                </p>
+                            </div>
+
+                            <div class="p-5 rounded-xl border border-parianGold/10 bg-parianCharcoal/40 space-y-2">
+                                <h4 class="font-serif text-parianGold text-lg tracking-wider">Robinson & Leadbeater</h4>
+                                <p class="text-parianMuted text-xs leading-relaxed">
+                                    The ultimate dedicated Parian specialists of the late 19th century, known for breathtaking busts of historical musicians, politicians, and writers.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Educational Timeline Button -->
+                        <div class="pt-4 flex justify-start">
+                            <button onclick="switchTab('catalog-section')" class="px-6 py-3 rounded-full bg-transparent border border-parianGold/30 hover:border-parianGold hover:bg-parianCharcoal text-parianGold text-xs font-semibold tracking-widest uppercase transition-all">
+                                View Archival Pieces <i class="fa-solid fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: THE COLLECTION (Filterable gallery with search, detail inspect, and checkout inquiry) -->
+        <section id="catalog-section" class="tab-content hidden py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Catalog Header -->
+                <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+                    <span class="text-xs uppercase tracking-[0.4em] text-parianGold font-semibold block">Curated Catalogue</span>
+                    <h2 class="font-serif text-3xl sm:text-5xl tracking-wide text-white">The Antique Vault</h2>
+                    <p class="text-parianMuted text-xs sm:text-sm leading-relaxed font-light">
+                        Filter and inspect our collection of genuine mid-to-late Victorian Parian ware statuary. Each piece is meticulously examined for provenance, authenticity, and preservation.
+                    </p>
+                </div>
+
+                <!-- Controls Panel (Search & Filter Tabs) -->
+                <div class="glass-card rounded-2xl p-6 mb-12 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                    <!-- Search Input -->
+                    <div class="relative w-full md:w-80">
+                        <input type="text" id="catalog-search" oninput="filterCatalog()" placeholder="Search pieces..." class="w-full bg-parianDark/80 text-parianSoftWhite border border-parianGold/25 rounded-full py-2.5 pl-10 pr-4 text-xs focus:outline-none focus:border-parianGold transition-all">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-parianMuted text-xs"></i>
+                    </div>
+
+                    <!-- Filter Tabs -->
+                    <div class="flex flex-wrap items-center gap-2" id="filter-container">
+                        <button onclick="filterCategory('All')" class="filter-tab active px-4 py-2 rounded-full border border-parianGold bg-parianGold text-parianDark text-[10px] sm:text-xs font-bold tracking-widest uppercase transition-all">All</button>
+                        <button onclick="filterCategory('Bust')" class="filter-tab px-4 py-2 rounded-full border border-parianGold/25 hover:border-parianGold text-parianSoftWhite text-[10px] sm:text-xs font-bold tracking-widest uppercase transition-all">Busts</button>
+                        <button onclick="filterCategory('Figure')" class="filter-tab px-4 py-2 rounded-full border border-parianGold/25 hover:border-parianGold text-parianSoftWhite text-[10px] sm:text-xs font-bold tracking-widest uppercase transition-all">Figures</button>
+                        <button onclick="filterCategory('Veiled')" class="filter-tab px-4 py-2 rounded-full border border-parianGold/25 hover:border-parianGold text-parianSoftWhite text-[10px] sm:text-xs font-bold tracking-widest uppercase transition-all">Veiled</button>
+                    </div>
+
+                    <!-- Sort -->
+                    <div class="flex items-center space-x-3 text-xs">
+                        <span class="text-parianMuted uppercase tracking-wider text-[10px]">Sort By:</span>
+                        <select id="catalog-sort" onchange="sortCatalog()" class="bg-parianDark border border-parianGold/25 text-parianSoftWhite text-xs rounded-full px-3 py-1.5 focus:outline-none focus:border-parianGold">
+                            <option value="name">Name</option>
+                            <option value="price-asc">Price: Low to High</option>
+                            <option value="price-desc">Price: High to Low</option>
+                            <option value="era">Era/Age</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Catalog Grid -->
+                <div id="catalog-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Dynamic collection cards will be injected by JavaScript -->
+                </div>
+
+                <!-- Empty State -->
+                <div id="catalog-empty" class="hidden text-center py-24 glass-card rounded-2xl border border-parianGold/10">
+                    <i class="fa-solid fa-hourglass-empty text-parianGold/40 text-4xl mb-4"></i>
+                    <p class="font-serif text-lg">No matching antiques found</p>
+                    <p class="text-parianMuted text-xs mt-1">Try adjusting your filters or search keywords</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 4: THE EXHIBITION SIMULATOR (Highly functional 3D pedestal lighting experience) -->
+        <section id="simulator-section" class="tab-content hidden py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Header -->
+                <div class="text-center max-w-2xl mx-auto mb-12 space-y-4">
+                    <span class="text-xs uppercase tracking-[0.4em] text-parianGold font-semibold block">Interactive Experience</span>
+                    <h2 class="font-serif text-3xl sm:text-5xl tracking-wide text-white">The Exhibition Studio</h2>
+                    <p class="text-parianMuted text-xs sm:text-sm leading-relaxed font-light">
+                        Step into a virtual museum exhibit. Interact with neoclassical Parian ware sculptures, test atmospheric lighting configurations, and choose marble pedestals to visualize how these masterpieces grace a real space.
+                    </p>
+                </div>
+
+                <!-- Interactive Simulator Studio Core Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">
+                    
+                    <!-- Left Sidebar - Controls Panel -->
+                    <div class="lg:col-span-4 flex flex-col justify-between space-y-6 glass-card rounded-2xl p-6 border border-parianGold/20">
+                        <div class="space-y-6">
+                            <!-- Sculptural Piece Select -->
+                            <div class="space-y-3">
+                                <label class="text-xs text-parianGold uppercase tracking-[0.2em] font-semibold">1. Choose Sculpture</label>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <button onclick="setSimSculpture('apollo')" id="sim-btn-apollo" class="sim-sculpture-btn active py-3 px-4 rounded-xl border border-parianGold bg-parianGold/10 text-xs font-semibold tracking-wider text-white hover:border-parianGold transition-all">
+                                        Apollo Belvedere
+                                    </button>
+                                    <button onclick="setSimSculpture('veiled')" id="sim-btn-veiled" class="sim-sculpture-btn py-3 px-4 rounded-xl border border-parianGold/10 hover:border-parianGold/50 text-xs font-semibold tracking-wider text-parianSoftWhite/70 hover:text-white transition-all">
+                                        The Veiled Bride
+                                    </button>
+                                    <button onclick="setSimSculpture('clio')" id="sim-btn-clio" class="sim-sculpture-btn py-3 px-4 rounded-xl border border-parianGold/10 hover:border-parianGold/50 text-xs font-semibold tracking-wider text-parianSoftWhite/70 hover:text-white transition-all">
+                                        Clio (Greek Muse)
+                                    </button>
+                                    <button onclick="setSimSculpture('psyche')" id="sim-btn-psyche" class="sim-sculpture-btn py-3 px-4 rounded-xl border border-parianGold/10 hover:border-parianGold/50 text-xs font-semibold tracking-wider text-parianSoftWhite/70 hover:text-white transition-all">
+                                        Psyche Revived
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Pedestal Material Selector -->
+                            <div class="space-y-3">
+                                <label class="text-xs text-parianGold uppercase tracking-[0.2em] font-semibold block">2. Select Pedestal</label>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <button onclick="setSimPedestal('carrara')" id="ped-btn-carrara" class="sim-pedestal-btn active py-2 rounded-lg border border-parianGold text-[10px] tracking-wider uppercase bg-white/5 text-white">Carrara Marble</button>
+                                    <button onclick="setSimPedestal('imperial')" id="ped-btn-imperial" class="sim-pedestal-btn py-2 rounded-lg border border-parianGold/15 hover:border-parianGold/50 text-[10px] tracking-wider uppercase text-parianMuted">Imperial Gold</button>
+                                    <button onclick="setSimPedestal('basalt')" id="ped-btn-basalt" class="sim-pedestal-btn py-2 rounded-lg border border-parianGold/15 hover:border-parianGold/50 text-[10px] tracking-wider uppercase text-parianMuted">Black Basalt</button>
+                                </div>
+                            </div>
+
+                            <!-- Lighting Configuration Options -->
+                            <div class="space-y-4">
+                                <label class="text-xs text-parianGold uppercase tracking-[0.2em] font-semibold block">3. Adjust Atmospheric Lights</label>
+                                
+                                <!-- Spotlight Color -->
+                                <div class="space-y-2">
+                                    <span class="text-[10px] uppercase text-parianMuted tracking-wider block">Light Tone (Color)</span>
+                                    <div class="flex items-center space-x-3">
+                                        <button onclick="setSimLightColor('warm')" class="w-7 h-7 rounded-full bg-[#fce7c0] border-2 border-parianGold shadow-md focus:outline-none" title="Museum Warm Glow"></button>
+                                        <button onclick="setSimLightColor('white')" class="w-7 h-7 rounded-full bg-[#ffffff] border-2 border-transparent hover:border-parianGold shadow-md focus:outline-none" title="Pristine Gallery White"></button>
+                                        <button onclick="setSimLightColor('blue')" class="w-7 h-7 rounded-full bg-[#cbdff7] border-2 border-transparent hover:border-parianGold shadow-md focus:outline-none" title="Mystic Lunar Blue"></button>
+                                    </div>
+                                </div>
+
+                                <!-- Spotlight Intensity -->
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-[10px] uppercase text-parianMuted tracking-wider">
+                                        <span>Light Intensity</span>
+                                        <span id="light-intensity-label">70%</span>
+                                    </div>
+                                    <input type="range" id="light-intensity" min="20" max="100" value="70" oninput="updateSimulatorLights()" class="w-full accent-parianGold bg-parianDark rounded-lg appearance-none h-1 cursor-pointer">
+                                </div>
+
+                                <!-- Shadows direction/angle -->
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-[10px] uppercase text-parianMuted tracking-wider">
+                                        <span>Spotlight Angle</span>
+                                        <span id="light-angle-label">15°</span>
+                                    </div>
+                                    <input type="range" id="light-angle" min="-60" max="60" value="15" oninput="updateSimulatorLights()" class="w-full accent-parianGold bg-parianDark rounded-lg appearance-none h-1 cursor-pointer">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Inquiry CTA linking current selection to cart -->
+                        <div class="pt-4 border-t border-parianGold/10">
+                            <button onclick="addSelectedSimToCart()" class="w-full py-3.5 rounded-full bg-parianGold hover:bg-parianGoldHover text-parianDark font-bold text-xs tracking-widest uppercase transition-all shadow-lg shadow-parianGold/10">
+                                Inquire About Selected Work
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right Display Screen (Recreates high quality atmospheric render) -->
+                    <div class="lg:col-span-8 flex flex-col justify-between glass-card rounded-2xl border border-parianGold/20 relative overflow-hidden min-h-[500px]">
+                        <!-- Dynamic Background Ambient Lighting Overlay -->
+                        <div id="sim-light-glow" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full blur-[100px] pointer-events-none transition-all duration-500 opacity-60" style="background-color: #fce7c0;"></div>
+
+                        <!-- Top Interactive Tooltip Header -->
+                        <div class="p-6 relative z-10 flex items-center justify-between border-b border-parianGold/5">
+                            <div>
+                                <h3 id="sim-title" class="font-serif text-xl tracking-wider text-white">Apollo Belvedere Bust</h3>
+                                <p id="sim-era" class="text-[10px] uppercase tracking-[0.2em] text-parianGold mt-0.5">Circa 1855 • Copeland</p>
+                            </div>
+                            <span class="px-3 py-1 rounded-full border border-parianGold/20 text-[9px] uppercase tracking-widest text-parianGold bg-parianCharcoal">Interactive Studio</span>
+                        </div>
+
+                        <!-- Canvas/Illustration Frame -->
+                        <div class="flex-grow flex flex-col justify-end items-center relative py-12">
+                            
+                            <!-- Classical background architecture details (Neoclassical column silhouette in gold lines) -->
+                            <div class="absolute inset-x-0 bottom-32 top-12 flex justify-between px-16 pointer-events-none opacity-20">
+                                <div class="w-[1px] h-full bg-gradient-to-t from-parianGold to-transparent"></div>
+                                <div class="w-[1px] h-full bg-gradient-to-t from-parianGold to-transparent"></div>
+                            </div>
+
+                            <!-- Main Dynamic Sculpture Graphics Display Box -->
+                            <div class="w-[300px] h-[300px] relative z-10 flex flex-col items-center justify-end">
+                                
+                                <!-- Dynamic Render Spot SVG -->
+                                <div id="sim-sculpture-wrapper" class="w-full h-full flex justify-center items-center transform transition-transform duration-500">
+                                    <!-- Dynamic SVG injected by JS (setSimSculpture) -->
+                                </div>
+
+                                <!-- Pedestal base drawing matching state -->
+                                <div id="sim-pedestal" class="w-[180px] h-[100px] -mt-16 relative z-0 transition-all duration-500">
+                                    <!-- Pedestal Pillar Graphic -->
+                                    <svg class="w-full h-full" viewBox="0 0 180 100" xmlns="http://www.w3.org/2000/svg">
+                                        <!-- Top Plate -->
+                                        <ellipse cx="90" cy="20" rx="60" ry="10" id="ped-top" fill="#ffffff" stroke="#c9c3b8" stroke-width="0.5"/>
+                                        <!-- Column Pillar shaft -->
+                                        <path d="M45,20 Q90,30 135,20 L130,85 Q90,95 50,85 Z" id="ped-shaft" fill="#f4eee3" opacity="0.9"/>
+                                        <!-- Column fluting detail line -->
+                                        <path d="M65,24 Q90,34 115,24 L110,83 Q90,93 70,83 Z" fill="none" id="ped-fluting" stroke="#d5cebf" stroke-width="0.75"/>
+                                        <!-- Bottom base -->
+                                        <ellipse cx="90" cy="85" rx="55" ry="12" id="ped-base" fill="#e8e2d7"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Base Information Grid -->
+                        <div class="p-6 relative z-10 border-t border-parianGold/10 bg-parianCharcoal/80 flex flex-wrap justify-between items-center text-xs">
+                            <div class="flex space-x-6">
+                                <div>
+                                    <span class="text-parianMuted text-[10px] uppercase block">Material Accent</span>
+                                    <span class="text-parianSoftWhite font-semibold">Fine Biscuit Statuary Porcelain</span>
+                                </div>
+                                <div>
+                                    <span class="text-parianMuted text-[10px] uppercase block">Height</span>
+                                    <span id="sim-height" class="text-parianSoftWhite font-semibold">14.5 Inches</span>
+                                </div>
+                                <div>
+                                    <span class="text-parianMuted text-[10px] uppercase block">Value Est.</span>
+                                    <span id="sim-price" class="text-parianGold font-semibold">£1,450 GBP</span>
+                                </div>
+                            </div>
+                            <button onclick="openExhibitionDetails()" class="text-parianGold hover:text-parianGoldHover transition-colors text-[11px] font-bold uppercase tracking-widest mt-4 sm:mt-0">
+                                View Archival Profile <i class="fa-solid fa-arrow-up-right-from-square ml-1.5 text-[9px]"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: CONTACT & Private Valuation Desk -->
+        <section id="contact-section" class="tab-content hidden py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    
+                    <!-- Form Contact Info (Neoclassical styled editorial section) -->
+                    <div class="lg:col-span-5 space-y-8">
+                        <div class="space-y-4">
+                            <span class="text-xs uppercase tracking-[0.4em] text-parianGold font-semibold block">Private Office</span>
+                            <h2 class="font-serif text-3xl sm:text-5xl tracking-wide text-white">Consignment & Inquiries</h2>
+                            <p class="text-parianMuted text-sm leading-relaxed font-light">
+                                Our private curation room is at your disposal. Whether you wish to acquire museum-level Victorian sculpture or submit an authentic Parian ware antique for professional valuation, we look forward to hearing from you.
+                            </p>
+                        </div>
+
+                        <!-- Contact Details cards -->
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-4 p-5 rounded-2xl glass-card border border-parianGold/10">
+                                <div class="p-3 bg-parianGold/10 rounded-full border border-parianGold/30 text-parianGold">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div class="space-y-1">
+                                    <h4 class="font-serif text-parianSoftWhite font-semibold text-sm">London Gallery Office</h4>
+                                    <p class="text-parianMuted text-xs leading-relaxed">Mayfair Curio Quarter, Bond St, London, UK</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-4 p-5 rounded-2xl glass-card border border-parianGold/10">
+                                <div class="p-3 bg-parianGold/10 rounded-full border border-parianGold/30 text-parianGold">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+                                <div class="space-y-1">
+                                    <h4 class="font-serif text-parianSoftWhite font-semibold text-sm">Electronic Correspondence</h4>
+                                    <p class="text-parianMuted text-xs leading-relaxed">curator@antiqueparian.com</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-4 p-5 rounded-2xl glass-card border border-parianGold/10">
+                                <div class="p-3 bg-parianGold/10 rounded-full border border-parianGold/30 text-parianGold">
+                                    <i class="fa-solid fa-shield-halved"></i>
+                                </div>
+                                <div class="space-y-1">
+                                    <h4 class="font-serif text-parianSoftWhite font-semibold text-sm">Security & Packaging Promise</h4>
+                                    <p class="text-parianMuted text-xs leading-relaxed">All works shipped via private climate-controlled art transit curators worldwide.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Inquiry Form -->
+                    <div class="lg:col-span-7 glass-card rounded-2xl p-8 border border-parianGold/25">
+                        <h3 class="font-serif text-2xl text-white tracking-wider mb-6">Submit Private Correspondence</h3>
+                        
+                        <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label class="text-[10px] uppercase text-parianMuted tracking-wider font-semibold">Given Name</label>
+                                    <input type="text" required class="w-full bg-parianDark/80 border border-parianGold/20 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-parianGold transition-all">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-[10px] uppercase text-parianMuted tracking-wider font-semibold">Contact Email</label>
+                                    <input type="email" required class="w-full bg-parianDark/80 border border-parianGold/20 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-parianGold transition-all">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label class="text-[10px] uppercase text-parianMuted tracking-wider font-semibold">Inquiry Nature</label>
+                                    <select id="inquiry-type" class="w-full bg-parianDark/80 border border-parianGold/20 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-parianGold transition-all">
+                                        <option value="Acquisition">Acquisition & Buying Inquiry</option>
+                                        <option value="Consignment / Valuation">Consignment / Valuation Estimation</option>
+                                        <option value="Private Exhibition">Private Exhibition Request</option>
+                                        <option value="General Historical Curio">General Historical Query</option>
+                                    </select>
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-[10px] uppercase text-parianMuted tracking-wider font-semibold">Subject Matter</label>
+                                    <input type="text" id="inquiry-subject" placeholder="e.g. Copeland Apollo Bust" class="w-full bg-parianDark/80 border border-parianGold/20 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-parianGold transition-all">
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="text-[10px] uppercase text-parianMuted tracking-wider font-semibold">Detailed Message</label>
+                                <textarea rows="5" required placeholder="Describe the historical piece or specify questions regarding custom delivery..." class="w-full bg-parianDark/80 border border-parianGold/20 rounded-xl p-4 text-xs text-white focus:outline-none focus:border-parianGold transition-all resize-none"></textarea>
+                            </div>
+
+                            <!-- Interactive Recaptcha Checkbox (Mocked beautifully with custom UI) -->
+                            <div class="flex items-center space-x-3 p-4 bg-parianDark/50 rounded-xl border border-parianGold/10">
+                                <input type="checkbox" id="human-check" required class="accent-parianGold w-4 h-4 cursor-pointer">
+                                <label for="human-check" class="text-[11px] text-parianMuted cursor-pointer select-none">I confirm I am a serious antique collector and represent an authentic physical entity.</label>
+                            </div>
+
+                            <button type="submit" class="w-full py-4 rounded-full bg-gradient-to-r from-parianGold to-parianGold/80 hover:from-parianGoldHover hover:to-parianGold text-parianDark font-bold text-xs tracking-widest uppercase transition-all shadow-xl shadow-parianGold/10">
+                                Dispatch Correspondence <i class="fa-solid fa-paper-plane ml-2"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- SIDEBAR SLIDE-OVER: INQUIRY CART (To showcase complete acquisition booking system) -->
+    <div id="inquiry-sheet" class="fixed inset-y-0 right-0 w-full sm:w-[450px] bg-parianCharcoal border-l border-parianGold/20 z-50 transform translate-x-full transition-transform duration-300 shadow-2xl flex flex-col justify-between">
+        
+        <!-- Header -->
+        <div class="p-6 border-b border-parianGold/10 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <i class="fa-solid fa-cube text-parianGold text-lg"></i>
+                <h3 class="font-serif text-lg tracking-wider text-white">Private Inquiry List</h3>
+            </div>
+            <button onclick="toggleInquirySheet()" class="p-2 hover:text-parianGold focus:outline-none">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+
+        <!-- Scrollable Items Area -->
+        <div class="flex-grow p-6 overflow-y-auto space-y-6" id="inquiry-items-container">
+            <!-- Dynamic selection rows will be injected by JavaScript -->
+        </div>
+
+        <!-- Footer Checkout Section -->
+        <div class="p-6 border-t border-parianGold/15 bg-parianDark">
+            <div class="flex justify-between items-center mb-6 text-xs">
+                <span class="text-parianMuted uppercase tracking-wider">Estimated Collective Value</span>
+                <span id="collective-price" class="text-parianGold text-base font-bold">£0 GBP</span>
+            </div>
+
+            <!-- Flow Actions -->
+            <div class="space-y-3">
+                <button onclick="openCartCheckout()" id="cart-cta" class="w-full py-3.5 rounded-full bg-parianGold hover:bg-parianGoldHover text-parianDark font-bold text-xs tracking-widest uppercase transition-all">
+                    Initiate Private Inquiries
+                </button>
+                <button onclick="clearCart()" class="w-full py-2.5 rounded-full bg-transparent text-parianMuted hover:text-parianSoftWhite text-[10px] tracking-wider uppercase transition-all">
+                    Clear Selection
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEMI-TRANSPARENT BACKDROP FOR MODALS -->
+    <div id="backdrop" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-40 hidden" onclick="closeAllModals()"></div>
+
+    <!-- DIALOG MODAL: PIECE DETAIL VIEWER -->
+    <div id="detail-modal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-11/12 max-w-2xl bg-parianCharcoal border border-parianGold/30 rounded-2xl z-50 hidden p-6 md:p-8 shadow-2xl transition-all">
+        <!-- Close Button -->
+        <button onclick="closeAllModals()" class="absolute top-4 right-4 text-parianMuted hover:text-parianGold transition-colors">
+            <i class="fa-solid fa-xmark text-xl"></i>
+        </button>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center pt-4">
+            <!-- Render Illustration -->
+            <div class="w-full aspect-square bg-parianDark/50 rounded-xl p-4 flex justify-center items-center border border-parianGold/10 relative">
+                <div class="absolute inset-0 bg-radial-glow opacity-10 rounded-xl"></div>
+                <div id="modal-art-container" class="w-[85%] h-[85%] flex items-center justify-center"></div>
+            </div>
+
+            <!-- Piece Details -->
+            <div class="space-y-4">
+                <span id="modal-tag" class="px-3 py-1 rounded-full border border-parianGold/30 text-[9px] uppercase tracking-widest text-parianGold bg-parianDark inline-block">Bust</span>
+                <h3 id="modal-name" class="font-serif text-2xl text-white tracking-wider">Apollo Statuary</h3>
+                <p id="modal-era" class="text-xs text-parianGold uppercase tracking-wider">Circa 1855 • Copeland & Garrett</p>
+                <p id="modal-description" class="text-parianMuted text-xs leading-relaxed font-light">
+                    Beautifully sculpted bust with delicate neoclassical detailing, capturing light with typical biscuit warmth.
+                </p>
+
+                <!-- Technical Table Spec -->
+                <div class="border-t border-b border-parianGold/10 py-3 text-[11px] space-y-1 text-parianMuted">
+                    <div class="flex justify-between"><span class="uppercase">Maker</span><span class="font-semibold text-parianSoftWhite" id="modal-spec-maker">Copeland</span></div>
+                    <div class="flex justify-between"><span class="uppercase">Material</span><span class="font-semibold text-parianSoftWhite">Biscuit Parian Ware</span></div>
+                    <div class="flex justify-between"><span class="uppercase">Dimensions</span><span class="font-semibold text-parianSoftWhite" id="modal-spec-dims">14.5" Height</span></div>
+                    <div class="flex justify-between"><span class="uppercase">Condition</span><span class="font-semibold text-[#82e0aa]">Excellent (Unrestored)</span></div>
+                </div>
+
+                <div class="flex justify-between items-center pt-2">
+                    <span id="modal-price" class="text-parianGold text-lg font-bold">£1,450 GBP</span>
+                    <button id="modal-cart-btn" onclick="" class="px-5 py-2.5 rounded-full bg-parianGold hover:bg-parianGoldHover text-parianDark text-xs font-bold uppercase tracking-wider transition-all">
+                        Request Viewing
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MOCK NOTIFICATION / STATUS POPUP (Eliminates Alert requirement) -->
+    <div id="notification-toast" class="fixed bottom-6 right-6 px-6 py-4 rounded-xl border border-parianGold/30 bg-parianCharcoal text-parianSoftWhite text-xs tracking-wider font-semibold uppercase flex items-center space-x-3 z-50 transform translate-y-24 opacity-0 transition-all duration-300 shadow-2xl">
+        <i class="fa-solid fa-circle-check text-parianGold text-base"></i>
+        <span id="notification-text">Piece added to Inquiry List!</span>
+    </div>
+
+    <!-- FOOTER (Fully integrated aesthetic closing) -->
+    <footer class="border-t border-parianGold/10 bg-parianDark py-12 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Branding info -->
+                <div class="space-y-4 md:col-span-2">
+                    <span class="font-serif text-lg tracking-[0.3em] text-parianGold uppercase">Antique Parian</span>
+                    <p class="text-parianMuted text-xs leading-relaxed max-w-sm">
+                        Honoring the intricate history, delicate beauty, and classical revival of Victorian biscuit porcelain sculptures. Direct London consignment curation.
+                    </p>
+                    <div class="flex space-x-4 pt-2">
+                        <a href="#" class="p-2.5 rounded-full border border-parianGold/10 text-parianMuted hover:text-parianGold hover:border-parianGold transition-all"><i class="fa-brands fa-pinterest-p"></i></a>
+                        <a href="#" class="p-2.5 rounded-full border border-parianGold/10 text-parianMuted hover:text-parianGold hover:border-parianGold transition-all"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="p-2.5 rounded-full border border-parianGold/10 text-parianMuted hover:text-parianGold hover:border-parianGold transition-all"><i class="fa-brands fa-twitter"></i></a>
+                    </div>
+                </div>
+
+                <!-- Fast Links -->
+                <div class="space-y-3">
+                    <h4 class="font-serif text-parianGold text-xs uppercase tracking-widest font-semibold">Salon Navigation</h4>
+                    <ul class="text-xs text-parianMuted space-y-2 uppercase tracking-wider">
+                        <li><a href="#" onclick="switchTab('hero-section')" class="hover:text-parianGold transition-colors">Return Home</a></li>
+                        <li><a href="#" onclick="switchTab('about-section')" class="hover:text-parianGold transition-colors">Historical Craft</a></li>
+                        <li><a href="#" onclick="switchTab('catalog-section')" class="hover:text-parianGold transition-colors">The Vault Collection</a></li>
+                        <li><a href="#" onclick="switchTab('simulator-section')" class="hover:text-parianGold transition-colors">Exhibition Studio</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter / Sign up -->
+                <div class="space-y-3">
+                    <h4 class="font-serif text-parianGold text-xs uppercase tracking-widest font-semibold">Consignment Releases</h4>
+                    <p class="text-parianMuted text-xs">Receive private listings of new acquisitions before public releases.</p>
+                    <div class="flex space-x-1.5 pt-1">
+                        <input type="email" placeholder="Your email address" class="bg-parianCharcoal border border-parianGold/10 rounded-full px-4 py-2 text-xs text-white focus:outline-none focus:border-parianGold w-full">
+                        <button onclick="showNotification('Subscribed to private catalog!')" class="p-2 bg-parianGold hover:bg-parianGoldHover rounded-full text-parianDark transition-all"><i class="fa-solid fa-chevron-right text-xs"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright Line & Final inspired signature -->
+            <div class="border-t border-parianGold/5 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between text-[10px] text-parianMuted tracking-widest uppercase">
+                <span>© 2026 Antique Parian Salon. All Private Rights Reserved.</span>
+                <span class="mt-2 sm:mt-0">Designed & Curated with Royal Academy Aesthetics</span>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ========================================== -->
+    <!-- MASTER LOGIC / INTERACTIVE CONTROLLERS -->
+    <!-- ========================================== -->
+    <script>
+        // High fidelity vector representations for robust in-site rendering
+        const SVGS = {
+            apollo: `<svg class="w-full h-full" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path d="M70,165 L130,165 L125,185 L75,185 Z" fill="#fcf9f2" stroke="#e4ded5" stroke-width="0.5"/>
+                <ellipse cx="100" cy="165" rx="30" ry="6" fill="#ded7cb"/>
+                <path d="M85,130 L115,130 L110,165 L90,165 Z" fill="#fcf9f2" opacity="0.9"/>
+                <path d="M50,115 C55,100 68,90 75,95 C82,100 85,108 85,120 C85,125 75,132 70,135 C55,132 45,125 50,115 Z" fill="#fcf9f2"/>
+                <path d="M150,115 C145,100 132,90 125,95 C118,100 115,108 115,120 C115,125 125,132 130,135 C145,132 155,125 150,115 Z" fill="#fcf9f2"/>
+                <path d="M60,115 Q100,140 140,115 C145,122 135,135 100,142 C65,135 55,122 60,115 Z" fill="#fcf9f2"/>
+                <path d="M52,112 Q75,130 95,115 Q125,100 148,112 C135,130 65,130 52,112 Z" fill="#e9e5dc" stroke="#c0b8aa" stroke-width="0.5"/>
+                <path d="M68,118 Q100,133 132,118" fill="none" stroke="#b0a89a" stroke-width="0.75"/>
+                <path d="M90,85 L110,85 L112,105 L88,105 Z" fill="#fcf9f2"/>
+                <path d="M88,105 C95,112 105,112 112,105 Z" fill="#ded7cb"/>
+                <path d="M82,58 C82,45 100,35 118,45 C122,55 120,75 115,82 C108,88 95,88 88,82 C82,75 82,65 82,58 Z" fill="#fcf9f2"/>
+                <path d="M102,48 C115,48 118,65 115,82 C102,88 92,75 102,48 Z" fill="#ffffff" opacity="0.5"/>
+                <path d="M80,55 Q74,48 84,40 Q94,32 110,36 Q126,40 120,52 Q115,58 118,62" fill="none" stroke="#cfc9bf" stroke-width="3"/>
+                <path d="M100,48 L100,68 L104,70" fill="none" stroke="#a49c8f" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M96,77 Q100,75 104,77 Q100,80 96,77 Z" fill="#b0a89a" opacity="0.8"/>
+            </svg>`,
+            veiled: `<svg class="w-full h-full" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+                <path d="M65,190 L135,190 L130,225 L70,225 Z" fill="#fdfbfa" stroke="#cfc9bf" stroke-width="0.5"/>
+                <ellipse cx="100" cy="190" rx="35" ry="6" fill="#ded7cb" opacity="0.8"/>
+                <rect x="75" y="150" width="50" height="40" fill="#fdfbfa" opacity="0.9"/>
+                <path d="M45,145 C45,130 55,115 70,118 C85,120 100,122 115,118 C130,115 140,130 140,145 C140,170 120,180 100,180 C80,180 45,170 45,145 Z" fill="#fdfbfa"/>
+                <path d="M78,65 C78,45 92,30 105,32 C118,34 122,50 122,70 C122,88 115,108 100,108 C85,108 78,85 78,65 Z" fill="#fdfbfa"/>
+                <path d="M85,32 Q95,45 90,85 T90,140" fill="none" stroke="rgba(196,186,170,0.5)" stroke-width="1.5"/>
+                <path d="M93,31 Q100,45 100,85 T100,140" fill="none" stroke="rgba(196,186,170,0.6)" stroke-width="2"/>
+                <path d="M103,31 Q105,45 108,85 T110,140" fill="none" stroke="rgba(196,186,170,0.5)" stroke-width="2.5"/>
+                <path d="M82,55 Q100,68 118,55" fill="none" stroke="#d5cebf" stroke-width="0.75" opacity="0.8"/>
+            </svg>`,
+            clio: `<svg class="w-full h-full" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+                <path d="M60,170 L140,170 L135,200 L65,200 Z" fill="#fcf9f5" stroke="#cfc9bf" stroke-width="0.5"/>
+                <ellipse cx="100" cy="170" rx="40" ry="8" fill="#ded7cb"/>
+                <path d="M40,130 C45,110 50,100 65,100 Q100,110 135,100 C150,100 155,110 160,130 C160,150 130,165 100,165 C70,165 40,150 40,130 Z" fill="#fcf9f5"/>
+                <!-- Laurel wreath details -->
+                <path d="M80,50 Q100,38 120,50" fill="none" stroke="#c5a880" stroke-width="2.5"/>
+                <!-- Head -->
+                <path d="M80,68 C80,52 95,42 110,48 C118,54 120,70 118,85 C110,95 90,95 82,85 Z" fill="#fcf9f5"/>
+                <path d="M90,85 C95,92 105,92 110,85 Z" fill="#ded7cb"/>
+                <path d="M98,58 L98,75 L102,77" fill="none" stroke="#a49c8f" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>`,
+            psyche: `<svg class="w-full h-full" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+                <path d="M60,175 L140,175 L135,205 L65,205 Z" fill="#faf6f0" stroke="#cfc9bf" stroke-width="0.5"/>
+                <ellipse cx="100" cy="175" rx="40" ry="8" fill="#ded7cb"/>
+                <!-- Wing silhouettes (Cupid & Psyche motif) -->
+                <path d="M45,80 C30,40 50,20 65,40 C75,55 70,85 70,85 Z" fill="#faf6f0" opacity="0.6"/>
+                <path d="M155,80 C170,40 150,20 135,40 C125,55 130,85 130,85 Z" fill="#faf6f0" opacity="0.6"/>
+                <!-- Two interlinked classical busts -->
+                <path d="M60,130 C60,110 90,110 90,130 C90,150 60,155 60,130 Z" fill="#faf6f0"/>
+                <path d="M110,125 C110,105 140,105 140,125 C140,145 110,150 110,125 Z" fill="#ffffff"/>
+                <path d="M70,95 C70,85 85,75 90,85 C95,95 85,105 70,95 Z" fill="#faf6f0"/>
+                <path d="M115,90 C115,80 130,70 135,80 C140,90 130,100 115,90 Z" fill="#ffffff"/>
+            </svg>`
+        };
+
+        // Static Master Database for the Antique Collection Gallery
+        const COLLECTION = [
+            {
+                id: 'apollo',
+                name: "Apollo Belvedere Bust",
+                category: "Bust",
+                maker: "Copeland & Garrett",
+                era: "Circa 1855",
+                price: 1450,
+                height: "14.5\" Height",
+                description: "Extremely well-preserved classical rendering of Apollo on its original fluted socle. Exhibits incredible depth of facial structure under accent museum lighting.",
+                svgKey: "apollo"
+            },
+            {
+                id: 'veiled',
+                name: "The Veiled Bride",
+                category: "Veiled",
+                maker: "Minton Ceramic Works",
+                era: "Circa 1862",
+                price: 2800,
+                height: "16.0\" Height",
+                description: "An absolute masterwork of sculptural porcelain, featuring incredibly delicate translucent layers portraying a soft bridal veil. Truly premium artifact.",
+                svgKey: "veiled"
+            },
+            {
+                id: 'clio',
+                name: "Clio: Muse of History",
+                category: "Figure",
+                maker: "Robinson & Leadbeater",
+                era: "Circa 1878",
+                price: 1150,
+                height: "15.0\" Height",
+                description: "Delightful allegorical sculpture of Clio, detailed holding a golden brass historical parchment stylus. Complete and flawless condition.",
+                svgKey: "clio"
+            },
+            {
+                id: 'psyche',
+                name: "Psyche Revived Figure",
+                category: "Figure",
+                maker: "Copeland Works",
+                era: "Circa 1851",
+                price: 3400,
+                height: "18.5\" Height",
+                description: "Highly sought after double-statue commemorating classical mythological figures, prepared initially for exhibition display at London Crystal Palace.",
+                svgKey: "psyche"
+            },
+            {
+                id: 'sapho',
+                name: "Sappho of Lesbos",
+                category: "Bust",
+                maker: "Robinson & Leadbeater",
+                era: "Circa 1884",
+                price: 950,
+                height: "12.0\" Height",
+                description: "Delicately crowned with laurel wreaths, Sapphire exudes historical poetry and musical neoclassical grandeur, fitted onto a basalt dark composite socle.",
+                svgKey: "clio" // Fallback to clio profile
+            },
+            {
+                id: 'vestal',
+                name: "The Vestal Virgin",
+                category: "Veiled",
+                maker: "Minton Ceramic Works",
+                era: "Circa 1860",
+                price: 2100,
+                height: "15.5\" Height",
+                description: "Intricately detailed ceremonial veiled priestess. The unglazed finish replicates Carrara marble perfectly with unique matte light absorption.",
+                svgKey: "veiled" // Fallback to veiled profile
+            }
+        ];
+
+        // Global App States
+        let currentTab = 'hero-section';
+        let currentSimSculpture = 'apollo';
+        let currentSimPedestal = 'carrara';
+        let currentSimLightColor = 'warm';
+        let inquiryCart = [];
+
+        // ON LOAD INITIALIZER
+        window.onload = function() {
+            renderCatalog();
+            setSimSculpture('apollo');
+            setSimPedestal('carrara');
+            setSimLightColor('warm');
+            updateCartUI();
+        };
+
+        // Tab Switcher Controller
+        function switchTab(tabId) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            // Show selected tab
+            document.getElementById(tabId).classList.remove('hidden');
+            
+            // Highlight nav link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('border-parianGold', 'text-parianGold');
+                link.classList.add('border-transparent', 'text-parianSoftWhite/85');
+            });
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if (activeNav) {
+                activeNav.classList.remove('border-transparent', 'text-parianSoftWhite/85');
+                activeNav.classList.add('border-parianGold', 'text-parianGold');
+            }
+
+            currentTab = tabId;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Toggle Mobile Navigation Menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                icon.className = 'fa-solid fa-xmark text-xl';
+            } else {
+                menu.classList.add('hidden');
+                icon.className = 'fa-solid fa-bars text-xl';
+            }
+        }
+
+        // --- CATALOG RENDERING & FILTER LOGIC ---
+        let selectedCategory = 'All';
+
+        function filterCategory(category) {
+            selectedCategory = category;
+            
+            // Update filter tabs styling
+            document.querySelectorAll('#filter-container button').forEach(btn => {
+                btn.classList.remove('active', 'bg-parianGold', 'text-parianDark');
+                btn.classList.add('border-parianGold/25', 'text-parianSoftWhite');
+            });
+            
+            // Find active tab and style it
+            const activeTab = Array.from(document.querySelectorAll('#filter-container button')).find(btn => btn.innerText.includes(category === 'All' ? 'All' : category));
+            if (activeTab) {
+                activeTab.classList.add('active', 'bg-parianGold', 'text-parianDark');
+                activeTab.classList.remove('border-parianGold/25', 'text-parianSoftWhite');
+            }
+
+            renderCatalog();
+        }
+
+        function filterCatalog() {
+            renderCatalog();
+        }
+
+        function sortCatalog() {
+            renderCatalog();
+        }
+
+        function renderCatalog() {
+            const searchVal = document.getElementById('catalog-search').value.toLowerCase();
+            const sortBy = document.getElementById('catalog-sort').value;
+            const grid = document.getElementById('catalog-grid');
+            const emptyState = document.getElementById('catalog-empty');
+
+            // Apply Filters
+            let filtered = COLLECTION.filter(item => {
+                const matchesCategory = (selectedCategory === 'All') || (item.category === selectedCategory);
+                const matchesSearch = item.name.toLowerCase().includes(searchVal) || item.maker.toLowerCase().includes(searchVal) || item.description.toLowerCase().includes(searchVal);
+                return matchesCategory && matchesSearch;
+            });
+
+            // Apply Sort
+            filtered.sort((a, b) => {
+                if (sortBy === 'name') {
+                    return a.name.localeCompare(b.name);
+                } else if (sortBy === 'price-asc') {
+                    return a.price - b.price;
+                } else if (sortBy === 'price-desc') {
+                    return b.price - a.price;
+                } else if (sortBy === 'era') {
+                    return a.era.localeCompare(b.era);
+                }
+                return 0;
+            });
+
+            // Update DOM
+            grid.innerHTML = '';
+            if (filtered.length === 0) {
+                grid.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+            } else {
+                grid.classList.remove('hidden');
+                emptyState.classList.add('hidden');
+
+                filtered.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = "group glass-card rounded-2xl overflow-hidden border border-parianGold/15 hover:border-parianGold/40 transition-all duration-300 flex flex-col justify-between shadow-lg";
+                    
+                    card.innerHTML = `
+                        <!-- SVG Art Box -->
+                        <div class="relative aspect-square bg-parianDark/40 p-8 flex items-center justify-center border-b border-parianGold/10 overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-t from-parianCharcoal to-transparent opacity-60"></div>
+                            <div class="w-4/5 h-4/5 flex items-center justify-center transform group-hover:scale-105 transition-transform duration-500">
+                                ${SVGS[item.svgKey] || SVGS['apollo']}
+                            </div>
+                            <!-- Inline Gold circular aura behind illustration -->
+                            <div class="absolute w-[70%] h-[70%] rounded-full border border-dashed border-parianGold/5 pointer-events-none group-hover:border-parianGold/20 transition-all duration-700"></div>
+                        </div>
+
+                        <!-- Info details -->
+                        <div class="p-6 space-y-4 flex-grow flex flex-col justify-between">
+                            <div class="space-y-1">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-[9px] uppercase tracking-widest text-parianGold font-bold">${item.category} Statuary</span>
+                                    <span class="text-[10px] text-parianMuted font-light">${item.era}</span>
+                                </div>
+                                <h3 class="font-serif text-lg text-white group-hover:text-parianGold transition-colors tracking-wide">${item.name}</h3>
+                                <p class="text-parianMuted text-xs font-light line-clamp-2 mt-1 leading-relaxed">${item.description}</p>
+                            </div>
+
+                            <div class="pt-4 border-t border-parianGold/10 flex items-center justify-between">
+                                <div class="flex flex-col">
+                                    <span class="text-[8px] uppercase tracking-widest text-parianMuted">Acquisition Est.</span>
+                                    <span class="text-parianGold font-bold text-sm">£${item.price.toLocaleString()} GBP</span>
+                                </div>
+                                
+                                <div class="flex items-center space-x-2">
+                                    <button onclick="openInspectModal('${item.id}')" class="p-2 border border-parianGold/20 hover:border-parianGold/50 rounded-full hover:bg-parianDark text-parianSoftWhite hover:text-parianGold text-xs transition-colors" title="Inspect Specification Details">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                    <button onclick="addPieceToCart('${item.id}')" class="px-3.5 py-2 rounded-full bg-parianGold hover:bg-parianGoldHover text-parianDark text-[10px] font-bold tracking-widest uppercase transition-all">
+                                        Inquire
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            }
+        }
+
+        // --- THE EXHIBITION SIMULATOR CORE FUNCTIONS ---
+        function setSimSculpture(sculptureKey) {
+            currentSimSculpture = sculptureKey;
+            
+            // Set Active Button styling
+            document.querySelectorAll('.sim-sculpture-btn').forEach(btn => {
+                btn.classList.remove('active', 'border-parianGold', 'bg-parianGold/10');
+                btn.classList.add('border-parianGold/10', 'text-parianSoftWhite/70');
+            });
+            const activeBtn = document.getElementById(`sim-btn-${sculptureKey}`);
+            if (activeBtn) {
+                activeBtn.classList.add('active', 'border-parianGold', 'bg-parianGold/10');
+                activeBtn.classList.remove('border-parianGold/10', 'text-parianSoftWhite/70');
+            }
+
+            // Sync Database Details to Simulator Panel
+            const dbPiece = COLLECTION.find(i => i.id === sculptureKey);
+            if (dbPiece) {
+                document.getElementById('sim-title').innerText = dbPiece.name;
+                document.getElementById('sim-era').innerText = `${dbPiece.era} • ${dbPiece.maker}`;
+                document.getElementById('sim-height').innerText = dbPiece.height;
+                document.getElementById('sim-price').innerText = `£${dbPiece.price.toLocaleString()} GBP`;
+            }
+
+            // Inject Sculpture SVG inside wrapper
+            const container = document.getElementById('sim-sculpture-wrapper');
+            container.innerHTML = SVGS[sculptureKey] || SVGS['apollo'];
+            
+            updateSimulatorLights();
+        }
+
+        function setSimPedestal(pedestalType) {
+            currentSimPedestal = pedestalType;
+            
+            // Set active button
+            document.querySelectorAll('.sim-pedestal-btn').forEach(btn => {
+                btn.classList.remove('active', 'border-parianGold', 'text-white');
+                btn.classList.add('border-parianGold/15', 'text-parianMuted');
+            });
+            document.getElementById(`ped-btn-${pedestalType}`).classList.add('active', 'border-parianGold', 'text-white');
+
+            const pedTop = document.getElementById('ped-top');
+            const pedShaft = document.getElementById('ped-shaft');
+            const pedFluting = document.getElementById('ped-fluting');
+            const pedBase = document.getElementById('ped-base');
+
+            // Apply different color schemes directly onto the vector pedestal elements
+            if (pedestalType === 'carrara') {
+                pedTop.setAttribute('fill', '#ffffff');
+                pedTop.setAttribute('stroke', '#c9c3b8');
+                pedShaft.setAttribute('fill', '#f4eee3');
+                pedFluting.setAttribute('stroke', '#d5cebf');
+                pedBase.setAttribute('fill', '#e8e2d7');
+            } else if (pedestalType === 'imperial') {
+                pedTop.setAttribute('fill', '#d4af37');
+                pedTop.setAttribute('stroke', '#bda890');
+                pedShaft.setAttribute('fill', '#2e2617');
+                pedFluting.setAttribute('stroke', '#d4af37');
+                pedBase.setAttribute('fill', '#453a25');
+            } else if (pedestalType === 'basalt') {
+                pedTop.setAttribute('fill', '#1a1b1b');
+                pedTop.setAttribute('stroke', '#333');
+                pedShaft.setAttribute('fill', '#262828');
+                pedFluting.setAttribute('stroke', '#111111');
+                pedBase.setAttribute('fill', '#1c1d1d');
+            }
+        }
+
+        function setSimLightColor(color) {
+            currentSimLightColor = color;
+            updateSimulatorLights();
+        }
+
+        function updateSimulatorLights() {
+            const intensity = document.getElementById('light-intensity').value;
+            const angle = document.getElementById('light-angle').value;
+            
+            // Update UI slider labels
+            document.getElementById('light-intensity-label').innerText = `${intensity}%`;
+            document.getElementById('light-angle-label').innerText = `${angle}°`;
+
+            // Atmospheric Glow overlay color & opacity calculation
+            const glow = document.getElementById('sim-light-glow');
+            let colorHex = '#fce7c0'; // Warm
+            if (currentSimLightColor === 'white') colorHex = '#ffffff';
+            if (currentSimLightColor === 'blue') colorHex = '#cbdff7';
+
+            glow.style.backgroundColor = colorHex;
+            glow.style.opacity = intensity / 130;
+            
+            // Adjust position of spotlight based on light angle
+            const offsetMultiplier = 2.5;
+            glow.style.transform = `translate(calc(-50% + ${angle * offsetMultiplier}px), -50%)`;
+
+            // Apply shadow direction shift to the vector statue display
+            const statueWrapper = document.getElementById('sim-sculpture-wrapper');
+            const shadowX = -angle / 3;
+            const shadowBlur = 30 - (intensity / 5);
+            statueWrapper.style.filter = `drop-shadow(${shadowX}px 18px ${shadowBlur}px rgba(255, 255, 255, ${intensity/300}))`;
+        }
+
+        // Add selected statue from the interactive room into standard checkout
+        function addSelectedSimToCart() {
+            addPieceToCart(currentSimSculpture);
+        }
+
+        // Open specific spec inside detail modal
+        function openExhibitionDetails() {
+            openInspectModal(currentSimSculpture);
+        }
+
+        // --- SPEC DETAILS MODAL SYSTEM ---
+        function openInspectModal(pieceId) {
+            const item = COLLECTION.find(i => i.id === pieceId);
+            if (!item) return;
+
+            document.getElementById('modal-name').innerText = item.name;
+            document.getElementById('modal-era').innerText = `${item.era} • ${item.maker}`;
+            document.getElementById('modal-description').innerText = item.description;
+            document.getElementById('modal-tag').innerText = `${item.category} Statuary`;
+            document.getElementById('modal-spec-maker').innerText = item.maker;
+            document.getElementById('modal-spec-dims').innerText = item.height;
+            document.getElementById('modal-price').innerText = `£${item.price.toLocaleString()} GBP`;
+            
+            // Inject correct SVG illustration
+            document.getElementById('modal-art-container').innerHTML = SVGS[item.svgKey] || SVGS['apollo'];
+
+            // Set Action Button functionality
+            const actionBtn = document.getElementById('modal-cart-btn');
+            actionBtn.setAttribute('onclick', `addPieceToCart('${item.id}'); closeAllModals();`);
+
+            // Show Modals
+            document.getElementById('detail-modal').classList.remove('hidden');
+            document.getElementById('backdrop').classList.remove('hidden');
+        }
+
+        function closeAllModals() {
+            document.getElementById('detail-modal').classList.add('hidden');
+            document.getElementById('backdrop').classList.add('hidden');
+        }
+
+
+        // --- INQUIRY CART & ACQUISITION MANAGEMENT ---
+        function addPieceToCart(pieceId) {
+            const item = COLLECTION.find(i => i.id === pieceId);
+            if (!item) return;
+
+            // Check if already in cart
+            if (inquiryCart.some(i => i.id === pieceId)) {
+                showNotification("Piece is already on inquiry list!");
+                return;
+            }
+
+            inquiryCart.push(item);
+            updateCartUI();
+            showNotification(`Added ${item.name} to List!`);
+        }
+
+        function removeCartItem(pieceId) {
+            inquiryCart = inquiryCart.filter(item => item.id !== pieceId);
+            updateCartUI();
+            showNotification("Removed item from inquiry list");
+        }
+
+        function clearCart() {
+            inquiryCart = [];
+            updateCartUI();
+            showNotification("Inquiry selection cleared");
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('inquiry-items-container');
+            const cartDot = document.getElementById('cart-dot');
+            const cartCount = document.getElementById('cart-count');
+            const collectivePriceText = document.getElementById('collective-price');
+
+            if (inquiryCart.length === 0) {
+                cartDot.classList.add('hidden');
+                cartCount.classList.add('hidden');
+                container.innerHTML = `
+                    <div class="text-center py-16 text-parianMuted space-y-4">
+                        <i class="fa-solid fa-cube text-3xl opacity-35 block"></i>
+                        <p class="text-xs uppercase tracking-wider">Your Inquiry List is Empty</p>
+                        <p class="text-[11px] leading-relaxed font-light">Explore our historical catalog or interactive studio to select classical pieces.</p>
+                        <button onclick="toggleInquirySheet(); switchTab('catalog-section');" class="mt-4 px-4 py-2 border border-parianGold/30 text-parianGold text-[10px] font-bold tracking-widest uppercase rounded-full">Explore Vault</button>
+                    </div>
+                `;
+                collectivePriceText.innerText = `£0 GBP`;
+            } else {
+                cartDot.classList.remove('hidden');
+                cartCount.classList.remove('hidden');
+                cartCount.innerText = inquiryCart.length;
+
+                container.innerHTML = '';
+                let total = 0;
+
+                inquiryCart.forEach(item => {
+                    total += item.price;
+                    const itemRow = document.createElement('div');
+                    itemRow.className = "flex items-center justify-between p-4 bg-parianDark/60 rounded-xl border border-parianGold/10";
+                    itemRow.innerHTML = `
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-parianCharcoal rounded flex items-center justify-center border border-parianGold/20 p-1">
+                                ${SVGS[item.svgKey] || SVGS['apollo']}
+                            </div>
+                            <div>
+                                <h4 class="font-serif text-sm text-white">${item.name}</h4>
+                                <p class="text-[10px] text-parianGold">${item.era}</p>
+                            </div>
+                        </div>
+                        <div class="text-right flex flex-col items-end space-y-1">
+                            <span class="text-parianGold font-bold text-xs">£${item.price.toLocaleString()}</span>
+                            <button onclick="removeCartItem('${item.id}')" class="text-red-400 hover:text-red-500 text-[10px] uppercase tracking-wider">Remove</button>
+                        </div>
+                    `;
+                    container.appendChild(itemRow);
+                });
+
+                collectivePriceText.innerText = `£${total.toLocaleString()} GBP`;
+            }
+        }
+
+        // Toggle Sidebar Cart Drawer
+        function toggleInquirySheet() {
+            const sheet = document.getElementById('inquiry-sheet');
+            if (sheet.classList.contains('translate-x-full')) {
+                sheet.classList.remove('translate-x-full');
+            } else {
+                sheet.classList.add('translate-x-full');
+            }
+        }
+
+        // Checkout Cart Trigger (Links selection directly to inquiry form)
+        function openCartCheckout() {
+            if (inquiryCart.length === 0) {
+                showNotification("Add some items to inquire first!");
+                return;
+            }
+            toggleInquirySheet();
+            switchTab('contact-section');
+            
+            // Auto fill subject line with selection
+            const listNames = inquiryCart.map(item => item.name).join(', ');
+            prefillInquiry(`Acquisition of: ${listNames}`);
+        }
+
+        function prefillInquiry(subjectText) {
+            const field = document.getElementById('inquiry-subject');
+            if (field) {
+                field.value = subjectText;
+            }
+        }
+
+        // --- CONTACT DISPATCH AND VALUATION FORM HANDLER ---
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            // Display Custom Success Feedback Modally (Eliminating bad alerts)
+            showNotification("Dispatching Correspondence...");
+            
+            setTimeout(() => {
+                // Clear selection states & display beautiful notification
+                inquiryCart = [];
+                updateCartUI();
+                event.target.reset();
+                showNotification("Correspondence safely dispatched! Our Mayfair Curator will reach out shortly.");
+            }, 1200);
+        }
+
+        // Custom Toast Notification System
+        let toastTimeout;
+        function showNotification(message) {
+            const toast = document.getElementById('notification-toast');
+            const text = document.getElementById('notification-text');
+            
+            clearTimeout(toastTimeout);
+            text.innerText = message;
+            
+            // Pop Toast up smoothly
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            // Slide back down
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 4500);
+        }
+    </script>
+</body>
+</html>
+7

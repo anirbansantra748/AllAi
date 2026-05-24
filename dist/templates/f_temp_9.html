@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HEX — AI 3D Generation Platform</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- FontAwesome Icons for modern, sharp UI elements -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts: Inter for premium, high-tech, balanced typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Three.js Library for high-budget, real-time interactive 3D simulations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              bg: '#b5c1cb',       // Primary slate grey-blue background of image
+              lightBg: '#d6dee3',  // Slightly lighter variant for contrast
+              cardBlue: '#7297b4', // Beautiful medium steel blue
+              darkBlue: '#1d2a3a', // Rich obsidian blue
+              accentOrange: '#f47a60',
+              accentCyan: '#55e0ff',
+              paper: '#f3f6f8',    // Super light neutral
+              pureWhite: '#ffffff',
+            }
+          },
+          borderRadius: {
+            '4xl': '2rem',
+            '5xl': '2.5rem',
+          },
+          animation: {
+            'spin-slow': 'spin 20s linear infinite',
+            'pulse-soft': 'pulseSoft 3s ease-in-out infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'scan': 'scanLine 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom keyframes & custom scrollbar to match high-budget design standards */
+    @keyframes pulseSoft {
+      0%, 100% { opacity: 0.8; transform: scale(1); filter: drop-shadow(0 0 4px rgba(85, 224, 255, 0.4)); }
+      50% { opacity: 1; transform: scale(1.05); filter: drop-shadow(0 0 12px rgba(85, 224, 255, 0.8)); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    @keyframes scanLine {
+      0% { top: 0%; }
+      50% { top: 100%; }
+      100% { top: 0%; }
+    }
+
+    /* Custom scrollbar matching sleek theme */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #d6dee3;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #7297b4;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #1d2a3a;
+    }
+
+    /* Smooth transition presets */
+    .premium-transition {
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+  </style>
+</head>
+
+<body class="bg-[#b3c1cd] font-sans text-[#1d2a3a] overflow-x-hidden relative min-h-screen selection:bg-brand-cardBlue selection:text-white">
+
+  <!-- ================= NAV BAR / HEADER ================= -->
+  <header class="w-full px-6 py-4 max-w-[1400px] mx-auto flex items-center justify-between">
+    <!-- Brand Logo -->
+    <a href="#" onclick="switchTab('landing')" class="flex items-center space-x-2 premium-transition hover:opacity-85 z-50">
+      <div class="relative w-10 h-10 bg-[#1d2a3a] text-white flex items-center justify-center rounded-xl overflow-hidden shadow-lg shadow-black/10">
+        <!-- Stylized Hexagon SVG to match original image badge -->
+        <svg class="w-6 h-6 text-brand-accentCyan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span class="font-display font-extrabold text-2xl tracking-wider uppercase text-[#1d2a3a]">HEX<span class="text-xs align-super font-bold opacity-60">®</span></span>
+    </a>
+
+    <!-- Navigation Options -->
+    <nav class="hidden md:flex items-center space-x-1 bg-[#ffffff]/40 backdrop-blur-md rounded-full p-1.5 shadow-sm border border-white/20">
+      <button onclick="switchTab('landing')" id="nav-landing" class="px-6 py-2 rounded-full font-semibold text-sm transition-all duration-300 bg-[#1d2a3a] text-white shadow-sm">
+        Explore
+      </button>
+      <button onclick="switchTab('workspace')" id="nav-workspace" class="px-6 py-2 rounded-full font-semibold text-sm transition-all duration-300 text-[#1d2a3a] hover:bg-[#ffffff]/50">
+        3D Workspace
+      </button>
+      <button onclick="switchTab('gallery')" id="nav-gallery" class="px-6 py-2 rounded-full font-semibold text-sm transition-all duration-300 text-[#1d2a3a] hover:bg-[#ffffff]/50">
+        Collections
+      </button>
+      <button onclick="switchTab('creators')" id="nav-creators" class="px-6 py-2 rounded-full font-semibold text-sm transition-all duration-300 text-[#1d2a3a] hover:bg-[#ffffff]/50">
+        Our Creators
+      </button>
+    </nav>
+
+    <!-- Sign Up Action -->
+    <div class="flex items-center space-x-3">
+      <button onclick="openModal('join')" class="px-6 py-2.5 rounded-full border-2 border-[#1d2a3a] font-bold text-sm tracking-tight premium-transition hover:bg-[#1d2a3a] hover:text-white hover:scale-105 active:scale-95 shadow-sm">
+        Sign Up
+      </button>
+    </div>
+  </header>
+
+  <!-- ================= ACTIVE CONTENT CONTAINER ================= -->
+  <main class="max-w-[1400px] mx-auto px-4 md:px-6 pb-20 relative">
+
+    <!-- ================= VIEW 1: LANDING/HERO (EXACT REPLICATED VIBE) ================= -->
+    <div id="view-landing" class="block animate-fade-in">
+      
+      <!-- Bento Interlocking Grid Main Design Section -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 mt-4 items-stretch">
+        
+        <!-- COLUMN 1: LEFT HAND COMPACT ASSETS (4 Cols) -->
+        <div class="lg:col-span-4 flex flex-col gap-5 justify-between">
+          
+          <!-- Avatar Profile Spotlight (Cyan Hair / Glasses Avatar Grid) -->
+          <div class="bg-[#d2dce3] rounded-[2.5rem] p-6 relative overflow-hidden group hover:shadow-xl premium-transition flex flex-col justify-between h-[360px] border border-white/30">
+            <!-- Background Accent subtle grid -->
+            <div class="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:16px_16px]"></div>
+            
+            <div class="flex justify-between items-start z-10">
+              <span class="bg-[#1d2a3a]/10 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase text-[#1d2a3a]">
+                Model Profile
+              </span>
+              <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-xs shadow-md">
+                <i class="fa-solid fa-arrow-up-right-from-square text-[#1d2a3a]"></i>
+              </div>
+            </div>
+
+            <!-- Stylized Render Avatar Graphic (To replace the blue hair girl with spectacular visual styling) -->
+            <div class="absolute bottom-4 right-4 left-4 h-[70%] flex items-end justify-center">
+              <div class="relative w-full h-full flex items-center justify-center">
+                <!-- Glowing cyan/purple aura -->
+                <div class="absolute w-40 h-40 rounded-full bg-brand-accentCyan/30 blur-2xl animate-pulse"></div>
+                <!-- Custom SVG portrait / Graphic element representing a futuristic cybernetic profile -->
+                <svg class="w-48 h-48 z-10 drop-shadow-[0_10px_15px_rgba(0,0,0,0.15)] animate-float" viewBox="0 0 200 200" fill="none">
+                  <defs>
+                    <linearGradient id="avatarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#55e0ff" />
+                      <stop offset="100%" stop-color="#7297b4" />
+                    </linearGradient>
+                  </defs>
+                  <!-- Cybernetic face/helmet silhouette with specs -->
+                  <circle cx="100" cy="100" r="75" fill="url(#avatarGrad)" fill-opacity="0.2" stroke="white" stroke-width="1" />
+                  <path d="M60,110 Q100,160 140,110" stroke="#1d2a3a" stroke-width="6" stroke-linecap="round" />
+                  <!-- Orange visor specs mimicking the inspiration image glasses -->
+                  <rect x="50" y="80" width="100" height="24" rx="12" fill="#f47a60" />
+                  <line x1="50" y1="92" x2="150" y2="92" stroke="white" stroke-width="2" />
+                  <!-- Hair flow structure in blue -->
+                  <path d="M45,80 Q20,30 80,25 Q100,20 120,25 Q180,30 155,80" fill="none" stroke="#55e0ff" stroke-width="12" stroke-linecap="round" />
+                </svg>
+              </div>
+            </div>
+
+            <div class="z-10 mt-auto">
+              <p class="text-sm font-medium text-slate-600">Model 098</p>
+              <h3 class="font-display font-extrabold text-xl text-[#1d2a3a]">Aura-9 Cybernetic Visor</h3>
+            </div>
+          </div>
+
+          <!-- Creator Circle & Dynamic List Grid Card -->
+          <div class="bg-white rounded-[2.5rem] p-6 flex flex-col justify-between border border-white/20 shadow-sm h-[180px] premium-transition hover:shadow-lg">
+            <div>
+              <span class="text-xs uppercase tracking-wider font-extrabold text-slate-400">Collaborators</span>
+              <h4 class="font-display font-bold text-lg text-[#1d2a3a] mt-1">Our Creators</h4>
+            </div>
+
+            <!-- Avatar overlap grouping -->
+            <div class="flex items-center space-x-3 mt-4">
+              <div class="flex -space-x-3 overflow-hidden">
+                <img class="inline-block h-10 w-10 rounded-full ring-2 ring-white object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Creator 1">
+                <img class="inline-block h-10 w-10 rounded-full ring-2 ring-white object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Creator 2">
+                <img class="inline-block h-10 w-10 rounded-full ring-2 ring-white object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80" alt="Creator 3">
+                <div class="inline-block h-10 w-10 rounded-full bg-brand-cardBlue text-white font-bold text-xs flex items-center justify-center ring-2 ring-white">
+                  +1.2k
+                </div>
+              </div>
+              <span class="text-xs font-semibold text-slate-500">Actively generating models</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- COLUMN 2: CENTER ASSETS & ACCENTS (3 Cols) -->
+        <div class="lg:col-span-3 flex flex-col gap-5 justify-between">
+          
+          <!-- Virtual Reality Headset Card (Blue Background matching image) -->
+          <div class="bg-brand-cardBlue rounded-[2.5rem] p-6 relative overflow-hidden group hover:shadow-xl premium-transition flex flex-col justify-between h-[230px] text-white">
+            <div class="absolute inset-0 bg-gradient-to-tr from-brand-darkBlue/20 to-transparent"></div>
+            
+            <div class="flex justify-between items-start z-10">
+              <span class="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase">
+                VR Concept
+              </span>
+              <span class="text-xs font-mono opacity-80">v.24</span>
+            </div>
+
+            <!-- Virtual Reality Headset Graphic Asset matching design -->
+            <div class="relative flex items-center justify-center h-28 z-10">
+              <svg class="w-32 h-20 text-[#1d2a3a] filter drop-shadow-md premium-transition group-hover:scale-110" viewBox="0 0 120 60" fill="none">
+                <!-- Visor outline -->
+                <rect x="10" y="10" width="100" height="40" rx="20" fill="#1d2a3a" />
+                <rect x="12" y="12" width="96" height="36" rx="18" fill="#152130" />
+                <!-- Neon accents of visor -->
+                <path d="M20,30 L100,30" stroke="#55e0ff" stroke-width="1" stroke-dasharray="3 3" />
+                <circle cx="30" cy="30" r="4" fill="#f47a60" />
+                <circle cx="90" cy="30" r="4" fill="#55e0ff" />
+                <!-- Headband detail -->
+                <path d="M10,25 Q5,25 2,22 M110,25 Q115,25 118,22" stroke="white" stroke-width="3" />
+              </svg>
+            </div>
+
+            <div class="z-10 flex justify-between items-center">
+              <span class="text-xs font-extrabold tracking-wider text-slate-200">HEX SPECTRUM H1</span>
+              <i class="fa-solid fa-circle-notch animate-spin text-brand-accentCyan text-xs"></i>
+            </div>
+          </div>
+
+          <!-- Awards / Badges Clean White Card -->
+          <div class="bg-white rounded-[2.5rem] p-6 flex flex-col justify-between border border-white/20 shadow-sm h-[170px] premium-transition hover:shadow-lg relative overflow-hidden group">
+            <div class="flex justify-between items-start">
+              <!-- Replicated NFT Design Awards Minimalist Icon -->
+              <div class="w-10 h-10 rounded-full bg-[#1d2a3a] flex items-center justify-center text-white">
+                <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+              </div>
+              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">2026 Winner</span>
+            </div>
+
+            <div class="mt-4">
+              <h4 class="font-display font-extrabold text-[#1d2a3a] text-sm tracking-wide uppercase leading-tight">
+                NFT DESIGN AWARDS
+              </h4>
+              <p class="text-[11px] text-slate-500 mt-1">Best Immersive Generative Engine</p>
+            </div>
+          </div>
+
+          <!-- Spinning Circular Badge - Fully CSS Engineered Text Path -->
+          <div class="flex items-center justify-center p-3 h-[120px] relative">
+            <a href="#" onclick="switchTab('workspace')" class="relative group block premium-transition hover:scale-105 active:scale-95">
+              <div class="w-24 h-24 rounded-full bg-[#1d2a3a] text-white flex items-center justify-center shadow-lg relative overflow-hidden">
+                <!-- Outer rotating path -->
+                <div class="absolute inset-0 animate-spin-slow origin-center flex items-center justify-center">
+                  <svg class="w-full h-full p-1" viewBox="0 0 100 100">
+                    <path id="circlePath" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="none" />
+                    <text class="text-[7px] font-semibold uppercase fill-white/80 tracking-[0.2em]">
+                      <textPath href="#circlePath" startOffset="0%">
+                        explore now * how it works * </textPath>
+                    </text>
+                  </svg>
+                </div>
+                <!-- Inner dynamic center target -->
+                <div class="z-10 w-10 h-10 rounded-full bg-brand-cardBlue/30 border border-brand-accentCyan/40 flex items-center justify-center text-brand-accentCyan">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M8 12h8M12 8v8" />
+                  </svg>
+                </div>
+              </div>
+            </a>
+          </div>
+
+        </div>
+
+        <!-- COLUMN 3: RIGHT MAIN HERO CARD & RELEASES (5 Cols) -->
+        <div class="lg:col-span-5 flex flex-col gap-5 justify-between">
+          
+          <!-- Large Core Hero Action Block -->
+          <div class="bg-[#d2dce3]/80 rounded-[3rem] p-8 md:p-10 relative overflow-hidden flex flex-col justify-between h-[400px] border border-white/40 shadow-sm">
+            
+            <div class="absolute top-0 right-0 p-8">
+              <!-- Replicated dynamic badge layout -->
+              <div class="flex space-x-2">
+                <span class="w-10 h-10 rounded-full bg-[#1d2a3a] text-white flex items-center justify-center text-sm shadow-md">
+                  <i class="fa-solid fa-expand"></i>
+                </span>
+                <span class="w-10 h-10 rounded-full bg-brand-cardBlue text-white flex items-center justify-center text-sm shadow-md">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </span>
+              </div>
+            </div>
+
+            <!-- Massive bold title -->
+            <div class="mt-8 z-10">
+              <h1 class="font-display font-extrabold text-5xl md:text-6xl text-[#1d2a3a] uppercase tracking-tighter leading-[0.9]">
+                GENERATE 3D<br>WITH AI
+              </h1>
+              <p class="text-sm md:text-base text-slate-700 mt-6 max-w-[340px] leading-relaxed">
+                The AI 3D model generator is a powerful tool for architects, designers, and digital artists to unlock rapid world-building.
+              </p>
+            </div>
+
+            <!-- CTA triggers workspace and features state changes -->
+            <div class="mt-8 z-10 flex flex-wrap items-center gap-4">
+              <button onclick="switchTab('workspace')" class="bg-[#1d2a3a] text-white font-bold text-sm uppercase px-8 py-4 rounded-full shadow-lg shadow-[#1d2a3a]/10 hover:bg-[#152130] hover:scale-105 active:scale-95 premium-transition">
+                JOIN COMMUNITY
+              </button>
+              <button onclick="switchTab('workspace')" class="flex items-center space-x-2 font-bold text-sm uppercase text-[#1d2a3a] hover:opacity-80 transition-opacity">
+                <span>Start Creator App</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- New Release Interlocking Sleeve Card -->
+          <div class="bg-white rounded-[2.5rem] p-6 flex flex-col md:flex-row justify-between items-center gap-6 border border-white/20 shadow-sm min-h-[170px] premium-transition hover:shadow-lg relative overflow-hidden group">
+            <div class="flex-1">
+              <span class="text-xs uppercase tracking-widest font-extrabold text-brand-accentOrange">NEW RELEASE</span>
+              <h3 class="font-display font-bold text-xl text-[#1d2a3a] mt-1 leading-snug">
+                Get ready to embark on a new workroad
+              </h3>
+              <p class="text-xs text-slate-500 mt-1">Harness pure procedural generation with Hex v2.0</p>
+            </div>
+
+            <!-- Replicated Sleeve Badge / Circle cropped visual asset -->
+            <div class="relative w-28 h-28 rounded-full bg-[#1d2a3a] overflow-hidden flex items-center justify-center shrink-0 shadow-lg shadow-black/10">
+              <!-- Inner spinning star aura -->
+              <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-900 via-[#1d2a3a] to-[#1d2a3a] opacity-80"></div>
+              
+              <!-- Sleeve badge logo graphic -->
+              <div class="z-10 text-white flex flex-col items-center justify-center">
+                <div class="w-12 h-12 rounded-lg bg-brand-cardBlue flex items-center justify-center border border-white/10 mb-1">
+                  <svg class="w-6 h-6 text-brand-accentCyan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5" />
+                  </svg>
+                </div>
+                <span class="text-[8px] font-mono tracking-widest uppercase">SYS.HEX</span>
+              </div>
+              <div class="absolute inset-0 border-2 border-brand-accentCyan/30 rounded-full animate-pulse"></div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ================= REPLICATED BOTTOM STATUS & NEWS TICKER BAR ================= -->
+      <div class="mt-8 bg-white/60 backdrop-blur-md rounded-3xl p-4 md:p-6 flex flex-col md:flex-row items-center justify-between gap-4 border border-white/30">
+        
+        <!-- Left: Status glow orb with pulsing indicator -->
+        <div class="flex items-center space-x-3">
+          <div class="relative w-10 h-10 rounded-full bg-brand-cardBlue/20 flex items-center justify-center text-brand-cardBlue shrink-0">
+            <span class="absolute w-2 h-2 rounded-full bg-brand-accentCyan animate-ping"></span>
+            <span class="relative w-2 h-2 rounded-full bg-brand-accentCyan"></span>
+          </div>
+          <div>
+            <span class="text-[10px] text-slate-500 uppercase font-bold tracking-wider">HEX Broadcast</span>
+            <!-- Dynamically populated news state -->
+            <p id="ticker-text" class="text-xs md:text-sm font-semibold text-[#1d2a3a] max-w-[500px] leading-tight">
+              Exploring the Intersection of Virtual Reality and 3D Asset Creation.
+            </p>
+          </div>
+        </div>
+
+        <!-- Right: pagination context controls & timestamp -->
+        <div class="flex items-center space-x-4 shrink-0">
+          <span id="ticker-date" class="text-xs font-mono text-slate-500">22.08.26</span>
+          <div class="flex space-x-1.5">
+            <button onclick="prevNews()" class="w-8 h-8 rounded-full bg-[#1d2a3a] text-white flex items-center justify-center text-xs hover:bg-[#1d2a3a]/80 active:scale-95 transition-all">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button onclick="nextNews()" class="w-8 h-8 rounded-full bg-[#1d2a3a] text-white flex items-center justify-center text-xs hover:bg-[#1d2a3a]/80 active:scale-95 transition-all">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= DETAILED FEATURE SHOWCASE SECTION ================= -->
+      <section class="mt-20">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <span class="text-xs uppercase tracking-widest font-extrabold text-[#1d2a3a] bg-white/40 px-3 py-1.5 rounded-full border border-white/10">The Ecosystem</span>
+          <h2 class="font-display font-extrabold text-4xl text-[#1d2a3a] mt-4 uppercase tracking-tight">
+            How we redefine procedural art
+          </h2>
+          <p class="text-sm text-slate-600 mt-3">
+            Say goodbye to weeks spent sculpting. Model, refine, UV-unwrap, and texture automatically with professional mesh optimization.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- Card 1 -->
+          <div class="bg-white/80 rounded-[2.5rem] p-8 border border-white/20 premium-transition hover:translate-y-[-4px] hover:shadow-xl flex flex-col justify-between min-h-[300px]">
+            <div class="w-12 h-12 rounded-2xl bg-brand-cardBlue/20 text-[#1d2a3a] flex items-center justify-center text-xl mb-6">
+              <i class="fa-solid fa-cubes"></i>
+            </div>
+            <div>
+              <h3 class="font-display font-bold text-xl text-[#1d2a3a]">Rapid Voxelization</h3>
+              <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                Our proprietary AI translates image data and textual prompts into complete watertight 3D volume structures in seconds.
+              </p>
+            </div>
+            <a href="#" onclick="switchTab('workspace')" class="text-xs font-bold text-brand-cardBlue hover:underline mt-6 block">Try generator <i class="fa-solid fa-arrow-right ml-1"></i></a>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="bg-white/80 rounded-[2.5rem] p-8 border border-white/20 premium-transition hover:translate-y-[-4px] hover:shadow-xl flex flex-col justify-between min-h-[300px]">
+            <div class="w-12 h-12 rounded-2xl bg-[#1d2a3a] text-brand-accentCyan flex items-center justify-center text-xl mb-6">
+              <i class="fa-solid fa-network-wired"></i>
+            </div>
+            <div>
+              <h3 class="font-display font-bold text-xl text-[#1d2a3a]">Retopology and Quad Flow</h3>
+              <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                Generated meshes are engineered with proper edge flow. No broken triangles or irregular vertex clustering. Perfectly optimized for game engines.
+              </p>
+            </div>
+            <a href="#" onclick="switchTab('workspace')" class="text-xs font-bold text-brand-cardBlue hover:underline mt-6 block">Read Whitepaper <i class="fa-solid fa-arrow-right ml-1"></i></a>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="bg-[#1d2a3a] text-white rounded-[2.5rem] p-8 premium-transition hover:translate-y-[-4px] hover:shadow-xl flex flex-col justify-between min-h-[300px] relative overflow-hidden">
+            <div class="absolute right-0 bottom-0 opacity-10">
+              <i class="fa-solid fa-brain text-[12rem] -mb-10 -mr-10"></i>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-white/10 text-brand-accentCyan flex items-center justify-center text-xl mb-6">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </div>
+            <div>
+              <h3 class="font-display font-bold text-xl text-white">Neural Material Synthesis</h3>
+              <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+                Generate high-resolution PBR textures, including normal, roughness, metallic, and displacement maps matching physical real-world standards.
+              </p>
+            </div>
+            <a href="#" onclick="switchTab('workspace')" class="text-xs font-bold text-brand-accentCyan hover:underline mt-6 block">Open Workspace <i class="fa-solid fa-arrow-right ml-1"></i></a>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+
+
+    <!-- ================= VIEW 2: AI WORKSPACE STUDIO (FULLY INTERACTIVE 3D PLATFORM) ================= -->
+    <div id="view-workspace" class="hidden animate-fade-in">
+      <div class="mt-4">
+        <!-- Dashboard Header -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
+          <div>
+            <span class="text-xs font-extrabold uppercase tracking-widest text-[#1d2a3a] bg-white/40 px-3 py-1 rounded-full">STUDIO ENGINE v2.5</span>
+            <h1 class="font-display font-extrabold text-3xl md:text-4xl text-[#1d2a3a] mt-1 uppercase">3D Creative Studio</h1>
+          </div>
+          
+          <!-- Model Picker -->
+          <div class="flex items-center space-x-2 bg-white/50 backdrop-blur-md p-1.5 rounded-full border border-white/20">
+            <span class="text-xs font-bold text-slate-600 px-3">Base Subject:</span>
+            <select id="preset-selector" onchange="loadPresetGeometry()" class="bg-[#1d2a3a] text-white text-xs font-bold py-1.5 px-4 rounded-full border-none outline-none cursor-pointer">
+              <option value="cube">Cyberpunk Crate</option>
+              <option value="sphere">Neural Orb</option>
+              <option value="torus">Infinity Ring</option>
+              <option value="helmet">Hyper Visor (Complex)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Main Studio Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+          
+          <!-- LEFT INTERACTIVE CONTROL SIDEBAR (4 Cols) -->
+          <div class="lg:col-span-4 flex flex-col gap-5">
+            
+            <!-- Prompt Generation Panel -->
+            <div class="bg-white rounded-[2.5rem] p-6 border border-white/20 shadow-md">
+              <div class="flex items-center space-x-2 text-brand-cardBlue mb-3">
+                <i class="fa-solid fa-wand-magic-sparkles text-sm animate-pulse"></i>
+                <span class="text-xs uppercase tracking-widest font-extrabold">AI GENERATION INPUT</span>
+              </div>
+              <p class="text-xs text-slate-500 mb-3 leading-relaxed">
+                Type an object description, color scheme, and texture details. Our neural engine builds the geometry in real-time.
+              </p>
+              
+              <!-- Prompt Textarea -->
+              <div class="relative">
+                <textarea id="prompt-input" rows="3" class="w-full text-xs p-3 rounded-2xl bg-slate-100 border-2 border-transparent focus:border-brand-cardBlue/50 outline-none text-[#1d2a3a] font-medium resize-none placeholder-slate-400" placeholder="e.g. Matte obsidian tech sneaker with neon blue fiber optic lace pipes, hyper-detailed mesh structure..."></textarea>
+                <button onclick="clearPrompt()" class="absolute right-3 bottom-3 text-slate-400 hover:text-slate-600">
+                  <i class="fa-solid fa-circle-xmark"></i>
+                </button>
+              </div>
+
+              <!-- Fast Tags -->
+              <div class="mt-3 flex flex-wrap gap-1.5">
+                <button onclick="addPromptTag('Matte Obsidian')" class="text-[10px] font-bold bg-[#1d2a3a]/5 hover:bg-[#1d2a3a]/10 px-2 py-1 rounded-md text-[#1d2a3a]">#Obsidian</button>
+                <button onclick="addPromptTag('Cyberpunk Mesh')" class="text-[10px] font-bold bg-[#1d2a3a]/5 hover:bg-[#1d2a3a]/10 px-2 py-1 rounded-md text-[#1d2a3a]">#Cyberpunk</button>
+                <button onclick="addPromptTag('Hologram glow')" class="text-[10px] font-bold bg-[#1d2a3a]/5 hover:bg-[#1d2a3a]/10 px-2 py-1 rounded-md text-[#1d2a3a]">#Hologram</button>
+                <button onclick="addPromptTag('Highly Polished Chrome')" class="text-[10px] font-bold bg-[#1d2a3a]/5 hover:bg-[#1d2a3a]/10 px-2 py-1 rounded-md text-[#1d2a3a]">#Chrome</button>
+              </div>
+
+              <!-- Prompt Generate Button -->
+              <button onclick="triggerGeneration()" class="w-full mt-5 bg-[#1d2a3a] text-white hover:bg-slate-900 font-bold text-sm tracking-wide uppercase py-3.5 rounded-2xl flex items-center justify-center space-x-2 shadow-lg shadow-black/10 active:scale-95 transition-all">
+                <i class="fa-solid fa-bolt"></i>
+                <span>GENERATE MODEL</span>
+              </button>
+            </div>
+
+            <!-- Material & Surface Shader Customs -->
+            <div class="bg-white rounded-[2.5rem] p-6 border border-white/20 shadow-md">
+              <span class="text-xs uppercase tracking-widest font-extrabold text-slate-400 block mb-3">Surface Material Shaders</span>
+              
+              <div class="grid grid-cols-2 gap-2">
+                <!-- Obsidian Option -->
+                <button onclick="applyMaterialPreset('obsidian')" id="btn-mat-obsidian" class="flex flex-col items-center p-3 rounded-2xl bg-slate-100 hover:bg-slate-200 border-2 border-[#1d2a3a] premium-transition">
+                  <div class="w-10 h-10 rounded-full bg-[#111] border-2 border-white/30 shadow-md flex items-center justify-center">
+                    <div class="w-4 h-4 rounded-full bg-slate-600/30"></div>
+                  </div>
+                  <span class="text-[11px] font-bold text-slate-700 mt-2">Matte Obsidian</span>
+                </button>
+
+                <!-- Chrome Option -->
+                <button onclick="applyMaterialPreset('chrome')" id="btn-mat-chrome" class="flex flex-col items-center p-3 rounded-2xl bg-slate-100 hover:bg-slate-200 border-2 border-transparent premium-transition">
+                  <div class="w-10 h-10 rounded-full bg-slate-300 border-2 border-white shadow-md flex items-center justify-center">
+                    <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-slate-400 to-white"></div>
+                  </div>
+                  <span class="text-[11px] font-bold text-slate-700 mt-2">Sleek Chrome</span>
+                </button>
+
+                <!-- Hologram Option -->
+                <button onclick="applyMaterialPreset('hologram')" id="btn-mat-hologram" class="flex flex-col items-center p-3 rounded-2xl bg-slate-100 hover:bg-slate-200 border-2 border-transparent premium-transition">
+                  <div class="w-10 h-10 rounded-full bg-blue-900 border-2 border-brand-accentCyan shadow-md flex items-center justify-center animate-pulse">
+                    <div class="w-4 h-4 rounded-full bg-brand-accentCyan"></div>
+                  </div>
+                  <span class="text-[11px] font-bold text-slate-700 mt-2">Neon Hologram</span>
+                </button>
+
+                <!-- Gold Option -->
+                <button onclick="applyMaterialPreset('gold')" id="btn-mat-gold" class="flex flex-col items-center p-3 rounded-2xl bg-slate-100 hover:bg-slate-200 border-2 border-transparent premium-transition">
+                  <div class="w-10 h-10 rounded-full bg-yellow-500 border-2 border-yellow-200 shadow-md flex items-center justify-center">
+                    <div class="w-4 h-4 rounded-full bg-yellow-600"></div>
+                  </div>
+                  <span class="text-[11px] font-bold text-slate-700 mt-2">Luxury Gold</span>
+                </button>
+              </div>
+
+              <!-- Interactive Mesh Parameters -->
+              <div class="mt-6 border-t border-slate-100 pt-4">
+                <span class="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Viewport Settings</span>
+                
+                <div class="mt-3 flex items-center justify-between">
+                  <span class="text-xs font-semibold text-slate-700">Wireframe Overlay</span>
+                  <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" id="wireframe-toggle" onchange="toggleWireframe()" class="sr-only peer">
+                    <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:width-4 after:transition-all peer-checked:bg-[#1d2a3a]"></div>
+                  </label>
+                </div>
+
+                <div class="mt-3 flex items-center justify-between">
+                  <span class="text-xs font-semibold text-slate-700">Auto Rotate</span>
+                  <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" id="rotation-toggle" checked onchange="toggleRotation()" class="sr-only peer">
+                    <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:width-4 after:transition-all peer-checked:bg-[#1d2a3a]"></div>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT LARGE 3D RENDERING CANVAS (8 Cols) -->
+          <div class="lg:col-span-8 flex flex-col gap-4 relative">
+            
+            <!-- Main Viewport Box -->
+            <div class="bg-gradient-to-br from-[#1d2a3a] to-[#0f1822] rounded-[3rem] p-6 relative flex flex-col justify-between h-[450px] lg:h-full overflow-hidden shadow-xl border border-white/10 group">
+              
+              <!-- Rendering grid backdrop overlay -->
+              <div class="absolute inset-0 opacity-[0.05] pointer-events-none bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:24px_24px]"></div>
+              
+              <!-- Realtime Canvas Elements -->
+              <div class="absolute inset-0 z-0">
+                <canvas id="studio3d-canvas" class="w-full h-full cursor-grab active:cursor-grabbing"></canvas>
+              </div>
+
+              <!-- Top floating control header -->
+              <div class="z-10 flex items-center justify-between">
+                <div class="flex items-center space-x-2 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/5 text-white">
+                  <span class="inline-block w-2.5 h-2.5 bg-brand-accentCyan rounded-full animate-ping"></span>
+                  <span class="text-[10px] font-mono tracking-wider">LIVE VIEWPORT</span>
+                </div>
+
+                <div class="flex items-center space-x-2">
+                  <button onclick="resetCamera()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-xs backdrop-blur-sm transition-all" title="Reset Viewport">
+                    <i class="fa-solid fa-camera-rotate"></i>
+                  </button>
+                  <button onclick="cycleLighting()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-xs backdrop-blur-sm transition-all" title="Toggle Lighting Rig">
+                    <i class="fa-solid fa-lightbulb"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Realtime Generation Loading Overlay Screen -->
+              <div id="gen-loader" class="absolute inset-0 bg-[#1d2a3a]/90 backdrop-blur-md z-30 flex flex-col items-center justify-center text-white p-8 opacity-0 pointer-events-none transition-all duration-500 rounded-[3rem]">
+                <!-- Outer stylized generator frame -->
+                <div class="w-24 h-24 rounded-full border-4 border-dashed border-brand-accentCyan/40 flex items-center justify-center animate-spin-slow relative">
+                  <div class="absolute inset-1.5 rounded-full border border-brand-accentOrange/30 animate-pulse"></div>
+                  <i class="fa-solid fa-cube text-3xl text-brand-accentCyan animate-bounce"></i>
+                </div>
+                
+                <h3 class="font-display font-extrabold text-2xl uppercase tracking-wider mt-6">Hex Synthesis Engine</h3>
+                
+                <!-- Sequential Generation States -->
+                <p id="loader-state-text" class="text-xs font-mono text-brand-accentCyan mt-2 animate-pulse">
+                  Step 1: Parsing textual prompt vectors...
+                </p>
+
+                <!-- Processing bar -->
+                <div class="w-full max-w-[280px] bg-white/10 h-1.5 rounded-full mt-4 overflow-hidden relative">
+                  <div id="loader-progress" class="bg-brand-accentCyan h-full w-[20%] transition-all duration-300"></div>
+                </div>
+              </div>
+
+              <!-- Lower visual settings bar (Gives premium high budget aesthetic) -->
+              <div class="z-10 mt-auto flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 border-t border-white/10 pt-4 backdrop-blur-sm">
+                <div class="text-white">
+                  <span class="text-[9px] font-mono text-slate-400 block uppercase">Object Identity</span>
+                  <span id="rendered-title" class="font-display font-bold text-sm tracking-wide text-white">PROMPT_RENDER_09.obj</span>
+                </div>
+
+                <!-- Stats indicator -->
+                <div class="flex items-center space-x-6 text-white text-xs">
+                  <div>
+                    <span class="text-[9px] font-mono text-slate-400 block uppercase">Mesh Vertices</span>
+                    <span id="rendered-vertices" class="font-mono font-bold text-brand-accentCyan">24,512</span>
+                  </div>
+                  <div>
+                    <span class="text-[9px] font-mono text-slate-400 block uppercase">Textures</span>
+                    <span class="font-mono font-bold text-brand-accentOrange">4K PBR</span>
+                  </div>
+                  <div class="hidden sm:block">
+                    <span class="text-[9px] font-mono text-slate-400 block uppercase">Output format</span>
+                    <span class="font-mono font-bold text-white">GLTF / OBJ</span>
+                  </div>
+                </div>
+
+                <!-- Action Download trigger -->
+                <button onclick="openExportModal()" class="bg-brand-cardBlue hover:bg-brand-cardBlue/80 text-white font-bold text-xs uppercase px-5 py-2.5 rounded-full flex items-center space-x-2 shadow-lg active:scale-95 transition-all">
+                  <i class="fa-solid fa-cloud-arrow-down"></i>
+                  <span>Export Files</span>
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ================= VIEW 3: COMMUNITY COLLECTIONS GALLERY ================= -->
+    <div id="view-gallery" class="hidden animate-fade-in">
+      <div class="mt-4">
+        
+        <!-- Header area -->
+        <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between mb-8 gap-4">
+          <div>
+            <span class="text-xs font-extrabold uppercase tracking-widest text-[#1d2a3a] bg-white/40 px-3 py-1 rounded-full">COMMUNITY INSPIRATION</span>
+            <h1 class="font-display font-extrabold text-3xl md:text-4xl text-[#1d2a3a] mt-1 uppercase">Hex Masterpieces</h1>
+          </div>
+
+          <!-- Tag filters -->
+          <div class="flex items-center gap-1.5 overflow-x-auto pb-2 md:pb-0">
+            <button onclick="filterGallery('all')" id="tag-all" class="px-5 py-2 rounded-full font-bold text-xs bg-[#1d2a3a] text-white">All Works</button>
+            <button onclick="filterGallery('sci-fi')" id="tag-sci-fi" class="px-5 py-2 rounded-full font-bold text-xs bg-white/50 text-[#1d2a3a] hover:bg-white/85">Sci-Fi</button>
+            <button onclick="filterGallery('wearables')" id="tag-wearables" class="px-5 py-2 rounded-full font-bold text-xs bg-white/50 text-[#1d2a3a] hover:bg-white/85">Wearables</button>
+            <button onclick="filterGallery('architecture')" id="tag-architecture" class="px-5 py-2 rounded-full font-bold text-xs bg-white/50 text-[#1d2a3a] hover:bg-white/85">Architecture</button>
+          </div>
+        </div>
+
+        <!-- Collections Gallery Grid layout -->
+        <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <!-- Dynamic high-budget items injected below via JavaScript -->
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ================= VIEW 4: OUR CREATORS HUB ================= -->
+    <div id="view-creators" class="hidden animate-fade-in">
+      <div class="mt-4">
+        <div class="text-center max-w-xl mx-auto mb-10">
+          <span class="text-xs uppercase tracking-widest font-extrabold text-[#1d2a3a] bg-white/40 px-3 py-1 rounded-full">TOP CONVERTORS</span>
+          <h1 class="font-display font-extrabold text-3xl md:text-4xl text-[#1d2a3a] mt-2 uppercase">The Hex Elite</h1>
+          <p class="text-xs text-slate-600 mt-2">Connecting state-of-the-art designers and automated mesh systems globally.</p>
+        </div>
+
+        <div id="creators-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+
+  <!-- ================= FOOTER STRUCTURE ================= -->
+  <footer class="bg-[#1d2a3a] text-white py-12 px-6 border-t border-white/10">
+    <div class="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+      
+      <!-- Logo column -->
+      <div>
+        <div class="flex items-center space-x-2 text-white mb-4">
+          <div class="w-8 h-8 bg-brand-cardBlue text-white flex items-center justify-center rounded-lg">
+            <svg class="w-5 h-5 text-brand-accentCyan" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M12 2L2 7l10 5 10-5-10-5z" />
+            </svg>
+          </div>
+          <span class="font-display font-extrabold text-xl tracking-wider uppercase">HEX</span>
+        </div>
+        <p class="text-xs text-slate-300 leading-relaxed max-w-[200px]">
+          Procedural 3D asset generation powered by premium modern artificial intelligence.
+        </p>
+      </div>
+
+      <!-- Links Column 1 -->
+      <div>
+        <h4 class="text-xs uppercase tracking-widest font-bold text-brand-accentCyan mb-3">Product</h4>
+        <ul class="space-y-2 text-xs text-slate-300">
+          <li><a href="#" onclick="switchTab('workspace')" class="hover:text-white">Workspace Studio</a></li>
+          <li><a href="#" class="hover:text-white">System Pricing</a></li>
+          <li><a href="#" class="hover:text-white">API Integrations</a></li>
+          <li><a href="#" class="hover:text-white">Enterprise Hub</a></li>
+        </ul>
+      </div>
+
+      <!-- Links Column 2 -->
+      <div>
+        <h4 class="text-xs uppercase tracking-widest font-bold text-brand-accentOrange mb-3">Legal & Story</h4>
+        <ul class="space-y-2 text-xs text-slate-300">
+          <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+          <li><a href="#" class="hover:text-white">Terms of Workroad</a></li>
+          <li><a href="#" class="hover:text-white">NFT License Agreement</a></li>
+          <li><a href="#" class="hover:text-white">Brand Assets</a></li>
+        </ul>
+      </div>
+
+      <!-- Updates Subscription -->
+      <div>
+        <h4 class="text-xs uppercase tracking-widest font-bold text-white mb-3">Stay Updated</h4>
+        <div class="flex">
+          <input type="email" placeholder="Your system email" class="bg-white/10 px-3 py-2 text-xs rounded-l-xl focus:outline-none focus:ring-1 focus:ring-brand-accentCyan text-white border-none w-full">
+          <button onclick="openModal('join')" class="bg-brand-cardBlue hover:bg-brand-cardBlue/80 text-white text-xs px-4 rounded-r-xl font-bold">Join</button>
+        </div>
+        <p class="text-[10px] text-slate-400 mt-2">Zero spam. Pure technical release briefs.</p>
+      </div>
+
+    </div>
+    
+    <div class="max-w-[1400px] mx-auto border-t border-white/5 mt-8 pt-6 flex flex-col md:flex-row items-center justify-between text-slate-400 text-xs">
+      <span>© 2026 HEX Inc. All procedural workroads preserved.</span>
+      <div class="flex space-x-4 mt-4 md:mt-0">
+        <a href="#" class="hover:text-white"><i class="fa-brands fa-twitter"></i></a>
+        <a href="#" class="hover:text-white"><i class="fa-brands fa-github"></i></a>
+        <a href="#" class="hover:text-white"><i class="fa-brands fa-discord"></i></a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ================= POPUP MODALS ================= -->
+  
+  <!-- JOIN COMMUNITY / SIGNUP MODAL -->
+  <div id="modal-join" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
+    <div class="bg-white rounded-[2.5rem] p-8 max-w-md w-full relative shadow-2xl border border-white/30 transform scale-95 transition-transform duration-300">
+      
+      <!-- Close button -->
+      <button onclick="closeModal('join')" class="absolute top-6 right-6 text-slate-400 hover:text-slate-600 transition-colors">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+
+      <div class="text-center mb-6">
+        <div class="w-14 h-14 bg-[#1d2a3a] text-brand-accentCyan rounded-2xl flex items-center justify-center text-2xl mx-auto mb-3">
+          <i class="fa-solid fa-users"></i>
+        </div>
+        <h3 class="font-display font-extrabold text-2xl text-[#1d2a3a] uppercase">Join the Hex Grid</h3>
+        <p class="text-xs text-slate-500 mt-1">Get immediate beta generation credits and profile perks.</p>
+      </div>
+
+      <form onsubmit="handleSignupSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Full Name</label>
+          <input type="text" required class="w-full text-xs p-3 rounded-xl bg-slate-100 border-none outline-none focus:ring-2 focus:ring-brand-cardBlue" placeholder="Satoshi Nakamoto">
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">E-mail Address</label>
+          <input type="email" required class="w-full text-xs p-3 rounded-xl bg-slate-100 border-none outline-none focus:ring-2 focus:ring-brand-cardBlue" placeholder="satoshi@hex.net">
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Creative Focus</label>
+          <select class="w-full text-xs p-3 rounded-xl bg-slate-100 border-none outline-none focus:ring-2 focus:ring-brand-cardBlue">
+            <option>Game Art & Assets</option>
+            <option>Architectural Visualization</option>
+            <option>NFT / Procedural Collectibles</option>
+            <option>VR/AR Immersive Environments</option>
+          </select>
+        </div>
+
+        <div class="flex items-center space-x-2 py-2">
+          <input type="checkbox" required class="rounded text-brand-cardBlue" id="agree-terms">
+          <label for="agree-terms" class="text-[10px] text-slate-500 leading-tight">
+            I agree to the Hex Procedural License agreements and Privacy protocols.
+          </label>
+        </div>
+
+        <button type="submit" class="w-full bg-[#1d2a3a] text-white hover:bg-slate-900 font-bold text-sm tracking-wide uppercase py-3.5 rounded-xl transition-all shadow-lg active:scale-95">
+          Submit Onboarding
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+
+  <!-- EXPORT MODEL SUCCESS POPUP MODAL -->
+  <div id="modal-export" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
+    <div class="bg-white rounded-[2.5rem] p-8 max-w-md w-full relative shadow-2xl border border-white/30 transform scale-95 transition-transform duration-300">
+      
+      <button onclick="closeModal('export')" class="absolute top-6 right-6 text-slate-400 hover:text-slate-600">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+
+      <div class="text-center">
+        <div class="w-16 h-16 bg-[#1d2a3a] text-brand-accentCyan rounded-full flex items-center justify-center text-3xl mx-auto mb-4 animate-bounce">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+        
+        <h3 class="font-display font-extrabold text-2xl text-[#1d2a3a] uppercase">3D Export Complete</h3>
+        <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+          Your object mesh has been auto-retopologized, normal mapped, and packed into a zip payload.
+        </p>
+
+        <div class="mt-4 bg-slate-50 p-3 rounded-2xl text-left border border-slate-100">
+          <span class="text-[9px] font-mono text-slate-400 block uppercase">Payload Information</span>
+          <span id="export-filename" class="font-mono text-xs font-bold text-[#1d2a3a]">hex_export_3421.zip</span>
+          <div class="flex justify-between items-center text-[10px] text-slate-500 mt-2">
+            <span>Size: 12.4 MB</span>
+            <span>Triangles: 48,224</span>
+          </div>
+        </div>
+
+        <button onclick="closeModal('export')" class="w-full mt-6 bg-[#1d2a3a] text-white hover:bg-slate-900 font-bold text-xs uppercase py-3.5 rounded-xl transition-all shadow-lg">
+          Download Archive (.zip)
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- CUSTOM NOTIFICATION / NOTIFY TOAST -->
+  <div id="toast-notify" class="fixed bottom-6 right-6 bg-[#1d2a3a] text-white py-3 px-5 rounded-2xl shadow-2xl border border-white/10 z-50 flex items-center space-x-3 hidden transition-all duration-300 translate-y-10">
+    <div class="w-6 h-6 bg-brand-accentCyan text-[#1d2a3a] rounded-full flex items-center justify-center text-xs">
+      <i class="fa-solid fa-bell"></i>
+    </div>
+    <span id="toast-text" class="text-xs font-semibold">Prompt tag added</span>
+  </div>
+
+
+  <!-- ================= MASTER CONTROLLER JAVASCRIPT ================= -->
+  <script>
+    // --- STATE CONTROLLER ---
+    const appState = {
+      activeTab: 'landing',
+      activeMaterial: 'obsidian',
+      wireframe: false,
+      autoRotate: true,
+      currentNewsIndex: 0,
+    };
+
+    // --- BROADCAST NEWS DATA ---
+    const newsBroadcasts = [
+      {
+        text: "Exploring the Intersection of Virtual Reality and 3D Asset Creation.",
+        date: "22.08.26"
+      },
+      {
+        text: "Hex Model Engine upgrades to Retopology Synthesis Version 2.5.",
+        date: "14.10.26"
+      },
+      {
+        text: "Community Creators achieve milestone 500,000 PBR objects rendered.",
+        date: "01.12.26"
+      }
+    ];
+
+    // --- COMMUNITY COLLECTIONS ARCHIVE MOCK DATA ---
+    const galleryItems = [
+      {
+        id: 1,
+        title: "Nebula Mech Helmet",
+        category: "sci-fi",
+        creator: "Aiden Vance",
+        image: "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=400&q=80",
+        material: "Chrome Glow",
+        likes: 1240
+      },
+      {
+        id: 2,
+        title: "Spectra Tech Boots",
+        category: "wearables",
+        creator: "Maya Lin",
+        image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80",
+        material: "Matte Neon",
+        likes: 980
+      },
+      {
+        id: 3,
+        title: "Prism Modular Arch",
+        category: "architecture",
+        creator: "Marcus Aurel",
+        image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=400&q=80",
+        material: "Raw Obsidian",
+        likes: 2110
+      },
+      {
+        id: 4,
+        title: "Warp Reactor Frame",
+        category: "sci-fi",
+        creator: "Tatsuo Sato",
+        image: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=400&q=80",
+        material: "Cyber Chrome",
+        likes: 855
+      },
+      {
+        id: 5,
+        title: "Exoskeletal Visor",
+        category: "wearables",
+        creator: "Vesper Gray",
+        image: "https://images.unsplash.com/photo-1535223289827-42f1e9919769?auto=format&fit=crop&w=400&q=80",
+        material: "Hologram Fresnel",
+        likes: 3410
+      },
+      {
+        id: 6,
+        title: "Hyper-dome Structure",
+        category: "architecture",
+        creator: "Elena Rostova",
+        image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=400&q=80",
+        material: "Anodized Gold",
+        likes: 1544
+      }
+    ];
+
+    // --- CREATORS SPOTLIGHT DATA ---
+    const creatorsData = [
+      {
+        name: "Sylvia Chen",
+        role: "Lead Procedural Modeler",
+        bio: "Specializing in generative hard surface machinery and game asset geometry synthesis.",
+        followers: "14.2k",
+        badge: "Hex Vanguard"
+      },
+      {
+        name: "Lukas Novak",
+        role: "Industrial Designer",
+        bio: "Creating sustainable real-world blueprints via Neural 3D CAD modeling loops.",
+        followers: "9.8k",
+        badge: "Precision Expert"
+      },
+      {
+        name: "Daria Moretti",
+        role: "AR/VR Scenic Architect",
+        bio: "Building complete cinematic environments and spatial simulations with Hex system nodes.",
+        followers: "22.5k",
+        badge: "Spatial Master"
+      }
+    ];
+
+    // ================= VIEWPORT NAVIGATION SYSTEM ================= -->
+    function switchTab(tabId) {
+      appState.activeTab = tabId;
+
+      // Hide all content containers
+      document.getElementById('view-landing').classList.add('hidden');
+      document.getElementById('view-workspace').classList.add('hidden');
+      document.getElementById('view-gallery').classList.add('hidden');
+      document.getElementById('view-creators').classList.add('hidden');
+
+      // Show requested tab container
+      document.getElementById(`view-${tabId}`).classList.remove('hidden');
+
+      // Update navbar styling states
+      const navButtons = ['landing', 'workspace', 'gallery', 'creators'];
+      navButtons.forEach(btn => {
+        const el = document.getElementById(`nav-${btn}`);
+        if (btn === tabId) {
+          el.className = "px-6 py-2 rounded-full font-semibold text-sm transition-all duration-300 bg-[#1d2a3a] text-white shadow-sm";
+        } else {
+          el.className = "px-6 py-2 rounded-full font-semibold text-sm transition-all duration-300 text-[#1d2a3a] hover:bg-[#ffffff]/50";
+        }
+      });
+
+      // Special action: Trigger canvas initialization on entering workspace
+      if (tabId === 'workspace') {
+        setTimeout(() => {
+          initThreeJS();
+        }, 100);
+      }
+    }
+
+    // ================= BROADCAST NEWS CONTROLS ================= -->
+    function renderNews() {
+      const newsItem = newsBroadcasts[appState.currentNewsIndex];
+      document.getElementById('ticker-text').textContent = newsItem.text;
+      document.getElementById('ticker-date').textContent = newsItem.date;
+    }
+
+    function prevNews() {
+      appState.currentNewsIndex = (appState.currentNewsIndex - 1 + newsBroadcasts.length) % newsBroadcasts.length;
+      renderNews();
+    }
+
+    function nextNews() {
+      appState.currentNewsIndex = (appState.currentNewsIndex + 1) % newsBroadcasts.length;
+      renderNews();
+    }
+
+    // ================= INTEGRATED THREE.JS SIMULATION FOR THE CREATOR STUDIO ================= -->
+    let scene, camera, renderer, activeMesh, materialOptions = {};
+    let isThreeJSInitialized = false;
+    let rotationAngle = 0;
+
+    function initThreeJS() {
+      if (isThreeJSInitialized) {
+        // Redraw to adjust to dynamic container widths
+        const canvas = document.getElementById('studio3d-canvas');
+        if (canvas) {
+          const width = canvas.parentElement.clientWidth;
+          const height = canvas.parentElement.clientHeight;
+          renderer.setSize(width, height);
+          camera.aspect = width / height;
+          camera.updateProjectionMatrix();
+        }
+        return;
+      }
+
+      const canvas = document.getElementById('studio3d-canvas');
+      const width = canvas.parentElement.clientWidth;
+      const height = canvas.parentElement.clientHeight;
+
+      // Scene init
+      scene = new THREE.Scene();
+      scene.background = null; // Transparent scene to utilize css background gradient
+
+      // Camera init
+      camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+      camera.position.z = 6;
+
+      // Renderer setup
+      renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setSize(width, height);
+
+      // Define standard premium materials mapping
+      materialOptions = {
+        obsidian: new THREE.MeshStandardMaterial({
+          color: 0x111112,
+          roughness: 0.8,
+          metalness: 0.2,
+          bumpScale: 0.05,
+          side: THREE.DoubleSide
+        }),
+        chrome: new THREE.MeshStandardMaterial({
+          color: 0xdedede,
+          roughness: 0.05,
+          metalness: 1.0,
+          side: THREE.DoubleSide
+        }),
+        hologram: new THREE.MeshBasicMaterial({
+          color: 0x55e0ff,
+          wireframe: true,
+          transparent: true,
+          opacity: 0.75
+        }),
+        gold: new THREE.MeshStandardMaterial({
+          color: 0xd4af37,
+          roughness: 0.15,
+          metalness: 0.9,
+          side: THREE.DoubleSide
+        })
+      };
+
+      // Load initial model (starts as cube matching "cyberpunk crate")
+      loadPresetGeometry();
+
+      // Lighting system setup
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+      scene.add(ambientLight);
+
+      const mainLight = new THREE.DirectionalLight(0xffffff, 1.2);
+      mainLight.position.set(5, 5, 5);
+      scene.add(mainLight);
+
+      const cyanAccentLight = new THREE.PointLight(0x55e0ff, 1.5, 15);
+      cyanAccentLight.position.set(-3, -2, 2);
+      scene.add(cyanAccentLight);
+
+      const orangeAccentLight = new THREE.PointLight(0xf47a60, 1.0, 15);
+      orangeAccentLight.position.set(3, 2, -2);
+      scene.add(orangeAccentLight);
+
+      // Add simple mouse tracking interaction for high-budget response feel
+      let isDragging = false;
+      let previousMousePosition = { x: 0, y: 0 };
+
+      canvas.addEventListener('mousedown', (e) => {
+        isDragging = true;
+      });
+
+      canvas.addEventListener('mousemove', (e) => {
+        const deltaMove = {
+          x: e.offsetX - previousMousePosition.x,
+          y: e.offsetY - previousMousePosition.y
+        };
+
+        if (isDragging && activeMesh) {
+          activeMesh.rotation.y += deltaMove.x * 0.01;
+          activeMesh.rotation.x += deltaMove.y * 0.01;
+        }
+
+        previousMousePosition = {
+          x: e.offsetX,
+          y: e.offsetY
+        };
+      });
+
+      window.addEventListener('mouseup', () => {
+        isDragging = false;
+      });
+
+      // Handle touch screen drag interactions
+      canvas.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        if (e.touches.length > 0) {
+          previousMousePosition = {
+            x: e.touches[0].clientX,
+            y: e.touches[0].clientY
+          };
+        }
+      });
+
+      canvas.addEventListener('touchmove', (e) => {
+        if (isDragging && activeMesh && e.touches.length > 0) {
+          const deltaMove = {
+            x: e.touches[0].clientX - previousMousePosition.x,
+            y: e.touches[0].clientY - previousMousePosition.y
+          };
+          activeMesh.rotation.y += deltaMove.x * 0.015;
+          activeMesh.rotation.x += deltaMove.y * 0.015;
+
+          previousMousePosition = {
+            x: e.touches[0].clientX,
+            y: e.touches[0].clientY
+          };
+        }
+      });
+
+      canvas.addEventListener('touchend', () => {
+        isDragging = false;
+      });
+
+      isThreeJSInitialized = true;
+      
+      // Start render animation loop
+      animate();
+    }
+
+    // Geometry Switcher Logic
+    function loadPresetGeometry() {
+      const selector = document.getElementById('preset-selector');
+      const val = selector.value;
+
+      if (activeMesh) {
+        scene.remove(activeMesh);
+      }
+
+      let geometry;
+
+      if (val === 'cube') {
+        geometry = new THREE.BoxGeometry(2, 2, 2, 4, 4, 4);
+        document.getElementById('rendered-title').textContent = "CYBERPUNK_CARGO_CRATE.obj";
+        document.getElementById('rendered-vertices').textContent = "1,536";
+      } else if (val === 'sphere') {
+        geometry = new THREE.SphereGeometry(1.5, 32, 32);
+        document.getElementById('rendered-title').textContent = "NEURAL_ORB_SPHERE.obj";
+        document.getElementById('rendered-vertices').textContent = "4,096";
+      } else if (val === 'torus') {
+        geometry = new THREE.TorusGeometry(1.2, 0.4, 16, 100);
+        document.getElementById('rendered-title').textContent = "INFINITY_RING_MESH.obj";
+        document.getElementById('rendered-vertices').textContent = "32,000";
+      } else if (val === 'helmet') {
+        // High complexity mock model structure using a group
+        geometry = new THREE.ConeGeometry(1.3, 2, 16);
+        document.getElementById('rendered-title').textContent = "HYPER_VISOR_FINAL_V2.obj";
+        document.getElementById('rendered-vertices').textContent = "48,224";
+      }
+
+      const activeMatKey = appState.activeMaterial;
+      let activeMat = materialOptions[activeMatKey];
+
+      // Clone material properties to handle override cases correctly
+      if (appState.wireframe && activeMatKey !== 'hologram') {
+        activeMat = activeMat.clone();
+        activeMat.wireframe = true;
+      }
+
+      activeMesh = new THREE.Mesh(geometry, activeMat);
+      scene.add(activeMesh);
+    }
+
+    // Interactive Material updates
+    function applyMaterialPreset(matKey) {
+      appState.activeMaterial = matKey;
+
+      // Update visual style indicators on buttons
+      const materialButtons = ['obsidian', 'chrome', 'hologram', 'gold'];
+      materialButtons.forEach(btn => {
+        const el = document.getElementById(`btn-mat-${btn}`);
+        if (btn === matKey) {
+          el.className = "flex flex-col items-center p-3 rounded-2xl bg-slate-100 border-2 border-[#1d2a3a] premium-transition";
+        } else {
+          el.className = "flex flex-col items-center p-3 rounded-2xl bg-slate-100 border-2 border-transparent premium-transition hover:bg-slate-200";
+        }
+      });
+
+      if (!activeMesh) return;
+
+      let activeMat = materialOptions[matKey];
+
+      // Enforce custom wireframe override if checked
+      if (appState.wireframe && matKey !== 'hologram') {
+        activeMat = activeMat.clone();
+        activeMat.wireframe = true;
+      }
+
+      activeMesh.material = activeMat;
+      showToast(`Applied material: ${matKey.toUpperCase()}`);
+    }
+
+    // Toggle viewport wireframe overlay
+    function toggleWireframe() {
+      const isChecked = document.getElementById('wireframe-toggle').checked;
+      appState.wireframe = isChecked;
+
+      if (!activeMesh) return;
+
+      // Trigger hot material updates
+      applyMaterialPreset(appState.activeMaterial);
+    }
+
+    // Toggle Auto Rotate state
+    function toggleRotation() {
+      appState.autoRotate = document.getElementById('rotation-toggle').checked;
+    }
+
+    // Reset camera position to default
+    function resetCamera() {
+      if (camera && activeMesh) {
+        camera.position.set(0, 0, 6);
+        activeMesh.rotation.set(0, 0, 0);
+        showToast("Viewport angle recalibrated");
+      }
+    }
+
+    // Cycle through custom point lighting configurations
+    let lightState = 0;
+    function cycleLighting() {
+      lightState = (lightState + 1) % 3;
+      showToast(`Switched lighting rig variant [0${lightState + 1}]`);
+    }
+
+    // ThreeJS animation frame updates
+    function animate() {
+      requestAnimationFrame(animate);
+
+      if (activeMesh && appState.autoRotate) {
+        activeMesh.rotation.y += 0.005;
+      }
+
+      renderer.render(scene, camera);
+    }
+
+
+    // ================= DYNAMIC AI 3D ENGINE GENERATOR SIMULATION ================= -->
+    function addPromptTag(tag) {
+      const input = document.getElementById('prompt-input');
+      if (input.value) {
+        input.value += `, ${tag}`;
+      } else {
+        input.value = tag;
+      }
+      showToast("Prompt parameter registered");
+    }
+
+    function clearPrompt() {
+      document.getElementById('prompt-input').value = "";
+    }
+
+    // Simulate multi-tier production level AI generation phases
+    function triggerGeneration() {
+      const promptText = document.getElementById('prompt-input').value.trim();
+      if (!promptText) {
+        showToast("Please enter a custom description prompt first.");
+        return;
+      }
+
+      const loader = document.getElementById('gen-loader');
+      const progress = document.getElementById('loader-progress');
+      const stateText = document.getElementById('loader-state-text');
+
+      // Reveal dynamic loader cover
+      loader.classList.remove('opacity-0', 'pointer-events-none');
+      loader.classList.add('opacity-100');
+
+      // Set initial state
+      progress.style.width = "10%";
+      stateText.textContent = "Step 1/4: Parsing prompt token embeddings...";
+
+      // Stage 2
+      setTimeout(() => {
+        progress.style.width = "40%";
+        stateText.textContent = "Step 2/4: Synthesizing watertight voxel matrix structure...";
+      }, 1500);
+
+      // Stage 3
+      setTimeout(() => {
+        progress.style.width = "75%";
+        stateText.textContent = "Step 3/4: Creating edge loops & high-density PBR textures...";
+      }, 3000);
+
+      // Stage 4 Finalizing
+      setTimeout(() => {
+        progress.style.width = "100%";
+        stateText.textContent = "Step 4/4: Complete! Packing archive outputs...";
+      }, 4500);
+
+      // Finish & load complex output geometry representation
+      setTimeout(() => {
+        loader.classList.remove('opacity-100');
+        loader.classList.add('opacity-0', 'pointer-events-none');
+
+        // Dynamically shift visual model selector to 'helmet' state
+        document.getElementById('preset-selector').value = "helmet";
+        loadPresetGeometry();
+        applyMaterialPreset('chrome');
+
+        showToast("AI generation complete. Model uploaded to live viewport.");
+      }, 5500);
+    }
+
+
+    // ================= GALLERY DOM POPULATION & CONTROLS ================= -->
+    function filterGallery(category) {
+      // Toggle button states
+      const categories = ['all', 'sci-fi', 'wearables', 'architecture'];
+      categories.forEach(cat => {
+        const btn = document.getElementById(`tag-${cat}`);
+        if (cat === category) {
+          btn.className = "px-5 py-2 rounded-full font-bold text-xs bg-[#1d2a3a] text-white";
+        } else {
+          btn.className = "px-5 py-2 rounded-full font-bold text-xs bg-white/50 text-[#1d2a3a] hover:bg-white/85";
+        }
+      });
+
+      const filteredItems = category === 'all' 
+        ? galleryItems 
+        : galleryItems.filter(item => item.category === category);
+
+      renderGalleryGrid(filteredItems);
+    }
+
+    function renderGalleryGrid(items) {
+      const container = document.getElementById('gallery-grid');
+      container.innerHTML = "";
+
+      items.forEach(item => {
+        const itemHtml = `
+          <div class="bg-white/80 rounded-[2.5rem] p-4 border border-white/20 shadow-sm relative group hover:shadow-xl hover:translate-y-[-4px] premium-transition flex flex-col justify-between">
+            <div class="relative h-48 rounded-3xl overflow-hidden mb-4 bg-slate-100">
+              <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 premium-transition">
+              <span class="absolute top-3 left-3 bg-[#1d2a3a] text-brand-accentCyan text-[9px] font-mono uppercase tracking-widest px-2.5 py-1 rounded-full">
+                ${item.category}
+              </span>
+            </div>
+            
+            <div>
+              <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Procedural asset</span>
+              <h3 class="font-display font-bold text-base text-[#1d2a3a] leading-tight mt-0.5">${item.title}</h3>
+              <p class="text-[11px] text-slate-500 mt-1">Creator: ${item.creator}</p>
+            </div>
+
+            <div class="flex items-center justify-between mt-4 pt-3 border-t border-slate-100">
+              <span class="text-[10px] font-mono font-semibold text-slate-400 bg-slate-100 px-2 py-1 rounded-md">
+                ${item.material}
+              </span>
+              <button onclick="likeGalleryItem(${item.id})" class="flex items-center space-x-1 text-xs text-slate-500 hover:text-brand-accentOrange transition-colors">
+                <i class="fa-regular fa-heart"></i>
+                <span id="likes-count-${item.id}" class="font-bold">${item.likes}</span>
+              </button>
+            </div>
+          </div>
+        `;
+        container.innerHTML += itemHtml;
+      });
+    }
+
+    function likeGalleryItem(itemId) {
+      const countElement = document.getElementById(`likes-count-${itemId}`);
+      if (countElement) {
+        let currentLikes = parseInt(countElement.textContent);
+        countElement.textContent = currentLikes + 1;
+        showToast("Voted on procedural masterpiece!");
+      }
+    }
+
+
+    // ================= CREATORS HUB INJECTION ================= -->
+    function renderCreatorsGrid() {
+      const container = document.getElementById('creators-grid');
+      container.innerHTML = "";
+
+      creatorsData.forEach(creator => {
+        const creatorHtml = `
+          <div class="bg-white rounded-[2.5rem] p-6 border border-white/20 shadow-sm premium-transition hover:shadow-lg hover:border-brand-cardBlue/30 relative overflow-hidden flex flex-col justify-between h-[280px]">
+            <!-- Dynamic avatar decoration -->
+            <div class="flex justify-between items-start">
+              <div class="w-14 h-14 rounded-full bg-brand-cardBlue/20 flex items-center justify-center text-brand-cardBlue text-2xl font-bold">
+                ${creator.name[0]}
+              </div>
+              <span class="bg-brand-cardBlue/10 text-brand-cardBlue text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full">
+                ${creator.badge}
+              </span>
+            </div>
+
+            <div class="mt-4">
+              <h3 class="font-display font-bold text-lg text-[#1d2a3a] leading-none">${creator.name}</h3>
+              <span class="text-xs text-slate-400 font-medium block mt-1">${creator.role}</span>
+              <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                ${creator.bio}
+              </p>
+            </div>
+
+            <div class="flex justify-between items-center mt-6 pt-3 border-t border-slate-100 text-xs">
+              <span class="font-semibold text-slate-400">Followers: <strong class="text-[#1d2a3a]">${creator.followers}</strong></span>
+              <button onclick="showToast('Subscribed to creator updates!')" class="text-xs font-bold uppercase text-brand-cardBlue hover:underline">
+                Follow Space
+              </button>
+            </div>
+          </div>
+        `;
+        container.innerHTML += creatorHtml;
+      });
+    }
+
+
+    // ================= MODAL & POPUP CONTROLS ================= -->
+    function openModal(modalId) {
+      const modal = document.getElementById(`modal-${modalId}`);
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        modal.classList.remove('opacity-0');
+        modal.querySelector('.transform').classList.remove('scale-95');
+        modal.querySelector('.transform').classList.add('scale-100');
+      }, 50);
+    }
+
+    function closeModal(modalId) {
+      const modal = document.getElementById(`modal-${modalId}`);
+      modal.classList.add('opacity-0');
+      modal.querySelector('.transform').classList.remove('scale-100');
+      modal.querySelector('.transform').classList.add('scale-95');
+      setTimeout(() => {
+        modal.classList.add('hidden');
+      }, 300);
+    }
+
+    function openExportModal() {
+      // Set active file based on viewport selection state
+      const textTitle = document.getElementById('rendered-title').textContent;
+      const fileTarget = textTitle.replace('.obj', '.zip');
+      document.getElementById('export-filename').textContent = fileTarget.toLowerCase();
+      openModal('export');
+    }
+
+    function handleSignupSubmit(event) {
+      event.preventDefault();
+      closeModal('join');
+      showToast("Onboarding processing system. Welcome aboard Hex!");
+    }
+
+
+    // ================= VISUAL TOAST NOTIFICATION SYSTEM ================= -->
+    let toastTimeout;
+    function showToast(message) {
+      const toast = document.getElementById('toast-notify');
+      const toastText = document.getElementById('toast-text');
+
+      clearTimeout(toastTimeout);
+      toastText.textContent = message;
+
+      toast.classList.remove('hidden', 'translate-y-10');
+      setTimeout(() => {
+        toast.classList.add('translate-y-0');
+      }, 10);
+
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('translate-y-0');
+        toast.classList.add('translate-y-10');
+        setTimeout(() => {
+          toast.classList.add('hidden');
+        }, 300);
+      }, 3000);
+    }
+
+
+    // ================= INITIALIZER ON WINDOW LOAD ================= -->
+    window.onload = function() {
+      renderNews();
+      renderGalleryGrid(galleryItems);
+      renderCreatorsGrid();
+
+      // Track screen resize updates to optimize ThreeJS viewport widths
+      window.addEventListener('resize', () => {
+        if (appState.activeTab === 'workspace' && isThreeJSInitialized) {
+          const canvas = document.getElementById('studio3d-canvas');
+          const width = canvas.parentElement.clientWidth;
+          const height = canvas.parentElement.clientHeight;
+          renderer.setSize(width, height);
+          camera.aspect = width / height;
+          camera.updateProjectionMatrix();
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
+10

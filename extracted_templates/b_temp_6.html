@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROFSERVICE — Premium Facility & Property Management Ecosystem</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Oswald for ultra-bold condensed headers, Inter for premium system UI text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Oswald', 'sans-serif'],
+                    },
+                    colors: {
+                        brandDark: '#050505',
+                        brandGray: '#12131C',
+                        brandAccent: '#FFFFFF',
+                        brandMisty: '#8E94A2',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom scrollbar to keep it sleek and premium */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #242731;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3e4456;
+        }
+
+        /* Glassmorphism utility */
+        .glass {
+            background: rgba(18, 19, 28, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* Ambient glowing effects */
+        .glow-subtle {
+            box-shadow: 0 0 40px -10px rgba(255, 255, 255, 0.05);
+        }
+
+        /* Inverted text overlay for split-screen hero effect */
+        .split-clip-left {
+            clip-path: polygon(0 0, var(--split-percent, 50%) 0, var(--split-percent, 50%) 100%, 0 100%);
+            transition: clip-path 0.1s ease-out;
+        }
+        .split-clip-right {
+            clip-path: polygon(var(--split-percent, 50%) 0, 100% 0, 100% 100%, var(--split-percent, 50%) 100%);
+            transition: clip-path 0.1s ease-out;
+        }
+
+        /* Hide focus outlines but maintain keyboard accessibility */
+        *:focus-visible {
+            outline: 2px solid rgba(255, 255, 255, 0.4);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body class="bg-brandDark text-white font-sans overflow-x-hidden selection:bg-white selection:text-black">
+
+    <!-- TOP ANNOUNCEMENT BANNER -->
+    <div class="w-full bg-white text-black text-xs font-semibold py-2 px-4 tracking-widest text-center flex items-center justify-center gap-2 overflow-hidden z-50 relative">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span>SYSTEM OPERATIONAL: ALL 48 MANAGED FACILITIES REPORTING 100% UPTIME</span>
+    </div>
+
+    <!-- MAIN NAVBAR -->
+    <header class="sticky top-0 w-full border-b border-white/5 bg-brandDark/80 backdrop-blur-md z-40 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex flex-col items-start group">
+                <span class="font-display text-2xl tracking-wider font-bold transition-all duration-300 group-hover:tracking-widest">ПРОФСЕРВИС</span>
+                <span class="text-[9px] text-brandMisty tracking-[0.25em] -mt-1 uppercase">PROFSERVICE CO.</span>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center gap-8 text-xs font-semibold tracking-widest uppercase">
+                <a href="#services" class="text-brandMisty hover:text-white transition-colors duration-200">Our Services</a>
+                <a href="#dashboard" class="text-brandMisty hover:text-white transition-colors duration-200">Facility Control</a>
+                <a href="#calculator" class="text-brandMisty hover:text-white transition-colors duration-200">Quote Engine</a>
+                <a href="#advantages" class="text-brandMisty hover:text-white transition-colors duration-200">Why Us</a>
+                <a href="#faq" class="text-brandMisty hover:text-white transition-colors duration-200">FAQ</a>
+                <a href="#design-system" class="px-2.5 py-1 rounded bg-white/10 text-[10px] text-white hover:bg-white hover:text-black transition-all duration-200">Design Kit</a>
+            </nav>
+
+            <!-- CTA / Contact Trigger -->
+            <div class="flex items-center gap-4">
+                <a href="#contact" class="hidden sm:inline-block border border-white/20 hover:border-white px-5 py-2.5 text-xs font-semibold tracking-widest uppercase transition-all duration-300 bg-transparent hover:bg-white hover:text-black">
+                    Request Audit
+                </a>
+                
+                <!-- Mobile Navigation Trigger -->
+                <button id="mobile-menu-btn" class="md:hidden flex flex-col justify-center items-end gap-1.5 w-6 h-6 focus:outline-none" aria-label="Toggle Navigation Menu">
+                    <span class="w-6 h-0.5 bg-white transition-transform duration-300" id="m-line-1"></span>
+                    <span class="w-4 h-0.5 bg-white transition-opacity duration-300" id="m-line-2"></span>
+                    <span class="w-5 h-0.5 bg-white transition-transform duration-300" id="m-line-3"></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden fixed top-[81px] left-0 w-full h-[calc(100vh-81px)] bg-brandDark/95 backdrop-blur-xl border-t border-white/5 p-8 flex flex-col justify-between z-40 transition-all duration-300 transform translate-x-full">
+            <div class="flex flex-col gap-6 text-lg font-medium tracking-wide">
+                <a href="#services" class="mobile-link text-brandMisty hover:text-white py-2 border-b border-white/5">Our Services</a>
+                <a href="#dashboard" class="mobile-link text-brandMisty hover:text-white py-2 border-b border-white/5">Facility Control Hub</a>
+                <a href="#calculator" class="mobile-link text-brandMisty hover:text-white py-2 border-b border-white/5">Interactive Quote Engine</a>
+                <a href="#advantages" class="mobile-link text-brandMisty hover:text-white py-2 border-b border-white/5">Why PROFSERVICE</a>
+                <a href="#faq" class="mobile-link text-brandMisty hover:text-white py-2 border-b border-white/5">FAQ Panel</a>
+                <a href="#design-system" class="mobile-link text-brandMisty hover:text-white py-2">UI Component Library</a>
+            </div>
+            <div class="flex flex-col gap-4">
+                <a href="#contact" class="mobile-link w-full text-center bg-white text-black py-4 text-xs font-bold tracking-widest uppercase hover:bg-brandMisty transition-colors">
+                    Get Free Property Audit
+                </a>
+                <div class="text-center text-xs text-brandMisty">
+                    tg: @helperel &bull; +7 999 852-32-92
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECTION 1: THE INTERACTIVE CINEMATIC SPLIT HERO -->
+    <section class="relative h-[90vh] md:h-screen w-full overflow-hidden select-none" id="hero-split-container">
+        <!-- Inside this container, we hold two distinct layout layers that match exactly by coordinates but possess flipped background tones and contrast styles to mimic the dark-and-light-side building perspective in your reference image. -->
+        
+        <!-- Background Layer A: "The Misty/Light Contrast Side" -->
+        <div class="absolute inset-0 w-full h-full bg-[#181a24] text-white split-clip-left" id="hero-left-layer">
+            <div class="absolute inset-0 bg-cover bg-center mix-blend-luminosity opacity-40" style="background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80');"></div>
+            <!-- Radial gradient simulating cinematic spotlight -->
+            <div class="absolute inset-0 bg-gradient-to-r from-brandDark via-transparent to-transparent"></div>
+            
+            <!-- Real Architectural Core Building visual overlay -->
+            <div class="absolute inset-0 flex items-center justify-center">
+                <div class="w-full max-w-4xl h-full bg-contain bg-no-repeat bg-center opacity-30 transform scale-110" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80');"></div>
+            </div>
+        </div>
+
+        <!-- Background Layer B: "The Pure Infinite Void Black Side" -->
+        <div class="absolute inset-0 w-full h-full bg-brandDark text-white split-clip-right" id="hero-right-layer">
+            <div class="absolute inset-0 bg-cover bg-center mix-blend-color-dodge opacity-20" style="background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1920&q=80');"></div>
+            <!-- Real Architectural core building but high contrast inverted -->
+            <div class="absolute inset-0 flex items-center justify-center">
+                <div class="w-full max-w-4xl h-full bg-contain bg-no-repeat bg-center opacity-60 mix-blend-overlay" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80');"></div>
+            </div>
+        </div>
+
+        <!-- SHARED DYNAMIC CONTENT GRID OVERLAY -->
+        <div class="absolute inset-0 pointer-events-none z-10 flex flex-col justify-between p-6 md:p-12 max-w-7xl mx-auto w-full">
+            
+            <!-- Category top layout markers -->
+            <div class="flex justify-between items-center text-[10px] md:text-xs font-semibold tracking-[0.3em] text-brandMisty uppercase pt-4">
+                <div class="flex items-center gap-6">
+                    <span>ВАША ПРОБЛЕМА</span>
+                    <span>НАШЕ РЕШЕНИЕ</span>
+                    <span>О КОМПАНИИ</span>
+                </div>
+                <div class="hidden md:flex items-center gap-6">
+                    <span>УСЛУГИ</span>
+                    <span>ПРЕИМУЩЕСТВА</span>
+                    <span>БЕСПЛАТНЫЙ БОНУС</span>
+                </div>
+            </div>
+
+            <!-- Huge Central Condensed Title resembling reference slide ПРОФСЕРВИС -->
+            <div class="my-auto text-center w-full relative">
+                <h1 class="font-display text-[15vw] md:text-[11vw] leading-none font-bold tracking-tighter uppercase pointer-events-auto">
+                    ПРОФСЕРВИС
+                </h1>
+                <p class="text-xs md:text-sm font-semibold tracking-[0.4em] text-brandMisty mt-4 uppercase">
+                    INTELLIGENT BUILDING MANAGEMENT &bull; SINCE 2018
+                </p>
+            </div>
+
+            <!-- Two bottom pillars mirroring the left and right description texts of slide 1 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8 border-t border-white/10 text-xs md:text-sm tracking-wide leading-relaxed">
+                <div class="max-w-md">
+                    <p class="text-white">
+                        <span class="text-brandMisty uppercase font-bold block mb-1 tracking-widest">Complete Facility Care:</span>
+                        Полное обслуживание объекта без стресса — от инженерии, фасадного альпинизма до регулярной комплексной уборки помещений.
+                    </p>
+                </div>
+                <div class="max-w-md md:text-right md:ml-auto">
+                    <p class="text-white">
+                        <span class="text-brandMisty uppercase font-bold block mb-1 tracking-widest">Economic Optimization:</span>
+                        Экономьте от 10% бюджета на содержание коммерческих площадей, за счет автоматизации процессов и собственного штата клинеров.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Center dynamic split line indicator -->
+        <div class="absolute inset-y-0 w-px bg-white/20 pointer-events-none z-20" id="hero-split-line" style="left: 50%;">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full border border-white/20 bg-brandDark/80 backdrop-blur flex items-center justify-center text-[9px] font-mono tracking-widest text-brandMisty animate-pulse">
+                ↔
+            </div>
+        </div>
+
+    </section>
+
+    <!-- SECTION 2: THE INTERACTIVE PROPERTY CARE CONSOL / LIVE DASHBOARD -->
+    <section class="py-24 bg-brandDark border-t border-b border-white/5 relative overflow-hidden" id="dashboard">
+        <!-- Ambient atmospheric background glow -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-white/[0.02] rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 relative">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 items-end mb-16">
+                <div class="lg:col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+                        <span class="text-xs font-semibold uppercase tracking-widest text-brandMisty">Digital Twin & Operations</span>
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-display font-semibold tracking-tight uppercase leading-none">
+                        Live Operations Control Center
+                    </h2>
+                </div>
+                <div class="text-xs md:text-sm text-brandMisty leading-relaxed">
+                    We don't just manage buildings on paper. Our partners gain exclusive real-time access to the PROFSERVICE Client Control panel, enabling instant transparency on engineering audits, cleaning rotas, and energy efficiency.
+                </div>
+            </div>
+
+            <!-- Virtual Smart Building Control Center UI mockup -->
+            <div class="w-full rounded-lg border border-white/10 bg-brandDark/40 backdrop-blur-md overflow-hidden shadow-2xl relative">
+                <!-- Mac-Style Window header -->
+                <div class="px-6 py-4 border-b border-white/10 flex items-center justify-between bg-brandDark/80">
+                    <div class="flex items-center gap-2">
+                        <div class="w-2.5 h-2.5 rounded-full bg-red-500/60"></div>
+                        <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/60"></div>
+                        <div class="w-2.5 h-2.5 rounded-full bg-emerald-500/60"></div>
+                        <span class="text-xs font-mono text-brandMisty ml-4">admin://profservice.io/dashboard/live_telemetry</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span class="inline-flex items-center gap-1.5 text-[10px] font-mono bg-emerald-500/10 text-emerald-400 px-2.5 py-1 rounded">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> LIVE REFRESH ACTIVE
+                        </span>
+                        <span id="dashboard-clock" class="text-xs font-mono text-brandMisty">15:42:01 UTC</span>
+                    </div>
+                </div>
+
+                <!-- Dashboard Content Area -->
+                <div class="grid grid-cols-1 lg:grid-cols-4 divide-y lg:divide-y-0 lg:divide-x divide-white/10">
+                    
+                    <!-- Left Column: Metrics and Interactive Toggles -->
+                    <div class="p-6 flex flex-col gap-6 lg:col-span-1">
+                        <h3 class="text-xs font-bold tracking-widest text-brandMisty uppercase mb-2">Systems Status</h3>
+                        
+                        <!-- Toggle Controls -->
+                        <div class="flex flex-col gap-4">
+                            <!-- Toggle 1 -->
+                            <div class="flex items-center justify-between p-3 rounded bg-white/[0.02] border border-white/5">
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-bold">HVAC Climate Grid</span>
+                                    <span class="text-[10px] text-brandMisty font-mono" id="hvac-status">Auto (21.5°C)</span>
+                                </div>
+                                <button onclick="toggleSystem('hvac')" class="w-10 h-5 bg-white rounded-full p-0.5 transition-colors duration-200 focus:outline-none" id="hvac-btn" aria-label="Toggle HVAC Climate System">
+                                    <div class="w-4 h-4 bg-black rounded-full transition-transform duration-200 translate-x-5" id="hvac-dot"></div>
+                                </button>
+                            </div>
+
+                            <!-- Toggle 2 -->
+                            <div class="flex items-center justify-between p-3 rounded bg-white/[0.02] border border-white/5">
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-bold">Industrial Rope Access</span>
+                                    <span class="text-[10px] text-brandMisty font-mono" id="rope-status">Active Shift</span>
+                                </div>
+                                <button onclick="toggleSystem('rope')" class="w-10 h-5 bg-white rounded-full p-0.5 transition-colors duration-200 focus:outline-none" id="rope-btn" aria-label="Toggle Industrial Rope Access System">
+                                    <div class="w-4 h-4 bg-black rounded-full transition-transform duration-200 translate-x-5" id="rope-dot"></div>
+                                </button>
+                            </div>
+
+                            <!-- Toggle 3 -->
+                            <div class="flex items-center justify-between p-3 rounded bg-white/[0.02] border border-white/5">
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-bold">Access Security Lock</span>
+                                    <span class="text-[10px] text-brandMisty font-mono" id="security-status">Secure (Biometric)</span>
+                                </div>
+                                <button onclick="toggleSystem('security')" class="w-10 h-5 bg-white rounded-full p-0.5 transition-colors duration-200 focus:outline-none" id="security-btn" aria-label="Toggle Access Security Lock System">
+                                    <div class="w-4 h-4 bg-black rounded-full transition-transform duration-200 translate-x-5" id="security-dot"></div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Real-time dynamic occupancy slider -->
+                        <div class="mt-4">
+                            <div class="flex justify-between text-[11px] mb-2 font-mono">
+                                <span class="text-brandMisty">Occupancy Density</span>
+                                <span id="occupancy-val" class="font-bold">65%</span>
+                            </div>
+                            <input type="range" min="10" max="100" value="65" id="occupancy-slider" class="w-full accent-white bg-white/10 rounded-lg appearance-none h-1 cursor-pointer" aria-label="Adjust Simulated Occupancy Density">
+                        </div>
+                    </div>
+
+                    <!-- Middle Column (Col-span 2): Real-time graph simulation & Interactive Map -->
+                    <div class="p-6 lg:col-span-2 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-xs font-bold tracking-widest text-brandMisty uppercase">Energy Consumption / Efficiency Log</h3>
+                                <span class="text-xs font-mono text-emerald-400">-12.4% vs last week</span>
+                            </div>
+                            
+                            <!-- SVG Animated Telemetry Graph -->
+                            <div class="relative w-full h-48 bg-brandDark/80 border border-white/5 rounded p-4 overflow-hidden flex items-end">
+                                <div class="absolute inset-0 grid grid-rows-4 grid-cols-6 divide-y divide-x divide-white/[0.02] pointer-events-none">
+                                    <div></div><div></div><div></div><div></div><div></div><div></div>
+                                    <div></div><div></div><div></div><div></div><div></div><div></div>
+                                    <div></div><div></div><div></div><div></div><div></div><div></div>
+                                    <div></div><div></div><div></div><div></div><div></div><div></div>
+                                </div>
+                                <svg class="w-full h-full absolute inset-0" viewBox="0 0 400 150" preserveAspectRatio="none">
+                                    <defs>
+                                        <linearGradient id="chart-grad" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.15"></stop>
+                                            <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.00"></stop>
+                                        </linearGradient>
+                                    </defs>
+                                    <!-- Animated pulse lines using pure SVG paths -->
+                                    <path id="graph-path-bg" d="M0,130 Q30,110 60,115 T120,80 T180,95 T240,60 T300,75 T360,40 T400,30 L400,150 L0,150 Z" fill="url(#chart-grad)"></path>
+                                    <path id="graph-path" d="M0,130 Q30,110 60,115 T120,80 T180,95 T240,60 T300,75 T360,40 T400,30" fill="none" stroke="#FFFFFF" stroke-width="2" class="transition-all duration-300"></path>
+                                    <circle cx="400" cy="30" r="4" fill="#FFFFFF" class="animate-ping"></circle>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-4 mt-6 text-center">
+                            <div class="p-3 bg-white/[0.01] border border-white/5 rounded">
+                                <span class="text-[10px] text-brandMisty font-mono uppercase block">Active Cleaners</span>
+                                <span class="text-xl font-display font-bold">14 / 20</span>
+                            </div>
+                            <div class="p-3 bg-white/[0.01] border border-white/5 rounded">
+                                <span class="text-[10px] text-brandMisty font-mono uppercase block">Water Reserve</span>
+                                <span class="text-xl font-display font-bold">98.2%</span>
+                            </div>
+                            <div class="p-3 bg-white/[0.01] border border-white/5 rounded">
+                                <span class="text-[10px] text-brandMisty font-mono uppercase block">Co2 Level</span>
+                                <span class="text-xl font-display font-bold">410 ppm</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Live Terminal Events Feed -->
+                    <div class="p-6 lg:col-span-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xs font-bold tracking-widest text-brandMisty uppercase mb-4">Operations Feed</h3>
+                            <div class="flex flex-col gap-3 font-mono text-[10px] max-h-48 overflow-y-auto" id="terminal-feed">
+                                <!-- Dynamically added messages -->
+                                <div class="text-white/40"><span class="text-white">[15:39:12]</span> Building HVAC normalized.</div>
+                                <div class="text-white/40"><span class="text-white">[15:40:05]</span> Rota scheduled for facade washing.</div>
+                                <div class="text-white/40"><span class="text-white">[15:41:44]</span> Water telemetry OK.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="pt-4 border-t border-white/5">
+                            <button onclick="simulateTelemetryTrigger()" class="w-full text-center py-2.5 text-[10px] font-bold tracking-wider uppercase border border-white/10 hover:bg-white hover:text-black transition-all">
+                                Force Audit Update
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 3: THE CORE SERVICES GRID (Bento Style with Premium Hover Overlay) -->
+    <section class="py-24 bg-brandDark" id="services">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-4">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+                        <span class="text-xs font-semibold uppercase tracking-widest text-brandMisty">Comprehensive Capabilities</span>
+                    </div>
+                    <h2 class="text-4xl md:text-6xl font-display font-semibold tracking-tight uppercase leading-none">
+                        All-In-One Upkeep
+                    </h2>
+                </div>
+                <div class="max-w-md text-sm text-brandMisty">
+                    From premium indoor detailing and standard cleanings, to structural engineering and complex rope access window cleaning — we manage it under one single transparent contract.
+                </div>
+            </div>
+
+            <!-- Bento Service Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- Card 1: Indoor Cleaning (Double Width) -->
+                <div class="md:col-span-2 rounded-lg border border-white/10 bg-brandDark/50 overflow-hidden relative group h-96 flex flex-col justify-end p-8">
+                    <!-- Background Unsplash image with extreme contrast filter -->
+                    <div class="absolute inset-0 bg-cover bg-center mix-blend-luminosity opacity-20 group-hover:scale-105 transition-transform duration-700 pointer-events-none" style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80');"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-brandDark via-brandDark/20 to-transparent pointer-events-none"></div>
+
+                    <!-- Top tag -->
+                    <span class="absolute top-8 left-8 text-[10px] font-semibold tracking-widest bg-white/10 text-white px-3 py-1 rounded uppercase">
+                        Premium Cleaning
+                    </span>
+
+                    <div class="relative z-10 max-w-lg">
+                        <h3 class="text-2xl md:text-3xl font-display font-bold uppercase mb-2">Уборка помещений / Interior Detailing</h3>
+                        <p class="text-xs md:text-sm text-brandMisty leading-relaxed">
+                            Complete daily cleaning, premium floor restorations, glass facade detailing, sanitization of server rooms, and technical office deep-cleaning schedules.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 2: Rope Access Climbing -->
+                <div class="rounded-lg border border-white/10 bg-brandDark/50 overflow-hidden relative group h-96 flex flex-col justify-end p-8">
+                    <div class="absolute inset-0 bg-cover bg-center mix-blend-luminosity opacity-25 group-hover:scale-105 transition-transform duration-700 pointer-events-none" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80');"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-brandDark via-brandDark/20 to-transparent pointer-events-none"></div>
+
+                    <span class="absolute top-8 left-8 text-[10px] font-semibold tracking-widest bg-white/10 text-white px-3 py-1 rounded uppercase">
+                        High Elevation
+                    </span>
+
+                    <div class="relative z-10">
+                        <h3 class="text-2xl font-display font-bold uppercase mb-2">Промышленный альпинизм</h3>
+                        <p class="text-xs text-brandMisty leading-relaxed">
+                            Elite structural inspection, high-rise window washing, and architectural integrity checks via certified industrial climbers.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 3: Engineering Maintenance -->
+                <div class="rounded-lg border border-white/10 bg-brandDark/50 overflow-hidden relative group h-96 flex flex-col justify-end p-8">
+                    <div class="absolute inset-0 bg-cover bg-center mix-blend-luminosity opacity-20 group-hover:scale-105 transition-transform duration-700 pointer-events-none" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80');"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-brandDark via-brandDark/20 to-transparent pointer-events-none"></div>
+
+                    <span class="absolute top-8 left-8 text-[10px] font-semibold tracking-widest bg-white/10 text-white px-3 py-1 rounded uppercase">
+                        Engineering
+                    </span>
+
+                    <div class="relative z-10">
+                        <h3 class="text-2xl font-display font-bold uppercase mb-2">Технический аудит</h3>
+                        <p class="text-xs text-brandMisty leading-relaxed">
+                            Full mechanical & climate audits, electrical panel maintenance, grid load balancing, and immediate 24/7 technical breakdown relief.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 4: Territory Landscape Management (Double Width) -->
+                <div class="md:col-span-2 rounded-lg border border-white/10 bg-brandDark/50 overflow-hidden relative group h-96 flex flex-col justify-end p-8">
+                    <div class="absolute inset-0 bg-cover bg-center mix-blend-luminosity opacity-20 group-hover:scale-105 transition-transform duration-700 pointer-events-none" style="background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80');"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-brandDark via-brandDark/20 to-transparent pointer-events-none"></div>
+
+                    <span class="absolute top-8 left-8 text-[10px] font-semibold tracking-widest bg-white/10 text-white px-3 py-1 rounded uppercase">
+                        Territory Upkeep
+                    </span>
+
+                    <div class="relative z-10 max-w-lg">
+                        <h3 class="text-2xl md:text-3xl font-display font-bold uppercase mb-2">Уборка территории / Grounds Care</h3>
+                        <p class="text-xs md:text-sm text-brandMisty leading-relaxed">
+                            Outdoor security sweeping, snow cleaning, asphalt washdowns, exterior seasonal decoration, and systematic landscape maintenance schedules.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 4: INTERACTIVE SERVICE CALCULATOR / QUOTE ENGINE -->
+    <section class="py-24 bg-[#0a0b0e] border-t border-b border-white/5" id="calculator">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-xs font-semibold uppercase tracking-widest text-brandMisty">Instant Cost Predictor</span>
+                <h2 class="text-3xl md:text-5xl font-display font-semibold uppercase tracking-tight mt-2">
+                    Build Your Custom Maintenance Rota
+                </h2>
+                <p class="text-sm text-brandMisty mt-4">
+                    Instantly estimate your budget optimization. Drag the properties, choose scope layers, and view transparent commercial rates.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Calculator Settings (Left Side) -->
+                <div class="lg:col-span-7 bg-brandDark border border-white/10 rounded-lg p-6 md:p-8 space-y-8">
+                    
+                    <!-- Setting 1: Facility Type Selection -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-widest text-brandMisty mb-4">1. Facility Category</label>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <button onclick="selectFacilityType('office', 1.0)" class="fac-btn py-3 px-2 border border-white text-xs font-bold uppercase text-center bg-white text-black transition-all" id="fac-office">
+                                Office Center
+                            </button>
+                            <button onclick="selectFacilityType('warehouse', 0.8)" class="fac-btn py-3 px-2 border border-white/10 text-xs font-bold uppercase text-center text-brandMisty hover:border-white transition-all" id="fac-warehouse">
+                                Warehouse
+                            </button>
+                            <button onclick="selectFacilityType('residential', 1.1)" class="fac-btn py-3 px-2 border border-white/10 text-xs font-bold uppercase text-center text-brandMisty hover:border-white transition-all" id="fac-residential">
+                                Residential
+                            </button>
+                            <button onclick="selectFacilityType('retail', 1.2)" class="fac-btn py-3 px-2 border border-white/10 text-xs font-bold uppercase text-center text-brandMisty hover:border-white transition-all" id="fac-retail">
+                                Retail Hub
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Setting 2: Slider for Size / Square Footage -->
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="block text-xs font-bold uppercase tracking-widest text-brandMisty">2. Total Area Size</label>
+                            <span class="text-lg font-mono font-bold" id="area-display">5,000 sqm</span>
+                        </div>
+                        <input type="range" min="500" max="50000" step="500" value="5000" id="area-slider" oninput="updateCalculatorEstimate()" class="w-full accent-white bg-white/10 rounded-lg appearance-none h-1 cursor-pointer" aria-label="Facility Area Size">
+                        <div class="flex justify-between text-[10px] text-brandMisty font-mono mt-2">
+                            <span>500 sqm</span>
+                            <span>25,000 sqm</span>
+                            <span>50,000 sqm</span>
+                        </div>
+                    </div>
+
+                    <!-- Setting 3: Scope Toggles -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-widest text-brandMisty mb-4">3. Included Services</label>
+                        <div class="space-y-3">
+                            <!-- Clean Row 1 -->
+                            <div class="flex items-center justify-between p-3 border border-white/5 rounded hover:border-white/20 transition-all bg-white/[0.01]">
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" checked id="srv-detailing" onchange="updateCalculatorEstimate()" class="w-4 h-4 accent-black bg-brandDark border-white/10 rounded" aria-label="Include Interior Cleaning Services">
+                                    <span class="text-sm font-semibold">Regular Cleaning & Detailing</span>
+                                </div>
+                                <span class="text-xs font-mono text-brandMisty">+$0.50/sqm</span>
+                            </div>
+                            <!-- Clean Row 2 -->
+                            <div class="flex items-center justify-between p-3 border border-white/5 rounded hover:border-white/20 transition-all bg-white/[0.01]">
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" checked id="srv-engineering" onchange="updateCalculatorEstimate()" class="w-4 h-4 accent-black bg-brandDark border-white/10 rounded" aria-label="Include Engineering Support Services">
+                                    <span class="text-sm font-semibold">Continuous Engineering Support</span>
+                                </div>
+                                <span class="text-xs font-mono text-brandMisty">+$0.80/sqm</span>
+                            </div>
+                            <!-- Clean Row 3 -->
+                            <div class="flex items-center justify-between p-3 border border-white/5 rounded hover:border-white/20 transition-all bg-white/[0.01]">
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" id="srv-climbing" onchange="updateCalculatorEstimate()" class="w-4 h-4 accent-black bg-brandDark border-white/10 rounded" aria-label="Include Facade Climbing & Window Washing Services">
+                                    <span class="text-sm font-semibold">Industrial Climber Window Washing</span>
+                                </div>
+                                <span class="text-xs font-mono text-brandMisty">+$0.35/sqm</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Calculator Output (Right Side Breakdown) -->
+                <div class="lg:col-span-5 bg-brandDark border border-white/10 rounded-lg p-6 md:p-8 flex flex-col justify-between h-full relative">
+                    <!-- Subtle watermark -->
+                    <div class="absolute right-6 top-6 text-xs text-brandMisty font-mono uppercase tracking-[0.2em] opacity-30">PROJECTION</div>
+
+                    <div>
+                        <h3 class="text-xs font-bold uppercase tracking-widest text-brandMisty mb-6">Commercial Estimate</h3>
+                        
+                        <div class="space-y-4 pb-6 border-b border-white/10">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-brandMisty">Base Operations Fee:</span>
+                                <span class="font-mono text-white" id="calc-base-fee">$2,500</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-brandMisty">Selected Services:</span>
+                                <span class="font-mono text-white" id="calc-service-fee">$6,500</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-brandMisty">Est. Direct Optimization:</span>
+                                <span class="font-mono text-emerald-400" id="calc-saving">- $900</span>
+                            </div>
+                        </div>
+
+                        <!-- Big Number -->
+                        <div class="py-8 text-center lg:text-left">
+                            <span class="text-xs text-brandMisty uppercase tracking-widest font-bold">Estimated Monthly Investment</span>
+                            <div class="text-5xl md:text-6xl font-display font-bold mt-2 text-white">
+                                <span id="calc-total">$8,100</span><span class="text-lg text-brandMisty font-sans font-normal">/mo</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <a href="#contact" onclick="populateContactAuditForm()" class="block w-full text-center py-4 bg-white text-black text-xs font-bold tracking-widest uppercase hover:bg-brandMisty transition-colors">
+                            Lock In This Estimate
+                        </a>
+                        <p class="text-[10px] text-brandMisty text-center">
+                            *This estimate is calculated based on seasonal averages and custom contractor grids. Actual operational audits may lower costs.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 5: ADVANTAGES / PROCESS TIMELINE (Mirroring slide 5 timeline layout) -->
+    <section class="py-24 bg-brandDark relative" id="advantages">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <div class="text-center max-w-2xl mx-auto mb-20">
+                <span class="text-xs font-semibold uppercase tracking-widest text-brandMisty font-mono">Integrated Onboarding</span>
+                <h2 class="text-3xl md:text-5xl font-display font-semibold uppercase tracking-tight mt-2">
+                    Our 5-Step Transition Map
+                </h2>
+                <p class="text-sm text-brandMisty mt-4">
+                    Мы предлагаем вам сэкономить время, деньги и нервы. Our optimized onboarding ensures immediate zero-stress management.
+                </p>
+            </div>
+
+            <!-- Numbered Steps Grid mimicking Slide 5 exactly -->
+            <div class="grid grid-cols-1 md:grid-cols-5 divide-y md:divide-y-0 md:divide-x divide-white/10 border-t border-b border-white/10">
+                
+                <!-- Step 01 -->
+                <div class="p-6 md:p-8 flex flex-col justify-between hover:bg-white/[0.01] transition-all duration-300">
+                    <div>
+                        <div class="text-xs font-bold tracking-[0.25em] text-brandMisty font-mono uppercase mb-4">01</div>
+                        <h3 class="text-lg font-display uppercase font-bold mb-2">Detailed Site Audit</h3>
+                    </div>
+                    <p class="text-xs text-brandMisty leading-relaxed mt-4">
+                        We visit your commercial structure to audit physical wear of climate ducts, facades, and utility rooms.
+                    </p>
+                </div>
+
+                <!-- Step 02 -->
+                <div class="p-6 md:p-8 flex flex-col justify-between hover:bg-white/[0.01] transition-all duration-300">
+                    <div>
+                        <div class="text-xs font-bold tracking-[0.25em] text-brandMisty font-mono uppercase mb-4">02</div>
+                        <h3 class="text-lg font-display uppercase font-bold mb-2">Custom SLA Protocol</h3>
+                    </div>
+                    <p class="text-xs text-brandMisty leading-relaxed mt-4">
+                        Our experts design customized Service Level Agreements matching density metrics to your actual daily traffic.
+                    </p>
+                </div>
+
+                <!-- Step 03 -->
+                <div class="p-6 md:p-8 flex flex-col justify-between hover:bg-white/[0.01] transition-all duration-300">
+                    <div>
+                        <div class="text-xs font-bold tracking-[0.25em] text-brandMisty font-mono uppercase mb-4">03</div>
+                        <h3 class="text-lg font-display uppercase font-bold mb-2">Staff Allocation</h3>
+                    </div>
+                    <p class="text-xs text-brandMisty leading-relaxed mt-4">
+                        We assign experienced cleaning teams and certified industrial climbers, handling all official training and equipment.
+                    </p>
+                </div>
+
+                <!-- Step 04 -->
+                <div class="p-6 md:p-8 flex flex-col justify-between hover:bg-white/[0.01] transition-all duration-300">
+                    <div>
+                        <div class="text-xs font-bold tracking-[0.25em] text-brandMisty font-mono uppercase mb-4">04</div>
+                        <h3 class="text-lg font-display uppercase font-bold mb-2">Live Integration</h3>
+                    </div>
+                    <p class="text-xs text-brandMisty leading-relaxed mt-4">
+                        We deploy custom telemetry trackers, connect building nodes to the live terminal, and optimize climate controls.
+                    </p>
+                </div>
+
+                <!-- Step 05 -->
+                <div class="p-6 md:p-8 flex flex-col justify-between hover:bg-white/[0.01] transition-all duration-300">
+                    <div>
+                        <div class="text-xs font-bold tracking-[0.25em] text-brandMisty font-mono uppercase mb-4">05</div>
+                        <h3 class="text-lg font-display uppercase font-bold mb-2">Continuous Auditing</h3>
+                    </div>
+                    <p class="text-xs text-brandMisty leading-relaxed mt-4">
+                        Monthly efficiency reports confirm carbon reduction, optimized floor life, and budget savings over 10%.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 6: THE DETAILED DESIGN SYSTEM PLAYGROUND (Framer / Stripe style complete kit) -->
+    <section class="py-24 bg-[#07080a] border-t border-b border-white/5" id="design-system">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-widest text-brandMisty font-mono">Handcrafted Architecture</span>
+                    <h2 class="text-3xl md:text-5xl font-display font-semibold uppercase tracking-tight mt-2">
+                        System UI Component Library
+                    </h2>
+                    <p class="text-xs text-brandMisty mt-2">
+                        PROFSERVICE relies on high-end structural design patterns. Preview our design tokens and production-ready component code.
+                    </p>
+                </div>
+                
+                <!-- Tab controller buttons for design system layout -->
+                <div class="flex items-center gap-2 border border-white/10 rounded-lg p-1 bg-brandDark">
+                    <button onclick="switchDesignTab('colors')" class="ds-tab-btn px-4 py-2 text-xs font-semibold rounded bg-white text-black transition-all" id="ds-tab-colors">Tokens</button>
+                    <button onclick="switchDesignTab('components')" class="ds-tab-btn px-4 py-2 text-xs font-semibold rounded text-brandMisty hover:text-white transition-all" id="ds-tab-components">Buttons & Forms</button>
+                    <button onclick="switchDesignTab('feedback')" class="ds-tab-btn px-4 py-2 text-xs font-semibold rounded text-brandMisty hover:text-white transition-all" id="ds-tab-feedback">Status Badges</button>
+                </div>
+            </div>
+
+            <!-- CONTAINER FOR PLAYGROUND CONTENT -->
+            <div class="border border-white/10 bg-brandDark/40 rounded-lg p-8 glow-subtle">
+                
+                <!-- SUB-PANEL: COLORS & TYPOGRAPHY TOKENS -->
+                <div id="ds-panel-colors" class="ds-panel space-y-12">
+                    <div>
+                        <h3 class="text-sm font-bold tracking-widest uppercase text-brandMisty mb-4">Core Palette</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                            <div class="p-4 border border-white/10 bg-brandDark rounded flex flex-col justify-between h-32">
+                                <span class="font-mono text-xs">Void Black (#050505)</span>
+                                <span class="text-[10px] text-brandMisty">Main body background</span>
+                            </div>
+                            <div class="p-4 border border-white/10 bg-[#12131C] rounded flex flex-col justify-between h-32">
+                                <span class="font-mono text-xs">Slate Gray (#12131C)</span>
+                                <span class="text-[10px] text-brandMisty">Panels & Interactive modules</span>
+                            </div>
+                            <div class="p-4 border border-white/10 bg-[#8E94A2] rounded flex flex-col justify-between h-32 text-black">
+                                <span class="font-mono text-xs">Misty Gray (#8E94A2)</span>
+                                <span class="text-[10px] text-black/70">Subtle titles and text</span>
+                            </div>
+                            <div class="p-4 border border-white/10 bg-white rounded flex flex-col justify-between h-32 text-black">
+                                <span class="font-mono text-xs">High Contrast (#FFFFFF)</span>
+                                <span class="text-[10px] text-black/70">Primary text & main links</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-sm font-bold tracking-widest uppercase text-brandMisty mb-4">Typography Scaling</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-center justify-between border-b border-white/5 pb-4">
+                                <span class="text-xs text-brandMisty font-mono">Display Massive (Oswald Bold)</span>
+                                <span class="font-display text-4xl uppercase tracking-wider">ПРОФСЕРВИС SYSTEM</span>
+                            </div>
+                            <div class="flex items-center justify-between border-b border-white/5 pb-4">
+                                <span class="text-xs text-brandMisty font-mono">Heading Primary (Oswald Semibold)</span>
+                                <span class="font-display text-2xl uppercase">RELIABLE PROPERTY MANAGEMENT</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs text-brandMisty font-mono">Body Readability (Inter Regular)</span>
+                                <span class="text-sm max-w-xl text-right text-brandMisty">Our staff works according to advanced safety protocols, guaranteeing immediate, stress-free facility care.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUB-PANEL: BUTTONS & INPUT FIELDS -->
+                <div id="ds-panel-components" class="ds-panel hidden space-y-12">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <!-- Buttons column -->
+                        <div>
+                            <h3 class="text-sm font-bold tracking-widest uppercase text-brandMisty mb-6">Interactive Action Triggers</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <button class="w-full py-4 bg-white text-black text-xs font-bold tracking-widest uppercase hover:bg-brandMisty transition-colors">
+                                        Primary Solid Button
+                                    </button>
+                                </div>
+                                <div>
+                                    <button class="w-full py-4 border border-white/20 text-white text-xs font-bold tracking-widest uppercase hover:border-white transition-colors bg-transparent">
+                                        Secondary Border Button
+                                    </button>
+                                </div>
+                                <div>
+                                    <button class="w-full py-4 bg-white/5 text-white text-xs font-bold tracking-widest uppercase hover:bg-white/10 transition-colors flex items-center justify-center gap-2">
+                                        <svg class="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                        </svg>
+                                        Interactive Loading Trigger
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form Field column -->
+                        <div>
+                            <h3 class="text-sm font-bold tracking-widest uppercase text-brandMisty mb-6">Forms & Secure Inputs</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs text-brandMisty font-bold uppercase tracking-wider mb-2">Input Label Name</label>
+                                    <input type="text" placeholder="Enter commercial address" class="w-full bg-[#12131C] border border-white/10 focus:border-white px-4 py-3 rounded text-sm text-white focus:outline-none transition-colors">
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-brandMisty font-bold uppercase tracking-wider mb-2">Selection Trigger Dropdown</label>
+                                    <select class="w-full bg-[#12131C] border border-white/10 focus:border-white px-4 py-3 rounded text-sm text-white focus:outline-none transition-colors">
+                                        <option>Monthly Comprehensive Rota</option>
+                                        <option>Bi-Weekly Light Rota</option>
+                                        <option>One-Time Deep Cleaning Rota</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUB-PANEL: FEEDBACKS, BADGES & NOTIFICATIONS -->
+                <div id="ds-panel-feedback" class="ds-panel hidden space-y-12">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        
+                        <!-- Badges -->
+                        <div>
+                            <h3 class="text-sm font-bold tracking-widest uppercase text-brandMisty mb-6">Status Indicator Badges</h3>
+                            <div class="flex flex-wrap gap-4">
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-emerald-500/10 text-emerald-400 text-xs font-mono">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Active Facility Care
+                                </span>
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-yellow-500/10 text-yellow-400 text-xs font-mono">
+                                    <span class="w-2 h-2 rounded-full bg-yellow-500"></span> Audit Review Pending
+                                </span>
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-rose-500/10 text-rose-400 text-xs font-mono">
+                                    <span class="w-2 h-2 rounded-full bg-rose-500"></span> High Priority Action
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Instant Action Notification Demo -->
+                        <div>
+                            <h3 class="text-sm font-bold tracking-widest uppercase text-brandMisty mb-6">Toast Notification Sandbox</h3>
+                            <button onclick="triggerNotification('Facility data sync successfully executed.')" class="w-full py-3.5 border border-white/20 text-xs font-bold tracking-widest uppercase hover:bg-white hover:text-black transition-all">
+                                Fire Success Toast Message
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 7: DETAILED FREQUENT QUESTIONS PANEL (Accordions) -->
+    <section class="py-24 bg-brandDark" id="faq">
+        <div class="max-w-4xl mx-auto px-6">
+            
+            <div class="text-center mb-16">
+                <span class="text-xs font-semibold uppercase tracking-widest text-brandMisty font-mono">Client Inquiries</span>
+                <h2 class="text-3xl md:text-5xl font-display font-semibold uppercase tracking-tight mt-2">
+                    Frequently Asked Questions
+                </h2>
+            </div>
+
+            <div class="space-y-4">
+                
+                <!-- Accordion Row 1 -->
+                <div class="border-b border-white/10 pb-4">
+                    <button onclick="toggleFAQ(1)" class="w-full flex justify-between items-center py-4 text-left font-display text-lg uppercase font-bold text-white hover:text-brandMisty transition-colors" aria-expanded="false" aria-controls="faq-content-1">
+                        <span>How is the 10% commercial savings guaranteed?</span>
+                        <span class="text-xl font-mono text-brandMisty transition-transform duration-300" id="faq-icon-1">+</span>
+                    </button>
+                    <div class="hidden transition-all duration-300 pr-12 text-sm text-brandMisty leading-relaxed" id="faq-content-1" role="region">
+                        Because we operate our own full-time, certified crew of cleaners, industrial climbers, and certified mechanics, we do not outsource. This cuts double-contract margins by approximately 12-15% directly on operational personnel costs.
+                    </div>
+                </div>
+
+                <!-- Accordion Row 2 -->
+                <div class="border-b border-white/10 pb-4">
+                    <button onclick="toggleFAQ(2)" class="w-full flex justify-between items-center py-4 text-left font-display text-lg uppercase font-bold text-white hover:text-brandMisty transition-colors" aria-expanded="false" aria-controls="faq-content-2">
+                        <span>Do your staff possess industrial certification?</span>
+                        <span class="text-xl font-mono text-brandMisty transition-transform duration-300" id="faq-icon-2">+</span>
+                    </button>
+                    <div class="hidden transition-all duration-300 pr-12 text-sm text-brandMisty leading-relaxed" id="faq-content-2" role="region">
+                        Absolutely. All climbers are fully IRATA (rope access) certified. Our HVAC and technical electrical engineers are state-licensed and bonded to handle complex server-room power arrays and standard climate grids.
+                    </div>
+                </div>
+
+                <!-- Accordion Row 3 -->
+                <div class="border-b border-white/10 pb-4">
+                    <button onclick="toggleFAQ(3)" class="w-full flex justify-between items-center py-4 text-left font-display text-lg uppercase font-bold text-white hover:text-brandMisty transition-colors" aria-expanded="false" aria-controls="faq-content-3">
+                        <span>What happens if an unexpected utility error occurs?</span>
+                        <span class="text-xl font-mono text-brandMisty transition-transform duration-300" id="faq-icon-3">+</span>
+                    </button>
+                    <div class="hidden transition-all duration-300 pr-12 text-sm text-brandMisty leading-relaxed" id="faq-content-3" role="region">
+                        We deploy custom mechanical monitors linked straight to our Live Control Center. If telemetry indicators slide outside optimal metrics, a localized maintenance team is dispatched automatically, guaranteeing relief in under 35 minutes.
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 8: CONTACT TERMINAL & BOOKING REQUEST (Including feedback) -->
+    <section class="py-24 bg-[#0a0b0e] border-t border-white/5 relative" id="contact">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                
+                <!-- Info Column mimicking visual details of Slide 2 -->
+                <div class="space-y-8">
+                    <div>
+                        <span class="text-xs font-semibold uppercase tracking-widest text-brandMisty font-mono">Get in Touch</span>
+                        <h2 class="text-4xl md:text-6xl font-display font-semibold uppercase tracking-tight leading-none mt-2">
+                            Secure Your Property Integrity
+                        </h2>
+                        <p class="text-sm text-brandMisty mt-6 leading-relaxed">
+                            Передайте все заботы по содержанию объекта в надежные руки одной компании. Our consultants will perform an audit of your facility free of charge.
+                        </p>
+                    </div>
+
+                    <!-- Contact Details styled with high contrast styling of slide 2 -->
+                    <div class="space-y-4 pt-6 border-t border-white/10">
+                        <div class="grid grid-cols-2 gap-6">
+                            <div>
+                                <span class="text-[10px] text-brandMisty uppercase tracking-widest block font-bold mb-1">WhatsApp / Telegram / Phone</span>
+                                <span class="text-sm font-semibold tracking-wide text-white">+7 999 852-32-92</span>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-brandMisty uppercase tracking-widest block font-bold mb-1">Telegram Handle</span>
+                                <a href="https://t.me/helperel" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold tracking-wide text-white hover:underline">@helperel</a>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-6 pt-4">
+                            <div>
+                                <span class="text-[10px] text-brandMisty uppercase tracking-widest block font-bold mb-1">Corporate Dispatch</span>
+                                <span class="text-sm font-semibold tracking-wide text-white">director@profservice.moscow</span>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-brandMisty uppercase tracking-widest block font-bold mb-1">Tender Division</span>
+                                <span class="text-sm font-semibold tracking-wide text-white">tender@profservice.moscow</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Client Submission Terminal (Form) -->
+                <div class="bg-brandDark border border-white/10 rounded-lg p-6 md:p-8">
+                    <h3 class="text-xs font-bold uppercase tracking-widest text-brandMisty mb-6">Interactive Request form</h3>
+                    
+                    <form onsubmit="handleContactSubmit(event)" class="space-y-4">
+                        
+                        <div>
+                            <label for="contact-name" class="block text-[10px] text-brandMisty font-bold uppercase tracking-widest mb-2">Corporate Client Name</label>
+                            <input type="text" id="contact-name" placeholder="John Doe / Managing Partner" required class="w-full bg-[#12131C] border border-white/10 focus:border-white px-4 py-3 rounded text-sm text-white focus:outline-none transition-colors">
+                        </div>
+
+                        <div>
+                            <label for="contact-email" class="block text-[10px] text-brandMisty font-bold uppercase tracking-widest mb-2">Corporate Email Address</label>
+                            <input type="email" id="contact-email" placeholder="john@corporation.com" required class="w-full bg-[#12131C] border border-white/10 focus:border-white px-4 py-3 rounded text-sm text-white focus:outline-none transition-colors">
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="contact-phone" class="block text-[10px] text-brandMisty font-bold uppercase tracking-widest mb-2">Primary Phone</label>
+                                <input type="text" id="contact-phone" placeholder="+7 999 000-00-00" required class="w-full bg-[#12131C] border border-white/10 focus:border-white px-4 py-3 rounded text-sm text-white focus:outline-none transition-colors">
+                            </div>
+                            <div>
+                                <label for="contact-service" class="block text-[10px] text-brandMisty font-bold uppercase tracking-widest mb-2">Primary Service Layer</label>
+                                <select id="contact-service" class="w-full bg-[#12131C] border border-white/10 focus:border-white px-4 py-3 rounded text-sm text-white focus:outline-none transition-colors">
+                                    <option value="complete">Complete Integrated Care</option>
+                                    <option value="cleaning">Regular Premium Cleaning</option>
+                                    <option value="rope">Industrial Rope Access</option>
+                                    <option value="engineering">Mechanical Engineering Audit</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="contact-details" class="block text-[10px] text-brandMisty font-bold uppercase tracking-widest mb-2">Optional Project Description / Projected Size</label>
+                            <textarea id="contact-details" rows="3" placeholder="e.g. 5,500 sqm commercial workspace in Moscow" class="w-full bg-[#12131C] border border-white/10 focus:border-white px-4 py-3 rounded text-sm text-white focus:outline-none transition-colors resize-none"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 bg-white text-black text-xs font-bold tracking-widest uppercase hover:bg-brandMisty transition-colors mt-6">
+                            Submit Free Property Audit Request
+                        </button>
+
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-12 bg-brandDark border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            
+            <div class="flex flex-col items-center md:items-start">
+                <span class="font-display text-xl tracking-wider font-bold">ПРОФСЕРВИС</span>
+                <span class="text-[8px] text-brandMisty tracking-widest uppercase">PROFSERVICE CO. &bull; ALL RIGHTS RESERVED &copy; 2026</span>
+            </div>
+
+            <!-- Tiny bottom link index -->
+            <div class="flex flex-wrap justify-center gap-6 text-[10px] font-bold tracking-widest text-brandMisty uppercase">
+                <a href="#services" class="hover:text-white transition-colors">Services</a>
+                <a href="#dashboard" class="hover:text-white transition-colors">Dashboard Telemetry</a>
+                <a href="#calculator" class="hover:text-white transition-colors">Calculator Rota</a>
+                <a href="#design-system" class="hover:text-white transition-colors">UI Kit</a>
+                <a href="https://t.me/helperel" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">tg: @helperel</a>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE FLOATING TOAST SYSTEM (No browser alerts allowed) -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 max-w-sm pointer-events-none" id="toast-container">
+        <!-- Toast elements dynamically generated via JS will drop here beautifully -->
+    </div>
+
+
+    <!-- JAVASCRIPT LOGIC & TELEMETRY CONTROLLER -->
+    <script>
+        // Real-time Global variables
+        let selectedMultiplier = 1.0;
+        let selectedFacilityId = 'office';
+
+        // Initialization
+        window.addEventListener('DOMContentLoaded', () => {
+            // Live clock ticker
+            setInterval(updateClock, 1000);
+            updateClock();
+
+            // Setup Split Screen Hero Hover
+            const heroContainer = document.getElementById('hero-split-container');
+            if (heroContainer) {
+                heroContainer.addEventListener('mousemove', handleHeroSplitMouseMove);
+                heroContainer.addEventListener('mouseleave', resetHeroSplit);
+            }
+
+            // Setup Dashboard Occupancy Slider Event listener
+            const occSlider = document.getElementById('occupancy-slider');
+            if (occSlider) {
+                occSlider.addEventListener('input', (e) => {
+                    document.getElementById('occupancy-val').innerText = `${e.target.value}%`;
+                    triggerNotification(`Facility occupancy updated to ${e.target.value}%`);
+                });
+            }
+
+            // Trigger Initial Quote Calc update
+            updateCalculatorEstimate();
+
+            // Default UI Design Panel Display
+            switchDesignTab('colors');
+
+            // Set Mobile Menu Listeners
+            const mMenuBtn = document.getElementById('mobile-menu-btn');
+            const mMenu = document.getElementById('mobile-menu');
+            if (mMenuBtn && mMenu) {
+                mMenuBtn.addEventListener('click', () => {
+                    const isOpen = mMenu.classList.contains('translate-x-0');
+                    if (isOpen) {
+                        mMenu.classList.remove('translate-x-0');
+                        mMenu.classList.add('translate-x-full');
+                        mMenu.classList.add('hidden');
+                        document.getElementById('m-line-1').classList.remove('rotate-45', 'translate-y-2');
+                        document.getElementById('m-line-2').classList.remove('opacity-0');
+                        document.getElementById('m-line-3').classList.remove('-rotate-45', '-translate-y-2');
+                    } else {
+                        mMenu.classList.remove('hidden');
+                        setTimeout(() => {
+                            mMenu.classList.remove('translate-x-full');
+                            mMenu.classList.add('translate-x-0');
+                        }, 50);
+                        document.getElementById('m-line-1').classList.add('rotate-45', 'translate-y-2');
+                        document.getElementById('m-line-2').classList.add('opacity-0');
+                        document.getElementById('m-line-3').classList.add('-rotate-45', '-translate-y-2');
+                    }
+                });
+
+                // Auto Close Mobile links when item selected
+                document.querySelectorAll('.mobile-link').forEach(link => {
+                    link.addEventListener('click', () => {
+                        mMenu.classList.remove('translate-x-0');
+                        mMenu.classList.add('translate-x-full');
+                        mMenu.classList.add('hidden');
+                        document.getElementById('m-line-1').classList.remove('rotate-45', 'translate-y-2');
+                        document.getElementById('m-line-2').classList.remove('opacity-0');
+                        document.getElementById('m-line-3').classList.remove('-rotate-45', '-translate-y-2');
+                    });
+                });
+            }
+        });
+
+        // Live Operational Clock Logic
+        function updateClock() {
+            const clockEl = document.getElementById('dashboard-clock');
+            if (clockEl) {
+                const now = new Date();
+                const pad = (n) => n.toString().padStart(2, '0');
+                clockEl.innerText = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())} UTC`;
+            }
+        }
+
+        // Custom Split Screen slide mechanics on mousemove
+        function handleHeroSplitMouseMove(e) {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const posX = e.clientX - rect.left;
+            const percentage = Math.min(Math.max((posX / rect.width) * 100, 15), 85);
+            
+            document.documentElement.style.setProperty('--split-percent', `${percentage}%`);
+            
+            // Move center separator line physically matching the clip path
+            const line = document.getElementById('hero-split-line');
+            if (line) {
+                line.style.left = `${percentage}%`;
+            }
+        }
+
+        function resetHeroSplit() {
+            document.documentElement.style.setProperty('--split-percent', `50%`);
+            const line = document.getElementById('hero-split-line');
+            if (line) {
+                line.style.left = `50%`;
+            }
+        }
+
+        // Terminal Log Telemetry Simulation 
+        function simulateTelemetryTrigger() {
+            const events = [
+                "Air quality optimized to 99.4% purity index.",
+                "Rope access structural scan finished at sector West 4.",
+                "SLA threshold: Cleaners matched target metrics in Zone B.",
+                "Power grid usage auto-adjusted: -2.3% active peak balance.",
+                "HVAC duct telemetry returned ideal structural feedback.",
+                "Rainwater storage reservoir audit completed successfully."
+            ];
+            const chosen = events[Math.floor(Math.random() * events.length)];
+            
+            // Write to dashboard operations terminal feed
+            const feed = document.getElementById('terminal-feed');
+            if (feed) {
+                const now = new Date();
+                const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
+                
+                const newRow = document.createElement('div');
+                newRow.className = "text-white/40 transition-all duration-300 transform translate-y-1 opacity-0";
+                newRow.innerHTML = `<span class="text-white">[${timeStr}]</span> ${chosen}`;
+                
+                feed.prepend(newRow);
+                setTimeout(() => {
+                    newRow.classList.remove('translate-y-1', 'opacity-0');
+                }, 50);
+
+                // Limit elements in feed to avoid heavy DOM build
+                if (feed.children.length > 8) {
+                    feed.removeChild(feed.lastChild);
+                }
+            }
+
+            // Randomize telemetry graph points
+            const graphPath = document.getElementById('graph-path');
+            if (graphPath) {
+                // Generate slightly randomized wave paths dynamically
+                const randomPoints = [
+                    Math.floor(Math.random() * 40) + 110,
+                    Math.floor(Math.random() * 40) + 70,
+                    Math.floor(Math.random() * 40) + 90,
+                    Math.floor(Math.random() * 40) + 50,
+                    Math.floor(Math.random() * 40) + 70,
+                    Math.floor(Math.random() * 40) + 30
+                ];
+                const newD = `M0,130 Q30,110 60,${randomPoints[0]} T120,${randomPoints[1]} T180,${randomPoints[2]} T240,${randomPoints[3]} T300,${randomPoints[4]} T360,${randomPoints[5]} T400,30`;
+                graphPath.setAttribute('d', newD);
+            }
+
+            triggerNotification("Telemetry diagnostic complete. Optimal building stats synced.");
+        }
+
+        // Toggle Smart Facility Systems
+        function toggleSystem(type) {
+            const btn = document.getElementById(`${type}-btn`);
+            const dot = document.getElementById(`${type}-dot`);
+            const statusLabel = document.getElementById(`${type}-status`);
+            
+            if (btn && dot && statusLabel) {
+                const isOn = dot.classList.contains('translate-x-5');
+                if (isOn) {
+                    // Turn Off
+                    dot.classList.remove('translate-x-5');
+                    btn.classList.add('bg-white/10');
+                    btn.classList.remove('bg-white');
+                    
+                    if (type === 'hvac') {
+                        statusLabel.innerText = "Suspended Climate";
+                        triggerNotification("HVAC grid switched to Eco Ventilation mode.");
+                    } else if (type === 'rope') {
+                        statusLabel.innerText = "Shift Inactive";
+                        triggerNotification("Rope access teams cleared from structural sectors.");
+                    } else if (type === 'security') {
+                        statusLabel.innerText = "Manual Access Only";
+                        triggerNotification("Warning: Biometric locks disabled.");
+                    }
+                } else {
+                    // Turn On
+                    dot.classList.add('translate-x-5');
+                    btn.classList.remove('bg-white/10');
+                    btn.classList.add('bg-white');
+
+                    if (type === 'hvac') {
+                        statusLabel.innerText = "Auto (21.5°C)";
+                        triggerNotification("HVAC systems initialized automatically.");
+                    } else if (type === 'rope') {
+                        statusLabel.innerText = "Active Shift";
+                        triggerNotification("Facade rope access climb rotation active.");
+                    } else if (type === 'security') {
+                        statusLabel.innerText = "Secure (Biometric)";
+                        triggerNotification("Biometric smart lock grids activated.");
+                    }
+                }
+            }
+        }
+
+        // Custom Calculator & Estimate Engine
+        function selectFacilityType(id, multiplier) {
+            selectedFacilityId = id;
+            selectedMultiplier = multiplier;
+
+            // Highlight chosen button
+            document.querySelectorAll('.fac-btn').forEach(btn => {
+                btn.classList.remove('bg-white', 'text-black');
+                btn.classList.add('border-white/10', 'text-brandMisty');
+            });
+
+            const targetBtn = document.getElementById(`fac-${id}`);
+            if (targetBtn) {
+                targetBtn.classList.remove('border-white/10', 'text-brandMisty');
+                targetBtn.classList.add('bg-white', 'text-black');
+            }
+
+            updateCalculatorEstimate();
+            triggerNotification(`Modified category preset to ${id.toUpperCase()}`);
+        }
+
+        function updateCalculatorEstimate() {
+            const areaSlider = document.getElementById('area-slider');
+            const areaDisplay = document.getElementById('area-display');
+            
+            if (!areaSlider || !areaDisplay) return;
+
+            const areaValue = parseInt(areaSlider.value);
+            areaDisplay.innerText = `${areaValue.toLocaleString()} sqm`;
+
+            // Service values
+            let multiplierSum = 0;
+            if (document.getElementById('srv-detailing')?.checked) multiplierSum += 0.50;
+            if (document.getElementById('srv-engineering')?.checked) multiplierSum += 0.80;
+            if (document.getElementById('srv-climbing')?.checked) multiplierSum += 0.35;
+
+            // Base pricing setup
+            const baseFee = Math.round(1500 * selectedMultiplier);
+            const serviceCost = Math.round(areaValue * multiplierSum);
+            const calculatedTotal = baseFee + serviceCost;
+            const projectedSavings = Math.round(calculatedTotal * 0.11); // Average 11% save margin
+
+            document.getElementById('calc-base-fee').innerText = `$${baseFee.toLocaleString()}`;
+            document.getElementById('calc-service-fee').innerText = `$${serviceCost.toLocaleString()}`;
+            document.getElementById('calc-saving').innerText = `- $${projectedSavings.toLocaleString()}`;
+            document.getElementById('calc-total').innerText = `$${(calculatedTotal - projectedSavings).toLocaleString()}`;
+        }
+
+        // Prefill Form Details from Calculated Quote Estimate
+        function populateContactAuditForm() {
+            const areaValue = document.getElementById('area-slider')?.value;
+            const totalValue = document.getElementById('calc-total')?.innerText;
+            const contactDetails = document.getElementById('contact-details');
+            
+            if (contactDetails) {
+                contactDetails.value = `Interactive Quote Proposal: We wish to secure maintenance on a ${Number(areaValue).toLocaleString()} sqm commercial property. Projected monthly SLA: ~${totalValue}.`;
+            }
+            triggerNotification("Estimate values locked and populated directly in the form below!");
+        }
+
+        // Onboarding Form Handler
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('contact-name').value;
+            const email = document.getElementById('contact-email').value;
+            const phone = document.getElementById('contact-phone').value;
+            const selectVal = document.getElementById('contact-service').value;
+
+            triggerNotification(`Thank you, ${name}! Your free property audit proposal has been transmitted successfully.`);
+            
+            // Log payload
+            console.log("Submit Proposal:", { name, email, phone, selectVal });
+            event.target.reset();
+        }
+
+        // Interactive Notification Hub (Custom Toasts replacing classic Alert)
+        function triggerNotification(message) {
+            const container = document.getElementById('toast-container');
+            if (container) {
+                const toast = document.createElement('div');
+                toast.className = "glass border border-white/10 p-4 rounded text-xs text-white shadow-xl flex items-center justify-between gap-3 transition-all duration-300 transform translate-y-2 opacity-0 pointer-events-auto";
+                toast.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span>
+                        <span>${message}</span>
+                    </div>
+                    <button onclick="this.parentElement.remove()" class="text-brandMisty hover:text-white font-mono text-sm">×</button>
+                `;
+                container.appendChild(toast);
+                
+                // Trigger transition
+                setTimeout(() => {
+                    toast.classList.remove('translate-y-2', 'opacity-0');
+                }, 50);
+
+                // Auto remove toast after 4 seconds
+                setTimeout(() => {
+                    toast.classList.add('opacity-0', 'translate-y-2');
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 300);
+                }, 4000);
+            }
+        }
+
+        // Toggle Accordions (FAQ section)
+        function toggleFAQ(id) {
+            const el = document.getElementById(`faq-content-${id}`);
+            const icon = document.getElementById(`faq-icon-${id}`);
+            if (el && icon) {
+                const isHidden = el.classList.contains('hidden');
+                if (isHidden) {
+                    el.classList.remove('hidden');
+                    icon.innerText = "-";
+                    icon.classList.add('rotate-45');
+                } else {
+                    el.classList.add('hidden');
+                    icon.innerText = "+";
+                    icon.classList.remove('rotate-45');
+                }
+            }
+        }
+
+        // Design System Panel controller
+        function switchDesignTab(tabId) {
+            document.querySelectorAll('.ds-panel').forEach(panel => {
+                panel.classList.add('hidden');
+            });
+            document.querySelectorAll('.ds-tab-btn').forEach(btn => {
+                btn.classList.remove('bg-white', 'text-black');
+                btn.classList.add('text-brandMisty', 'hover:text-white');
+            });
+
+            const activePanel = document.getElementById(`ds-panel-${tabId}`);
+            const activeBtn = document.getElementById(`ds-tab-${tabId}`);
+
+            if (activePanel && activeBtn) {
+                activePanel.classList.remove('hidden');
+                activeBtn.classList.remove('text-brandMisty', 'hover:text-white');
+                activeBtn.classList.add('bg-white', 'text-black');
+            }
+        }
+    </script>
+</body>
+</html>
+7

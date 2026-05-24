@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WHERE? — Premium Urban Exploration</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Cabinet Grotesk (simulated via high-end sans-serif display) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700;800&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0f0203; /* Deep obsidian red base */
+            overflow-x: hidden;
+        }
+
+        .title-display {
+            font-family: 'Syncopate', sans-serif;
+            letter-spacing: -0.05em;
+        }
+
+        /* Ambient glow replication from the source image */
+        .glow-soft {
+            text-shadow: 0 0 35px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255, 255, 255, 0.4);
+            filter: blur(1px);
+        }
+
+        .crimson-gradient {
+            background: radial-gradient(circle at center, #f4212e 0%, #a7000b 50%, #4a0004 100%);
+        }
+
+        /* Glassmorphism elements matching premium look */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(229, 9, 20, 0.15);
+        }
+
+        /* Interactive slide transitions */
+        .slide-pane {
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #120203;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e50914;
+            border-radius: 3px;
+        }
+
+        /* Dynamic keyframes for interactive cursor & subtle breathing glows */
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.75; transform: scale(1); }
+            50% { opacity: 0.95; transform: scale(1.03); }
+        }
+        .breathing-glow {
+            animation: pulseGlow 4s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="text-white selection:bg-white selection:text-red-600">
+
+    <!-- Ambient Grid & Sound Player Overlay -->
+    <div class="fixed inset-0 pointer-events-none z-10 opacity-10 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:100px_100px]"></div>
+    
+    <!-- Top Progress Bar -->
+    <div class="fixed top-0 left-0 right-0 h-[3px] bg-neutral-900 z-50">
+        <div id="scrollProgress" class="h-full bg-white w-1/4 transition-all duration-300"></div>
+    </div>
+
+    <!-- MAIN NAVBAR (Exact replication of the clean, minimalist inspiration layout) -->
+    <header class="fixed top-0 left-0 right-0 z-40 px-6 py-6 md:px-16 md:py-8 flex justify-between items-center mix-blend-difference">
+        <!-- Hamburger Menu -->
+        <button onclick="toggleMobileNav()" class="flex flex-col gap-1.5 group focus:outline-none z-50" aria-label="Toggle Menu">
+            <span class="w-7 h-[2px] bg-white transition-all duration-300 group-hover:w-5"></span>
+            <span class="w-5 h-[2px] bg-white transition-all duration-300 group-hover:w-7"></span>
+            <span class="w-7 h-[2px] bg-white transition-all duration-300"></span>
+        </button>
+
+        <!-- Minimalist Horizontal Navigation -->
+        <nav class="hidden md:flex items-center space-x-12 text-xs tracking-[0.25em] font-medium text-neutral-300">
+            <a href="#slide-1" onclick="navigateToSlide(1)" class="hover:text-white transition-colors duration-200">HOME</a>
+            <a href="#slide-2" onclick="navigateToSlide(2)" class="hover:text-white transition-colors duration-200">OUR BLOG</a>
+            <a href="#slide-3" onclick="navigateToSlide(3)" class="hover:text-white transition-colors duration-200">PRODUCTS</a>
+            <a href="#slide-4" onclick="navigateToSlide(4)" class="hover:text-white transition-colors duration-200">STORE</a>
+            <a href="#contact" onclick="navigateToSlide(4)" class="hover:text-white transition-colors duration-200">CONTACT</a>
+        </nav>
+
+        <!-- Search Icon & Custom Theme Switcher -->
+        <div class="flex items-center space-x-6">
+            <!-- Theme Changer Minimal Button -->
+            <button onclick="cycleMood()" class="text-[10px] tracking-widest border border-white/20 px-3 py-1 rounded-full hover:bg-white hover:text-black transition-all duration-300 hidden sm:block" id="moodBtn">
+                CRIMSON MODE
+            </button>
+            <button onclick="openSearch()" class="hover:opacity-75 transition-opacity" aria-label="Search">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- SIDE NAVIGATION DOTS (Matches the vertical dot sequence on the left of inspiration image) -->
+    <div class="fixed left-6 md:left-12 top-1/2 -translate-y-1/2 z-40 flex flex-col items-center space-y-6">
+        <button onclick="navigateToSlide(1)" class="dot-nav w-2.5 h-2.5 rounded-full border border-white/50 transition-all duration-300 bg-white" data-index="1"></button>
+        <button onclick="navigateToSlide(2)" class="dot-nav w-2.5 h-2.5 rounded-full border border-white/50 transition-all duration-300" data-index="2"></button>
+        <button onclick="navigateToSlide(3)" class="dot-nav w-2.5 h-2.5 rounded-full border border-white/50 transition-all duration-300" data-index="3"></button>
+        <button onclick="navigateToSlide(4)" class="dot-nav w-2.5 h-2.5 rounded-full border border-white/50 transition-all duration-300" data-index="4"></button>
+    </div>
+
+    <!-- SOCIAL INDICATORS (Bottom left matching inspiration layout) -->
+    <div class="fixed left-6 md:left-12 bottom-8 z-40 hidden md:flex items-center space-x-6 mix-blend-difference">
+        <a href="#" class="hover:opacity-75 transition-opacity duration-200" aria-label="Instagram">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+        <a href="#" class="hover:opacity-75 transition-opacity duration-200" aria-label="Twitter">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+        </a>
+        <a href="#" class="hover:opacity-75 transition-opacity duration-200" aria-label="Facebook">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+    </div>
+
+    <!-- MAIN SLIDER CONTAINER -->
+    <main class="w-full relative transition-all duration-1000">
+
+        <!-- =============================================
+             SLIDE 1: THE INSPIRATION HERO (WHERE?)
+             ============================================= -->
+        <section id="slide-1" class="slide-pane min-h-screen crimson-gradient flex flex-col justify-between relative px-6 py-24 md:px-24 md:py-32 overflow-hidden">
+            <!-- Ambient Spotlight Glow Behind Sneakers -->
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.18)_0%,transparent_60%)] pointer-events-none breathing-glow"></div>
+            
+            <div class="my-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full z-20 relative">
+                
+                <!-- Main Header with Selective Glow Effects -->
+                <div class="lg:col-span-12 text-center relative select-none">
+                    <h1 class="title-display text-[15vw] sm:text-[14vw] lg:text-[13vw] font-extrabold leading-none tracking-tighter text-white select-none relative z-10">
+                        <span class="inline-block glow-soft transform hover:scale-105 transition-transform duration-300">W</span>HERE<span class="inline-block glow-soft transform hover:rotate-3 transition-all duration-300">?</span>
+                    </h1>
+                </div>
+
+                <!-- Handcrafted Interactive Sneaker SVG (Feet Looking Down Perspective) -->
+                <div class="absolute inset-0 flex justify-center items-center pointer-events-none z-0 transform translate-y-24 md:translate-y-32">
+                    <div id="parallaxContainer" class="w-full max-w-[500px] h-[500px] transition-transform duration-200 ease-out flex justify-center items-end pb-12">
+                        <!-- Left and Right Shoe & Denim SVG Artwork -->
+                        <svg class="w-4/5 h-auto filter drop-shadow-[0_35px_35px_rgba(0,0,0,0.6)]" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Left Leg (Denim Cuffs) -->
+                            <path d="M120 400 L110 260 C110 250 120 235 140 235 L175 235 C190 235 190 255 190 265 L175 400 Z" fill="#1b212c"/>
+                            <path d="M115 255 L180 255" stroke="#445577" stroke-width="3" stroke-linecap="round"/>
+                            <!-- Left Shoe (Crimson Red Sneaker) -->
+                            <path d="M110 260 C110 240 120 150 145 150 C170 150 185 240 185 260 L180 270 L115 270 Z" fill="#c10d18" stroke="#111" stroke-width="2"/>
+                            <!-- White Sole Trim -->
+                            <path d="M110 258 C115 265 180 265 185 258" stroke="white" stroke-width="5" stroke-linecap="round"/>
+                            <!-- Red Laces (Details) -->
+                            <path d="M130 180 Q147 185 165 180" stroke="#f23d49" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M128 200 Q147 205 167 200" stroke="#f23d49" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M126 220 Q147 225 169 220" stroke="#e50914" stroke-width="4" stroke-linecap="round"/>
+                            
+                            <!-- Right Leg (Denim Cuffs) -->
+                            <path d="M280 400 L290 260 C290 250 280 235 260 235 L225 235 C210 235 210 255 210 265 L225 400 Z" fill="#1a202a"/>
+                            <path d="M285 255 L220 255" stroke="#445577" stroke-width="3" stroke-linecap="round"/>
+                            <!-- Right Shoe (Crimson Red Sneaker) -->
+                            <path d="M290 260 C290 240 280 150 255 150 C230 150 215 240 215 260 L220 270 L285 270 Z" fill="#c10d18" stroke="#111" stroke-width="2"/>
+                            <!-- White Sole Trim -->
+                            <path d="M290 258 C285 265 220 265 215 258" stroke="white" stroke-width="5" stroke-linecap="round"/>
+                            <!-- Red Laces -->
+                            <path d="M270 180 Q253 185 235 180" stroke="#f23d49" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M272 200 Q253 205 233 200" stroke="#f23d49" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M274 220 Q253 225 231 220" stroke="#e50914" stroke-width="4" stroke-linecap="round"/>
+                            
+                            <!-- Sole Tread Highlights -->
+                            <path d="M145 148 L150 152" stroke="#fff" stroke-width="3" opacity="0.4"/>
+                            <path d="M255 148 L250 152" stroke="#fff" stroke-width="3" opacity="0.4"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Right Aligned Content Block & Stats (Matches the Inspiration Info Block) -->
+                <div class="lg:col-span-4 lg:col-start-9 flex flex-col justify-end items-start text-left mt-40 lg:mt-0 relative z-20">
+                    <div class="w-full flex items-baseline space-x-2 border-b border-white/20 pb-4 mb-4">
+                        <span class="text-3xl font-extrabold tracking-wider" id="activeSlideNum">02</span>
+                        <span class="text-xs text-white/50 tracking-wider">/ 04</span>
+                        <!-- Visual Line matching the white indicator line in input image -->
+                        <div class="flex-grow h-[1px] bg-white ml-4 opacity-70"></div>
+                    </div>
+                    
+                    <p class="text-xs text-neutral-200 leading-relaxed tracking-wider uppercase opacity-90 max-w-sm mb-6">
+                        Explore the unexplored. Stand at the edge of the world and feel the pulse of high-fashion street layout. A collection curated for those who ask the right question: Where?
+                    </p>
+                    
+                    <button onclick="navigateToSlide(2)" class="group flex items-center space-x-3 text-xs tracking-[0.2em] font-bold text-white hover:opacity-80 transition-opacity">
+                        <span>READ MORE</span>
+                        <svg class="w-4 h-4 transform group-hover:translate-x-1.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator Cue -->
+            <div class="w-full flex justify-between items-center z-20 text-[10px] tracking-widest text-white/50 border-t border-white/10 pt-6">
+                <span>COORD: 52.5200° N, 13.4050° E</span>
+                <span class="animate-bounce">SCROLL TO DISCOVER ↓</span>
+                <span>METROPOLIS FLÂNEUR / 2026</span>
+            </div>
+        </section>
+
+        <!-- =============================================
+             SLIDE 2: THE ATMOSPHERIC GRID (02 / 04)
+             ============================================= -->
+        <section id="slide-2" class="slide-pane min-h-screen bg-[#0a0102] flex flex-col justify-center relative px-6 py-24 md:px-24">
+            <div class="absolute top-0 right-0 w-96 h-96 bg-red-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+            
+            <div class="max-w-7xl mx-auto w-full z-10">
+                <!-- Header -->
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 border-b border-white/10 pb-8">
+                    <div>
+                        <span class="text-xs tracking-[0.3em] text-red-500 font-bold uppercase">THE GEAR & THE ROAD</span>
+                        <h2 class="title-display text-4xl md:text-5xl font-extrabold mt-2">02. CONCEPT GRID</h2>
+                    </div>
+                    <p class="text-xs text-neutral-400 max-w-md mt-4 md:mt-0 leading-relaxed">
+                        Every thread, sole, and coordinate is engineered for the deep city wanderer. We blend visual high-density red design cues with functional durability.
+                    </p>
+                </div>
+
+                <!-- Showcase Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Card 1 -->
+                    <div class="glass-card group p-8 rounded-2xl transition-all duration-300 flex flex-col justify-between h-[450px] relative overflow-hidden">
+                        <div class="absolute -top-10 -right-10 w-40 h-40 bg-red-600/20 rounded-full blur-3xl group-hover:bg-red-500/30 transition-all duration-500"></div>
+                        <div>
+                            <span class="text-xs tracking-widest text-neutral-400">SERIES A</span>
+                            <h3 class="text-2xl font-bold mt-2 tracking-tight group-hover:text-red-500 transition-colors">THE STEALTH ANORAK</h3>
+                        </div>
+                        
+                        <!-- Mini Interactive SVG Asset instead of unreliable external img -->
+                        <div class="my-6 flex justify-center">
+                            <svg class="w-32 h-32 text-white group-hover:scale-110 transition-transform duration-300" viewBox="0 0 100 100" fill="none">
+                                <path d="M20 30 L50 15 L80 30 L75 85 L25 85 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" class="group-hover:stroke-red-500 transition-colors"/>
+                                <path d="M50 15 L50 85" stroke="currentColor" stroke-dasharray="3 3" opacity="0.5"/>
+                                <rect x="35" y="40" width="30" height="20" rx="4" stroke="currentColor" stroke-width="1.5" class="group-hover:stroke-red-500 transition-colors"/>
+                            </svg>
+                        </div>
+
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-mono text-red-500">$340.00</span>
+                            <button onclick="openProductModal('Stealth Anorak', '$340.00')" class="text-xs tracking-wider font-bold group-hover:underline">VIEW SPEC</button>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="glass-card group p-8 rounded-2xl transition-all duration-300 flex flex-col justify-between h-[450px] relative overflow-hidden">
+                        <div class="absolute -top-10 -right-10 w-40 h-40 bg-red-600/20 rounded-full blur-3xl group-hover:bg-red-500/30 transition-all duration-500"></div>
+                        <div>
+                            <span class="text-xs tracking-widest text-neutral-400">SERIES B</span>
+                            <h3 class="text-2xl font-bold mt-2 tracking-tight group-hover:text-red-500 transition-colors">VANGUARD KICKS v2</h3>
+                        </div>
+                        
+                        <!-- Mini Interactive SVG Asset -->
+                        <div class="my-6 flex justify-center">
+                            <svg class="w-32 h-32 text-white group-hover:scale-110 transition-transform duration-300" viewBox="0 0 100 100" fill="none">
+                                <path d="M15 65 C15 50 30 35 50 35 C70 35 85 55 85 65 L80 75 L20 75 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" class="group-hover:stroke-red-500 transition-colors"/>
+                                <path d="M30 45 L40 55 M45 42 L55 52" stroke="currentColor" stroke-width="2"/>
+                                <circle cx="50" cy="55" r="15" stroke="currentColor" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+                            </svg>
+                        </div>
+
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-mono text-red-500">$220.00</span>
+                            <button onclick="openProductModal('Vanguard Kicks v2', '$220.00')" class="text-xs tracking-wider font-bold group-hover:underline">VIEW SPEC</button>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="glass-card group p-8 rounded-2xl transition-all duration-300 flex flex-col justify-between h-[450px] relative overflow-hidden">
+                        <div class="absolute -top-10 -right-10 w-40 h-40 bg-red-600/20 rounded-full blur-3xl group-hover:bg-red-500/30 transition-all duration-500"></div>
+                        <div>
+                            <span class="text-xs tracking-widest text-neutral-400">SERIES C</span>
+                            <h3 class="text-2xl font-bold mt-2 tracking-tight group-hover:text-red-500 transition-colors">TACTICAL MOD PACK</h3>
+                        </div>
+                        
+                        <!-- Mini Interactive SVG Asset -->
+                        <div class="my-6 flex justify-center">
+                            <svg class="w-32 h-32 text-white group-hover:scale-110 transition-transform duration-300" viewBox="0 0 100 100" fill="none">
+                                <rect x="30" y="25" width="40" height="55" rx="5" stroke="currentColor" stroke-width="1.5" class="group-hover:stroke-red-500 transition-colors"/>
+                                <path d="M30 40 L70 40 M30 55 L70 55" stroke="currentColor" stroke-width="1"/>
+                                <path d="M50 25 L50 15 C50 12, 45 12, 40 15" stroke="currentColor" stroke-width="1.5"/>
+                            </svg>
+                        </div>
+
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-mono text-red-500">$185.00</span>
+                            <button onclick="openProductModal('Tactical Mod Pack', '$185.00')" class="text-xs tracking-wider font-bold group-hover:underline">VIEW SPEC</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =============================================
+             SLIDE 3: INTERACTIVE EXPEDITION PORTAL (03 / 04)
+             ============================================= -->
+        <section id="slide-3" class="slide-pane min-h-screen bg-[#070102] flex flex-col justify-center relative px-6 py-24 md:px-24">
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(167,0,11,0.15),transparent_60%)] pointer-events-none"></div>
+            
+            <div class="max-w-7xl mx-auto w-full z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Graphic Map Panel (interactive coordinates) -->
+                <div class="lg:col-span-7 bg-neutral-950/60 border border-white/10 rounded-2xl p-6 md:p-8 relative overflow-hidden">
+                    <div class="flex justify-between items-center mb-6">
+                        <div class="flex space-x-2">
+                            <span class="w-3 h-3 rounded-full bg-red-600"></span>
+                            <span class="w-3 h-3 rounded-full bg-neutral-700"></span>
+                            <span class="w-3 h-3 rounded-full bg-neutral-700"></span>
+                        </div>
+                        <span class="text-xs font-mono text-neutral-400">MAP_SYS_GRID v4.11</span>
+                    </div>
+
+                    <!-- Glowing Matrix Vector Graphic representing city nodes -->
+                    <div class="h-80 w-full relative flex items-center justify-center border border-white/5 bg-[#0e0204] rounded-lg">
+                        <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(229,9,20,0.1)_0%,transparent_50%)]"></div>
+                        <svg class="w-4/5 h-4/5 text-neutral-800" viewBox="0 0 200 100" fill="none">
+                            <path d="M10 20 L50 80 L90 10 L130 90 L170 30" stroke="currentColor" stroke-width="1" stroke-dasharray="2 2"/>
+                            <!-- Glowing Node 1 -->
+                            <circle cx="50" cy="80" r="5" fill="#e50914" class="animate-ping"/>
+                            <circle cx="50" cy="80" r="4" fill="#e50914" class="cursor-pointer" onclick="updateCoordinates('KREUZBERG, BERLIN', '52.4986° N, 13.4069° E')"/>
+                            
+                            <!-- Glowing Node 2 -->
+                            <circle cx="90" cy="10" r="5" fill="#fff" class="animate-ping" style="animation-delay: 1s"/>
+                            <circle cx="90" cy="10" r="4" fill="#fff" class="cursor-pointer" onclick="updateCoordinates('SHIBUYA, TOKYO', '35.6580° N, 139.7016° E')"/>
+
+                            <!-- Glowing Node 3 -->
+                            <circle cx="130" cy="90" r="5" fill="#e50914" class="animate-ping" style="animation-delay: 2s"/>
+                            <circle cx="130" cy="90" r="4" fill="#e50914" class="cursor-pointer" onclick="updateCoordinates('BROOKLYN, NEW YORK', '40.6782° N, 73.9442° W')"/>
+                        </svg>
+
+                        <!-- Float Labels -->
+                        <span class="absolute top-10 left-10 text-[9px] font-mono tracking-widest text-white/40">NODE_01 // ACTIVE</span>
+                        <span class="absolute bottom-12 right-12 text-[9px] font-mono tracking-widest text-red-500/80">NODE_02 // DISCOVERED</span>
+                    </div>
+
+                    <!-- Active Coordinate Display Panel -->
+                    <div class="mt-6 p-4 bg-red-950/20 border border-red-900/30 rounded-lg flex justify-between items-center">
+                        <div>
+                            <span class="text-[9px] text-neutral-400 uppercase tracking-widest">Selected Outpost</span>
+                            <h4 id="coordName" class="text-sm font-bold tracking-wider text-white">SHIBUYA, TOKYO</h4>
+                        </div>
+                        <div>
+                            <span class="text-[9px] text-neutral-400 uppercase tracking-widest block text-right">Coordinates</span>
+                            <span id="coordVal" class="text-xs font-mono text-red-500 font-bold">35.6580° N, 139.7016° E</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text explanation -->
+                <div class="lg:col-span-5 flex flex-col justify-center">
+                    <span class="text-xs tracking-[0.3em] text-red-500 font-bold uppercase">THE ATLAS OF RED</span>
+                    <h3 class="title-display text-3xl md:text-4xl font-extrabold mt-2 mb-6">WE ARE NOT LOST, WE JUST ASK WHERE.</h3>
+                    <p class="text-neutral-300 leading-relaxed text-sm mb-6">
+                        Each piece in our collection corresponds to a physical geo-cache drop. By using our interface, collectors unlock real-world exploration points across major urban capitals. Click on the nodes to shift coordinates.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 border-t border-white/10 pt-6">
+                        <div>
+                            <span class="text-xs font-mono text-red-500 block">4.9/5 RATING</span>
+                            <span class="text-[10px] text-neutral-400 tracking-wider">CURATOR ENDORSED</span>
+                        </div>
+                        <div>
+                            <span class="text-xs font-mono text-white block">12 DROPS ALIVE</span>
+                            <span class="text-[10px] text-neutral-400 tracking-wider">WORLDWIDE RADAR</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- =============================================
+             SLIDE 4: THE LAUNCHPORT & FOOTER (04 / 04)
+             ============================================= -->
+        <section id="slide-4" class="slide-pane min-h-screen crimson-gradient flex flex-col justify-between relative px-6 py-24 md:px-24">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(0,0,0,0.4)_0%,transparent_70%)] pointer-events-none"></div>
+
+            <div class="max-w-4xl mx-auto w-full z-10 text-center my-auto">
+                <span class="text-xs tracking-[0.4em] text-white/70 font-bold uppercase">JOIN THE RADAR</span>
+                <h2 class="title-display text-4xl md:text-6xl font-extrabold mt-4 mb-6 leading-none">BE THE FIRST TO FIND.</h2>
+                <p class="text-neutral-200 text-sm max-w-lg mx-auto mb-8 leading-relaxed">
+                    Drops occur without warning. Provide your communication portal to receive high-frequency coordinate alerts for upcoming streetwear releases.
+                </p>
+
+                <!-- Premium newsletter input & button -->
+                <form id="radarForm" onsubmit="handleRadarJoin(event)" class="max-w-md mx-auto flex flex-col sm:flex-row items-stretch gap-2 bg-black/40 p-1.5 rounded-xl border border-white/20">
+                    <input type="email" required placeholder="ENTER EMAIL PORTAL" class="bg-transparent text-xs tracking-widest text-white px-4 py-3 flex-grow placeholder:text-neutral-500 focus:outline-none rounded-lg">
+                    <button type="submit" class="bg-white text-black hover:bg-red-600 hover:text-white transition-all duration-300 px-6 py-3 rounded-lg text-xs tracking-widest font-extrabold">
+                        SECURE ENTRY
+                    </button>
+                </form>
+                
+                <p id="successMsg" class="text-xs text-white tracking-widest mt-4 hidden">✓ COMMUNICATIONS PORTAL ESTABLISHED. SHIELD ACTIVE.</p>
+            </div>
+
+            <!-- EXTREMELY POLISHED PREMIUM FOOTER -->
+            <footer class="w-full border-t border-white/15 pt-8 mt-12 grid grid-cols-1 md:grid-cols-4 gap-8 text-xs text-neutral-300 relative z-10">
+                <div class="flex flex-col space-y-4">
+                    <span class="title-display text-white font-extrabold tracking-wider">WHERE?</span>
+                    <p class="text-neutral-400 text-[11px] leading-relaxed">
+                        An architectural design system crafted to explore modern streetwear layout structures, deep hues, and visually dense experiences.
+                    </p>
+                </div>
+                <div>
+                    <h5 class="text-white font-bold tracking-widest mb-4 uppercase">Exploration Nodes</h5>
+                    <ul class="space-y-2 text-[11px] text-neutral-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Berlin Mitte</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Shibuya Shibuya</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Brooklyn Heights</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-white font-bold tracking-widest mb-4 uppercase">The Covenant</h5>
+                    <ul class="space-y-2 text-[11px] text-neutral-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Terms of Hunt</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Coordinates Policy</a></li>
+                    </ul>
+                </div>
+                <div class="flex flex-col justify-between items-start md:items-end">
+                    <span class="text-xs tracking-wider text-white">© 2026 WHERE INT.</span>
+                    <span class="text-[10px] text-neutral-500">CURATED HIGH-CONTRAST DESIGN FOR CANVAS</span>
+                </div>
+            </footer>
+        </section>
+
+    </main>
+
+    <!-- MOBILE NAVIGATION OVERLAY -->
+    <div id="mobileNav" class="fixed inset-0 bg-[#120203]/95 backdrop-blur-xl z-40 transform translate-x-full transition-transform duration-500 ease-in-out flex flex-col justify-center items-center space-y-8 text-lg tracking-[0.25em]">
+        <a href="#slide-1" onclick="toggleMobileNav(); navigateToSlide(1)" class="hover:text-red-500 transition-colors">HOME</a>
+        <a href="#slide-2" onclick="toggleMobileNav(); navigateToSlide(2)" class="hover:text-red-500 transition-colors">OUR BLOG</a>
+        <a href="#slide-3" onclick="toggleMobileNav(); navigateToSlide(3)" class="hover:text-red-500 transition-colors">PRODUCTS</a>
+        <a href="#slide-4" onclick="toggleMobileNav(); navigateToSlide(4)" class="hover:text-red-500 transition-colors">STORE</a>
+        <a href="#slide-4" onclick="toggleMobileNav(); navigateToSlide(4)" class="hover:text-red-500 transition-colors">CONTACT</a>
+    </div>
+
+    <!-- PRODUCT SPEC MODAL -->
+    <div id="specModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden justify-center items-center p-4">
+        <div class="bg-neutral-950 border border-white/20 rounded-2xl p-8 max-w-md w-full relative">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 text-white hover:text-red-500 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <span class="text-xs text-red-500 tracking-widest uppercase font-bold">PRODUCT DOSSIER</span>
+            <h3 id="modalProductName" class="text-2xl font-black tracking-tight text-white mt-2 mb-4">PRODUCT SPECIFICATION</h3>
+            <p id="modalProductPrice" class="text-xl font-mono text-red-500 mb-6"></p>
+            <div class="space-y-4 border-t border-white/10 pt-4 text-xs text-neutral-300">
+                <p><strong>Composition:</strong> Engineered waterproof cordura weaves, organic high-retention insulation linings.</p>
+                <p><strong>Origin:</strong> Manufactured under custom visual-grade standards.</p>
+                <p><strong>Collector Rarity:</strong> Limited Run drop of 100 copies.</p>
+            </div>
+            <button onclick="closeProductModal()" class="w-full bg-red-600 hover:bg-red-700 text-white text-xs font-bold tracking-widest py-3 mt-6 rounded-lg transition-colors">
+                ACQUIRE FROM DEEP WEB
+            </button>
+        </div>
+    </div>
+
+    <!-- SEARCH OVERLAY -->
+    <div id="searchOverlay" class="fixed inset-0 z-50 bg-[#0f0203]/95 hidden flex-col justify-center items-center px-6">
+        <button onclick="closeSearch()" class="absolute top-8 right-8 text-white hover:text-red-500 transition-colors">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+        <div class="w-full max-w-xl">
+            <input type="text" placeholder="QUERY COORDINATES..." class="w-full bg-transparent text-3xl font-bold tracking-widest text-white border-b-2 border-red-600 focus:outline-none pb-4 text-center placeholder:text-neutral-800">
+            <p class="text-[10px] text-neutral-400 mt-4 text-center tracking-widest">PRESS ENTER TO INITIALIZE SYSTEM SCAN</p>
+        </div>
+    </div>
+
+    <!-- AUDIO PLAYER ELEMENT (Muted, interactive atmospheric touch) -->
+    <div class="fixed right-6 bottom-8 z-40 flex items-center space-x-3 bg-black/60 px-4 py-2 rounded-full border border-white/15 backdrop-blur-md">
+        <span class="text-[9px] font-mono tracking-widest text-white/50">AUDIO BEAT // PULSE</span>
+        <button onclick="toggleAudio()" class="w-6 h-6 rounded-full bg-white text-black hover:bg-red-600 hover:text-white flex items-center justify-center transition-colors">
+            <span id="audioStatus" class="text-xs">▶</span>
+        </button>
+        <audio id="ambientAudio" loop src="https://assets.mixkit.co/active_storage/sfx/2869/2869-84.wav"></audio>
+    </div>
+
+    <!-- JS INTERACTIONS -->
+    <script>
+        // Track mood states
+        let currentMood = 0;
+        const moods = [
+            { name: "CRIMSON INFERNO", grad: "radial-gradient(circle at center, #f4212e 0%, #a7000b 50%, #4a0004 100%)", text: "#fff" },
+            { name: "DEEP OBSIDIAN", grad: "radial-gradient(circle at center, #3a0004 0%, #1e0002 50%, #000000 100%)", text: "#ff3333" },
+            { name: "NEON SIGNAL", grad: "radial-gradient(circle at center, #ff0055 0%, #770022 50%, #220005 100%)", text: "#fff" }
+        ];
+
+        function cycleMood() {
+            currentMood = (currentMood + 1) % moods.length;
+            const mood = moods[currentMood];
+            
+            // Apply gradient dynamically to slides
+            document.querySelectorAll('.crimson-gradient').forEach(el => {
+                el.style.background = mood.grad;
+            });
+            
+            document.getElementById('moodBtn').innerText = mood.name;
+        }
+
+        // Active Slide Transition System
+        let activeSlide = 1;
+        const totalSlides = 4;
+
+        function navigateToSlide(index) {
+            activeSlide = index;
+            document.getElementById(`slide-${index}`).scrollIntoView({ behavior: 'smooth' });
+            
+            // Update Side Nav Indicators
+            document.querySelectorAll('.dot-nav').forEach((dot) => {
+                const dotIndex = parseInt(dot.getAttribute('data-index'));
+                if (dotIndex === index) {
+                    dot.classList.add('bg-white', 'w-3.5', 'h-3.5');
+                    dot.classList.remove('w-2.5', 'h-2.5');
+                } else {
+                    dot.classList.remove('bg-white', 'w-3.5', 'h-3.5');
+                    dot.classList.add('w-2.5', 'h-2.5');
+                }
+            });
+
+            // Update Dynamic Indicator Counter
+            document.getElementById('activeSlideNum').innerText = `0${index}`;
+
+            // Update top progress bar
+            const progress = (index / totalSlides) * 100;
+            document.getElementById('scrollProgress').style.width = `${progress}%`;
+        }
+
+        // Update active slide counter when user scrolls manually
+        window.addEventListener('scroll', () => {
+            const scrollPos = window.scrollY + (window.innerHeight / 2);
+            for (let i = 1; i <= totalSlides; i++) {
+                const el = document.getElementById(`slide-${i}`);
+                if (el && scrollPos >= el.offsetTop && scrollPos < el.offsetTop + el.offsetHeight) {
+                    if (activeSlide !== i) {
+                        navigateToSlide(i);
+                    }
+                    break;
+                }
+            }
+        });
+
+        // Mouse Parallax movement to replicate feet looking down perspective perfectly
+        const container = document.getElementById('parallaxContainer');
+        window.addEventListener('mousemove', (e) => {
+            if (activeSlide === 1) {
+                const x = (e.clientX - window.innerWidth / 2) / 35;
+                const y = (e.clientY - window.innerHeight / 2) / 35;
+                container.style.transform = `translate(${x}px, ${y}px)`;
+            }
+        });
+
+        // Mobile Nav Toggle
+        function toggleMobileNav() {
+            const nav = document.getElementById('mobileNav');
+            if (nav.classList.contains('translate-x-full')) {
+                nav.classList.remove('translate-x-full');
+            } else {
+                nav.classList.add('translate-x-full');
+            }
+        }
+
+        // Coordinates System Node Changer
+        function updateCoordinates(name, val) {
+            document.getElementById('coordName').innerText = name;
+            document.getElementById('coordVal').innerText = val;
+        }
+
+        // Spec Modal
+        function openProductModal(name, price) {
+            document.getElementById('modalProductName').innerText = name;
+            document.getElementById('modalProductPrice').innerText = price;
+            document.getElementById('specModal').classList.remove('hidden');
+            document.getElementById('specModal').classList.add('flex');
+        }
+
+        function closeProductModal() {
+            document.getElementById('specModal').classList.add('hidden');
+            document.getElementById('specModal').classList.remove('flex');
+        }
+
+        // Search Overlay
+        function openSearch() {
+            document.getElementById('searchOverlay').classList.remove('hidden');
+            document.getElementById('searchOverlay').classList.add('flex');
+        }
+
+        function closeSearch() {
+            document.getElementById('searchOverlay').classList.add('hidden');
+            document.getElementById('searchOverlay').classList.remove('flex');
+        }
+
+        // Audio System Toggle
+        function toggleAudio() {
+            const audio = document.getElementById('ambientAudio');
+            const status = document.getElementById('audioStatus');
+            if (audio.paused) {
+                audio.play();
+                status.innerText = "■";
+            } else {
+                audio.pause();
+                status.innerText = "▶";
+            }
+        }
+
+        // Handle Newsletter / Radar Join
+        function handleRadarJoin(e) {
+            e.preventDefault();
+            document.getElementById('successMsg').classList.remove('hidden');
+            document.getElementById('radarForm').reset();
+        }
+
+        // Initialize view state
+        navigateToSlide(1);
+    </script>
+</body>
+</html>
+2

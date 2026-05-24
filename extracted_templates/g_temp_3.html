@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoàng Thành Thăng Long - Di Sản Hoàng Gia Việt Nam</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts for Regal & Historical Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome for Premium Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            royal: {
+              gold: '#c5a880',
+              goldLight: '#e2cfb6',
+              goldDark: '#997d50',
+              bronze: '#835c2b',
+              red: '#9d1c1c',
+              redDark: '#5f0f0f',
+              dark: '#1c120c',
+              darker: '#110a06',
+              cream: '#fcfaf2',
+              parchment: '#f5efdf',
+              parchmentDark: '#eadabe',
+            }
+          },
+          boxShadow: {
+            'royal': '0 10px 30px -10px rgba(131, 92, 43, 0.25)',
+            'royal-glow': '0 0 25px rgba(197, 168, 128, 0.3)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Premium Parchment Paper Overlay Texture */
+    .bg-parchment-texture {
+      background-color: #f7f3e8;
+      background-image: 
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.6) 0%, rgba(240, 230, 210, 0.4) 100%),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3联%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+    }
+
+    /* Dark Luxury Textured Background */
+    .bg-dark-texture {
+      background-color: #110a06;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(131, 92, 43, 0.15) 0%, rgba(17, 10, 6, 0.95) 70%),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #110a06;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #835c2b;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #c5a880;
+    }
+
+    /* Shimmer Effect for Gold Borders */
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    .shimmer-gold {
+      background: linear-gradient(90deg, #997d50 25%, #fcfaf2 50%, #997d50 75%);
+      background-size: 200% 100%;
+      animation: shimmer 6s infinite linear;
+    }
+
+    /* Elegant Corner Borders */
+    .royal-corner {
+      position: relative;
+    }
+    .royal-corner::before, .royal-corner::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border-color: #c5a880;
+      border-style: solid;
+      pointer-events: none;
+    }
+    .royal-corner-tl::before { top: 6px; left: 6px; border-width: 2px 0 0 2px; }
+    .royal-corner-tl::after { bottom: 6px; right: 6px; border-width: 0 2px 2px 0; }
+  </style>
+</head>
+<body class="font-sans text-royal-dark bg-royal-darker overflow-x-hidden antialiased">
+
+  <!-- ================= HEADER / NAVBAR ================= -->
+  <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b border-royal-gold/10 bg-royal-darker/90 backdrop-blur-md" id="mainHeader">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      
+      <!-- Logo Branding with Asian Heritage Flourish -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="relative w-11 h-11 flex items-center justify-center rounded-full border border-royal-gold/40 bg-royal-dark">
+          <svg class="w-7 h-7 text-royal-gold group-hover:rotate-12 transition-transform duration-500" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Imperial Lotus Motif -->
+            <path d="M50 15 C45 35, 20 45, 15 50 C20 55, 45 65, 50 85 C55 65, 80 55, 85 50 C80 45, 55 35, 50 15 Z" fill="currentColor" opacity="0.15"/>
+            <path d="M50 25 C47 40, 30 47, 25 50 C30 53, 47 60, 50 75 C53 60, 70 53, 75 50 C70 47, 53 40, 50 25 Z" stroke="currentColor" stroke-width="2"/>
+            <circle cx="50" cy="50" r="5" fill="currentColor"/>
+          </svg>
+          <div class="absolute -inset-1 rounded-full border border-royal-gold/10 scale-90 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-500"></div>
+        </div>
+        <div class="leading-none">
+          <span class="block font-serif text-lg tracking-widest text-royal-gold font-bold uppercase">Thăng Long</span>
+          <span class="block text-[9px] tracking-[0.3em] text-royal-goldLight uppercase">Imperial Citadel</span>
+        </div>
+      </a>
+
+      <!-- Navigation links -->
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="#about" class="text-sm font-medium tracking-wide text-royal-goldLight/80 hover:text-royal-gold transition-colors">TỔNG QUAN</a>
+        <a href="#slideshow" class="text-sm font-medium tracking-wide text-royal-goldLight/80 hover:text-royal-gold transition-colors flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-royal-red animate-pulse"></span>
+          BỘ MẪU TRÌNH CHIẾU
+        </a>
+        <a href="#timeline" class="text-sm font-medium tracking-wide text-royal-goldLight/80 hover:text-royal-gold transition-colors">TIẾN TRÌNH LỊCH SỬ</a>
+        <a href="#virtual-tour" class="text-sm font-medium tracking-wide text-royal-goldLight/80 hover:text-royal-gold transition-colors">THUYẾT MINH ÂM THANH</a>
+      </nav>
+
+      <!-- Royal Styled Button -->
+      <div class="flex items-center gap-4">
+        <a href="#slideshow" class="relative group hidden sm:inline-flex items-center justify-center px-5 py-2.5 text-xs tracking-widest font-bold uppercase overflow-hidden rounded-sm transition-all duration-300">
+          <!-- Background layers -->
+          <div class="absolute inset-0 bg-gradient-to-r from-royal-bronze to-royal-gold transition-all duration-500 group-hover:opacity-90"></div>
+          <div class="absolute inset-[1px] bg-royal-darker transition-all duration-300 group-hover:bg-transparent"></div>
+          <span class="relative z-10 text-royal-gold group-hover:text-royal-darker transition-colors duration-300 flex items-center gap-2">
+            TẢI MẪU SLIDE <i class="fa-solid fa-download"></i>
+          </span>
+        </a>
+        
+        <!-- Mobile menu toggle button -->
+        <button id="menuBtn" class="md:hidden text-royal-gold hover:text-royal-goldLight p-1">
+          <i class="fa-solid fa-bars-staggered text-xl"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu Drawer -->
+  <div id="mobileMenu" class="fixed inset-0 bg-royal-darker/95 z-40 translate-x-full transition-transform duration-300 md:hidden flex flex-col justify-center px-12 space-y-8 border-l border-royal-gold/10">
+    <button id="closeMenuBtn" class="absolute top-6 right-6 text-royal-gold text-2xl">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <a href="#about" class="text-2xl font-serif text-royal-goldLight/90 hover:text-royal-gold">Tổng Quan Di Sản</a>
+    <a href="#slideshow" class="text-2xl font-serif text-royal-goldLight/90 hover:text-royal-gold">Bộ Mẫu Trình Chiếu</a>
+    <a href="#timeline" class="text-2xl font-serif text-royal-goldLight/90 hover:text-royal-gold">Tiến Trình Lịch Sử</a>
+    <a href="#virtual-tour" class="text-2xl font-serif text-royal-goldLight/90 hover:text-royal-gold">Thuyết Minh Âm Thanh</a>
+    <div class="pt-6 border-t border-royal-gold/20">
+      <a href="#slideshow" class="w-full text-center py-3 bg-gradient-to-r from-royal-bronze to-royal-gold text-royal-darker font-bold rounded-sm block text-sm tracking-wider">
+        TẢI BỘ POWERPOINT (16:9)
+      </a>
+    </div>
+  </div>
+
+  <!-- ================= HERO SECTION (IMPERIAL MAJESTY) ================= -->
+  <section class="relative min-h-screen pt-24 pb-16 flex flex-col justify-center overflow-hidden bg-dark-texture">
+    <!-- Traditional Asian Clouds overlay background (simulated via SVG paths) -->
+    <div class="absolute inset-0 pointer-events-none opacity-10 mix-blend-overlay">
+      <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+        <pattern id="cloudPattern" width="120" height="120" patternUnits="userSpaceOnUse">
+          <path d="M10 60 C 20 50, 40 50, 50 60 C 60 70, 80 70, 90 60 C 100 50, 110 60, 110 70 C 90 90, 30 90, 10 60" fill="none" stroke="#c5a880" stroke-width="1"/>
+        </pattern>
+        <rect width="100%" height="100%" fill="url(#cloudPattern)"/>
+      </svg>
+    </div>
+
+    <!-- Soft Golden ambient glow representing history & royal majesty -->
+    <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-royal-gold/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10 w-full py-12">
+      
+      <!-- Text / Legend side -->
+      <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+        <div class="inline-flex items-center gap-3 px-3 py-1.5 rounded-full border border-royal-gold/20 bg-royal-gold/5 backdrop-blur-sm">
+          <span class="flex h-2 w-2 relative">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-royal-gold opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-royal-gold"></span>
+          </span>
+          <span class="text-xs uppercase tracking-[0.25em] text-royal-goldLight font-semibold">DI SẢN VĂN HÓA THẾ GIỚI UNESCO</span>
+        </div>
+
+        <h1 class="font-serif leading-none tracking-tight">
+          <span class="block text-3xl sm:text-4xl md:text-5xl text-royal-goldLight font-normal mb-2">Hoàng Thành</span>
+          <span class="block text-5xl sm:text-7xl md:text-8xl text-royal-gold font-bold uppercase tracking-wider">Thăng Long</span>
+        </h1>
+
+        <!-- Royal Divider Ribbon -->
+        <div class="flex items-center justify-center lg:justify-start gap-4 py-2">
+          <div class="h-[1px] w-12 bg-gradient-to-r from-transparent to-royal-gold"></div>
+          <svg class="w-6 h-6 text-royal-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2L15 9H22L17 14L19 21L12 17L5 21L7 14L2 9H9L12 2Z" fill="currentColor"/>
+          </svg>
+          <div class="h-[1px] w-12 bg-gradient-to-l from-transparent to-royal-gold"></div>
+        </div>
+
+        <p class="text-royal-goldLight/70 font-sans max-w-xl mx-auto lg:mx-0 leading-relaxed text-sm sm:text-base">
+          Trải qua hơn 10 thế kỷ biến thiên lịch sử, Hoàng Thành Thăng Long sừng sững như một minh chứng bất diệt cho tinh hoa kiến trúc, nghệ thuật và chiều sâu văn hiến quốc gia Đại Việt.
+        </p>
+
+        <!-- CTAs -->
+        <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+          <a href="#slideshow" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-royal-gold to-royal-goldLight hover:from-royal-goldDark hover:to-royal-gold text-royal-darker font-bold rounded-sm shadow-royal-glow tracking-widest text-sm uppercase transition-all duration-300 hover:scale-[1.02]">
+            Khám Phá Slide <i class="fa-solid fa-arrow-right ml-2"></i>
+          </a>
+          <a href="#timeline" class="w-full sm:w-auto px-8 py-4 border border-royal-gold/30 hover:border-royal-gold/80 text-royal-gold font-medium rounded-sm tracking-widest text-sm uppercase bg-royal-gold/5 transition-all duration-300">
+            Xem Tiến Trình Lịch Sử
+          </a>
+        </div>
+
+        <!-- Subtle stats row -->
+        <div class="pt-8 grid grid-cols-3 gap-6 max-w-md mx-auto lg:mx-0 border-t border-royal-gold/10">
+          <div>
+            <span class="block font-serif text-3xl text-royal-gold font-bold">1010</span>
+            <span class="block text-[11px] text-royal-goldLight/60 uppercase tracking-widest mt-1">Năm khởi lập</span>
+          </div>
+          <div>
+            <span class="block font-serif text-3xl text-royal-gold font-bold">18.39ha</span>
+            <span class="block text-[11px] text-royal-goldLight/60 uppercase tracking-widest mt-1">Diện tích khu trung tâm</span>
+          </div>
+          <div>
+            <span class="block font-serif text-3xl text-royal-gold font-bold">2010</span>
+            <span class="block text-[11px] text-royal-goldLight/60 uppercase tracking-widest mt-1">UNESCO Công nhận</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tower Graphic / Presentation Box side -->
+      <div class="lg:col-span-5 relative mt-6 lg:mt-0">
+        <!-- Floating royal ornament frame -->
+        <div class="absolute -inset-4 border border-royal-gold/15 rounded-lg pointer-events-none scale-105"></div>
+        
+        <!-- Main Illustrated Tower Container mimicking the Powerpoint cover slide -->
+        <div class="relative bg-parchment-texture p-6 sm:p-8 rounded shadow-2xl border-2 border-royal-goldDark/30 overflow-hidden group">
+          
+          <!-- Inner royal delicate line frame -->
+          <div class="absolute inset-3 border border-royal-bronze/10 pointer-events-none"></div>
+          
+          <!-- Ancient clouds illustration in header of card -->
+          <div class="flex justify-between items-center pb-4 border-b border-royal-bronze/10 relative z-10">
+            <span class="text-[10px] tracking-widest text-royal-bronze font-bold uppercase">MẪU SLIDE THƯỢNG HẠNG</span>
+            <div class="flex gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-royal-bronze/30"></span>
+              <span class="w-1.5 h-1.5 rounded-full bg-royal-bronze/30"></span>
+              <span class="w-1.5 h-1.5 rounded-full bg-royal-bronze/30"></span>
+            </div>
+          </div>
+
+          <!-- Symbolic representation of the Flag Tower (Cột Cờ Hà Nội) as shown on the slide design -->
+          <div class="my-8 relative h-72 rounded bg-royal-cream border border-royal-bronze/5 flex items-end justify-center overflow-hidden">
+            <!-- Warm atmospheric gradient background -->
+            <div class="absolute inset-0 bg-gradient-to-t from-royal-parchment to-royal-cream/40 z-0"></div>
+            
+            <!-- Minimal SVG of Hanoi Flag Tower representing the slide center art -->
+            <div class="relative z-10 w-full max-w-[220px] h-[90%] flex flex-col items-center justify-end">
+              <!-- Flag pole tip -->
+              <div class="w-1.5 h-20 bg-royal-bronze relative flex justify-end">
+                <!-- Red Flag of Vietnam -->
+                <div class="absolute top-2 left-1 w-10 h-7 bg-royal-red rounded-sm shadow-sm flex items-center justify-center animate-[wave_4s_infinite_ease-in-out]">
+                  <i class="fa-solid fa-star text-[8px] text-royal-gold"></i>
+                </div>
+              </div>
+              
+              <!-- Tower Octagonal Top Segment -->
+              <div class="w-10 h-14 bg-gradient-to-b from-royal-bronze to-royal-dark rounded-t-sm flex flex-col justify-around items-center p-1 border-b border-royal-gold/20">
+                <div class="w-6 h-2 bg-royal-gold/20 rounded-sm"></div>
+                <div class="grid grid-cols-2 gap-1 w-full px-1">
+                  <div class="h-3 bg-royal-dark/80 rounded-sm"></div>
+                  <div class="h-3 bg-royal-dark/80 rounded-sm"></div>
+                </div>
+              </div>
+
+              <!-- Tower Middle Brick Body -->
+              <div class="w-16 h-28 bg-gradient-to-b from-royal-dark to-royal-darker flex flex-col justify-between p-2 relative shadow-lg">
+                <!-- Brick line patterns simulated in CSS -->
+                <div class="absolute inset-0 opacity-10 bg-[linear-gradient(rgba(197,168,128,0.3)_1px,transparent_1px),linear-gradient(90deg,rgba(197,168,128,0.3)_1px,transparent_1px)] bg-[size:10px_6px]"></div>
+                
+                <!-- Windows -->
+                <div class="grid grid-cols-3 gap-1 w-full mx-auto relative z-10 mt-4">
+                  <div class="h-5 bg-royal-parchment/10 rounded-t-full"></div>
+                  <div class="h-5 bg-royal-parchment/10 rounded-t-full"></div>
+                  <div class="h-5 bg-royal-parchment/10 rounded-t-full"></div>
+                </div>
+                
+                <!-- Arch gate base of middle body -->
+                <div class="w-6 h-10 bg-royal-darker border-t border-royal-gold/10 mx-auto rounded-t-lg relative z-10"></div>
+              </div>
+
+              <!-- Large Base Platform -->
+              <div class="w-28 h-12 bg-gradient-to-b from-royal-bronze to-royal-dark rounded-t-sm relative">
+                <!-- Base stairs block -->
+                <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-4 bg-royal-darker rounded-t-sm border-t border-royal-gold/20"></div>
+              </div>
+            </div>
+
+            <!-- Stylized golden clouds floating around the tower -->
+            <div class="absolute left-4 top-24 opacity-60 animate-[bounce_5s_infinite_ease-in-out]">
+              <i class="fa-solid fa-cloud text-royal-gold text-2xl"></i>
+            </div>
+            <div class="absolute right-4 top-12 opacity-60 animate-[bounce_7s_infinite_ease-in-out]">
+              <i class="fa-solid fa-cloud text-royal-gold text-3xl"></i>
+            </div>
+          </div>
+
+          <!-- Elegant typography beneath tower image -->
+          <div class="text-center space-y-2 relative z-10">
+            <h3 class="font-serif text-3xl text-royal-dark font-bold tracking-wide uppercase">Cột Cờ Hà Nội</h3>
+            <p class="text-xs text-royal-bronze font-medium tracking-[0.2em] uppercase">Hoàng Thành Thăng Long Kỳ Đài</p>
+            <div class="pt-3 border-t border-royal-bronze/10 mt-3 flex justify-between items-center text-[11px] text-royal-dark/60 font-sans">
+              <span>TRÌNH BÀY: TUYETKYPOWERPOINT</span>
+              <span>SIZE: 16:9 HD</span>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= ABOUT & ARCHITECTURE OVERVIEW ================= -->
+  <section id="about" class="py-24 bg-parchment-texture border-y border-royal-gold/20 relative">
+    <!-- Royal motif overlay -->
+    <div class="absolute top-12 left-12 w-32 h-32 opacity-5 pointer-events-none">
+      <svg class="w-full h-full text-royal-bronze" fill="currentColor" viewBox="0 0 100 100">
+        <path d="M50 0 C 60 25, 75 40, 100 50 C 75 60, 60 75, 50 100 C 40 75, 25 60, 0 50 C 25 40, 40 25, 50 0 Z"/>
+      </svg>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+        <h2 class="font-serif text-4xl sm:text-5xl text-royal-dark font-bold uppercase tracking-wide">
+          Kiến Trúc & Không Gian Di Sản
+        </h2>
+        <div class="w-24 h-[1px] bg-royal-bronze mx-auto"></div>
+        <p class="text-royal-dark/80 font-sans text-sm sm:text-base leading-relaxed">
+          Khu Trung tâm Hoàng thành Thăng Long - Hà Nội là nơi giao thoa của các giá trị nhân văn, nghệ thuật tạo hình, kiến trúc độc đáo và kỹ thuật xây dựng trải dài qua các thời kỳ lịch sử.
+        </p>
+      </div>
+
+      <!-- Grid of Architectural Treasures -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Card 1: Đoan Môn -->
+        <div class="bg-royal-cream border border-royal-gold/30 rounded p-6 shadow-royal hover:shadow-xl hover:border-royal-gold transition-all duration-300 flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="relative h-48 rounded bg-royal-parchment overflow-hidden flex items-center justify-center border border-royal-gold/15">
+              <!-- Simulated Graphic representation of Đoan Môn Gate -->
+              <div class="absolute inset-0 bg-gradient-to-tr from-royal-parchment to-royal-cream/10"></div>
+              <!-- Simulated Gate Structure with SVGs -->
+              <svg class="w-40 h-32 text-royal-bronze/80 z-10 transition-transform duration-500 group-hover:scale-105" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Gate roof and structure -->
+                <path d="M10 50 L90 50 L85 30 L15 30 Z" fill="currentColor" opacity="0.3"/>
+                <rect x="20" y="50" width="60" height="25" rx="2" fill="currentColor" opacity="0.5"/>
+                <!-- 3 Arch gates -->
+                <path d="M28 75 V62 C28 59, 32 59, 32 62 V75" stroke="#fcfaf2" stroke-width="2" fill="none"/>
+                <path d="M46 75 V58 C46 54, 54 54, 54 58 V75" stroke="#fcfaf2" stroke-width="3" fill="none"/>
+                <path d="M68 75 V62 C68 59, 72 59, 72 62 V75" stroke="#fcfaf2" stroke-width="2" fill="none"/>
+                <path d="M5 30 C 50 30, 20 5, 50 10 C 80 5, 50 30, 95 30" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+              <div class="absolute top-3 left-3 px-2 py-0.5 bg-royal-bronze text-royal-cream text-[10px] tracking-widest font-bold uppercase rounded-sm">CỔNG CHÍNH</div>
+            </div>
+            <h3 class="font-serif text-2xl text-royal-dark font-bold">Đoan Môn (Cổng Thành)</h3>
+            <p class="text-xs text-royal-dark/70 leading-relaxed font-sans">
+              Đoan Môn là cổng chính dẫn thẳng vào điện Kính Thiên - cấm thành của hoàng cung hoàng đế. Cấu trúc lầu vọng lâu vững chãi bằng đá xám cổ kính mang giá trị văn hóa tuyệt đối.
+            </p>
+          </div>
+          <div class="pt-6 border-t border-royal-gold/10 mt-6 flex justify-between items-center text-xs text-royal-bronze font-bold tracking-wider">
+            <span>KIẾN TRÚC LÝ - TRẦN</span>
+            <span class="group-hover:translate-x-1 transition-transform"><i class="fa-solid fa-arrow-right-long"></i></span>
+          </div>
+        </div>
+
+        <!-- Card 2: Điện Kính Thiên -->
+        <div class="bg-royal-cream border border-royal-gold/30 rounded p-6 shadow-royal hover:shadow-xl hover:border-royal-gold transition-all duration-300 flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="relative h-48 rounded bg-royal-parchment overflow-hidden flex items-center justify-center border border-royal-gold/15">
+              <div class="absolute inset-0 bg-gradient-to-tr from-royal-parchment to-royal-cream/10"></div>
+              <!-- Imperial Dragon Sculpture Simulation -->
+              <svg class="w-40 h-32 text-royal-bronze/80 z-10 transition-transform duration-500 group-hover:scale-105" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Dragon stone steps outlines -->
+                <path d="M10 70 L90 20 L90 70 Z" fill="currentColor" opacity="0.15"/>
+                <path d="M15 65 C30 50, 40 45, 55 40 C70 35, 75 30, 85 22" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                <!-- Dragon details/spikes -->
+                <path d="M25 55 L28 51 L33 54 L38 46 L43 49 L48 40" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="82" cy="22" r="3" fill="currentColor"/>
+                <text x="35" y="72" fill="currentColor" font-size="6" font-family="sans-serif" letter-spacing="0.1" opacity="0.6">RỒNG ĐÁ ĐIỆN KÍNH THIÊN</text>
+              </svg>
+              <div class="absolute top-3 left-3 px-2 py-0.5 bg-royal-red text-royal-cream text-[10px] tracking-widest font-bold uppercase rounded-sm">TRUNG TÂM</div>
+            </div>
+            <h3 class="font-serif text-2xl text-royal-dark font-bold">Điện Kính Thiên</h3>
+            <p class="text-xs text-royal-dark/70 leading-relaxed font-sans">
+              Là hạt nhân chính của toàn bộ hoàng cung, nơi triều đình bàn thảo đại sự quốc gia. Đôi rồng đá chầu tạc từ thời Lê Sơ năm 1467 là kiệt tác nghệ thuật điêu khắc đỉnh cao quốc gia.
+            </p>
+          </div>
+          <div class="pt-6 border-t border-royal-gold/10 mt-6 flex justify-between items-center text-xs text-royal-bronze font-bold tracking-wider">
+            <span>KIẾN TRÚC LÊ SƠ</span>
+            <span class="group-hover:translate-x-1 transition-transform"><i class="fa-solid fa-arrow-right-long"></i></span>
+          </div>
+        </div>
+
+        <!-- Card 3: Khu Khảo Cổ 18 Hoàng Diệu -->
+        <div class="bg-royal-cream border border-royal-gold/30 rounded p-6 shadow-royal hover:shadow-xl hover:border-royal-gold transition-all duration-300 flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="relative h-48 rounded bg-royal-parchment overflow-hidden flex items-center justify-center border border-royal-gold/15">
+              <div class="absolute inset-0 bg-gradient-to-tr from-royal-parchment to-royal-cream/10"></div>
+              <!-- Stratigraphy & Archeological ruins simulation -->
+              <svg class="w-40 h-32 text-royal-bronze/80 z-10 transition-transform duration-500 group-hover:scale-105" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Pillars bases -->
+                <rect x="15" y="55" width="16" height="8" rx="1" fill="currentColor" opacity="0.4"/>
+                <rect x="42" y="55" width="16" height="8" rx="1" fill="currentColor" opacity="0.4"/>
+                <rect x="69" y="55" width="16" height="8" rx="1" fill="currentColor" opacity="0.4"/>
+                <line x1="15" y1="68" x2="85" y2="68" stroke="currentColor" stroke-width="1" stroke-dasharray="2 2"/>
+                <!-- Foundations layer -->
+                <path d="M5 75 L95 75" stroke="currentColor" stroke-width="2"/>
+                <circle cx="23" cy="50" r="1.5" fill="currentColor"/>
+                <circle cx="50" cy="50" r="1.5" fill="currentColor"/>
+                <circle cx="77" cy="50" r="1.5" fill="currentColor"/>
+                <path d="M23 50 V40 M50 50 V40 M77 50 V40" stroke="currentColor" stroke-width="1"/>
+              </svg>
+              <div class="absolute top-3 left-3 px-2 py-0.5 bg-royal-goldDark text-royal-cream text-[10px] tracking-widest font-bold uppercase rounded-sm">KHẢO CỔ</div>
+            </div>
+            <h3 class="font-serif text-2xl text-royal-dark font-bold">Khu Khảo Cổ 18 Hoàng Diệu</h3>
+            <p class="text-xs text-royal-dark/70 leading-relaxed font-sans">
+              Nơi phát hiện vô vàn nền móng cung điện xếp chồng chồng lớp lớp qua 1300 năm, cùng với hàng triệu hiện vật gốm sứ hoàng gia cổ vô giá.
+            </p>
+          </div>
+          <div class="pt-6 border-t border-royal-gold/10 mt-6 flex justify-between items-center text-xs text-royal-bronze font-bold tracking-wider">
+            <span>DI VẬT NGHÌN NĂM</span>
+            <span class="group-hover:translate-x-1 transition-transform"><i class="fa-solid fa-arrow-right-long"></i></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= INTERACTIVE POWERPOINT SLIDE PRESENTATION EXPLORER ================= -->
+  <section id="slideshow" class="py-24 bg-dark-texture relative">
+    
+    <!-- Title Area & Decorative Gold Border -->
+    <div class="max-w-7xl mx-auto px-6 mb-12">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-royal-gold/20 pb-8">
+        <div class="space-y-2">
+          <span class="text-xs text-royal-gold tracking-[0.3em] font-semibold uppercase block">HOÀNG THÀNH THĂNG LONG SLIDE PREVIEW</span>
+          <h2 class="font-serif text-4xl sm:text-5xl text-royal-goldLight font-bold uppercase tracking-wider">
+            Bộ Mẫu Trình Chiếu Tuyệt Kỹ
+          </h2>
+          <p class="text-xs sm:text-sm text-royal-goldLight/70 max-w-xl font-sans">
+            Được thiết kế tỉ mỉ tôn vinh tuyệt đối vẻ đẹp lịch sử, phối cảnh cung đình phong cách hoàng triều sang trọng. Bấm chọn từng trang slide bên dưới để tương tác trực quan.
+          </p>
+        </div>
+        
+        <div class="flex gap-4">
+          <button id="prevSlide" class="w-12 h-12 rounded-full border border-royal-gold/30 flex items-center justify-center text-royal-goldLight hover:text-royal-gold hover:border-royal-gold transition-colors">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <button id="nextSlide" class="w-12 h-12 rounded-full border border-royal-gold/30 flex items-center justify-center text-royal-goldLight hover:text-royal-gold hover:border-royal-gold transition-colors">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Presentation Stage -->
+    <div class="max-w-6xl mx-auto px-6 mb-16">
+      <div class="relative bg-parchment-texture aspect-video rounded-lg shadow-2xl border-4 border-royal-gold/40 overflow-hidden" id="slideStage">
+        
+        <!-- Royal Delicate inner border frame -->
+        <div class="absolute inset-4 border border-royal-bronze/10 pointer-events-none z-10"></div>
+        
+        <!-- Dynamic Slide Content Inner Wrapper -->
+        <div class="w-full h-full p-8 sm:p-12 md:p-16 flex flex-col justify-between relative z-0" id="slideWrapper">
+          
+          <!-- Top Row: Slide Header -->
+          <div class="flex justify-between items-center border-b border-royal-bronze/15 pb-4">
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-royal-bronze/10 flex items-center justify-center text-[10px] text-royal-bronze font-bold">🪷</span>
+              <span class="text-[10px] sm:text-xs tracking-widest text-royal-bronze font-bold uppercase" id="slideCategory">DANH MỤC DI SẢN</span>
+            </div>
+            <span class="text-[9px] sm:text-xs text-royal-bronze/60 font-mono tracking-widest" id="slideIndex">TRANG 01 / 06</span>
+          </div>
+
+          <!-- Middle Row: Interactive Custom Visualizations -->
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-8 my-auto items-center">
+            
+            <!-- Left Side Title & Explanatory Text -->
+            <div class="md:col-span-7 space-y-4">
+              <h3 class="font-serif text-3xl sm:text-4xl md:text-5xl text-royal-dark font-bold leading-tight uppercase tracking-wide" id="slideTitle">
+                Hoàng Thành Thăng Long
+              </h3>
+              <div class="w-16 h-[2px] bg-royal-red"></div>
+              <p class="text-xs sm:text-sm text-royal-dark/80 leading-relaxed font-sans" id="slideDescription">
+                Khu di tích lịch sử trung tâm của thủ đô ngàn năm văn hiến, biểu tượng cho sức mạnh hoàng quyền liên tục qua nhiều triều đại phong kiến lớn mạnh của Việt Nam.
+              </p>
+            </div>
+
+            <!-- Right Side Beautiful Visual / Schematic Mockup representing slide details -->
+            <div class="md:col-span-5 flex justify-center">
+              <div class="w-full max-w-[280px] aspect-square rounded bg-royal-cream border border-royal-goldDark/20 p-4 shadow-lg flex flex-col justify-center items-center text-center relative overflow-hidden" id="slideVisualContainer">
+                <!-- Visuals will be generated by JS dynamically -->
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Row: Professional presentation footer -->
+          <div class="flex justify-between items-center pt-4 border-t border-royal-bronze/15 text-[9px] sm:text-xs text-royal-dark/60">
+            <span>MẪU THIẾT KẾ TRÌNH CHIẾU TUYỆT KỲ</span>
+            <span class="tracking-widest">SIZE: 16:9 HD widescreen</span>
+          </div>
+          
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Thumbnail Grid of All Slide Designs (Exactly representing the preview grid in your uploaded image) -->
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4" id="thumbnailsGrid">
+        <!-- Generates dynamically in JS to assure alignment, interactivity and correct styling -->
+      </div>
+    </div>
+
+    <!-- Big Download Center CTA Box -->
+    <div class="max-w-5xl mx-auto px-6 mt-16">
+      <div class="relative rounded bg-gradient-to-r from-royal-dark to-royal-darker border border-royal-gold/30 p-8 sm:p-12 overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-8">
+        <div class="absolute -top-12 -right-12 w-48 h-48 bg-royal-gold/5 rounded-full blur-3xl pointer-events-none"></div>
+        
+        <div class="space-y-3 text-center sm:text-left">
+          <h3 class="font-serif text-3xl text-royal-goldLight font-bold uppercase tracking-wide">Bạn muốn sử dụng bộ Slide này?</h3>
+          <p class="text-xs sm:text-sm text-royal-goldLight/70 font-sans max-w-xl">
+            Tải ngay trọn bộ 16 slide mẫu độc quyền mang phong cách Hoàng Thành Thăng Long, chuẩn tỉ lệ 16:9, tích hợp sẵn font chữ cổ điển cao cấp, tối ưu hóa hiển thị.
+          </p>
+        </div>
+
+        <button onclick="simulateDownload()" class="whitespace-nowrap px-8 py-4 bg-gradient-to-r from-royal-gold to-royal-goldLight hover:from-royal-goldDark hover:to-royal-gold text-royal-darker font-bold rounded-sm shadow-royal-glow tracking-widest text-xs uppercase flex items-center gap-2 transition-transform duration-300 hover:scale-[1.03]">
+          TẢI MIỄN PHÍ (.PPTX) <i class="fa-solid fa-file-powerpoint text-lg"></i>
+        </button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ================= HISTORICAL DYNASTIC TIMELINE SECTION ================= -->
+  <section id="timeline" class="py-24 bg-parchment-texture border-y border-royal-gold/20 relative">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+        <span class="text-xs uppercase tracking-[0.25em] text-royal-bronze font-bold block">TIẾN TRÌNH LỊCH SỬ</span>
+        <h2 class="font-serif text-4xl sm:text-5xl text-royal-dark font-bold uppercase tracking-wide">
+          Các Triều Đại Gắn Liền Di Sản
+        </h2>
+        <div class="w-24 h-[1px] bg-royal-bronze mx-auto"></div>
+        <p class="text-royal-dark/80 font-sans text-sm sm:text-base leading-relaxed">
+          Sự thăng trầm của kinh đô Thăng Long qua dòng thời gian lịch sử nghìn năm hào hùng của các triều đại hưng thịnh bậc nhất Việt Nam.
+        </p>
+      </div>
+
+      <!-- Timeline Nodes -->
+      <div class="relative border-l-2 border-royal-bronze/20 max-w-4xl mx-auto pl-8 sm:pl-12 space-y-12">
+        
+        <!-- Era 1: Lý Dynasty -->
+        <div class="relative group">
+          <!-- Timeline point dot -->
+          <div class="absolute -left-[41px] sm:-left-[57px] top-1.5 w-6 h-6 rounded-full border-4 border-royal-parchment bg-royal-bronze flex items-center justify-center group-hover:bg-royal-red transition-colors duration-300 shadow-md">
+            <div class="w-1.5 h-1.5 rounded-full bg-white"></div>
+          </div>
+          
+          <div class="bg-royal-cream border border-royal-gold/30 rounded p-6 shadow-md hover:shadow-lg hover:border-royal-gold transition-all duration-300">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+              <span class="font-serif text-2xl text-royal-dark font-bold">Triều Đại Nhà Lý (1010 - 1225)</span>
+              <span class="px-2.5 py-1 bg-royal-bronze/10 text-royal-bronze text-xs font-bold uppercase rounded-sm tracking-wider">Khởi Lập Kinh Đô</span>
+            </div>
+            <p class="text-xs sm:text-sm text-royal-dark/80 leading-relaxed font-sans">
+              Năm 1010, Hoàng đế Lý Thái Tổ ban bố Chiếu dời đô (Thiên đô chiếu), dời đô từ Hoa Lư về Đại La và đổi tên thành Thăng Long (Rồng Bay Lên). Cung điện triều Lý được thiết kế lộng lẫy, nguy nga bậc nhất, xây dựng nền tảng gốc cho hoàng thành ngàn năm.
+            </p>
+          </div>
+        </div>
+
+        <!-- Era 2: Trần Dynasty -->
+        <div class="relative group">
+          <div class="absolute -left-[41px] sm:-left-[57px] top-1.5 w-6 h-6 rounded-full border-4 border-royal-parchment bg-royal-bronze flex items-center justify-center group-hover:bg-royal-red transition-colors duration-300 shadow-md">
+            <div class="w-1.5 h-1.5 rounded-full bg-white"></div>
+          </div>
+          
+          <div class="bg-royal-cream border border-royal-gold/30 rounded p-6 shadow-md hover:shadow-lg hover:border-royal-gold transition-all duration-300">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+              <span class="font-serif text-2xl text-royal-dark font-bold">Triều Đại Nhà Trần (1225 - 1400)</span>
+              <span class="px-2.5 py-1 bg-royal-bronze/10 text-royal-bronze text-xs font-bold uppercase rounded-sm tracking-wider">Hào Khí Đông A</span>
+            </div>
+            <p class="text-xs sm:text-sm text-royal-dark/80 leading-relaxed font-sans">
+              Kế thừa và mở rộng Thăng Long. Đây là thời kỳ của hào khí Đông A oanh liệt với 3 lần đánh thắng quân Nguyên Mông xâm lược. Hoàng thành tuy có chịu thiệt hại chiến tranh nhưng liên tục được trùng tu lộng lẫy, giữ vững vị thế trung tâm chính trị đại cường.
+            </p>
+          </div>
+        </div>
+
+        <!-- Era 3: Lê Dynasty -->
+        <div class="relative group">
+          <div class="absolute -left-[41px] sm:-left-[57px] top-1.5 w-6 h-6 rounded-full border-4 border-royal-parchment bg-royal-bronze flex items-center justify-center group-hover:bg-royal-red transition-colors duration-300 shadow-md">
+            <div class="w-1.5 h-1.5 rounded-full bg-white"></div>
+          </div>
+          
+          <div class="bg-royal-cream border border-royal-gold/30 rounded p-6 shadow-md hover:shadow-lg hover:border-royal-gold transition-all duration-300">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+              <span class="font-serif text-2xl text-royal-dark font-bold">Triều Đại Lê Sơ & Hậu Lê (1428 - 1789)</span>
+              <span class="px-2.5 py-1 bg-royal-bronze/10 text-royal-bronze text-xs font-bold uppercase rounded-sm tracking-wider">Hoàng Kim Chính Trị</span>
+            </div>
+            <p class="text-xs sm:text-sm text-royal-dark/80 leading-relaxed font-sans">
+              Sau chiến thắng Lam Sơn lừng lẫy, triều Lê kiến thiết lại hoàng cung quy mô lớn. Điện Kính Thiên tôn nghiêm xây dựng thời kỳ này. Thăng Long (bấy giờ gọi là Đông Kinh) bùng nổ đô thị hóa phồn hoa đô hội, khẳng định dấu ấn kiến trúc đỉnh cao.
+            </p>
+          </div>
+        </div>
+
+        <!-- Era 4: Nguyễn Dynasty -->
+        <div class="relative group">
+          <div class="absolute -left-[41px] sm:-left-[57px] top-1.5 w-6 h-6 rounded-full border-4 border-royal-parchment bg-royal-bronze flex items-center justify-center group-hover:bg-royal-red transition-colors duration-300 shadow-md">
+            <div class="w-1.5 h-1.5 rounded-full bg-white"></div>
+          </div>
+          
+          <div class="bg-royal-cream border border-royal-gold/30 rounded p-6 shadow-md hover:shadow-lg hover:border-royal-gold transition-all duration-300">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+              <span class="font-serif text-2xl text-royal-dark font-bold">Triều Đại Nhà Nguyễn (1802 - 1945)</span>
+              <span class="px-2.5 py-1 bg-royal-bronze/10 text-royal-bronze text-xs font-bold uppercase rounded-sm tracking-wider">Hạ Cấp Thành Tỉnh</span>
+            </div>
+            <p class="text-xs sm:text-sm text-royal-dark/80 leading-relaxed font-sans">
+              Hoàng đế Gia Long chọn Phú Xuân (Huế) làm kinh đô mới, Thăng Long chuyển thành trấn thành rồi tỉnh thành Hà Nội. Cung điện cũ bị dỡ bỏ bớt, nhưng kỳ đài (Cột Cờ Hà Nội) và Bắc Môn vẫn được tôn tạo xây vững chãi, lưu giữ dấu tích triều đại cuối cùng.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= IMMERSIVE COURT AUDIO GUIDE & MUSIC PLAYER ================= -->
+  <section id="virtual-tour" class="py-24 bg-dark-texture relative">
+    
+    <!-- Ancient golden design flourish floating background -->
+    <div class="absolute bottom-6 right-6 w-40 h-40 opacity-5 pointer-events-none">
+      <svg class="w-full h-full text-royal-gold" fill="currentColor" viewBox="0 0 100 100">
+        <path d="M50 0 C 60 25, 75 40, 100 50 C 75 60, 60 75, 50 100 C 40 75, 25 60, 0 50 C 25 40, 40 25, 50 0 Z"/>
+      </svg>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Interactive Player Module (Visual representation of pure premium UI design) -->
+        <div class="lg:col-span-5 relative">
+          <div class="absolute -inset-2 border border-royal-gold/15 rounded pointer-events-none"></div>
+          
+          <div class="relative bg-royal-darker border border-royal-gold/30 p-8 rounded-sm shadow-royal-glow space-y-6">
+            
+            <div class="flex items-center justify-between border-b border-royal-gold/10 pb-4">
+              <span class="text-[10px] tracking-widest text-royal-gold font-bold uppercase">DI SẢN TRÌNH ÂM THANH VĂN HÓA</span>
+              <i class="fa-solid fa-volume-high text-royal-gold"></i>
+            </div>
+
+            <!-- Vinyl representation rotating or waving -->
+            <div class="flex flex-col items-center py-6">
+              <div class="relative w-40 h-40 rounded-full border-2 border-royal-gold flex items-center justify-center bg-royal-darker group shadow-lg">
+                <!-- Inner grooves -->
+                <div class="absolute inset-2 rounded-full border border-royal-gold/20"></div>
+                <div class="absolute inset-6 rounded-full border border-royal-gold/40"></div>
+                <div class="absolute inset-10 rounded-full border border-royal-gold/20"></div>
+                <!-- Mini Dragon emblem -->
+                <svg class="w-8 h-8 text-royal-gold opacity-80" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" fill="currentColor"/>
+                </svg>
+                <!-- Stylized rotating arm mockup -->
+                <div class="absolute top-0 right-4 w-12 h-12 border-t-2 border-r-2 border-royal-gold/40 rounded-tr-md origin-bottom-left transition-all duration-500 rotate-12" id="stylusArm"></div>
+              </div>
+            </div>
+
+            <div class="text-center space-y-1">
+              <h4 class="font-serif text-xl text-royal-gold font-bold uppercase" id="audioTitle">Nhã Nhạc Cung Đình Thăng Long</h4>
+              <p class="text-xs text-royal-goldLight/60 font-sans" id="audioArtist">Âm vang Nhã nhạc thời Hậu Lê (Bản mô phỏng)</p>
+            </div>
+
+            <!-- Beautiful Music Progress Bar and Timer -->
+            <div class="space-y-2">
+              <div class="h-1 bg-royal-gold/10 rounded overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-royal-bronze to-royal-gold transition-all duration-300" style="width: 42%" id="audioProgress"></div>
+              </div>
+              <div class="flex justify-between text-[10px] text-royal-goldLight/50 font-mono">
+                <span id="currentTime">01:45</span>
+                <span id="totalTime">04:12</span>
+              </div>
+            </div>
+
+            <!-- Custom Playback Controls -->
+            <div class="flex items-center justify-center gap-6">
+              <button onclick="changeTrack(-1)" class="text-royal-goldLight hover:text-royal-gold transition-colors text-lg">
+                <i class="fa-solid fa-backward-step"></i>
+              </button>
+              
+              <!-- Core Play Button with pulse effect -->
+              <button onclick="toggleAudio()" id="playBtn" class="w-14 h-14 rounded-full bg-gradient-to-r from-royal-gold to-royal-goldLight text-royal-darker flex items-center justify-center text-xl hover:scale-105 transition-all duration-300 shadow-royal-glow">
+                <i class="fa-solid fa-play ml-1" id="playIcon"></i>
+              </button>
+              
+              <button onclick="changeTrack(1)" class="text-royal-goldLight hover:text-royal-gold transition-colors text-lg">
+                <i class="fa-solid fa-forward-step"></i>
+              </button>
+            </div>
+
+            <!-- Sound Wave Visualizer Representation in CSS -->
+            <div class="flex justify-center items-end gap-1.5 h-12 pt-4">
+              <div class="w-1 bg-royal-gold/40 h-3 animate-[pulse_1.2s_infinite]"></div>
+              <div class="w-1 bg-royal-gold h-8 animate-[pulse_0.8s_infinite]"></div>
+              <div class="w-1 bg-royal-gold/60 h-6 animate-[pulse_1.5s_infinite]"></div>
+              <div class="w-1 bg-royal-goldLight h-10 animate-[pulse_0.7s_infinite]"></div>
+              <div class="w-1 bg-royal-gold h-4 animate-[pulse_1s_infinite]"></div>
+              <div class="w-1 bg-royal-gold/30 h-8 animate-[pulse_1.4s_infinite]"></div>
+              <div class="w-1 bg-royal-gold/80 h-10 animate-[pulse_0.9s_infinite]"></div>
+              <div class="w-1 bg-royal-gold/40 h-5 animate-[pulse_1.1s_infinite]"></div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Explanatory content side with Audio Guide listings -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-royal-gold/20 bg-royal-gold/5 text-xs text-royal-gold">
+            <i class="fa-solid fa-headphones-simple"></i> THUYẾT MINH DI SẢN TỰ ĐỘNG
+          </div>
+          
+          <h2 class="font-serif text-4xl sm:text-5xl text-royal-goldLight font-bold uppercase leading-tight tracking-wider">
+            Âm Vang Cung Đình <br class="hidden sm:inline">Trải Nghiệm Đa Giác Quan
+          </h2>
+
+          <p class="text-xs sm:text-sm text-royal-goldLight/70 font-sans leading-relaxed">
+            Nhằm nâng cao trải nghiệm bảo tồn văn hóa di sản, chúng tôi cung cấp bộ tài liệu thuyết minh âm thanh cùng âm nhạc cổ truyền. Lắng nghe những âm vang hào hùng, thiêng liêng từ quá khứ cung đình ngay tại nhà.
+          </p>
+
+          <!-- List of Tracks -->
+          <div class="space-y-4 pt-4">
+            
+            <button onclick="selectTrack(0)" class="w-full text-left p-4 rounded border border-royal-gold/10 hover:border-royal-gold/40 bg-royal-gold/5 flex items-center justify-between gap-4 transition-all duration-300 group">
+              <div class="flex items-center gap-4">
+                <span class="font-mono text-xs text-royal-gold">01</span>
+                <div>
+                  <span class="block font-serif text-lg text-royal-goldLight font-bold group-hover:text-royal-gold transition-colors">Nhã Nhạc Cung Đình Thăng Long</span>
+                  <span class="block text-xs text-royal-goldLight/50 font-sans">Bản hòa tấu tái hiện uy linh và sự trang nghiêm của tế lễ hoàng triều.</span>
+                </div>
+              </div>
+              <i class="fa-solid fa-circle-play text-royal-gold text-xl group-hover:scale-110 transition-transform"></i>
+            </button>
+
+            <button onclick="selectTrack(1)" class="w-full text-left p-4 rounded border border-royal-gold/10 hover:border-royal-gold/40 bg-royal-gold/5 flex items-center justify-between gap-4 transition-all duration-300 group">
+              <div class="flex items-center gap-4">
+                <span class="font-mono text-xs text-royal-gold">02</span>
+                <div>
+                  <span class="block font-serif text-lg text-royal-goldLight font-bold group-hover:text-royal-gold transition-colors">Bản Thuyết Minh Điện Kính Thiên</span>
+                  <span class="block text-xs text-royal-goldLight/50 font-sans">Bài giảng âm thanh chất lượng cao giới thiệu toàn bộ kiến trúc Điện Kính Thiên cổ xưa.</span>
+                </div>
+              </div>
+              <i class="fa-solid fa-circle-play text-royal-gold text-xl group-hover:scale-110 transition-transform"></i>
+            </button>
+
+            <button onclick="selectTrack(2)" class="w-full text-left p-4 rounded border border-royal-gold/10 hover:border-royal-gold/40 bg-royal-gold/5 flex items-center justify-between gap-4 transition-all duration-300 group">
+              <div class="flex items-center gap-4">
+                <span class="font-mono text-xs text-royal-gold">03</span>
+                <div>
+                  <span class="block font-serif text-lg text-royal-goldLight font-bold group-hover:text-royal-gold transition-colors">Sự Tích Rồng Đá Thời Lê Sơ</span>
+                  <span class="block text-xs text-royal-goldLight/50 font-sans">Thuyết minh chuyên sâu về nghệ thuật tạc khắc tuyệt kỹ rồng đá ngậm ngọc.</span>
+                </div>
+              </div>
+              <i class="fa-solid fa-circle-play text-royal-gold text-xl group-hover:scale-110 transition-transform"></i>
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= NOTIFICATIONS MODALS (VANILLA DIALOGS) ================= -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-royal-dark border border-royal-gold/50 p-4 rounded shadow-2xl flex items-center gap-3">
+    <div class="w-8 h-8 rounded-full bg-royal-gold/10 flex items-center justify-center text-royal-gold">
+      <i class="fa-solid fa-circle-check"></i>
+    </div>
+    <div>
+      <span class="block text-xs font-bold text-royal-gold uppercase tracking-wider">THÔNG BÁO TẢI SLIDE</span>
+      <span class="block text-[11px] text-royal-goldLight/70 font-sans">Mẫu PowerPoint đang được chuẩn bị tải về máy của bạn!</span>
+    </div>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-royal-darker border-t border-royal-gold/20 py-16 relative overflow-hidden">
+    
+    <!-- Delicate design details -->
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(131,92,43,0.1),transparent_50%)] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-6 relative z-10 grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-royal-gold/10 pb-12 mb-12">
+      
+      <!-- Brand & Description -->
+      <div class="space-y-4">
+        <a href="#" class="flex items-center gap-3">
+          <div class="w-10 h-10 flex items-center justify-center rounded-full border border-royal-gold/40 bg-royal-dark">
+            <svg class="w-6 h-6 text-royal-gold" viewBox="0 0 100 100" fill="none">
+              <path d="M50 25 C47 40, 30 47, 25 50 C30 53, 47 60, 50 75 C53 60, 70 53, 75 50 C70 47, 53 40, 50 25 Z" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div>
+            <span class="block font-serif text-base tracking-widest text-royal-gold font-bold uppercase">Thăng Long</span>
+            <span class="block text-[8px] tracking-[0.3em] text-royal-goldLight uppercase">Imperial Citadel</span>
+          </div>
+        </a>
+        <p class="text-xs text-royal-goldLight/60 font-sans leading-relaxed">
+          Tôn vinh, gìn giữ và quảng bá tuyệt kỹ nghệ thuật, văn hóa cung đình và kiến trúc di sản ngàn năm văn hiến của dân tộc Việt Nam đến toàn thế giới.
+        </p>
+      </div>
+
+      <!-- Quick links -->
+      <div class="space-y-4">
+        <h4 class="font-serif text-lg text-royal-gold font-bold uppercase tracking-wider">ĐƯỜNG DẪN NHANH</h4>
+        <ul class="space-y-2 text-xs font-sans text-royal-goldLight/70">
+          <li><a href="#about" class="hover:text-royal-gold transition-colors">Về Kiến Trúc & Cảnh Quan</a></li>
+          <li><a href="#slideshow" class="hover:text-royal-gold transition-colors">Bộ Slide Trình Chiếu</a></li>
+          <li><a href="#timeline" class="hover:text-royal-gold transition-colors">Lịch Sử Các Triều Đại</a></li>
+          <li><a href="#virtual-tour" class="hover:text-royal-gold transition-colors">Thuyết Minh Âm Thanh</a></li>
+        </ul>
+      </div>
+
+      <!-- Information & Location -->
+      <div class="space-y-4">
+        <h4 class="font-serif text-lg text-royal-gold font-bold uppercase tracking-wider">VỊ TRÍ DI SẢN</h4>
+        <p class="text-xs text-royal-goldLight/70 font-sans leading-relaxed">
+          Số 19C Hoàng Diệu, Quán Thánh, Ba Đình, Hà Nội, Việt Nam.<br>
+          Mở cửa tất cả các ngày trong tuần (trừ thứ Hai).
+        </p>
+      </div>
+
+      <!-- Newsletter & Community -->
+      <div class="space-y-4">
+        <h4 class="font-serif text-lg text-royal-gold font-bold uppercase tracking-wider">ĐĂNG KÝ BẢN TIN</h4>
+        <p class="text-xs text-royal-goldLight/60 font-sans leading-relaxed">
+          Nhận thông tin cập nhật về các cuộc triển lãm cổ vật và phục dựng lịch sử mới nhất.
+        </p>
+        <div class="flex gap-2">
+          <input type="email" placeholder="Địa chỉ Email..." class="w-full bg-royal-dark/80 border border-royal-gold/20 rounded px-3 py-2 text-xs text-royal-goldLight placeholder-royal-goldLight/30 focus:outline-none focus:border-royal-gold">
+          <button onclick="simulateSubscribe()" class="bg-royal-gold hover:bg-royal-goldDark text-royal-darker px-4 py-2 text-xs font-bold rounded uppercase">Gửi</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Copyright Area -->
+    <div class="max-w-7xl mx-auto px-6 relative z-10 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px] text-royal-goldLight/40 font-sans">
+      <span>© 2026 Hoàng Thành Thăng Long. Thiết kế và phát triển bởi TuyetKyPowerpoint & Nhóm Bảo Tồn Di Sản.</span>
+      <div class="flex gap-4">
+        <a href="#" class="hover:text-royal-gold transition-colors"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#" class="hover:text-royal-gold transition-colors"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="hover:text-royal-gold transition-colors"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- ================= CORE JAVASCRIPT ================= -->
+  <script>
+    // ---------------- MOBILE MENU DRAWER CONTROLS ----------------
+    const menuBtn = document.getElementById('menuBtn');
+    const closeMenuBtn = document.getElementById('closeMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.remove('translate-x-full');
+    });
+
+    closeMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.add('translate-x-full');
+    });
+
+    // Automatically close drawer on menu option click
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('translate-x-full');
+      });
+    });
+
+    // ---------------- ACTIVE INTERACTIVE PRESENTATION DATA ----------------
+    // Each element in this array directly mimics the gorgeous slide content layouts shown in your inspiration picture.
+    const slidesData = [
+      {
+        id: 1,
+        category: "TRANG CHỦ BÌA",
+        title: "Hoàng Thành Thăng Long",
+        description: "Bản slide hoàn thiện giới thiệu tổng quan di sản hoàng cung nghìn năm hào hùng của dân tộc Việt Nam, tôn vinh nghệ thuật và chiều sâu văn hóa triều đại.",
+        visual: `
+          <div class="relative w-full h-full flex flex-col justify-center items-center">
+            <div class="w-1.5 h-12 bg-royal-bronze relative flex justify-end">
+              <div class="absolute top-2 left-1 w-6 h-4 bg-royal-red rounded-sm shadow-sm flex items-center justify-center animate-pulse">
+                <i class="fa-solid fa-star text-[5px] text-royal-gold"></i>
+              </div>
+            </div>
+            <div class="w-6 h-8 bg-royal-dark rounded-t-sm"></div>
+            <div class="w-10 h-14 bg-royal-darker rounded-t-sm"></div>
+            <span class="block text-[11px] text-royal-bronze font-bold mt-2 tracking-widest uppercase">KỲ ĐÀI HÀ NỘI</span>
+          </div>
+        `
+      },
+      {
+        id: 2,
+        category: "DI SẢN THẾ GIỚI",
+        title: "Giá Trị UNESCO Quốc Tế",
+        description: "Giá trị văn hiến lâu đời của khu trung tâm di tích được công nhận nhờ ba tiêu chí nổi bật: Chiều dài lịch sử văn hóa lâu dài, tính liên tục của trung tâm quyền lực chính trị và sự đa dạng hiện vật phong phú phong kiến.",
+        visual: `
+          <div class="relative w-full h-full flex flex-col justify-center items-center gap-2">
+            <i class="fa-solid fa-earth-asia text-royal-bronze text-4xl animate-spin-slow"></i>
+            <span class="text-[10px] text-royal-bronze font-bold tracking-widest">3 TIÊU CHÍ NỔI BẬT</span>
+            <div class="flex gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-royal-red"></span>
+              <span class="w-2 h-2 rounded-full bg-royal-gold"></span>
+              <span class="w-2 h-2 rounded-full bg-royal-bronze"></span>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 3,
+        category: "KIẾN TRÚC HOÀNG CUNG",
+        title: "Đoan Môn Lầu Vọng Lâu",
+        description: "Thiết kế cổng chính vững chãi với lầu gác uy nghiêm được phục dựng tinh tế, là nơi hội tụ linh khí đất trời và điểm bước chân hoàng gia thiết triều tôn nghiêm.",
+        visual: `
+          <div class="w-full h-full flex flex-col justify-center items-center">
+            <svg class="w-20 h-20 text-royal-bronze" viewBox="0 0 100 80" fill="none">
+              <rect x="10" y="40" width="80" height="30" rx="2" fill="currentColor" opacity="0.3"/>
+              <path d="M20 70 V55 C20 52, 25 52, 25 55 V70" stroke="currentColor" stroke-width="2"/>
+              <path d="M45 70 V50 C45 45, 55 45, 55 50 V70" stroke="currentColor" stroke-width="3"/>
+              <path d="M75 70 V55 C75 52, 80 52, 80 55 V70" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            <span class="text-[10px] text-royal-bronze font-bold mt-2">CỔNG ĐOAN MÔN</span>
+          </div>
+        `
+      },
+      {
+        id: 4,
+        category: "TRỌNG ĐIỂM HOÀNG THÀNH",
+        title: "Kỳ Đài Cột Cờ Hà Nội",
+        description: "Được xây dựng vào đầu thế kỷ XIX dưới triều Nguyễn, kỳ đài kiên cố vượt qua bao khói lửa chiến tranh, sừng sững tung bay quốc kỳ biểu trưng cho độc lập chủ quyền của đất nước.",
+        visual: `
+          <div class="relative w-full h-full flex flex-col justify-center items-center">
+            <i class="fa-solid fa-flag text-royal-red text-4xl mb-2 animate-bounce"></i>
+            <div class="w-12 h-6 bg-royal-bronze rounded-t"></div>
+            <div class="w-16 h-4 bg-royal-dark rounded-t"></div>
+          </div>
+        `
+      },
+      {
+        id: 5,
+        category: "TRƯNG BÀY KHẢO CỔ",
+        title: "Di Tích 18 Hoàng Diệu",
+        description: "Địa tầng khảo cổ học phác họa rõ ràng chiều sâu lịch sử văn hiến liên tục của dân tộc Việt Nam, chứa đựng mảnh vỡ nghệ thuật gốm sứ sang trọng dùng cho nhà vua.",
+        visual: `
+          <div class="w-full h-full flex flex-col justify-center items-center gap-2">
+            <i class="fa-solid fa-cubes text-royal-bronze text-3xl"></i>
+            <div class="w-full bg-royal-bronze/10 rounded h-4 flex items-center justify-around px-2">
+              <div class="w-3 h-1.5 bg-royal-red rounded-sm"></div>
+              <div class="w-3 h-1.5 bg-royal-gold rounded-sm"></div>
+              <div class="w-3 h-1.5 bg-royal-bronze rounded-sm"></div>
+            </div>
+            <span class="text-[9px] text-royal-bronze font-bold">LỚP ĐẤT DI TÍCH CHỒNG LÊN NHAU</span>
+          </div>
+        `
+      },
+      {
+        id: 6,
+        category: "BẢO TỒN PHÁT HUY",
+        title: "Bảo Tồn & Truyền Thống",
+        description: "Chương trình bảo tồn định kỳ ứng dụng công nghệ 3D, chiếu sáng phục dựng ánh hào quang xưa giúp giới trẻ tiếp cận và trân quý các di sản quốc gia trường tồn.",
+        visual: `
+          <div class="w-full h-full flex flex-col justify-center items-center gap-2">
+            <i class="fa-solid fa-arrows-spin text-royal-red text-3xl animate-spin-slow"></i>
+            <span class="text-[10px] text-royal-bronze font-bold">SỐ HÓA DI SẢN 3D</span>
+          </div>
+        `
+      }
+    ];
+
+    let currentSlideIndex = 0;
+
+    // Elements
+    const slideCategory = document.getElementById('slideCategory');
+    const slideIndex = document.getElementById('slideIndex');
+    const slideTitle = document.getElementById('slideTitle');
+    const slideDescription = document.getElementById('slideDescription');
+    const slideVisualContainer = document.getElementById('slideVisualContainer');
+    const thumbnailsGrid = document.getElementById('thumbnailsGrid');
+    const prevBtn = document.getElementById('prevSlide');
+    const nextBtn = document.getElementById('nextSlide');
+
+    // Load active slide content
+    function updateSlideStage(index) {
+      currentSlideIndex = index;
+      const data = slidesData[index];
+      
+      // Update text details
+      slideCategory.innerText = data.category;
+      slideIndex.innerText = `TRANG 0${data.id} / 0${slidesData.length}`;
+      slideTitle.innerText = data.title;
+      slideDescription.innerText = data.description;
+      slideVisualContainer.innerHTML = data.visual;
+
+      // Update active thumbnail borders
+      const thumbnails = document.querySelectorAll('.thumbnail-card');
+      thumbnails.forEach((thumb, i) => {
+        if (i === index) {
+          thumb.classList.add('border-royal-red', 'shadow-royal-glow');
+          thumb.classList.remove('border-royal-gold/30');
+        } else {
+          thumb.classList.remove('border-royal-red', 'shadow-royal-glow');
+          thumb.classList.add('border-royal-gold/30');
+        }
+      });
+    }
+
+    // Generate Thumbnails mimicking the grid in your inspiration image
+    function buildThumbnails() {
+      thumbnailsGrid.innerHTML = '';
+      slidesData.forEach((slide, index) => {
+        const thumbCard = document.createElement('button');
+        thumbCard.className = `thumbnail-card text-left bg-parchment-texture border-2 border-royal-gold/30 p-3 rounded hover:border-royal-gold transition-all duration-300 relative group overflow-hidden`;
+        thumbCard.onclick = () => updateSlideStage(index);
+
+        thumbCard.innerHTML = `
+          <div class="absolute inset-1 border border-royal-bronze/5 pointer-events-none"></div>
+          <div class="h-16 rounded bg-royal-cream/60 flex items-center justify-center overflow-hidden mb-2 relative">
+             <div class="opacity-60 scale-75">${slide.visual}</div>
+             <div class="absolute top-1 left-1 bg-royal-bronze text-[#fcfaf2] text-[8px] px-1 py-0.5 rounded-sm">T.${slide.id}</div>
+          </div>
+          <span class="block text-[8px] tracking-wider text-royal-bronze uppercase font-bold truncate">${slide.category}</span>
+          <span class="block text-[11px] font-serif font-bold text-royal-dark truncate uppercase mt-0.5">${slide.title}</span>
+        `;
+        thumbnailsGrid.appendChild(thumbCard);
+      });
+    }
+
+    // Slide Controls
+    prevBtn.addEventListener('click', () => {
+      let prevIndex = currentSlideIndex - 1;
+      if (prevIndex < 0) prevIndex = slidesData.length - 1;
+      updateSlideStage(prevIndex);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      let nextIndex = currentSlideIndex + 1;
+      if (nextIndex >= slidesData.length) nextIndex = 0;
+      updateSlideStage(nextIndex);
+    });
+
+    // ---------------- IMMERSIVE COURT AUDIO PLAYER ENGINE ----------------
+    const tracks = [
+      {
+        title: "Nhã Nhạc Cung Đình Thăng Long",
+        artist: "Hòa tấu nghi lễ Đại triều thời Hậu Lê (Mô phỏng)",
+        progress: "42%",
+        currentTime: "01:45",
+        totalTime: "04:12"
+      },
+      {
+        title: "Thuyết Minh Thần Điển Kính Thiên",
+        artist: "Bài giảng âm thanh du khảo lịch sử hoàng gia",
+        progress: "15%",
+        currentTime: "00:48",
+        totalTime: "05:30"
+      },
+      {
+        title: "Sự Tích Rồng Đá Thời Lê Sơ",
+        artist: "Lịch sử điêu khắc nghệ thuật rồng ngậm ngọc bích",
+        progress: "75%",
+        currentTime: "02:15",
+        totalTime: "03:00"
+      }
+    ];
+
+    let currentTrackIndex = 0;
+    let isPlaying = false;
+    
+    const audioTitle = document.getElementById('audioTitle');
+    const audioArtist = document.getElementById('audioArtist');
+    const audioProgress = document.getElementById('audioProgress');
+    const currentTime = document.getElementById('currentTime');
+    const totalTime = document.getElementById('totalTime');
+    const playIcon = document.getElementById('playIcon');
+    const stylusArm = document.getElementById('stylusArm');
+
+    function updateTrackUI() {
+      const track = tracks[currentTrackIndex];
+      audioTitle.innerText = track.title;
+      audioArtist.innerText = track.artist;
+      audioProgress.style.width = track.progress;
+      currentTime.innerText = track.currentTime;
+      totalTime.innerText = track.totalTime;
+    }
+
+    function toggleAudio() {
+      isPlaying = !isPlaying;
+      if (isPlaying) {
+        playIcon.className = "fa-solid fa-pause";
+        stylusArm.style.transform = "rotate(28deg)";
+        showToast("Âm thanh đang phát", "Lắng nghe giai điệu cung đình hào sảng...");
+      } else {
+        playIcon.className = "fa-solid fa-play ml-1";
+        stylusArm.style.transform = "rotate(12deg)";
+      }
+    }
+
+    function selectTrack(index) {
+      currentTrackIndex = index;
+      isPlaying = false;
+      updateTrackUI();
+      toggleAudio();
+    }
+
+    function changeTrack(direction) {
+      let newIndex = currentTrackIndex + direction;
+      if (newIndex < 0) newIndex = tracks.length - 1;
+      if (newIndex >= tracks.length) newIndex = 0;
+      selectTrack(newIndex);
+    }
+
+    // ---------------- SIMULATED USER INTERACTION ALERTS ----------------
+    function showToast(title, message) {
+      const toast = document.getElementById('toast');
+      toast.querySelector('span:nth-child(1)').innerText = title;
+      toast.querySelector('span:nth-child(2)').innerText = message;
+      
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      
+      setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 4000);
+    }
+
+    function simulateDownload() {
+      showToast("TẢI BỘ SLIDE THÀNH CÔNG", "Hệ thống đang chuẩn bị tệp tin PPTX Thăng Long...");
+    }
+
+    function simulateSubscribe() {
+      showToast("ĐĂNG KÝ THÀNH CÔNG", "Cảm ơn bạn đã tham gia cộng đồng di sản!");
+    }
+
+    // Header transparency changes on scroll
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('mainHeader');
+      if (window.scrollY > 50) {
+        header.classList.add('py-3', 'bg-royal-darker/95');
+        header.classList.remove('py-5');
+      } else {
+        header.classList.remove('py-3', 'bg-royal-darker/95');
+        header.classList.add('py-5');
+      }
+    });
+
+    // Initialize On Load
+    window.onload = function() {
+      buildThumbnails();
+      updateSlideStage(0);
+      updateTrackUI();
+    };
+  </script>
+</body>
+</html>
+4

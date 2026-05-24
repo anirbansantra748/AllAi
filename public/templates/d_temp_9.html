@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUPITER // Out of This World Prebiotic Elixirs</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"DM Serif Display"', 'serif'],
+                        display: ['"Syne"', 'sans-serif'],
+                    },
+                    colors: {
+                        obsidian: '#0c0a0a',
+                        cardBg: '#131111',
+                        terracotta: {
+                            DEFAULT: '#9e3e23',
+                            hover: '#b94c2d',
+                            light: '#ebd7d1',
+                        },
+                        cream: '#f4ebe1',
+                        sand: '#a89c91',
+                    },
+                    animation: {
+                        'spin-slow': 'spin 12s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(-3deg)' },
+                            '50%': { transform: 'translateY(-12px) rotate(-1deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* CSS Analog Film Grain Overlay */
+        .grain-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            content: "";
+            opacity: 0.045;
+            pointer-events: none;
+            z-index: 9999;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Starburst vintage badge polygon */
+        .starburst {
+            clip-path: polygon(100% 50%, 91% 62%, 98% 75%, 85% 80%, 88% 93%, 75% 91%, 71% 100%, 58% 91%, 50% 98%, 42% 91%, 29% 100%, 25% 91%, 12% 93%, 15% 80%, 2% 75%, 9% 62%, 0% 50%, 9% 38%, 2% 25%, 15% 20%, 12% 7%, 25% 9%, 29% 0%, 42% 9%, 50% 2%, 58% 9%, 71% 0%, 75% 9%, 88% 7%, 85% 20%, 98% 25%, 91% 38%);
+        }
+
+        /* Smooth scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0c0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2b2323;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #9e3e23;
+        }
+
+        /* Dynamic background glow transitions */
+        .theme-transition {
+            transition: background-color 0.8s ease, color 0.8s ease, border-color 0.8s ease, fill 0.8s ease;
+        }
+
+        /* Perspective for bottle container */
+        .perspective-container {
+            perspective: 1000px;
+        }
+    </style>
+</head>
+<body class="bg-obsidian text-cream font-sans selection:bg-terracotta selection:text-cream overflow-x-hidden theme-transition">
+
+    <!-- Analog grain texture mapped to viewport -->
+    <div class="grain-overlay"></div>
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-obsidian/85 backdrop-blur-md border-b border-cream/5 theme-transition px-6 py-4 md:px-12 flex justify-between items-center">
+        <!-- Brand Logo -->
+        <a href="#hero" class="group flex items-center gap-2">
+            <span class="font-display text-2xl tracking-tighter text-terracotta group-hover:text-cream transition-colors duration-300">JUPITER</span>
+        </a>
+
+        <!-- Main Links (Desktop) -->
+        <nav class="hidden md:flex items-center gap-10">
+            <a href="#flavors" class="text-xs uppercase tracking-[0.25em] font-medium text-sand hover:text-cream transition-colors duration-300">Shop Now</a>
+            <a href="#story" class="text-xs uppercase tracking-[0.25em] font-medium text-sand hover:text-cream transition-colors duration-300">Our Story</a>
+            <a href="#science" class="text-xs uppercase tracking-[0.25em] font-medium text-sand hover:text-cream transition-colors duration-300">Science</a>
+            <a href="#bundle" class="text-xs uppercase tracking-[0.25em] font-medium text-sand hover:text-cream transition-colors duration-300">Build Box</a>
+        </nav>
+
+        <!-- Right Side Controls -->
+        <div class="flex items-center gap-4">
+            <!-- Mobile Menu Toggle -->
+            <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-sand hover:text-cream focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
+            </button>
+            <button onclick="toggleCart()" class="relative border border-terracotta/40 hover:border-terracotta hover:bg-terracotta/10 px-6 py-2 rounded-full text-xs uppercase tracking-widest font-semibold text-cream transition-all duration-300">
+                Cart
+                <span id="cart-counter" class="absolute -top-1.5 -right-1.5 bg-terracotta text-[10px] text-cream w-5 h-5 rounded-full flex items-center justify-center font-bold shadow-lg animate-bounce">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- MOBILE NAVIGATION MENU -->
+    <div id="mobile-menu" class="fixed inset-0 bg-obsidian/98 z-40 hidden flex-col justify-center items-center gap-8 px-6 transition-all duration-300 border-b border-terracotta/20">
+        <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 text-cream hover:text-terracotta transition-colors">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+        <a href="#flavors" onclick="toggleMobileMenu()" class="font-display text-3xl text-sand hover:text-cream">Shop Now</a>
+        <a href="#story" onclick="toggleMobileMenu()" class="font-display text-3xl text-sand hover:text-cream">Our Story</a>
+        <a href="#science" onclick="toggleMobileMenu()" class="font-display text-3xl text-sand hover:text-cream">Science</a>
+        <a href="#bundle" onclick="toggleMobileMenu()" class="font-display text-3xl text-sand hover:text-cream">Build Box</a>
+    </div>
+
+    <!-- HERO SECTION (Mirroring the inspiration layout & visual universe) -->
+    <section id="hero" class="relative min-h-screen pt-24 flex flex-col justify-between overflow-hidden bg-[#0a0808]">
+        <!-- Top Cosmic Glow -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[70vw] h-[400px] bg-gradient-to-b from-terracotta/20 to-transparent blur-[120px] pointer-events-none rounded-full"></div>
+
+        <!-- Huge Background Text (Dynamic update on flavor choice) -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0">
+            <h1 id="hero-bg-text" class="font-display text-[26vw] leading-none text-[#1c1311] tracking-tighter uppercase transition-all duration-[1000ms] ease-out select-none">
+                EUROPA
+            </h1>
+        </div>
+
+        <!-- Hero Content Grid -->
+        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 px-6 md:px-12 my-auto items-center w-full">
+            
+            <!-- Left Info Panel (Descriptive Serif copy) -->
+            <div class="lg:col-span-4 flex flex-col justify-end lg:h-[450px] order-2 lg:order-1 pt-6 lg:pt-0">
+                <p id="hero-description" class="font-serif text-2xl md:text-3xl leading-snug text-cream/90 max-w-sm">
+                    Tastes like the soda you grew up sipping, but with the added benefit of microbiome and digestive health support today.
+                </p>
+                <div class="mt-6 flex flex-wrap gap-4 items-center">
+                    <span class="px-3 py-1 border border-cream/10 rounded-full text-[10px] tracking-widest text-sand uppercase bg-cream/[0.02]">0g Added Sugar</span>
+                    <span class="px-3 py-1 border border-cream/10 rounded-full text-[10px] tracking-widest text-sand uppercase bg-cream/[0.02]">9g Plant Fiber</span>
+                </div>
+            </div>
+
+            <!-- Central Bottle Mockup Area with Parallax and Dynamic Interactive Glows -->
+            <div class="lg:col-span-5 flex justify-center items-center relative perspective-container h-[350px] md:h-[500px] order-1 lg:order-2 z-20">
+                <!-- Glowing Aura behind the bottle -->
+                <div id="bottle-aura" class="absolute w-[280px] h-[280px] rounded-full bg-terracotta/25 blur-[80px] animate-pulse transition-all duration-700"></div>
+                
+                <!-- SVG Bottle Render (Dynamic rendering for premium, crisp vector visuals) -->
+                <div id="bottle-wrapper" class="w-[450px] h-[450px] flex items-center justify-center transform transition-all duration-500 hover:scale-105" style="transform: rotate(-10deg);">
+                    <svg id="hero-bottle" class="w-full h-full drop-shadow-[0_25px_50px_rgba(0,0,0,0.85)] filter saturate-[1.2]" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Glass Bottle Silhouette -->
+                        <g id="glass-structure">
+                            <!-- Liquid Backing Base -->
+                            <path d="M120 220 C120 180, 160 160, 210 155 L210 420 C160 420, 120 400, 120 370 Z" fill="url(#liquidGrad)" opacity="0.9"/>
+                            <!-- Glass Body Contour -->
+                            <path d="M120 220 C120 180, 160 160, 250 150 L250 420 C160 420, 120 400, 120 370 Z" fill="url(#glassGrad)" opacity="0.3"/>
+                            
+                            <!-- Symmetrical right half -->
+                            <path d="M380 220 C380 180, 340 160, 290 155 L290 420 C340 420, 380 400, 380 370 Z" fill="url(#liquidGrad)" opacity="0.9" transform="translate(500,0) scale(-1,1)"/>
+                            <path d="M380 220 C380 180, 340 160, 250 150 L250 420 C340 420, 380 400, 380 370 Z" fill="url(#glassGrad)" opacity="0.3" transform="translate(500,0) scale(-1,1)"/>
+                            
+                            <!-- Bottle Neck & Cap (Horizontal design orientation from original image adapted beautifully for vertical/diagonal display) -->
+                            <!-- Neck wrap / capsule -->
+                            <path d="M220 152 C220 120, 230 110, 235 70 L265 70 C270 110, 280 120, 280 152 Z" fill="url(#neckWrapGrad)"/>
+                            <!-- Ridges on the neck foil -->
+                            <line x1="230" y1="110" x2="270" y2="110" stroke="#121111" stroke-width="2" opacity="0.4"/>
+                            <line x1="232" y1="90" x2="268" y2="90" stroke="#121111" stroke-width="2" opacity="0.4"/>
+                            <!-- Cap closure -->
+                            <rect x="233" y="55" width="34" height="16" rx="3" fill="#323030"/>
+                        </g>
+
+                        <!-- Glass reflections & Specular Highlights -->
+                        <g id="glass-specular" opacity="0.85">
+                            <!-- Left Edge highlight -->
+                            <path d="M125 240 C125 200, 155 180, 190 175 C180 185, 135 210, 135 250 L135 360 C135 390, 155 405, 175 410 C145 405, 125 390, 125 360 Z" fill="url(#whiteGlowGrad)"/>
+                            <!-- Core vertical white reflection -->
+                            <rect x="235" y="165" width="8" height="240" rx="4" fill="url(#whiteGlowGrad)" opacity="0.4"/>
+                            <!-- Secondary reflection -->
+                            <rect x="145" y="210" width="12" height="150" rx="6" fill="url(#whiteGlowGrad)" opacity="0.25"/>
+                        </g>
+
+                        <!-- Label (Styled to dynamic flavor accent) -->
+                        <g id="bottle-label" transform="rotate(-90 250 290) translate(-35, -20)">
+                            <!-- Semi-translucent Label Backing -->
+                            <rect x="150" y="225" width="220" height="70" rx="6" fill="#000000" fill-opacity="0.85" stroke="url(#labelBorderGrad)" stroke-width="1.5"/>
+                            
+                            <!-- Label Content (Dynamic Text matching flavor) -->
+                            <text id="label-title" x="260" y="260" fill="url(#labelTitleGrad)" font-family="Syne" font-size="28" font-weight="900" letter-spacing="1.5" text-anchor="middle">EUROPA</text>
+                            <text id="label-subtitle" x="260" y="280" fill="#f4ebe1" font-family="Plus Jakarta Sans" font-size="7" font-weight="700" letter-spacing="4" text-anchor="middle">PREBIOTIC SPARKLING</text>
+                        </g>
+
+                        <!-- Gradient Definitions -->
+                        <defs>
+                            <linearGradient id="liquidGrad" x1="0" y1="0" x2="1" y2="0">
+                                <stop id="liq-stop-0" offset="0%" stop-color="#3d140a"/>
+                                <stop id="liq-stop-1" offset="50%" stop-color="#9e3e23"/>
+                                <stop id="liq-stop-2" offset="100%" stop-color="#3d140a"/>
+                            </linearGradient>
+                            <linearGradient id="glassGrad" x1="0" y1="0" x2="1" y2="0">
+                                <stop offset="0%" stop-color="#ffffff" stop-opacity="0.6"/>
+                                <stop offset="50%" stop-color="#ffffff" stop-opacity="0.1"/>
+                                <stop offset="100%" stop-color="#000000" stop-opacity="0.8"/>
+                            </linearGradient>
+                            <linearGradient id="neckWrapGrad" x1="0" y1="0" x2="1" y2="0">
+                                <stop offset="0%" stop-color="#1c1a1a"/>
+                                <stop offset="35%" stop-color="#3d3838"/>
+                                <stop offset="70%" stop-color="#121111"/>
+                                <stop offset="100%" stop-color="#0a0909"/>
+                            </linearGradient>
+                            <linearGradient id="whiteGlowGrad" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/>
+                                <stop offset="100%" stop-color="#ffffff" stop-opacity="0.0"/>
+                            </linearGradient>
+                            <linearGradient id="labelBorderGrad" x1="0" y1="0" x2="1" y2="0">
+                                <stop id="border-stop-0" offset="0%" stop-color="#9e3e23"/>
+                                <stop id="border-stop-1" offset="100%" stop-color="#a89c91"/>
+                            </linearGradient>
+                            <linearGradient id="labelTitleGrad" x1="0" y1="0" x2="0" y2="1">
+                                <stop id="title-stop-0" offset="0%" stop-color="#ffffff"/>
+                                <stop id="title-stop-1" offset="100%" stop-color="#9e3e23"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Right Info Panel (CTA & Starburst Vintage Badge) -->
+            <div class="lg:col-span-3 flex flex-col items-center lg:items-end justify-between lg:h-[450px] order-3">
+                
+                <!-- Rotating Promo Badge from Inspiration (Adaptive dynamic badge) -->
+                <div class="relative group cursor-pointer select-none">
+                    <div class="starburst w-28 h-28 bg-[#1a1413] border border-terracotta/40 flex flex-col items-center justify-center text-center p-2 animate-spin-slow group-hover:bg-terracotta/20 transition-all duration-500">
+                    </div>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none text-center">
+                        <span class="text-[8px] tracking-[0.3em] text-sand uppercase">FORMULATED</span>
+                        <span id="badge-highlight-text" class="font-display text-lg text-terracotta leading-tight">NEW</span>
+                        <span class="text-[7px] tracking-wider text-cream/70 max-w-[70px] leading-tight">A SCIENTIFIC MIRACLE</span>
+                    </div>
+                </div>
+
+                <!-- Action CTA Button -->
+                <div class="mt-8 lg:mt-0 w-full flex flex-col gap-3">
+                    <button onclick="addCurrentToCart()" id="hero-cta" class="w-full bg-terracotta hover:bg-terracotta-hover text-cream text-xs uppercase tracking-[0.25em] font-extrabold py-4 px-8 rounded-full shadow-2xl transition-all duration-300 transform hover:-translate-y-1 hover:shadow-terracotta/20">
+                        Order Now
+                    </button>
+                    <p class="text-[11px] text-sand/70 text-center lg:text-right tracking-wide italic">
+                        Free carbon-neutral shipping on orders $45+
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Flavor Quick Switcher (The core interactive element anchored at the bottom of the hero) -->
+        <div class="relative z-20 border-t border-cream/5 bg-obsidian/40 backdrop-blur-lg px-6 md:px-12 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <span class="text-xs uppercase tracking-widest text-sand">Select Cosmic Target:</span>
+            <div class="flex gap-2 p-1 bg-cream/[0.03] rounded-full border border-cream/5">
+                <button onclick="switchFlavor('europa')" id="btn-europa" class="px-6 py-2.5 rounded-full text-xs uppercase tracking-wider font-semibold bg-terracotta text-cream transition-all duration-500">
+                    Europa (Rosé)
+                </button>
+                <button onclick="switchFlavor('ganymede')" id="btn-ganymede" class="px-6 py-2.5 rounded-full text-xs uppercase tracking-wider font-semibold text-sand hover:text-cream transition-all duration-500">
+                    Ganymede (Ginger)
+                </button>
+                <button onclick="switchFlavor('io')" id="btn-io" class="px-6 py-2.5 rounded-full text-xs uppercase tracking-wider font-semibold text-sand hover:text-cream transition-all duration-500">
+                    Io (Yuzu)
+                </button>
+            </div>
+            <div class="flex items-center gap-6 text-xs text-sand/80">
+                <span>⚡ prebiotic botanical infusion</span>
+                <span>✨ 35 calories per serving</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- METRICS / STATS SECTION -->
+    <section class="py-20 border-y border-cream/5 bg-obsidian relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-6 relative z-10">
+            <div class="text-center md:text-left md:border-r border-cream/5 pr-4">
+                <span class="font-display text-6xl text-terracotta tracking-tight">9g</span>
+                <h3 class="text-sm uppercase tracking-widest font-bold mt-2 text-cream">Prebiotic Plant Fiber</h3>
+                <p class="text-xs text-sand mt-2 max-w-xs mx-auto md:mx-0 leading-relaxed font-serif italic text-lg">
+                    Feeds your native microbiome to encourage natural digestion and radiant clarity.
+                </p>
+            </div>
+            <div class="text-center md:text-left md:border-r border-cream/5 px-4">
+                <span class="font-display text-6xl text-terracotta tracking-tight">Apple cider</span>
+                <h3 class="text-sm uppercase tracking-widest font-bold mt-2 text-cream">Vinegar infusion</h3>
+                <p class="text-xs text-sand mt-2 max-w-xs mx-auto md:mx-0 leading-relaxed font-serif italic text-lg">
+                    Formulated with clean organic acids that regulate glucose response gently.
+                </p>
+            </div>
+            <div class="text-center md:text-left pl-4">
+                <span class="font-display text-6xl text-terracotta tracking-tight">Zero</span>
+                <h3 class="text-sm uppercase tracking-widest font-bold mt-2 text-cream">Stevia or Artificials</h3>
+                <p class="text-xs text-sand mt-2 max-w-xs mx-auto md:mx-0 leading-relaxed font-serif italic text-lg">
+                    Sweetened naturally with real organic fresh-pressed fruit extract.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- DETAILED FLAVOR EXPLORATION (SOPHISTICATED ROTATING DETAIL GRID) -->
+    <section id="flavors" class="py-28 bg-[#0d0b0b] relative">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                <div>
+                    <span class="text-xs uppercase tracking-[0.3em] text-terracotta font-semibold">THE JUICE OF THE GODS</span>
+                    <h2 class="font-display text-4xl md:text-6xl text-cream tracking-tight uppercase mt-2">Active Specimen Catalog</h2>
+                </div>
+                <p class="text-sand max-w-sm font-serif italic text-xl leading-relaxed">
+                    Designed to heal the gut while delighting the senses with sharp carbonation and deep botanical complexity.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Card 1: Europa -->
+                <div class="group bg-cardBg border border-cream/5 hover:border-terracotta/40 rounded-3xl p-8 transition-all duration-500 relative overflow-hidden flex flex-col justify-between h-[520px]">
+                    <div class="absolute -right-12 -top-12 w-48 h-48 bg-terracotta/10 rounded-full blur-3xl group-hover:bg-terracotta/20 transition-all duration-500"></div>
+                    <div>
+                        <div class="flex justify-between items-start">
+                            <span class="text-xs tracking-widest uppercase text-sand">SPECIMEN // 01</span>
+                            <span class="px-2 py-0.5 bg-terracotta/20 text-terracotta text-[9px] font-bold tracking-widest uppercase rounded">ACTIVE</span>
+                        </div>
+                        <h3 class="font-display text-3xl text-cream uppercase mt-6">EUROPA</h3>
+                        <p class="text-xs tracking-widest uppercase text-terracotta font-semibold mt-1">PREBIOTIC ROSÉ</p>
+                        <p class="font-serif text-lg text-sand/80 mt-6 leading-relaxed italic">
+                            Crafted with organic white grape extract, sweet botanical rosewater, elderberry concentrates, and subtle pink peppercorn nodes.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="border-t border-cream/5 pt-6 flex justify-between items-center">
+                            <div>
+                                <span class="text-xs text-sand block">PRICE</span>
+                                <span class="font-display text-xl text-cream">$5.00 / CAN</span>
+                            </div>
+                            <button onclick="addToCart('Europa Prebiotic Rosé', 5.00)" class="bg-cream/5 group-hover:bg-terracotta text-cream px-6 py-3 rounded-full text-xs uppercase tracking-widest font-semibold transition-all duration-300">
+                                Buy Specimen
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Ganymede -->
+                <div class="group bg-cardBg border border-cream/5 hover:border-[#6c2837]/40 rounded-3xl p-8 transition-all duration-500 relative overflow-hidden flex flex-col justify-between h-[520px]">
+                    <div class="absolute -right-12 -top-12 w-48 h-48 bg-[#6c2837]/10 rounded-full blur-3xl group-hover:bg-[#6c2837]/20 transition-all duration-500"></div>
+                    <div>
+                        <div class="flex justify-between items-start">
+                            <span class="text-xs tracking-widest uppercase text-sand">SPECIMEN // 02</span>
+                            <span class="px-2 py-0.5 bg-[#6c2837]/20 text-[#bf435f] text-[9px] font-bold tracking-widest uppercase rounded">ACTIVE</span>
+                        </div>
+                        <h3 class="font-display text-3xl text-cream uppercase mt-6">GANYMEDE</h3>
+                        <p class="text-xs tracking-widest uppercase text-[#bf435f] font-semibold mt-1">SMOKY CHERRY GINGER</p>
+                        <p class="font-serif text-lg text-sand/80 mt-6 leading-relaxed italic">
+                            A daring, robust concoction utilizing cold-pressed wild black cherries, deeply spiced ginger root, and oakwood-infused carbonated spring water.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="border-t border-cream/5 pt-6 flex justify-between items-center">
+                            <div>
+                                <span class="text-xs text-sand block">PRICE</span>
+                                <span class="font-display text-xl text-cream">$5.50 / CAN</span>
+                            </div>
+                            <button onclick="addToCart('Ganymede Cherry Ginger', 5.50)" class="bg-cream/5 hover:bg-[#6c2837] text-cream px-6 py-3 rounded-full text-xs uppercase tracking-widest font-semibold transition-all duration-300">
+                                Buy Specimen
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Io -->
+                <div class="group bg-cardBg border border-cream/5 hover:border-[#966b26]/40 rounded-3xl p-8 transition-all duration-500 relative overflow-hidden flex flex-col justify-between h-[520px]">
+                    <div class="absolute -right-12 -top-12 w-48 h-48 bg-[#966b26]/10 rounded-full blur-3xl group-hover:bg-[#966b26]/20 transition-all duration-500"></div>
+                    <div>
+                        <div class="flex justify-between items-start">
+                            <span class="text-xs tracking-widest uppercase text-sand">SPECIMEN // 03</span>
+                            <span class="px-2 py-0.5 bg-[#966b26]/20 text-[#cc983d] text-[9px] font-bold tracking-widest uppercase rounded">ACTIVE</span>
+                        </div>
+                        <h3 class="font-display text-3xl text-cream uppercase mt-6">IO</h3>
+                        <p class="text-xs tracking-widest uppercase text-[#cc983d] font-semibold mt-1">LUMINOUS YUZU HONEY</p>
+                        <p class="font-serif text-lg text-sand/80 mt-6 leading-relaxed italic">
+                            Bright, citrusy explosions of rare Japanese Yuzu extract, balanced masterfully with soothing chamomile botanicals and single-origin raw honey.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="border-t border-cream/5 pt-6 flex justify-between items-center">
+                            <div>
+                                <span class="text-xs text-sand block">PRICE</span>
+                                <span class="font-display text-xl text-cream">$5.25 / CAN</span>
+                            </div>
+                            <button onclick="addToCart('Io Luminous Yuzu', 5.25)" class="bg-cream/5 hover:bg-[#966b26] text-cream px-6 py-3 rounded-full text-xs uppercase tracking-widest font-semibold transition-all duration-300">
+                                Buy Specimen
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BRAND STORY / INSPIRATION ATMOSPHERE -->
+    <section id="story" class="py-28 bg-obsidian relative overflow-hidden">
+        <!-- Giant artistic planet vector decoration in background -->
+        <div class="absolute -right-40 top-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-terracotta/10 pointer-events-none flex items-center justify-center">
+            <div class="w-[500px] h-[500px] rounded-full border border-terracotta/5 flex items-center justify-center">
+                <div class="w-[300px] h-[300px] rounded-full bg-gradient-to-tr from-terracotta/5 to-transparent blur-md"></div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                
+                <!-- Brand Image Vignette / Conceptual representation -->
+                <div class="relative bg-cardBg border border-cream/10 rounded-3xl p-10 h-[480px] flex flex-col justify-between overflow-hidden shadow-inner group">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-terracotta/15 via-transparent to-transparent pointer-events-none"></div>
+                    
+                    <div class="flex justify-between items-start">
+                        <span class="font-display text-xl text-terracotta">JUPITER DEEP-SPACE LABS</span>
+                        <span class="text-[10px] tracking-widest uppercase text-sand">EST. 2026</span>
+                    </div>
+
+                    <div class="my-auto z-10 max-w-sm">
+                        <h4 class="font-display text-4xl text-cream uppercase tracking-tight leading-none mb-4">A Revolution in Fizzy Fermentation</h4>
+                        <p class="font-serif text-lg text-sand italic">
+                            "We wondered: what if the cosmic compounds of our solar system's moons had flavor signatures? That’s how we stumbled on prebiotic carbonation."
+                        </p>
+                    </div>
+
+                    <div class="flex justify-between items-center border-t border-cream/5 pt-6 text-xs text-sand/60">
+                        <span>MISSION // SECURE THE GUT</span>
+                        <span>0092 // ORBIT</span>
+                    </div>
+                </div>
+
+                <!-- Story content narrative -->
+                <div class="flex flex-col justify-center">
+                    <span class="text-xs uppercase tracking-[0.3em] text-terracotta font-semibold">OUR SCIENTIFIC ODYSSEY</span>
+                    <h2 class="font-display text-4xl md:text-5xl text-cream uppercase tracking-tight mt-2 mb-6">
+                        Clean ingredients. Astronomical pleasure.
+                    </h2>
+                    <p class="font-serif text-xl text-sand leading-relaxed italic mb-6">
+                        Most modern carbonated drinks are packed with intense artificial sweeteners that disrupt your digestive environment. JUPITER was born to reverse this trend.
+                    </p>
+                    <p class="text-sand/80 leading-relaxed mb-8">
+                        Our research team spent five years isolating plant extracts that work natively in synergy with human gut microbes. By blending wild botanical roots, premium fruits, and dynamic prebiotic fiber, we created an elegant alternative to toxic chemical sodas.
+                    </p>
+                    <div class="flex gap-8">
+                        <div>
+                            <span class="block font-display text-3xl text-cream">100%</span>
+                            <span class="text-[10px] tracking-widest text-sand uppercase">Organic Extracts</span>
+                        </div>
+                        <div>
+                            <span class="block font-display text-3xl text-cream">9.8m</span>
+                            <span class="text-[10px] tracking-widest text-sand uppercase">Satisfied Moons</span>
+                        </div>
+                        <div>
+                            <span class="block font-display text-3xl text-cream">FDA</span>
+                            <span class="text-[10px] tracking-widest text-sand uppercase">Facility Certified</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- MICROBIOME INTERACTIVE SCIENCE SCHEMATIC -->
+    <section id="science" class="py-24 bg-[#0a0808] border-t border-cream/5 relative">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 text-center mb-16">
+            <span class="text-xs uppercase tracking-[0.3em] text-terracotta font-semibold">THE GUTS OF THE SYSTEM</span>
+            <h2 class="font-display text-4xl md:text-5xl text-cream uppercase mt-2">Active Formula Map</h2>
+            <p class="font-serif text-xl text-sand italic mt-4 max-w-xl mx-auto">
+                Hover or click on the glowing ingredient hubs to see how they actively benefit your daily biological clockwork.
+            </p>
+        </div>
+
+        <div class="max-w-5xl mx-auto px-6 relative">
+            <!-- Center diagram container (Isometric wireframe feel) -->
+            <div class="bg-cardBg border border-cream/5 rounded-3xl p-8 md:p-12 relative overflow-hidden min-h-[450px] flex flex-col md:flex-row items-center justify-between gap-12">
+                
+                <!-- Background grid design pattern -->
+                <div class="absolute inset-0 bg-[linear-gradient(to_right,#1f1a1a_1px,transparent_1px),linear-gradient(to_bottom,#1f1a1a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-30 pointer-events-none"></div>
+
+                <!-- Schematic Hubs (Interactive Left column) -->
+                <div class="flex flex-col gap-4 w-full md:w-1/2 z-10">
+                    <!-- Hub 1 -->
+                    <div onclick="showScienceInfo('root')" onmouseover="showScienceInfo('root')" class="cursor-pointer group p-4 border border-cream/5 hover:border-terracotta/40 rounded-2xl bg-obsidian/60 backdrop-blur transition-all duration-300 flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-terracotta/10 border border-terracotta/40 flex items-center justify-center group-hover:bg-terracotta group-hover:text-cream transition-all duration-300">
+                            <span class="font-display text-sm text-terracotta group-hover:text-cream font-bold">01</span>
+                        </div>
+                        <div class="text-left">
+                            <h4 class="font-display text-base text-cream uppercase group-hover:text-terracotta transition-colors">Chicory Root Inulin</h4>
+                            <p class="text-[11px] text-sand/80">Premium soluble dietary fiber base</p>
+                        </div>
+                    </div>
+                    <!-- Hub 2 -->
+                    <div onclick="showScienceInfo('apple')" onmouseover="showScienceInfo('apple')" class="cursor-pointer group p-4 border border-cream/5 hover:border-terracotta/40 rounded-2xl bg-obsidian/60 backdrop-blur transition-all duration-300 flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-terracotta/10 border border-terracotta/40 flex items-center justify-center group-hover:bg-terracotta group-hover:text-cream transition-all duration-300">
+                            <span class="font-display text-sm text-terracotta group-hover:text-cream font-bold">02</span>
+                        </div>
+                        <div class="text-left">
+                            <h4 class="font-display text-base text-cream uppercase group-hover:text-terracotta transition-colors">Raw Apple Cider Vinegar</h4>
+                            <p class="text-[11px] text-sand/80">Provides native acetic acid support</p>
+                        </div>
+                    </div>
+                    <!-- Hub 3 -->
+                    <div onclick="showScienceInfo('botanicals')" onmouseover="showScienceInfo('botanicals')" class="cursor-pointer group p-4 border border-cream/5 hover:border-terracotta/40 rounded-2xl bg-obsidian/60 backdrop-blur transition-all duration-300 flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-terracotta/10 border border-terracotta/40 flex items-center justify-center group-hover:bg-terracotta group-hover:text-cream transition-all duration-300">
+                            <span class="font-display text-sm text-terracotta group-hover:text-cream font-bold">03</span>
+                        </div>
+                        <div class="text-left">
+                            <h4 class="font-display text-base text-cream uppercase group-hover:text-terracotta transition-colors">Adaptogenic Botanicals</h4>
+                            <p class="text-[11px] text-sand/80">Organic rosewater & peppercorn</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Display Screen (Interactive Right column) -->
+                <div class="w-full md:w-1/2 min-h-[220px] p-6 rounded-2xl bg-obsidian/85 border border-cream/5 flex flex-col justify-between relative z-10 text-left">
+                    <div class="absolute top-4 right-4 flex gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-terracotta animate-ping"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-terracotta"></span>
+                    </div>
+                    <div>
+                        <span class="text-[9px] tracking-[0.2em] uppercase text-sand block mb-2">SPECTRUM ANALYSIS // ACTIVE</span>
+                        <h3 id="science-title" class="font-display text-2xl text-cream uppercase tracking-tight">Select a component</h3>
+                        <p id="science-desc" class="font-serif text-base text-sand/90 mt-4 leading-relaxed italic">
+                            Hover over the technical ingredients on the left map to witness the specific metabolic functions, gut-lining benefits, and botanical origins.
+                        </p>
+                    </div>
+                    <div class="border-t border-cream/5 pt-4 mt-6 flex justify-between items-center">
+                        <span class="text-[10px] text-sand uppercase">Target Area: Whole Body</span>
+                        <span class="text-[10px] text-terracotta uppercase font-bold">Optimized Biome</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE VARIETY BUNDLE BUILDER ("Build Your Orbit Box") -->
+    <section id="bundle" class="py-28 bg-obsidian border-t border-cream/5 relative">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                
+                <!-- Left: Interactive visual representing the box filling up -->
+                <div class="lg:col-span-6">
+                    <span class="text-xs uppercase tracking-[0.3em] text-terracotta font-semibold">CUSTOM PACK CUSTOMIZER</span>
+                    <h2 class="font-display text-4xl md:text-5xl text-cream uppercase mt-2 mb-6">Build Your Orbit Case</h2>
+                    <p class="font-serif text-lg text-sand italic mb-8">
+                        The cosmic box of 12 lets you select your stellar configurations. Tailor the perfect balance of Europa, Ganymede, and Io for your native ecosystem.
+                    </p>
+
+                    <!-- Interactive Box Visual Representation -->
+                    <div class="bg-cardBg border border-cream/10 rounded-3xl p-8 relative overflow-hidden">
+                        <div class="flex justify-between items-center mb-6">
+                            <span class="text-xs text-sand font-mono uppercase">Case Status: <span id="box-fill-label">0</span>/12 Cans Filled</span>
+                            <span id="box-status-tag" class="text-[10px] uppercase font-bold tracking-widest text-terracotta">NEEDS CANS</span>
+                        </div>
+                        
+                        <!-- 12 Slot Grid representing actual layout inside the box -->
+                        <div class="grid grid-cols-6 gap-3 py-6">
+                            <!-- JS will render and highlight slots based on selection -->
+                            <div class="box-slot h-16 rounded-xl border border-cream/10 bg-obsidian flex items-center justify-center transition-all duration-300"></div>
+                            <div class="box-slot h-16 rounded-xl border border-cream/10 bg-obsidian flex items-center justify-center transition-all duration-300"></div>
+                            <div class="box-slot h-16 rounded-xl border border-cream/10 bg-obsidian flex items-center justify-center transition-all duration-300"></div>
+                            <div class="box-slot h-16 rounded-xl border border-cream/10 bg-obsidian flex items-center justify-center transition-all duration-300"></div>
+                            <div class="box-slot h-16 rounded-xl border border-cream/10 bg-obsidian flex items-center justify-center transition-all duration-300"></div>
+                            <div class="box-slot h-16 rounded-xl border border-cream/10 bg-obsidian flex items-center justify-center transition-all duration-300"></div>
+                            <div class="box-slot h-16 rounded-xl border border-cream/10 bg-obsidian flex items-center justify-center transition-all duration-300"></div>
+                            <div class="box-slot h-16 rounded-xl border border-cream/10 bg-obsidian flex items-center justify-center transition-all duration-300"></div>
+                            <div class="box-slot h-16 rounded-xl border border-cream/10 bg-obsidian flex items-center justify-center transition-all duration-300"></div>
+                            <div class="box-slot h-16 rounded-xl border border-cream/10 bg-obsidian flex items-center justify-center transition-all duration-300"></div>
+                            <div class="box-slot h-16 rounded-xl border border-cream/10 bg-obsidian flex items-center justify-center transition-all duration-300"></div>
+                            <div class="box-slot h-16 rounded-xl border border-cream/10 bg-obsidian flex items-center justify-center transition-all duration-300"></div>
+                        </div>
+
+                        <!-- Progress Bar helper -->
+                        <div class="w-full bg-obsidian h-2 rounded-full overflow-hidden mt-2 border border-cream/5">
+                            <div id="box-progress-bar" class="bg-terracotta h-full w-0 transition-all duration-500"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Selection sliders / item counts -->
+                <div class="lg:col-span-6 space-y-8">
+                    
+                    <!-- Flavor 1 Control -->
+                    <div class="flex items-center justify-between p-6 bg-cardBg rounded-2xl border border-cream/5">
+                        <div>
+                            <h4 class="font-display text-lg text-cream uppercase">Europa Prebiotic Rosé</h4>
+                            <span class="text-xs text-terracotta font-semibold">Terracotta rose, pepper & grape</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <button onclick="changeBundleCount('europa', -1)" class="w-10 h-10 rounded-full border border-cream/10 flex items-center justify-center hover:bg-terracotta/20 text-cream transition-colors font-bold">-</button>
+                            <span id="count-europa" class="font-display text-xl w-6 text-center text-cream">0</span>
+                            <button onclick="changeBundleCount('europa', 1)" class="w-10 h-10 rounded-full border border-cream/10 flex items-center justify-center hover:bg-terracotta/20 text-cream transition-colors font-bold">+</button>
+                        </div>
+                    </div>
+
+                    <!-- Flavor 2 Control -->
+                    <div class="flex items-center justify-between p-6 bg-cardBg rounded-2xl border border-cream/5">
+                        <div>
+                            <h4 class="font-display text-lg text-cream uppercase">Ganymede Spiced Ginger</h4>
+                            <span class="text-xs text-[#bf435f] font-semibold font-sans">Dark cherry, heavy oak & ginger</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <button onclick="changeBundleCount('ganymede', -1)" class="w-10 h-10 rounded-full border border-cream/10 flex items-center justify-center hover:bg-terracotta/20 text-cream transition-colors font-bold">-</button>
+                            <span id="count-ganymede" class="font-display text-xl w-6 text-center text-cream">0</span>
+                            <button onclick="changeBundleCount('ganymede', 1)" class="w-10 h-10 rounded-full border border-cream/10 flex items-center justify-center hover:bg-terracotta/20 text-cream transition-colors font-bold">+</button>
+                        </div>
+                    </div>
+
+                    <!-- Flavor 3 Control -->
+                    <div class="flex items-center justify-between p-6 bg-cardBg rounded-2xl border border-cream/5">
+                        <div>
+                            <h4 class="font-display text-lg text-cream uppercase">Io Luminous Yuzu</h4>
+                            <span class="text-xs text-[#cc983d] font-semibold">Bright Japanese citrus & raw honey</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <button onclick="changeBundleCount('io', -1)" class="w-10 h-10 rounded-full border border-cream/10 flex items-center justify-center hover:bg-terracotta/20 text-cream transition-colors font-bold">-</button>
+                            <span id="count-io" class="font-display text-xl w-6 text-center text-cream">0</span>
+                            <button onclick="changeBundleCount('io', 1)" class="w-10 h-10 rounded-full border border-cream/10 flex items-center justify-center hover:bg-terracotta/20 text-cream transition-colors font-bold">+</button>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Pricing & Box additions -->
+                    <div class="pt-6 border-t border-cream/10 flex flex-col md:flex-row justify-between items-center gap-6">
+                        <div>
+                            <span class="text-xs text-sand block">FLAT BOX RATE (Save 15%)</span>
+                            <span class="font-display text-3xl text-cream">$54.00 USD</span>
+                        </div>
+                        <button id="add-box-btn" onclick="addBundleToCart()" disabled class="w-full md:w-auto opacity-50 cursor-not-allowed bg-cream/10 text-cream/70 text-xs uppercase tracking-[0.25em] font-extrabold py-4 px-12 rounded-full transition-all duration-300">
+                            Fill Box to Purchase
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PREMIUM PRESS / EDITORIAL REVIEWS -->
+    <section class="py-24 bg-[#0d0b0b] border-t border-cream/5">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 text-center">
+            <h2 class="font-display text-3xl text-cream uppercase tracking-tight mb-12">Critically Acclaimed Wellness</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="flex flex-col justify-between items-center p-6">
+                    <p class="font-serif text-2xl text-sand/90 italic leading-relaxed">
+                        “The holy grail of prebiotics. Finally, a healthy soda alternative that tastes deeply complex rather than chemically synthesized.”
+                    </p>
+                    <span class="text-xs uppercase tracking-[0.25em] text-terracotta font-bold mt-8">— VOGUE JOURNAL</span>
+                </div>
+                <div class="flex flex-col justify-between items-center p-6 md:border-x border-cream/5">
+                    <p class="font-serif text-2xl text-sand/90 italic leading-relaxed">
+                        “A masterclass in packaging, flavor identity, and functional science. We drank three cases in a week and never felt lighter.”
+                    </p>
+                    <span class="text-xs uppercase tracking-[0.25em] text-terracotta font-bold mt-8">— COSMIC INSIDER</span>
+                </div>
+                <div class="flex flex-col justify-between items-center p-6">
+                    <p class="font-serif text-2xl text-sand/90 italic leading-relaxed">
+                        “Recreates retro soda nostalgia while giving your microbiome everything it needs to flourish. The cherry-ginger Ganymede is pristine.”
+                    </p>
+                    <span class="text-xs uppercase tracking-[0.25em] text-terracotta font-bold mt-8">— THE DIETARY STAR</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER / NEWSLETTER -->
+    <footer class="bg-obsidian border-t border-cream/5 pt-24 pb-12 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-20">
+                
+                <!-- Left: Newsletter & Brand declaration -->
+                <div class="lg:col-span-6 space-y-6">
+                    <h2 class="font-display text-4xl text-cream uppercase tracking-tight">Enter the Orbit</h2>
+                    <p class="font-serif text-lg text-sand italic max-w-sm">
+                        Join our cosmic distribution chain for seasonal flavor releases, prebiotic breakthroughs, and priority allocations.
+                    </p>
+                    <!-- Newsletter Form (Safe without dynamic backend) -->
+                    <form onsubmit="handleSubscribe(event)" class="flex flex-col sm:flex-row gap-3 max-w-md">
+                        <input type="email" required placeholder="Enter space coordinate (email)" class="bg-cardBg border border-cream/10 px-6 py-4 rounded-full text-xs text-cream tracking-wide focus:outline-none focus:border-terracotta transition-colors flex-grow">
+                        <button type="submit" class="bg-terracotta hover:bg-terracotta-hover text-cream text-xs uppercase tracking-[0.2em] font-extrabold py-4 px-8 rounded-full transition-colors">
+                            Subscribe
+                        </button>
+                    </form>
+                    <span id="newsletter-toast" class="text-xs text-terracotta font-semibold hidden block mt-2">🚀 Connection established! Welcome to orbit.</span>
+                </div>
+
+                <!-- Right: Navigation links -->
+                <div class="lg:col-span-6 grid grid-cols-2 md:grid-cols-3 gap-8">
+                    <div>
+                        <span class="text-[10px] uppercase tracking-widest text-sand block mb-4">MISSIONS</span>
+                        <ul class="space-y-3 text-xs">
+                            <li><a href="#flavors" class="text-sand/80 hover:text-cream transition-colors">Shop All Specimen</a></li>
+                            <li><a href="#bundle" class="text-sand/80 hover:text-cream transition-colors">Construct Custom Box</a></li>
+                            <li><a href="#" class="text-sand/80 hover:text-cream transition-colors">Corporate Gifting</a></li>
+                            <li><a href="#" class="text-sand/80 hover:text-cream transition-colors">Retail Locations</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <span class="text-[10px] uppercase tracking-widest text-sand block mb-4">ARCHIVES</span>
+                        <ul class="space-y-3 text-xs">
+                            <li><a href="#story" class="text-sand/80 hover:text-cream transition-colors">Our Cosmic Story</a></li>
+                            <li><a href="#science" class="text-sand/80 hover:text-cream transition-colors">Gut Microbiome 101</a></li>
+                            <li><a href="#" class="text-sand/80 hover:text-cream transition-colors">Laboratory Patents</a></li>
+                            <li><a href="#" class="text-sand/80 hover:text-cream transition-colors">Environmental Carbon Log</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <span class="text-[10px] uppercase tracking-widest text-sand block mb-4">SUPPORT</span>
+                        <ul class="space-y-3 text-xs">
+                            <li><a href="#" class="text-sand/80 hover:text-cream transition-colors">Transmit Message</a></li>
+                            <li><a href="#" class="text-sand/80 hover:text-cream transition-colors">Help Terminal</a></li>
+                            <li><a href="#" class="text-sand/80 hover:text-cream transition-colors">Privacy Parameters</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Credits -->
+            <div class="border-t border-cream/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-sand/60">
+                <span>© 2026 JUPITER BIOME CORP. ALL FLUID PATHS PROTECTED.</span>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-cream transition-colors">INSTAGRAM</a>
+                    <a href="#" class="hover:text-cream transition-colors">X.COM</a>
+                    <a href="#" class="hover:text-cream transition-colors">DISCORD ORBIT</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- SLIDE-OUT CART DRAWER (Strictly client-side representation) -->
+    <div id="cart-drawer" class="fixed inset-y-0 right-0 w-full max-w-md bg-cardBg border-l border-cream/10 z-50 transform translate-x-full transition-transform duration-500 shadow-2xl flex flex-col justify-between">
+        <!-- Drawer Header -->
+        <div class="p-6 border-b border-cream/10 flex justify-between items-center">
+            <div>
+                <h3 class="font-display text-xl text-cream uppercase">Your Cargo Hold</h3>
+                <span class="text-[10px] text-sand uppercase">JUPITER FREIGHT INVENTORY</span>
+            </div>
+            <button onclick="toggleCart()" class="p-2 text-sand hover:text-cream">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+        </div>
+
+        <!-- Cart Items Container -->
+        <div id="cart-items" class="p-6 space-y-6 overflow-y-auto flex-grow">
+            <!-- Dynamic Inject -->
+            <div class="text-center py-12 text-sand italic font-serif">
+                Your container is currently empty. Bring active flora aboard!
+            </div>
+        </div>
+
+        <!-- Drawer Footer -->
+        <div class="p-6 border-t border-cream/10 space-y-4">
+            <div class="flex justify-between items-center text-sm font-semibold text-cream">
+                <span>Total Payload:</span>
+                <span id="cart-total" class="font-display text-lg">$0.00</span>
+            </div>
+            <button onclick="handleCheckout()" class="w-full bg-terracotta hover:bg-terracotta-hover text-cream text-xs uppercase tracking-[0.2em] font-extrabold py-4 rounded-full transition-all">
+                Initiate Checkout Sequence
+            </button>
+            <p class="text-[10px] text-sand/60 text-center uppercase tracking-wider">
+                Encryption protocol active // Secure transport guaranteed
+            </p>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION SYSTEM TOASTS (Preventing alert pops) -->
+    <div id="toast-notif" class="fixed bottom-6 right-6 bg-terracotta text-cream px-6 py-3 rounded-full text-xs uppercase tracking-widest font-extrabold shadow-2xl transform translate-y-20 opacity-0 transition-all duration-300 z-50">
+        Cart updated successfully!
+    </div>
+
+    <!-- JAVASCRIPT LOGIC & STATE MANAGEMENT -->
+    <script>
+        // Global Theme Configurations for each dynamic flavor
+        const flavors = {
+            europa: {
+                title: "EUROPA",
+                bgText: "EUROPA",
+                subtitle: "PREBIOTIC ROSÉ",
+                desc: "Tastes like the soda you grew up sipping, but with the added benefit of microbiome and digestive health support today.",
+                accentColor: "#9e3e23",
+                hoverColor: "#b94c2d",
+                liqGradStop0: "#3d140a",
+                liqGradStop1: "#9e3e23",
+                liqGradStop2: "#3d140a",
+                badgeHighlight: "NEW",
+                price: 5.00
+            },
+            ganymede: {
+                title: "GANYMEDE",
+                bgText: "GANYMEDE",
+                subtitle: "SMOKY CHERRY GINGER",
+                desc: "A bold botanical experience crafted with wild dark cherries, organic warm ginger, and subtle earthy smoked oakwood notes.",
+                accentColor: "#6c2837",
+                hoverColor: "#8c3649",
+                liqGradStop0: "#240a10",
+                liqGradStop1: "#6c2837",
+                liqGradStop2: "#240a10",
+                badgeHighlight: "DARING",
+                price: 5.50
+            },
+            io: {
+                title: "IO",
+                bgText: "IO",
+                subtitle: "LUMINOUS YUZU HONEY",
+                desc: "An electric blast of hand-harvested Japanese Yuzu citrus pulp, organic white teas, raw chamomile, and high-mountain organic honey.",
+                accentColor: "#966b26",
+                hoverColor: "#b28031",
+                liqGradStop0: "#33220b",
+                liqGradStop1: "#966b26",
+                liqGradStop2: "#33220b",
+                badgeHighlight: "BRIGHT",
+                price: 5.25
+            }
+        };
+
+        let currentFlavorKey = 'europa';
+        let cart = [];
+        let bundleCounts = {
+            europa: 0,
+            ganymede: 0,
+            io: 0
+        };
+
+        // Initialize state on load
+        window.onload = function() {
+            // Setup interactive mouse parallax on hero bottle
+            const bottleWrapper = document.getElementById('bottle-wrapper');
+            const heroSection = document.getElementById('hero');
+            
+            heroSection.addEventListener('mousemove', (e) => {
+                const rect = heroSection.getBoundingClientRect();
+                const x = e.clientX - rect.left - (rect.width / 2);
+                const y = e.clientY - rect.top - (rect.height / 2);
+                
+                // Scale factor for mild tilt
+                const tiltX = (y / rect.height) * 20;
+                const tiltY = -(x / rect.width) * 20;
+                
+                bottleWrapper.style.transform = `rotate(-10deg) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateZ(30px)`;
+            });
+
+            heroSection.addEventListener('mouseleave', () => {
+                bottleWrapper.style.transform = `rotate(-10deg) rotateX(0deg) rotateY(0deg) translateZ(0px)`;
+            });
+
+            // Initialize science panel with default
+            showScienceInfo('root');
+            updateBundleBoxVisuals();
+        };
+
+        // Dynamic State / Flavor switching core function
+        function switchFlavor(key) {
+            currentFlavorKey = key;
+            const flavor = flavors[key];
+
+            // Update page text
+            document.getElementById('hero-bg-text').innerText = flavor.bgText;
+            document.getElementById('hero-description').innerText = flavor.desc;
+            document.getElementById('badge-highlight-text').innerText = flavor.badgeHighlight;
+            
+            // Adjust label texts inside SVG bottle
+            document.getElementById('label-title').textContent = flavor.title;
+            document.getElementById('label-subtitle').textContent = flavor.subtitle;
+
+            // Transition the liquid gradient colors smoothly in SVG
+            document.getElementById('liq-stop-0').setAttribute('stop-color', flavor.liqGradStop0);
+            document.getElementById('liq-stop-1').setAttribute('stop-color', flavor.liqGradStop1);
+            document.getElementById('liq-stop-2').setAttribute('stop-color', flavor.liqGradStop2);
+
+            // Update Label Border highlight color
+            document.getElementById('border-stop-0').setAttribute('stop-color', flavor.accentColor);
+            document.getElementById('title-stop-1').setAttribute('stop-color', flavor.accentColor);
+
+            // Update active state on buttons
+            ['europa', 'ganymede', 'io'].forEach(k => {
+                const btn = document.getElementById(`btn-${k}`);
+                if (k === key) {
+                    btn.style.backgroundColor = flavor.accentColor;
+                    btn.classList.add('text-cream');
+                    btn.classList.remove('text-sand');
+                } else {
+                    btn.style.backgroundColor = 'transparent';
+                    btn.classList.add('text-sand');
+                    btn.classList.remove('text-cream');
+                }
+            });
+
+            // Transition main CTA color
+            const ctaBtn = document.getElementById('hero-cta');
+            ctaBtn.style.backgroundColor = flavor.accentColor;
+
+            // Transition aura glow
+            const aura = document.getElementById('bottle-aura');
+            aura.style.backgroundColor = flavor.accentColor;
+        }
+
+        // Add currently displayed hero bottle to the cart
+        function addCurrentToCart() {
+            const currentObj = flavors[currentFlavorKey];
+            const itemName = `${currentObj.title} Prebiotic ${currentObj.subtitle}`;
+            addToCart(itemName, currentObj.price);
+        }
+
+        // Core Cart operations
+        function addToCart(itemName, price) {
+            const existingItem = cart.find(item => item.name === itemName);
+            if (existingItem) {
+                existingItem.qty += 1;
+            } else {
+                cart.push({ name: itemName, price: price, qty: 1 });
+            }
+            updateCartUI();
+            showToast(`Cargo Added: ${itemName}`);
+        }
+
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartCounter = document.getElementById('cart-counter');
+            const cartTotal = document.getElementById('cart-total');
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="text-center py-12 text-sand italic font-serif">
+                        Your container is currently empty. Bring active flora aboard!
+                    </div>
+                `;
+                cartCounter.innerText = 0;
+                cartTotal.innerText = '$0.00';
+                return;
+            }
+
+            let total = 0;
+            let count = 0;
+            let itemsHTML = '';
+
+            cart.forEach((item, index) => {
+                const subtotal = item.price * item.qty;
+                total += subtotal;
+                count += item.qty;
+
+                itemsHTML += `
+                    <div class="flex items-center justify-between p-4 bg-obsidian border border-cream/5 rounded-2xl">
+                        <div class="space-y-1">
+                            <h4 class="font-display text-sm text-cream uppercase">${item.name}</h4>
+                            <span class="text-xs text-terracotta font-semibold">$${item.price.toFixed(2)} / each</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button onclick="changeQty(${index}, -1)" class="w-7 h-7 rounded-full border border-cream/10 flex items-center justify-center hover:bg-terracotta/20 text-xs font-bold">-</button>
+                            <span class="font-display text-sm text-cream">${item.qty}</span>
+                            <button onclick="changeQty(${index}, 1)" class="w-7 h-7 rounded-full border border-cream/10 flex items-center justify-center hover:bg-terracotta/20 text-xs font-bold">+</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            cartItemsContainer.innerHTML = itemsHTML;
+            cartCounter.innerText = count;
+            cartTotal.innerText = `$${total.toFixed(2)}`;
+        }
+
+        function changeQty(index, dir) {
+            cart[index].qty += dir;
+            if (cart[index].qty <= 0) {
+                cart.splice(index, 1);
+            }
+            updateCartUI();
+        }
+
+        // Custom Bundle Operations (Fill Case of 12)
+        function changeBundleCount(flavorKey, dir) {
+            const currentTotal = bundleCounts.europa + bundleCounts.ganymede + bundleCounts.io;
+            if (dir > 0 && currentTotal >= 12) {
+                showToast("Maximum Limit Reached: Box holds 12 cans!");
+                return;
+            }
+            if (dir < 0 && bundleCounts[flavorKey] <= 0) {
+                return;
+            }
+
+            bundleCounts[flavorKey] += dir;
+            document.getElementById(`count-${flavorKey}`).innerText = bundleCounts[flavorKey];
+            updateBundleBoxVisuals();
+        }
+
+        function updateBundleBoxVisuals() {
+            const total = bundleCounts.europa + bundleCounts.ganymede + bundleCounts.io;
+            document.getElementById('box-fill-label').innerText = total;
+
+            // Highlight progress bar
+            const bar = document.getElementById('box-progress-bar');
+            const percent = (total / 12) * 100;
+            bar.style.width = `${percent}%`;
+
+            // Setup colors based on fills
+            const slots = document.querySelectorAll('.box-slot');
+            
+            // Clear slot state classes
+            slots.forEach(slot => {
+                slot.className = "box-slot h-16 rounded-xl border border-cream/10 bg-obsidian flex items-center justify-center transition-all duration-300";
+                slot.innerHTML = '';
+            });
+
+            // Sequentially fill slots
+            let filledIndex = 0;
+            for (let i = 0; i < bundleCounts.europa; i++) {
+                if (filledIndex < 12) {
+                    slots[filledIndex].className = "box-slot h-16 rounded-xl border border-terracotta bg-terracotta/20 flex items-center justify-center font-display text-cream font-bold";
+                    slots[filledIndex].innerHTML = "E";
+                    filledIndex++;
+                }
+            }
+            for (let i = 0; i < bundleCounts.ganymede; i++) {
+                if (filledIndex < 12) {
+                    slots[filledIndex].className = "box-slot h-16 rounded-xl border-[#bf435f] bg-[#6c2837]/30 flex items-center justify-center font-display text-[#bf435f] font-bold";
+                    slots[filledIndex].innerHTML = "G";
+                    filledIndex++;
+                }
+            }
+            for (let i = 0; i < bundleCounts.io; i++) {
+                if (filledIndex < 12) {
+                    slots[filledIndex].className = "box-slot h-16 rounded-xl border-[#cc983d] bg-[#966b26]/30 flex items-center justify-center font-display text-[#cc983d] font-bold";
+                    slots[filledIndex].innerHTML = "I";
+                    filledIndex++;
+                }
+            }
+
+            const btn = document.getElementById('add-box-btn');
+            const statusTag = document.getElementById('box-status-tag');
+            if (total === 12) {
+                btn.removeAttribute('disabled');
+                btn.className = "w-full md:w-auto bg-terracotta hover:bg-terracotta-hover text-cream text-xs uppercase tracking-[0.25em] font-extrabold py-4 px-12 rounded-full transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-terracotta/20 cursor-pointer";
+                btn.innerText = "Add Custom Box to Cart";
+                statusTag.innerText = "FULLY OPTIMIZED";
+                statusTag.className = "text-[10px] uppercase font-bold tracking-widest text-[#56b377]";
+            } else {
+                btn.setAttribute('disabled', 'true');
+                btn.className = "w-full md:w-auto opacity-50 cursor-not-allowed bg-cream/10 text-cream/70 text-xs uppercase tracking-[0.25em] font-extrabold py-4 px-12 rounded-full transition-all duration-300";
+                btn.innerText = "Fill Box to Purchase";
+                statusTag.innerText = "NEEDS CANS";
+                statusTag.className = "text-[10px] uppercase font-bold tracking-widest text-terracotta";
+            }
+        }
+
+        function addBundleToCart() {
+            const description = `Custom Orbit Variety Pack (12-pack: ${bundleCounts.europa} E, ${bundleCounts.ganymede} G, ${bundleCounts.io} I)`;
+            addToCart(description, 54.00);
+            
+            // Reset state
+            bundleCounts = { europa: 0, ganymede: 0, io: 0 };
+            document.getElementById('count-europa').innerText = 0;
+            document.getElementById('count-ganymede').innerText = 0;
+            document.getElementById('count-io').innerText = 0;
+            updateBundleBoxVisuals();
+            toggleCart(); // Show cart after box addition
+        }
+
+        // Interactive Science Panel Content Dynamic injection
+        const scienceSpecs = {
+            root: {
+                title: "Chicory Root Inulin",
+                desc: "An organic pure-earth soluble fructan extract. Acts directly as an advanced metabolic prebiotic fertilizer, bypassing early stage digestion to selectively nourish healthy bifidobacteria deep in your gut biome."
+            },
+            apple: {
+                title: "Apple Cider Vinegar",
+                desc: "Brewed cleanly from fresh organic orchard pressings. Packed with highly effective acetic acid which slows starch breakups, helps balance digestion, and maintains active cardiovascular support."
+            },
+            botanicals: {
+                title: "Adaptogenic Herbs",
+                desc: "Our high-precision blend of wild pink rosewaters, adaptogenic herbal strains, and cold-distilled black pepper nodes designed to calm systemic stress responses while encouraging flavor harmony."
+            }
+        };
+
+        function showScienceInfo(key) {
+            const spec = scienceSpecs[key];
+            document.getElementById('science-title').innerText = spec.title;
+            document.getElementById('science-desc').innerText = spec.desc;
+        }
+
+        // Toggles & Modal Interfaces
+        function toggleCart() {
+            const drawer = document.getElementById('cart-drawer');
+            drawer.classList.toggle('translate-x-full');
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+        }
+
+        // Success feedbacks (no browser alert popups)
+        function showToast(message) {
+            const toast = document.getElementById('toast-notif');
+            toast.innerText = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+                toast.classList.remove('translate-y-0', 'opacity-100');
+            }, 3000);
+        }
+
+        function handleSubscribe(e) {
+            e.preventDefault();
+            const toast = document.getElementById('newsletter-toast');
+            toast.classList.remove('hidden');
+            e.target.reset();
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 5000);
+        }
+
+        function handleCheckout() {
+            if (cart.length === 0) {
+                showToast("Your cargo bay is empty!");
+                return;
+            }
+            showToast("Processing secure interstellar payload sequence... Checkout ready!");
+            // Reset cart upon mock completion
+            setTimeout(() => {
+                cart = [];
+                updateCartUI();
+                toggleCart();
+                showToast("Transmission complete! Your ship has cleared for departure.");
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
+10

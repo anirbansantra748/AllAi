@@ -1,0 +1,1645 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C&A Cafe and Creamery - Premium Churned Gelato</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        creamery: {
+                            maroon: '#4a0316',
+                            burgundy: '#710924',
+                            raspberry: '#ff2d6c',
+                            cream: '#fdf3f3',
+                            creambase: '#fcd7d7',
+                            cyan: '#00f2d1',
+                            gold: '#edd074',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .font-brush { font-family: 'Permanent Marker', cursive; }
+        .font-serif-premium { font-family: 'Playfair Display', serif; }
+        .font-sans-premium { font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        /* Custom Glowing Elements */
+        .glow-cyan {
+            box-shadow: 0 0 25px rgba(0, 242, 209, 0.45);
+        }
+        .glow-cyan-hover:hover {
+            box-shadow: 0 0 35px rgba(0, 242, 209, 0.7);
+        }
+        .glow-raspberry {
+            box-shadow: 0 0 30px rgba(255, 45, 108, 0.35);
+        }
+        .glow-gold-hover:hover {
+            box-shadow: 0 0 25px rgba(237, 208, 116, 0.5);
+        }
+
+        /* Floating animations */
+        @keyframes float-gentle-1 {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(6deg); }
+        }
+        @keyframes float-gentle-2 {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(12px) rotate(-8deg); }
+        }
+        @keyframes float-gentle-3 {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(4deg); }
+        }
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 0.9; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.03); }
+        }
+        @keyframes liquid-drip {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(1.04); }
+        }
+
+        .animate-float-1 { animation: float-gentle-1 7s ease-in-out infinite; }
+        .animate-float-2 { animation: float-gentle-2 8s ease-in-out infinite; }
+        .animate-float-3 { animation: float-gentle-3 6s ease-in-out infinite 1s; }
+        .animate-pulse-soft { animation: pulse-soft 4s ease-in-out infinite; }
+        .animate-drip { animation: liquid-drip 5s ease-in-out infinite; transform-origin: top; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #4a0316;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ff2d6c;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00f2d1;
+        }
+    </style>
+</head>
+<body class="bg-creamery-cream text-creamery-maroon font-sans-premium overflow-x-hidden antialiased">
+
+    <!-- TOP PROMO RIBBON -->
+    <div class="bg-creamery-maroon text-creamery-creambase py-2 px-4 text-xs font-semibold tracking-wider text-center border-b border-[#5a051c] flex items-center justify-center gap-3 z-50 relative">
+        <span class="inline-block px-2 py-0.5 rounded bg-creamery-raspberry text-white text-[10px] uppercase animate-pulse">Special Offer</span>
+        <span>✨ Free delivery on custom artisanal tubs above $35! Use code: <strong class="text-creamery-cyan">SWEETDREAMS</strong></span>
+    </div>
+
+    <!-- MAIN IMMERSIVE HERO AREA -->
+    <section class="relative bg-gradient-to-b from-[#4a0316] via-[#61071f] to-[#4a0316] text-white pt-6 pb-24 overflow-hidden glow-raspberry">
+        
+        <!-- Glowing Ambient Lighting Spotlights -->
+        <div class="absolute top-1/4 left-1/4 w-[400px] h-[400px] rounded-full bg-creamery-raspberry opacity-25 blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-1/3 right-1/4 w-[450px] h-[450px] rounded-full bg-creamery-cyan opacity-15 blur-[150px] pointer-events-none"></div>
+
+        <!-- FLOATING DEPTH ELEMENTS (Floating Raspberries) -->
+        <!-- Raspberry Top Left -->
+        <div class="absolute top-24 left-[5%] w-16 md:w-24 opacity-80 blur-[0.5px] animate-float-1 select-none pointer-events-none z-10">
+            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=150&q=80" alt="Raspberry" class="w-full h-auto object-contain rounded-full shadow-2xl scale-x-[-1] brightness-90 saturate-120">
+        </div>
+        <!-- Raspberry Middle Right -->
+        <div class="absolute top-1/2 right-[4%] w-20 md:w-28 opacity-90 blur-[1px] animate-float-2 select-none pointer-events-none z-10">
+            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=150&q=80" alt="Raspberry" class="w-full h-auto object-contain rounded-full shadow-2xl brightness-100 saturate-150">
+        </div>
+        <!-- Raspberry Bottom Left -->
+        <div class="absolute bottom-20 left-[10%] w-14 md:w-20 opacity-75 blur-[1.5px] animate-float-3 select-none pointer-events-none z-10">
+            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=150&q=80" alt="Raspberry" class="w-full h-auto object-contain rounded-full shadow-2xl brightness-75">
+        </div>
+
+        <!-- CONTAINER -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
+            
+            <!-- HEADER / NAVIGATION -->
+            <header class="flex items-center justify-between pb-10 border-b border-white/10">
+                <!-- Brand / Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="relative w-12 h-12 bg-creamery-maroon rounded-full border-2 border-creamery-cyan flex items-center justify-center glow-cyan transition-transform duration-300 group-hover:scale-110">
+                        <!-- SVG Ice Cream Logo -->
+                        <svg class="w-7 h-7 text-creamery-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9s2.015-9 4.5-9m0 0a3 3 0 110 6 3 3 0 010-6z"></path>
+                        </svg>
+                    </div>
+                    <div class="leading-tight">
+                        <span class="font-brush text-xl md:text-2xl tracking-wider text-creamery-cream block">C&A</span>
+                        <span class="text-[10px] md:text-xs font-semibold tracking-widest text-creamery-cyan uppercase block -mt-1">Cafe & Creamery</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-creamery-creambase">
+                    <a href="#about" class="hover:text-creamery-cyan transition-colors duration-200">About Us</a>
+                    <a href="#menu" class="hover:text-creamery-cyan transition-colors duration-200">Menu</a>
+                    <a href="#customizer" class="hover:text-creamery-cyan transition-colors duration-200 flex items-center gap-1.5 bg-white/5 py-1 px-3 rounded-full border border-white/10 hover:bg-white/10">
+                        <span class="w-2 h-2 rounded-full bg-creamery-cyan animate-pulse"></span>
+                        Custom Churn
+                    </a>
+                    <a href="#reviews" class="hover:text-creamery-cyan transition-colors duration-200">Testimonials</a>
+                    <a href="#contact" class="hover:text-creamery-cyan transition-colors duration-200">Visit Us</a>
+                </nav>
+
+                <!-- Action Controls (Cart & Mobile Toggle) -->
+                <div class="flex items-center gap-4">
+                    <!-- Interactive Cart Pill -->
+                    <button onclick="toggleCartDrawer(true)" class="relative flex items-center gap-2 bg-creamery-maroon hover:bg-creamery-maroon/80 border border-creamery-cyan/40 hover:border-creamery-cyan text-white py-2 px-4 rounded-full transition-all duration-300 shadow-md group">
+                        <svg class="w-4 h-4 text-creamery-cyan group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                        </svg>
+                        <span class="text-xs font-bold text-creamery-creambase hidden sm:inline">My Tray</span>
+                        <div class="bg-creamery-cyan text-creamery-maroon font-extrabold text-xs w-5 h-5 rounded-full flex items-center justify-center glow-cyan" id="cart-counter-badge">0</div>
+                    </button>
+
+                    <!-- Primary Hero Order Button (Hidden on tiny screens) -->
+                    <a href="#menu" class="hidden md:inline-block bg-creamery-cyan hover:bg-[#00d6ba] text-creamery-maroon font-bold text-sm px-5 py-2.5 rounded-full transition-all duration-300 glow-cyan hover:scale-105">
+                        Order Now
+                    </a>
+
+                    <!-- Mobile Navigation Menu Toggle -->
+                    <button onclick="toggleMobileNav(true)" class="lg:hidden p-2 text-creamery-creambase hover:text-creamery-cyan focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <!-- MOBILE NAV DRAWER (Hidden by default) -->
+            <div id="mobile-nav" class="fixed inset-0 bg-[#3d0211]/95 z-50 flex flex-col justify-between p-8 transform translate-x-full transition-transform duration-300 lg:hidden">
+                <div>
+                    <div class="flex items-center justify-between pb-8 border-b border-white/10">
+                        <span class="font-brush text-2xl tracking-wider text-creamery-cream">C&A Menu</span>
+                        <button onclick="toggleMobileNav(false)" class="p-2 text-creamery-creambase hover:text-creamery-cyan">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <nav class="flex flex-col gap-6 pt-10 text-xl font-medium">
+                        <a href="#about" onclick="toggleMobileNav(false)" class="hover:text-creamery-cyan transition-colors">Our Craft</a>
+                        <a href="#menu" onclick="toggleMobileNav(false)" class="hover:text-creamery-cyan transition-colors">Our Menu</a>
+                        <a href="#customizer" onclick="toggleMobileNav(false)" class="hover:text-creamery-cyan transition-colors text-creamery-cyan flex items-center gap-2">Custom Churn <span class="w-2.5 h-2.5 bg-creamery-cyan rounded-full animate-ping"></span></a>
+                        <a href="#reviews" onclick="toggleMobileNav(false)" class="hover:text-creamery-cyan transition-colors">Sweet Whispers</a>
+                        <a href="#contact" onclick="toggleMobileNav(false)" class="hover:text-creamery-cyan transition-colors">Find Location</a>
+                    </nav>
+                </div>
+                <div class="border-t border-white/10 pt-6">
+                    <p class="text-xs text-creamery-creambase/60 mb-4">Indulgence freshly prepared daily.</p>
+                    <a href="#menu" onclick="toggleMobileNav(false)" class="block text-center w-full bg-creamery-cyan text-creamery-maroon font-bold py-3 rounded-full glow-cyan">Order Online</a>
+                </div>
+            </div>
+
+            <!-- HERO GRID CONTENT -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center pt-10 md:pt-16 pb-6">
+                
+                <!-- Side Slide Indicator (01 / 02 / 03 / 04 / 05) -->
+                <div class="hidden lg:flex lg:col-span-1 flex-col items-center gap-6 text-xs tracking-widest font-semibold text-white/30">
+                    <span class="hover:text-white transition-colors cursor-pointer">01</span>
+                    <div class="flex flex-col items-center gap-2">
+                        <span class="text-creamery-cyan text-sm scale-125 font-bold">02</span>
+                        <div class="w-[2px] h-12 bg-creamery-cyan glow-cyan"></div>
+                    </div>
+                    <span class="hover:text-white transition-colors cursor-pointer">03</span>
+                    <span class="hover:text-white transition-colors cursor-pointer">04</span>
+                    <span class="hover:text-white transition-colors cursor-pointer">05</span>
+                </div>
+
+                <!-- LEFT SIDE TEXT BLOCK -->
+                <div class="lg:col-span-5 text-center lg:text-left space-y-6">
+                    <div class="space-y-2">
+                        <span class="text-creamery-cyan font-semibold tracking-widest uppercase text-xs md:text-sm block">Welcome to Cafe and</span>
+                        <h1 class="text-6xl sm:text-7xl xl:text-8xl font-brush tracking-wide leading-none text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)] select-none">
+                            CREAMERY
+                        </h1>
+                    </div>
+                    
+                    <p class="text-creamery-creambase text-sm md:text-base leading-relaxed max-w-xl mx-auto lg:mx-0">
+                        Indulge in our exquisite slow-churned gelato crafted with local vine-ripened raspberries, pure Belgian chocolate, and sweet dairy cream. Every batch represents our lifelong obsession with sensory confectionery perfection.
+                    </p>
+
+                    <!-- Interactive CTAs -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="#menu" class="w-full sm:w-auto text-center bg-creamery-cyan hover:bg-[#00e3c5] text-creamery-maroon font-extrabold px-8 py-4 rounded-full transition-all duration-300 shadow-lg hover:scale-105 glow-cyan">
+                            Order Now
+                        </a>
+                        <button onclick="toggleChat(true)" class="w-full sm:w-auto text-center bg-transparent hover:bg-white/5 border-2 border-creamery-gold hover:border-creamery-gold/80 text-creamery-gold hover:text-creamery-gold/80 font-bold px-8 py-3.5 rounded-full transition-all duration-300 hover:scale-105 glow-gold-hover flex items-center justify-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-creamery-gold animate-ping"></span>
+                            Chat Support
+                        </button>
+                    </div>
+
+                    <!-- Trust indicators / Micro Stats -->
+                    <div class="pt-6 flex flex-wrap justify-center lg:justify-start gap-6 border-t border-white/10 text-white/70 text-xs">
+                        <div class="flex items-center gap-2">
+                            <span class="text-creamery-cyan text-lg">★</span>
+                            <span>4.9/5 Rating (2k+ Connoisseurs)</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-creamery-cyan text-lg">❄</span>
+                            <span>Freshly Churned Daily</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CENTER/RIGHT CORE HERO PRODUCT DISPLAY -->
+                <div class="lg:col-span-6 relative flex items-center justify-center">
+                    
+                    <!-- Backing soft sunburst glow effect -->
+                    <div class="absolute w-72 h-72 md:w-96 md:h-96 rounded-full bg-creamery-raspberry/40 opacity-50 blur-[80px] pointer-events-none animate-pulse-soft"></div>
+                    
+                    <!-- Beautiful SVG / PNG Hero Ice Cream Composite -->
+                    <div class="relative z-10 w-72 sm:w-80 md:w-96 max-w-full transition-all duration-500 hover:scale-105 select-none drop-shadow-[0_20px_50px_rgba(0,0,0,0.65)]">
+                        <!-- Overlap Vector Backplate Decoration -->
+                        <div class="absolute inset-0 bg-gradient-to-tr from-creamery-maroon to-transparent rounded-full opacity-20 -z-10 blur-xl"></div>
+                        
+                        <!-- Premium Styled Composite Image -->
+                        <!-- Fallback Premium Gelato Photo loaded from Unsplash -->
+                        <img id="hero-gelato" src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&w=700&q=80" 
+                             alt="Signature Raspberry Charcoal Cone" 
+                             class="w-full h-auto object-cover rounded-3xl border-4 border-white/15 mix-blend-normal aspect-[4/5] object-center transform -rotate-2">
+                        
+                        <!-- Floating Badge Layer (Absolute Positioning over image) -->
+                        <div class="absolute -top-6 -right-6 bg-creamery-maroon border-2 border-creamery-gold p-3.5 rounded-full shadow-2xl rotate-12 flex flex-col items-center justify-center text-center w-24 h-24 glow-gold-hover animate-float-3">
+                            <span class="text-[10px] font-bold text-creamery-gold uppercase tracking-widest leading-none">Fresh</span>
+                            <span class="text-lg font-brush text-white leading-none my-1">Voted</span>
+                            <span class="text-[9px] font-bold text-creamery-cyan tracking-wider">#1 Gelato</span>
+                        </div>
+
+                        <!-- Secondary visual overlay label -->
+                        <div class="absolute bottom-4 left-4 bg-black/60 backdrop-blur-md px-4 py-2 rounded-xl border border-white/20 text-xs">
+                            <p class="text-creamery-cyan font-bold tracking-widest uppercase text-[9px]">Flavour of the Week</p>
+                            <h4 class="font-serif-premium font-semibold text-white">Chilled Raspberry Charcoal Craft</h4>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- THE DESIGN DETAILED DRIPPING MELTING ICE CREAM SEPARATOR -->
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-30 select-none pointer-events-none animate-drip">
+            <!-- Shadow Layer Behind For 3D Depth Look -->
+            <svg class="relative block w-full h-[60px] md:h-[110px] transform translate-y-2 opacity-50 scale-y-[1.1]" viewBox="0 0 1440 120" preserveAspectRatio="none" fill="#30010d">
+                <path d="M0,0 L1440,0 L1440,30 C1400,30 1380,85 1350,85 C1320,85 1310,25 1270,25 C1230,25 1210,110 1170,110 C1130,110 1120,40 1080,40 C1040,40 1020,95 980,95 C940,95 930,15 890,15 C850,15 830,115 790,115 C750,115 740,35 700,35 C660,35 640,105 600,105 C560,105 550,20 510,20 C470,20 450,90 410,90 C370,90 360,30 320,30 C280,30 260,115 220,115 C180,115 170,45 130,45 C90,45 70,80 30,80 C15,80 0,20 0,20 Z" />
+            </svg>
+            <!-- Foreground Layer -->
+            <svg class="relative block w-full h-[60px] md:h-[110px]" viewBox="0 0 1440 120" preserveAspectRatio="none" fill="#fdf3f3">
+                <path d="M0,0 L1440,0 L1440,30 C1400,30 1380,85 1350,85 C1320,85 1310,25 1270,25 C1230,25 1210,110 1170,110 C1130,110 1120,40 1080,40 C1040,40 1020,95 980,95 C940,95 930,15 890,15 C850,15 830,115 790,115 C750,115 740,35 700,35 C660,35 640,105 600,105 C560,105 550,20 510,20 C470,20 450,90 410,90 C370,90 360,30 320,30 C280,30 260,115 220,115 C180,115 170,45 130,45 C90,45 70,80 30,80 C15,80 0,20 0,20 Z" />
+            </svg>
+        </div>
+    </section>
+
+    <!-- SECTION: OUR STORY & CRAFTSMANSHIP -->
+    <section id="about" class="py-20 bg-creamery-cream relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- Graphic Image Grid Collage -->
+                <div class="grid grid-cols-2 gap-4 relative">
+                    <!-- Subtle design glow backdrop -->
+                    <div class="absolute inset-0 bg-creamery-creambase opacity-30 blur-[60px] rounded-full pointer-events-none"></div>
+                    
+                    <div class="space-y-4">
+                        <div class="overflow-hidden rounded-2xl shadow-xl hover:scale-105 transition-transform duration-300">
+                            <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=400&q=80" alt="Churning process" class="w-full h-56 object-cover">
+                        </div>
+                        <div class="bg-creamery-maroon p-6 rounded-2xl text-white shadow-xl text-center space-y-2">
+                            <span class="text-creamery-cyan text-3xl font-brush">100%</span>
+                            <p class="text-xs tracking-widest text-creamery-creambase uppercase font-semibold">Organic Berries</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4 pt-8">
+                        <div class="bg-creamery-creambase p-6 rounded-2xl shadow-xl text-center space-y-2 border border-creamery-maroon/10">
+                            <span class="text-creamery-maroon text-3xl font-brush">Zero</span>
+                            <p class="text-xs tracking-widest text-creamery-maroon/70 uppercase font-semibold">Preservatives</p>
+                        </div>
+                        <div class="overflow-hidden rounded-2xl shadow-xl hover:scale-105 transition-transform duration-300">
+                            <img src="https://images.unsplash.com/photo-1516559828984-fb3b99548b21?auto=format&fit=crop&w=400&q=80" alt="Fresh berries" class="w-full h-56 object-cover">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text presentation -->
+                <div class="space-y-6">
+                    <div class="space-y-2">
+                        <span class="text-creamery-raspberry font-extrabold uppercase tracking-widest text-xs">The Craftsmanship Secrets</span>
+                        <h2 class="text-3xl sm:text-4xl md:text-5xl font-serif-premium font-black tracking-tight leading-tight">
+                            Slow churned, <br><span class="italic text-creamery-raspberry">infinitely rich.</span>
+                        </h2>
+                    </div>
+                    <p class="text-creamery-maroon/80 leading-relaxed text-sm sm:text-base">
+                        Our recipes date back multiple generations, blending absolute devotion to fine pastry arts with clean, modern culinary practices. We churn our gelato at a significantly slower pace compared to traditional ice creams. This guarantees a remarkably dense, velvety consistency that melts perfectly in the mouth.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6 pt-4">
+                        <div class="space-y-1">
+                            <h4 class="font-bold text-creamery-maroon flex items-center gap-2">
+                                <span class="text-creamery-raspberry font-serif-premium text-lg">✦</span> Fresh Vine-Picks
+                            </h4>
+                            <p class="text-xs text-creamery-maroon/70">Picked at sunrise, processed immediately to seal the delicious, vibrant sweet nectar flavor.</p>
+                        </div>
+                        <div class="space-y-1">
+                            <h4 class="font-bold text-creamery-maroon flex items-center gap-2">
+                                <span class="text-creamery-raspberry font-serif-premium text-lg">✦</span> Pasture-Fed Dairy
+                            </h4>
+                            <p class="text-xs text-creamery-maroon/70">Only premium organic cow’s milk from local family-owned bio-farms with lush green grazes.</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-4">
+                        <a href="#customizer" class="inline-flex items-center gap-2 bg-creamery-maroon hover:bg-[#5a051c] text-white py-3.5 px-8 rounded-full font-bold transition-all duration-300 hover:scale-105">
+                            <span>Interactive Gelato Builder</span>
+                            <span class="text-creamery-cyan">➔</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE GAME SECTION: ARTISAN GELATO BUILDER -->
+    <section id="customizer" class="py-20 bg-gradient-to-b from-[#fdf3f3] via-[#fffbfb] to-[#fdebeb] relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Heading -->
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+                <span class="text-creamery-raspberry font-extrabold tracking-widest text-xs uppercase bg-creamery-creambase px-3 py-1 rounded-full">Interactive Kitchen</span>
+                <h2 class="text-4xl md:text-5xl font-serif-premium font-black tracking-tight text-creamery-maroon">
+                    Build Your Custom Scoop
+                </h2>
+                <p class="text-creamery-maroon/70 text-sm md:text-base">
+                    Mix, match, and stack layers of our award-winning gelato flavors and artisanal cones. See your masterpiece update live in real-time before sending it to our chefs!
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- LEFT SIDE: THE LIVE VISUAL CANVAS BUILDER -->
+                <div class="lg:col-span-6 flex flex-col items-center justify-center bg-white border-2 border-creamery-creambase p-8 rounded-3xl shadow-2xl relative overflow-hidden min-h-[500px]">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-creamery-creambase/20 pointer-events-none"></div>
+                    
+                    <!-- Clear Canvas Reset Button -->
+                    <button onclick="resetCustomizer()" class="absolute top-4 right-4 text-xs font-semibold text-creamery-maroon/50 hover:text-creamery-raspberry flex items-center gap-1 bg-creamery-cream px-3 py-1.5 rounded-lg border border-creamery-creambase transition-all">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.253 8H18"></path></svg>
+                        Reset Build
+                    </button>
+
+                    <!-- Gelato Render Wrapper -->
+                    <div class="relative w-64 h-96 flex flex-col items-center justify-end pb-8">
+                        
+                        <!-- Dynamic Toppings Stack Container (Renders dynamically based on choices) -->
+                        <div id="visual-topping-berries" class="absolute top-10 z-40 hidden animate-float-1">
+                            <!-- SVG Raspberries Over Scoop -->
+                            <div class="flex gap-1 justify-center">
+                                <span class="text-4xl drop-shadow">🍒</span>
+                                <span class="text-3xl drop-shadow -mt-2">🍓</span>
+                            </div>
+                        </div>
+
+                        <div id="visual-topping-sprinkles" class="absolute top-12 left-1/2 -translate-x-1/2 w-40 h-28 z-30 hidden pointer-events-none">
+                            <!-- Multi-color sprinkle dots -->
+                            <div class="absolute top-2 left-6 w-2 h-2 rounded-full bg-yellow-400 rotate-12"></div>
+                            <div class="absolute top-4 right-8 w-2 h-2 rounded-full bg-pink-500 -rotate-12"></div>
+                            <div class="absolute top-6 left-12 w-2.5 h-1.5 rounded-full bg-blue-400 rotate-45"></div>
+                            <div class="absolute top-8 right-16 w-1.5 h-2.5 rounded-full bg-creamery-cyan rotate-90"></div>
+                            <div class="absolute top-10 left-20 w-2 h-2 rounded-full bg-green-400"></div>
+                            <div class="absolute top-14 right-10 w-2.5 h-1.5 rounded-full bg-white rotate-12"></div>
+                        </div>
+
+                        <!-- Dynamic Toppings Fudge/Drizzle Overlay -->
+                        <div id="visual-topping-fudge" class="absolute top-16 left-1/2 -translate-x-1/2 w-40 h-24 z-20 hidden pointer-events-none">
+                            <!-- Fudge SVG Layer -->
+                            <svg class="w-full h-full text-amber-900 opacity-90 filter drop-shadow" fill="currentColor" viewBox="0 0 100 50">
+                                <path d="M10,20 Q20,35 30,22 Q40,38 50,20 Q60,35 70,22 Q80,38 90,20 Q95,15 95,10 C95,5 5,5 5,10 Q5,15 10,20 Z" />
+                            </svg>
+                        </div>
+
+                        <!-- Sparkle Glow (Foil) -->
+                        <div id="visual-topping-gold" class="absolute inset-x-0 top-12 z-30 hidden pointer-events-none flex justify-center gap-10">
+                            <span class="text-creamery-gold text-2xl animate-pulse">✨</span>
+                            <span class="text-creamery-gold text-xl animate-bounce">✨</span>
+                        </div>
+
+                        <!-- Gelato Scoop 3 (Top Layer - Renders if selected) -->
+                        <div id="visual-scoop-3" class="w-32 h-32 rounded-full bg-creamery-raspberry/40 absolute top-4 z-10 hidden shadow-md flex items-center justify-center transition-all duration-300">
+                            <div class="w-28 h-28 rounded-full bg-white/20 filter blur-[1px]"></div>
+                        </div>
+
+                        <!-- Gelato Scoop 2 (Middle Layer - Renders if selected) -->
+                        <div id="visual-scoop-2" class="w-36 h-36 rounded-full bg-creamery-creambase absolute top-16 z-10 shadow-md flex items-center justify-center transition-all duration-300">
+                            <div class="w-32 h-32 rounded-full bg-white/10 filter blur-[1px]"></div>
+                        </div>
+
+                        <!-- Gelato Scoop 1 (Bottom Layer - Base Scoop) -->
+                        <div id="visual-scoop-1" class="w-40 h-40 rounded-full bg-creamery-raspberry absolute top-28 z-10 shadow-lg flex items-center justify-center transition-all duration-300">
+                            <div class="w-36 h-36 rounded-full bg-white/15 filter blur-[2px]"></div>
+                        </div>
+
+                        <!-- Dynamic Cone Selection Base SVG -->
+                        <div id="visual-cone-container" class="w-32 h-48 relative z-0 mt-auto overflow-visible transition-all duration-300">
+                            <!-- Cone Base Shape (Waffle Grid pattern rendered in SVG) -->
+                            <svg id="cone-svg" class="w-full h-full filter drop-shadow-lg transition-colors duration-300" viewBox="0 0 100 150">
+                                <defs>
+                                    <!-- Waffle grid overlay -->
+                                    <pattern id="waffle-pattern" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                                        <line x1="0" y1="0" x2="0" y2="10" stroke="#000000" stroke-opacity="0.15" stroke-width="1.5" />
+                                        <line x1="0" y1="0" x2="10" y2="0" stroke="#000000" stroke-opacity="0.15" stroke-width="1.5" />
+                                    </pattern>
+                                </defs>
+                                <!-- The Cone Cone -->
+                                <path id="cone-path" d="M10,10 L90,10 L50,140 Z" fill="#d97706" />
+                                <!-- Pattern on top -->
+                                <path d="M10,10 L90,10 L50,140 Z" fill="url(#waffle-pattern)" />
+                            </svg>
+                        </div>
+
+                    </div>
+
+                    <!-- Live Information Panel -->
+                    <div class="w-full text-center border-t border-creamery-creambase pt-4 mt-2">
+                        <span class="text-xs uppercase tracking-widest font-semibold text-creamery-maroon/60">Estimated Cost</span>
+                        <div class="text-3xl font-brush text-creamery-raspberry" id="custom-price-display">$4.50</div>
+                    </div>
+                </div>
+
+                <!-- RIGHT SIDE: CONTROL AND OPTIONS STEPPER -->
+                <div class="lg:col-span-6 space-y-6">
+                    
+                    <!-- STEP 1: CONE SELECTION -->
+                    <div class="bg-white p-6 rounded-2xl border-2 border-creamery-creambase shadow-md space-y-4">
+                        <div class="flex items-center gap-3">
+                            <span class="bg-creamery-maroon text-white font-bold w-7 h-7 rounded-full flex items-center justify-center text-xs">1</span>
+                            <h3 class="font-bold text-creamery-maroon">Select Artisan Cone</h3>
+                        </div>
+                        <div class="grid grid-cols-3 gap-3">
+                            <!-- Option 1: Classic Waffle -->
+                            <button onclick="setCone('waffle', '#d97706', 0.00)" class="cone-btn active border-2 border-creamery-raspberry bg-creamery-cream p-3 rounded-xl text-center space-y-1 hover:border-creamery-raspberry transition-all">
+                                <span class="text-2xl">🧇</span>
+                                <p class="text-xs font-bold text-creamery-maroon block">Classic Waffle</p>
+                                <span class="text-[10px] text-creamery-maroon/60 block">Free</span>
+                            </button>
+                            <!-- Option 2: Chocolate Drip -->
+                            <button onclick="setCone('chocolate', '#451a03', 1.00)" class="cone-btn border-2 border-creamery-creambase bg-white p-3 rounded-xl text-center space-y-1 hover:border-creamery-raspberry transition-all">
+                                <span class="text-2xl">🍫</span>
+                                <p class="text-xs font-bold text-creamery-maroon block">Cocoa Rim</p>
+                                <span class="text-[10px] text-creamery-raspberry font-semibold block">+$1.00</span>
+                            </button>
+                            <!-- Option 3: Premium Charcoal -->
+                            <button onclick="setCone('charcoal', '#1c1917', 1.50)" class="cone-btn border-2 border-creamery-creambase bg-white p-3 rounded-xl text-center space-y-1 hover:border-creamery-raspberry transition-all">
+                                <span class="text-2xl">🖤</span>
+                                <p class="text-xs font-bold text-creamery-maroon block">Charcoal Crust</p>
+                                <span class="text-[10px] text-creamery-raspberry font-semibold block">+$1.50</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 2: GELATO LAYER 1 (BASE SCOOP) -->
+                    <div class="bg-white p-6 rounded-2xl border-2 border-creamery-creambase shadow-md space-y-4">
+                        <div class="flex items-center gap-3">
+                            <span class="bg-creamery-maroon text-white font-bold w-7 h-7 rounded-full flex items-center justify-center text-xs">2</span>
+                            <h3 class="font-bold text-creamery-maroon">Flavor Layer 1 (Base Scoop - Included)</h3>
+                        </div>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                            <!-- Flavor Choices -->
+                            <button onclick="setScoopFlavor(1, 'raspberry', '#ff2d6c')" class="scoop-1-btn active border-2 border-creamery-raspberry bg-creamery-cream p-2 rounded-lg text-center text-xs font-semibold hover:border-creamery-raspberry">Raspberry</button>
+                            <button onclick="setScoopFlavor(1, 'matcha', '#86efac')" class="scoop-1-btn border border-creamery-creambase bg-white p-2 rounded-lg text-center text-xs font-semibold hover:border-creamery-raspberry">Matcha Green</button>
+                            <button onclick="setScoopFlavor(1, 'chocolate', '#3a1e05')" class="scoop-1-btn border border-creamery-creambase bg-white p-2 rounded-lg text-center text-xs font-semibold hover:border-creamery-raspberry">Belgian Fudge</button>
+                            <button onclick="setScoopFlavor(1, 'vanilla', '#fef3c7')" class="scoop-1-btn border border-creamery-creambase bg-white p-2 rounded-lg text-center text-xs font-semibold hover:border-creamery-raspberry">Vanilla Bean</button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3: ADDITIONAL STACK SCOOPS -->
+                    <div class="bg-white p-6 rounded-2xl border-2 border-creamery-creambase shadow-md space-y-4">
+                        <div class="flex items-center gap-3">
+                            <span class="bg-creamery-maroon text-white font-bold w-7 h-7 rounded-full flex items-center justify-center text-xs">3</span>
+                            <h3 class="font-bold text-creamery-maroon">Add Extra Stack Scoops (+$2.00 each)</h3>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <!-- Scoop Layer 2 -->
+                            <div class="space-y-1.5">
+                                <label class="text-xs font-bold text-creamery-maroon/70 uppercase">Middle Scoop (Layer 2)</label>
+                                <select onchange="updateScoopLayer(2, this.value)" class="w-full bg-creamery-cream border border-creamery-creambase text-creamery-maroon text-sm rounded-xl p-2.5 outline-none focus:border-creamery-raspberry">
+                                    <option value="none">-- None --</option>
+                                    <option value="raspberry">Raspberry Glaze</option>
+                                    <option value="matcha">Matcha Grass</option>
+                                    <option value="chocolate">Belgian Fudge</option>
+                                    <option value="vanilla">Vanilla Butter</option>
+                                </select>
+                            </div>
+                            <!-- Scoop Layer 3 -->
+                            <div class="space-y-1.5">
+                                <label class="text-xs font-bold text-creamery-maroon/70 uppercase">Top Scoop (Layer 3)</label>
+                                <select onchange="updateScoopLayer(3, this.value)" class="w-full bg-creamery-cream border border-creamery-creambase text-creamery-maroon text-sm rounded-xl p-2.5 outline-none focus:border-creamery-raspberry">
+                                    <option value="none">-- None --</option>
+                                    <option value="raspberry">Raspberry Glaze</option>
+                                    <option value="matcha">Matcha Grass</option>
+                                    <option value="chocolate">Belgian Fudge</option>
+                                    <option value="vanilla">Vanilla Butter</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 4: GOURMET TOPPINGS -->
+                    <div class="bg-white p-6 rounded-2xl border-2 border-creamery-creambase shadow-md space-y-4">
+                        <div class="flex items-center gap-3">
+                            <span class="bg-creamery-maroon text-white font-bold w-7 h-7 rounded-full flex items-center justify-center text-xs">4</span>
+                            <h3 class="font-bold text-creamery-maroon">Artisanal Toppings (+$0.50 each)</h3>
+                        </div>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                            <!-- Sprinkle Topping Toggle -->
+                            <button id="topping-sprinkles-btn" onclick="toggleTopping('sprinkles', 0.50)" class="border border-creamery-creambase bg-white py-2 px-3 rounded-xl text-xs font-bold text-creamery-maroon hover:border-creamery-raspberry flex items-center justify-center gap-1">
+                                <span>🌈</span> Sprinkles
+                            </button>
+                            <!-- Fudge Drizzle Toggle -->
+                            <button id="topping-fudge-btn" onclick="toggleTopping('fudge', 0.50)" class="border border-creamery-creambase bg-white py-2 px-3 rounded-xl text-xs font-bold text-creamery-maroon hover:border-creamery-raspberry flex items-center justify-center gap-1">
+                                <span>🍫</span> Dark Fudge
+                            </button>
+                            <!-- Berries Toggle -->
+                            <button id="topping-berries-btn" onclick="toggleTopping('berries', 0.50)" class="border border-creamery-creambase bg-white py-2 px-3 rounded-xl text-xs font-bold text-creamery-maroon hover:border-creamery-raspberry flex items-center justify-center gap-1">
+                                <span>🍓</span> Wild Berries
+                            </button>
+                            <!-- Gold Flakes Toggle -->
+                            <button id="topping-gold-btn" onclick="toggleTopping('gold', 0.50)" class="border border-creamery-creambase bg-white py-2 px-3 rounded-xl text-xs font-bold text-creamery-maroon hover:border-creamery-raspberry flex items-center justify-center gap-1">
+                                <span>✨</span> 24k Gold
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ORDER SUBMISSION ACTIONS -->
+                    <div class="flex gap-4">
+                        <button onclick="addCustomScoopToCart()" class="flex-1 bg-creamery-raspberry hover:bg-creamery-raspberry/90 text-white font-extrabold py-4 rounded-2xl tracking-wide transition-all duration-300 shadow-xl glow-raspberry hover:scale-105">
+                            Add Custom Cone to Tray
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE MENU SECTION: CHURNED TO PERFECTION -->
+    <section id="menu" class="py-20 bg-creamery-cream relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Headline -->
+            <div class="text-center max-w-3xl mx-auto mb-12 space-y-2">
+                <span class="text-creamery-raspberry font-semibold tracking-widest text-xs uppercase">Curated Catalog</span>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-serif-premium font-black text-creamery-maroon tracking-tight">
+                    Churned Masterpieces
+                </h2>
+                <p class="text-creamery-maroon/70 text-sm md:text-base">
+                    Explore our classic selections available for instant order. Each crafted with our signature slow-churn process.
+                </p>
+            </div>
+
+            <!-- Custom Category Filter Tabs -->
+            <div class="flex flex-wrap items-center justify-center gap-2 mb-12">
+                <button onclick="filterMenu('all', this)" class="menu-tab-btn active bg-creamery-maroon text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full transition-all border border-creamery-maroon">All Masters</button>
+                <button onclick="filterMenu('scoops', this)" class="menu-tab-btn bg-white text-creamery-maroon hover:bg-creamery-creambase font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full transition-all border border-creamery-creambase">Gelato Scoops</button>
+                <button onclick="filterMenu('sundaes', this)" class="menu-tab-btn bg-white text-creamery-maroon hover:bg-creamery-creambase font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full transition-all border border-creamery-creambase">Craft Sundaes</button>
+                <button onclick="filterMenu('drinks', this)" class="menu-tab-btn bg-white text-creamery-maroon hover:bg-creamery-creambase font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full transition-all border border-creamery-creambase">Waffles & Cafe</button>
+            </div>
+
+            <!-- Grid Items -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="catalog-grid">
+                
+                <!-- Menu Card 1 -->
+                <div class="menu-item-card scoops bg-white p-5 rounded-3xl border-2 border-creamery-creambase shadow-lg hover:shadow-xl hover:border-creamery-raspberry transition-all duration-300 flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="relative overflow-hidden rounded-2xl aspect-[4/3] bg-creamery-cream">
+                            <img src="https://images.unsplash.com/photo-1579954115545-a95591f28bfc?auto=format&fit=crop&w=400&q=80" alt="Rosemary Gelato" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <span class="absolute top-3 left-3 bg-creamery-maroon text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-creamery-cyan/40">Bestseller</span>
+                            <span class="absolute bottom-3 right-3 bg-[#000]/70 backdrop-blur-sm text-creamery-cyan font-bold text-xs px-3 py-1 rounded-lg">$4.50</span>
+                        </div>
+                        <div class="space-y-2">
+                            <h3 class="font-bold text-creamery-maroon text-lg group-hover:text-creamery-raspberry transition-colors">Ruby Raspberry Velvet</h3>
+                            <p class="text-xs text-creamery-maroon/70 leading-relaxed">Infused with wild mountain red raspberries and light, floral Madagascar vanilla hints. Silky, rich, sweet milk base.</p>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-creamery-creambase mt-4 flex items-center justify-between">
+                        <span class="text-[10px] font-semibold text-creamery-raspberry bg-creamery-creambase px-2.5 py-1 rounded-md">Gluten Free</span>
+                        <button onclick="addCatalogToCart('Ruby Raspberry Velvet', 4.50)" class="bg-creamery-maroon hover:bg-creamery-raspberry text-white hover:text-white font-bold text-xs px-4 py-2 rounded-xl transition-all duration-300">
+                            Add to Tray
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Menu Card 2 -->
+                <div class="menu-item-card scoops bg-white p-5 rounded-3xl border-2 border-creamery-creambase shadow-lg hover:shadow-xl hover:border-creamery-raspberry transition-all duration-300 flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="relative overflow-hidden rounded-2xl aspect-[4/3] bg-creamery-cream">
+                            <img src="https://images.unsplash.com/photo-1501443769991-63b01417784c?auto=format&fit=crop&w=400&q=80" alt="Mint Churn" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <span class="absolute top-3 left-3 bg-creamery-maroon text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-creamery-cyan/40">Seasonal</span>
+                            <span class="absolute bottom-3 right-3 bg-[#000]/70 backdrop-blur-sm text-creamery-cyan font-bold text-xs px-3 py-1 rounded-lg">$4.50</span>
+                        </div>
+                        <div class="space-y-2">
+                            <h3 class="font-bold text-creamery-maroon text-lg group-hover:text-creamery-raspberry transition-colors">Oceanic Teal Peppermint</h3>
+                            <p class="text-xs text-creamery-maroon/70 leading-relaxed">Refreshing garden mint churned with high-percentage dark chocolate shavings and our signature blue-cyan hue.</p>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-creamery-creambase mt-4 flex items-center justify-between">
+                        <span class="text-[10px] font-semibold text-creamery-raspberry bg-creamery-creambase px-2.5 py-1 rounded-md">Classic</span>
+                        <button onclick="addCatalogToCart('Oceanic Teal Peppermint', 4.50)" class="bg-creamery-maroon hover:bg-creamery-raspberry text-white hover:text-white font-bold text-xs px-4 py-2 rounded-xl transition-all duration-300">
+                            Add to Tray
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Menu Card 3 -->
+                <div class="menu-item-card sundaes bg-white p-5 rounded-3xl border-2 border-creamery-creambase shadow-lg hover:shadow-xl hover:border-creamery-raspberry transition-all duration-300 flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="relative overflow-hidden rounded-2xl aspect-[4/3] bg-creamery-cream">
+                            <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=400&q=80" alt="Sundae Bowl" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <span class="absolute top-3 left-3 bg-creamery-maroon text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-creamery-cyan/40">Gourmet Choice</span>
+                            <span class="absolute bottom-3 right-3 bg-[#000]/70 backdrop-blur-sm text-creamery-cyan font-bold text-xs px-3 py-1 rounded-lg">$6.75</span>
+                        </div>
+                        <div class="space-y-2">
+                            <h3 class="font-bold text-creamery-maroon text-lg group-hover:text-creamery-raspberry transition-colors">Volcano Lava Split</h3>
+                            <p class="text-xs text-creamery-maroon/70 leading-relaxed">Hot double chocolate cake base, topped with vanilla gelato scoop, raspberries, and cascading warm fudge.</p>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-creamery-creambase mt-4 flex items-center justify-between">
+                        <span class="text-[10px] font-semibold text-creamery-raspberry bg-creamery-creambase px-2.5 py-1 rounded-md">Rich Premium</span>
+                        <button onclick="addCatalogToCart('Volcano Lava Split', 6.75)" class="bg-creamery-maroon hover:bg-creamery-raspberry text-white hover:text-white font-bold text-xs px-4 py-2 rounded-xl transition-all duration-300">
+                            Add to Tray
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Menu Card 4 -->
+                <div class="menu-item-card sundaes bg-white p-5 rounded-3xl border-2 border-creamery-creambase shadow-lg hover:shadow-xl hover:border-creamery-raspberry transition-all duration-300 flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="relative overflow-hidden rounded-2xl aspect-[4/3] bg-creamery-cream">
+                            <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=400&q=80" alt="Pistachio Sundae" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <span class="absolute top-3 left-3 bg-creamery-maroon text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-creamery-cyan/40">Exclusive</span>
+                            <span class="absolute bottom-3 right-3 bg-[#000]/70 backdrop-blur-sm text-creamery-cyan font-bold text-xs px-3 py-1 rounded-lg">$6.20</span>
+                        </div>
+                        <div class="space-y-2">
+                            <h3 class="font-bold text-creamery-maroon text-lg group-hover:text-creamery-raspberry transition-colors">Golden Pistachio Crown</h3>
+                            <p class="text-xs text-creamery-maroon/70 leading-relaxed">Grounded Mediterranean roasted pistachios, sweet vanilla foam, gold sprinkles, and pistachio crumbs.</p>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-creamery-creambase mt-4 flex items-center justify-between">
+                        <span class="text-[10px] font-semibold text-creamery-raspberry bg-creamery-creambase px-2.5 py-1 rounded-md">Nut Lovers</span>
+                        <button onclick="addCatalogToCart('Golden Pistachio Crown', 6.20)" class="bg-creamery-maroon hover:bg-creamery-raspberry text-white hover:text-white font-bold text-xs px-4 py-2 rounded-xl transition-all duration-300">
+                            Add to Tray
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Menu Card 5 -->
+                <div class="menu-item-card drinks bg-white p-5 rounded-3xl border-2 border-creamery-creambase shadow-lg hover:shadow-xl hover:border-creamery-raspberry transition-all duration-300 flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="relative overflow-hidden rounded-2xl aspect-[4/3] bg-creamery-cream">
+                            <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=400&q=80" alt="Espresso Affogato" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <span class="absolute top-3 left-3 bg-creamery-maroon text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-creamery-cyan/40">Hot & Cold</span>
+                            <span class="absolute bottom-3 right-3 bg-[#000]/70 backdrop-blur-sm text-creamery-cyan font-bold text-xs px-3 py-1 rounded-lg">$4.95</span>
+                        </div>
+                        <div class="space-y-2">
+                            <h3 class="font-bold text-creamery-maroon text-lg group-hover:text-creamery-raspberry transition-colors">Midnight Affogato</h3>
+                            <p class="text-xs text-creamery-maroon/70 leading-relaxed">Double-shot rich organic espresso poured hot over an cold artisanal creamy vanilla bean gelato scoop.</p>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-creamery-creambase mt-4 flex items-center justify-between">
+                        <span class="text-[10px] font-semibold text-creamery-raspberry bg-creamery-creambase px-2.5 py-1 rounded-md">Caffeine Classic</span>
+                        <button onclick="addCatalogToCart('Midnight Affogato', 4.95)" class="bg-creamery-maroon hover:bg-creamery-raspberry text-white hover:text-white font-bold text-xs px-4 py-2 rounded-xl transition-all duration-300">
+                            Add to Tray
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Menu Card 6 -->
+                <div class="menu-item-card drinks bg-white p-5 rounded-3xl border-2 border-creamery-creambase shadow-lg hover:shadow-xl hover:border-creamery-raspberry transition-all duration-300 flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="relative overflow-hidden rounded-2xl aspect-[4/3] bg-creamery-cream">
+                            <img src="https://images.unsplash.com/photo-1546964124-0cce460f38ef?auto=format&fit=crop&w=400&q=80" alt="Waffles Basket" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <span class="absolute top-3 left-3 bg-creamery-maroon text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-creamery-cyan/40">Freshly Baked</span>
+                            <span class="absolute bottom-3 right-3 bg-[#000]/70 backdrop-blur-sm text-creamery-cyan font-bold text-xs px-3 py-1 rounded-lg">$7.50</span>
+                        </div>
+                        <div class="space-y-2">
+                            <h3 class="font-bold text-creamery-maroon text-lg group-hover:text-creamery-raspberry transition-colors">Artisanal Waffle Basket</h3>
+                            <p class="text-xs text-creamery-maroon/70 leading-relaxed">Crispy baked sweet-malt waffles served warm, with dual signature gelato scoops, raspberry reduction and icing.</p>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-creamery-creambase mt-4 flex items-center justify-between">
+                        <span class="text-[10px] font-semibold text-creamery-raspberry bg-creamery-creambase px-2.5 py-1 rounded-md">Warm Feast</span>
+                        <button onclick="addCatalogToCart('Artisanal Waffle Basket', 7.50)" class="bg-creamery-maroon hover:bg-creamery-raspberry text-white hover:text-white font-bold text-xs px-4 py-2 rounded-xl transition-all duration-300">
+                            Add to Tray
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PREMIUM OFF-GRID STORY/EVENT CALLOUT -->
+    <section class="py-24 bg-gradient-to-tr from-[#5a051c] to-[#38000e] text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-cover bg-center opacity-10 mix-blend-overlay" style="background-image: url('https://images.unsplash.com/photo-1516559828984-fb3b99548b21?auto=format&fit=crop&w=1200&q=80')"></div>
+        <div class="absolute w-72 h-72 rounded-full bg-creamery-cyan opacity-10 blur-[100px] -bottom-10 -left-10"></div>
+        
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-8">
+            <span class="font-brush text-2xl text-creamery-cyan tracking-wide block">Gourmet Catering</span>
+            <h2 class="text-4xl sm:text-5xl font-serif-premium font-black tracking-tight max-w-2xl mx-auto">
+                Host An Unforgettable <br><span class="text-creamery-gold">Creamery Bar</span>
+            </h2>
+            <p class="text-creamery-creambase text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+                Whether it is a premium corporate product launch, wedding celebration, or intimate party - we bring our artisan rolling customizer stations, professional churn master chefs, and our secret raspberry gelato reserves straight to you.
+            </p>
+            <div class="pt-4">
+                <button onclick="openBookingModal()" class="bg-creamery-cyan hover:bg-[#00e3c5] text-creamery-maroon font-extrabold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 shadow-xl glow-cyan">
+                    Inquire For Private Catering
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS / SENSORY PROOF SECTION -->
+    <section class="py-16 bg-[#fcebeb] border-y border-creamery-creambase">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+                <div class="space-y-1">
+                    <span class="block text-4xl md:text-5xl font-brush text-creamery-maroon">45+</span>
+                    <span class="block text-xs uppercase tracking-widest font-extrabold text-creamery-raspberry">Artisan Recipes</span>
+                </div>
+                <div class="space-y-1">
+                    <span class="block text-4xl md:text-5xl font-brush text-creamery-maroon">15k</span>
+                    <span class="block text-xs uppercase tracking-widest font-extrabold text-creamery-raspberry">Cones Served</span>
+                </div>
+                <div class="space-y-1">
+                    <span class="block text-4xl md:text-5xl font-brush text-creamery-maroon">100%</span>
+                    <span class="block text-xs uppercase tracking-widest font-extrabold text-creamery-raspberry">Natural Sourcing</span>
+                </div>
+                <div class="space-y-1">
+                    <span class="block text-4xl md:text-5xl font-brush text-creamery-maroon">25+</span>
+                    <span class="block text-xs uppercase tracking-widest font-extrabold text-creamery-raspberry">Catering Partners</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION (SWEET WHISPERS) -->
+    <section id="reviews" class="py-20 bg-creamery-cream relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-2">
+                <span class="text-creamery-raspberry font-semibold tracking-widest text-xs uppercase">Sweet Whispers</span>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-serif-premium font-black text-creamery-maroon">
+                    Gelato Love Letters
+                </h2>
+                <p class="text-creamery-maroon/70 text-sm">Read the genuine experiences shared by culinary critics and luxury dessert lovers.</p>
+            </div>
+
+            <!-- Interactivity carousel grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="testimonials-container">
+                <!-- Testimonial 1 -->
+                <div class="bg-white p-8 rounded-3xl border border-creamery-creambase shadow-md space-y-4 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="flex text-creamery-gold text-lg">★★★★★</div>
+                    <p class="text-creamery-maroon/80 text-sm leading-relaxed italic">"The slow-churn density is real. You can feel the absolute velvet richness in every scoop. The Ruby Raspberry flavor took me back straight to Italian summer orchards."</p>
+                    <div class="flex items-center gap-3 pt-2">
+                        <div class="w-10 h-10 rounded-full bg-creamery-creambase font-bold text-creamery-maroon flex items-center justify-center text-sm">AM</div>
+                        <div>
+                            <h4 class="font-bold text-creamery-maroon text-xs">Aline Miller</h4>
+                            <span class="text-[10px] text-creamery-raspberry font-semibold">Michelin Guide Contributor</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-white p-8 rounded-3xl border border-creamery-creambase shadow-md space-y-4 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="flex text-creamery-gold text-lg">★★★★★</div>
+                    <p class="text-creamery-maroon/80 text-sm leading-relaxed italic">"I built a triple stack custom cone with chocolate drip cone, raspberry core and vanilla. It is a work of pure art, and the online tracker made ordering and delivery so seamless."</p>
+                    <div class="flex items-center gap-3 pt-2">
+                        <div class="w-10 h-10 rounded-full bg-creamery-creambase font-bold text-creamery-maroon flex items-center justify-center text-sm">JD</div>
+                        <div>
+                            <h4 class="font-bold text-creamery-maroon text-xs">Jameson D.</h4>
+                            <span class="text-[10px] text-creamery-raspberry font-semibold">Self-Proclaimed Connoisseur</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-white p-8 rounded-3xl border border-creamery-creambase shadow-md space-y-4 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="flex text-creamery-gold text-lg">★★★★★</div>
+                    <p class="text-creamery-maroon/80 text-sm leading-relaxed italic">"C&A provided catering for our product launch of 150 people. The customizer rolled in, the chef spun and churned. Everyone was absolutely blown away. Outstanding service!"</p>
+                    <div class="flex items-center gap-3 pt-2">
+                        <div class="w-10 h-10 rounded-full bg-creamery-creambase font-bold text-creamery-maroon flex items-center justify-center text-sm">VS</div>
+                        <div>
+                            <h4 class="font-bold text-creamery-maroon text-xs">Victoria Sterling</h4>
+                            <span class="text-[10px] text-creamery-raspberry font-semibold">Event Director, Vogue Group</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER / CONTACT SECTION -->
+    <footer id="contact" class="bg-creamery-maroon text-white pt-20 pb-10 relative overflow-hidden">
+        
+        <!-- Dripping top border border-separator mirroring hero but inversed -->
+        <div class="absolute top-0 left-0 w-full overflow-hidden leading-[0] z-10 rotate-180 transform -translate-y-0.5 pointer-events-none">
+            <svg class="relative block w-full h-[30px] md:h-[60px]" viewBox="0 0 1440 120" preserveAspectRatio="none" fill="#fdf3f3">
+                <path d="M0,0 L1440,0 L1440,30 C1400,30 1380,85 1350,85 C1320,85 1310,25 1270,25 C1230,25 1210,110 1170,110 C1130,110 1120,40 1080,40 C1040,40 1020,95 980,95 C940,95 930,15 890,15 C850,15 830,115 790,115 C750,115 740,35 700,35 C660,35 640,105 600,105 C560,105 550,20 510,20 C470,20 450,90 410,90 C370,90 360,30 320,30 C280,30 260,115 220,115 C180,115 170,45 130,45 C90,45 70,80 30,80 C15,80 0,20 0,20 Z" />
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-16 border-b border-white/10">
+                
+                <!-- Brand details & newsletter -->
+                <div class="lg:col-span-5 space-y-6 text-center lg:text-left">
+                    <a href="#" class="inline-flex items-center gap-3">
+                        <div class="w-10 h-10 bg-creamery-maroon border border-creamery-cyan rounded-full flex items-center justify-center glow-cyan">
+                            <span class="text-creamery-cyan text-base">🍦</span>
+                        </div>
+                        <span class="font-brush text-xl md:text-2xl tracking-wider text-creamery-cream block">C&A Cafe & Creamery</span>
+                    </a>
+                    <p class="text-creamery-creambase/70 text-xs md:text-sm leading-relaxed">
+                        Indulge in artisanal pastry arts, handcraft beverages, slow-churned gelato varieties, and custom cone configurations. Made daily with unyielding love.
+                    </p>
+                    
+                    <!-- Newsletter Signup Form -->
+                    <div class="space-y-2 pt-2">
+                        <h4 class="text-xs font-bold uppercase tracking-widest text-creamery-cyan">Unlock Secret Recipes & Flavors</h4>
+                        <div class="flex max-w-md mx-auto lg:mx-0">
+                            <input id="newsletter-email" type="email" placeholder="Enter your email" class="w-full bg-[#3d0211] text-white border border-[#5a051c] rounded-l-full py-3 px-4 text-xs outline-none focus:border-creamery-cyan">
+                            <button onclick="subscribeNewsletter()" class="bg-creamery-cyan hover:bg-[#00d6ba] text-creamery-maroon font-extrabold text-xs px-6 rounded-r-full transition-colors whitespace-nowrap">Join VIP</button>
+                        </div>
+                        <p id="newsletter-msg" class="text-[10px] text-creamery-cyan hidden mt-1"></p>
+                    </div>
+                </div>
+
+                <!-- Fast Navigation -->
+                <div class="lg:col-span-3 text-center lg:text-left space-y-4">
+                    <h4 class="text-xs font-bold uppercase tracking-widest text-creamery-cyan">Indulge Deeper</h4>
+                    <ul class="space-y-2.5 text-xs text-creamery-creambase/75">
+                        <li><a href="#about" class="hover:text-white">Our Heritage Story</a></li>
+                        <li><a href="#menu" class="hover:text-white">Full Churn Menu</a></li>
+                        <li><a href="#customizer" class="hover:text-white text-creamery-cyan">Artisan Custon Cone Builder</a></li>
+                        <li><a href="#reviews" class="hover:text-white">Connoisseur Reviews</a></li>
+                        <li><a href="#contact" class="hover:text-white">Locations & Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Locations & Contact Information -->
+                <div class="lg:col-span-4 text-center lg:text-left space-y-4 text-xs">
+                    <h4 class="text-xs font-bold uppercase tracking-widest text-creamery-cyan">Our Flagship Parlor</h4>
+                    <div class="space-y-3 text-creamery-creambase/75 leading-relaxed">
+                        <p>📍 <strong>The Raspberry Plaza:</strong><br> 72 Sweet Indulgence Avenue, Gelato Heights, NY 10012</p>
+                        <p>📞 <strong>Phone:</strong> +1 (555) 723-2732</p>
+                        <p>✉ <strong>Email Support:</strong> hello@ca-creamery.com</p>
+                        <p class="pt-2 text-[10px] text-creamery-gold font-bold">⏰ Open Daily: 10:00 AM - 11:30 PM (Midnight delivery active)</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Footer copyright and disclaimer -->
+            <div class="pt-10 flex flex-col md:flex-row items-center justify-between text-xs text-creamery-creambase/40 gap-4">
+                <p>© 2026 C&A Cafe and Creamery. Churned with pure heart. All rights reserved.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <span>•</span>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ==================== INTERACTIVE UI ELEMENTS & OVERLAYS ==================== -->
+
+    <!-- FLOATING CHAT BOT WIDGET (Bottom Right) -->
+    <div class="fixed bottom-6 right-6 z-40">
+        <!-- Main Chat Toggle Button -->
+        <button id="chat-toggle-btn" onclick="toggleChat(null)" class="bg-creamery-maroon hover:bg-[#5a051c] text-white p-4 rounded-full border border-creamery-cyan shadow-2xl glow-cyan hover:scale-110 transition-all duration-300 relative group">
+            <span class="absolute top-0 right-0 w-3.5 h-3.5 bg-creamery-raspberry rounded-full border-2 border-creamery-maroon animate-ping"></span>
+            <svg class="w-6 h-6 text-creamery-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+            </svg>
+        </button>
+
+        <!-- Conversational Chat Window Container (Initially Hidden) -->
+        <div id="chat-window" class="hidden absolute bottom-16 right-0 w-80 md:w-96 bg-white border-2 border-creamery-creambase rounded-3xl shadow-2xl overflow-hidden flex flex-col z-50">
+            <!-- Header -->
+            <div class="bg-creamery-maroon text-white p-4 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <div class="w-2.5 h-2.5 bg-creamery-cyan rounded-full animate-pulse"></div>
+                    <div>
+                        <h4 class="font-bold text-xs text-creamery-cream">C&A Gelato Assistant</h4>
+                        <span class="text-[9px] text-creamery-creambase/70 font-semibold block uppercase tracking-wider">Online and Ready</span>
+                    </div>
+                </div>
+                <button onclick="toggleChat(false)" class="text-white/70 hover:text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            <!-- Messages Stream Area -->
+            <div id="chat-messages" class="h-64 overflow-y-auto p-4 space-y-3 bg-creamery-cream/40 text-xs">
+                <!-- Welcome Message -->
+                <div class="space-y-1">
+                    <span class="text-[9px] font-bold text-creamery-raspberry/80 uppercase">Gelato Bot</span>
+                    <div class="bg-white p-3 rounded-2xl border border-creamery-creambase max-w-[85%] leading-relaxed text-creamery-maroon">
+                        Greetings, confectionery lover! 🍦 I can help you find flavors, book premium catering, or calculate customizer pricing. Ask me anything!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Action Suggestion Buttons -->
+            <div class="p-2 bg-white border-t border-creamery-creambase flex flex-wrap gap-1.5 justify-center">
+                <button onclick="sendQuickMessage('Is the Raspberry flavor vegan?')" class="bg-creamery-cream hover:bg-creamery-creambase text-creamery-maroon font-bold text-[10px] py-1.5 px-3 rounded-full border border-creamery-creambase transition-colors">Vegan Options?</button>
+                <button onclick="sendQuickMessage('Do you cater events?')" class="bg-creamery-cream hover:bg-creamery-creambase text-creamery-maroon font-bold text-[10px] py-1.5 px-3 rounded-full border border-creamery-creambase transition-colors">Event Catering?</button>
+                <button onclick="sendQuickMessage('Can I order midnight delivery?')" class="bg-creamery-cream hover:bg-creamery-creambase text-creamery-maroon font-bold text-[10px] py-1.5 px-3 rounded-full border border-creamery-creambase transition-colors">Midnight Delivery?</button>
+            </div>
+
+            <!-- Input area -->
+            <div class="p-3 bg-creamery-cream border-t border-creamery-creambase flex gap-2">
+                <input id="chat-user-input" type="text" placeholder="Type or select a question..." class="w-full bg-white text-creamery-maroon border border-creamery-creambase rounded-full py-2 px-4 text-xs outline-none focus:border-creamery-raspberry">
+                <button onclick="sendUserMessage()" class="bg-creamery-maroon hover:bg-creamery-raspberry text-white p-2 rounded-full transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- INTERACTIVE SLIDE-OUT CART DRAWER (Overlay) -->
+    <div id="cart-drawer" class="fixed inset-y-0 right-0 w-full max-w-md bg-white border-l-2 border-creamery-creambase z-50 shadow-2xl flex flex-col justify-between transform translate-x-full transition-transform duration-300">
+        <!-- Header -->
+        <div class="p-6 bg-creamery-maroon text-white flex items-center justify-between border-b border-white/10">
+            <div class="flex items-center gap-2">
+                <span class="text-xl">🛒</span>
+                <h3 class="font-bold text-lg">My Tray Masterpieces</h3>
+            </div>
+            <button onclick="toggleCartDrawer(false)" class="text-white/70 hover:text-white p-1">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+
+        <!-- Scrollable items stream -->
+        <div id="cart-items-list" class="flex-1 overflow-y-auto p-6 space-y-4 bg-creamery-cream/30">
+            <!-- Placeholder for empty tray state -->
+            <div id="empty-cart-state" class="text-center py-20 space-y-4">
+                <span class="text-5xl block animate-bounce">🍦</span>
+                <h4 class="font-bold text-creamery-maroon text-sm">Your tray is currently dry!</h4>
+                <p class="text-xs text-creamery-maroon/60 max-w-xs mx-auto">Visit the custom gelato builder above or order signature recipes to populate your scoop tray!</p>
+            </div>
+        </div>
+
+        <!-- Checkout / Total Calculation Section -->
+        <div class="p-6 bg-white border-t-2 border-creamery-creambase space-y-4 shadow-inner">
+            <div class="space-y-1.5">
+                <!-- Promo Code -->
+                <div class="flex justify-between items-center text-xs">
+                    <span class="font-semibold text-creamery-maroon/70">Promo Code</span>
+                    <button onclick="applyPromoCode()" class="text-creamery-raspberry font-extrabold hover:underline" id="promo-btn-txt">Apply Code</button>
+                </div>
+                <div class="flex gap-2">
+                    <input id="promo-input" type="text" placeholder="e.g. SWEETDREAMS" class="w-full bg-creamery-cream text-creamery-maroon uppercase border border-creamery-creambase rounded-xl p-2 text-xs outline-none focus:border-creamery-raspberry">
+                </div>
+            </div>
+
+            <!-- Price Tally -->
+            <div class="space-y-2 border-t border-creamery-creambase/50 pt-3 text-xs">
+                <div class="flex justify-between text-creamery-maroon/80">
+                    <span>Subtotal</span>
+                    <span id="cart-subtotal">$0.00</span>
+                </div>
+                <div class="flex justify-between text-creamery-raspberry font-semibold hidden" id="discount-row">
+                    <span>Discount (15%)</span>
+                    <span id="cart-discount">-$0.00</span>
+                </div>
+                <div class="flex justify-between text-creamery-maroon/80">
+                    <span>Special Delivery</span>
+                    <span class="text-emerald-600 font-bold">FREE</span>
+                </div>
+                <div class="flex justify-between text-base font-bold text-creamery-maroon border-t border-creamery-creambase pt-2">
+                    <span>Estimated Total</span>
+                    <span id="cart-total">$0.00</span>
+                </div>
+            </div>
+
+            <!-- Checkout Order Request Button -->
+            <button onclick="requestCheckout()" class="w-full bg-creamery-raspberry hover:bg-creamery-raspberry/90 text-white font-extrabold py-3.5 rounded-xl transition-all duration-300 glow-raspberry text-sm flex items-center justify-center gap-2">
+                <span>Secure Order Out</span>
+                <span>➔</span>
+            </button>
+        </div>
+    </div>
+
+
+    <!-- GENTLE DIALOG POPUP: SPECIAL CATERING INQUIRY -->
+    <div id="booking-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white border-2 border-creamery-creambase rounded-3xl p-6 sm:p-8 max-w-md w-full relative space-y-6 shadow-2xl">
+            <button onclick="toggleBookingModal(false)" class="absolute top-4 right-4 text-creamery-maroon/50 hover:text-creamery-maroon">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+
+            <div class="text-center space-y-2">
+                <span class="text-creamery-raspberry font-bold text-xs uppercase tracking-widest block">VIP Private Experience</span>
+                <h3 class="text-2xl font-serif-premium font-black text-creamery-maroon">Catering Request</h3>
+                <p class="text-xs text-creamery-maroon/70">Secure your premium rolled gelato counter. We reply in under 2 hours.</p>
+            </div>
+
+            <form onsubmit="submitCateringForm(event)" class="space-y-4">
+                <div class="space-y-1">
+                    <label class="text-[10px] font-extrabold uppercase text-creamery-maroon/70">Your Full Name</label>
+                    <input type="text" required class="w-full bg-creamery-cream border border-creamery-creambase rounded-xl p-2.5 text-xs outline-none focus:border-creamery-raspberry">
+                </div>
+                <div class="space-y-1">
+                    <label class="text-[10px] font-extrabold uppercase text-creamery-maroon/70">Work / Contact Email</label>
+                    <input type="email" required class="w-full bg-creamery-cream border border-creamery-creambase rounded-xl p-2.5 text-xs outline-none focus:border-creamery-raspberry">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-extrabold uppercase text-creamery-maroon/70">Approx. Guests</label>
+                        <select class="w-full bg-creamery-cream border border-creamery-creambase rounded-xl p-2.5 text-xs outline-none focus:border-creamery-raspberry">
+                            <option>10 - 50 guests</option>
+                            <option>50 - 150 guests</option>
+                            <option>150 - 500 guests</option>
+                            <option>Over 500 guests</option>
+                        </select>
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-extrabold uppercase text-creamery-maroon/70">Preferred Date</label>
+                        <input type="date" required class="w-full bg-creamery-cream border border-creamery-creambase rounded-xl p-2.5 text-xs outline-none focus:border-creamery-raspberry">
+                    </div>
+                </div>
+                <button type="submit" class="w-full bg-creamery-maroon hover:bg-creamery-raspberry text-white font-extrabold py-3 rounded-xl transition-all duration-300 mt-2 text-xs uppercase tracking-wider">
+                    Submit Reservation Form
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- GENTLE DIALOG POPUP: COMPLETED ORDER SUCCESS STATE -->
+    <div id="checkout-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white border-2 border-creamery-creambase rounded-3xl p-8 max-w-sm w-full text-center space-y-6 shadow-2xl relative">
+            <div class="w-20 h-20 bg-creamery-cream border-2 border-creamery-cyan rounded-full flex items-center justify-center mx-auto glow-cyan">
+                <span class="text-4xl animate-bounce">🛵</span>
+            </div>
+            
+            <div class="space-y-2">
+                <span class="text-emerald-600 font-extrabold text-xs uppercase tracking-widest block">Churn Master Confirmed</span>
+                <h3 class="text-2xl font-serif-premium font-black text-creamery-maroon">Gelato Heading Out!</h3>
+                <p class="text-xs text-creamery-maroon/70 leading-relaxed">
+                    Our master churners have received your premium recipe requests. We are preparing, packaging, and dispatching your selection with dry ice now.
+                </p>
+            </div>
+
+            <div class="bg-creamery-cream p-4 rounded-2xl border border-creamery-creambase text-xs space-y-1.5 text-left">
+                <div class="flex justify-between text-[10px] uppercase font-bold text-creamery-maroon/65">
+                    <span>Delivery Code:</span>
+                    <span class="text-creamery-raspberry font-mono" id="order-id-display">#CA-89721</span>
+                </div>
+                <p class="text-[10px] text-creamery-maroon/80">⏱ <strong>ETA:</strong> 25-35 minutes to Flagship Area</p>
+            </div>
+
+            <button onclick="closeCheckoutModal()" class="w-full bg-creamery-maroon hover:bg-[#5a051c] text-white font-bold py-3 rounded-xl transition-all duration-300">
+                Sounds Divine, Thank You!
+            </button>
+        </div>
+    </div>
+
+
+    <!-- ==================== CORE INTERACTIVE JAVASCRIPT ==================== -->
+    <script>
+        // State variables
+        let cart = [];
+        let appliedPromo = false;
+
+        // Customizer configuration state
+        let customizerState = {
+            cone: { name: 'waffle', color: '#d97706', extraPrice: 0.00 },
+            flavors: {
+                layer1: { name: 'raspberry', color: '#ff2d6c' },
+                layer2: null, // Default none
+                layer3: null  // Default none
+            },
+            toppings: {
+                sprinkles: false,
+                fudge: false,
+                berries: false,
+                gold: false
+            }
+        };
+
+        // Pricing Matrix
+        const PRICING = {
+            baseScoop: 4.50,
+            extraScoop: 2.00,
+            topping: 0.50
+        };
+
+        // Window onload triggers
+        window.onload = function () {
+            // Initiate default visual builder rendering
+            calculateCustomizerPrice();
+        }
+
+        // ==================== NAVIGATION DRAWER ====================
+        function toggleMobileNav(show) {
+            const drawer = document.getElementById('mobile-nav');
+            if (show) {
+                drawer.classList.remove('translate-x-full');
+            } else {
+                drawer.classList.add('translate-x-full');
+            }
+        }
+
+        // ==================== VISUAL CUSTOMIZER CONTROLS ====================
+        
+        function setCone(coneName, colorHex, extraPrice) {
+            // Update active state class on buttons
+            const buttons = document.querySelectorAll('.cone-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active', 'border-creamery-raspberry', 'bg-creamery-cream');
+                btn.classList.add('border-creamery-creambase', 'bg-white');
+            });
+            event.currentTarget.classList.add('active', 'border-creamery-raspberry', 'bg-creamery-cream');
+            event.currentTarget.classList.remove('border-creamery-creambase', 'bg-white');
+
+            // Update configuration state
+            customizerState.cone.name = coneName;
+            customizerState.cone.color = colorHex;
+            customizerState.cone.extraPrice = extraPrice;
+
+            // Render color directly onto cone path
+            document.getElementById('cone-path').setAttribute('fill', colorHex);
+            
+            calculateCustomizerPrice();
+        }
+
+        function setScoopFlavor(layerIndex, flavorName, colorHex) {
+            // Update button states for Layer 1 selector
+            if (layerIndex === 1) {
+                const buttons = document.querySelectorAll('.scoop-1-btn');
+                buttons.forEach(btn => {
+                    btn.classList.remove('active', 'border-creamery-raspberry', 'bg-creamery-cream');
+                    btn.classList.add('border-creamery-creambase', 'bg-white');
+                });
+                event.currentTarget.classList.add('active', 'border-creamery-raspberry', 'bg-creamery-cream');
+                event.currentTarget.classList.remove('border-creamery-creambase', 'bg-white');
+            }
+
+            // Set state flavor details
+            customizerState.flavors.layer1.name = flavorName;
+            customizerState.flavors.layer1.color = colorHex;
+
+            // Render live color onto scoop 1 element
+            document.getElementById('visual-scoop-1').style.backgroundColor = colorHex;
+
+            calculateCustomizerPrice();
+        }
+
+        function updateScoopLayer(layerIndex, selectedValue) {
+            const element = document.getElementById(`visual-scoop-${layerIndex}`);
+            
+            if (selectedValue === 'none') {
+                customizerState.flavors[`layer${layerIndex}`] = null;
+                element.classList.add('hidden');
+            } else {
+                let colorHex = '#fff';
+                switch (selectedValue) {
+                    case 'raspberry': colorHex = '#ff2d6c'; break;
+                    case 'matcha': colorHex = '#86efac'; break;
+                    case 'chocolate': colorHex = '#3a1e05'; break;
+                    case 'vanilla': colorHex = '#fef3c7'; break;
+                }
+                customizerState.flavors[`layer${layerIndex}`] = { name: selectedValue, color: colorHex };
+                element.style.backgroundColor = colorHex;
+                element.classList.remove('hidden');
+            }
+
+            calculateCustomizerPrice();
+        }
+
+        function toggleTopping(toppingName, cost) {
+            const btn = document.getElementById(`topping-${toppingName}-btn`);
+            const visualElement = document.getElementById(`visual-topping-${toppingName}`);
+            
+            // Toggle boolean selection state
+            customizerState.toppings[toppingName] = !customizerState.toppings[toppingName];
+
+            if (customizerState.toppings[toppingName]) {
+                btn.classList.add('border-creamery-raspberry', 'bg-creamery-cream');
+                btn.classList.remove('border-creamery-creambase', 'bg-white');
+                visualElement.classList.remove('hidden');
+            } else {
+                btn.classList.remove('border-creamery-raspberry', 'bg-creamery-cream');
+                btn.classList.add('border-creamery-creambase', 'bg-white');
+                visualElement.classList.add('hidden');
+            }
+
+            calculateCustomizerPrice();
+        }
+
+        function calculateCustomizerPrice() {
+            let total = PRICING.baseScoop;
+
+            // Add cone premium
+            total += customizerState.cone.extraPrice;
+
+            // Add extra layers
+            if (customizerState.flavors.layer2) total += PRICING.extraScoop;
+            if (customizerState.flavors.layer3) total += PRICING.extraScoop;
+
+            // Add toppings
+            Object.keys(customizerState.toppings).forEach(topping => {
+                if (customizerState.toppings[topping]) {
+                    total += PRICING.topping;
+                }
+            });
+
+            // Render live pricing updates
+            document.getElementById('custom-price-display').innerText = `$${total.toFixed(2)}`;
+            return total;
+        }
+
+        function resetCustomizer() {
+            // Reset to defaults
+            setCone('waffle', '#d97706', 0.00);
+            
+            // Set first scoop active back to raspberry
+            setScoopFlavor(1, 'raspberry', '#ff2d6c');
+
+            // Set drop-downs back to none
+            const selectors = [2, 3];
+            selectors.forEach(idx => {
+                updateScoopLayer(idx, 'none');
+            });
+
+            // Turn off toppings
+            const toppingsKeys = ['sprinkles', 'fudge', 'berries', 'gold'];
+            toppingsKeys.forEach(t => {
+                customizerState.toppings[t] = true; // Invert logic for standard toggle helper
+                toggleTopping(t, 0.50);
+            });
+        }
+
+
+        // ==================== ORDER / CART MANAGEMENT LOGIC ====================
+
+        function addCustomScoopToCart() {
+            const price = calculateCustomizerPrice();
+            
+            // Build descriptional item name based on stacked selections
+            let itemName = `Custom Scoop (${customizerState.cone.name.toUpperCase()} Cone`;
+            let layerCount = 1;
+            
+            if (customizerState.flavors.layer2) layerCount++;
+            if (customizerState.flavors.layer3) layerCount++;
+
+            itemName += `, ${layerCount}-Layers Stack`;
+
+            // List active toppings
+            let toppingsList = [];
+            Object.keys(customizerState.toppings).forEach(t => {
+                if (customizerState.toppings[t]) toppingsList.push(t);
+            });
+            
+            if (toppingsList.length > 0) {
+                itemName += ` + Topped with ${toppingsList.join(', ')}`;
+            }
+            itemName += ')';
+
+            // Insert custom scoop into cart
+            const item = {
+                id: 'custom-' + Date.now(),
+                name: itemName,
+                price: price,
+                quantity: 1,
+                isCustom: true
+            };
+
+            cart.push(item);
+            updateCartUI();
+            
+            // Prompt User Success Animation (Using inline custom visual prompt instead of alert)
+            triggerToastNotification('Custom gelato stack added directly to your tray! 🍦');
+            
+            // Auto open the tray so they can see their gorgeous masterpiece inside
+            setTimeout(() => {
+                toggleCartDrawer(true);
+            }, 800);
+        }
+
+        function addCatalogToCart(name, price) {
+            // Search if catalog item already exists inside the tray
+            const matchIndex = cart.findIndex(item => item.name === name);
+
+            if (matchIndex > -1) {
+                cart[matchIndex].quantity += 1;
+            } else {
+                cart.push({
+                    id: 'catalog-' + Date.now(),
+                    name: name,
+                    price: price,
+                    quantity: 1,
+                    isCustom: false
+                });
+            }
+
+            updateCartUI();
+            triggerToastNotification(`"${name}" added to your tray! ✨`);
+        }
+
+        function removeCartItem(itemId) {
+            cart = cart.filter(item => item.id !== itemId);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const badge = document.getElementById('cart-counter-badge');
+            const list = document.getElementById('cart-items-list');
+            const emptyState = document.getElementById('empty-cart-state');
+
+            // Count total units in the tray
+            let totalCount = 0;
+            let subtotal = 0;
+
+            cart.forEach(item => {
+                totalCount += item.quantity;
+                subtotal += (item.price * item.quantity);
+            });
+
+            // Update header badge
+            badge.innerText = totalCount;
+            badge.classList.remove('scale-100');
+            badge.classList.add('scale-125', 'bg-creamery-raspberry');
+            setTimeout(() => {
+                badge.classList.remove('scale-125', 'bg-creamery-raspberry');
+                badge.classList.add('scale-100');
+            }, 300);
+
+            // Process list HTML rendering
+            if (cart.length === 0) {
+                emptyState.classList.remove('hidden');
+                // Clean prior elements
+                const priorItems = list.querySelectorAll('.tray-item-rendered');
+                priorItems.forEach(el => el.remove());
+            } else {
+                emptyState.classList.add('hidden');
+                
+                // Clear old elements
+                const priorItems = list.querySelectorAll('.tray-item-rendered');
+                priorItems.forEach(el => el.remove());
+
+                // Build each tray item card
+                cart.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = "tray-item-rendered bg-white p-4 rounded-2xl border border-creamery-creambase flex justify-between items-start gap-4 shadow-sm hover:border-creamery-raspberry transition-all";
+                    card.innerHTML = `
+                        <div class="space-y-1">
+                            <h4 class="font-bold text-xs text-creamery-maroon leading-tight">${item.name}</h4>
+                            <p class="text-[10px] text-creamery-raspberry font-semibold">Price: $${item.price.toFixed(2)} each</p>
+                            <span class="inline-block text-[9px] px-2 py-0.5 bg-creamery-cream border border-creamery-creambase text-creamery-maroon rounded font-bold">Qty: ${item.quantity}</span>
+                        </div>
+                        <div class="flex flex-col items-end gap-3">
+                            <span class="text-xs font-bold text-creamery-maroon">$${(item.price * item.quantity).toFixed(2)}</span>
+                            <button onclick="removeCartItem('${item.id}')" class="text-creamery-raspberry hover:text-red-700 text-[10px] font-bold uppercase tracking-wider">Remove</button>
+                        </div>
+                    `;
+                    list.appendChild(card);
+                });
+            }
+
+            // Calculation Tallies
+            document.getElementById('cart-subtotal').innerText = `$${subtotal.toFixed(2)}`;
+            
+            let discount = 0;
+            if (appliedPromo) {
+                discount = subtotal * 0.15;
+                document.getElementById('discount-row').classList.remove('hidden');
+                document.getElementById('cart-discount').innerText = `-$${discount.toFixed(2)}`;
+            } else {
+                document.getElementById('discount-row').classList.add('hidden');
+            }
+
+            const total = subtotal - discount;
+            document.getElementById('cart-total').innerText = `$${total.toFixed(2)}`;
+        }
+
+        function toggleCartDrawer(show) {
+            const drawer = document.getElementById('cart-drawer');
+            if (show) {
+                drawer.classList.remove('translate-x-full');
+            } else {
+                drawer.classList.add('translate-x-full');
+            }
+        }
+
+        function applyPromoCode() {
+            const input = document.getElementById('promo-input');
+            const code = input.value.trim().toUpperCase();
+
+            if (code === 'SWEETDREAMS') {
+                appliedPromo = true;
+                updateCartUI();
+                triggerToastNotification('Succesfully applied promo SWEETDREAMS (15% discount)! 🎉');
+                document.getElementById('promo-btn-txt').innerText = "Code Applied!";
+                document.getElementById('promo-btn-txt').disabled = true;
+            } else {
+                triggerToastNotification('Apologies, that promo code appears invalid.');
+            }
+        }
+
+        function requestCheckout() {
+            if (cart.length === 0) {
+                triggerToastNotification('Please fill your customizer tray first before sending orders.');
+                return;
+            }
+
+            // Close tray panel
+            toggleCartDrawer(false);
+
+            // Generate mock tracking delivery transaction ID
+            const trackingId = '#CA-' + Math.floor(10000 + Math.random() * 90000);
+            document.getElementById('order-id-display').innerText = trackingId;
+
+            // Clear state cart details
+            cart = [];
+            appliedPromo = false;
+            document.getElementById('promo-input').value = "";
+            document.getElementById('promo-btn-txt').innerText = "Apply Code";
+            document.getElementById('promo-btn-txt').disabled = false;
+            updateCartUI();
+
+            // Trigger order receipt popup modal
+            document.getElementById('checkout-modal').classList.remove('hidden');
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkout-modal').classList.add('hidden');
+        }
+
+
+        // ==================== INTERACTIVE LIVE CHAT SYSTEM ====================
+        
+        function toggleChat(forceShow) {
+            const chatWin = document.getElementById('chat-window');
+            if (forceShow === null) {
+                chatWin.classList.toggle('hidden');
+            } else if (forceShow) {
+                chatWin.classList.remove('hidden');
+            } else {
+                chatWin.classList.add('hidden');
+            }
+        }
+
+        function sendQuickMessage(text) {
+            const input = document.getElementById('chat-user-input');
+            input.value = text;
+            sendUserMessage();
+        }
+
+        function sendUserMessage() {
+            const input = document.getElementById('chat-user-input');
+            const messageText = input.value.trim();
+            if (!messageText) return;
+
+            // Render User Bubble
+            appendChatMessage('You', messageText, 'text-creamery-maroon/60 bg-creamery-creambase/50');
+            input.value = "";
+
+            // Simple responsive bot logic responses
+            setTimeout(() => {
+                let reply = "I love exploring ice cream questions! For instant artisan cones, try using our Custom Gelato Builder above! 🍦";
+                const query = messageText.toLowerCase();
+
+                if (query.includes('vegan') || query.includes('organic')) {
+                    reply = "Our Ruby Raspberry Gelato and Wild Berries toppings are completely dairy-free & vegan-friendly! We prepare them in an isolated clean space for pristine diet conditions. 🌱";
+                } else if (query.includes('cater') || query.includes('event')) {
+                    reply = "Absolutely! We cater private corporate parties, elegant weddings, and birthdays with our mobile ice cream roll-carts. Open the inquiry reservation form on our site to book us immediately! ✨";
+                } else if (query.includes('midnight') || query.includes('delivery')) {
+                    reply = "Our customizer midnight delivery is live daily! We dispatch all orders within 25-35 minutes using insulated dry-ice packaging to keep your scoops perfectly chilled! 🛵";
+                } else if (query.includes('calorie') || query.includes('healthy')) {
+                    reply = "Artisan slow-churning yields incredible density, meaning fewer sugars and fats are needed to carry flavor than normal store-bought ice creams. Enjoy clean, wholesome premium dairy goodness!";
+                }
+
+                appendChatMessage('Gelato Bot', reply, 'text-creamery-maroon bg-white');
+            }, 750);
+        }
+
+        function appendChatMessage(sender, text, classes) {
+            const stream = document.getElementById('chat-messages');
+            const bubble = document.createElement('div');
+            bubble.className = "space-y-1";
+            bubble.innerHTML = `
+                <span class="text-[9px] font-bold uppercase block">${sender}</span>
+                <div class="p-3 rounded-2xl border border-creamery-creambase max-w-[85%] leading-relaxed ${classes}">
+                    ${text}
+                </div>
+            `;
+            stream.appendChild(bubble);
+            // Auto scroll downwards
+            stream.scrollTop = stream.scrollHeight;
+        }
+
+
+        // ==================== DESIGN TOAST ALERT NOTIFICATIONS ====================
+        
+        function triggerToastNotification(msgText) {
+            // Create a styled alert banner
+            const toast = document.createElement('div');
+            toast.className = "fixed bottom-8 left-1/2 -translate-x-1/2 z-50 bg-creamery-maroon text-white text-xs font-bold py-3 px-6 rounded-full border border-creamery-cyan shadow-2xl glow-cyan flex items-center gap-2 animate-bounce";
+            toast.innerHTML = `<span>🍦</span> <span>${msgText}</span>`;
+            
+            document.body.appendChild(toast);
+            
+            // Dissolve Toast
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+                setTimeout(() => toast.remove(), 500);
+            }, 3000);
+        }
+
+
+        // ==================== MENU CATALOG FILTERS ====================
+        
+        function filterMenu(filterValue, tabButton) {
+            // Toggle active styling on tabs
+            const tabs = document.querySelectorAll('.menu-tab-btn');
+            tabs.forEach(tab => {
+                tab.className = "menu-tab-btn bg-white text-creamery-maroon hover:bg-creamery-creambase font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full transition-all border border-creamery-creambase";
+            });
+
+            tabButton.className = "menu-tab-btn active bg-creamery-maroon text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full transition-all border border-creamery-maroon";
+
+            // Filter item cards
+            const cards = document.querySelectorAll('.menu-item-card');
+            cards.forEach(card => {
+                if (filterValue === 'all') {
+                    card.classList.remove('hidden');
+                } else {
+                    if (card.classList.contains(filterValue)) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                }
+            });
+        }
+
+
+        // ==================== BOOKING MODAL FOR CATERING ====================
+        
+        function openBookingModal() {
+            toggleBookingModal(true);
+        }
+
+        function toggleBookingModal(show) {
+            const modal = document.getElementById('booking-modal');
+            if (show) {
+                modal.classList.remove('hidden');
+            } else {
+                modal.classList.add('hidden');
+            }
+        }
+
+        function submitCateringForm(e) {
+            e.preventDefault();
+            toggleBookingModal(false);
+            triggerToastNotification('Catering inquiry logged successfully! A chef representative will contact you in under 2 hours. 🎩');
+        }
+
+        // ==================== NEWSLETTER VIP JOIN ====================
+        function subscribeNewsletter() {
+            const emailInput = document.getElementById('newsletter-email');
+            const feedbackMsg = document.getElementById('newsletter-msg');
+            const emailVal = emailInput.value.trim();
+
+            if (!emailVal || !emailVal.includes('@')) {
+                feedbackMsg.innerText = "Please provide a valid culinary mail-address.";
+                feedbackMsg.classList.remove('hidden');
+                feedbackMsg.classList.add('text-creamery-raspberry');
+                return;
+            }
+
+            emailInput.value = "";
+            feedbackMsg.innerText = "✨ Welcome to the Connoisseur Circle! Check your inbox for secret promotions.";
+            feedbackMsg.classList.remove('hidden');
+            feedbackMsg.classList.remove('text-creamery-raspberry');
+            feedbackMsg.classList.add('text-creamery-cyan');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dobrik Museum — Renaissance Art Experience</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts for Perfect Editorial Typography Matching -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['Cinzel', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['Space Grotesk', 'monospace'],
+          },
+          colors: {
+            museum: {
+              bg: '#f3f3f3', // Perfect light grey matching the canvas backdrop
+              dark: '#111111',
+              coral: '#f05a5a', // Coral pink matching the triangle behind the sculpture
+              purple: '#6713ef', // Deep indigo purple matching the main action button
+              magenta: '#e03ae0', 
+              blue: '#00c2ff', // Light cyan blue circle matching the visual layout
+              muted: '#555555',
+              card: '#ffffff'
+            }
+          },
+          animation: {
+            'spin-slow': 'spin 30s linear infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'float-delayed': 'float 6s ease-in-out infinite 3s',
+            'pulse-soft': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-12px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom premium scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f3f3f3;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #111111;
+      border-radius: 0px;
+    }
+
+    /* Perfect dot grid pattern matching bottom left */
+    .memphis-dot-grid {
+      background-image: radial-gradient(#999999 1.5px, transparent 1.5px);
+      background-size: 10px 10px;
+    }
+    
+    .vertical-text {
+      writing-mode: vertical-lr;
+      text-orientation: mixed;
+    }
+    
+    /* Elegant outline triangle shape with SVG path */
+    .triangle-clip {
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    }
+  </style>
+</head>
+<body class="bg-museum-bg text-museum-dark font-sans overflow-x-hidden antialiased">
+
+  <!-- ================= EDITORIAL TOP NAVBAR ================= -->
+  <header class="fixed top-0 left-0 w-full z-50 bg-museum-bg/90 backdrop-blur-md transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-8 md:px-12 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-10">
+        <span class="font-sans font-extrabold text-[15px] tracking-[0.2em] uppercase text-museum-dark">DOBRIK MUSEUM</span>
+        <!-- Minimal horizontal layout navigation list -->
+        <nav class="hidden md:flex items-center gap-8 text-[13px] font-sans font-medium text-museum-muted">
+          <a href="#hero" class="hover:text-museum-dark transition-colors duration-200">Home</a>
+          <a href="#about" class="hover:text-museum-dark transition-colors duration-200">About</a>
+          <a href="#gallery" class="hover:text-museum-dark transition-colors duration-200">Gallery</a>
+          <a href="#ai-workshop" class="hover:text-museum-dark transition-colors duration-200">AI Workshop</a>
+        </nav>
+      </a>
+
+      <!-- Minimal Burger Menu Accent (matching top right of image) -->
+      <div class="flex items-center gap-3">
+        <button id="menu-btn" class="flex flex-col gap-1.5 p-2 group" aria-label="Toggle Navigation Menu">
+          <span class="w-6 h-[2px] bg-museum-dark group-hover:bg-museum-coral transition-colors"></span>
+          <span class="w-6 h-[2px] bg-museum-dark group-hover:bg-museum-coral transition-colors"></span>
+          <span class="w-4 h-[2px] bg-museum-dark group-hover:bg-museum-coral align-self-end transition-all"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Fullscreen Navigation Overlay -->
+  <div id="mobile-menu" class="fixed inset-0 bg-museum-dark text-white z-50 translate-x-full transition-transform duration-500 ease-in-out flex flex-col justify-between p-12">
+    <div class="flex justify-between items-center">
+      <span class="font-sans font-extrabold tracking-widest text-lg uppercase text-museum-bg">DOBRIK MUSEUM</span>
+      <button id="close-menu-btn" class="p-2 hover:bg-neutral-800 rounded-full transition-all">
+        <i data-lucide="x" class="w-8 h-8 text-white"></i>
+      </button>
+    </div>
+    
+    <nav class="flex flex-col gap-6 text-4xl font-sans tracking-wide py-10 font-bold">
+      <a href="#hero" class="mobile-link hover:text-museum-coral transition-colors">01. Home</a>
+      <a href="#about" class="mobile-link hover:text-museum-coral transition-colors">02. Creative Concept</a>
+      <a href="#gallery" class="mobile-link hover:text-museum-coral transition-colors">03. Curated Gallery</a>
+      <a href="#ai-workshop" class="mobile-link hover:text-museum-coral transition-colors">04. AI Art Curator</a>
+    </nav>
+
+    <div class="border-t border-neutral-800 pt-6 flex flex-col gap-2 font-mono text-xs text-neutral-400">
+      <p>Dobrik Art Gallery & Modern Antiques</p>
+      <p>Open daily for fine experiences.</p>
+    </div>
+  </div>
+
+
+  <!-- ================= HERO SECTION (PRECISE VISUAL RECREATION) ================= -->
+  <section id="hero" class="relative min-h-screen pt-20 pb-16 flex items-center justify-center overflow-hidden">
+    
+    <!-- LEFT EDGE ACCENTS -->
+    <!-- Large Coral Red Outline Circle clipped on left boundary -->
+    <div class="absolute -left-16 top-[20%] w-32 h-32 rounded-full border-[5px] border-museum-coral/70 pointer-events-none hidden lg:block"></div>
+    
+    <!-- RIGHT EDGE ACCENTS -->
+    <!-- Solid Cyan Rectangle Tab aligned with the right boundary -->
+    <div class="absolute right-0 top-[22%] w-4 h-24 bg-museum-blue pointer-events-none hidden lg:block"></div>
+
+    <!-- MAIN HERO CONTENT CONTAINER -->
+    <div class="max-w-7xl mx-auto px-8 md:px-12 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-20">
+      
+      <!-- LEFT COLUMN: Bullet Indicators + Editorial Copy -->
+      <div class="lg:col-span-6 flex flex-row items-start gap-12">
+        
+        <!-- Vertical Bullet Navigation (Leftmost Margin) -->
+        <div class="hidden md:flex flex-col items-center gap-4 pt-4 shrink-0">
+          <!-- Top Orange Dot with outer border circle -->
+          <div class="relative flex items-center justify-center">
+            <span class="w-1.5 h-1.5 rounded-full bg-museum-coral z-10"></span>
+            <span class="absolute w-4 h-4 rounded-full border border-museum-coral/50 animate-ping"></span>
+          </div>
+          <!-- Tiny black tracking dots -->
+          <span class="w-1.5 h-1.5 rounded-full bg-museum-dark opacity-90"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-museum-dark opacity-90"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-museum-dark opacity-90"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-museum-dark opacity-90"></span>
+          <!-- Thin vertical black rule -->
+          <div class="w-[1.5px] h-12 bg-museum-dark"></div>
+        </div>
+
+        <!-- Main Heading content & buttons -->
+        <div class="flex-1 space-y-8">
+          <div class="space-y-6">
+            <h1 class="text-[52px] md:text-[76px] font-extrabold font-sans tracking-tight text-museum-dark leading-[0.9] uppercase">
+              RENAISSANCE <br>
+              <span class="font-normal font-sans tracking-wide">ART MUSEUM</span>
+            </h1>
+            <p class="text-museum-muted font-sans text-base leading-relaxed max-w-sm font-medium">
+              The Renaissance was the Golden Age of art. Explore the pieces that made it so.
+            </p>
+          </div>
+
+          <!-- Rounded Pill Button -->
+          <div class="pt-2 flex items-center gap-6">
+            <a href="#gallery" class="bg-museum-purple hover:bg-museum-dark text-white px-10 py-4 rounded-full text-[14px] font-bold tracking-wider transition-all duration-300 shadow-md">
+              Learn More
+            </a>
+            
+            <!-- Outlined Magenta Triangle shape adjacent to button -->
+            <div class="animate-float">
+              <svg class="w-8 h-8 text-museum-magenta stroke-[2.5] fill-none" viewBox="0 0 24 24">
+                <polygon points="12,4 2,20 22,20" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Bottom-left decoration components -->
+          <div class="pt-16 flex items-end gap-10">
+            <!-- Blue dot indicator -->
+            <div class="w-7 h-7 rounded-full bg-museum-blue animate-pulse-soft"></div>
+            <!-- Dotted matrix overlay -->
+            <div class="w-24 h-16 memphis-dot-grid opacity-60"></div>
+          </div>
+
+          <!-- Interactive Stat Indicator (ZEUS) -->
+          <div class="pt-4 flex items-center gap-4">
+            <span id="hero-label" class="font-sans text-xs tracking-[0.25em] font-extrabold uppercase text-museum-dark">ZEUS</span>
+            <div class="w-24 h-[1.5px] bg-museum-dark"></div>
+            <span id="hero-index" class="font-mono text-xs text-neutral-400">01 / 03</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN: Elegant Classical Head Sculptures on Triangle Backdrop -->
+      <div class="lg:col-span-6 relative flex items-center justify-center min-h-[500px]">
+        
+        <!-- Memphis Bold Floating black Cross (X) above the sculpture -->
+        <div class="absolute top-[8%] left-[22%] z-30 transform hover:scale-110 transition-transform">
+          <i data-lucide="x" class="w-10 h-10 stroke-[3.5] text-museum-dark"></i>
+        </div>
+
+        <!-- The Solid Bright Coral/Pink Triangle Backdrop (Precisely matches image size) -->
+        <div id="backdrop-triangle" class="absolute w-[85%] max-w-[440px] aspect-[1/1] bg-museum-coral transition-all duration-700 ease-out z-0 triangle-clip"></div>
+
+        <!-- The Main Bust Display (Greyscale image aligned beautifully) -->
+        <div class="relative z-10 w-[300px] md:w-[380px] aspect-[4/5] flex items-center justify-center transition-all duration-500 ease-in-out" id="sculpture-container">
+          <!-- Image Layer: Cutout transparent or white backdropped classic bust, set to grayscale -->
+          <img id="main-sculpture-img" 
+               src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=600&auto=format&fit=crop" 
+               alt="Zeus Sculpture Bust" 
+               class="w-full h-full object-contain filter grayscale select-none pointer-events-none transition-all duration-700 ease-in-out transform">
+        </div>
+
+        <!-- Black Bold Ring Circle overlapping bottom right edge of bust -->
+        <div class="absolute bottom-[10%] right-[12%] w-24 h-24 rounded-full border-[12px] border-museum-dark opacity-90 pointer-events-none z-20"></div>
+
+        <!-- Bottom Center 'Scroll Down' vertical line element -->
+        <div class="absolute bottom-[-10%] left-[-10%] lg:left-[5%] flex flex-col items-center gap-3 select-none pointer-events-none">
+          <span class="font-sans text-[10px] tracking-[0.4em] uppercase vertical-text text-museum-dark font-bold leading-none">SCROLL DOWN</span>
+        </div>
+
+        <!-- Bottom right geometric bar accent (several black, one red) -->
+        <div class="absolute bottom-[2%] right-[5%] flex items-end gap-1.5 pointer-events-none">
+          <span class="w-[2px] h-10 bg-museum-dark"></span>
+          <span class="w-[2px] h-10 bg-museum-dark"></span>
+          <span class="w-[2px] h-10 bg-museum-dark"></span>
+          <span class="w-[2px] h-10 bg-museum-coral"></span>
+          <span class="w-[2px] h-10 bg-museum-dark"></span>
+        </div>
+
+        <!-- Action Button Panel to change Hero exhibit elements -->
+        <div class="absolute right-[-2%] bottom-[-10%] flex items-center gap-2 z-30">
+          <button onclick="swapSculpture(-1)" class="w-11 h-11 rounded-full bg-white border border-neutral-300 flex items-center justify-center hover:bg-museum-dark hover:text-white hover:border-museum-dark transition-all duration-300" aria-label="Previous">
+            <i data-lucide="chevron-left" class="w-5 h-5"></i>
+          </button>
+          <button onclick="swapSculpture(1)" class="w-11 h-11 rounded-full bg-white border border-neutral-300 flex items-center justify-center hover:bg-museum-dark hover:text-white hover:border-museum-dark transition-all duration-300" aria-label="Next">
+            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================= SECTION: ABOUT CONCEPT ================= -->
+  <section id="about" class="py-28 bg-[#ebebeb] relative overflow-hidden border-t border-b border-neutral-300/40">
+    <div class="max-w-7xl mx-auto px-8 md:px-12 relative z-10">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end mb-20">
+        <div class="lg:col-span-8 space-y-4">
+          <span class="font-sans text-xs tracking-[0.3em] text-museum-purple uppercase block font-extrabold">// CONCEPT ARCHITECTURE</span>
+          <h2 class="text-4xl md:text-[54px] font-sans font-extrabold text-museum-dark uppercase tracking-tight leading-[1.0]">
+            WHERE STONE MEETS GEOMETRY
+          </h2>
+          <p class="text-museum-muted max-w-xl text-base leading-relaxed font-sans font-medium">
+            Just as the classic Renaissance redefined Hellenistic antiquity, we bridge physical stone sculpture work with modern digital Memphis patterns. Every statue is a living playground of contrast.
+          </p>
+        </div>
+        
+        <div class="lg:col-span-4 flex justify-start lg:justify-end">
+          <div class="border border-neutral-300 bg-white/50 px-6 py-4 rounded-xl flex items-center gap-4 backdrop-blur-sm">
+            <div class="w-2.5 h-2.5 rounded-full bg-museum-coral animate-ping"></div>
+            <span class="font-mono text-xs uppercase tracking-wider font-semibold text-museum-dark">Exhibition active online</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Graphic Memphis conceptual pillars -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Card 1 -->
+        <div class="bg-museum-bg p-8 border border-neutral-300/80 flex flex-col justify-between hover:shadow-xl hover:border-museum-coral transition-all duration-300 group">
+          <div class="space-y-6">
+            <div class="w-12 h-12 bg-museum-coral/10 flex items-center justify-center text-museum-coral rounded-lg">
+              <i data-lucide="circle-dot" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-sans font-extrabold text-museum-dark uppercase tracking-tight group-hover:text-museum-coral transition-colors">Memphis Accents</h3>
+            <p class="text-museum-muted text-sm leading-relaxed font-medium">
+              We overlay primary visual markers like outline triangles, floating rings, and dotted grids to break classic dimensions.
+            </p>
+          </div>
+          <div class="mt-8 pt-6 border-t border-neutral-300 flex items-center justify-between font-mono text-xs uppercase tracking-wider font-bold text-neutral-400">
+            <span>Core Detail</span>
+            <span class="text-museum-coral">01 / Shape</span>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-museum-bg p-8 border border-neutral-300/80 flex flex-col justify-between hover:shadow-xl hover:border-museum-purple transition-all duration-300 group">
+          <div class="space-y-6">
+            <div class="w-12 h-12 bg-museum-purple/10 flex items-center justify-center text-museum-purple rounded-lg">
+              <i data-lucide="sun" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-sans font-extrabold text-museum-dark uppercase tracking-tight group-hover:text-museum-purple transition-colors">High Contrast Contrast</h3>
+            <p class="text-museum-muted text-sm leading-relaxed font-medium">
+              Isolating classical white marble into stark black-and-white forms generates theatrical depth and pristine contours.
+            </p>
+          </div>
+          <div class="mt-8 pt-6 border-t border-neutral-300 flex items-center justify-between font-mono text-xs uppercase tracking-wider font-bold text-neutral-400">
+            <span>Visual Code</span>
+            <span class="text-museum-purple">02 / Tone</span>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-museum-bg p-8 border border-neutral-300/80 flex flex-col justify-between hover:shadow-xl hover:border-museum-blue transition-all duration-300 group">
+          <div class="space-y-6">
+            <div class="w-12 h-12 bg-museum-blue/10 flex items-center justify-center text-museum-blue rounded-lg">
+              <i data-lucide="maximize-2" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-sans font-extrabold text-museum-dark uppercase tracking-tight group-hover:text-museum-blue transition-colors">Spatial Precision</h3>
+            <p class="text-museum-muted text-sm leading-relaxed font-medium">
+              We honor minimal spacing, allowing each ancient statue to breathe as a singular masterpiece inside your layout.
+            </p>
+          </div>
+          <div class="mt-8 pt-6 border-t border-neutral-300 flex items-center justify-between font-mono text-xs uppercase tracking-wider font-bold text-neutral-400">
+            <span>Layout Philosophy</span>
+            <span class="text-museum-blue">03 / Space</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================= SECTION: INTERACTIVE SCULPTURE COLORIZER ================= -->
+  <section id="interactive-sculpture" class="py-28 bg-museum-dark text-white relative overflow-hidden">
+    
+    <!-- Neon Accent circles in background -->
+    <div class="absolute -right-24 top-1/4 w-96 h-96 rounded-full border-[1.5px] border-museum-purple/30 pointer-events-none"></div>
+    <div class="absolute left-12 bottom-12 text-9xl font-mono text-white/[0.03] font-black select-none pointer-events-none">RENAISSANCE</div>
+
+    <div class="max-w-7xl mx-auto px-8 md:px-12 relative z-10">
+      
+      <div class="text-center max-w-2xl mx-auto mb-20 space-y-4">
+        <span class="font-sans text-xs tracking-[0.3em] text-museum-coral uppercase block font-extrabold">// LIVING ART</span>
+        <h2 class="text-4xl md:text-5xl font-sans font-extrabold uppercase">Neo-Classical Colorizer</h2>
+        <p class="text-neutral-400 text-sm leading-relaxed font-sans font-medium">
+          Manipulate primary colors, geometric filters, and custom backdrops to observe how modern design aesthetics completely transform classic historical art.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Controls Panel (Left Column) -->
+        <div class="lg:col-span-5 space-y-8 bg-neutral-900/60 p-8 rounded-3xl border border-neutral-800 backdrop-blur-md">
+          
+          <!-- Sculpture Selector -->
+          <div class="space-y-3">
+            <h3 class="text-xs font-sans tracking-widest font-extrabold uppercase text-neutral-400">1. Select Sculpture</h3>
+            <div class="grid grid-cols-3 gap-3">
+              <button onclick="setCustomizerSculpture('apollo')" class="sculpture-btn border border-museum-coral bg-museum-coral/15 text-white font-mono text-xs py-3.5 rounded-xl transition-all">
+                APOLLO
+              </button>
+              <button onclick="setCustomizerSculpture('venus')" class="sculpture-btn border border-neutral-800 text-neutral-400 font-mono text-xs py-3.5 rounded-xl transition-all hover:border-neutral-700 hover:text-white">
+                VENUS
+              </button>
+              <button onclick="setCustomizerSculpture('marcus')" class="sculpture-btn border border-neutral-800 text-neutral-400 font-mono text-xs py-3.5 rounded-xl transition-all hover:border-neutral-700 hover:text-white">
+                AURELIUS
+              </button>
+            </div>
+          </div>
+
+          <!-- Color overlay select -->
+          <div class="space-y-3">
+            <h3 class="text-xs font-sans tracking-widest font-extrabold uppercase text-neutral-400">2. Select Color Overlay</h3>
+            <div class="flex items-center gap-3">
+              <button onclick="setCustomizerLens('none')" class="w-10 h-10 rounded-full border border-neutral-600 bg-transparent flex items-center justify-center font-mono text-[9px] hover:border-white transition-all text-neutral-300" title="Grayscale Only">None</button>
+              <button onclick="setCustomizerLens('pink')" class="w-10 h-10 rounded-full bg-museum-coral border-2 border-transparent hover:border-white transition-all shadow-md" title="Coral lens"></button>
+              <button onclick="setCustomizerLens('purple')" class="w-10 h-10 rounded-full bg-museum-purple border-2 border-transparent hover:border-white transition-all shadow-md" title="Indigo lens"></button>
+              <button onclick="setCustomizerLens('blue')" class="w-10 h-10 rounded-full bg-museum-blue border-2 border-transparent hover:border-white transition-all shadow-md" title="Cyan lens"></button>
+            </div>
+          </div>
+
+          <!-- Geometric backdrop trigger -->
+          <div class="space-y-3">
+            <h3 class="text-xs font-sans tracking-widest font-extrabold uppercase text-neutral-400">3. Shape Backdrop</h3>
+            <div class="grid grid-cols-3 gap-3">
+              <button onclick="setCustomizerBackdrop('triangle')" class="border border-neutral-800 py-3 rounded-xl text-xs font-mono uppercase bg-neutral-900/40 hover:text-museum-coral transition-colors">Triangle</button>
+              <button onclick="setCustomizerBackdrop('circle')" class="border border-neutral-800 py-3 rounded-xl text-xs font-mono uppercase bg-neutral-900/40 hover:text-museum-purple transition-colors">Circle</button>
+              <button onclick="setCustomizerBackdrop('square')" class="border border-neutral-800 py-3 rounded-xl text-xs font-mono uppercase bg-neutral-900/40 hover:text-museum-blue transition-colors">Square</button>
+            </div>
+          </div>
+
+          <!-- Perspectives Critique Box -->
+          <div class="pt-6 border-t border-neutral-800">
+            <div class="bg-black/40 p-5 rounded-2xl border border-neutral-800/80">
+              <p class="text-[10px] font-sans font-bold tracking-widest text-museum-coral uppercase mb-1">Curator Perspective</p>
+              <p id="curator-insight" class="text-sm italic text-neutral-300 leading-relaxed font-medium">
+                "The classic marble composition of Apollo responds vibrantly when paired with hot coral tones. It evokes the warmth of Hellenistic sunlights."
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Render Canvas (Right Column) -->
+        <div class="lg:col-span-7 flex flex-col items-center justify-center">
+          <div class="relative w-full max-w-lg aspect-square bg-gradient-to-tr from-neutral-950 to-neutral-900 rounded-3xl overflow-hidden border border-neutral-800/80 flex items-center justify-center p-8 shadow-2xl">
+            
+            <!-- Memphis Dot grid accent -->
+            <div class="absolute inset-0 memphis-dot-grid opacity-[0.07] pointer-events-none"></div>
+
+            <!-- Backdrop Shape matching choice -->
+            <div id="canvas-shape" class="absolute w-[65%] aspect-square bg-museum-coral/20 transform transition-all duration-700 ease-in-out z-0" style="clip-path: polygon(50% 0%, 0% 100%, 100% 100%);"></div>
+
+            <!-- Classical image layer with custom CSS filters -->
+            <div class="relative z-10 w-[60%] h-[80%] flex items-center justify-center">
+              <img id="customizer-img" 
+                   src="https://images.unsplash.com/photo-1605721911519-3dfeb3be25e7?q=80&w=600&auto=format&fit=crop" 
+                   alt="Customizer Sculpture" 
+                   class="max-w-full max-h-full object-contain filter grayscale transition-all duration-500 ease-in-out">
+              
+              <!-- Transparent Blend Layer overlay -->
+              <div id="lens-overlay" class="absolute inset-0 mix-blend-color opacity-0 transition-opacity duration-300 pointer-events-none"></div>
+            </div>
+
+            <!-- Elegant metadata notes inside frame boundary -->
+            <div class="absolute top-6 left-6 font-mono text-[10px] text-neutral-500 flex items-center gap-2 tracking-widest">
+              <span class="w-1.5 h-1.5 rounded-full bg-museum-coral"></span>
+              <span>RENDER_ENGINE: ACTIVE</span>
+            </div>
+            <div class="absolute bottom-6 right-6 font-mono text-[9px] text-neutral-500 tracking-wider">
+              COORDS: 43.7696° N, 11.2558° E
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================= SECTION: CURATED GALLERY EXHIBITS ================= -->
+  <section id="gallery" class="py-28 bg-museum-bg relative overflow-hidden">
+    
+    <div class="max-w-7xl mx-auto px-8 md:px-12">
+      
+      <!-- Section Header with minimal styling -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+        <div class="space-y-4">
+          <span class="font-sans text-xs tracking-[0.3em] text-museum-purple uppercase block font-extrabold">// ARCHIVE</span>
+          <h2 class="text-4xl md:text-5xl font-sans font-extrabold text-museum-dark uppercase tracking-tight">CURATED EXHIBITS</h2>
+        </div>
+        
+        <!-- Interactive Category Switcher Tabs -->
+        <div class="flex flex-wrap gap-2">
+          <button onclick="filterGallery('all')" class="gallery-tab-btn active bg-museum-dark text-white px-6 py-2.5 rounded-full font-sans text-xs uppercase tracking-wider font-semibold transition-all">
+            ALL EXHBITIONS
+          </button>
+          <button onclick="filterGallery('sculpture')" class="gallery-tab-btn border border-neutral-300 text-neutral-600 hover:border-museum-dark hover:text-museum-dark px-6 py-2.5 rounded-full font-sans text-xs uppercase tracking-wider font-semibold transition-all">
+            SCULPTURES
+          </button>
+          <button onclick="filterGallery('renaissance')" class="gallery-tab-btn border border-neutral-300 text-neutral-600 hover:border-museum-dark hover:text-museum-dark px-6 py-2.5 rounded-full font-sans text-xs uppercase tracking-wider font-semibold transition-all">
+            CANVAS OIL
+          </button>
+        </div>
+      </div>
+
+      <!-- Gallery Grid containing high-contrast minimal cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="gallery-grid">
+        
+        <!-- Card 1 -->
+        <div class="gallery-item bg-white border border-neutral-200 rounded-3xl overflow-hidden group hover:shadow-xl transition-all duration-500" data-category="sculpture">
+          <div class="relative h-[340px] overflow-hidden bg-neutral-100 flex items-center justify-center">
+            <div class="absolute top-4 right-4 bg-museum-coral text-white font-sans text-[9px] tracking-widest px-3 py-1 uppercase rounded-full z-10 font-bold">
+              Masterpiece
+            </div>
+            <img src="https://images.unsplash.com/photo-1549887534-1541e9326642?q=80&w=600&auto=format&fit=crop" 
+                 alt="The Winged Victory" 
+                 class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out">
+          </div>
+          <div class="p-8 space-y-4">
+            <div class="flex items-center justify-between font-mono text-[11px] text-neutral-400 font-bold">
+              <span>Circa 190 BC</span>
+              <span class="text-museum-coral">Room 4, Hellenistic Wing</span>
+            </div>
+            <h3 class="text-2xl font-sans font-extrabold text-museum-dark uppercase tracking-tight group-hover:text-museum-coral transition-colors">
+              The Winged Victory
+            </h3>
+            <p class="text-neutral-600 text-sm leading-relaxed font-sans font-medium">
+              An elegant tribute to theatrical dynamic form, carved in fine Parian marble representing the Greek goddess Nike.
+            </p>
+            <div class="pt-4 border-t border-neutral-100">
+              <button onclick="openGalleryModal('The Winged Victory', 'An elegant tribute to theatrical dynamic form, carved in fine Parian marble representing the Greek goddess Nike. Originally discovered on the island of Samothrace.', 'https://images.unsplash.com/photo-1549887534-1541e9326642?q=80&w=600&auto=format&fit=crop')" class="text-[11px] uppercase font-sans tracking-widest font-extrabold text-museum-dark hover:text-museum-purple transition-colors inline-flex items-center gap-2">
+                <span>EXAMINE MASTERPIECE</span>
+                <i data-lucide="zoom-in" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="gallery-item bg-white border border-neutral-200 rounded-3xl overflow-hidden group hover:shadow-xl transition-all duration-500" data-category="sculpture">
+          <div class="relative h-[340px] overflow-hidden bg-neutral-100 flex items-center justify-center">
+            <div class="absolute top-4 right-4 bg-museum-blue text-white font-sans text-[9px] tracking-widest px-3 py-1 uppercase rounded-full z-10 font-bold">
+              Most Popular
+            </div>
+            <img src="https://images.unsplash.com/photo-1605721911519-3dfeb3be25e7?q=80&w=600&auto=format&fit=crop" 
+                 alt="The David Silhouette" 
+                 class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out">
+          </div>
+          <div class="p-8 space-y-4">
+            <div class="flex items-center justify-between font-mono text-[11px] text-neutral-400 font-bold">
+              <span>Circa 1504 AD</span>
+              <span class="text-museum-blue">Room 1, Tribune Hall</span>
+            </div>
+            <h3 class="text-2xl font-sans font-extrabold text-museum-dark uppercase tracking-tight group-hover:text-museum-purple transition-colors">
+              The David Silhouette
+            </h3>
+            <p class="text-neutral-600 text-sm leading-relaxed font-sans font-medium">
+              Michelangelo’s crowning sculpture achievement, symbolizing strength, civic liberty, and perfect anatomy.
+            </p>
+            <div class="pt-4 border-t border-neutral-100">
+              <button onclick="openGalleryModal('The David Silhouette', 'Michelangelo’s crowning sculpture achievement, symbolizing strength, civic liberty, and perfect anatomy. Carved entirely from a single discarded block of marble.', 'https://images.unsplash.com/photo-1605721911519-3dfeb3be25e7?q=80&w=600&auto=format&fit=crop')" class="text-[11px] uppercase font-sans tracking-widest font-extrabold text-museum-dark hover:text-museum-purple transition-colors inline-flex items-center gap-2">
+                <span>EXAMINE MASTERPIECE</span>
+                <i data-lucide="zoom-in" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="gallery-item bg-white border border-neutral-200 rounded-3xl overflow-hidden group hover:shadow-xl transition-all duration-500" data-category="renaissance">
+          <div class="relative h-[340px] overflow-hidden bg-neutral-100 flex items-center justify-center">
+            <div class="absolute top-4 right-4 bg-museum-purple text-white font-sans text-[9px] tracking-widest px-3 py-1 uppercase rounded-full z-10 font-bold">
+              Renaissance Oil
+            </div>
+            <img src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=600&auto=format&fit=crop" 
+                 alt="Portrait Study" 
+                 class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out">
+          </div>
+          <div class="p-8 space-y-4">
+            <div class="flex items-center justify-between font-mono text-[11px] text-neutral-400 font-bold">
+              <span>Circa 1503 AD</span>
+              <span class="text-museum-purple">Room 9, Grand Gallery</span>
+            </div>
+            <h3 class="text-2xl font-sans font-extrabold text-museum-dark uppercase tracking-tight group-hover:text-museum-purple transition-colors">
+              Mona Lisa Portrait
+            </h3>
+            <p class="text-neutral-600 text-sm leading-relaxed font-sans font-medium">
+              A masterful study of sfumato lighting, giving the enigmatic smile a deep, lifelike, atmospheric presence.
+            </p>
+            <div class="pt-4 border-t border-neutral-100">
+              <button onclick="openGalleryModal('Mona Lisa Portrait', 'A masterful study of sfumato lighting, giving the enigmatic smile a deep, lifelike, atmospheric presence. Painted by Leonardo da Vinci in Florence.', 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=600&auto=format&fit=crop')" class="text-[11px] uppercase font-sans tracking-widest font-extrabold text-museum-dark hover:text-museum-purple transition-colors inline-flex items-center gap-2">
+                <span>EXAMINE MASTERPIECE</span>
+                <i data-lucide="zoom-in" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================= SECTION: GEMINI AI ART CURATOR ================= -->
+  <section id="ai-workshop" class="py-28 bg-[#ebebeb] relative overflow-hidden">
+    
+    <!-- Floating geometric visual accents -->
+    <div class="absolute right-8 top-12 w-20 h-20 rounded-full border-4 border-museum-coral opacity-25 pointer-events-none"></div>
+    <div class="absolute left-10 bottom-12 w-32 h-20 memphis-dot-grid opacity-25 pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-8 md:px-12 relative z-10">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Generation Form (Left Side) -->
+        <div class="lg:col-span-6 space-y-8">
+          <div class="space-y-4">
+            <span class="font-sans text-xs tracking-[0.3em] text-museum-purple uppercase block font-extrabold">// GEMINI ENGINE</span>
+            <h2 class="text-4xl md:text-5xl font-sans font-extrabold text-museum-dark uppercase tracking-tight">AI Art Curator</h2>
+            <p class="text-museum-muted text-sm leading-relaxed max-w-lg font-sans font-medium">
+              Unlock the creative power of AI. Describe a classic stone theme integrated with modern neon geometry, and our model will generate it directly within a beautiful fine art museum canvas frame.
+            </p>
+          </div>
+
+          <!-- Prompt UI Container -->
+          <div class="bg-white p-6 md:p-8 rounded-3xl border border-neutral-300 shadow-md space-y-6">
+            
+            <div class="space-y-2">
+              <label for="ai-prompt-input" class="block font-sans text-xs font-bold uppercase tracking-wider text-museum-dark">Enter your artistic vision</label>
+              <textarea id="ai-prompt-input" 
+                        class="w-full h-24 bg-neutral-50 border border-neutral-200 rounded-xl p-4 text-sm focus:outline-none focus:ring-2 focus:ring-museum-purple focus:border-transparent transition-all font-sans"
+                        placeholder="e.g., A cybernetic sculpture of Julius Caesar with floating glowing blue triangles, greyscale marble finish..."></textarea>
+            </div>
+
+            <!-- Quick templates -->
+            <div class="space-y-2">
+              <span class="block font-sans text-[11px] font-bold text-neutral-400 uppercase tracking-wider">Quick Ideas:</span>
+              <div class="flex flex-wrap gap-2">
+                <button onclick="setPromptPreset('A neon-illuminated statue of David wearing cyberpunk neon visor, dark background')" class="bg-neutral-100 hover:bg-neutral-200 text-neutral-700 font-sans text-[10px] font-bold uppercase tracking-wide px-4 py-2 rounded-full transition-all">David Cyberpunk</button>
+                <button onclick="setPromptPreset('An elegant Greek goddess marble statue floating inside magenta geometric outline circles')" class="bg-neutral-100 hover:bg-neutral-200 text-neutral-700 font-sans text-[10px] font-bold uppercase tracking-wide px-4 py-2 rounded-full transition-all">Floating Goddess</button>
+              </div>
+            </div>
+
+            <button id="generate-btn" onclick="generateAIArt()" class="w-full bg-museum-dark hover:bg-museum-purple text-white font-sans text-xs uppercase tracking-widest py-4.5 rounded-xl font-extrabold transition-all duration-300 flex items-center justify-center gap-2 shadow-md">
+              <i data-lucide="sparkles" class="w-4 h-4"></i>
+              <span>Generate Custom Artwork</span>
+            </button>
+
+          </div>
+        </div>
+
+        <!-- Generated Artwork Frame Display (Right Side) -->
+        <div class="lg:col-span-6 flex flex-col items-center justify-center">
+          
+          <div class="relative w-full max-w-[420px] aspect-[4/5] bg-white border-[14px] border-museum-dark rounded-[32px] shadow-2xl p-6 flex flex-col justify-between overflow-hidden">
+            
+            <!-- Memphis outline details within the frame container -->
+            <div class="absolute -top-6 -right-6 w-14 h-14 rounded-full border-[3px] border-museum-coral pointer-events-none"></div>
+            <div class="absolute bottom-16 left-3 text-2xl font-bold text-museum-blue opacity-40 pointer-events-none select-none">X</div>
+
+            <!-- Frame Inner Area -->
+            <div class="relative w-full flex-1 bg-neutral-100 rounded-2xl overflow-hidden flex items-center justify-center border border-neutral-200">
+              
+              <!-- Loader State -->
+              <div id="ai-loader" class="hidden absolute inset-0 bg-white/95 backdrop-blur-sm flex flex-col items-center justify-center gap-4 z-20">
+                <div class="w-10 h-10 rounded-full border-4 border-museum-purple border-t-transparent animate-spin"></div>
+                <p class="font-mono text-[10px] uppercase text-museum-purple tracking-widest animate-pulse font-bold">GEMINI CREATING...</p>
+              </div>
+
+              <!-- Default Placeholder -->
+              <div id="ai-placeholder" class="text-center p-6 space-y-3">
+                <i data-lucide="image" class="w-10 h-10 mx-auto text-neutral-300"></i>
+                <p class="font-sans text-[15px] text-neutral-400 font-semibold uppercase tracking-wider">Awaiting Creation</p>
+              </div>
+
+              <!-- Live Art element -->
+              <img id="ai-output-img" class="hidden w-full h-full object-cover transition-all duration-500" alt="Generated AI artwork frame">
+
+            </div>
+
+            <!-- Fine Art Metadata Card inside Frame -->
+            <div class="mt-4 pt-4 border-t border-neutral-200 flex flex-col gap-1">
+              <div class="flex justify-between items-center">
+                <span class="font-sans text-[13px] font-extrabold text-museum-dark tracking-wide uppercase" id="frame-title">MUSEUM SPECIMEN</span>
+                <span class="font-mono text-[9px] text-neutral-400 font-bold">EDITION 1 / 1</span>
+              </div>
+              <p class="font-mono text-[10px] text-neutral-500 truncate" id="frame-prompt">Your visual prompt will register here...</p>
+            </div>
+
+          </div>
+
+          <!-- Curator Critique feedback container -->
+          <div id="ai-critique-container" class="hidden mt-6 w-full max-w-[420px] bg-museum-dark text-neutral-200 p-5 rounded-2xl border border-neutral-850 text-xs space-y-2">
+            <span class="font-sans text-[9px] text-museum-coral uppercase tracking-widest font-extrabold">Curator Critique Feedback</span>
+            <p id="ai-critique-text" class="italic leading-relaxed font-medium">...</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================= FOOTER / BRANDING ================= -->
+  <footer class="bg-museum-dark text-white pt-24 pb-12 relative overflow-hidden border-t border-neutral-900">
+    <div class="max-w-7xl mx-auto px-8 md:px-12 grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+      
+      <!-- Brand column -->
+      <div class="md:col-span-6 space-y-6">
+        <div class="flex items-center gap-4">
+          <span class="font-mono text-xs tracking-widest border border-white px-3 py-1.5 uppercase font-bold">DBRK</span>
+          <span class="font-sans text-lg tracking-[0.25em] font-extrabold text-white">DOBRIK MUSEUM</span>
+        </div>
+        <p class="text-neutral-400 text-sm max-w-sm leading-relaxed font-sans font-medium">
+          Reimagining classic Greek and Roman antiquities through elegant high-contrast designs, spacious modern structures, and historical artistic depth.
+        </p>
+      </div>
+
+      <!-- Links Column -->
+      <div class="md:col-span-3 space-y-4">
+        <h4 class="font-sans text-xs uppercase tracking-widest text-museum-coral font-extrabold">// NAVIGATION</h4>
+        <ul class="space-y-2 text-sm text-neutral-400 font-mono font-medium">
+          <li><a href="#hero" class="hover:text-white transition-colors">Hero Exhibition</a></li>
+          <li><a href="#interactive-sculpture" class="hover:text-white transition-colors">Neo-Classical Colorizer</a></li>
+          <li><a href="#gallery" class="hover:text-white transition-colors">Curated Archives</a></li>
+          <li><a href="#ai-workshop" class="hover:text-white transition-colors">AI Curator Studio</a></li>
+        </ul>
+      </div>
+
+      <!-- Newsletter Column -->
+      <div class="md:col-span-3 space-y-4">
+        <h4 class="font-sans text-xs uppercase tracking-widest text-museum-blue font-extrabold">// NEWSLETTER</h4>
+        <p class="text-xs text-neutral-400 leading-relaxed font-sans font-medium">Join our selective subscriber list to receive updates on upcoming physical art exhibitions.</p>
+        <div class="flex gap-2">
+          <input id="newsletter-email" type="email" placeholder="Email Address" class="bg-neutral-900 border border-neutral-800 text-sm px-4 py-3 rounded-xl flex-1 focus:outline-none focus:ring-1 focus:ring-museum-coral text-white font-sans">
+          <button onclick="subscribeNewsletter()" class="bg-museum-coral hover:bg-white hover:text-museum-dark text-white px-5 py-3 rounded-xl text-xs uppercase font-sans font-bold tracking-wider transition-all">
+            Join
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom copyrights metadata -->
+    <div class="max-w-7xl mx-auto px-8 md:px-12 pt-8 border-t border-neutral-900 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="font-mono text-xs text-neutral-500">
+        &copy; 2026 Dobrik Museum of Art. Crafted with strict alignment principles.
+      </p>
+      <div class="flex items-center gap-4 text-xs font-mono text-neutral-500">
+        <a href="#" class="hover:text-white">Privacy Details</a>
+        <span>&middot;</span>
+        <a href="#" class="hover:text-white">Terms of Entry</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ================= MODALS & NOTIFICATIONS ================= -->
+  
+  <!-- Image Examination Modal -->
+  <div id="exhibit-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300 ease-out">
+    <div class="bg-white text-museum-dark rounded-3xl max-w-2xl w-full p-6 md:p-8 relative space-y-6 max-h-[90vh] overflow-y-auto">
+      <button onclick="closeGalleryModal()" class="absolute top-4 right-4 p-2 hover:bg-neutral-100 rounded-full transition-colors">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+      
+      <div class="aspect-video w-full rounded-2xl overflow-hidden bg-neutral-100">
+        <img id="modal-img" src="" alt="Exhibited work" class="w-full h-full object-cover">
+      </div>
+
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <h4 id="modal-title" class="text-3xl font-sans font-extrabold text-museum-dark uppercase tracking-tight">Exhibition Artifact</h4>
+          <span class="font-sans text-[10px] bg-museum-coral/15 text-museum-coral px-3 py-1 rounded-full uppercase font-bold">IN FOCUS</span>
+        </div>
+        <p id="modal-desc" class="text-neutral-600 text-sm leading-relaxed font-sans">...</p>
+      </div>
+
+      <div class="pt-4 border-t border-neutral-100 flex justify-end">
+        <button onclick="closeGalleryModal()" class="bg-museum-dark text-white px-6 py-3 rounded-xl font-sans text-xs uppercase tracking-widest font-extrabold hover:bg-museum-purple transition-all">
+          Return to Archive
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Soft toast notification -->
+  <div id="notification-toast" class="fixed bottom-6 right-6 bg-museum-dark text-white px-6 py-4 rounded-xl shadow-2xl border border-neutral-800 z-50 flex items-center gap-3 translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="w-2 h-2 rounded-full bg-museum-coral animate-ping"></div>
+    <span id="toast-message" class="font-sans text-xs uppercase tracking-wider font-extrabold">Toast Update</span>
+  </div>
+
+
+  <!-- ================= DYNAMIC PRESENTATION SCRIPTS ================= -->
+  <script>
+    // Load modern SVG icons
+    lucide.createIcons();
+
+    // 1. NAVIGATION DRAWER INTERACTION
+    const menuBtn = document.getElementById('menu-btn');
+    const closeMenuBtn = document.getElementById('close-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    function openMobileMenu() {
+      mobileMenu.classList.remove('translate-x-full');
+    }
+
+    function closeMobileMenu() {
+      mobileMenu.classList.add('translate-x-full');
+    }
+
+    menuBtn.addEventListener('click', openMobileMenu);
+    closeMenuBtn.addEventListener('click', closeMobileMenu);
+    mobileLinks.forEach(link => link.addEventListener('click', closeMobileMenu));
+
+
+    // 2. HERO SLIDESHOW SCULPTURE SWITCHER (Recreates perfect alignment)
+    const heroSculptures = [
+      {
+        name: "ZEUS",
+        index: "01 / 03",
+        imageUrl: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=600&auto=format&fit=crop",
+        triangleRotation: "polygon(50% 0%, 0% 100%, 100% 100%)",
+        backdropColor: "#f05a5a" // Coral Red
+      },
+      {
+        name: "APOLLO",
+        index: "02 / 03",
+        imageUrl: "https://images.unsplash.com/photo-1605721911519-3dfeb3be25e7?q=80&w=600&auto=format&fit=crop",
+        triangleRotation: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+        backdropColor: "#6713ef" // Deep Purple
+      },
+      {
+        name: "ATHENA",
+        index: "03 / 03",
+        imageUrl: "https://images.unsplash.com/photo-1549887534-1541e9326642?q=80&w=600&auto=format&fit=crop",
+        triangleRotation: "polygon(50% 0%, 0% 100%, 100% 100%)",
+        backdropColor: "#00c2ff" // Light Blue
+      }
+    ];
+
+    let currentHeroIndex = 0;
+
+    function swapSculpture(direction) {
+      currentHeroIndex = (currentHeroIndex + direction + heroSculptures.length) % heroSculptures.length;
+      const current = heroSculptures[currentHeroIndex];
+      
+      const container = document.getElementById('sculpture-container');
+      const img = document.getElementById('main-sculpture-img');
+      const label = document.getElementById('hero-label');
+      const idx = document.getElementById('hero-index');
+      const triangle = document.getElementById('backdrop-triangle');
+
+      // Animate transition smoothly
+      container.classList.add('opacity-0', 'scale-95');
+      
+      setTimeout(() => {
+        img.src = current.imageUrl;
+        label.innerText = current.name;
+        idx.innerText = current.index;
+        triangle.style.backgroundColor = current.backdropColor;
+        
+        container.classList.remove('opacity-0', 'scale-95');
+      }, 250);
+    }
+
+
+    // 3. COLORIZER EXPERIENCE COMPONENT
+    const colorizerArchive = {
+      apollo: {
+        img: "https://images.unsplash.com/photo-1605721911519-3dfeb3be25e7?q=80&w=600&auto=format&fit=crop",
+        insights: {
+          none: "The classic marble composition of Apollo displays soft, natural stone hues reflecting Hellenistic purity.",
+          pink: "Apollo colored with raw pink-coral tones offers a bold, retro-futuristic Hellenistic sun atmosphere.",
+          purple: "Neon purple highlights emphasize the structural deep curls of Apollo’s hair, creating striking neon contrast.",
+          blue: "Cyan-blue lighting lenses cast a cold, futuristic virtual museum aura across Apollo’s features."
+        }
+      },
+      venus: {
+        img: "https://images.unsplash.com/photo-1549887534-1541e9326642?q=80&w=600&auto=format&fit=crop",
+        insights: {
+          none: "Venus de Milo’s dynamic drape lines look incredibly peaceful and grounded under raw monochrome lens.",
+          pink: "The vibrant magenta-pink backlight creates a warm, loving glow over Venus de Milo's elegant contours.",
+          purple: "Surreal purple tones give Venus a sacred, high-fashion aura fitting for a modern digital shrine.",
+          blue: "Cool blue rays paint Venus with a calm, intellectual expression typical of neoclassical geometry."
+        }
+      },
+      marcus: {
+        img: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=600&auto=format&fit=crop",
+        insights: {
+          none: "Marcus Aurelius’ detailed beard and commanding gaze stand proud in high-contrast greyscale tones.",
+          pink: "Coral overlays represent the stoic passion and raw historical presence of the philosopher emperor.",
+          purple: "Stoic majesty redefined: Neon purple glow casts modern cybernetic lighting on Roman wisdom.",
+          blue: "Brilliant cyan highlighting represents the cold, clear analytical perspective of Stoic philosophy."
+        }
+      }
+    };
+
+    let activeSculptureKey = 'apollo';
+    let activeOverlayColor = 'none';
+
+    function setCustomizerSculpture(key) {
+      activeSculptureKey = key;
+      
+      // Toggle button highlighted styling
+      document.querySelectorAll('.sculpture-btn').forEach(btn => {
+        btn.className = "sculpture-btn border border-neutral-800 text-neutral-400 font-mono text-xs py-3.5 rounded-xl transition-all hover:border-neutral-700 hover:text-white";
+      });
+      
+      const buttons = Array.from(document.querySelectorAll('.sculpture-btn'));
+      const activeBtn = buttons.find(b => b.innerText.toLowerCase().includes(key === 'marcus' ? 'aurelius' : key));
+      if (activeBtn) {
+        activeBtn.className = "sculpture-btn border border-museum-coral bg-museum-coral/15 text-white font-mono text-xs py-3.5 rounded-xl transition-all";
+      }
+
+      // Swap image
+      document.getElementById('customizer-img').src = colorizerArchive[key].img;
+      updateColorizerFeedback();
+    }
+
+    function setCustomizerLens(color) {
+      activeOverlayColor = color;
+      const lens = document.getElementById('lens-overlay');
+      
+      // Standardize filter styling
+      lens.className = "absolute inset-0 mix-blend-color transition-opacity duration-300 pointer-events-none";
+      
+      if (color === 'none') {
+        lens.classList.add('opacity-0');
+      } else {
+        lens.classList.remove('opacity-0');
+        lens.classList.add('opacity-70');
+        
+        if (color === 'pink') lens.classList.add('bg-museum-coral');
+        if (color === 'purple') lens.classList.add('bg-museum-purple');
+        if (color === 'blue') lens.classList.add('bg-museum-blue');
+      }
+
+      updateColorizerFeedback();
+    }
+
+    function setCustomizerBackdrop(shape) {
+      const shapeBg = document.getElementById('canvas-shape');
+      
+      if (shape === 'triangle') {
+        shapeBg.style.clipPath = 'polygon(50% 0%, 0% 100%, 100% 100%)';
+        shapeBg.style.borderRadius = '0';
+        shapeBg.className = "absolute w-[65%] aspect-square bg-museum-coral/20 transform transition-all duration-700 ease-in-out z-0";
+      } else if (shape === 'circle') {
+        shapeBg.style.clipPath = 'none';
+        shapeBg.style.borderRadius = '50%';
+        shapeBg.className = "absolute w-[65%] aspect-square bg-museum-purple/20 transform transition-all duration-700 ease-in-out z-0";
+      } else if (shape === 'square') {
+        shapeBg.style.clipPath = 'none';
+        shapeBg.style.borderRadius = '24px';
+        shapeBg.className = "absolute w-[65%] aspect-square bg-museum-blue/20 transform transition-all duration-700 ease-in-out z-0";
+      }
+    }
+
+    function updateColorizerFeedback() {
+      const insightText = colorizerArchive[activeSculptureKey].insights[activeOverlayColor];
+      document.getElementById('curator-insight').innerText = `"${insightText}"`;
+    }
+
+
+    // 4. ARCHIVE FILTERING & MODAL INTERACTION
+    function filterGallery(category) {
+      document.querySelectorAll('.gallery-tab-btn').forEach(btn => {
+        btn.className = "gallery-tab-btn border border-neutral-300 text-neutral-600 hover:border-museum-dark hover:text-museum-dark px-6 py-2.5 rounded-full font-sans text-xs uppercase tracking-wider font-semibold transition-all";
+      });
+
+      const clicked = event.currentTarget;
+      clicked.className = "gallery-tab-btn active bg-museum-dark text-white px-6 py-2.5 rounded-full font-sans text-xs uppercase tracking-wider font-semibold transition-all";
+
+      document.querySelectorAll('.gallery-item').forEach(item => {
+        if (category === 'all' || item.getAttribute('data-category') === category) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    }
+
+    const modal = document.getElementById('exhibit-modal');
+    const modalImg = document.getElementById('modal-img');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDesc = document.getElementById('modal-desc');
+
+    function openGalleryModal(title, desc, imgSrc) {
+      modalImg.src = imgSrc;
+      modalTitle.innerText = title;
+      modalDesc.innerText = desc;
+      
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        modal.classList.remove('opacity-0');
+      }, 50);
+    }
+
+    function closeGalleryModal() {
+      modal.classList.add('opacity-0');
+      setTimeout(() => {
+        modal.classList.add('hidden');
+      }, 300);
+    }
+
+
+    // 5. TOAST NOTIFICATIONS
+    const toast = document.getElementById('notification-toast');
+    const toastText = document.getElementById('toast-message');
+
+    function triggerToast(message) {
+      toastText.innerText = message;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 4000);
+    }
+
+    function subscribeNewsletter() {
+      const email = document.getElementById('newsletter-email').value.trim();
+      if (email) {
+        triggerToast("Successfully registered for curation logs!");
+        document.getElementById('newsletter-email').value = "";
+      } else {
+        triggerToast("Please enter a valid email address.");
+      }
+    }
+
+
+    // 6. GEMINI CREATIVE AI COMPONENT
+    function setPromptPreset(text) {
+      document.getElementById('ai-prompt-input').value = text;
+    }
+
+    const apiKey = ""; // Runtime config automatically resolves this key
+
+    async function generateAIArt() {
+      const promptField = document.getElementById('ai-prompt-input');
+      const userPrompt = promptField.value.trim();
+
+      if (!userPrompt) {
+        triggerToast("Please select or write a prompt first!");
+        return;
+      }
+
+      // Toggle loading indicators
+      const loader = document.getElementById('ai-loader');
+      const placeholder = document.getElementById('ai-placeholder');
+      const outputImg = document.getElementById('ai-output-img');
+      const critiqueBox = document.getElementById('ai-critique-container');
+
+      loader.classList.remove('hidden');
+      placeholder.classList.add('hidden');
+      outputImg.classList.add('hidden');
+      critiqueBox.classList.add('hidden');
+
+      // Model predictions endpoint using Imagen-4.0
+      const serviceUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict?key=${apiKey}`;
+      const payload = {
+        instances: [{ prompt: `${userPrompt}, high-contrast greyscale classical sculpture, neon geometric shapes, elegant art frame, museum setting` }],
+        parameters: { sampleCount: 1 }
+      };
+
+      let base64ImageString = null;
+      let attempts = 5;
+      let delayMs = 1000;
+
+      while (attempts > 0) {
+        try {
+          const response = await fetch(serviceUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          if (!response.ok) throw new Error("API call issue");
+
+          const data = await response.json();
+          base64ImageString = data.predictions?.[0]?.bytesBase64Encoded;
+          if (base64ImageString) break;
+        } catch (e) {
+          attempts--;
+          await new Promise(res => setTimeout(res, delayMs));
+          delayMs *= 2;
+        }
+      }
+
+      if (base64ImageString) {
+        // Success image render
+        outputImg.src = `data:image/png;base64,${base64ImageString}`;
+        outputImg.classList.remove('hidden');
+
+        document.getElementById('frame-title').innerText = "AI EXHIBIT ACQUISITION";
+        document.getElementById('frame-prompt').innerText = userPrompt;
+
+        // Perform text critique response from Gemini 2.5
+        await generateCuratorCritique(userPrompt);
+      } else {
+        // Fallback simulation mode
+        const backupMasterpieces = [
+          "https://images.unsplash.com/photo-1549887534-1541e9326642?q=80&w=600&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1605721911519-3dfeb3be25e7?q=80&w=600&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=600&auto=format&fit=crop"
+        ];
+        const selectedBackup = backupMasterpieces[Math.floor(Math.random() * backupMasterpieces.length)];
+        
+        outputImg.src = selectedBackup;
+        outputImg.classList.remove('hidden');
+        document.getElementById('frame-title').innerText = "Simulated Masterwork";
+        document.getElementById('frame-prompt').innerText = `${userPrompt} (Simulation Mode)`;
+        
+        // Static curation review
+        document.getElementById('ai-critique-text').innerText = `Your prompt concept "${userPrompt}" successfully synthesizes classical Greco-Roman forms with modern high-contrast geometric frameworks. Highly commendable.`;
+        critiqueBox.classList.remove('hidden');
+        triggerToast("Artwork simulation activated successfully!");
+      }
+
+      loader.classList.add('hidden');
+    }
+
+    async function generateCuratorCritique(promptText) {
+      const chatUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+      const curatorInstruction = "You are an eccentric, high-fashion Italian art museum curator. Write a brilliant 2-sentence feedback/critique analyzing the artistic combination of the classical topic and modern geometry in this prompt.";
+      
+      const payload = {
+        contents: [{ parts: [{ text: `Evaluate this artistic prompt concept: ${promptText}` }] }],
+        systemInstruction: { parts: [{ text: curatorInstruction }] }
+      };
+
+      try {
+        const response = await fetch(chatUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        
+        if (response.ok) {
+          const resJson = await response.json();
+          const critiqueResultText = resJson.candidates?.[0]?.content?.parts?.[0]?.text || "";
+          
+          if (critiqueResultText) {
+            document.getElementById('ai-critique-text').innerText = critiqueResultText.trim();
+            document.getElementById('ai-critique-container').classList.remove('hidden');
+          }
+        }
+      } catch (e) {
+        // Fallback silently if feedback endpoint encounters a network error
+      }
+    }
+
+  </script>
+</body>
+</html>
+4

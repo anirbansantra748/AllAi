@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FIREBLOX — Digital Asset Infrastructure</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,600&family=Barlow+Condensed:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   DESIGN TOKENS & RESET
+═══════════════════════════════════════════ */
+:root {
+  --bg-base: #F4F7F9; /* Soothing cool pearl - kills glare */
+  --bg-surface: #FFFFFF;
+  --text-dark: #0A1128; /* Deep rich navy instead of harsh black */
+  --text-gray: #4A5568;
+  --text-light: #A0AEC0;
+  --border-light: rgba(10, 17, 40, 0.08); /* Darkened slightly for better visibility */
+  --border-med: rgba(10, 17, 40, 0.15);
+  --fire-start: #E0284F; /* Darkened for much better legibility */
+  --fire-end: #D9381E;
+  --fire-grad: linear-gradient(135deg, var(--fire-start) 0%, var(--fire-end) 100%);
+  --fire-shadow: 0 8px 20px -6px rgba(224, 40, 79, 0.35);
+  --surface-shadow: 0 12px 36px -4px rgba(10, 17, 40, 0.05);
+}
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg-base);color:var(--text-dark);font-family:'Barlow',sans-serif;overflow-x:hidden;min-height:100vh}
+
+/* ═══════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px 52px;
+  background:rgba(244, 247, 249, 0);
+  transition:all .4s ease;
+  border-bottom:1px solid transparent;
+}
+nav.scrolled{background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border-light);box-shadow:0 4px 20px rgba(10,17,40,0.02)}
+.logo{font-weight:800;font-size:14px;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;flex-shrink:0;color:var(--text-dark)}
+.nav-links{display:flex;align-items:center;gap:34px;list-style:none}
+.nav-links a{color:var(--text-gray);text-decoration:none;font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:color .2s;cursor:pointer}
+.nav-links a:hover,.nav-links a.active{color:var(--fire-end)}
+.nav-right{display:flex;align-items:center;gap:20px;flex-shrink:0}
+.btn-demo{font-family:'Barlow',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dark);background:#FFFFFF;cursor:pointer;padding:10px 22px;border:1px solid var(--border-med);transition:all .2s;border-radius:4px;box-shadow:0 2px 4px rgba(10,17,40,0.02)}
+.btn-demo:hover{border-color:var(--text-dark);transform:translateY(-1px)}
+.hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;width:24px}
+.hamburger span{display:block;height:1.5px;background:var(--text-dark);border-radius:2px;transition:.3s}
+.hamburger span:nth-child(2){width:65%}
+
+/* ═══════════════════════════════════════════
+   PAGE SYSTEM
+═══════════════════════════════════════════ */
+.page{display:none}
+.page.active{display:block}
+
+/* ═══════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════ */
+.hero{
+  position:relative;width:100%;height:100vh;min-height:700px;
+  overflow:hidden;background:var(--bg-base);
+}
+
+/* Softer ambient glows */
+.blue-glow{position:absolute;top:-8%;right:-4%;width:42%;height:62%;background:radial-gradient(ellipse at 55% 28%,rgba(65,105,225,.08) 0%,transparent 65%);filter:blur(65px);z-index:1;pointer-events:none}
+.left-amb{position:absolute;bottom:0;left:0;width:30%;height:52%;background:radial-gradient(ellipse at 0% 100%,rgba(255,65,108,.06) 0%,transparent 65%);filter:blur(45px);z-index:1;pointer-events:none}
+
+/* BLOCKCHAIN TEXT - Made black */
+.blockchain-text{
+  position:absolute;top:0;left:0;right:0;z-index:5;
+  text-align:center;padding-top:clamp(100px,13vh,145px);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(100px,19.5vw,285px);
+  letter-spacing:-.015em;line-height:1;
+  color: #000000; 
+  opacity: 0.12; 
+  -webkit-text-stroke: 0;
+  animation:textReveal 1.2s cubic-bezier(.16,1,.3,1) .1s both;
+}
+@keyframes textReveal{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)}}
+
+/* SPHERE - Removed dark shadows, made it a luminous energy core */
+.sphere-wrap{
+  position:absolute;top:96%;left:50%;transform:translate(-50%,-50%);
+  width:clamp(750px,115vw,1600px);aspect-ratio:1/1;z-index:2;
+  animation:sphereIn 1.6s cubic-bezier(.16,1,.3,1) .2s both;
+}
+@keyframes sphereIn{from{opacity:0;transform:translate(-50%,-50%) translateY(65px)}to{opacity:1;transform:translate(-50%,-50%) translateY(0)}}
+
+.sphere{width:100%;height:100%;border-radius:50%;position:relative}
+.sphere::before{
+  content:'';position:absolute;inset:0;border-radius:50%;
+  background:
+    radial-gradient(ellipse at 35% 24%, #FFCA28 0%, transparent 45%),
+    radial-gradient(ellipse at 60% 19%, #FF5200 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 50%, #FF416C 0%, #D90022 45%, #7A0010 80%, #2D0005 100%);
+}
+.sphere::after{
+  content:'';position:absolute;inset:0;border-radius:50%;
+  background:
+    radial-gradient(ellipse at 78% 13%, rgba(255,255,255,0.5) 0%, transparent 40%),
+    radial-gradient(ellipse at 18% 72%, rgba(65,105,225,0.25) 0%, transparent 40%);
+}
+.sphere-shine{position:absolute;inset:0;border-radius:50%;background:radial-gradient(ellipse at 37% 11%,rgba(255,255,255,.4) 0%,transparent 30%),radial-gradient(ellipse at 70% 8%,rgba(255,255,255,.2) 0%,transparent 28%)}
+.sphere-halo{position:absolute;inset:-10%;border-radius:50%;background:radial-gradient(ellipse at 50% 44%,rgba(255,65,108,.12) 0%,transparent 65%);filter:blur(40px);z-index:-1}
+
+/* HERO BOTTOM */
+.hero-bottom{
+  position:absolute;bottom:0;left:0;right:0;z-index:6;
+  padding:0 52px 64px;display:flex;align-items:flex-end;justify-content:space-between;
+  animation:bottomReveal 1.3s cubic-bezier(.16,1,.3,1) .5s both;
+}
+@keyframes bottomReveal{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.hero-tagline h2{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(30px,4.5vw,56px);text-transform:uppercase;line-height:0.98;letter-spacing:.02em;color:var(--text-dark)}
+.hero-tagline h2 .dim{background:var(--fire-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:block;padding-right:10px}
+.hero-desc{max-width:255px;text-align:right;font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--text-gray);line-height:1.85}
+
+/* ═══════════════════════════════════════════
+   PARTNERS
+═══════════════════════════════════════════ */
+.partners{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:26px 52px;border-top:1px solid var(--border-light);background:var(--bg-surface);
+}
+.partner{font-size:13px;font-weight:700;color:var(--text-light);display:flex;align-items:center;gap:7px;transition:color .2s;cursor:pointer;white-space:nowrap;text-decoration:none;letter-spacing:.03em}
+.partner:hover{color:var(--text-dark)}
+.partner.revolut{font-style:italic;font-size:14px}
+.partner.bybit{font-weight:900;font-size:15.5px;letter-spacing:-.03em}
+.partner.visa{font-weight:900;font-size:19px;letter-spacing:.05em}
+.bridge-ring{width:16px;height:16px;border:1.5px solid currentColor;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;opacity:.8}
+
+/* ═══════════════════════════════════════════
+   SHARED SECTION STYLES
+═══════════════════════════════════════════ */
+.section{padding:100px 52px;border-top:1px solid var(--border-light);background:var(--bg-surface)} /* White bg to make text & orbitals pop */
+.section-sm{padding:70px 52px;border-top:1px solid var(--border-light);background:var(--bg-base)}
+.eyebrow{font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--fire-end);margin-bottom:20px}
+.section-heading{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(36px,5.5vw,72px);text-transform:uppercase;line-height:.96;color:var(--text-dark);margin-bottom:24px}
+.section-heading-sm{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(28px,4vw,52px);text-transform:uppercase;line-height:.96;color:var(--text-dark);margin-bottom:20px}
+.section-body{font-size:15px;color:var(--text-gray);line-height:1.8;max-width:560px}
+
+/* BUTTONS */
+.btn-outline{display:inline-block;margin-top:36px;padding:13px 30px;border:1px solid var(--border-med);font-family:'Barlow',sans-serif;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dark);background:var(--bg-surface);cursor:pointer;transition:all .2s;text-decoration:none;border-radius:4px}
+.btn-outline:hover{border-color:var(--text-dark);transform:translateY(-1px);box-shadow:0 4px 12px rgba(10,17,40,0.04)}
+.btn-primary{display:inline-block;padding:16px 38px;background:var(--fire-grad);color:#fff;border:none;font-family:'Barlow',sans-serif;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .2s;text-decoration:none;border-radius:4px;box-shadow:var(--fire-shadow)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 24px -6px rgba(255, 75, 43, 0.45)}
+
+/* ═══════════════════════════════════════════
+   STATS & GRIDS
+═══════════════════════════════════════════ */
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);background:var(--border-light);gap:1px;border-top:1px solid var(--border-light)}
+.stat-cell{background:var(--bg-surface);padding:58px 52px;transition:background 0.3s}
+.stat-cell:hover{background:var(--bg-base)}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,7vw,92px);line-height:1;color:var(--text-dark);margin-bottom:10px}
+.stat-label{font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-gray)}
+
+/* ═══════════════════════════════════════════
+   MARQUEE
+═══════════════════════════════════════════ */
+.marquee-wrap{border-top:1px solid var(--border-light);border-bottom:1px solid var(--border-light);overflow:hidden;padding:18px 0;background:var(--bg-surface)}
+.marquee-track{display:flex;animation:marquee 26s linear infinite;white-space:nowrap}
+.marquee-item{font-family:'Bebas Neue',sans-serif;font-size:36px;color:transparent;-webkit-text-stroke:1px var(--border-med);padding:0 26px;flex-shrink:0;letter-spacing:.05em}
+.marquee-item.red{-webkit-text-stroke:1px rgba(255, 65, 108, 0.25)}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ═══════════════════════════════════════════
+   FEATURE CARDS - REDESIGNED FOR LIGHT THEME
+═══════════════════════════════════════════ */
+.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:0 52px 80px;background:var(--bg-base);border-top:none}
+.cards-grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;padding:0 52px 80px;background:var(--bg-base);border-top:none}
+.card{background:#ffffff;padding:46px 40px;position:relative;transition:all .3s ease;z-index:1;border:1px solid var(--border-light);border-radius:12px;box-shadow:0 4px 12px rgba(10,17,40,0.02)}
+.card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(10,17,40,0.06);border-color:rgba(224,40,79,0.3);z-index:2}
+.card-num{font-size:12px;font-weight:800;letter-spacing:.2em;color:var(--text-light);margin-bottom:24px}
+.card-icon{width:48px;height:48px;margin-bottom:24px;background:rgba(224,40,79,0.06);padding:12px;border-radius:12px;border:1px solid rgba(224,40,79,0.1)}
+.card-icon svg{width:100%;height:100%;fill:none;stroke:var(--fire-start);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.card-tag-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.card-tag{font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:5px 12px;border:1px solid rgba(10,17,40,0.08);background:#F8FAFC;color:var(--text-dark);border-radius:6px}
+.card-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:20px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-dark);margin-bottom:13px;line-height:1.15}
+.card-desc{font-size:13.5px;color:var(--text-gray);line-height:1.75}
+
+/* ═══════════════════════════════════════════
+   STATUS BANNER
+═══════════════════════════════════════════ */
+.status-banner{display:flex;align-items:center;gap:10px;padding:12px 20px;background:#ECFDF3;border:1px solid #D1FADF;width:fit-content;margin-top:28px;border-radius:4px}
+.status-dot{width:8px;height:8px;border-radius:50%;background:#12B76A;animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(18,183,106,.4)}50%{opacity:.8;box-shadow:0 0 0 6px rgba(18,183,106,0)}}
+.status-text{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#027A48}
+
+/* ═══════════════════════════════════════════
+   DASHBOARD MOCKUP
+═══════════════════════════════════════════ */
+.dashboard-wrap{border-top:1px solid var(--border-light);padding:80px 52px;background:var(--bg-base);}
+.dashboard-inner{border:1px solid var(--border-light);background:var(--bg-surface);overflow:hidden;border-radius:8px;box-shadow:var(--surface-shadow);}
+.dash-header{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid var(--border-light);background:#FAFCFD;}
+.dash-logo{font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;gap:10px;color:var(--text-dark)}
+.dash-n{width:24px;height:24px;background:var(--fire-grad);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:16px;color:#fff;border-radius:4px}
+.dash-nav{display:flex;gap:24px}
+.dash-nav span{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-gray);cursor:pointer;padding:4px 0;transition:color .2s}
+.dash-nav span.active{color:var(--text-dark);border-bottom:2px solid var(--fire-end)}
+.dash-body{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:1px;background:var(--border-light);padding:0}
+.dash-kpi{background:var(--bg-surface);padding:28px 24px}
+.dash-kpi-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-gray);margin-bottom:10px}
+.dash-kpi-val{font-family:'Bebas Neue',sans-serif;font-size:42px;color:var(--text-dark);line-height:1}
+.dash-kpi-val.green{color:#12B76A}
+.dash-kpi-val.red{color:var(--fire-end)}
+.dash-table-wrap{background:var(--bg-surface);padding:24px;grid-column:1/-1;border-top:1px solid var(--border-light)}
+.dash-table-title{font-size:11px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:var(--text-dark);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.live-pill{font-size:9px;font-weight:800;padding:2px 8px;background:#ECFDF3;border:1px solid #D1FADF;color:#027A48;letter-spacing:.08em;border-radius:4px}
+table{width:100%;border-collapse:collapse}
+th{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-gray);padding:8px 12px;text-align:left;border-bottom:1px solid var(--border-light)}
+td{font-size:12.5px;color:var(--text-dark);padding:12px 12px;border-bottom:1px solid var(--border-light)}
+tr:last-child td{border-bottom:none}
+td.mono{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:13px;letter-spacing:.03em;color:var(--text-gray)}
+td.green-val{color:#12B76A;font-weight:700}
+.type-badge{font-size:10px;font-weight:700;letter-spacing:.08em;padding:3px 9px;border:1px solid var(--border-light);background:var(--bg-base);color:var(--text-gray);border-radius:4px}
+
+/* ═══════════════════════════════════════════
+   TWO-COL
+═══════════════════════════════════════════ */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.two-col-3{display:grid;grid-template-columns:1fr 1.4fr;gap:80px;align-items:center}
+
+/* ═══════════════════════════════════════════
+   VISUAL ORB
+═══════════════════════════════════════════ */
+.orb-wrap{position:relative;height:340px;display:flex;align-items:center;justify-content:center}
+.orb{width:240px;height:240px;border-radius:50%;background:radial-gradient(circle at 38% 33%,var(--fire-start) 0%,var(--fire-end) 58%,#900018 100%);box-shadow:0 0 70px rgba(255,65,108,.2);position:relative}
+.orb::after{content:'';position:absolute;inset:0;border-radius:50%;background:radial-gradient(ellipse at 74% 20%,rgba(255,255,255,.3) 0%,transparent 44%)}
+.orbit{position:absolute;border:1px solid rgba(10,17,40,0.15);border-radius:50%;animation:spin 18s linear infinite} /* Darkened the border so orbitals are visible */
+.orbit:nth-child(1){width:320px;height:320px}
+.orbit:nth-child(2){width:400px;height:400px;animation-duration:27s;animation-direction:reverse}
+.o-dot{position:absolute;top:-3.5px;left:50%;transform:translateX(-50%);width:6px;height:6px;border-radius:50%;background:var(--fire-end);box-shadow:0 0 10px var(--fire-end)}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+/* ═══════════════════════════════════════════
+   TRUSTED MARQUEE (logos)
+═══════════════════════════════════════════ */
+.logo-marquee-wrap{overflow:hidden;padding:24px 0;border-top:1px solid var(--border-light);background:var(--bg-base)}
+.logo-marquee-track{display:flex;animation:marquee 30s linear infinite;white-space:nowrap}
+.logo-item{font-size:13px;font-weight:800;color:var(--text-light);padding:0 36px;flex-shrink:0;letter-spacing:.05em;text-transform:uppercase;transition:color .2s}
+.logo-item:hover{color:var(--text-gray)}
+
+/* ═══════════════════════════════════════════
+   ADVANTAGE LIST
+═══════════════════════════════════════════ */
+.adv-list{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-light);border-top:1px solid var(--border-light)}
+.adv-item{background:var(--bg-surface);padding:42px 40px;display:flex;gap:22px;transition:all .3s}
+.adv-item:hover{background:var(--bg-surface);transform:translateY(-2px);box-shadow:var(--surface-shadow);z-index:2;border-radius:4px}
+.adv-icon{width:36px;height:36px;flex-shrink:0;margin-top:2px}
+.adv-icon svg{width:100%;height:100%;fill:none;stroke:var(--fire-end);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.adv-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:17px;text-transform:uppercase;letter-spacing:.05em;color:var(--text-dark);margin-bottom:10px}
+.adv-desc{font-size:13px;color:var(--text-gray);line-height:1.7}
+
+/* ═══════════════════════════════════════════
+   PAGE HERO (inner pages)
+═══════════════════════════════════════════ */
+.inner-hero{position:relative;padding:180px 52px 100px;overflow:hidden;background:var(--bg-base);border-bottom:1px solid var(--border-light);}
+.inner-hero::before{content:'';position:absolute;top:-20%;right:-5%;width:50%;height:120%;background:radial-gradient(ellipse at 60% 30%,rgba(255,65,108,.06) 0%,transparent 65%);pointer-events:none;filter:blur(40px);}
+.page-label{font-size:10px;font-weight:800;letter-spacing:.3em;text-transform:uppercase;color:var(--fire-end);margin-bottom:20px}
+.page-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,10vw,130px);letter-spacing:-.01em;line-height:.92;color:var(--text-dark);margin-bottom:28px}
+.page-sub{font-size:16px;color:var(--text-gray);line-height:1.75;max-width:560px}
+
+/* ═══════════════════════════════════════════
+   CTA BANNER
+═══════════════════════════════════════════ */
+.cta-banner{position:relative;overflow:hidden;padding:90px 52px;background:var(--bg-base);border-top:1px solid var(--border-light);display:flex;align-items:center;justify-content:space-between;gap:40px;}
+.cta-banner::before{content:'';position:absolute;top:-30%;right:-8%;width:55%;height:160%;background:radial-gradient(ellipse at 60% 50%,rgba(255,65,108,.08) 0%,transparent 65%);pointer-events:none;filter:blur(20px)}
+.cta-heading{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(38px,6vw,82px);text-transform:uppercase;line-height:.95;color:var(--text-dark)}
+.cta-heading em{font-style:normal;background:var(--fire-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.cta-sub{font-size:13px;color:var(--text-gray);margin-top:14px;letter-spacing:.04em;font-weight:600}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+footer{padding:60px 52px 44px;border-top:1px solid var(--border-light);display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;background:var(--bg-surface)}
+.footer-brand .logo-text{font-weight:800;font-size:15px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px;color:var(--text-dark)}
+.footer-brand p{font-size:13px;color:var(--text-gray);line-height:1.7;max-width:260px;margin-bottom:24px}
+.footer-col h4{font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text-light);margin-bottom:18px}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:12px}
+.footer-col ul li a{font-size:13px;color:var(--text-gray);text-decoration:none;transition:color .2s;cursor:pointer;font-weight:600}
+.footer-col ul li a:hover{color:var(--fire-end)}
+.footer-bottom{padding:20px 52px;border-top:1px solid var(--border-light);display:flex;align-items:center;justify-content:space-between;background:var(--bg-surface)}
+.footer-bottom p{font-size:11.5px;color:var(--text-light);letter-spacing:.04em;font-weight:600}
+.footer-bottom-links{display:flex;gap:24px}
+.footer-bottom-links a{font-size:11px;color:var(--text-light);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;transition:color .2s;font-weight:700}
+.footer-bottom-links a:hover{color:var(--text-gray)}
+
+/* ═══════════════════════════════════════════
+   FORM
+═══════════════════════════════════════════ */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.form-group{display:flex;flex-direction:column;gap:8px}
+.form-group.full{grid-column:1/-1}
+.form-group label{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dark)}
+.form-group input,.form-group select,.form-group textarea{background:var(--bg-surface);border:1px solid var(--border-med);color:var(--text-dark);padding:14px 16px;font-family:'Barlow',sans-serif;font-size:14px;outline:none;transition:all .2s;border-radius:4px;box-shadow:inset 0 2px 4px rgba(10,17,40,0.01)}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--fire-end);box-shadow:0 0 0 3px rgba(255,65,108,.1)}
+.form-group select option{background:var(--bg-surface)}
+.form-group textarea{resize:vertical;min-height:120px}
+
+/* ═══════════════════════════════════════════
+   NETWORK MAP & MISC CARDS
+═══════════════════════════════════════════ */
+.network-map{border-top:1px solid var(--border-light);padding:80px 52px;background:var(--bg-base)}
+.map-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border-light);margin-top:52px}
+.map-node{background:var(--bg-surface);padding:32px 24px;text-align:center;transition:all .3s;cursor:pointer}
+.map-node:hover{background:var(--bg-surface);transform:translateY(-2px);box-shadow:var(--surface-shadow);z-index:2;border-radius:4px}
+.node-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:18px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-dark);margin-bottom:6px}
+.node-status{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#12B76A}
+.node-dot{width:6px;height:6px;border-radius:50%;background:#12B76A;margin:0 auto 12px;box-shadow:0 0 8px rgba(18,183,106,.4);animation:pulse 2s ease infinite}
+
+/* TEAM */
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-light);border-top:1px solid var(--border-light)}
+.team-card{background:var(--bg-surface);padding:44px 40px;transition:all .3s}
+.team-card:hover{background:var(--bg-surface);transform:translateY(-2px);box-shadow:var(--surface-shadow);z-index:2;border-radius:4px}
+.team-avatar{width:64px;height:64px;border-radius:50%;background:var(--fire-grad);margin-bottom:20px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:28px;color:#FFFFFF;box-shadow:var(--fire-shadow)}
+.team-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:20px;text-transform:uppercase;letter-spacing:.04em;color:var(--text-dark);margin-bottom:4px}
+.team-role{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-gray);margin-bottom:14px}
+.team-bio{font-size:13px;color:var(--text-gray);line-height:1.7}
+
+/* TIMELINE */
+.timeline{padding:80px 52px;border-top:1px solid var(--border-light);background:var(--bg-surface)}
+.timeline-items{margin-top:48px;display:flex;flex-direction:column;gap:0}
+.tl-item{display:grid;grid-template-columns:120px 1fr;gap:40px;padding:36px 0;border-bottom:1px solid var(--border-light)}
+.tl-year{font-family:'Bebas Neue',sans-serif;font-size:38px;color:var(--text-light);line-height:1;padding-top:4px}
+.tl-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px;text-transform:uppercase;letter-spacing:.04em;color:var(--text-dark);margin-bottom:8px}
+.tl-desc{font-size:14px;color:var(--text-gray);line-height:1.7}
+
+/* PRICING */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-light);border-top:1px solid var(--border-light)}
+.pricing-card{background:var(--bg-surface);padding:52px 44px;position:relative}
+.pricing-card.featured{background:#FFF5F6;border:1px solid rgba(255,65,108,.2)}
+.pricing-badge{position:absolute;top:-1px;left:44px;font-size:9.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:5px 14px;background:var(--fire-grad);color:#fff;border-radius:0 0 4px 4px;box-shadow:var(--fire-shadow)}
+.price-tier{font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text-gray);margin-bottom:16px}
+.price-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:34px;text-transform:uppercase;letter-spacing:.02em;color:var(--text-dark);margin-bottom:8px}
+.price-desc{font-size:13px;color:var(--text-gray);line-height:1.65;margin-bottom:32px;padding-bottom:32px;border-bottom:1px solid var(--border-light)}
+.price-features{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:36px}
+.price-features li{font-size:13px;color:var(--text-dark);display:flex;align-items:flex-start;gap:10px;font-weight:600}
+.price-features li::before{content:'—';color:var(--fire-end);font-weight:800;flex-shrink:0}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav id="mainNav">
+  <div class="logo" onclick="goPage('home')">FIREBLOX</div>
+  <ul class="nav-links">
+    <li><a onclick="goPage('products')" data-page="products">Products</a></li>
+    <li><a onclick="goPage('solutions')" data-page="solutions">Solutions</a></li>
+    <li><a onclick="goPage('platform')" data-page="platform">Platform</a></li>
+    <li><a onclick="goPage('network')" data-page="network">Network</a></li>
+    <li><a onclick="goPage('company')" data-page="company">Company</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="btn-demo" onclick="goPage('feasibility')">Request Feasibility</button>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     HOME PAGE
+═══════════════════════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="blue-glow"></div>
+    <div class="left-amb"></div>
+    <div class="blockchain-text">BLOCKCHAIN</div>
+    <div class="sphere-wrap">
+      <div class="sphere-halo"></div>
+      <div class="sphere"><div class="sphere-shine"></div></div>
+    </div>
+    <div class="hero-bottom">
+      <div class="hero-tagline">
+        <h2>Digital Asset<span class="dim">Infrastructure</span></h2>
+      </div>
+      <div class="hero-desc">Digital asset infrastructure built for<br>scale and trusted for security</div>
+    </div>
+  </section>
+
+  <!-- PARTNERS -->
+  <div class="partners">
+    <a class="partner revolut" href="#">Revolut</a>
+    <a class="partner" href="#">Triple·A</a>
+    <a class="partner bybit" href="#">BYB|T</a>
+    <a class="partner visa" href="#">VISA</a>
+    <a class="partner" href="#">worldpay</a>
+    <a class="partner bridge" href="#"><span class="bridge-ring">⊙</span>Bridge</a>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-grid">
+    <div class="stat-cell"><div class="stat-num">$6T+</div><div class="stat-label">Assets Transferred</div></div>
+    <div class="stat-cell"><div class="stat-num">1,800+</div><div class="stat-label">Institutional Clients</div></div>
+    <div class="stat-cell"><div class="stat-num">50+</div><div class="stat-label">Blockchain Networks</div></div>
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="marquee-item">SECURITY</span><span class="marquee-item red">——</span>
+      <span class="marquee-item">COMPLIANCE</span><span class="marquee-item red">——</span>
+      <span class="marquee-item">SCALE</span><span class="marquee-item red">——</span>
+      <span class="marquee-item">CUSTODY</span><span class="marquee-item red">——</span>
+      <span class="marquee-item">DEFI</span><span class="marquee-item red">——</span>
+      <span class="marquee-item">WEB3</span><span class="marquee-item red">——</span>
+      <span class="marquee-item">SECURITY</span><span class="marquee-item red">——</span>
+      <span class="marquee-item">COMPLIANCE</span><span class="marquee-item red">——</span>
+      <span class="marquee-item">SCALE</span><span class="marquee-item red">——</span>
+      <span class="marquee-item">CUSTODY</span><span class="marquee-item red">——</span>
+      <span class="marquee-item">DEFI</span><span class="marquee-item red">——</span>
+      <span class="marquee-item">WEB3</span><span class="marquee-item red">——</span>
+    </div>
+  </div>
+
+  <!-- INTRO SECTION -->
+  <section class="section">
+    <div class="two-col">
+      <div>
+        <div class="eyebrow">The Infrastructure</div>
+        <div class="section-heading">The Infrastructure Behind Your Digital Assets.</div>
+        <p class="section-body">Most custodians hand you an API and disappear. Fireblox is different. We deliver dedicated, institutional-grade digital asset infrastructure with real-time visibility into every wallet, every transaction, every SLA — through a platform your compliance team actually wants to use.</p>
+        <a class="btn-outline" onclick="goPage('platform')">See the Platform</a>
+      </div>
+      <div class="orb-wrap">
+        <div class="orbit"><div class="o-dot"></div></div>
+        <div class="orbit"><div class="o-dot"></div></div>
+        <div class="orb"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGO MARQUEE -->
+  <div class="logo-marquee-wrap">
+    <div class="logo-marquee-track">
+      <span class="logo-item">J.P. Morgan</span><span class="logo-item">Goldman Sachs</span>
+      <span class="logo-item">BlackRock</span><span class="logo-item">Fidelity</span>
+      <span class="logo-item">Deutsche Bank</span><span class="logo-item">Standard Chartered</span>
+      <span class="logo-item">BNY Mellon</span><span class="logo-item">Coinbase</span>
+      <span class="logo-item">Gemini</span><span class="logo-item">Binance</span>
+      <span class="logo-item">J.P. Morgan</span><span class="logo-item">Goldman Sachs</span>
+      <span class="logo-item">BlackRock</span><span class="logo-item">Fidelity</span>
+      <span class="logo-item">Deutsche Bank</span><span class="logo-item">Standard Chartered</span>
+      <span class="logo-item">BNY Mellon</span><span class="logo-item">Coinbase</span>
+      <span class="logo-item">Gemini</span><span class="logo-item">Binance</span>
+    </div>
+  </div>
+
+  <!-- WHAT WE DELIVER -->
+  <section class="section-sm">
+    <div class="eyebrow">What We Deliver</div>
+    <div class="section-heading-sm" style="max-width:500px">Connectivity products built for institutions that don't compromise.</div>
+  </section>
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-num">01</div>
+      <div class="card-tag-row"><span class="card-tag">MPC</span><span class="card-tag">Symmetric</span><span class="card-tag">SLA</span></div>
+      <div class="card-title">MPC Wallet Technology</div>
+      <div class="card-desc">Dedicated, symmetric key management with guaranteed SLA. No seed phrases, no single points of failure, no compromise.</div>
+    </div>
+    <div class="card">
+      <div class="card-num">02</div>
+      <div class="card-tag-row"><span class="card-tag">Private</span><span class="card-tag">Multi-chain</span><span class="card-tag">QoS</span></div>
+      <div class="card-title">Policy Engine</div>
+      <div class="card-desc">Private multi-chain transaction governance with quality-of-service controls and customizable approval workflows.</div>
+    </div>
+    <div class="card">
+      <div class="card-num">03</div>
+      <div class="card-tag-row"><span class="card-tag">Hybrid</span><span class="card-tag">App-Aware</span><span class="card-tag">Orchestration</span></div>
+      <div class="card-title">DeFi & Web3 Access</div>
+      <div class="card-desc">Application-aware routing across hybrid on-chain and off-chain environments with centralized control and audit logs.</div>
+    </div>
+    <div class="card">
+      <div class="card-num">04</div>
+      <div class="card-tag-row"><span class="card-tag">Firewall</span><span class="card-tag">AML</span><span class="card-tag">Monitoring</span></div>
+      <div class="card-title">Compliance Suite</div>
+      <div class="card-desc">Enterprise-grade AML screening, transaction monitoring, and regulatory reporting — fully managed at the infrastructure layer.</div>
+    </div>
+    <div class="card">
+      <div class="card-num">05</div>
+      <div class="card-tag-row"><span class="card-tag">CEX</span><span class="card-tag">DEX</span><span class="card-tag">Peering</span></div>
+      <div class="card-title">Exchange Connect</div>
+      <div class="card-desc">Direct connectivity to CEX and DEX platforms with private peering for low-latency order execution and settlement.</div>
+    </div>
+    <div class="card">
+      <div class="card-num">06</div>
+      <div class="card-tag-row"><span class="card-tag">EVM</span><span class="card-tag">Non-EVM</span><span class="card-tag">L2</span></div>
+      <div class="card-title">Multi-Chain Support</div>
+      <div class="card-desc">50+ blockchains including all major EVM chains, Solana, Cosmos, and leading Layer 2 networks under a single unified API.</div>
+    </div>
+  </div>
+
+  <!-- ADVANTAGE -->
+  <section class="section-sm">
+    <div class="eyebrow">The Advantage</div>
+    <div class="section-heading-sm">Everything visible. Everything controlled.</div>
+  </section>
+  <div class="adv-list">
+    <div class="adv-item">
+      <div class="adv-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <div><div class="adv-title">Live Transaction Monitoring</div><div class="adv-desc">Latency, confirmations, fees — per wallet, in real-time. Not in a monthly PDF that arrives three weeks late.</div></div>
+    </div>
+    <div class="adv-item">
+      <div class="adv-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+      <div><div class="adv-title">Auto-Incident Detection</div><div class="adv-desc">Wallet compromise flagged? A ticket is created automatically with full forensic data — before your compliance team notices.</div></div>
+    </div>
+    <div class="adv-item">
+      <div class="adv-icon"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
+      <div><div class="adv-title">Self-Service Billing</div><div class="adv-desc">Download invoices, manage subscriptions online. Your finance team never chases an account manager again.</div></div>
+    </div>
+    <div class="adv-item">
+      <div class="adv-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <div><div class="adv-title">SLA Prediction Engine</div><div class="adv-desc">AI early warning when your monthly compliance SLA is at risk. We remediate before you're affected.</div></div>
+    </div>
+    <div class="adv-item">
+      <div class="adv-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div><div class="adv-title">Installation Transparency</div><div class="adv-desc">Track every new chain integration from feasibility to go-live. Know exactly where your onboarding stands at all times.</div></div>
+    </div>
+    <div class="adv-item">
+      <div class="adv-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+      <div><div class="adv-title">Enterprise API</div><div class="adv-desc">Pull wallet status, transaction data, and compliance metrics into your own NOC and risk platforms via REST APIs.</div></div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD MOCKUP -->
+  <div class="dashboard-wrap">
+    <div class="eyebrow">Live Platform</div>
+    <div class="section-heading-sm" style="margin-bottom:8px">Every wallet. Every metric. One dashboard.</div>
+    <p style="font-size:14px;color:rgba(0,0,0,.6);max-width:480px;line-height:1.7;margin-bottom:36px">No more calling your account manager for a status update. Monitor, transact, raise tickets — all in real-time.</p>
+    <div class="dashboard-inner">
+      <div class="dash-header">
+        <div class="dash-logo"><div class="dash-n">F</div>FIREBLOX</div>
+        <div class="dash-nav">
+          <span class="active">Wallets</span><span>Network</span><span>Tickets</span><span>Orders</span><span>Billing</span>
+        </div>
+      </div>
+      <div class="dash-body">
+        <div class="dash-kpi"><div class="dash-kpi-label">Active Wallets</div><div class="dash-kpi-val">248</div></div>
+        <div class="dash-kpi"><div class="dash-kpi-label">Wallets at Risk</div><div class="dash-kpi-val red">0</div></div>
+        <div class="dash-kpi"><div class="dash-kpi-label">Current SLA</div><div class="dash-kpi-val green">99.97%</div></div>
+        <div class="dash-kpi"><div class="dash-kpi-label">Open Tickets</div><div class="dash-kpi-val">3</div></div>
+        <div class="dash-table-wrap">
+          <div class="dash-table-title">Wallet Health <span class="live-pill">LIVE</span></div>
+          <table>
+            <thead><tr><th>Wallet ID</th><th>Type</th><th>Balance</th><th>Last Tx</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">ETH-INST-001</td><td><span class="type-badge">MPC</span></td><td>$42.3M</td><td>2m ago</td><td class="green-val">● Healthy</td></tr>
+              <tr><td class="mono">BTC-CUST-014</td><td><span class="type-badge">Cold</span></td><td>$218M</td><td>1h ago</td><td class="green-val">● Healthy</td></tr>
+              <tr><td class="mono">SOL-DeFi-007</td><td><span class="type-badge">Hot</span></td><td>$8.1M</td><td>12m ago</td><td class="green-val">● Healthy</td></tr>
+              <tr><td class="mono">USDC-TR-033</td><td><span class="type-badge">MPC</span></td><td>$95M</td><td>5m ago</td><td class="green-val">● Healthy</td></tr>
+              <tr><td class="mono">ARB-L2-015</td><td><span class="type-badge">Smart</span></td><td>$3.4M</td><td>just now</td><td class="green-val">● Healthy</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-banner">
+    <div>
+      <div class="cta-heading">Ready to verify?<br><em>See what Tier-1 infrastructure actually looks like.</em></div>
+      <p class="cta-sub">Check feasibility at your institution in under 24 hours.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:14px;flex-shrink:0">
+      <button class="btn-primary" onclick="goPage('feasibility')">Check Feasibility</button>
+      <p style="font-size:11px;color:rgba(0,0,0,.4);letter-spacing:.08em;text-transform:uppercase">Free check · No commitment · 24h Response</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">
+      <div class="logo-text">FIREBLOX</div>
+      <p>The enterprise digital asset infrastructure company that gives you complete visibility and control over your blockchain operations.</p>
+      <div class="status-banner">
+        <div class="status-dot"></div>
+        <div class="status-text">All Systems Operational</div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Platform</h4>
+      <ul>
+        <li><a onclick="goPage('products')">MPC Wallets</a></li>
+        <li><a onclick="goPage('products')">Policy Engine</a></li>
+        <li><a onclick="goPage('products')">DeFi Access</a></li>
+        <li><a onclick="goPage('products')">Cloud Connect</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a onclick="goPage('company')">About Us</a></li>
+        <li><a onclick="goPage('company')">Careers</a></li>
+        <li><a onclick="goPage('company')">Contact</a></li>
+        <li><a onclick="goPage('network')">Network Status</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Developers</h4>
+      <ul>
+        <li><a href="#">API Docs</a></li>
+        <li><a href="#">SDK Reference</a></li>
+        <li><a href="#">Changelog</a></li>
+        <li><a href="#">Status Page</a></li>
+      </ul>
+    </div>
+  </footer>
+  <div class="footer-bottom">
+    <p>© 2026 Fireblox Inc. All rights reserved.</p>
+    <div class="footer-bottom-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Security</a>
+    </div>
+  </div>
+</div><!-- /page-home -->
+
+<!-- ═══════════════════════════════════════════
+     PRODUCTS PAGE
+═══════════════════════════════════════════ -->
+<div class="page" id="page-products">
+  <div class="inner-hero">
+    <div class="page-label">Products</div>
+    <div class="page-title">Built for Institutions.<br>Trusted by Scale.</div>
+    <p class="page-sub">Every product in the Fireblox suite is engineered for institutional-grade performance, compliance, and reliability — with zero compromise on security or transparency.</p>
+  </div>
+
+  <div class="cards-grid" style="border-top:none">
+    <div class="card" style="padding-top:64px">
+      <div class="card-num">01</div>
+      <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+      <div class="card-tag-row"><span class="card-tag">MPC</span><span class="card-tag">Cold</span><span class="card-tag">Hot</span></div>
+      <div class="card-title">MPC Wallet Technology</div>
+      <div class="card-desc">Eliminate single points of failure with our proprietary multi-party computation. No seed phrases, no private key exposure — ever. Supports cold, warm and hot wallet policies from a single unified interface.</div>
+    </div>
+    <div class="card" style="padding-top:64px">
+      <div class="card-num">02</div>
+      <div class="card-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <div class="card-tag-row"><span class="card-tag">Governance</span><span class="card-tag">Automation</span></div>
+      <div class="card-title">Policy Engine</div>
+      <div class="card-desc">Define transaction rules, approval chains, and automated workflows at the wallet, user, and asset level. Real-time policy enforcement with full audit trail and rollback capability.</div>
+    </div>
+    <div class="card" style="padding-top:64px">
+      <div class="card-num">03</div>
+      <div class="card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+      <div class="card-tag-row"><span class="card-tag">DEX</span><span class="card-tag">CEX</span><span class="card-tag">L2</span></div>
+      <div class="card-title">DeFi & Web3 Access</div>
+      <div class="card-desc">Connect to 200+ DeFi protocols and dApps with enterprise-grade security policies. WalletConnect, Metamask Institutional, and direct smart contract interaction — all under custody controls.</div>
+    </div>
+    <div class="card" style="padding-top:64px">
+      <div class="card-num">04</div>
+      <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="card-tag-row"><span class="card-tag">AML</span><span class="card-tag">KYT</span><span class="card-tag">Sanctions</span></div>
+      <div class="card-title">Compliance Suite</div>
+      <div class="card-desc">Know-Your-Transaction screening on every address and transfer. Integrated Chainalysis and Elliptic intelligence. Automated OFAC, EU, and UN sanctions checking at transaction time.</div>
+    </div>
+    <div class="card" style="padding-top:64px">
+      <div class="card-num">05</div>
+      <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="6" height="6"/><rect x="16" y="3" width="6" height="6"/><rect x="9" y="15" width="6" height="6"/><path d="M5 9v3a3 3 0 0 0 3 3h2m4-6v3a3 3 0 0 1-3 3h-2"/></svg></div>
+      <div class="card-tag-row"><span class="card-tag">EVM</span><span class="card-tag">Cosmos</span><span class="card-tag">Solana</span></div>
+      <div class="card-title">Multi-Chain Support</div>
+      <div class="card-desc">50+ blockchain networks under a single unified API — EVM chains, Bitcoin, Solana, Cosmos, NEAR, TON, and all major Layer 2 protocols. New chains added within 48 hours of request.</div>
+    </div>
+    <div class="card" style="padding-top:64px">
+      <div class="card-num">06</div>
+      <div class="card-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+      <div class="card-tag-row"><span class="card-tag">REST</span><span class="card-tag">Webhook</span><span class="card-tag">SDK</span></div>
+      <div class="card-title">Enterprise API</div>
+      <div class="card-desc">Full-featured REST API with webhooks, SDK support for Node, Python, Java, and Go. Pull wallet status, transaction data, and compliance metrics into your own NOC infrastructure.</div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="eyebrow">Pricing</div>
+    <div class="section-heading">Simple, Transparent Pricing</div>
+  </section>
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="price-tier">Starter</div>
+      <div class="price-name">Growth</div>
+      <div class="price-desc">For emerging institutions and crypto-native firms getting started with digital asset custody.</div>
+      <ul class="price-features">
+        <li>Up to 50 wallets</li><li>5 blockchain networks</li><li>Basic policy engine</li>
+        <li>REST API access</li><li>Email support</li>
+      </ul>
+      <button class="btn-outline" onclick="goPage('feasibility')">Get Started</button>
+    </div>
+    <div class="pricing-card featured">
+      <div class="pricing-badge">Most Popular</div>
+      <div class="price-tier">Enterprise</div>
+      <div class="price-name">Professional</div>
+      <div class="price-desc">For banks, funds, and exchanges that need full compliance coverage and advanced workflow automation.</div>
+      <ul class="price-features">
+        <li>Unlimited wallets</li><li>All 50+ blockchains</li><li>Advanced policy engine</li>
+        <li>AML/KYT compliance</li><li>DeFi & Web3 access</li><li>Dedicated CSM</li>
+      </ul>
+      <button class="btn-primary" onclick="goPage('feasibility')">Request Demo</button>
+    </div>
+    <div class="pricing-card">
+      <div class="price-tier">Global</div>
+      <div class="price-name">Sovereign</div>
+      <div class="price-desc">For central banks, sovereign wealth funds, and Tier-1 financial institutions with bespoke requirements.</div>
+      <ul class="price-features">
+        <li>On-premises deployment</li><li>Custom chain integrations</li><li>White-label platform</li>
+        <li>Regulatory liaison support</li><li>24/7 dedicated SRE team</li>
+      </ul>
+      <button class="btn-outline" onclick="goPage('feasibility')">Contact Sales</button>
+    </div>
+  </div>
+
+  <div class="cta-banner">
+    <div><div class="cta-heading">Compare products<br><em>side by side.</em></div></div>
+    <button class="btn-primary" onclick="goPage('feasibility')">Request Full Spec Sheet</button>
+  </div>
+
+  <footer>
+    <div class="footer-brand"><div class="logo-text">FIREBLOX</div><p>The enterprise digital asset infrastructure company.</p></div>
+    <div class="footer-col"><h4>Platform</h4><ul><li><a onclick="goPage('products')">MPC Wallets</a></li><li><a onclick="goPage('products')">Policy Engine</a></li><li><a onclick="goPage('products')">Compliance</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a onclick="goPage('company')">About</a></li><li><a onclick="goPage('company')">Careers</a></li><li><a onclick="goPage('feasibility')">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Resources</h4><ul><li><a href="#">API Docs</a></li><li><a href="#">SDK</a></li><li><a href="#">Status</a></li></ul></div>
+  </footer>
+  <div class="footer-bottom"><p>© 2026 Fireblox Inc.</p><div class="footer-bottom-links"><a href="#">Privacy</a><a href="#">Terms</a></div></div>
+</div><!-- /page-products -->
+
+<!-- ═══════════════════════════════════════════
+     SOLUTIONS PAGE
+═══════════════════════════════════════════ -->
+<div class="page" id="page-solutions">
+  <div class="inner-hero">
+    <div class="page-label">Solutions</div>
+    <div class="page-title">Infrastructure for Every<br>Institution Type.</div>
+    <p class="page-sub">Whether you're a hedge fund, a bank, a payments company, or a sovereign institution — Fireblox has a deployment model built specifically for your regulatory and operational context.</p>
+  </div>
+
+  <div class="cards-grid" style="border-top:none">
+    <div class="card" style="padding-top:64px">
+      <div class="card-num">01</div>
+      <div class="card-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+      <div class="card-title">Banks & Fintechs</div>
+      <div class="card-desc">Tokenized asset custody, stablecoin management, and programmable settlement rails for banks launching digital asset services. Full regulatory compliance built in.</div>
+    </div>
+    <div class="card" style="padding-top:64px">
+      <div class="card-num">02</div>
+      <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+      <div class="card-title">Hedge Funds & Asset Managers</div>
+      <div class="card-desc">Institutional-grade trading wallet infrastructure with deep exchange connectivity, prime brokerage integrations, and portfolio-level reporting across chains.</div>
+    </div>
+    <div class="card" style="padding-top:64px">
+      <div class="card-num">03</div>
+      <div class="card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+      <div class="card-title">Payments & Remittance</div>
+      <div class="card-desc">High-throughput stablecoin payment rails with real-time FX conversion, multi-currency settlement, and automated compliance screening on every corridor.</div>
+    </div>
+    <div class="card" style="padding-top:64px">
+      <div class="card-num">04</div>
+      <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+      <div class="card-title">Crypto Exchanges</div>
+      <div class="card-desc">Cold and hot wallet management, Proof-of-Reserves infrastructure, and automated withdrawal processing with real-time AML screening for exchange operators.</div>
+    </div>
+    <div class="card" style="padding-top:64px">
+      <div class="card-num">05</div>
+      <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div class="card-title">Government & Sovereign</div>
+      <div class="card-desc">CBDC issuance and distribution infrastructure, sovereign digital asset reserves, and national blockchain network deployment with air-gapped key management.</div>
+    </div>
+    <div class="card" style="padding-top:64px">
+      <div class="card-num">06</div>
+      <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="card-title">Web3 & DeFi Protocols</div>
+      <div class="card-desc">Secure treasury management, DAO governance integrations, and multi-sig smart contract controls for DeFi protocols managing billions in on-chain value.</div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="two-col">
+      <div>
+        <div class="eyebrow">Case Study</div>
+        <div class="section-heading">How a Tier-1 Bank Went Live on Blockchain in 60 Days.</div>
+        <p class="section-body">A global bank needed to launch tokenized bond custody for institutional clients without touching their existing core banking stack. Fireblox delivered an isolated MPC wallet layer, integrated compliance screening, and a white-label investor portal — in under 60 days.</p>
+        <button class="btn-outline">Read Case Study</button>
+      </div>
+      <div style="padding:40px;background:#fff;border:1px solid rgba(0,0,0,.08)">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,0,0,.4);margin-bottom:28px">Key Outcomes</div>
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <div style="padding-bottom:20px;border-bottom:1px solid rgba(0,0,0,.08)">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:52px;color:#111;line-height:1">60 Days</div>
+            <div style="font-size:12px;color:rgba(0,0,0,.5);letter-spacing:.1em;text-transform:uppercase;margin-top:6px">From contract to production</div>
+          </div>
+          <div style="padding-bottom:20px;border-bottom:1px solid rgba(0,0,0,.08)">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:52px;color:#111;line-height:1">$2.4B</div>
+            <div style="font-size:12px;color:rgba(0,0,0,.5);letter-spacing:.1em;text-transform:uppercase;margin-top:6px">Assets under custody at launch</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:52px;color:#16b450;line-height:1">0</div>
+            <div style="font-size:12px;color:rgba(0,0,0,.5);letter-spacing:.1em;text-transform:uppercase;margin-top:6px">Security incidents in 18 months</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-banner">
+    <div><div class="cta-heading">Find your<br><em>deployment model.</em></div></div>
+    <button class="btn-primary" onclick="goPage('feasibility')">Talk to Solutions</button>
+  </div>
+  <footer>
+    <div class="footer-brand"><div class="logo-text">FIREBLOX</div><p>The enterprise digital asset infrastructure company.</p></div>
+    <div class="footer-col"><h4>Platform</h4><ul><li><a onclick="goPage('products')">Products</a></li><li><a onclick="goPage('platform')">Platform</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a onclick="goPage('company')">About</a></li><li><a onclick="goPage('feasibility')">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Resources</h4><ul><li><a href="#">Docs</a></li><li><a href="#">Status</a></li></ul></div>
+  </footer>
+  <div class="footer-bottom"><p>© 2026 Fireblox Inc.</p><div class="footer-bottom-links"><a href="#">Privacy</a><a href="#">Terms</a></div></div>
+</div><!-- /page-solutions -->
+
+<!-- ═══════════════════════════════════════════
+     PLATFORM PAGE
+═══════════════════════════════════════════ -->
+<div class="page" id="page-platform">
+  <div class="inner-hero">
+    <div class="page-label">Platform</div>
+    <div class="page-title">The Platform Your<br>Operations Team<br>Actually Wants.</div>
+    <p class="page-sub">Real-time visibility into every wallet, every transaction, every SLA. Not in a monthly PDF. Right now, on a dashboard your team controls.</p>
+    <div style="display:flex;gap:16px;margin-top:36px">
+      <button class="btn-primary" onclick="goPage('feasibility')">Request Demo</button>
+      <button class="btn-outline">View API Docs</button>
+    </div>
+    <div class="status-banner" style="margin-top:28px">
+      <div class="status-dot"></div>
+      <div class="status-text">All Systems Operational · 99.97% Uptime This Month</div>
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-cell"><div class="stat-num">99.9%</div><div class="stat-label">Uptime SLA</div></div>
+    <div class="stat-cell"><div class="stat-num">50+</div><div class="stat-label">Blockchain Networks</div></div>
+    <div class="stat-cell"><div class="stat-num">&lt;200ms</div><div class="stat-label">API Response Time</div></div>
+  </div>
+
+  <!-- Platform features -->
+  <section class="section-sm">
+    <div class="eyebrow">Platform Capabilities</div>
+    <div class="section-heading-sm">Everything in one place.</div>
+  </section>
+
+  <div class="adv-list">
+    <div class="adv-item"><div class="adv-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div><div><div class="adv-title">Unified Dashboard</div><div class="adv-desc">Every wallet, chain, and transaction visible from a single pane of glass. Customizable per team role with granular access controls.</div></div></div>
+    <div class="adv-item"><div class="adv-icon"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div><div><div class="adv-title">Transaction Engine</div><div class="adv-desc">High-throughput transaction signing, batching, and broadcasting with automatic gas optimization and nonce management.</div></div></div>
+    <div class="adv-item"><div class="adv-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div><div class="adv-title">Incident Management</div><div class="adv-desc">Auto-created tickets with full diagnostic context when any wallet or transaction deviates from expected behavior.</div></div></div>
+    <div class="adv-item"><div class="adv-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div><div><div class="adv-title">Compliance Reports</div><div class="adv-desc">One-click generation of audit-ready reports for regulators, auditors, and internal compliance teams. Scheduled automated delivery.</div></div></div>
+    <div class="adv-item"><div class="adv-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><div><div class="adv-title">Analytics & Insights</div><div class="adv-desc">Volume trends, fee analytics, counterparty exposure, and chain performance metrics visualized in real-time with historical depth.</div></div></div>
+    <div class="adv-item"><div class="adv-icon"><svg viewBox="0 0 24 24"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg></div><div><div class="adv-title">Developer Tools</div><div class="adv-desc">Full REST API, webhooks, and SDKs in 5 languages. Sandbox environment with mainnet parity for testing before production deployment.</div></div></div>
+  </div>
+
+  <!-- Dashboard full -->
+  <div class="dashboard-wrap">
+    <div class="section-heading-sm" style="margin-bottom:8px">Live Platform Preview</div>
+    <p style="font-size:14px;color:rgba(0,0,0,.6);max-width:420px;line-height:1.7;margin-bottom:36px">The actual interface your operations team uses — every day.</p>
+    <div class="dashboard-inner">
+      <div class="dash-header">
+        <div class="dash-logo"><div class="dash-n">F</div>FIREBLOX Portal</div>
+        <div class="dash-nav"><span class="active">Wallets</span><span>Transactions</span><span>Compliance</span><span>Analytics</span><span>Settings</span></div>
+      </div>
+      <div class="dash-body">
+        <div class="dash-kpi"><div class="dash-kpi-label">Total AUC</div><div class="dash-kpi-val">$18.4B</div></div>
+        <div class="dash-kpi"><div class="dash-kpi-label">Tx Volume 24h</div><div class="dash-kpi-val">$2.1B</div></div>
+        <div class="dash-kpi"><div class="dash-kpi-label">AML Flags</div><div class="dash-kpi-val red">0</div></div>
+        <div class="dash-kpi"><div class="dash-kpi-label">SLA Score</div><div class="dash-kpi-val green">99.97%</div></div>
+        <div class="dash-table-wrap">
+          <div class="dash-table-title">Recent Transactions <span class="live-pill">LIVE</span></div>
+          <table>
+            <thead><tr><th>Tx Hash</th><th>Chain</th><th>Amount</th><th>AML</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">0x4f2a...c7e1</td><td>Ethereum</td><td>$4,200,000</td><td class="green-val">Clear</td><td class="green-val">● Confirmed</td></tr>
+              <tr><td class="mono">7xKp9...mN2r</td><td>Solana</td><td>$820,000</td><td class="green-val">Clear</td><td class="green-val">● Confirmed</td></tr>
+              <tr><td class="mono">0x8b1c...f4a9</td><td>Arbitrum</td><td>$12,500,000</td><td class="green-val">Clear</td><td class="green-val">● Confirmed</td></tr>
+              <tr><td class="mono">0x2d7e...9b3c</td><td>Bitcoin</td><td>$95,000,000</td><td class="green-val">Clear</td><td style="color:#f0a500;font-weight:700">● Pending</td></tr>
+              <tr><td class="mono">cosmos...p9k2</td><td>Cosmos</td><td>$340,000</td><td class="green-val">Clear</td><td class="green-val">● Confirmed</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-banner">
+    <div><div class="cta-heading">See the platform<br><em>in your environment.</em></div></div>
+    <button class="btn-primary" onclick="goPage('feasibility')">Schedule a Demo</button>
+  </div>
+  <footer>
+    <div class="footer-brand"><div class="logo-text">FIREBLOX</div><p>The enterprise digital asset infrastructure company.</p></div>
+    <div class="footer-col"><h4>Platform</h4><ul><li><a onclick="goPage('products')">Products</a></li><li><a onclick="goPage('solutions')">Solutions</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a onclick="goPage('company')">About</a></li><li><a onclick="goPage('feasibility')">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Resources</h4><ul><li><a href="#">Docs</a></li><li><a href="#">Status</a></li></ul></div>
+  </footer>
+  <div class="footer-bottom"><p>© 2026 Fireblox Inc.</p><div class="footer-bottom-links"><a href="#">Privacy</a><a href="#">Terms</a></div></div>
+</div><!-- /page-platform -->
+
+<!-- ═══════════════════════════════════════════
+     NETWORK PAGE
+═══════════════════════════════════════════ -->
+<div class="page" id="page-network">
+  <div class="inner-hero">
+    <div class="page-label">Network</div>
+    <div class="page-title">50+ Blockchains.<br>One Infrastructure.</div>
+    <p class="page-sub">Fireblox maintains direct node infrastructure across every major blockchain network — giving your wallets native-speed access without relying on third-party RPC providers.</p>
+    <div class="status-banner" style="margin-top:32px">
+      <div class="status-dot"></div>
+      <div class="status-text">All 50+ Networks Operational</div>
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-cell"><div class="stat-num">50+</div><div class="stat-label">Blockchain Networks</div></div>
+    <div class="stat-cell"><div class="stat-num">&lt;50ms</div><div class="stat-label">Node Latency</div></div>
+    <div class="stat-cell"><div class="stat-num">99.9%</div><div class="stat-label">Node Uptime SLA</div></div>
+  </div>
+
+  <!-- Node map -->
+  <div class="network-map">
+    <div class="eyebrow">Global Node Coverage</div>
+    <div class="section-heading-sm" style="margin-bottom:8px">Every major chain. Directly operated.</div>
+    <p style="font-size:14px;color:rgba(0,0,0,.6);max-width:500px;line-height:1.7">We run our own nodes so your transactions don't go through public RPC endpoints with rate limits and downtime risks.</p>
+    <div class="map-grid">
+      <div class="map-node"><div class="node-dot"></div><div class="node-name">Ethereum</div><div class="node-status">Operational</div></div>
+      <div class="map-node"><div class="node-dot"></div><div class="node-name">Bitcoin</div><div class="node-status">Operational</div></div>
+      <div class="map-node"><div class="node-dot"></div><div class="node-name">Solana</div><div class="node-status">Operational</div></div>
+      <div class="map-node"><div class="node-dot"></div><div class="node-name">Polygon</div><div class="node-status">Operational</div></div>
+      <div class="map-node"><div class="node-dot"></div><div class="node-name">Arbitrum</div><div class="node-status">Operational</div></div>
+      <div class="map-node"><div class="node-dot"></div><div class="node-name">Optimism</div><div class="node-status">Operational</div></div>
+      <div class="map-node"><div class="node-dot"></div><div class="node-name">Cosmos</div><div class="node-status">Operational</div></div>
+      <div class="map-node"><div class="node-dot"></div><div class="node-name">NEAR</div><div class="node-status">Operational</div></div>
+      <div class="map-node"><div class="node-dot"></div><div class="node-name">TON</div><div class="node-status">Operational</div></div>
+      <div class="map-node"><div class="node-dot"></div><div class="node-name">Avalanche</div><div class="node-status">Operational</div></div>
+      <div class="map-node"><div class="node-dot"></div><div class="node-name">BNB Chain</div><div class="node-status">Operational</div></div>
+      <div class="map-node"><div class="node-dot"></div><div class="node-name">Base</div><div class="node-status">Operational</div></div>
+      <div class="map-node"><div class="node-dot"></div><div class="node-name">zkSync</div><div class="node-status">Operational</div></div>
+      <div class="map-node"><div class="node-dot"></div><div class="node-name">Starknet</div><div class="node-status">Operational</div></div>
+      <div class="map-node"><div class="node-dot"></div><div class="node-name">Sui</div><div class="node-status">Operational</div></div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="two-col">
+      <div>
+        <div class="eyebrow">Node Infrastructure</div>
+        <div class="section-heading">Why We Run Our Own Nodes.</div>
+        <p class="section-body">Public RPC endpoints are shared infrastructure. Rate-limited, unreliable, and often a single point of failure for your transaction flow. Fireblox operates dedicated, enterprise-grade node clusters per network — with automatic failover, redundancy, and geo-distributed replicas.</p>
+        <button class="btn-outline">View Network Status</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1px;background:rgba(0,0,0,.08)">
+        <div style="background:#fff;padding:28px 32px;display:flex;justify-content:space-between;align-items:center">
+          <div style="font-size:13.5px;color:rgba(0,0,0,.6)">Public RPC Rate Limit</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#e63030">10 rps</div>
+        </div>
+        <div style="background:#fff;padding:28px 32px;display:flex;justify-content:space-between;align-items:center">
+          <div style="font-size:13.5px;color:rgba(0,0,0,.6)">Fireblox Node Capacity</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#16b450">10,000+ rps</div>
+        </div>
+        <div style="background:#fff;padding:28px 32px;display:flex;justify-content:space-between;align-items:center">
+          <div style="font-size:13.5px;color:rgba(0,0,0,.6)">Public RPC Uptime</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#e63030">~95%</div>
+        </div>
+        <div style="background:#fff;padding:28px 32px;display:flex;justify-content:space-between;align-items:center">
+          <div style="font-size:13.5px;color:rgba(0,0,0,.6)">Fireblox Node Uptime SLA</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#16b450">99.9%</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-banner">
+    <div><div class="cta-heading">Want a new chain?<br><em>We add it in 48h.</em></div></div>
+    <button class="btn-primary" onclick="goPage('feasibility')">Submit Chain Request</button>
+  </div>
+  <footer>
+    <div class="footer-brand"><div class="logo-text">FIREBLOX</div><p>The enterprise digital asset infrastructure company.</p></div>
+    <div class="footer-col"><h4>Platform</h4><ul><li><a onclick="goPage('products')">Products</a></li><li><a onclick="goPage('platform')">Platform</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a onclick="goPage('company')">About</a></li><li><a onclick="goPage('feasibility')">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Resources</h4><ul><li><a href="#">Docs</a></li><li><a href="#">Status</a></li></ul></div>
+  </footer>
+  <div class="footer-bottom"><p>© 2026 Fireblox Inc.</p><div class="footer-bottom-links"><a href="#">Privacy</a><a href="#">Terms</a></div></div>
+</div><!-- /page-network -->
+
+<!-- ═══════════════════════════════════════════
+     COMPANY PAGE
+═══════════════════════════════════════════ -->
+<div class="page" id="page-company">
+  <div class="inner-hero">
+    <div class="page-label">Company</div>
+    <div class="page-title">We built the infrastructure<br>that didn't exist.</div>
+    <p class="page-sub">Fireblox was founded in 2019 by a team of cryptographers, financial engineers, and infrastructure architects who believed institutional digital asset custody deserved the same reliability as SWIFT — but with the speed and transparency of blockchain.</p>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-cell"><div class="stat-num">2019</div><div class="stat-label">Founded</div></div>
+    <div class="stat-cell"><div class="stat-num">380+</div><div class="stat-label">Team Members</div></div>
+    <div class="stat-cell"><div class="stat-num">28</div><div class="stat-label">Countries of Operation</div></div>
+  </div>
+
+  <div class="timeline">
+    <div class="eyebrow">Our Story</div>
+    <div class="section-heading-sm">From stealth to global infrastructure.</div>
+    <div class="timeline-items">
+      <div class="tl-item"><div class="tl-year">2019</div><div><div class="tl-title">Founded in Stealth</div><div class="tl-desc">Three cryptographers leave their roles at major financial institutions to build the institutional custody layer the industry was missing.</div></div></div>
+      <div class="tl-item"><div class="tl-year">2020</div><div><div class="tl-title">First Institutional Client</div><div class="tl-desc">Launch of the MPC wallet platform. First Tier-2 bank goes live with $400M in assets under custody on day one.</div></div></div>
+      <div class="tl-item"><div class="tl-year">2021</div><div><div class="tl-title">Series B & Global Expansion</div><div class="tl-desc">$120M Series B. Expansion into APAC and MENA markets. Launch of the Policy Engine and DeFi access products.</div></div></div>
+      <div class="tl-item"><div class="tl-year">2022</div><div><div class="tl-title">1,000 Institutional Clients</div><div class="tl-desc">Crossed $1 trillion in cumulative transfer volume. Became the de-facto standard for institutional digital asset custody in APAC.</div></div></div>
+      <div class="tl-item"><div class="tl-year">2023</div><div><div class="tl-title">Compliance Suite Launch</div><div class="tl-desc">Launched integrated AML/KYT compliance suite. First platform to offer custody, compliance, and connectivity in a single regulated stack.</div></div></div>
+      <div class="tl-item"><div class="tl-year">2024</div><div><div class="tl-title">$6T Milestone</div><div class="tl-desc">Cumulative transfer volume crosses $6 trillion. Series D at $800M valuation. Sovereign government deployments in 3 countries.</div></div></div>
+      <div class="tl-item"><div class="tl-year">2026</div><div><div class="tl-title">Today</div><div class="tl-desc">1,800+ institutional clients across 28 countries. 50+ blockchain networks. The infrastructure behind more digital assets than any other custodian.</div></div></div>
+    </div>
+  </div>
+
+  <!-- Team -->
+  <section class="section-sm" style="border-top:1px solid rgba(0,0,0,.08)">
+    <div class="eyebrow">Leadership</div>
+    <div class="section-heading-sm">The team behind the infrastructure.</div>
+  </section>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-avatar">AM</div>
+      <div class="team-name">Arjun Mehta</div>
+      <div class="team-role">Co-Founder & CEO</div>
+      <div class="team-bio">Former Head of Digital Assets at Goldman Sachs. Cryptographer. Led the design of Fireblox's MPC key management architecture.</div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">SC</div>
+      <div class="team-name">Sophie Chen</div>
+      <div class="team-role">Co-Founder & CTO</div>
+      <div class="team-bio">Former Principal Engineer at Amazon Web Services. 15 years building distributed systems at global scale.</div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">MR</div>
+      <div class="team-name">Marcus Reid</div>
+      <div class="team-role">Co-Founder & CSO</div>
+      <div class="team-bio">Former Head of Crypto Compliance at Standard Chartered. Designed the regulatory frameworks for digital asset operations in 12 jurisdictions.</div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">LK</div>
+      <div class="team-name">Laila Karim</div>
+      <div class="team-role">Chief Product Officer</div>
+      <div class="team-bio">Product lead behind three enterprise fintech exits. Joined Fireblox to build the dashboard that institutions actually want to use.</div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">JW</div>
+      <div class="team-name">James Wu</div>
+      <div class="team-role">VP Engineering</div>
+      <div class="team-bio">Blockchain infrastructure engineer. Former core contributor to Ethereum client development. Leads the 200-person engineering organisation.</div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">NK</div>
+      <div class="team-name">Nina Kovač</div>
+      <div class="team-role">General Counsel</div>
+      <div class="team-bio">Former partner at Linklaters. Leads Fireblox's global regulatory strategy across 28 jurisdictions including MiCA, MAS, and SEC frameworks.</div>
+    </div>
+  </div>
+
+  <div class="cta-banner">
+    <div><div class="cta-heading">Join the team<br><em>building the future.</em></div><p class="cta-sub">We're hiring across engineering, product, compliance, and sales.</p></div>
+    <button class="btn-primary">View Open Roles</button>
+  </div>
+  <footer>
+    <div class="footer-brand"><div class="logo-text">FIREBLOX</div><p>The enterprise digital asset infrastructure company.</p></div>
+    <div class="footer-col"><h4>Platform</h4><ul><li><a onclick="goPage('products')">Products</a></li><li><a onclick="goPage('platform')">Platform</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a onclick="goPage('company')">About</a></li><li><a href="#">Careers</a></li></ul></div>
+    <div class="footer-col"><h4>Contact</h4><ul><li><a onclick="goPage('feasibility')">Feasibility</a></li><li><a href="#">Press</a></li></ul></div>
+  </footer>
+  <div class="footer-bottom"><p>© 2026 Fireblox Inc.</p><div class="footer-bottom-links"><a href="#">Privacy</a><a href="#">Terms</a></div></div>
+</div><!-- /page-company -->
+
+<!-- ═══════════════════════════════════════════
+     FEASIBILITY PAGE
+═══════════════════════════════════════════ -->
+<div class="page" id="page-feasibility">
+  <div class="inner-hero">
+    <div class="page-label">Request Feasibility</div>
+    <div class="page-title">Check Feasibility at<br>Your Institution.</div>
+    <p class="page-sub">Tell us about your setup. We'll come back within 24 hours with a full feasibility assessment — which chains, which products, and what a deployment would look like for your specific context.</p>
+    <p style="font-size:12px;color:rgba(0,0,0,.4);margin-top:18px;letter-spacing:.08em;text-transform:uppercase">Free check · No commitment · 24h Response</p>
+  </div>
+
+  <section class="section">
+    <div class="two-col-3">
+      <div>
+        <div class="eyebrow">Get Started</div>
+        <div class="section-heading-sm" style="margin-bottom:28px">Fill in your details</div>
+        <div class="form-grid">
+          <div class="form-group"><label>First Name</label><input type="text" placeholder="Arjun"></div>
+          <div class="form-group"><label>Last Name</label><input type="text" placeholder="Mehta"></div>
+          <div class="form-group"><label>Work Email</label><input type="email" placeholder="arjun@institution.com"></div>
+          <div class="form-group"><label>Phone</label><input type="tel" placeholder="+1 (555) 000-0000"></div>
+          <div class="form-group full"><label>Institution Name</label><input type="text" placeholder="Global Capital Partners"></div>
+          <div class="form-group"><label>Institution Type</label>
+            <select>
+              <option value="">Select type…</option>
+              <option>Bank / Fintech</option><option>Hedge Fund / Asset Manager</option>
+              <option>Crypto Exchange</option><option>Payments / Remittance</option>
+              <option>Government / Sovereign</option><option>Web3 Protocol / DAO</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Assets Under Management</label>
+            <select>
+              <option value="">Select range…</option>
+              <option>Under $100M</option><option>$100M – $1B</option>
+              <option>$1B – $10B</option><option>$10B – $100B</option><option>$100B+</option>
+            </select>
+          </div>
+          <div class="form-group full"><label>Primary Use Case</label>
+            <select>
+              <option value="">Select use case…</option>
+              <option>Digital Asset Custody</option><option>Tokenized Asset Management</option>
+              <option>Stablecoin Payments</option><option>DeFi Treasury Management</option>
+              <option>CBDC Infrastructure</option><option>Crypto Exchange Operations</option>
+            </select>
+          </div>
+          <div class="form-group full"><label>Tell us more</label><textarea placeholder="What blockchains are you targeting? What's your current custody setup? Any specific compliance requirements?"></textarea></div>
+          <div class="form-group full">
+            <button class="btn-primary" style="width:fit-content" onclick="alert('Thank you — our team will respond within 24 hours.')">Submit Feasibility Request</button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="position:sticky;top:120px;display:flex;flex-direction:column;gap:24px">
+          <div style="padding:36px;background:#fff;border:1px solid rgba(0,0,0,.08)">
+            <div class="eyebrow" style="margin-bottom:16px">What happens next</div>
+            <div style="display:flex;flex-direction:column;gap:18px">
+              <div style="display:flex;gap:16px;align-items:flex-start">
+                <div style="width:28px;height:28px;border:1px solid rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;color:#111">01</div>
+                <div><div style="font-size:14px;font-weight:700;color:#111;margin-bottom:4px">We review your submission</div><div style="font-size:13px;color:rgba(0,0,0,.6);line-height:1.65">Our solutions team reviews your requirements against our infrastructure capabilities and compliance scope.</div></div>
+              </div>
+              <div style="display:flex;gap:16px;align-items:flex-start">
+                <div style="width:28px;height:28px;border:1px solid rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;color:#111">02</div>
+                <div><div style="font-size:14px;font-weight:700;color:#111;margin-bottom:4px">24h feasibility report</div><div style="font-size:13px;color:rgba(0,0,0,.6);line-height:1.65">You receive a tailored feasibility assessment — chains supported, onboarding timeline, and recommended product configuration.</div></div>
+              </div>
+              <div style="display:flex;gap:16px;align-items:flex-start">
+                <div style="width:28px;height:28px;border:1px solid rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;color:#111">03</div>
+                <div><div style="font-size:14px;font-weight:700;color:#111;margin-bottom:4px">Live demo & scoping</div><div style="font-size:13px;color:rgba(0,0,0,.6);line-height:1.65">We walk you through the platform in your exact use-case context. No generic demos — your assets, your chains, your workflow.</div></div>
+              </div>
+            </div>
+          </div>
+          <div style="padding:32px;background:#fff;border:1px solid rgba(0,0,0,.08)">
+            <div style="font-size:11px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:rgba(0,0,0,.4);margin-bottom:16px">Already a client?</div>
+            <p style="font-size:13.5px;color:rgba(0,0,0,.6);line-height:1.65;margin-bottom:18px">Log in to your existing dashboard or contact your dedicated account manager.</p>
+            <button class="btn-outline" style="margin-top:0">Access Portal →</button>
+          </div>
+          <div class="status-banner">
+            <div class="status-dot"></div>
+            <div class="status-text">All Systems Operational</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-brand"><div class="logo-text">FIREBLOX</div><p>The enterprise digital asset infrastructure company.</p></div>
+    <div class="footer-col"><h4>Platform</h4><ul><li><a onclick="goPage('products')">Products</a></li><li><a onclick="goPage('platform')">Platform</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a onclick="goPage('company')">About</a></li><li><a href="#">Careers</a></li></ul></div>
+    <div class="footer-col"><h4>Contact</h4><ul><li><a href="#">hello@fireblox.io</a></li><li><a href="#">+1 (415) 000-0000</a></li></ul></div>
+  </footer>
+  <div class="footer-bottom"><p>© 2026 Fireblox Inc.</p><div class="footer-bottom-links"><a href="#">Privacy</a><a href="#">Terms</a></div></div>
+</div><!-- /page-feasibility -->
+
+<script>
+// ─── Scroll nav background ───
+window.addEventListener('scroll',()=>{
+  document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>30)
+})
+
+// ─── Page navigation ───
+function goPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'))
+  document.getElementById('page-'+name).classList.add('active')
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    a.classList.toggle('active',a.dataset.page===name)
+  })
+  window.scrollTo({top:0,behavior:'instant'})
+}
+</script>
+</body>
+</html>
+8
