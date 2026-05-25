@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Armonia Excursions | Premium Private Tours & Curated Journeys in Greece</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cormorant Garamond (Editorial Serif) & Plus Jakarta Sans (Modern Clean UI Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons for polished UI iconography -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        armonia: {
+                            bg: '#F5F2EB',       /* Sophisticated warm cream */
+                            dark: '#132B24',     /* Deep, luxury Greek forest green */
+                            darkHover: '#1B3C33',/* Slightly lighter forest green for hover */
+                            olive: '#2A4D43',    /* Muted olive accent */
+                            sand: '#E3DEC3',     /* Soft desert sand secondary bg */
+                            lightSand: '#FAF8F5',/* Very soft card background */
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Cormorant Garamond', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        '3xl': '1.75rem',
+                        '4xl': '2.5rem',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom animations & fine lines */
+        .premium-border {
+            border: 1px solid #132B24;
+        }
+        .premium-border-soft {
+            border: 1px solid rgba(19, 43, 36, 0.15);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #F5F2EB;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #132B24;
+            border-radius: 2px;
+        }
+        /* Custom smooth micro-interactions */
+        .hover-lift {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-4px);
+        }
+    </style>
+</head>
+<body class="bg-armonia-bg text-armonia-dark font-sans antialiased selection:bg-armonia-dark selection:text-armonia-bg overflow-x-hidden">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-40 bg-armonia-bg/95 backdrop-blur-md border-b border-armonia-dark/10 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <!-- Brand Identity -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <span class="font-serif text-2xl lg:text-3xl font-semibold tracking-wider transition-colors duration-300">
+                    A R M O N I A
+                </span>
+                <span class="h-5 w-[1px] bg-armonia-dark/30 hidden sm:inline-block"></span>
+                <span class="text-xs uppercase tracking-widest text-armonia-dark/70 hidden sm:inline-block font-medium mt-1">
+                    Excursions
+                </span>
+            </a>
+
+            <!-- Desktop Nav Menu -->
+            <nav class="hidden lg:flex items-center space-x-8 font-medium text-sm tracking-wide">
+                <a href="#destinations" class="hover:text-armonia-olive transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-armonia-dark hover:after:w-full after:transition-all after:duration-300">Destinations</a>
+                <a href="#philosophy" class="hover:text-armonia-olive transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-armonia-dark hover:after:w-full after:transition-all after:duration-300">Our Philosophy</a>
+                <a href="#planner" class="hover:text-armonia-olive transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-armonia-dark hover:after:w-full after:transition-all after:duration-300">Private Customizer</a>
+                <a href="#concierge" class="hover:text-armonia-olive transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-armonia-dark hover:after:w-full after:transition-all after:duration-300 flex items-center gap-1.5">
+                    <span class="inline-block w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+                    AI Curated Journeys
+                </a>
+                <a href="#reviews" class="hover:text-armonia-olive transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-armonia-dark hover:after:w-full after:transition-all after:duration-300">Stories</a>
+            </nav>
+
+            <!-- Language & CTA Actions -->
+            <div class="hidden lg:flex items-center space-x-6">
+                <div class="relative group">
+                    <button class="flex items-center space-x-1.5 text-xs uppercase tracking-wider font-semibold border border-armonia-dark/20 px-3 py-1.5 rounded-full hover:border-armonia-dark transition-all">
+                        <i class="fa-solid fa-globe text-[10px]"></i>
+                        <span>English</span>
+                        <i class="fa-solid fa-chevron-down text-[8px] transition-transform group-hover:rotate-180"></i>
+                    </button>
+                    <!-- Language Dropdown -->
+                    <div class="absolute right-0 mt-2 w-32 bg-armonia-bg border border-armonia-dark/20 rounded-xl py-2 hidden group-hover:block shadow-sm">
+                        <a href="#" class="block px-4 py-1.5 text-xs font-semibold uppercase hover:bg-armonia-dark hover:text-armonia-bg transition-colors">English</a>
+                        <a href="#" class="block px-4 py-1.5 text-xs font-semibold uppercase hover:bg-armonia-dark hover:text-armonia-bg transition-colors">Ελληνικά</a>
+                        <a href="#" class="block px-4 py-1.5 text-xs font-semibold uppercase hover:bg-armonia-dark hover:text-armonia-bg transition-colors">Deutsch</a>
+                    </div>
+                </div>
+                <button onclick="openBookingModal()" class="bg-armonia-dark text-armonia-bg px-6 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider hover:bg-armonia-darkHover transition-all shadow-sm">
+                    Book an Experience
+                </button>
+            </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button onclick="toggleMobileMenu()" class="lg:hidden text-armonia-dark hover:text-armonia-olive focus:outline-none p-1">
+                <i id="menuIcon" class="fa-solid fa-bars-staggered text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer Navigation Overlay -->
+        <div id="mobileDrawer" class="hidden fixed inset-0 z-50 bg-armonia-bg flex flex-col justify-between p-8 transition-transform duration-500 translate-x-full">
+            <div>
+                <!-- Drawer Header -->
+                <div class="flex items-center justify-between mb-12">
+                    <span class="font-serif text-2xl font-semibold tracking-wider">A R M O N I A</span>
+                    <button onclick="toggleMobileMenu()" class="text-armonia-dark p-2 hover:bg-armonia-dark/5 rounded-full">
+                        <i class="fa-solid fa-xmark text-2xl"></i>
+                    </button>
+                </div>
+                <!-- Menu Links -->
+                <nav class="flex flex-col space-y-6 text-2xl font-serif">
+                    <a href="#destinations" onclick="toggleMobileMenu()" class="hover:translate-x-2 transition-transform duration-300">Destinations</a>
+                    <a href="#philosophy" onclick="toggleMobileMenu()" class="hover:translate-x-2 transition-transform duration-300">Our Philosophy</a>
+                    <a href="#planner" onclick="toggleMobileMenu()" class="hover:translate-x-2 transition-transform duration-300">Private Customizer</a>
+                    <a href="#concierge" onclick="toggleMobileMenu()" class="hover:translate-x-2 transition-transform duration-300 flex items-center gap-2">
+                        <span>AI Curated Journeys</span>
+                        <span class="text-xs uppercase tracking-widest font-sans bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full">Beta</span>
+                    </a>
+                    <a href="#reviews" onclick="toggleMobileMenu()" class="hover:translate-x-2 transition-transform duration-300">Guest Stories</a>
+                </nav>
+            </div>
+
+            <!-- Drawer Footer -->
+            <div class="space-y-6">
+                <div class="flex items-center space-x-3 text-xs uppercase tracking-wider font-semibold border border-armonia-dark/20 w-fit px-4 py-2 rounded-full">
+                    <i class="fa-solid fa-globe"></i>
+                    <span>Select Language: English</span>
+                </div>
+                <button onclick="toggleMobileMenu(); openBookingModal();" class="w-full bg-armonia-dark text-armonia-bg py-4 rounded-full text-sm font-semibold uppercase tracking-wider hover:bg-armonia-darkHover transition-all">
+                    Book an Experience
+                </button>
+                <p class="text-center text-xs text-armonia-dark/50">© 2026 Armonia Excursions. License No. ΜΗ.Τ.Ε. 0206Ε600003</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION (Asymmetric, Editorial Design) -->
+    <section class="relative min-h-[90vh] flex items-center pt-8 pb-16 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            
+            <!-- Left Side: Editorial Content -->
+            <div class="lg:col-span-5 flex flex-col justify-center space-y-8 order-2 lg:order-1 z-10">
+                <div class="space-y-4">
+                    <span class="text-xs lg:text-sm font-semibold uppercase tracking-[0.25em] text-armonia-dark/70 block">
+                        Est. Athens 2011 — Private Guiding
+                    </span>
+                    <h1 class="font-serif text-5xl md:text-6xl lg:text-7xl font-light tracking-tight leading-[1.05] text-armonia-dark">
+                        ARMONIA <br>
+                        <span class="italic font-normal">EXCURSIONS</span>
+                    </h1>
+                </div>
+                
+                <p class="text-base lg:text-lg text-armonia-dark/80 font-normal leading-relaxed max-w-md">
+                    The most popular and trusted boutique travel agency in Greece. We weave ancient mythologies, breathtaking Aegean vistas, and unparalleled local wisdom into hand-tailored experiences of a lifetime.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
+                    <a href="#destinations" class="group flex items-center justify-between sm:justify-start gap-4 border border-armonia-dark px-8 py-4 rounded-full text-xs font-semibold uppercase tracking-widest hover:bg-armonia-dark hover:text-armonia-bg transition-all duration-300">
+                        <span>Explore Journeys</span>
+                        <i class="fa-solid fa-arrow-up-right transition-transform group-hover:rotate-45"></i>
+                    </a>
+                    <a href="#planner" class="text-center sm:text-left px-8 py-4 text-xs font-semibold uppercase tracking-widest text-armonia-dark/80 hover:text-armonia-dark transition-colors duration-300">
+                        Customize Tour
+                    </a>
+                </div>
+
+                <!-- Live stats inside fine borders -->
+                <div class="grid grid-cols-3 gap-4 border-t border-armonia-dark/20 pt-8 mt-4">
+                    <div>
+                        <p class="font-serif text-3xl font-semibold">15k+</p>
+                        <p class="text-[10px] uppercase tracking-wider text-armonia-dark/60 mt-1">Guests Welcomed</p>
+                    </div>
+                    <div>
+                        <p class="font-serif text-3xl font-semibold">99.4%</p>
+                        <p class="text-[10px] uppercase tracking-wider text-armonia-dark/60 mt-1">Five Star Reviews</p>
+                    </div>
+                    <div>
+                        <p class="font-serif text-3xl font-semibold">12+</p>
+                        <p class="text-[10px] uppercase tracking-wider text-armonia-dark/60 mt-1">Greek Regions Covered</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: High-End Asymmetrical Photo Grid inspired by reference image -->
+            <div class="lg:col-span-7 grid grid-cols-12 gap-4 items-center order-1 lg:order-2">
+                <!-- Large featured visual inside thin frame -->
+                <div class="col-span-8 p-1.5 premium-border rounded-[2.5rem] bg-armonia-bg overflow-hidden shadow-lg transform rotate-[-1deg] transition-transform duration-500 hover:rotate-0">
+                    <div class="relative aspect-[4/5] rounded-[2.25rem] overflow-hidden bg-armonia-sand">
+                        <img 
+                            src="https://images.unsplash.com/photo-1503152394-c571994fd383?auto=format&fit=crop&q=80&w=1200" 
+                            alt="The Sanctuary of Poseidon in Sounion, Greece" 
+                            class="w-full h-full object-cover object-center scale-105 hover:scale-100 transition-transform duration-[2.5s]"
+                        >
+                        <!-- Fine elegant badge overlay -->
+                        <div class="absolute bottom-6 left-6 right-6 bg-armonia-bg/90 backdrop-blur-md p-4 rounded-2xl border border-armonia-dark/10 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-semibold uppercase tracking-widest text-armonia-dark/80">Scenic Odyssey</p>
+                                <p class="font-serif text-lg font-medium text-armonia-dark mt-0.5">The Cape Sounion Private Tour</p>
+                            </div>
+                            <span class="text-xs uppercase tracking-wider font-semibold border-b border-armonia-dark pb-0.5">Explore</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Secondary visual complementing, mimicking the reference's layout aspect -->
+                <div class="col-span-4 flex flex-col gap-4">
+                    <!-- Top smaller curved block -->
+                    <div class="p-1 premium-border rounded-[2rem] bg-armonia-bg overflow-hidden shadow-md transform rotate-[2deg] transition-transform duration-500 hover:rotate-0">
+                        <div class="relative aspect-square rounded-[1.75rem] overflow-hidden bg-armonia-sand">
+                            <img 
+                                src="https://images.unsplash.com/photo-1508849789987-4e5333c12b78?auto=format&fit=crop&q=80&w=600" 
+                                alt="Meteora Monasteries on massive cliffs" 
+                                class="w-full h-full object-cover scale-110 hover:scale-100 transition-transform duration-[2s]"
+                            >
+                        </div>
+                    </div>
+                    <!-- Text callout mimicking editorial magazine pages -->
+                    <div class="p-5 premium-border-soft rounded-[2rem] bg-armonia-lightSand flex flex-col justify-center space-y-2">
+                        <span class="text-[9px] uppercase tracking-widest text-armonia-dark/60 font-bold">Unveiling</span>
+                        <h4 class="font-serif text-base italic font-semibold leading-snug">"Nature and heritage suspended in air."</h4>
+                        <p class="text-[11px] text-armonia-dark/70 leading-relaxed">Discover custom private excursions designed around slow luxury, authentic cuisine, and private historians.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CURATED EXPEDITIONS (Destinations Showcase) -->
+    <section id="destinations" class="py-24 bg-armonia-lightSand border-y border-armonia-dark/10">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <!-- Section Title -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                <div class="space-y-4">
+                    <span class="text-xs uppercase tracking-[0.2em] text-armonia-dark/60 font-semibold block">Curated Expeditions</span>
+                    <h2 class="font-serif text-4xl md:text-5xl font-light tracking-tight">
+                        Signature Handcrafted <br><span class="italic font-normal">Greek Itineraries</span>
+                    </h2>
+                </div>
+                <p class="text-sm md:text-base text-armonia-dark/70 max-w-md leading-relaxed">
+                    Designed for travelers who seek the exquisite. Every itinerary includes high-end private Mercedes-Benz transport, licensed premium guides, and customized gastronomical highlights.
+                </p>
+            </div>
+
+            <!-- Destinations Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Destination 1 -->
+                <div class="group flex flex-col h-full bg-armonia-bg premium-border rounded-[2rem] overflow-hidden hover-lift">
+                    <div class="relative aspect-[3/2] overflow-hidden">
+                        <img 
+                            src="https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&q=80&w=800" 
+                            alt="Santorini Caldera at Sunrise" 
+                            class="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110"
+                        >
+                        <span class="absolute top-4 left-4 bg-armonia-bg/90 backdrop-blur-sm text-[10px] uppercase tracking-widest font-semibold px-3 py-1 rounded-full border border-armonia-dark/10">
+                            Cyclades Luxury
+                        </span>
+                    </div>
+                    <div class="p-6 flex flex-col justify-between flex-grow space-y-4">
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-serif text-2xl font-semibold text-armonia-dark">Aegean Caldera Elegance</h3>
+                                <span class="text-xs font-semibold uppercase tracking-widest text-amber-800 bg-amber-50 px-2 py-0.5 rounded">Popular</span>
+                            </div>
+                            <p class="text-xs text-armonia-dark/60 flex items-center gap-3">
+                                <span><i class="fa-regular fa-clock mr-1"></i> 3 Days</span>
+                                <span>•</span>
+                                <span><i class="fa-solid fa-user-group mr-1"></i> Private Party (Up to 6)</span>
+                            </p>
+                            <p class="text-sm text-armonia-dark/80 leading-relaxed">
+                                Dive into custom sailing yacht charters, exclusive sunset degustation tours, and private guidance through pre-historic Akrotiri away from tourist paths.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-armonia-dark/15 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] uppercase tracking-wider text-armonia-dark/50 block">From</span>
+                                <span class="font-serif text-lg font-bold text-armonia-dark">€1,450 / guest</span>
+                            </div>
+                            <button onclick="prepopulateAndBook('Aegean Caldera Elegance', 1450)" class="text-xs font-semibold uppercase tracking-widest border border-armonia-dark hover:bg-armonia-dark hover:text-armonia-bg px-4 py-2 rounded-full transition-all">
+                                Customise Plan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Destination 2 -->
+                <div class="group flex flex-col h-full bg-armonia-bg premium-border rounded-[2rem] overflow-hidden hover-lift">
+                    <div class="relative aspect-[3/2] overflow-hidden">
+                        <img 
+                            src="https://images.unsplash.com/photo-1508849789987-4e5333c12b78?auto=format&fit=crop&q=80&w=800" 
+                            alt="The Sacred Monasteries of Meteora" 
+                            class="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110"
+                        >
+                        <span class="absolute top-4 left-4 bg-armonia-bg/90 backdrop-blur-sm text-[10px] uppercase tracking-widest font-semibold px-3 py-1 rounded-full border border-armonia-dark/10">
+                            Central Greece
+                        </span>
+                    </div>
+                    <div class="p-6 flex flex-col justify-between flex-grow space-y-4">
+                        <div class="space-y-2">
+                            <h3 class="font-serif text-2xl font-semibold text-armonia-dark">Meteora & Delphi Odyssey</h3>
+                            <p class="text-xs text-armonia-dark/60 flex items-center gap-3">
+                                <span><i class="fa-regular fa-clock mr-1"></i> 2 Days</span>
+                                <span>•</span>
+                                <span><i class="fa-solid fa-user-group mr-1"></i> Private Party (Up to 8)</span>
+                            </p>
+                            <p class="text-sm text-armonia-dark/80 leading-relaxed">
+                                Experience ancient world centers and monastic retreats on monoliths. Guided exploration of Apollo's Temple paired with private vineyard truffle hunting.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-armonia-dark/15 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] uppercase tracking-wider text-armonia-dark/50 block">From</span>
+                                <span class="font-serif text-lg font-bold text-armonia-dark">€890 / guest</span>
+                            </div>
+                            <button onclick="prepopulateAndBook('Meteora & Delphi Odyssey', 890)" class="text-xs font-semibold uppercase tracking-widest border border-armonia-dark hover:bg-armonia-dark hover:text-armonia-bg px-4 py-2 rounded-full transition-all">
+                                Customise Plan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Destination 3 -->
+                <div class="group flex flex-col h-full bg-armonia-bg premium-border rounded-[2rem] overflow-hidden hover-lift">
+                    <div class="relative aspect-[3/2] overflow-hidden">
+                        <img 
+                            src="https://images.unsplash.com/photo-1503152394-c571994fd383?auto=format&fit=crop&q=80&w=800" 
+                            alt="The Pillars of Cape Sounion Temple" 
+                            class="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110"
+                        >
+                        <span class="absolute top-4 left-4 bg-armonia-bg/90 backdrop-blur-sm text-[10px] uppercase tracking-widest font-semibold px-3 py-1 rounded-full border border-armonia-dark/10">
+                            Attica & Riviera
+                        </span>
+                    </div>
+                    <div class="p-6 flex flex-col justify-between flex-grow space-y-4">
+                        <div class="space-y-2">
+                            <h3 class="font-serif text-2xl font-semibold text-armonia-dark">The Athenian Antiquities</h3>
+                            <p class="text-xs text-armonia-dark/60 flex items-center gap-3">
+                                <span><i class="fa-regular fa-clock mr-1"></i> 1 Day</span>
+                                <span>•</span>
+                                <span><i class="fa-solid fa-user-group mr-1"></i> Customizable</span>
+                            </p>
+                            <p class="text-sm text-armonia-dark/80 leading-relaxed">
+                                A masterclass in classical history. Private early access Acropolis tour followed by an luxury coastal drive down the Riviera to Poseidon's Temple at sunset.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-armonia-dark/15 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] uppercase tracking-wider text-armonia-dark/50 block">From</span>
+                                <span class="font-serif text-lg font-bold text-armonia-dark">€390 / guest</span>
+                            </div>
+                            <button onclick="prepopulateAndBook('The Athenian Antiquities', 390)" class="text-xs font-semibold uppercase tracking-widest border border-armonia-dark hover:bg-armonia-dark hover:text-armonia-bg px-4 py-2 rounded-full transition-all">
+                                Customise Plan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE TOUR CUSTOMIZER (Dynamic Pricing & Planning Tool) -->
+    <section id="planner" class="py-24 bg-armonia-bg">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Dynamic Planner Information -->
+            <div class="lg:col-span-5 space-y-6">
+                <span class="text-xs uppercase tracking-[0.2em] text-armonia-dark/60 font-semibold block">Craft Your Own Odyssey</span>
+                <h2 class="font-serif text-4xl lg:text-5xl font-light tracking-tight">
+                    Custom Tour <br><span class="italic font-normal">Pricing Estimator</span>
+                </h2>
+                <p class="text-sm lg:text-base text-armonia-dark/70 leading-relaxed">
+                    Instantly visualize and plan your private excursion. Adjust itinerary style, regions, durations, and traveler size. Toggle fine optional curated elements to match your tastes.
+                </p>
+                
+                <div class="space-y-4 bg-armonia-lightSand p-6 rounded-2xl border border-armonia-dark/10">
+                    <h4 class="font-semibold text-sm uppercase tracking-wider text-armonia-dark">Included Premium Inclusions:</h4>
+                    <ul class="space-y-2.5 text-xs text-armonia-dark/80">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-armonia-olive"></i> Full insurance & premium Mercedes-Benz luxury van transit</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-armonia-olive"></i> Professionally certified local English-speaking private guide</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-armonia-olive"></i> Cold bottled regional spring water & Greek artisanal snack baskets</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-armonia-olive"></i> Skip-the-line luxury entry tickets pre-booked to archaeological zones</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Interactive Pricing Card -->
+            <div class="lg:col-span-7 bg-armonia-lightSand premium-border rounded-[2.5rem] p-8 lg:p-10 shadow-xl">
+                <h3 class="font-serif text-2xl font-semibold mb-6 pb-4 border-b border-armonia-dark/10">Configure Excursion</h3>
+                
+                <div class="space-y-6">
+                    <!-- Choice 1: Select Excursion Style -->
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider font-semibold mb-3 text-armonia-dark/80">1. Excursion Style & Focus</label>
+                        <div class="grid grid-cols-3 gap-3">
+                            <button onclick="setEstStyle('classic', 1.0)" id="style-classic" class="style-btn px-4 py-3 text-xs font-semibold rounded-xl border bg-armonia-dark text-armonia-bg border-armonia-dark transition-all text-center">
+                                Classic History
+                            </button>
+                            <button onclick="setEstStyle('adventure', 1.25)" id="style-adventure" class="style-btn px-4 py-3 text-xs font-semibold rounded-xl border border-armonia-dark/20 hover:border-armonia-dark transition-all text-center">
+                                Scenic Adventure
+                            </button>
+                            <button onclick="setEstStyle('bespoke', 1.5)" id="style-bespoke" class="style-btn px-4 py-3 text-xs font-semibold rounded-xl border border-armonia-dark/20 hover:border-armonia-dark transition-all text-center">
+                                Ultra-Private Luxury
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Choice 2: Select Core Region -->
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider font-semibold mb-3 text-armonia-dark/80">2. Select Primary Region</label>
+                        <select id="estimatorRegion" onchange="calculateEstimate()" class="w-full bg-armonia-bg border border-armonia-dark/20 rounded-xl px-4 py-3 text-xs font-semibold focus:outline-none focus:border-armonia-dark">
+                            <option value="athens" data-base="350">Athens & Sounion Riviera (€350 base)</option>
+                            <option value="delphi" data-base="590">Delphi & Mount Parnassus (€590 base)</option>
+                            <option value="meteora" data-base="850">Meteora Mystical Monasteries (€850 base)</option>
+                            <option value="peloponnese" data-base="690">Peloponnese (Mycenae, Epidaurus, Nafplio) (€690 base)</option>
+                        </select>
+                    </div>
+
+                    <!-- Choice 3: Travelers & Duration Sliders -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-xs uppercase tracking-wider font-semibold text-armonia-dark/80">3. Group Size</label>
+                                <span id="groupValue" class="text-xs font-bold text-armonia-dark">2 Travelers</span>
+                            </div>
+                            <input type="range" id="estimatorGroup" min="1" max="15" value="2" oninput="updateGroupSlider(this.value)" class="w-full accent-armonia-dark bg-armonia-dark/10 h-1.5 rounded-lg cursor-pointer">
+                            <span class="text-[10px] text-armonia-dark/50 mt-1 block">Private group size up to 15 guests</span>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-xs uppercase tracking-wider font-semibold text-armonia-dark/80">4. Duration</label>
+                                <span id="durationValue" class="text-xs font-bold text-armonia-dark">1 Full Day</span>
+                            </div>
+                            <input type="range" id="estimatorDuration" min="1" max="5" value="1" oninput="updateDurationSlider(this.value)" class="w-full accent-armonia-dark bg-armonia-dark/10 h-1.5 rounded-lg cursor-pointer">
+                            <span class="text-[10px] text-armonia-dark/50 mt-1 block">Multi-day includes boutique night stops</span>
+                        </div>
+                    </div>
+
+                    <!-- Curated Extras -->
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider font-semibold mb-3 text-armonia-dark/80">5. Elevate Your Journey (Optional Extras)</label>
+                        <div class="space-y-2">
+                            <label class="flex items-center justify-between bg-armonia-bg p-3 rounded-xl border border-armonia-dark/10 hover:border-armonia-dark/30 cursor-pointer transition-colors">
+                                <span class="flex items-center space-x-3 text-xs font-medium">
+                                    <input type="checkbox" id="extraLunch" onchange="calculateEstimate()" class="rounded border-armonia-dark/30 text-armonia-dark focus:ring-armonia-dark w-4 h-4">
+                                    <span>Traditional Olive-Oil Farm Gastronomy Lunch</span>
+                                </span>
+                                <span class="text-xs font-bold text-armonia-olive">+€60 / person</span>
+                            </label>
+                            <label class="flex items-center justify-between bg-armonia-bg p-3 rounded-xl border border-armonia-dark/10 hover:border-armonia-dark/30 cursor-pointer transition-colors">
+                                <span class="flex items-center space-x-3 text-xs font-medium">
+                                    <input type="checkbox" id="extraYacht" onchange="calculateEstimate()" class="rounded border-armonia-dark/30 text-armonia-dark focus:ring-armonia-dark w-4 h-4">
+                                    <span>Sunset Yacht Charter Extension</span>
+                                </span>
+                                <span class="text-xs font-bold text-armonia-olive">+€390 flat</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Computed Realtime Quote Box -->
+                    <div class="bg-armonia-dark text-armonia-bg p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4 mt-4 shadow-md">
+                        <div>
+                            <span class="text-[10px] uppercase tracking-widest text-armonia-bg/70 block font-semibold">Estimated Total Package Price</span>
+                            <span id="estimatedPrice" class="font-serif text-3xl md:text-4xl font-bold">€1,150</span>
+                            <span class="text-[10px] text-armonia-bg/70 ml-1">VAT included</span>
+                        </div>
+                        <button onclick="bookEstimatedTour()" class="w-full md:w-auto bg-armonia-bg text-armonia-dark hover:bg-armonia-bg/90 px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all">
+                            Inquire This Itinerary
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ARMONIA AI CONCIERGE (Immersive Gemini Integration) -->
+    <section id="concierge" class="py-24 bg-armonia-lightSand border-t border-armonia-dark/10">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <!-- Concierge Layout Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">
+                
+                <!-- Left Hand Description with beautiful imagery -->
+                <div class="lg:col-span-4 flex flex-col justify-between space-y-8">
+                    <div class="space-y-6">
+                        <div class="flex items-center space-x-2">
+                            <span class="inline-block w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span>
+                            <span class="text-xs uppercase tracking-[0.2em] text-armonia-dark/60 font-bold">Armonia Curated Intelligence</span>
+                        </div>
+                        <h2 class="font-serif text-4xl lg:text-5xl font-light tracking-tight leading-[1.1]">
+                            Your Personal <br>
+                            <span class="italic font-normal">Greek Travel Designer</span>
+                        </h2>
+                        <p class="text-sm text-armonia-dark/70 leading-relaxed">
+                            Describe your dream holiday in natural language (e.g., <i>"A romantic, food-filled 5-day journey through the Peloponnese with ancient ruins"</i>). Our AI Travel Designer will generate a highly detailed, premium luxury itinerary in real-time.
+                        </p>
+                    </div>
+
+                    <!-- Mini branding asset box inspired by ref -->
+                    <div class="p-1 premium-border rounded-3xl bg-armonia-bg overflow-hidden shadow-sm aspect-[4/3] hidden lg:block">
+                        <div class="relative w-full h-full rounded-[1.35rem] overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=600" alt="Beautiful landscape of Greece" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Hand Chat Window Widget -->
+                <div class="lg:col-span-8 flex flex-col premium-border rounded-[2.5rem] bg-armonia-bg shadow-lg overflow-hidden min-h-[500px]">
+                    <!-- Widget Header -->
+                    <div class="px-6 py-4 bg-armonia-dark text-armonia-bg flex items-center justify-between border-b border-armonia-dark/10">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-9 h-9 rounded-full bg-armonia-bg flex items-center justify-center text-armonia-dark font-serif font-bold text-sm">
+                                Α
+                            </div>
+                            <div>
+                                <h4 class="text-xs uppercase tracking-widest font-semibold">Aristotle</h4>
+                                <p class="text-[10px] text-armonia-bg/70 font-medium">Bespoke Itinerary Curator</p>
+                            </div>
+                        </div>
+                        <span class="text-[10px] uppercase tracking-wider font-semibold border border-armonia-bg/20 px-3 py-1 rounded-full bg-white/5">
+                            Always Available
+                        </span>
+                    </div>
+
+                    <!-- Chat Threads Window -->
+                    <div id="aiChatWindow" class="flex-grow p-6 space-y-4 overflow-y-auto max-h-[380px] min-h-[300px] bg-[#FAF9F5] custom-scrollbar">
+                        
+                        <!-- Initial Concierge Intro Message -->
+                        <div class="flex gap-3 max-w-[85%]">
+                            <div class="w-7 h-7 rounded-full bg-armonia-dark text-armonia-bg flex items-center justify-center text-xs font-serif shrink-0 mt-0.5">
+                                Α
+                            </div>
+                            <div class="bg-armonia-bg premium-border-soft rounded-2xl rounded-tl-none p-4 shadow-sm space-y-2">
+                                <p class="text-xs leading-relaxed text-armonia-dark">
+                                    Welcome to Armonia's Private Concierge. I am <strong>Aristotle</strong>, your virtual travel architect. 
+                                </p>
+                                <p class="text-xs leading-relaxed text-armonia-dark">
+                                    Tell me details such as your group size, travel goals, specific historical eras you love, or scenery you prefer. I'll construct a highly curated plan matching the Armonia philosophy.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- User input form -->
+                    <div class="p-4 bg-armonia-bg border-t border-armonia-dark/10 flex items-center gap-3">
+                        <input 
+                            type="text" 
+                            id="aiPromptInput" 
+                            placeholder="Describe your bespoke Greek dream journey..." 
+                            class="flex-grow bg-armonia-lightSand border border-armonia-dark/25 rounded-2xl px-5 py-3.5 text-xs font-medium focus:outline-none focus:border-armonia-dark text-armonia-dark"
+                            onkeydown="if(event.key === 'Enter') sendQueryToConcierge()"
+                        >
+                        <button 
+                            onclick="sendQueryToConcierge()" 
+                            class="bg-armonia-dark hover:bg-armonia-darkHover text-armonia-bg w-12 h-12 rounded-2xl flex items-center justify-center transition-all shadow-sm shrink-0"
+                            title="Generate Itinerary"
+                        >
+                            <i class="fa-solid fa-paper-plane text-xs"></i>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ARMONIA PHILOSOPHY (The Travel Agency Standard) -->
+    <section id="philosophy" class="py-24 bg-armonia-bg">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <div class="max-w-3xl mx-auto text-center space-y-4 mb-20">
+                <span class="text-xs uppercase tracking-[0.25em] text-armonia-dark/60 font-semibold block">Craftsmanship in Hospitality</span>
+                <h2 class="font-serif text-4xl lg:text-5xl font-light tracking-tight">
+                    Why Travel Enthusiasts <br>
+                    <span class="italic font-normal">Choose Armonia Excursions</span>
+                </h2>
+                <div class="w-16 h-[1px] bg-armonia-dark/30 mx-auto mt-4"></div>
+            </div>
+
+            <!-- 3 Columns Philosophy Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Pillar 1 -->
+                <div class="p-8 premium-border-soft rounded-[2.25rem] bg-armonia-lightSand space-y-6 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-full bg-armonia-dark text-armonia-bg flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl font-semibold">Elite Certified Guides</h3>
+                        <p class="text-xs text-armonia-dark/70 leading-relaxed">
+                            Our historians and guides aren't just reciting facts. They hold specialized degrees in classical antiquity and archaeology, unlocking hidden insights that mainstream tours completely bypass.
+                        </p>
+                    </div>
+                    <ul class="space-y-1.5 text-[11px] text-armonia-dark/60 font-semibold border-t border-armonia-dark/10 pt-4">
+                        <li><i class="fa-solid fa-check text-armonia-olive mr-1"></i> Multi-lingual certified academics</li>
+                        <li><i class="fa-solid fa-check text-armonia-olive mr-1"></i> Deep local neighborhood insight</li>
+                    </ul>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div class="p-8 premium-border rounded-[2.25rem] bg-armonia-bg space-y-6 flex flex-col justify-between shadow-sm">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-full bg-armonia-dark text-armonia-bg flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-compass"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl font-semibold">Absolute Private Flexibility</h3>
+                        <p class="text-xs text-armonia-dark/70 leading-relaxed">
+                            Our private itineraries are living documents. Love a coastal view? Let's stop. Wish to linger over traditional lunch for another hour? Absolutely. We move entirely at your curated pace.
+                        </p>
+                    </div>
+                    <ul class="space-y-1.5 text-[11px] text-armonia-dark/60 font-semibold border-t border-armonia-dark/10 pt-4">
+                        <li><i class="fa-solid fa-check text-armonia-olive mr-1"></i> Custom pickups anywhere in Greece</li>
+                        <li><i class="fa-solid fa-check text-armonia-olive mr-1"></i> Dynamically update stops in real-time</li>
+                    </ul>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="p-8 premium-border-soft rounded-[2.25rem] bg-armonia-lightSand space-y-6 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-full bg-armonia-dark text-armonia-bg flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-gem"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl font-semibold">Premium Fleet Comfort</h3>
+                        <p class="text-xs text-armonia-dark/70 leading-relaxed">
+                            Travel should restore, not fatigue. Every transfer is executed inside late-model Mercedes-Benz executive vehicles with leather seats, climate zoning, high-speed WiFi, and chilled refreshments.
+                        </p>
+                    </div>
+                    <ul class="space-y-1.5 text-[11px] text-armonia-dark/60 font-semibold border-t border-armonia-dark/10 pt-4">
+                        <li><i class="fa-solid fa-check text-armonia-olive mr-1"></i> Clean air-filtered cabins</li>
+                        <li><i class="fa-solid fa-check text-armonia-olive mr-1"></i> Professional VIP security-trained drivers</li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION (Guest Stories) -->
+    <section id="reviews" class="py-24 bg-armonia-lightSand border-t border-armonia-dark/10">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Story Content -->
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="text-xs uppercase tracking-[0.2em] text-armonia-dark/60 font-semibold block">Guest Testimonials</span>
+                    <h2 class="font-serif text-4xl lg:text-5xl font-light tracking-tight leading-none">
+                        Stories from <br><span class="italic font-normal">Our Travelers</span>
+                    </h2>
+                    <p class="text-sm text-armonia-dark/70 leading-relaxed">
+                        We define luxury by the depth of the memories left behind. Here's how our travelers from around the globe describe their time experiencing Greece with the Armonia team.
+                    </p>
+                    <!-- Small premium rating graphic -->
+                    <div class="flex items-center space-x-4 pt-4 border-t border-armonia-dark/10">
+                        <div class="flex text-amber-500">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-armonia-dark">5.0 Star Rating on TripAdvisor</span>
+                    </div>
+                </div>
+
+                <!-- Testimonial Slider Card -->
+                <div class="lg:col-span-7 bg-armonia-bg premium-border rounded-[2.5rem] p-8 lg:p-12 relative overflow-hidden shadow-lg">
+                    <!-- Elegant giant quote symbol -->
+                    <div class="absolute right-8 top-6 font-serif text-[120px] leading-none text-armonia-dark/5 select-none font-bold">
+                        “
+                    </div>
+
+                    <!-- Review Content -->
+                    <div id="testimonialContainer" class="space-y-6 transition-all duration-500">
+                        <!-- Dynamic active reviews will be loaded here -->
+                        <p id="activeQuote" class="font-serif text-xl md:text-2xl font-light italic leading-relaxed text-armonia-dark">
+                            "Absolutely magnificent. We booked the private Delphi tour. Our guide Spiros had a master's in historical classical theology. He painted vivid tales that felt incredibly real. Seamless comfort inside the custom Mercedes van. Worth every single Euro!"
+                        </p>
+                        
+                        <div class="pt-6 border-t border-armonia-dark/10 flex items-center justify-between">
+                            <div>
+                                <h5 id="activeAuthor" class="font-semibold text-sm text-armonia-dark uppercase tracking-wider">Clarissa & Marcus Vance</h5>
+                                <p id="activeOrigin" class="text-xs text-armonia-dark/60">Boston, USA • June 2025</p>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button onclick="prevTestimonial()" class="w-10 h-10 rounded-full border border-armonia-dark/30 flex items-center justify-center hover:border-armonia-dark transition-all text-xs" title="Previous Story">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </button>
+                                <button onclick="nextTestimonial()" class="w-10 h-10 rounded-full border border-armonia-dark/30 flex items-center justify-center hover:border-armonia-dark transition-all text-xs" title="Next Story">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER SIGNATURE -->
+    <footer class="bg-armonia-dark text-armonia-bg py-20 px-6 border-t border-armonia-bg/10">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+            
+            <!-- Company Info Column -->
+            <div class="space-y-6 md:col-span-1">
+                <span class="font-serif text-3xl font-semibold tracking-widest block text-armonia-bg">A R M O N I A</span>
+                <p class="text-xs text-armonia-bg/70 leading-relaxed">
+                    Crafting premium, bespoke classical itineraries, private guided excursions, and VIP yacht charters across Greece since 2011.
+                </p>
+                <div class="flex space-x-4 text-sm text-armonia-bg/60">
+                    <a href="#" class="hover:text-armonia-bg transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="hover:text-armonia-bg transition-colors"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" class="hover:text-armonia-bg transition-colors"><i class="fa-brands fa-tripadvisor"></i></a>
+                </div>
+            </div>
+
+            <!-- Destinations Navigation -->
+            <div class="space-y-4">
+                <h4 class="text-xs uppercase tracking-widest font-bold text-armonia-bg/50">Curated Destinations</h4>
+                <ul class="space-y-2 text-xs font-semibold">
+                    <li><a href="#destinations" class="hover:text-armonia-bg text-armonia-bg/80 transition-colors">Athens & Cape Sounion</a></li>
+                    <li><a href="#destinations" class="hover:text-armonia-bg text-armonia-bg/80 transition-colors">Delphi Sanctuary</a></li>
+                    <li><a href="#destinations" class="hover:text-armonia-bg text-armonia-bg/80 transition-colors">Meteora Cliff Monasteries</a></li>
+                    <li><a href="#destinations" class="hover:text-armonia-bg text-armonia-bg/80 transition-colors">Cyclades Yacht Charters</a></li>
+                    <li><a href="#destinations" class="hover:text-armonia-bg text-armonia-bg/80 transition-colors">The Historic Peloponnese</a></li>
+                </ul>
+            </div>
+
+            <!-- Experience Links -->
+            <div class="space-y-4">
+                <h4 class="text-xs uppercase tracking-widest font-bold text-armonia-bg/50">Experiences</h4>
+                <ul class="space-y-2 text-xs font-semibold">
+                    <li><a href="#philosophy" class="hover:text-armonia-bg text-armonia-bg/80 transition-colors">Our Academically-Certified Guides</a></li>
+                    <li><a href="#planner" class="hover:text-armonia-bg text-armonia-bg/80 transition-colors">Bespoke Customizer Tool</a></li>
+                    <li><a href="#concierge" class="hover:text-armonia-bg text-armonia-bg/80 transition-colors">AI Itinerary Concierge</a></li>
+                    <li><a href="#" class="hover:text-armonia-bg text-armonia-bg/80 transition-colors">VIP Corporate Retreats</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact & Legal Columns -->
+            <div class="space-y-4">
+                <h4 class="text-xs uppercase tracking-widest font-bold text-armonia-bg/50">Contact & Support</h4>
+                <div class="text-xs space-y-2 text-armonia-bg/80">
+                    <p><i class="fa-solid fa-phone mr-1.5"></i> +30 210 555 4321</p>
+                    <p><i class="fa-solid fa-envelope mr-1.5"></i> concierge@armoniaexcursions.gr</p>
+                    <p><i class="fa-solid fa-location-dot mr-1.5"></i> 14 Filellinon St, Syntagma, Athens 10557</p>
+                    <p class="pt-2 text-[10px] text-armonia-bg/50 uppercase tracking-wider">
+                        Licensed Greek Tourism Organization <br>
+                        M.H.T.E. 0206E60000345000
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="max-w-7xl mx-auto border-t border-armonia-bg/10 mt-16 pt-8 flex flex-col md:flex-row items-center justify-between text-[11px] text-armonia-bg/50 font-semibold gap-4">
+            <p>© 2026 Armonia Excursions Ltd. All luxury rights reserved.</p>
+            <div class="flex space-x-6">
+                <a href="#" class="hover:text-armonia-bg transition-colors">Terms of Use</a>
+                <a href="#" class="hover:text-armonia-bg transition-colors">Privacy Charter</a>
+                <a href="#" class="hover:text-armonia-bg transition-colors">Cookie Policy</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- BOOKING MODAL DIALOG (No browser alert, completely custom overlay UI) -->
+    <div id="bookingModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-armonia-dark/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-armonia-bg premium-border rounded-[2.5rem] max-w-lg w-full max-h-[90vh] overflow-y-auto p-8 shadow-2xl relative space-y-6">
+            
+            <!-- Close Button -->
+            <button onclick="closeBookingModal()" class="absolute right-6 top-6 text-armonia-dark hover:text-armonia-olive p-2 hover:bg-armonia-dark/5 rounded-full transition-colors">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+
+            <!-- Modal Title -->
+            <div class="space-y-2 pr-8">
+                <span class="text-xs uppercase tracking-widest text-armonia-dark/60 font-bold block">Reserve Your Greece Odyssey</span>
+                <h3 class="font-serif text-3xl font-semibold text-armonia-dark">Custom Excursion Request</h3>
+                <p class="text-xs text-armonia-dark/70 leading-relaxed">
+                    Let us design the perfect experience. Fill out this brief form and one of our dedicated destination managers will contact you within 4 hours.
+                </p>
+            </div>
+
+            <!-- Booking Form -->
+            <form id="reservationForm" onsubmit="handleReservationSubmit(event)" class="space-y-4">
+                
+                <!-- Target Itinerary (Automated fill) -->
+                <div>
+                    <label class="block text-[10px] uppercase tracking-wider font-bold text-armonia-dark/80 mb-1.5">Excursion Selection</label>
+                    <input 
+                        type="text" 
+                        id="bookingExcursionName" 
+                        value="The Athenian Antiquities" 
+                        class="w-full bg-armonia-lightSand border border-armonia-dark/20 rounded-xl px-4 py-3 text-xs font-semibold focus:outline-none focus:border-armonia-dark"
+                        required
+                    >
+                </div>
+
+                <!-- Full Name -->
+                <div>
+                    <label class="block text-[10px] uppercase tracking-wider font-bold text-armonia-dark/80 mb-1.5">Full Name</label>
+                    <input 
+                        type="text" 
+                        id="bookingName" 
+                        placeholder="e.g. Eleanor Vance" 
+                        class="w-full bg-armonia-lightSand border border-armonia-dark/20 rounded-xl px-4 py-3 text-xs font-semibold focus:outline-none focus:border-armonia-dark"
+                        required
+                    >
+                </div>
+
+                <!-- Contact Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-wider font-bold text-armonia-dark/80 mb-1.5">Email Address</label>
+                        <input 
+                            type="email" 
+                            id="bookingEmail" 
+                            placeholder="eleanor@domain.com" 
+                            class="w-full bg-armonia-lightSand border border-armonia-dark/20 rounded-xl px-4 py-3 text-xs font-semibold focus:outline-none focus:border-armonia-dark"
+                            required
+                        >
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-wider font-bold text-armonia-dark/80 mb-1.5">Phone Number</label>
+                        <input 
+                            type="tel" 
+                            id="bookingPhone" 
+                            placeholder="+1 (555) 019-2834" 
+                            class="w-full bg-armonia-lightSand border border-armonia-dark/20 rounded-xl px-4 py-3 text-xs font-semibold focus:outline-none focus:border-armonia-dark"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <!-- Date & Travelers -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-wider font-bold text-armonia-dark/80 mb-1.5">Preferred Date</label>
+                        <input 
+                            type="date" 
+                            id="bookingDate" 
+                            class="w-full bg-armonia-lightSand border border-armonia-dark/20 rounded-xl px-4 py-3 text-xs font-semibold focus:outline-none focus:border-armonia-dark"
+                            required
+                        >
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-wider font-bold text-armonia-dark/80 mb-1.5">Number of Guests</label>
+                        <input 
+                            type="number" 
+                            id="bookingGuests" 
+                            value="2" 
+                            min="1" 
+                            class="w-full bg-armonia-lightSand border border-armonia-dark/20 rounded-xl px-4 py-3 text-xs font-semibold focus:outline-none focus:border-armonia-dark"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <!-- Custom Itinerary Wishes / Notes -->
+                <div>
+                    <label class="block text-[10px] uppercase tracking-wider font-bold text-armonia-dark/80 mb-1.5">Bespoke Requests or Preferences</label>
+                    <textarea 
+                        id="bookingNotes" 
+                        rows="3" 
+                        placeholder="Specify food allergies, accessibility needs, preferred archaeological focuses..." 
+                        class="w-full bg-armonia-lightSand border border-armonia-dark/20 rounded-xl p-4 text-xs font-semibold focus:outline-none focus:border-armonia-dark"
+                    ></textarea>
+                </div>
+
+                <!-- Estimated Price / Submit Panel -->
+                <div class="bg-armonia-lightSand p-4 rounded-2xl border border-armonia-dark/10 flex items-center justify-between">
+                    <div>
+                        <span class="text-[9px] uppercase tracking-widest text-armonia-dark/50 block">Pricing Starts From</span>
+                        <span id="bookingDisplayCost" class="font-serif text-xl font-bold">€390 / group</span>
+                    </div>
+                    <button type="submit" class="bg-armonia-dark text-armonia-bg px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-armonia-darkHover transition-colors">
+                        Inquire Now
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
+    <!-- SUCCESS MODAL (Triggered dynamically on successful form submissions) -->
+    <div id="successModal" class="hidden fixed inset-0 z-50 bg-armonia-dark/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-armonia-bg premium-border rounded-[2.5rem] max-w-md w-full p-8 text-center space-y-6 shadow-2xl relative">
+            <div class="w-16 h-16 rounded-full bg-armonia-dark text-armonia-bg flex items-center justify-center text-3xl mx-auto shadow-inner">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <div class="space-y-2">
+                <h3 class="font-serif text-3xl font-semibold text-armonia-dark">Request Registered</h3>
+                <p class="text-xs text-armonia-dark/70 leading-relaxed">
+                    Thank you. Your bespoke inquiry is in safe hands. A dedicated luxury travel architect from the Armonia team will email or phone you inside 4 hours with your refined classical itinerary draft.
+                </p>
+            </div>
+            <button onclick="closeSuccessModal()" class="w-full bg-armonia-dark text-armonia-bg py-3.5 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-armonia-darkHover transition-colors">
+                Return to Gallery
+            </button>
+        </div>
+    </div>
+
+
+    <!-- CORE BUSINESS & INTERACTIVE LOGIC SCRIPT -->
+    <script>
+        // Testimonials Database
+        const testimonials = [
+            {
+                quote: "Absolutely magnificent. We booked the private Delphi tour. Our guide Spiros had a master's in historical classical theology. He painted vivid tales that felt incredibly real. Seamless comfort inside the custom Mercedes van. Worth every single Euro!",
+                author: "Clarissa & Marcus Vance",
+                origin: "Boston, USA • June 2025"
+            },
+            {
+                quote: "Armonia saved our trip when our cruise line canceled its island excursion. They custom organized a private Mercedes transit & luxury speed boat to Hydra in under 3 hours. Phenomenal bespoke speed, care, and quality.",
+                author: "Sven-Göran Lindqvist",
+                origin: "Stockholm, Sweden • Sept 2025"
+            },
+            {
+                quote: "The Athens Riviera sunset drive to Cape Sounion was easily the crown jewel of our honeymoon. The ancient history felt accessible, organic, and truly romantic. Thank you, Armonia!",
+                author: "Isabella & Antoine Dupont",
+                origin: "Paris, France • April 2026"
+            }
+        ];
+        let currentTestimonialIndex = 0;
+
+        // Custom Pricing Estimator State variables
+        let estStyleMultiplier = 1.0;
+
+        // Mobile drawer menu state
+        function toggleMobileMenu() {
+            const drawer = document.getElementById('mobileDrawer');
+            if (drawer.classList.contains('hidden')) {
+                drawer.classList.remove('hidden');
+                // Trigger transition delay slightly to let display activate
+                setTimeout(() => {
+                    drawer.classList.remove('translate-x-full');
+                }, 10);
+            } else {
+                drawer.classList.add('translate-x-full');
+                setTimeout(() => {
+                    drawer.classList.add('hidden');
+                }, 500);
+            }
+        }
+
+        // Testimonial Navigation Actions
+        function updateTestimonialUI() {
+            const container = document.getElementById('testimonialContainer');
+            const quoteEl = document.getElementById('activeQuote');
+            const authorEl = document.getElementById('activeAuthor');
+            const originEl = document.getElementById('activeOrigin');
+
+            container.classList.add('opacity-0');
+            setTimeout(() => {
+                const current = testimonials[currentTestimonialIndex];
+                quoteEl.textContent = `"${current.quote}"`;
+                authorEl.textContent = current.author;
+                originEl.textContent = current.origin;
+                container.classList.remove('opacity-0');
+            }, 300);
+        }
+
+        function prevTestimonial() {
+            currentTestimonialIndex = (currentTestimonialIndex === 0) ? testimonials.length - 1 : currentTestimonialIndex - 1;
+            updateTestimonialUI();
+        }
+
+        function nextTestimonial() {
+            currentTestimonialIndex = (currentTestimonialIndex === testimonials.length - 1) ? 0 : currentTestimonialIndex + 1;
+            updateTestimonialUI();
+        }
+
+        // Tour Estimator Functions
+        function setEstStyle(styleKey, multiplier) {
+            // Reset active style btn styling
+            document.querySelectorAll('.style-btn').forEach(btn => {
+                btn.classList.remove('bg-armonia-dark', 'text-armonia-bg', 'border-armonia-dark');
+                btn.classList.add('border-armonia-dark/20', 'hover:border-armonia-dark');
+            });
+            // Apply selected styling
+            const activeBtn = document.getElementById(`style-${styleKey}`);
+            activeBtn.classList.remove('border-armonia-dark/20', 'hover:border-armonia-dark');
+            activeBtn.classList.add('bg-armonia-dark', 'text-armonia-bg', 'border-armonia-dark');
+
+            estStyleMultiplier = multiplier;
+            calculateEstimate();
+        }
+
+        function updateGroupSlider(val) {
+            document.getElementById('groupValue').innerText = `${val} ${val == 1 ? 'Traveler' : 'Travelers'}`;
+            calculateEstimate();
+        }
+
+        function updateDurationSlider(val) {
+            document.getElementById('durationValue').innerText = `${val} ${val == 1 ? 'Full Day' : 'Full Days'}`;
+            calculateEstimate();
+        }
+
+        function calculateEstimate() {
+            const regionSelect = document.getElementById('estimatorRegion');
+            const basePrice = parseFloat(regionSelect.options[regionSelect.selectedIndex].getAttribute('data-base'));
+            const groupSize = parseInt(document.getElementById('estimatorGroup').value);
+            const duration = parseInt(document.getElementById('estimatorDuration').value);
+
+            // Optional curated additions pricing
+            let extrasCost = 0;
+            if (document.getElementById('extraLunch').checked) {
+                extrasCost += (60 * groupSize);
+            }
+            if (document.getElementById('extraYacht').checked) {
+                extrasCost += 390;
+            }
+
+            // Estimate formulation: base regional cost + incremental cost per traveler after the first + duration escalation multiplier
+            const durationFactor = 1 + (duration - 1) * 0.75; // Less cost per day on extended
+            const groupAdditions = (groupSize - 1) * 95; // Additional transport/administrative pricing per guest
+            
+            const rawEstimatedPrice = ((basePrice + groupAdditions) * durationFactor * estStyleMultiplier) + extrasCost;
+            const finalEstimate = Math.round(rawEstimatedPrice);
+
+            document.getElementById('estimatedPrice').innerText = `€${finalEstimate.toLocaleString()}`;
+            return finalEstimate;
+        }
+
+        // Fill modal with estimated dynamic package
+        function bookEstimatedTour() {
+            const regionName = document.getElementById('estimatorRegion').options[document.getElementById('estimatorRegion').selectedIndex].text.split(' (')[0];
+            const groupSize = document.getElementById('estimatorGroup').value;
+            const estimatedPrice = calculateEstimate();
+
+            prepopulateAndBook(`Custom ${regionName} Package Estimate`, estimatedPrice);
+            document.getElementById('bookingGuests').value = groupSize;
+            document.getElementById('bookingNotes').value = `Created customized package estimate with Group Size: ${groupSize}, via Armonia Digital Planning Board. Estimate total: €${estimatedPrice}.`;
+        }
+
+        // Standard Modal Controller Actions
+        function openBookingModal() {
+            document.getElementById('bookingModal').classList.remove('hidden');
+            document.body.classList.add('overflow-y-hidden');
+        }
+
+        function closeBookingModal() {
+            document.getElementById('bookingModal').classList.add('hidden');
+            document.body.classList.remove('overflow-y-hidden');
+        }
+
+        function prepopulateAndBook(tourName, estimatedCost) {
+            document.getElementById('bookingExcursionName').value = tourName;
+            document.getElementById('bookingDisplayCost').innerText = `€${estimatedCost.toLocaleString()} total package estimate`;
+            openBookingModal();
+        }
+
+        // Reservation Form Submission Action
+        function handleReservationSubmit(e) {
+            e.preventDefault();
+            closeBookingModal();
+            // Show custom Success message Dialog
+            document.getElementById('successModal').classList.remove('hidden');
+            document.body.classList.add('overflow-y-hidden');
+            document.getElementById('reservationForm').reset();
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').classList.add('hidden');
+            document.body.classList.remove('overflow-y-hidden');
+        }
+
+
+        // ==========================================
+        // ARMONIA AI CONCIERGE CHAT ENGINE (GEMINI API)
+        // ==========================================
+        const apiKey = ""; // Implicitly injected at runtime. Do not add validation.
+
+        // Clean-formatted message bubble builder
+        function appendMessageBubble(sender, text) {
+            const chatWindow = document.getElementById('aiChatWindow');
+            const container = document.createElement('div');
+            container.className = "flex gap-3 max-w-[85%] " + (sender === 'user' ? 'ml-auto justify-end' : '');
+
+            const parsedText = formatAiResponse(text);
+
+            if (sender === 'user') {
+                container.innerHTML = `
+                    <div class="bg-armonia-dark text-armonia-bg rounded-2xl rounded-tr-none p-4 shadow-sm text-xs leading-relaxed">
+                        <p>${parsedText}</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `
+                    <div class="w-7 h-7 rounded-full bg-armonia-dark text-armonia-bg flex items-center justify-center text-xs font-serif shrink-0 mt-0.5">
+                        Α
+                    </div>
+                    <div class="bg-armonia-bg premium-border-soft rounded-2xl rounded-tl-none p-4 shadow-sm space-y-2 text-xs leading-relaxed text-armonia-dark">
+                        ${parsedText}
+                    </div>
+                `;
+            }
+            chatWindow.appendChild(container);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        // Robust, clean markdown formatter for elegant HTML output
+        function formatAiResponse(raw) {
+            // Simple robust regex parsers instead of a heavy library
+            let html = raw
+                .replace(/\n/g, '<br>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/### (.*?)(<br>|$)/g, '<h5 class="font-serif text-sm font-bold mt-3 text-armonia-dark">$1</h5>')
+                .replace(/## (.*?)(<br>|$)/g, '<h4 class="font-serif text-base font-bold mt-4 border-b border-armonia-dark/10 pb-1 text-armonia-dark">$1</h4>')
+                .replace(/- (.*?)(<br>|$)/g, '<div class="flex items-start gap-1.5 ml-2 mt-1"><span class="text-armonia-olive">•</span><span>$1</span></div>');
+            return html;
+        }
+
+        // Post custom inquiries to Gemini with system prompt constraints
+        async function sendQueryToConcierge() {
+            const inputField = document.getElementById('aiPromptInput');
+            const queryText = inputField.value.trim();
+            if (!queryText) return;
+
+            // Display user message bubble
+            appendMessageBubble('user', queryText);
+            inputField.value = '';
+
+            // Display typing loader
+            const loaderContainer = document.createElement('div');
+            loaderContainer.id = 'aiChatLoader';
+            loaderContainer.className = "flex gap-3 max-w-[85%] items-center";
+            loaderContainer.innerHTML = `
+                <div class="w-7 h-7 rounded-full bg-armonia-dark text-armonia-bg flex items-center justify-center text-xs font-serif shrink-0">
+                    Α
+                </div>
+                <div class="bg-armonia-bg/50 p-3 rounded-2xl flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-armonia-dark animate-bounce" style="animation-delay: 0ms"></span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-armonia-dark animate-bounce" style="animation-delay: 150ms"></span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-armonia-dark animate-bounce" style="animation-delay: 300ms"></span>
+                </div>
+            `;
+            document.getElementById('aiChatWindow').appendChild(loaderContainer);
+            document.getElementById('aiChatWindow').scrollTop = document.getElementById('aiChatWindow').scrollHeight;
+
+            const systemPrompt = `
+                You are Aristotle, the elite Virtual travel designer for "Armonia Excursions", a ultra-premium boutique tour and travel agency in Greece.
+                Your task is to respond to travel inquiries with luxury-level, meticulously detailed, beautifully organized itinerary drafts.
+                Use sophisticated, evocative, premium language. Emphasize comfort (Mercedes-Benz fleet, professional drivers, certified private historians as guides, skip-the-line privileges, curated dining).
+                Structure your plans elegantly:
+                - Bold crucial headings.
+                - Use clear day-by-day bullet divisions.
+                - Keep descriptions highly engaging and rich in classical Greek cultural framing.
+                - Conclude with a warm, professional luxury signature, prompting them to reserve this itinerary layout through our Bookings desk.
+            `;
+
+            // Call to Gemini with strict exponential retry policy
+            let attempt = 0;
+            const maxAttempts = 5;
+            let success = false;
+            let responseText = "";
+
+            while (attempt < maxAttempts && !success) {
+                try {
+                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: queryText }] }],
+                            systemInstruction: { parts: [{ text: systemPrompt }] }
+                        })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`Server returned status code: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || "I apologize, but I was unable to construct an itinerary. Please retry or contact our live agents directly at concierge@armoniaexcursions.gr.";
+                    success = true;
+                } catch (err) {
+                    attempt++;
+                    const backoffTime = Math.pow(2, attempt) * 500; // Exponential math (0.5s, 1s, 2s, 4s, etc)
+                    await new Promise(resolve => setTimeout(resolve, backoffTime));
+                }
+            }
+
+            // Remove AI typing indicator loader
+            const loader = document.getElementById('aiChatLoader');
+            if (loader) loader.remove();
+
+            if (success) {
+                appendMessageBubble('aristotle', responseText);
+            } else {
+                appendMessageBubble('aristotle', "I'm experiencing an architectural delay drafting your luxury itinerary. Please review our pre-existing packages or send an outline of your requests directly through our inquiry form above.");
+            }
+        }
+
+        // Initialize setup calculations on load
+        window.onload = function() {
+            calculateEstimate();
+        }
+    </script>
+</body>
+</html>

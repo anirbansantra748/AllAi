@@ -47,4 +47,15 @@ export const reactTemplates = {
   92: lazy(() => import('./i_temp_12.jsx')),
   98: lazy(() => import('./i_temp_18.jsx')),
   103: lazy(() => import('./i_temp_23.jsx')),
+  // New templates from j.md, new1.txt, new2.txt
+  105: lazy(() => import('./j_temp_1.jsx')),
+  106: lazy(() => import('./j_temp_2.jsx')),
+  107: lazy(() => import('./new1_temp_1.jsx')),
+  110: lazy(() => import('./new1_temp_4.jsx')),
+  111: lazy(() => import('./new1_temp_5.jsx')),
+  114: lazy(() => import('./new2_temp_3.jsx')),
+  115: lazy(() => import('./new2_temp_4.jsx')),
+  116: lazy(() => import('./new2_temp_5.jsx')),
+  117: lazy(() => import('./new2_temp_6.jsx')),
+  118: lazy(() => import('./new2_temp_7.jsx')),
 };

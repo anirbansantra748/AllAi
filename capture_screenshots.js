@@ -86,7 +86,7 @@ async function run() {
   console.log(`--- PASS 1: Capturing missing/invalid screenshots (Total: ${totalTemplates}) ---`);
   for (let i = 0; i < templateIds.length; i += concurrency) {
     const batch = templateIds.slice(i, i + concurrency);
-    await Promise.all(batch.map(id => captureTemplate(id, browser, 3000)));
+    await Promise.all(batch.map(id => captureTemplate(id, browser, 8000)));
   }
 
   console.log("--- PASS 2 (Retrying failed/incomplete captures) ---");

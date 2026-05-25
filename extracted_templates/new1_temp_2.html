@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soper. — Premium Living Ecosystems & Botanical Engineering</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Playfair Display (Serif), Plus Jakarta Sans (Sans), Cinzel for branding -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            cream: '#FAF8F5',
+                            creamDark: '#F3EFE9',
+                            green: '#5B6A5D',
+                            greenDark: '#455046',
+                            greenLight: '#879589',
+                            dark: '#1C1E1B',
+                            charcoal: '#2D302C',
+                            accent: '#C5A880'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        brand: ['"Cinzel"', 'serif']
+                    },
+                    animation: {
+                        'spin-slow': 'spin 12s linear infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF8F5;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #5B6A5D;
+            border-radius: 3px;
+        }
+        
+        /* General Base Styles */
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #FAF8F5;
+            color: #1C1E1B;
+            overflow-x: hidden;
+        }
+        
+        /* Custom cursor style for interactive elements */
+        .custom-cursor-hover {
+            cursor: pointer;
+        }
+        
+        /* Glassmorphism utility */
+        .glass-panel {
+            background: rgba(250, 248, 245, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .glass-dark {
+            background: rgba(45, 48, 44, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* Continuous rotation for the "Explore More" circular badge */
+        @keyframes rotateBadge {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .rotating-badge {
+            animation: rotateBadge 20s linear infinite;
+        }
+    </style>
+</head>
+<body class="selection:bg-brand-green selection:text-white">
+
+    <!-- Ambient Audio Background Sound System -->
+    <div class="fixed bottom-6 left-6 z-50 flex items-center gap-3">
+        <button id="audioToggleBtn" onclick="toggleAmbientAudio()" class="w-12 h-12 rounded-full border border-brand-green/30 bg-brand-cream/90 flex items-center justify-center hover:bg-brand-green hover:text-white hover:border-transparent transition-all duration-300 shadow-md group">
+            <i id="audioIcon" class="fa-solid fa-volume-mute text-brand-green group-hover:text-white transition-colors"></i>
+        </button>
+        <div id="audioStatus" class="glass-panel px-4 py-1.5 rounded-full border border-brand-green/10 shadow-sm opacity-0 -translate-x-4 transition-all duration-500 pointer-events-none text-xs font-medium tracking-wider text-brand-green uppercase">
+            Ambient Soundscape Off
+        </div>
+        <!-- Embedded synthesized web audio nodes instead of static assets for 100% functional reliability -->
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="fixed top-0 left-0 w-full z-40 border-b border-brand-green/10 bg-brand-cream/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-2 group">
+                <span class="font-brand text-2xl tracking-widest font-semibold text-brand-dark group-hover:text-brand-green transition-colors">Soper<span class="text-brand-green">.</span></span>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center gap-10">
+                <a href="#hero" class="text-xs font-medium uppercase tracking-widest text-brand-dark hover:text-brand-green transition-colors py-2 border-b-2 border-transparent hover:border-brand-green/30">Home</a>
+                <a href="#scientific-paradigm" class="text-xs font-medium uppercase tracking-widest text-brand-dark hover:text-brand-green transition-colors py-2 border-b-2 border-transparent hover:border-brand-green/30">Philosophy</a>
+                <a href="#collection" class="text-xs font-medium uppercase tracking-widest text-brand-dark hover:text-brand-green transition-colors py-2 border-b-2 border-transparent hover:border-brand-green/30">Collection</a>
+                <a href="#configurator" class="text-xs font-medium uppercase tracking-widest text-brand-dark hover:text-brand-green transition-colors py-2 border-b-2 border-transparent hover:border-brand-green/30">Configurator</a>
+                <a href="#diagnostic" class="text-xs font-medium uppercase tracking-widest text-brand-dark hover:text-brand-green transition-colors py-2 border-b-2 border-transparent hover:border-brand-green/30">Diagnostics</a>
+            </nav>
+
+            <!-- Action Area -->
+            <div class="flex items-center gap-6">
+                <!-- Search Button -->
+                <button onclick="toggleSearchModal()" class="text-brand-dark hover:text-brand-green transition-colors p-2" aria-label="Search">
+                    <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                </button>
+                <!-- Cart Trigger Button -->
+                <button onclick="toggleCartDrawer()" class="relative flex items-center gap-2 border border-brand-green/20 hover:border-brand-green rounded-full px-5 py-2 hover:bg-brand-green hover:text-white transition-all duration-300">
+                    <span class="text-xs font-medium tracking-widest uppercase">Cart</span>
+                    <span id="cartCount" class="w-5 h-5 rounded-full bg-brand-green text-brand-cream text-[10px] flex items-center justify-center font-bold">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search Modal Overlay -->
+    <div id="searchModal" class="fixed inset-0 bg-brand-dark/40 backdrop-blur-md z-50 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500">
+        <div class="bg-brand-cream max-w-2xl w-full mx-4 p-8 rounded-2xl border border-brand-green/10 shadow-2xl relative translate-y-8 transition-all duration-500" id="searchBox">
+            <button onclick="toggleSearchModal()" class="absolute top-6 right-6 text-brand-dark hover:text-brand-green transition-colors">
+                <i class="fa-solid fa-times text-xl"></i>
+            </button>
+            <h4 class="font-serif text-2xl text-brand-dark mb-4">Discover the Ecosystems</h4>
+            <div class="relative mb-6">
+                <input type="text" placeholder="Search systems, vessels, mosses, automated lighting..." class="w-full bg-transparent border-b-2 border-brand-green/20 focus:border-brand-green py-3 text-brand-dark placeholder-brand-green/50 focus:outline-none transition-all duration-300 text-lg">
+                <i class="fa-solid fa-arrow-right absolute right-3 top-1/2 -translate-y-1/2 text-brand-green"></i>
+            </div>
+            <div class="flex flex-wrap gap-2">
+                <span class="text-xs font-medium text-brand-green bg-brand-green/10 px-3 py-1 rounded-full cursor-pointer hover:bg-brand-green hover:text-white transition-colors">Borosilicate Glass</span>
+                <span class="text-xs font-medium text-brand-green bg-brand-green/10 px-3 py-1 rounded-full cursor-pointer hover:bg-brand-green hover:text-white transition-colors">Solis Arch</span>
+                <span class="text-xs font-medium text-brand-green bg-brand-green/10 px-3 py-1 rounded-full cursor-pointer hover:bg-brand-green hover:text-white transition-colors">Humidity Tracking</span>
+                <span class="text-xs font-medium text-brand-green bg-brand-green/10 px-3 py-1 rounded-full cursor-pointer hover:bg-brand-green hover:text-white transition-colors">Moss Care</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN HERO / SPLIT CONTAINER -->
+    <section id="hero" class="pt-20 min-h-screen flex flex-col justify-between relative overflow-hidden">
+        <!-- Delicate Vector Circles overlaying backgrounds (similar to design reference) -->
+        <div class="absolute top-[25%] left-[5%] w-[400px] h-[400px] rounded-full border border-brand-green/5 pointer-events-none"></div>
+        <div class="absolute top-[30%] left-[20%] w-[300px] h-[300px] rounded-full border border-brand-green/5 pointer-events-none"></div>
+
+        <!-- Master Split Frame Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 flex-grow">
+            <!-- LEFT MAIN HERO (Cream Side - 7 Columns) -->
+            <div class="lg:col-span-7 px-8 lg:px-20 py-12 lg:py-24 flex flex-col justify-between relative z-10">
+                <div>
+                    <!-- Subtle Header Line -->
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="w-12 h-[1px] bg-brand-green/30"></span>
+                        <span class="text-xs font-semibold tracking-[0.3em] text-brand-green uppercase" id="heroSubtitle">The most generic</span>
+                    </div>
+
+                    <!-- Dynamic Title Text -->
+                    <h1 class="font-serif text-5xl lg:text-7xl leading-none text-brand-dark mb-8 tracking-tight" id="heroMainTitle">
+                        Natural <br><span class="italic font-normal">Ecosystem</span>
+                    </h1>
+
+                    <!-- Dynamic Paragraph Description -->
+                    <p class="text-brand-green/80 text-sm lg:text-base leading-relaxed max-w-lg mb-10" id="heroDescription">
+                        The basic scientific principle behind terrarium is that the glass enclosure traps moisture produced by evaporation from the soil.
+                    </p>
+
+                    <!-- Interactive CTAs -->
+                    <div class="flex flex-wrap items-center gap-8">
+                        <a href="#configurator" class="flex items-center gap-3 border-b-2 border-brand-dark py-2 hover:border-brand-green hover:text-brand-green transition-all duration-300 group">
+                            <span class="text-xs font-bold tracking-widest uppercase text-brand-dark group-hover:text-brand-green">DESIGN YOUR BIOME</span>
+                            <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-2 transition-transform"></i>
+                        </a>
+
+                        <a href="#collection" class="flex items-center gap-3 bg-brand-green text-brand-cream px-8 py-4 rounded-full hover:bg-brand-greenDark hover:shadow-lg transition-all duration-300">
+                            <span class="text-xs font-bold tracking-widest uppercase">VIEW ARCHIVE</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Lower Layout Elements (Badge, Indicator & Mini-Gallery Preview) -->
+                <div class="mt-16 lg:mt-24 flex flex-wrap items-center justify-between gap-12 border-t border-brand-green/10 pt-10">
+                    <!-- Miniature Gallery Interactive Element -->
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-brand-green/20 relative group cursor-pointer" onclick="viewSlide(0)">
+                            <img src="https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&q=80&w=400" alt="Solis Arch Preview" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300">
+                            <div class="absolute inset-0 bg-brand-green/20 mix-blend-multiply"></div>
+                        </div>
+                        <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-brand-green/20 relative group cursor-pointer" onclick="viewSlide(1)">
+                            <img src="https://images.unsplash.com/photo-1463936575829-25148e1db1b8?auto=format&fit=crop&q=80&w=400" alt="Aegis Cube Preview" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300">
+                            <div class="absolute inset-0 bg-brand-green/20 mix-blend-multiply"></div>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold tracking-wider uppercase text-brand-dark">Curated Designs</p>
+                            <p class="text-[11px] text-brand-green/70">Interactive Preview System</p>
+                        </div>
+                    </div>
+
+                    <!-- Spinning Circular Badge -->
+                    <div class="relative w-24 h-24 flex items-center justify-center">
+                        <svg class="rotating-badge w-full h-full text-brand-green/20" viewBox="0 0 100 100">
+                            <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
+                            <text class="text-[7.5px] font-bold tracking-[0.25em] fill-brand-green">
+                                <textPath href="#circlePath">
+                                    EXPLORE • MORE • SOPER • BOTANICALS • 
+                                </textPath>
+                            </text>
+                        </svg>
+                        <div class="absolute w-1.5 h-1.5 bg-brand-green rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLORED SIDEBAR (Sage Green Side - 5 Columns) -->
+            <div class="lg:col-span-5 bg-brand-green text-brand-cream relative py-12 lg:py-24 px-8 lg:px-12 flex flex-col justify-between z-10">
+                <!-- Decorative background elements -->
+                <div class="absolute top-[10%] right-[10%] w-[150px] h-[150px] border border-brand-cream/5 rounded-full pointer-events-none"></div>
+
+                <!-- Main Botanical Mask Frame -->
+                <div class="relative flex-grow flex items-center justify-center my-8">
+                    <!-- Giant Background Outlined Slide Number -->
+                    <div class="absolute text-[16vw] lg:text-[10vw] font-brand text-brand-cream/5 leading-none select-none select-none left-0 -top-5" id="heroBgNumber">
+                        01
+                    </div>
+
+                    <!-- Arch-Shaped Botanical Capsule Mask -->
+                    <div class="relative w-72 h-96 lg:w-80 lg:h-[450px] rounded-t-full rounded-b-full border-2 border-brand-cream/30 p-2 overflow-hidden bg-brand-dark/25 shadow-2xl transition-all duration-500">
+                        <div class="w-full h-full rounded-t-full rounded-b-full overflow-hidden relative">
+                            <!-- Visual Glass Overlay Shimmer -->
+                            <div class="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/10 to-white/0 pointer-events-none z-10"></div>
+                            
+                            <!-- Dynamic Hero Images (Will switch dynamically via JS) -->
+                            <div id="heroImageContainer" class="w-full h-full transition-transform duration-700 ease-in-out relative">
+                                <!-- Image 1 -->
+                                <img src="https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&q=80&w=600" id="heroImage1" class="absolute inset-0 w-full h-full object-cover grayscale brightness-90 transition-opacity duration-700 opacity-100" alt="Vessel 1">
+                                <!-- Image 2 -->
+                                <img src="https://images.unsplash.com/photo-1463936575829-25148e1db1b8?auto=format&fit=crop&q=80&w=600" id="heroImage2" class="absolute inset-0 w-full h-full object-cover grayscale brightness-90 transition-opacity duration-700 opacity-0" alt="Vessel 2">
+                                <!-- Image 3 -->
+                                <img src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&q=80&w=600" id="heroImage3" class="absolute inset-0 w-full h-full object-cover grayscale brightness-90 transition-opacity duration-700 opacity-0" alt="Vessel 3">
+                            </div>
+
+                            <!-- Interactive Interactive Spec Tag Overlaid inside container -->
+                            <div class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-brand-cream/90 backdrop-blur-md px-4 py-2 rounded-full border border-brand-green/20 z-20 flex items-center gap-2 shadow-lg">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
+                                <span class="text-[9px] font-bold tracking-widest text-brand-dark uppercase">Stabilized Microclimate</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vertical Social Anchor -->
+                    <div class="absolute right-0 top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-center gap-8">
+                        <span class="text-[9px] font-bold tracking-widest uppercase rotate-90 my-6 text-brand-cream/60">SOCIAL</span>
+                        <div class="w-[1px] h-12 bg-brand-cream/20"></div>
+                        <a href="#" class="text-xs text-brand-cream/60 hover:text-brand-cream transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="text-xs text-brand-cream/60 hover:text-brand-cream transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="text-xs text-brand-cream/60 hover:text-brand-cream transition-colors"><i class="fa-brands fa-twitter"></i></a>
+                    </div>
+                </div>
+
+                <!-- Custom Elegant Carousel Controls -->
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-brand-cream/15 pt-8">
+                    <!-- Prev / Next Toggles -->
+                    <div class="flex items-center gap-6 text-xs tracking-widest font-bold uppercase">
+                        <button onclick="prevSlide()" class="hover:text-brand-accent transition-colors py-2 flex items-center gap-2 group">
+                            <i class="fa-solid fa-arrow-left group-hover:-translate-x-1 transition-transform"></i> PREV
+                        </button>
+                        <span class="w-[1px] h-4 bg-brand-cream/35"></span>
+                        <button onclick="nextSlide()" class="hover:text-brand-accent transition-colors py-2 flex items-center gap-2 group">
+                            NEXT <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </div>
+
+                    <!-- Dots with Active States -->
+                    <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-2" id="carouselIndicators">
+                            <button onclick="viewSlide(0)" class="w-1.5 h-1.5 rounded-full bg-brand-cream transition-all duration-300" id="indicator0"></button>
+                            <button onclick="viewSlide(1)" class="w-1.5 h-1.5 rounded-full bg-brand-cream/35 transition-all duration-300" id="indicator1"></button>
+                            <button onclick="viewSlide(2)" class="w-1.5 h-1.5 rounded-full bg-brand-cream/35 transition-all duration-300" id="indicator2"></button>
+                        </div>
+                        <div class="text-[11px] font-medium tracking-wider text-brand-cream/60">
+                            <span id="currentIndicator">01</span> / 03
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PHILOSOPHY / THE SCIENTIFIC PARADIGM -->
+    <section id="scientific-paradigm" class="py-24 lg:py-32 bg-brand-creamDark relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <!-- Decorative Large Typography Number in Background -->
+            <div class="absolute right-0 top-1/2 -translate-y-1/2 text-[20vw] font-brand text-brand-green/5 select-none pointer-events-none">
+                02
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 relative z-10">
+                <!-- Left Title Column -->
+                <div class="lg:col-span-4">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="w-12 h-[1px] bg-brand-green/30"></span>
+                        <span class="text-xs font-semibold tracking-[0.3em] text-brand-green uppercase">THE PRINCIPLES</span>
+                    </div>
+                    <h2 class="font-serif text-4xl lg:text-5xl leading-tight text-brand-dark mb-6">
+                        Scientific <br><span class="italic font-normal">Self-Sustenance</span>
+                    </h2>
+                    <p class="text-brand-green/80 text-sm leading-relaxed mb-8">
+                        Our botanical biomes use complex structural thermodynamics. Engineered glass layers allow controlled photosynthesis with minimal outside intervention.
+                    </p>
+                    <div class="w-full h-[1px] bg-brand-green/10 my-8"></div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <span class="font-serif text-3xl text-brand-green">100%</span>
+                            <p class="text-[10px] uppercase font-bold tracking-widest text-brand-dark/70 mt-1">Water Retention</p>
+                        </div>
+                        <div>
+                            <span class="font-serif text-3xl text-brand-green">05 yr</span>
+                            <p class="text-[10px] uppercase font-bold tracking-widest text-brand-dark/70 mt-1">Average Life-Span</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Pillars Cards Grid (3 Columns on medium+) -->
+                <div class="lg:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Pillar 1 -->
+                    <div class="bg-brand-cream border border-brand-green/10 p-8 rounded-2xl flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <div>
+                            <span class="font-serif text-brand-green text-3xl font-light">01</span>
+                            <div class="w-10 h-[1px] bg-brand-accent my-4"></div>
+                            <h3 class="font-serif text-xl text-brand-dark mb-4">Thermodynamic Water Cycle</h3>
+                            <p class="text-xs text-brand-green/80 leading-relaxed">
+                                Evaporation droplets condense naturally onto interior glass panels, continually self-watering root foundations without continuous manual hydration.
+                            </p>
+                        </div>
+                        <div class="mt-8">
+                            <span class="text-[10px] font-bold tracking-widest uppercase text-brand-accent">Automatic Cycling</span>
+                        </div>
+                    </div>
+
+                    <!-- Pillar 2 -->
+                    <div class="bg-brand-cream border border-brand-green/10 p-8 rounded-2xl flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <div>
+                            <span class="font-serif text-brand-green text-3xl font-light">02</span>
+                            <div class="w-10 h-[1px] bg-brand-accent my-4"></div>
+                            <h3 class="font-serif text-xl text-brand-dark mb-4">Flora Curation</h3>
+                            <p class="text-xs text-brand-green/80 leading-relaxed">
+                                Our botanists hand-curate species of bryophyta and lycopodiophyta that thrive naturally inside balanced, micro-climate high humidity environments.
+                            </p>
+                        </div>
+                        <div class="mt-8">
+                            <span class="text-[10px] font-bold tracking-widest uppercase text-brand-accent">Curator Selection</span>
+                        </div>
+                    </div>
+
+                    <!-- Pillar 3 -->
+                    <div class="bg-brand-cream border border-brand-green/10 p-8 rounded-2xl flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <div>
+                            <span class="font-serif text-brand-green text-3xl font-light">03</span>
+                            <div class="w-10 h-[1px] bg-brand-accent my-4"></div>
+                            <h3 class="font-serif text-xl text-brand-dark mb-4">Precision Glass Crafting</h3>
+                            <p class="text-xs text-brand-green/80 leading-relaxed">
+                                High-clarity custom borosilicate glass, meticulously mouth-blown to secure seamless airtight locks, optimizing structural gas transfer levels.
+                            </p>
+                        </div>
+                        <div class="mt-8">
+                            <span class="text-[10px] font-bold tracking-widest uppercase text-brand-accent">Bespoke Glass</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ARCHIVE / THE COLLECTION SECTION -->
+    <section id="collection" class="py-24 lg:py-32 bg-brand-cream relative">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <div class="flex flex-col md:flex-row items-start md:items-end justify-between mb-16 gap-6">
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="w-12 h-[1px] bg-brand-green/30"></span>
+                        <span class="text-xs font-semibold tracking-[0.3em] text-brand-green uppercase">CHOOSE YOUR MICROCLIMATE</span>
+                    </div>
+                    <h2 class="font-serif text-4xl lg:text-5xl text-brand-dark leading-tight">
+                        Curated <span class="italic font-normal">Vessels</span>
+                    </h2>
+                </div>
+                <div class="flex items-center gap-4 border-b border-brand-green/10 pb-2">
+                    <span class="text-xs font-bold uppercase tracking-wider text-brand-green">Select Type:</span>
+                    <button class="text-xs tracking-wider text-brand-dark font-semibold px-3 py-1 bg-brand-green/10 rounded-full">All</button>
+                    <button class="text-xs tracking-wider text-brand-green hover:text-brand-dark px-3 py-1">Tabletop</button>
+                    <button class="text-xs tracking-wider text-brand-green hover:text-brand-dark px-3 py-1">Pendant</button>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Product Card 1 -->
+                <div class="bg-brand-creamDark border border-brand-green/10 rounded-2xl overflow-hidden group hover:shadow-2xl transition-all duration-500 relative flex flex-col justify-between">
+                    <div class="p-6">
+                        <div class="w-full h-80 rounded-xl overflow-hidden relative mb-6">
+                            <img src="https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&q=80&w=500" alt="Solis Arch Dome" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700">
+                            <!-- Premium Price Tag -->
+                            <div class="absolute top-4 right-4 bg-brand-cream/95 backdrop-blur-md px-3 py-1 rounded-full border border-brand-green/10">
+                                <span class="text-xs font-bold tracking-wider text-brand-dark">$320.00</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="font-serif text-2xl text-brand-dark">The Solis Dome</h3>
+                                <p class="text-[11px] uppercase tracking-widest font-bold text-brand-green/70">Arch Architecture</p>
+                            </div>
+                            <span class="text-xs font-medium text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full flex items-center gap-1.5 border border-emerald-100">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> In Stock
+                            </span>
+                        </div>
+                        <p class="text-xs text-brand-green/80 leading-relaxed mb-6">
+                            A majestic tall arch glass profile. Perfectly balanced ecosystem focusing on specialized high-humidity miniature ferns and dense forest floor mosses.
+                        </p>
+                    </div>
+                    <div class="px-6 pb-6 pt-2 border-t border-brand-green/10 flex items-center justify-between mt-auto">
+                        <button onclick="addQuickToCart('The Solis Dome', 320, 'Arch Architecture')" class="w-full bg-brand-green text-brand-cream py-3 rounded-full text-xs font-bold tracking-widest uppercase hover:bg-brand-greenDark transition-all duration-300 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cart-plus"></i> ADD TO SYSTEM
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product Card 2 -->
+                <div class="bg-brand-creamDark border border-brand-green/10 rounded-2xl overflow-hidden group hover:shadow-2xl transition-all duration-500 relative flex flex-col justify-between">
+                    <div class="p-6">
+                        <div class="w-full h-80 rounded-xl overflow-hidden relative mb-6">
+                            <img src="https://images.unsplash.com/photo-1463936575829-25148e1db1b8?auto=format&fit=crop&q=80&w=500" alt="Aegis Glass Cylinder" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700">
+                            <!-- Premium Price Tag -->
+                            <div class="absolute top-4 right-4 bg-brand-cream/95 backdrop-blur-md px-3 py-1 rounded-full border border-brand-green/10">
+                                <span class="text-xs font-bold tracking-wider text-brand-dark">$280.00</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="font-serif text-2xl text-brand-dark">The Aegis Cylinder</h3>
+                                <p class="text-[11px] uppercase tracking-widest font-bold text-brand-green/70">Minimalist Pillars</p>
+                            </div>
+                            <span class="text-xs font-medium text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full flex items-center gap-1.5 border border-emerald-100">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> In Stock
+                            </span>
+                        </div>
+                        <p class="text-xs text-brand-green/80 leading-relaxed mb-6">
+                            Clean minimalist cylinder shape optimized for multi-layered substrate horizons. Incorporates delicate active root cycles of rare ground vines.
+                        </p>
+                    </div>
+                    <div class="px-6 pb-6 pt-2 border-t border-brand-green/10 flex items-center justify-between mt-auto">
+                        <button onclick="addQuickToCart('The Aegis Cylinder', 280, 'Minimalist Pillars')" class="w-full bg-brand-green text-brand-cream py-3 rounded-full text-xs font-bold tracking-widest uppercase hover:bg-brand-greenDark transition-all duration-300 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cart-plus"></i> ADD TO SYSTEM
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product Card 3 -->
+                <div class="bg-brand-creamDark border border-brand-green/10 rounded-2xl overflow-hidden group hover:shadow-2xl transition-all duration-500 relative flex flex-col justify-between">
+                    <div class="p-6">
+                        <div class="w-full h-80 rounded-xl overflow-hidden relative mb-6">
+                            <img src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&q=80&w=500" alt="Nexus Orb Canopy" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700">
+                            <!-- Premium Price Tag -->
+                            <div class="absolute top-4 right-4 bg-brand-cream/95 backdrop-blur-md px-3 py-1 rounded-full border border-brand-green/10">
+                                <span class="text-xs font-bold tracking-wider text-brand-dark">$450.00</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="font-serif text-2xl text-brand-dark">The Nexus Column</h3>
+                                <p class="text-[11px] uppercase tracking-widest font-bold text-brand-green/70">Smart Microclimate</p>
+                            </div>
+                            <span class="text-xs font-medium text-amber-600 bg-amber-50 px-2.5 py-1 rounded-full flex items-center gap-1.5 border border-amber-100">
+                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Backordered
+                            </span>
+                        </div>
+                        <p class="text-xs text-brand-green/80 leading-relaxed mb-6">
+                            Our flagship technological biome. Features a handcrafted integration base equipped with fully autonomous botanical light emitting spectrums.
+                        </p>
+                    </div>
+                    <div class="px-6 pb-6 pt-2 border-t border-brand-green/10 flex items-center justify-between mt-auto">
+                        <button onclick="addQuickToCart('The Nexus Column', 450, 'Smart Microclimate')" class="w-full bg-brand-green text-brand-cream py-3 rounded-full text-xs font-bold tracking-widest uppercase hover:bg-brand-greenDark transition-all duration-300 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cart-plus"></i> ADD TO SYSTEM
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE BESPOKE CONFIGURATOR -->
+    <section id="configurator" class="py-24 lg:py-32 bg-brand-green text-brand-cream relative overflow-hidden">
+        <!-- Interactive Geometric circles -->
+        <div class="absolute top-[10%] left-[5%] w-[300px] h-[300px] rounded-full border border-brand-cream/5 pointer-events-none"></div>
+        <div class="absolute bottom-[10%] right-[5%] w-[400px] h-[400px] rounded-full border border-brand-cream/5 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            
+            <div class="max-w-3xl mb-16">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="w-12 h-[1px] bg-brand-cream/30"></span>
+                    <span class="text-xs font-semibold tracking-[0.3em] text-brand-cream/60 uppercase">BUILD YOUR PERSONAL BIOME</span>
+                </div>
+                <h2 class="font-serif text-4xl lg:text-5xl leading-tight">
+                    Bespoke Capsule <span class="italic font-normal text-brand-accent">Configurator</span>
+                </h2>
+                <p class="text-brand-cream/80 text-sm mt-4 leading-relaxed">
+                    Experiment with distinct physical vessel geometries, custom flora selections, and advanced integration bases to configure a beautiful system balanced precisely for your interior.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+                <!-- Configurator Visualizer Canvas (5 Columns) -->
+                <div class="lg:col-span-5 flex flex-col items-center justify-center bg-brand-dark/20 p-8 rounded-3xl border border-brand-cream/10 relative shadow-2xl">
+                    <span class="absolute top-6 left-6 text-[10px] tracking-widest uppercase font-bold text-brand-cream/40">Visualizer Preview</span>
+                    
+                    <!-- Dynamic Dynamic SVG / Graphic Rendering -->
+                    <div class="relative w-72 h-96 flex items-center justify-center mt-6">
+                        <!-- Custom dynamic drawing simulating the chosen configurations -->
+                        <div class="absolute inset-0 border-2 border-brand-cream/10 rounded-full scale-95 opacity-50"></div>
+                        
+                        <!-- Interactive SVG Structure with animated nodes -->
+                        <svg class="w-full h-full relative z-10" viewBox="0 0 200 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Dynamic glass container based on configuration -->
+                            <path id="svgGlass" d="M 50,40 Q 50,20 100,20 Q 150,20 150,40 L 160,200 Q 160,220 100,220 Q 40,220 40,200 Z" class="stroke-brand-cream stroke-2 fill-brand-dark/30 transition-all duration-500" stroke-width="2" />
+                            
+                            <!-- Internal Soil substrate rendering (changes color slightly) -->
+                            <path id="svgSoil" d="M 44,185 Q 100,195 156,185 L 158,205 Q 158,218 100,218 Q 42,218 42,205 Z" class="fill-yellow-950/60 stroke-none transition-all duration-500" />
+                            
+                            <!-- Dynamic Flora layer vectors -->
+                            <g id="svgPlants" class="transition-all duration-500">
+                                <!-- Plant 1 -->
+                                <path d="M 100,185 Q 90,130 75,120 Q 90,140 100,185 Z" class="fill-emerald-800 transition-colors duration-500" />
+                                <!-- Plant 2 -->
+                                <path d="M 100,185 Q 110,120 130,105 Q 115,135 100,185 Z" class="fill-emerald-600 transition-colors duration-500" />
+                                <!-- Plant 3 -->
+                                <path d="M 100,185 Q 102,150 112,140 Q 105,160 100,185 Z" class="fill-emerald-700 transition-colors duration-500" />
+                                <!-- Plant 4 -->
+                                <path d="M 85,185 Q 70,160 55,165 Q 72,175 85,185 Z" class="fill-emerald-900 transition-colors duration-500" />
+                            </g>
+
+                            <!-- Dynamic LED light ray animation -->
+                            <g id="svgLightRay" class="opacity-0 transition-opacity duration-500">
+                                <polygon points="100,20 60,220 140,220" fill="url(#lightGradient)" class="opacity-25" />
+                            </g>
+
+                            <!-- SVG Defs for Light Gradients -->
+                            <defs>
+                                <linearGradient id="lightGradient" x1="0.5" y1="0" x2="0.5" y2="1">
+                                    <stop offset="0%" stop-color="#FFF" stop-opacity="0.8"/>
+                                    <stop offset="100%" stop-color="#FFF" stop-opacity="0"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+
+                        <!-- Condensation mist elements in visualizer -->
+                        <div class="absolute inset-x-12 bottom-20 flex justify-between pointer-events-none opacity-40">
+                            <span class="w-1.5 h-1.5 rounded-full bg-blue-200/50 animate-pulse-slow"></span>
+                            <span class="w-2 h-2 rounded-full bg-blue-200/40 animate-pulse-slow" style="animation-delay: 1s"></span>
+                            <span class="w-1 h-1 rounded-full bg-blue-200/60 animate-pulse-slow" style="animation-delay: 2s"></span>
+                        </div>
+                    </div>
+
+                    <!-- Config Summary and Realtime Pricing Counter -->
+                    <div class="w-full mt-8 border-t border-brand-cream/15 pt-6 text-center lg:text-left">
+                        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <div>
+                                <span class="text-xs uppercase tracking-widest text-brand-cream/60">Configured Value</span>
+                                <h4 class="font-serif text-3xl font-semibold mt-1 text-brand-accent" id="configuratorPrice">$320.00</h4>
+                            </div>
+                            <button onclick="addConfiguredToCart()" class="bg-brand-cream text-brand-dark px-6 py-3.5 rounded-full text-xs font-bold tracking-widest uppercase hover:bg-brand-accent hover:text-white hover:shadow-lg transition-all duration-300">
+                                <i class="fa-solid fa-plus-circle mr-1"></i> ADD CUSTOM SYSTEM
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Configurator Selection Panels (7 Columns) -->
+                <div class="lg:col-span-7 flex flex-col gap-10">
+                    <!-- Option Group 1: Glass Enclosures -->
+                    <div>
+                        <span class="text-xs font-semibold tracking-widest uppercase text-brand-cream/55">STEP 01 — Choose Glass Enclosure Shape</span>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
+                            <!-- Arch Shape -->
+                            <label class="border-2 border-brand-cream/20 hover:border-brand-accent rounded-xl p-5 cursor-pointer flex flex-col justify-between transition-all duration-300 relative group select-none">
+                                <input type="radio" name="enclosure" value="Solis Arch" class="absolute top-4 right-4 accent-brand-accent" checked onchange="updateConfigurator()">
+                                <div>
+                                    <h4 class="font-serif text-lg text-white">Solis Arch</h4>
+                                    <p class="text-[10px] text-brand-cream/60 uppercase mt-1">Premium Arch Shape</p>
+                                </div>
+                                <span class="text-sm font-semibold mt-6 block text-brand-accent">$180.00</span>
+                            </label>
+
+                            <!-- Cylinder Shape -->
+                            <label class="border-2 border-brand-cream/20 hover:border-brand-accent rounded-xl p-5 cursor-pointer flex flex-col justify-between transition-all duration-300 relative group select-none">
+                                <input type="radio" name="enclosure" value="Aegis Column" class="absolute top-4 right-4 accent-brand-accent" onchange="updateConfigurator()">
+                                <div>
+                                    <h4 class="font-serif text-lg text-white">Aegis Column</h4>
+                                    <p class="text-[10px] text-brand-cream/60 uppercase mt-1">Symmetrical Cylinder</p>
+                                </div>
+                                <span class="text-sm font-semibold mt-6 block text-brand-accent">$150.00</span>
+                            </label>
+
+                            <!-- Orb Dome Shape -->
+                            <label class="border-2 border-brand-cream/20 hover:border-brand-accent rounded-xl p-5 cursor-pointer flex flex-col justify-between transition-all duration-300 relative group select-none">
+                                <input type="radio" name="enclosure" value="Zenith Orb" class="absolute top-4 right-4 accent-brand-accent" onchange="updateConfigurator()">
+                                <div>
+                                    <h4 class="font-serif text-lg text-white">Zenith Orb</h4>
+                                    <p class="text-[10px] text-brand-cream/60 uppercase mt-1">Spherical Dome</p>
+                                </div>
+                                <span class="text-sm font-semibold mt-6 block text-brand-accent">$210.00</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Option Group 2: Flora Profiles -->
+                    <div>
+                        <span class="text-xs font-semibold tracking-widest uppercase text-brand-cream/55">STEP 02 — Select Flora Profile & Curation Style</span>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
+                            <!-- Flora option 1 -->
+                            <label class="border-2 border-brand-cream/20 hover:border-brand-accent rounded-xl p-5 cursor-pointer flex flex-col justify-between transition-all duration-300 relative group select-none">
+                                <input type="radio" name="flora" value="Misty Mossland" class="absolute top-4 right-4 accent-brand-accent" checked onchange="updateConfigurator()">
+                                <div>
+                                    <h4 class="font-serif text-lg text-white">Misty Mossland</h4>
+                                    <p class="text-[10px] text-brand-cream/60 uppercase mt-1">Lush Pillow Moss & Fern</p>
+                                </div>
+                                <span class="text-sm font-semibold mt-6 block text-brand-accent">$80.00</span>
+                            </label>
+
+                            <!-- Flora option 2 -->
+                            <label class="border-2 border-brand-cream/20 hover:border-brand-accent rounded-xl p-5 cursor-pointer flex flex-col justify-between transition-all duration-300 relative group select-none">
+                                <input type="radio" name="flora" value="Boreal Undergrowth" class="absolute top-4 right-4 accent-brand-accent" onchange="updateConfigurator()">
+                                <div>
+                                    <h4 class="font-serif text-lg text-white">Boreal Glade</h4>
+                                    <p class="text-[10px] text-brand-cream/60 uppercase mt-1">Lichen, Moss & Ground Vine</p>
+                                </div>
+                                <span class="text-sm font-semibold mt-6 block text-brand-accent">$110.00</span>
+                            </label>
+
+                            <!-- Flora option 3 -->
+                            <label class="border-2 border-brand-cream/20 hover:border-brand-accent rounded-xl p-5 cursor-pointer flex flex-col justify-between transition-all duration-300 relative group select-none">
+                                <input type="radio" name="flora" value="Equatorial Shade" class="absolute top-4 right-4 accent-brand-accent" onchange="updateConfigurator()">
+                                <div>
+                                    <h4 class="font-serif text-lg text-white">Equatorial Shade</h4>
+                                    <p class="text-[10px] text-brand-cream/60 uppercase mt-1">Dwarf Orchid & Canopy Fern</p>
+                                </div>
+                                <span class="text-sm font-semibold mt-6 block text-brand-accent">$140.00</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Option Group 3: Lighting Base & Smart Controls -->
+                    <div>
+                        <span class="text-xs font-semibold tracking-widest uppercase text-brand-cream/55">STEP 03 — Choose Integration Base Technology</span>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
+                            <!-- Base option 1 -->
+                            <label class="border-2 border-brand-cream/20 hover:border-brand-accent rounded-xl p-5 cursor-pointer flex flex-col justify-between transition-all duration-300 relative group select-none">
+                                <input type="radio" name="base" value="Premium Oak" class="absolute top-4 right-4 accent-brand-accent" checked onchange="updateConfigurator()">
+                                <div>
+                                    <h4 class="font-serif text-lg text-white">Premium Oak</h4>
+                                    <p class="text-[10px] text-brand-cream/60 uppercase mt-1">Minimalist Wood Seal</p>
+                                </div>
+                                <span class="text-sm font-semibold mt-6 block text-brand-accent">$60.00</span>
+                            </label>
+
+                            <!-- Base option 2 -->
+                            <label class="border-2 border-brand-cream/20 hover:border-brand-accent rounded-xl p-5 cursor-pointer flex flex-col justify-between transition-all duration-300 relative group select-none">
+                                <input type="radio" name="base" value="Smart LED Base" class="absolute top-4 right-4 accent-brand-accent" onchange="updateConfigurator()">
+                                <div>
+                                    <h4 class="font-serif text-lg text-white">Smart LED</h4>
+                                    <p class="text-[10px] text-brand-cream/60 uppercase mt-1">Automated Sun Spectrum</p>
+                                </div>
+                                <span class="text-sm font-semibold mt-6 block text-brand-accent">$110.00</span>
+                            </label>
+
+                            <!-- Base option 3 -->
+                            <label class="border-2 border-brand-cream/20 hover:border-brand-accent rounded-xl p-5 cursor-pointer flex flex-col justify-between transition-all duration-300 relative group select-none">
+                                <input type="radio" name="base" value="Hydro-Sensing Hub" class="absolute top-4 right-4 accent-brand-accent" onchange="updateConfigurator()">
+                                <div>
+                                    <h4 class="font-serif text-lg text-white">Precision Sensor</h4>
+                                    <p class="text-[10px] text-brand-cream/60 uppercase mt-1">Humidity & Health Sync</p>
+                                </div>
+                                <span class="text-sm font-semibold mt-6 block text-brand-accent">$150.00</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MICRO-CLIMATE DIAGNOSTIC ENGINE -->
+    <section id="diagnostic" class="py-24 lg:py-32 bg-brand-creamDark relative">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+                <!-- Left Narrative Area -->
+                <div class="lg:col-span-5">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="w-12 h-[1px] bg-brand-green/30"></span>
+                        <span class="text-xs font-semibold tracking-[0.3em] text-brand-green uppercase">REAL-TIME TELEMETRY</span>
+                    </div>
+                    <h2 class="font-serif text-4xl lg:text-5xl leading-tight text-brand-dark mb-6">
+                        Autonomous <br><span class="italic font-normal">Stabilization</span>
+                    </h2>
+                    <p class="text-brand-green/80 text-sm leading-relaxed mb-8">
+                        Our optional sensor-enabled Smart Bases log microclimatic trends directly. Toggle between telemetry fields below to simulate and review 30-day health cycles inside your system.
+                    </p>
+
+                    <!-- Interactive Diagnostic Buttons -->
+                    <div class="flex flex-col gap-3">
+                        <button onclick="switchChartMetric('hydration')" id="btn-hydration" class="px-6 py-4 rounded-xl border border-brand-green/10 bg-brand-cream flex items-center justify-between hover:border-brand-green transition-all duration-300 shadow-sm text-left group">
+                            <span class="text-xs font-bold tracking-wider uppercase text-brand-dark flex items-center gap-2">
+                                <i class="fa-solid fa-droplet text-brand-green"></i> Hydration Balance (RH%)
+                            </span>
+                            <span class="text-xs text-emerald-600 font-semibold group-hover:translate-x-1 transition-transform">94% Average <i class="fa-solid fa-angle-right ml-1"></i></span>
+                        </button>
+
+                        <button onclick="switchChartMetric('lux')" id="btn-lux" class="px-6 py-4 rounded-xl border border-brand-green/10 bg-brand-cream flex items-center justify-between hover:border-brand-green transition-all duration-300 shadow-sm text-left group">
+                            <span class="text-xs font-bold tracking-wider uppercase text-brand-dark flex items-center gap-2">
+                                <i class="fa-solid fa-sun text-brand-accent"></i> Sunlight Lux Synthesis
+                            </span>
+                            <span class="text-xs text-emerald-600 font-semibold group-hover:translate-x-1 transition-transform">Optimized <i class="fa-solid fa-angle-right ml-1"></i></span>
+                        </button>
+
+                        <button onclick="switchChartMetric('ph')" id="btn-ph" class="px-6 py-4 rounded-xl border border-brand-green/10 bg-brand-cream flex items-center justify-between hover:border-brand-green transition-all duration-300 shadow-sm text-left group">
+                            <span class="text-xs font-bold tracking-wider uppercase text-brand-dark flex items-center gap-2">
+                                <i class="fa-solid fa-seedling text-brand-green"></i> Soil pH Stabilization
+                            </span>
+                            <span class="text-xs text-brand-green font-semibold group-hover:translate-x-1 transition-transform">6.2 Balanced <i class="fa-solid fa-angle-right ml-1"></i></span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Simulated Chart (7 Columns) -->
+                <div class="lg:col-span-7 bg-brand-cream border border-brand-green/10 rounded-3xl p-8 shadow-2xl relative">
+                    <div class="flex items-center justify-between mb-8 border-b border-brand-green/5 pb-4">
+                        <div>
+                            <span class="text-[10px] uppercase font-bold tracking-wider text-brand-green/60">SIMULATION ENGINE</span>
+                            <h4 class="font-serif text-xl text-brand-dark mt-0.5" id="chartMetricName">30-Day Hydration Telemetry (RH)</h4>
+                        </div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800">Healthy Cycle</span>
+                    </div>
+
+                    <!-- Custom Visual CSS Chart (fully responsive without heavy JS canvas packages) -->
+                    <div class="h-64 flex items-end justify-between gap-2.5 pt-8 relative">
+                        <!-- Y Axis Labels -->
+                        <div class="absolute left-0 top-0 h-full flex flex-col justify-between text-[9px] font-bold text-brand-green/40 pointer-events-none z-10">
+                            <span id="chartYMax">100%</span>
+                            <span>75%</span>
+                            <span>50%</span>
+                            <span>25%</span>
+                            <span id="chartYMin">0%</span>
+                        </div>
+
+                        <!-- Grid Lines -->
+                        <div class="absolute inset-0 flex flex-col justify-between pointer-events-none py-1">
+                            <div class="w-full h-[1px] bg-brand-green/5"></div>
+                            <div class="w-full h-[1px] bg-brand-green/5"></div>
+                            <div class="w-full h-[1px] bg-brand-green/5"></div>
+                            <div class="w-full h-[1px] bg-brand-green/5"></div>
+                        </div>
+
+                        <!-- Bar Nodes (Hydration sequence by default) -->
+                        <div class="flex-grow h-full flex items-end justify-around pl-8 z-10" id="chartBars">
+                            <!-- Populated with JS dynamically -->
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center mt-6 border-t border-brand-green/5 pt-4">
+                        <span class="text-[10px] font-bold tracking-widest text-brand-green/60 uppercase">Day 01</span>
+                        <span class="text-[10px] font-bold tracking-widest text-brand-green/60 uppercase">Day 15 (Midpoint)</span>
+                        <span class="text-[10px] font-bold tracking-widest text-brand-green/60 uppercase">Day 30</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PREMIUM SIDE CART DRAWER (Aesthetic offcanvas overlay) -->
+    <div id="cartDrawer" class="fixed inset-y-0 right-0 w-full max-w-md bg-brand-cream border-l border-brand-green/10 shadow-2xl z-50 translate-x-full transition-transform duration-500 flex flex-col justify-between">
+        <!-- Drawer Header -->
+        <div class="p-6 border-b border-brand-green/10 flex items-center justify-between">
+            <div>
+                <h3 class="font-serif text-2xl text-brand-dark">Curated System</h3>
+                <p class="text-[10px] text-brand-green/70 uppercase tracking-widest font-bold">Your Ecosystem Setup</p>
+            </div>
+            <button onclick="toggleCartDrawer()" class="text-brand-dark hover:text-brand-green transition-colors p-2" aria-label="Close Cart">
+                <i class="fa-solid fa-times text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Drawer Body (Items List) -->
+        <div class="p-6 flex-grow overflow-y-auto space-y-6" id="cartItemsList">
+            <!-- Dynamic items rendered via JS -->
+            <div id="cartEmptyState" class="flex flex-col items-center justify-center text-center h-full py-12">
+                <i class="fa-solid fa-wind text-brand-green/25 text-5xl mb-4"></i>
+                <h4 class="font-serif text-lg text-brand-dark">The Vessel is Empty</h4>
+                <p class="text-xs text-brand-green/70 max-w-xs mt-2">Begin by choosing a model above or customized design in the Configurator panel.</p>
+            </div>
+        </div>
+
+        <!-- Drawer Footer -->
+        <div class="p-6 border-t border-brand-green/10 bg-brand-creamDark/60 space-y-4">
+            <div class="flex items-center justify-between">
+                <span class="text-xs uppercase tracking-widest font-bold text-brand-green/80">Subtotal Value</span>
+                <span class="font-serif text-2xl text-brand-dark font-semibold" id="cartSubtotal">$0.00</span>
+            </div>
+            <p class="text-[10px] text-brand-green/60 leading-normal">
+                Tax and specialized biological courier transport packaging calculated at finalized checkout system.
+            </p>
+            <button onclick="openCheckoutModal()" class="w-full bg-brand-green text-brand-cream py-4 rounded-full text-xs font-bold tracking-widest uppercase hover:bg-brand-greenDark hover:shadow-lg transition-all duration-300">
+                PROCEED TO ALLOCATION
+            </button>
+        </div>
+    </div>
+
+    <!-- Backdrop for Drawer and Checkout -->
+    <div id="drawerOverlay" class="fixed inset-0 bg-brand-dark/40 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-500" onclick="closeAllDrawers()"></div>
+
+    <!-- LUXURY CHECKOUT SYSTEM MODAL -->
+    <div id="checkoutModal" class="fixed inset-0 bg-brand-dark/40 backdrop-blur-md z-50 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500">
+        <div class="bg-brand-cream max-w-lg w-full mx-4 p-8 rounded-2xl border border-brand-green/10 shadow-2xl relative translate-y-8 transition-all duration-500" id="checkoutBox">
+            <button onclick="toggleCheckoutModal()" class="absolute top-6 right-6 text-brand-dark hover:text-brand-green transition-colors">
+                <i class="fa-solid fa-times text-xl"></i>
+            </button>
+            <h4 class="font-serif text-3xl text-brand-dark mb-2">Secure Allocation</h4>
+            <p class="text-xs text-brand-green/80 mb-6">Finalize reservation for your premium biological capsule. Crafting and curation starts on order confirmation.</p>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-[10px] font-bold tracking-widest uppercase text-brand-green/80 mb-1">Full Name</label>
+                    <input type="text" class="w-full bg-transparent border-b border-brand-green/20 focus:border-brand-green py-2 text-brand-dark focus:outline-none transition-colors text-sm" placeholder="Alexander Soper">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold tracking-widest uppercase text-brand-green/80 mb-1">Delivery Destination</label>
+                    <input type="text" class="w-full bg-transparent border-b border-brand-green/20 focus:border-brand-green py-2 text-brand-dark focus:outline-none transition-colors text-sm" placeholder="Tokyo, Japan">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-bold tracking-widest uppercase text-brand-green/80 mb-1">Email Address</label>
+                        <input type="email" class="w-full bg-transparent border-b border-brand-green/20 focus:border-brand-green py-2 text-brand-dark focus:outline-none transition-colors text-sm" placeholder="alexander@domain.com">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold tracking-widest uppercase text-brand-green/80 mb-1">Preferred Base</label>
+                        <select class="w-full bg-transparent border-b border-brand-green/20 focus:border-brand-green py-2 text-brand-dark focus:outline-none transition-colors text-sm">
+                            <option>Standard Oak Wood</option>
+                            <option>Precision Sensor System</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 border-t border-brand-green/10 pt-6 flex items-center justify-between">
+                <div>
+                    <span class="text-[10px] uppercase font-bold tracking-widest text-brand-green/60">Total Value</span>
+                    <h5 class="font-serif text-2xl text-brand-accent mt-0.5" id="checkoutTotalValue">$0.00</h5>
+                </div>
+                <button onclick="confirmPurchase()" class="bg-brand-green text-brand-cream px-8 py-3.5 rounded-full text-xs font-bold tracking-widest uppercase hover:bg-brand-accent hover:shadow-lg transition-all duration-300">
+                    RESERVE SYSTEM
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- REAL BRAND FOOTER -->
+    <footer class="bg-brand-dark text-brand-cream/80 pt-24 pb-12 border-t border-brand-green/25 relative overflow-hidden">
+        <!-- SVG Overlapping Geometric lines for cohesive ending -->
+        <div class="absolute bottom-[20px] left-[5%] w-[400px] h-[400px] rounded-full border border-brand-cream/5 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-20 mb-20">
+                <!-- Branding column -->
+                <div class="space-y-6">
+                    <span class="font-brand text-3xl tracking-widest font-semibold text-white">Soper<span class="text-brand-accent">.</span></span>
+                    <p class="text-xs text-brand-cream/60 leading-relaxed">
+                        Redefining home botany. Engineering autonomous living self-sustained mini ecosystems that deliver timeless biological serenity.
+                    </p>
+                </div>
+
+                <!-- Collection Links -->
+                <div class="space-y-4">
+                    <h5 class="text-xs font-bold uppercase tracking-widest text-brand-accent">COLLECTIONS</h5>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#collection" class="hover:text-white transition-colors">The Solis Domes</a></li>
+                        <li><a href="#collection" class="hover:text-white transition-colors">The Aegis Cylinders</a></li>
+                        <li><a href="#collection" class="hover:text-white transition-colors">Smart Biome Pods</a></li>
+                        <li><a href="#collection" class="hover:text-white transition-colors">Bespoke Tabletop Orbs</a></li>
+                    </ul>
+                </div>
+
+                <!-- Philosophy Links -->
+                <div class="space-y-4">
+                    <h5 class="text-xs font-bold uppercase tracking-widest text-brand-accent">PHILOSOPHY</h5>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#scientific-paradigm" class="hover:text-white transition-colors">Thermodynamic Water Cycle</a></li>
+                        <li><a href="#scientific-paradigm" class="hover:text-white transition-colors">Species Selection</a></li>
+                        <li><a href="#scientific-paradigm" class="hover:text-white transition-colors">Mouthblown Borosilicate Glass</a></li>
+                        <li><a href="#diagnostic" class="hover:text-white transition-colors">Smart Telemetry Sensing</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter Subscription -->
+                <div class="space-y-4">
+                    <h5 class="text-xs font-bold uppercase tracking-widest text-brand-accent">NEWSLETTER</h5>
+                    <p class="text-xs text-brand-cream/60 leading-relaxed">Join our inner circle for botanical collection drops and technical notes.</p>
+                    <div class="flex items-center gap-2 border-b border-brand-cream/20 pb-1">
+                        <input type="email" placeholder="Email Address" class="bg-transparent border-none text-xs text-white focus:outline-none w-full py-1 placeholder-brand-cream/40">
+                        <button class="hover:text-white transition-colors p-1"><i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lower Footer Bar -->
+            <div class="border-t border-brand-cream/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
+                <span class="text-[10px] uppercase tracking-widest text-brand-cream/45">© 2026 Soper. BOTANICAL ENGINEERING. ALL RIGHTS RESERVED.</span>
+                <div class="flex items-center gap-6 text-[10px] tracking-wider uppercase">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Charter</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Curation</a>
+                    <a href="#" class="hover:text-white transition-colors">Technical Support</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE SCRIPTS -->
+    <script>
+        // Hero Carousel Slide Data Setup
+        const heroSlides = [
+            {
+                subtitle: "The most generic",
+                title: "Natural <br><span class='italic font-normal'>Ecosystem</span>",
+                description: "The basic scientific principle behind terrarium is that the glass enclosure traps moisture produced by evaporation from the soil.",
+                bgNum: "01"
+            },
+            {
+                subtitle: "Automated Canopy Systems",
+                title: "Sylvan <br><span class='italic font-normal'>Canopy Dome</span>",
+                description: "Optimized for dense vertical growth. This model includes internal humidity monitoring nodes designed to support miniature equatorial flora.",
+                bgNum: "02"
+            },
+            {
+                subtitle: "Subtemperate Hardiness",
+                title: "Boreal <br><span class='italic font-normal'>Humus Column</span>",
+                description: "Deep ancient moss ecosystems structured upon stratified organic charcoal and lava rocks. Built inside heavy impact borosilicate glass structures.",
+                bgNum: "03"
+            }
+        ];
+
+        let currentSlideIndex = 0;
+
+        function updateHeroSlide() {
+            const slide = heroSlides[currentSlideIndex];
+            
+            // Text updating with quick delicate fade sequences
+            const textElements = ['heroSubtitle', 'heroMainTitle', 'heroDescription', 'heroBgNumber'];
+            textElements.forEach(id => {
+                const el = document.getElementById(id);
+                el.classList.add('opacity-0', 'translate-y-2');
+                el.style.transition = 'all 0.4s ease';
+            });
+
+            setTimeout(() => {
+                document.getElementById('heroSubtitle').innerText = slide.subtitle;
+                document.getElementById('heroMainTitle').innerHTML = slide.title;
+                document.getElementById('heroDescription').innerText = slide.description;
+                document.getElementById('heroBgNumber').innerText = slide.bgNum;
+                document.getElementById('currentIndicator').innerText = slide.bgNum;
+
+                textElements.forEach(id => {
+                    const el = document.getElementById(id);
+                    el.classList.remove('opacity-0', 'translate-y-2');
+                });
+            }, 300);
+
+            // Shift inner images dynamically inside containing div
+            const img1 = document.getElementById('heroImage1');
+            const img2 = document.getElementById('heroImage2');
+            const img3 = document.getElementById('heroImage3');
+
+            img1.classList.add('opacity-0');
+            img2.classList.add('opacity-0');
+            img3.classList.add('opacity-0');
+
+            if (currentSlideIndex === 0) img1.classList.remove('opacity-0');
+            if (currentSlideIndex === 1) img2.classList.remove('opacity-0');
+            if (currentSlideIndex === 2) img3.classList.remove('opacity-0');
+
+            // Reset indicator indicators
+            for (let i = 0; i < 3; i++) {
+                const indicator = document.getElementById(`indicator${i}`);
+                if (i === currentSlideIndex) {
+                    indicator.classList.remove('bg-brand-cream/35');
+                    indicator.classList.add('bg-brand-cream', 'w-4');
+                } else {
+                    indicator.classList.remove('bg-brand-cream', 'w-4');
+                    indicator.classList.add('bg-brand-cream/35');
+                }
+            }
+        }
+
+        function nextSlide() {
+            currentSlideIndex = (currentSlideIndex + 1) % heroSlides.length;
+            updateHeroSlide();
+        }
+
+        function prevSlide() {
+            currentSlideIndex = (currentSlideIndex - 1 + heroSlides.length) % heroSlides.length;
+            updateHeroSlide();
+        }
+
+        function viewSlide(idx) {
+            currentSlideIndex = idx;
+            updateHeroSlide();
+        }
+
+        // Bespoke Configurator logic
+        const pricingSheet = {
+            enclosures: {
+                "Solis Arch": 180,
+                "Aegis Column": 150,
+                "Zenith Orb": 210
+            },
+            floras: {
+                "Misty Mossland": 80,
+                "Boreal Undergrowth": 110,
+                "Equatorial Shade": 140
+            },
+            bases: {
+                "Premium Oak": 60,
+                "Smart LED Base": 110,
+                "Hydro-Sensing Hub": 150
+            }
+        };
+
+        function updateConfigurator() {
+            const chosenEnclosure = document.querySelector('input[name="enclosure"]:checked').value;
+            const chosenFlora = document.querySelector('input[name="flora"]:checked').value;
+            const chosenBase = document.querySelector('input[name="base"]:checked').value;
+
+            // Compute math
+            const cost = pricingSheet.enclosures[chosenEnclosure] + pricingSheet.floras[chosenFlora] + pricingSheet.bases[chosenBase];
+            document.getElementById('configuratorPrice').innerText = `$${cost.toFixed(2)}`;
+
+            // Interactive visualizer edits
+            const svgGlass = document.getElementById('svgGlass');
+            const svgPlants = document.getElementById('svgPlants');
+            const svgLightRay = document.getElementById('svgLightRay');
+
+            // 1. Structural alterations to container path depending on choice
+            if (chosenEnclosure === 'Solis Arch') {
+                svgGlass.setAttribute('d', 'M 50,40 Q 50,20 100,20 Q 150,20 150,40 L 160,200 Q 160,220 100,220 Q 40,220 40,200 Z');
+            } else if (chosenEnclosure === 'Aegis Column') {
+                svgGlass.setAttribute('d', 'M 50,20 L 150,20 L 150,200 Q 150,220 100,220 Q 50,220 50,200 Z');
+            } else if (chosenEnclosure === 'Zenith Orb') {
+                svgGlass.setAttribute('d', 'M 100,20 C 30,20 30,190 100,220 C 170,190 170,20 100,20 Z');
+            }
+
+            // 2. Adjust Plants Color style based on Flora Type choice
+            const paths = svgPlants.querySelectorAll('path');
+            if (chosenFlora === 'Misty Mossland') {
+                paths[0].setAttribute('class', 'fill-emerald-800 transition-colors');
+                paths[1].setAttribute('class', 'fill-emerald-600 transition-colors');
+                paths[2].setAttribute('class', 'fill-emerald-700 transition-colors');
+                paths[3].setAttribute('class', 'fill-emerald-900 transition-colors');
+            } else if (chosenFlora === 'Boreal Undergrowth') {
+                paths[0].setAttribute('class', 'fill-teal-800 transition-colors');
+                paths[1].setAttribute('class', 'fill-teal-600 transition-colors');
+                paths[2].setAttribute('class', 'fill-teal-700 transition-colors');
+                paths[3].setAttribute('class', 'fill-lime-800 transition-colors');
+            } else if (chosenFlora === 'Equatorial Shade') {
+                paths[0].setAttribute('class', 'fill-emerald-950 transition-colors');
+                paths[1].setAttribute('class', 'fill-green-600 transition-colors');
+                paths[2].setAttribute('class', 'fill-purple-600 transition-colors'); // Simulates orchid blooms!
+                paths[3].setAttribute('class', 'fill-green-900 transition-colors');
+            }
+
+            // 3. Highlight LED ray visible states if active
+            if (chosenBase === 'Smart LED Base' || chosenBase === 'Hydro-Sensing Hub') {
+                svgLightRay.classList.remove('opacity-0');
+            } else {
+                svgLightRay.classList.add('opacity-0');
+            }
+        }
+
+        // Cart Data State
+        let cartItems = [];
+
+        function renderCart() {
+            const listContainer = document.getElementById('cartItemsList');
+            const cartEmptyState = document.getElementById('cartEmptyState');
+            const cartSubtotal = document.getElementById('cartSubtotal');
+            const cartCount = document.getElementById('cartCount');
+
+            if (cartItems.length === 0) {
+                cartEmptyState.classList.remove('hidden');
+                cartSubtotal.innerText = '$0.00';
+                cartCount.innerText = '0';
+                listContainer.querySelectorAll('.cart-item-row').forEach(el => el.remove());
+                return;
+            }
+
+            cartEmptyState.classList.add('hidden');
+            
+            // Clean out previous list
+            listContainer.querySelectorAll('.cart-item-row').forEach(el => el.remove());
+
+            let runningSum = 0;
+            cartItems.forEach((item, index) => {
+                runningSum += item.price;
+                
+                const itemRow = document.createElement('div');
+                itemRow.className = 'cart-item-row flex items-center justify-between border-b border-brand-green/5 pb-4';
+                itemRow.innerHTML = `
+                    <div>
+                        <h4 class="font-serif text-base text-brand-dark">${item.name}</h4>
+                        <p class="text-[10px] text-brand-green/60 uppercase tracking-wider mt-0.5">${item.spec}</p>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span class="text-xs font-bold text-brand-dark">$${item.price.toFixed(2)}</span>
+                        <button onclick="removeCartItem(${index})" class="text-brand-green/40 hover:text-red-500 transition-colors p-1" aria-label="Remove item">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
+                `;
+                listContainer.appendChild(itemRow);
+            });
+
+            cartSubtotal.innerText = `$${runningSum.toFixed(2)}`;
+            cartCount.innerText = cartItems.length;
+        }
+
+        function addQuickToCart(name, price, spec) {
+            cartItems.push({ name, price, spec });
+            renderCart();
+            toggleCartDrawer(true); // Open drawer automatically to show feedback
+        }
+
+        function addConfiguredToCart() {
+            const chosenEnclosure = document.querySelector('input[name="enclosure"]:checked').value;
+            const chosenFlora = document.querySelector('input[name="flora"]:checked').value;
+            const chosenBase = document.querySelector('input[name="base"]:checked').value;
+
+            const cost = pricingSheet.enclosures[chosenEnclosure] + pricingSheet.floras[chosenFlora] + pricingSheet.bases[chosenBase];
+            const descriptor = `${chosenEnclosure} + ${chosenFlora}`;
+
+            cartItems.push({
+                name: "Custom Biological Capsule",
+                price: cost,
+                spec: descriptor
+            });
+
+            renderCart();
+            toggleCartDrawer(true);
+        }
+
+        function removeCartItem(idx) {
+            cartItems.splice(idx, 1);
+            renderCart();
+        }
+
+        // Interactive Offcanvas Drawer Toggles
+        function toggleCartDrawer(forceOpen = false) {
+            const drawer = document.getElementById('cartDrawer');
+            const overlay = document.getElementById('drawerOverlay');
+
+            if (drawer.classList.contains('translate-x-full') || forceOpen) {
+                drawer.classList.remove('translate-x-full');
+                overlay.classList.remove('hidden');
+                setTimeout(() => overlay.classList.add('opacity-100'), 50);
+            } else {
+                drawer.classList.add('translate-x-full');
+                overlay.classList.remove('opacity-100');
+                setTimeout(() => overlay.classList.add('hidden'), 500);
+            }
+        }
+
+        function closeAllDrawers() {
+            toggleCartDrawer();
+            toggleSearchModal(false);
+            toggleCheckoutModal(false);
+        }
+
+        // Telemetry Diagnostic engine simulation
+        const chartSequences = {
+            hydration: [92, 94, 91, 89, 95, 96, 94, 92, 95, 96, 94, 93, 91, 95, 97, 94, 92, 91, 93, 94, 95, 92, 91, 94, 96, 95, 93, 92, 94, 95],
+            lux: [70, 72, 65, 80, 85, 90, 75, 70, 65, 78, 88, 85, 70, 75, 82, 80, 75, 70, 68, 80, 85, 90, 75, 70, 80, 85, 72, 70, 75, 80],
+            ph: [6.1, 6.2, 6.2, 6.3, 6.2, 6.1, 6.2, 6.3, 6.2, 6.1, 6.2, 6.2, 6.3, 6.2, 6.1, 6.2, 6.3, 6.2, 6.1, 6.2, 6.2, 6.3, 6.2, 6.1, 6.2, 6.3, 6.2, 6.1, 6.2, 6.2]
+        };
+
+        function switchChartMetric(metric) {
+            // Highlight Buttons
+            const buttons = ['hydration', 'lux', 'ph'];
+            buttons.forEach(id => {
+                const btn = document.getElementById(`btn-${id}`);
+                btn.classList.remove('border-brand-green', 'bg-brand-creamDark');
+                btn.classList.add('border-brand-green/10', 'bg-brand-cream');
+            });
+
+            const activeBtn = document.getElementById(`btn-${metric}`);
+            activeBtn.classList.remove('border-brand-green/10', 'bg-brand-cream');
+            activeBtn.classList.add('border-brand-green', 'bg-brand-creamDark');
+
+            // Set Title & Y Labels
+            const metricTitle = document.getElementById('chartMetricName');
+            const yMax = document.getElementById('chartYMax');
+            const yMin = document.getElementById('chartYMin');
+
+            if (metric === 'hydration') {
+                metricTitle.innerText = "30-Day Hydration Telemetry (RH)";
+                yMax.innerText = "100%";
+                yMin.innerText = "0%";
+            } else if (metric === 'lux') {
+                metricTitle.innerText = "Solar Radiation Synthesis (Lux)";
+                yMax.innerText = "120k Lux";
+                yMin.innerText = "0 Lux";
+            } else if (metric === 'ph') {
+                metricTitle.innerText = "Soil Acidization Balance (pH Scale)";
+                yMax.innerText = "pH 14";
+                yMin.innerText = "pH 0";
+            }
+
+            // Render simulated charts bar nodes
+            const barsContainer = document.getElementById('chartBars');
+            barsContainer.innerHTML = ''; // wipeout
+
+            const sequence = chartSequences[metric];
+            sequence.forEach((val, i) => {
+                const barNode = document.createElement('div');
+                barNode.className = "flex-grow flex flex-col justify-end items-center group relative";
+                
+                // Calculate scale height
+                let scalePercent = val;
+                if (metric === 'ph') {
+                    // scale 0-14 pH to 100%
+                    scalePercent = (val / 14) * 100;
+                }
+
+                barNode.innerHTML = `
+                    <!-- Tooltip feedback indicator on bar hover -->
+                    <div class="absolute bottom-full mb-1 bg-brand-dark text-white text-[9px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-30 whitespace-nowrap">
+                        Day ${i+1}: ${val}${metric === 'hydration' ? '%' : (metric === 'lux' ? 'k' : '')}
+                    </div>
+                    <!-- Animated Height Visual -->
+                    <div class="w-full bg-brand-green/20 group-hover:bg-brand-green rounded-t transition-all duration-700 ease-out" style="height: ${scalePercent}%;"></div>
+                `;
+                barsContainer.appendChild(barNode);
+            });
+        }
+
+        // Immersive Synthesized Sound System
+        let audioContext;
+        let ambientOsc;
+        let soundIsRunning = false;
+
+        function toggleAmbientAudio() {
+            const statusLabel = document.getElementById('audioStatus');
+            const icon = document.getElementById('audioIcon');
+
+            if (!soundIsRunning) {
+                try {
+                    // Build Web Audio nodes on client trigger to avoid asset load dependency failures
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    
+                    // Create multiple low frequency oscillators for rain/wind synthesized nature ambient
+                    const bufferSize = 2 * audioContext.sampleRate;
+                    const noiseBuffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+                    const output = noiseBuffer.getChannelData(0);
+                    
+                    // Generate White Noise
+                    for (let i = 0; i < bufferSize; i++) {
+                        output[i] = Math.random() * 2 - 1;
+                    }
+
+                    const whiteNoise = audioContext.createBufferSource();
+                    whiteNoise.buffer = noiseBuffer;
+                    whiteNoise.loop = true;
+
+                    // Filter for soft wind sounds
+                    const filter = audioContext.createBiquadFilter();
+                    filter.type = 'bandpass';
+                    filter.frequency.value = 400;
+                    filter.Q.value = 1.0;
+
+                    // Low Frequency LFO to modulate filter frequency for realistic wind dynamics
+                    const lfo = audioContext.createOscillator();
+                    lfo.frequency.value = 0.15; // Slow movement
+                    const lfoGain = audioContext.createGain();
+                    lfoGain.gain.value = 150;
+
+                    lfo.connect(lfoGain);
+                    lfoGain.connect(filter.frequency);
+                    
+                    const volumeControl = audioContext.createGain();
+                    volumeControl.gain.value = 0.08; // Delicate luxury background level
+
+                    whiteNoise.connect(filter);
+                    filter.connect(volumeControl);
+                    volumeControl.connect(audioContext.destination);
+
+                    lfo.start();
+                    whiteNoise.start();
+
+                    ambientOsc = {
+                        stop: function() {
+                            whiteNoise.stop();
+                            lfo.stop();
+                        }
+                    };
+
+                    soundIsRunning = true;
+                    icon.className = "fa-solid fa-volume-high text-brand-green group-hover:text-white transition-colors";
+                    statusLabel.innerText = "Ambient Soundscape Active";
+                    statusLabel.classList.remove('opacity-0', '-translate-x-4');
+                    statusLabel.classList.add('opacity-100', 'translate-x-0');
+                    
+                    setTimeout(() => {
+                        statusLabel.classList.remove('opacity-100', 'translate-x-0');
+                        statusLabel.classList.add('opacity-0', '-translate-x-4');
+                    }, 3000);
+                } catch(e) {
+                    console.error("Audio generation not supported or restricted", e);
+                }
+            } else {
+                if (ambientOsc) ambientOsc.stop();
+                soundIsRunning = false;
+                icon.className = "fa-solid fa-volume-mute text-brand-green group-hover:text-white transition-colors";
+                statusLabel.innerText = "Ambient Soundscape Off";
+                statusLabel.classList.remove('opacity-0', '-translate-x-4');
+                statusLabel.classList.add('opacity-100', 'translate-x-0');
+                
+                setTimeout(() => {
+                    statusLabel.classList.remove('opacity-100', 'translate-x-0');
+                    statusLabel.classList.add('opacity-0', '-translate-x-4');
+                }, 3000);
+            }
+        }
+
+        // Search overlay visibility toggles
+        function toggleSearchModal() {
+            const modal = document.getElementById('searchModal');
+            const searchBox = document.getElementById('searchBox');
+
+            if (modal.classList.contains('opacity-0')) {
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                searchBox.classList.remove('translate-y-8');
+            } else {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                searchBox.classList.add('translate-y-8');
+            }
+        }
+
+        // Luxury Checkout Overlay Toggles
+        function toggleCheckoutModal(show = true) {
+            const modal = document.getElementById('checkoutModal');
+            const box = document.getElementById('checkoutBox');
+
+            if (show) {
+                // calculate cart total sum to present to checkout
+                let sum = 0;
+                cartItems.forEach(item => sum += item.price);
+                document.getElementById('checkoutTotalValue').innerText = `$${sum.toFixed(2)}`;
+
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                box.classList.remove('translate-y-8');
+            } else {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                box.classList.add('translate-y-8');
+            }
+        }
+
+        function openCheckoutModal() {
+            if (cartItems.length === 0) {
+                // Show a modern notification alert instead of blocking browser alerts
+                const emptyFeedback = document.createElement('div');
+                emptyFeedback.className = "fixed bottom-24 right-6 bg-red-900 text-white px-6 py-3 rounded-xl shadow-lg border border-red-800 z-50 text-xs uppercase font-bold tracking-widest";
+                emptyFeedback.innerText = "Your Cart Vessel is empty";
+                document.body.appendChild(emptyFeedback);
+                setTimeout(() => emptyFeedback.remove(), 3000);
+                return;
+            }
+            toggleCartDrawer(); // Close drawer
+            toggleCheckoutModal(true); // Open checkout modal
+        }
+
+        function confirmPurchase() {
+            toggleCheckoutModal(false);
+            
+            // Render beautiful success toast container
+            const toast = document.createElement('div');
+            toast.className = "fixed top-24 right-6 bg-brand-green text-brand-cream border border-brand-accent px-8 py-5 rounded-2xl shadow-2xl z-50 flex items-center gap-4 transition-all duration-500 max-w-sm";
+            toast.innerHTML = `
+                <div class="w-10 h-10 rounded-full bg-brand-cream/10 flex items-center justify-center text-brand-accent">
+                    <i class="fa-solid fa-envelope-circle-check text-lg"></i>
+                </div>
+                <div>
+                    <h5 class="font-serif text-sm font-semibold">Allocation Successful</h5>
+                    <p class="text-[10px] text-brand-cream/70 mt-1 leading-normal">Bespoke construction started. Check your mailbox for biological timeline updates.</p>
+                </div>
+            `;
+            document.body.appendChild(toast);
+            
+            // clear the cart
+            cartItems = [];
+            renderCart();
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => toast.remove(), 500);
+            }, 6000);
+        }
+
+        // Window Initialized Setup
+        window.onload = function() {
+            // Render Hero defaults
+            updateHeroSlide();
+            
+            // Render dynamic telemetries
+            switchChartMetric('hydration');
+
+            // Render configurator starting costs
+            updateConfigurator();
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECHOES // The Generative Aesthetic Engine</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Editorial Serif, Ultra-bold Display, and Technical Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace'],
+                        display: ['Syne', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Modern Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-color);
+            border-radius: 3px;
+        }
+
+        /* Dynamic Theme Variables */
+        :root {
+            --bg-color: #eeeae4;
+            --text-primary: #111111;
+            --text-secondary: #555555;
+            --accent-color: #9ca927;
+            --accent-rgb: 156, 169, 39;
+            --border-color: rgba(17, 17, 17, 0.15);
+            --grid-color: rgba(17, 17, 17, 0.05);
+            --card-bg: rgba(17, 17, 17, 0.02);
+            --noise-opacity: 0.03;
+        }
+
+        /* Custom Theme Overrides managed via JS classes */
+        .theme-liminal {
+            --bg-color: #eeeae4;
+            --text-primary: #111111;
+            --text-secondary: #555555;
+            --accent-color: #9ca927;
+            --accent-rgb: 156, 169, 39;
+            --border-color: rgba(17, 17, 17, 0.18);
+            --grid-color: rgba(17, 17, 17, 0.05);
+            --card-bg: rgba(17, 17, 17, 0.02);
+            --noise-opacity: 0.03;
+        }
+
+        .theme-disrupt {
+            --bg-color: #0b0b0b;
+            --text-primary: #f5f5f5;
+            --text-secondary: #a0a0a0;
+            --accent-color: #e0532b;
+            --accent-rgb: 224, 83, 43;
+            --border-color: rgba(245, 245, 245, 0.18);
+            --grid-color: rgba(245, 245, 245, 0.05);
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --noise-opacity: 0.06;
+        }
+
+        .theme-inbetween {
+            --bg-color: #121212;
+            --text-primary: #ffffff;
+            --text-secondary: #8a8a8a;
+            --accent-color: #e5e5e5;
+            --accent-rgb: 229, 229, 229;
+            --border-color: rgba(255, 255, 255, 0.15);
+            --grid-color: rgba(255, 255, 255, 0.04);
+            --card-bg: rgba(255, 255, 255, 0.02);
+            --noise-opacity: 0.07;
+        }
+
+        .theme-echoes {
+            --bg-color: #e6e2da;
+            --text-primary: #0a0a0a;
+            --text-secondary: #4a4a4a;
+            --accent-color: #c7432b;
+            --accent-rgb: 199, 67, 43;
+            --border-color: rgba(10, 10, 10, 0.2);
+            --grid-color: rgba(10, 10, 10, 0.06);
+            --card-bg: rgba(10, 10, 10, 0.03);
+            --noise-opacity: 0.04;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            transition: background-color 0.8s cubic-bezier(0.25, 1, 0.5, 1), color 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* Subtle grid background pattern */
+        .grid-bg {
+            background-image: 
+                linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* Ambient grain overlay */
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 999;
+            opacity: var(--noise-opacity);
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            transition: opacity 0.8s ease;
+        }
+
+        /* Smooth border colors */
+        .border-theme {
+            border-color: var(--border-color);
+            transition: border-color 0.8s ease;
+        }
+
+        /* Typography scaling variables */
+        .accent-text {
+            color: var(--accent-color);
+            transition: color 0.6s ease;
+        }
+
+        .accent-bg {
+            background-color: var(--accent-color);
+            transition: background-color 0.6s ease;
+        }
+
+        /* Custom Scanline animation for DISRUPT */
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        .scanline-effect {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(var(--accent-rgb), 0.15) 50%, transparent);
+            animation: scanline 6s linear infinite;
+            pointer-events: none;
+        }
+
+        /* Rotating coordinates disk */
+        @keyframes spin-slow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .spin-slow {
+            animation: spin-slow 24s linear infinite;
+        }
+    </style>
+</head>
+<body class="theme-liminal font-sans relative overflow-x-hidden min-h-screen">
+
+    <!-- Ambient Texture Grain Overlay -->
+    <div class="noise-overlay"></div>
+
+    <!-- Background Subtle Structural Grid -->
+    <div class="fixed inset-0 grid-bg pointer-events-none z-0"></div>
+
+    <!-- MASTER HEADER -->
+    <header class="sticky top-0 z-50 border-b border-theme bg-opacity-80 backdrop-blur-md px-4 md:px-8 py-4 flex flex-col md:flex-row justify-between items-center gap-4 transition-all duration-300">
+        <!-- Brand Title & Diagnostics -->
+        <div class="flex items-center justify-between w-full md:w-auto gap-6">
+            <div class="flex flex-col">
+                <span class="font-mono text-xs tracking-widest uppercase opacity-60">MUTATION ARCHIVE // SYSTEM v4.26</span>
+                <a href="#hero" class="font-display text-2xl tracking-tighter uppercase font-extrabold flex items-center gap-2">
+                    ECHOES<span class="accent-text">™</span>
+                </a>
+            </div>
+            <!-- Live Audio Toggle -->
+            <button id="audio-toggle" class="px-3 py-1.5 border border-theme rounded-full text-xs font-mono flex items-center gap-2 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all">
+                <span id="audio-indicator" class="w-2.5 h-2.5 rounded-full accent-bg animate-ping"></span>
+                <span id="audio-text">SYSTEM AUDIO: OFF</span>
+            </button>
+        </div>
+
+        <!-- POSTER COMPRESSION MATRIX (Visual Theme Switcher) -->
+        <div class="flex flex-wrap items-center justify-center gap-2 p-1.5 border border-theme rounded-xl bg-opacity-40 backdrop-blur-lg">
+            <span class="font-mono text-[9px] uppercase px-2 opacity-50 hidden lg:inline-block">Select Core Preset:</span>
+            <button onclick="switchTheme('liminal')" class="theme-btn active px-3 py-1.5 font-mono text-xs rounded-lg transition-all border border-transparent hover:border-current" data-theme="liminal">
+                01 // LIMINAL
+            </button>
+            <button onclick="switchTheme('disrupt')" class="theme-btn px-3 py-1.5 font-mono text-xs rounded-lg transition-all border border-transparent hover:border-current" data-theme="disrupt">
+                02 // DISRUPT
+            </button>
+            <button onclick="switchTheme('inbetween')" class="theme-btn px-3 py-1.5 font-mono text-xs rounded-lg transition-all border border-transparent hover:border-current" data-theme="inbetween">
+                03 // IN-BETWEEN
+            </button>
+            <button onclick="switchTheme('echoes')" class="theme-btn px-3 py-1.5 font-mono text-xs rounded-lg transition-all border border-transparent hover:border-current" data-theme="echoes">
+                04 // ECHOES
+            </button>
+        </div>
+
+        <!-- Real-time Live Coordinates Tracking -->
+        <div class="hidden xl:flex items-center gap-4 font-mono text-[11px]">
+            <div class="flex flex-col text-right">
+                <span class="opacity-50">TELEMETRY GRID</span>
+                <span id="live-coordinates" class="accent-text">40.7128° N, 74.0060° W</span>
+            </div>
+            <div class="w-[1px] h-8 border-r border-theme"></div>
+            <div class="flex flex-col">
+                <span class="opacity-50">FPS SYNC</span>
+                <span class="accent-text" id="live-fps">60.00 Hz</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN BODY CONTAINER -->
+    <main class="relative z-10 w-full">
+
+        <!-- HERO FRAME SECTION -->
+        <section id="hero" class="min-h-[90vh] grid grid-cols-1 lg:grid-cols-12 border-b border-theme relative">
+            
+            <!-- Left Side: Editorial Typography & Definitions (7 Columns) -->
+            <div class="lg:col-span-7 flex flex-col justify-between p-6 md:p-12 lg:border-r border-theme relative overflow-hidden">
+                <!-- Top Accent Lines -->
+                <div class="flex items-center justify-between font-mono text-xs opacity-75 mb-12">
+                    <span id="hero-tag-left">[ BETWEEN WHAT WAS ]</span>
+                    <span id="hero-tag-right">[ AND WHAT'S NEXT ]</span>
+                </div>
+
+                <!-- Massive Dynamic Poster Title -->
+                <div class="my-auto py-12 relative z-10">
+                    <h1 id="hero-title" class="font-display text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-tighter uppercase leading-[0.8] mb-8 transition-all duration-700">
+                        LIMINAL
+                    </h1>
+                    <p id="hero-subtitle" class="font-serif text-xl md:text-2xl max-w-xl leading-relaxed opacity-85">
+                        A generative space of artistic transition. Synthesizing organic physics with brutal architectural digital frames.
+                    </p>
+
+                    <!-- Embedded Interactive Audio Trigger Matrix -->
+                    <div class="mt-8 flex flex-wrap items-center gap-4">
+                        <button onclick="synthesizePulse('major')" class="group relative px-6 py-3 border border-theme font-mono text-sm uppercase overflow-hidden hover:text-white transition-all duration-300">
+                            <span class="absolute inset-0 w-0 accent-bg transition-all duration-300 ease-out group-hover:w-full -z-10"></span>
+                            Emit Pulse Tone
+                        </button>
+                        <button onclick="synthesizePulse('minor')" class="group relative px-6 py-3 border border-theme font-mono text-sm uppercase overflow-hidden hover:text-white transition-all duration-300">
+                            <span class="absolute inset-0 w-0 bg-current transition-all duration-300 ease-out group-hover:w-full -z-10"></span>
+                            Harmonic Sweeper
+                        </button>
+                        <span class="font-mono text-xs opacity-50 flex items-center gap-1.5">
+                            <span class="inline-block w-2 h-2 rounded-full accent-bg animate-ping"></span>
+                            [ Click to fire audio engine ]
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Dictionary Definition Block (Perfect clone of the poster layout elements) -->
+                <div class="border-t border-theme pt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="flex flex-col gap-2">
+                        <div class="font-mono text-sm font-bold flex items-center gap-2">
+                            <span id="dict-word" class="accent-text">/ˈlɪmɪnl/</span>
+                            <span class="text-xs opacity-50 uppercase font-normal" id="dict-type">adjective</span>
+                        </div>
+                        <p id="dict-def" class="text-xs font-mono opacity-80 leading-relaxed max-w-sm">
+                            relating to a transitional or initial stage of a process; occupying a position at, or on both sides of, a boundary or threshold.
+                        </p>
+                    </div>
+                    <div class="flex flex-col justify-end items-start md:items-end font-mono text-xs opacity-60">
+                        <span>SYS ID: 002-AA-99</span>
+                        <div class="flex items-center gap-2 mt-1">
+                            <span>GRID LOC: 40.71 / -74.00</span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-current"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Morphing Art Showcase Container (5 Columns) -->
+            <div class="lg:col-span-5 relative min-h-[500px] flex flex-col justify-between p-6 md:p-12 overflow-hidden bg-black bg-opacity-5">
+                
+                <!-- Dynamic Graphic Overlay -->
+                <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-10 p-8">
+                    
+                    <!-- Dynamic Graphic Container: changes depending on selected Theme -->
+                    <div id="poster-art-container" class="w-full h-full max-w-[400px] max-h-[400px] relative transition-all duration-700 flex items-center justify-center">
+                        
+                        <!-- Presets generated via dynamic SVG & CSS combinations -->
+                        
+                        <!-- Art 01: LIMINAL (A floating organic body shadow in geometric neon block) -->
+                        <div id="art-liminal" class="art-layer absolute inset-0 flex items-center justify-center transition-all duration-700 scale-100 opacity-100">
+                            <!-- Geometric neon green accent box -->
+                            <div class="absolute w-36 h-48 bg-[#9ca927] opacity-60 mix-blend-multiply rounded-sm transform -translate-x-4 translate-y-6"></div>
+                            <!-- Circular frame line -->
+                            <div class="absolute w-64 h-64 border border-black border-opacity-40 rounded-full spin-slow"></div>
+                            <!-- Center floating abstract humanoid vector -->
+                            <div class="relative w-48 h-48 opacity-90 filter blur-[1px]">
+                                <svg viewBox="0 0 100 100" class="w-full h-full fill-current text-neutral-800">
+                                    <path d="M50,15 C52,25 45,35 48,45 C51,55 58,60 55,75 C52,90 42,95 40,85 C38,75 42,65 40,55 C38,45 32,35 38,25 Z" />
+                                    <circle cx="51" cy="18" r="5" />
+                                    <!-- Coordinate crosshairs inside -->
+                                    <line x1="50" y1="0" x2="50" y2="100" stroke="rgba(0,0,0,0.15)" stroke-dasharray="2" />
+                                    <line x1="0" y1="50" x2="100" y2="50" stroke="rgba(0,0,0,0.15)" stroke-dasharray="2" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Art 02: DISRUPT (Classical Bust Glitched with Dynamic Waveform Offset) -->
+                        <div id="art-disrupt" class="art-layer absolute inset-0 flex items-center justify-center transition-all duration-700 scale-90 opacity-0 pointer-events-none">
+                            <div class="scanline-effect"></div>
+                            <!-- Large background crosshair -->
+                            <div class="absolute w-72 h-72 border border-[#e0532b] border-opacity-20 flex items-center justify-center">
+                                <div class="w-[90%] h-[90%] border border-[#e0532b] border-opacity-10 rounded-full"></div>
+                            </div>
+                            <!-- Highlight Orange Plate -->
+                            <div class="absolute w-24 h-24 bg-[#e0532b] opacity-80 mix-blend-color-dodge transform translate-x-12 -translate-y-8 z-20 rounded-md"></div>
+                            <!-- Glitching Greek Statue Vector Mask -->
+                            <svg class="w-64 h-64 text-neutral-200 relative z-10" viewBox="0 0 100 100" fill="currentColor">
+                                <defs>
+                                    <linearGradient id="disrupt-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#ffffff"/>
+                                        <stop offset="100%" stop-color="#444444"/>
+                                    </linearGradient>
+                                </defs>
+                                <!-- Abstract Silhouette representation of Bust -->
+                                <path d="M30,85 C30,70 35,55 40,40 C42,35 38,25 45,20 C50,15 62,15 60,25 C58,35 55,38 58,42 C61,46 65,48 62,55 C59,62 55,65 52,70 C49,75 52,85 52,90 Z" fill="url(#disrupt-grad)"/>
+                                <rect x="35" y="45" width="30" height="2" fill="#e0532b" />
+                                <rect x="42" y="55" width="22" height="1" fill="#e0532b" />
+                            </svg>
+                        </div>
+
+                        <!-- Art 03: IN-BETWEEN (Monochrome fluid visualizer & solid geometric black circles) -->
+                        <div id="art-inbetween" class="art-layer absolute inset-0 flex items-center justify-center transition-all duration-700 scale-90 opacity-0 pointer-events-none">
+                            <div class="absolute w-56 h-56 border border-white border-opacity-20 rounded-full"></div>
+                            <!-- Dark matter circles overlapping -->
+                            <div class="absolute w-16 h-16 bg-black rounded-full border border-neutral-700 transform -translate-x-10 -translate-y-10 flex items-center justify-center">
+                                <span class="text-[9px] text-white font-mono opacity-50">0.01</span>
+                            </div>
+                            <div class="absolute w-24 h-24 bg-white rounded-full mix-blend-difference transform translate-x-8 translate-y-6 flex items-center justify-center">
+                                <span class="text-[9px] text-black font-mono">0.02</span>
+                            </div>
+                        </div>
+
+                        <!-- Art 04: ECHOES (Torn paper poster style profile with deep orange organic block) -->
+                        <div id="art-echoes" class="art-layer absolute inset-0 flex items-center justify-center transition-all duration-700 scale-90 opacity-0 pointer-events-none">
+                            <!-- Warm sienna paint/paper shape (built via path) -->
+                            <path class="absolute w-64 h-64 bg-[#c7432b] transform rotate-12 opacity-80 translate-y-12 translate-x-6 mix-blend-multiply"></path>
+                            <svg class="w-60 h-60 text-neutral-800 relative z-10 filter grayscale contrast-125" viewBox="0 0 100 100" fill="currentColor">
+                                <path d="M25,85 C25,75 28,68 32,60 C36,52 35,45 34,40 C33,35 38,20 48,18 C58,16 68,22 65,35 C62,48 58,52 59,58 C60,64 68,70 65,80 C62,90 25,95 25,85 Z" />
+                                <circle cx="48" cy="28" r="3" fill="#c7432b" />
+                                <path d="M48,18 Q40,32 58,40" stroke="#c7432b" stroke-width="1.5" fill="none"/>
+                            </svg>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Subtle interactive telemetry overlays on the visual panel -->
+                <div class="flex justify-between items-start w-full relative z-20">
+                    <div class="font-mono text-xs opacity-70">
+                        <span class="block">PRESET STATE</span>
+                        <span id="preset-state-label" class="accent-text font-bold">01_ACTIVE_MUTATION</span>
+                    </div>
+                    <div class="text-right font-mono text-xs opacity-70">
+                        <span class="block">DECIBEL BIAS</span>
+                        <span class="accent-text font-bold">-14.28 dB</span>
+                    </div>
+                </div>
+
+                <!-- Graphic coordinates at bottom of image panel -->
+                <div class="flex justify-between items-end w-full relative z-20 mt-32">
+                    <div class="font-mono text-[10px] tracking-tight opacity-50 flex items-center gap-1">
+                        <span>SYS_PREV: v1.8</span>
+                        <span class="w-1 h-1 rounded-full bg-current"></span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <!-- Tiny globe wireframe element -->
+                        <div class="w-8 h-8 rounded-full border border-theme flex items-center justify-center spin-slow">
+                            <div class="w-4 h-8 border border-theme rounded-full"></div>
+                        </div>
+                        <span class="font-mono text-[9px] uppercase tracking-widest opacity-60">GEOMETRIC ACCURACY</span>
+                    </div>
+                </div>
+            </section>
+
+        <!-- BENCHMARK CONTROL INTERACTIVE PANEL -->
+        <section id="interactive-synth" class="border-b border-theme grid grid-cols-1 lg:grid-cols-12">
+            
+            <!-- Left Panel: Interactive Sound Synth Control Panel (5 columns) -->
+            <div class="lg:col-span-5 p-6 md:p-12 border-b lg:border-b-0 lg:border-r border-theme flex flex-col justify-between">
+                <div>
+                    <span class="font-mono text-xs opacity-60 uppercase tracking-widest block mb-2">[ ACOUSTIC SYNTH SUITE ]</span>
+                    <h2 class="font-display text-4xl font-extrabold uppercase tracking-tight mb-4">
+                        TACTILE WAVE GENERATOR
+                    </h2>
+                    <p class="text-sm opacity-80 mb-8 max-w-md leading-relaxed">
+                        Manually inject spatial distortions and modify active system frequencies. Move the physical range sliders below to generate harmonic sound sweeps.
+                    </p>
+
+                    <!-- Real Sliders driving the Synthesizer and Wave Generator -->
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between font-mono text-xs mb-2">
+                                <span class="uppercase">Oscillator Frequency</span>
+                                <span id="val-freq" class="accent-text">220 Hz</span>
+                            </div>
+                            <input type="range" id="synth-freq" min="80" max="880" value="220" class="w-full h-1 bg-neutral-300 dark:bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-neutral-800 dark:accent-neutral-200">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between font-mono text-xs mb-2">
+                                <span class="uppercase">Distortion Index</span>
+                                <span id="val-distortion" class="accent-text">1.2</span>
+                            </div>
+                            <input type="range" id="synth-distortion" min="0" max="100" value="12" class="w-full h-1 bg-neutral-300 dark:bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-neutral-800 dark:accent-neutral-200">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between font-mono text-xs mb-2">
+                                <span class="uppercase">Envelope Decay</span>
+                                <span id="val-decay" class="accent-text">0.8s</span>
+                            </div>
+                            <input type="range" id="synth-decay" min="1" max="50" value="8" class="w-full h-1 bg-neutral-300 dark:bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-neutral-800 dark:accent-neutral-200">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Synth status readings -->
+                <div class="mt-12 border-t border-theme pt-6 grid grid-cols-2 gap-4">
+                    <div class="font-mono text-[11px] opacity-70">
+                        <span class="block uppercase opacity-50">AUDIO CORE CODEC</span>
+                        <span class="accent-text">HTML5 Web Audio API</span>
+                    </div>
+                    <div class="font-mono text-[11px] opacity-70 text-right">
+                        <span class="block uppercase opacity-50">NODE LATENCY</span>
+                        <span class="accent-text">0.02ms (Direct)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Dynamic Canvas Visualizer & Interactive Field (7 columns) -->
+            <div class="lg:col-span-7 p-6 md:p-12 flex flex-col justify-between min-h-[450px] relative overflow-hidden bg-black bg-opacity-20">
+                <!-- Inside Canvas background decoration -->
+                <div class="absolute inset-0 z-0">
+                    <canvas id="wave-canvas" class="w-full h-full block"></canvas>
+                </div>
+
+                <div class="relative z-10 flex justify-between items-start">
+                    <span class="font-mono text-xs bg-black bg-opacity-80 text-white px-3 py-1.5 rounded-md backdrop-blur-md">
+                        LIVE PHYSICS VIEWPORT
+                    </span>
+                    <span class="font-mono text-xs opacity-50 flex items-center gap-2">
+                        Interactive Mouse Tracking
+                        <span class="inline-block w-2.5 h-2.5 bg-[#e0532b] rounded-full"></span>
+                    </span>
+                </div>
+
+                <div class="relative z-10 text-right mt-auto">
+                    <p class="font-mono text-xs opacity-70 bg-neutral-900 bg-opacity-85 text-neutral-200 p-4 rounded-xl max-w-sm ml-auto text-left border border-neutral-700 backdrop-blur-md">
+                        <span class="font-bold text-white block mb-1">Interactive Waveform:</span>
+                        Click and drag anywhere inside the canvas view to deform the physics wave strings. Higher distortion sliders increase chaotic amplitude sweeps.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- THE GENERATIVE MANIFESTO: DYNAMIC ASYMMETRICAL STORYTELLING -->
+        <section class="border-b border-theme py-20 px-6 md:px-12 lg:px-24">
+            <div class="max-w-6xl mx-auto">
+                <span class="font-mono text-xs opacity-50 uppercase tracking-widest block mb-4">[ SYSTEM CRITERIA ]</span>
+                <h2 class="font-display text-5xl md:text-7xl font-extrabold uppercase tracking-tighter leading-none mb-12">
+                    WE EXIST IN THE <span class="accent-text">INTERSTICES</span> of physical truth.
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mt-16 font-sans">
+                    <div class="border-t-2 border-theme pt-6">
+                        <span class="font-mono text-xs opacity-50 block mb-3">01 // VISUAL ENTROPY</span>
+                        <h4 class="font-display text-xl font-bold uppercase mb-2">DYNAMIC STRUCTURAL DUALITY</h4>
+                        <p class="text-sm opacity-85 leading-relaxed">
+                            Clean, high-fidelity lines frame unpredictable fluid ink decays. This website dynamically scales grid matrices, merging pure mathematics with human artistic chaos.
+                        </p>
+                    </div>
+                    <div class="border-t-2 border-theme pt-6">
+                        <span class="font-mono text-xs opacity-50 block mb-3">02 // ACOUSTIC SPACE</span>
+                        <h4 class="font-display text-xl font-bold uppercase mb-2">NEOMORPHIC RESONANCE</h4>
+                        <p class="text-sm opacity-85 leading-relaxed">
+                            Sound is not an afterthought. Built with active panning arrays, users can explore acoustic presets that match real spatial dimensions and structural bounds.
+                        </p>
+                    </div>
+                    <div class="border-t-2 border-theme pt-6">
+                        <span class="font-mono text-xs opacity-50 block mb-3">03 // INTERACTION BIAS</span>
+                        <h4 class="font-display text-xl font-bold uppercase mb-2">ZERO STATIC STATES</h4>
+                        <p class="text-sm opacity-85 leading-relaxed">
+                            The visual system morphs to represent four distinct structural moods. Your actions leave physical waveforms and auditory traces that echo on the interactive canvas.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BENTO FEATURE GRID (HIGHLY DENSE EDITORIAL LAYOUT) -->
+        <section class="border-b border-theme grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12">
+            
+            <!-- Bento Box 1: Real-time Coordinate Soundstage Map (Interactive 2D Spatial Audio Node) -->
+            <div class="lg:col-span-8 p-6 md:p-12 border-b lg:border-b-0 lg:border-r border-theme flex flex-col justify-between">
+                <div>
+                    <span class="font-mono text-xs opacity-60 block mb-2">[ SPATIAL COORDINATE ENGINE ]</span>
+                    <h3 class="font-display text-3xl font-extrabold uppercase tracking-tight mb-4">
+                        2D ACOUSTIC RADAR MAPPER
+                    </h3>
+                    <p class="text-sm opacity-80 mb-6 max-w-xl">
+                        Click or drag the tactical node around the radar field below. This changes the stereo balance and frequency resonance dynamically relative to spatial geometry.
+                    </p>
+
+                    <!-- Interactive Drag Grid -->
+                    <div id="spatial-pad" class="w-full h-80 border border-theme relative rounded-xl bg-black bg-opacity-5 cursor-crosshair overflow-hidden flex items-center justify-center">
+                        <!-- Horizontal Centerline -->
+                        <div class="absolute w-full h-[1px] border-b border-theme opacity-30"></div>
+                        <!-- Vertical Centerline -->
+                        <div class="absolute h-full w-[1px] border-l border-theme opacity-30"></div>
+                        
+                        <!-- Radar Circles -->
+                        <div class="absolute w-20 h-20 border border-theme opacity-10 rounded-full"></div>
+                        <div class="absolute w-40 h-40 border border-theme opacity-10 rounded-full"></div>
+                        <div class="absolute w-64 h-64 border border-theme opacity-10 rounded-full"></div>
+
+                        <!-- Draggable Node Element -->
+                        <div id="spatial-node" class="absolute w-8 h-8 rounded-full bg-neutral-900 border-2 border-white flex items-center justify-center shadow-lg transform -translate-x-1/2 -translate-y-1/2 transition-shadow hover:scale-110 active:scale-95 duration-150 relative z-30" style="left: 50%; top: 50%;">
+                            <span class="w-2.5 h-2.5 rounded-full accent-bg"></span>
+                        </div>
+
+                        <!-- Labels inside the coordinate grid -->
+                        <div class="absolute top-4 left-4 font-mono text-[9px] opacity-40">CH_01 // L_PAN_BIAS</div>
+                        <div class="absolute top-4 right-4 font-mono text-[9px] opacity-40">CH_02 // R_PAN_BIAS</div>
+                        <div class="absolute bottom-4 left-4 font-mono text-[9px] opacity-40">ATTN: HIGH_RESONANCE</div>
+                        <div class="absolute bottom-4 right-4 font-mono text-[9px] opacity-40">RESONANCE_BIAS</div>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div class="font-mono text-xs opacity-75">
+                        <span class="block">ACTIVE BALANCER TELETEMETRY</span>
+                        <span id="panner-coords" class="accent-text font-bold">X: 0.00 | Y: 0.00</span>
+                    </div>
+                    <button onclick="synthesizePulse('space')" class="px-5 py-2.5 border border-theme rounded-lg font-mono text-xs uppercase hover:bg-neutral-900 hover:text-white transition-all">
+                        Initialize Spatial Sequence
+                    </button>
+                </div>
+            </div>
+
+            <!-- Bento Box 2: Static Details & Generative Concept Prompt (4 columns) -->
+            <div class="lg:col-span-4 p-6 md:p-12 flex flex-col justify-between">
+                <div>
+                    <span class="font-mono text-xs opacity-60 block mb-2">[ AESTHETIC GENERATION ]</span>
+                    <h3 class="font-display text-3xl font-extrabold uppercase tracking-tight mb-4">
+                        PROMPT MATRIX
+                    </h3>
+                    <p class="text-sm opacity-80 mb-6">
+                        Type a creative concept or mood to synthesize a dynamic generative audio wave design parameter and responsive layout state.
+                    </p>
+
+                    <!-- Mock Input Field & Interactive Selector -->
+                    <div class="space-y-4">
+                        <div class="relative">
+                            <input type="text" id="mutation-prompt" placeholder="e.g. brutalist digital architecture" class="w-full bg-black bg-opacity-10 border border-theme rounded-xl px-4 py-3 font-mono text-sm focus:outline-none focus:ring-1 focus:ring-current placeholder-neutral-500">
+                            <span class="absolute right-3 top-3.5 font-mono text-[9px] opacity-40">ENG_v3</span>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="applyPrompt('geometric cybernetic bust')" class="p-2 border border-theme rounded-lg text-left font-mono text-[10px] uppercase hover:bg-neutral-900 hover:text-white transition-all block">
+                                Cybernetic Bust
+                            </button>
+                            <button onclick="applyPrompt('deep dark ambient inkscape')" class="p-2 border border-theme rounded-lg text-left font-mono text-[10px] uppercase hover:bg-neutral-900 hover:text-white transition-all block">
+                                Dark Inkscape
+                            </button>
+                            <button onclick="applyPrompt('minimal moss green vector')" class="p-2 border border-theme rounded-lg text-left font-mono text-[10px] uppercase hover:bg-neutral-900 hover:text-white transition-all block">
+                                Moss Vector
+                            </button>
+                            <button onclick="applyPrompt('sienna abstract organic')" class="p-2 border border-theme rounded-lg text-left font-mono text-[10px] uppercase hover:bg-neutral-900 hover:text-white transition-all block">
+                                Sienna Abstract
+                            </button>
+                        </div>
+                        
+                        <button onclick="triggerPromptGeneration()" class="w-full py-3 border border-theme bg-neutral-950 text-white rounded-xl font-mono text-xs uppercase hover:bg-neutral-800 transition-all flex items-center justify-center gap-2">
+                            <span>Synthesize Promoted Aesthetics</span>
+                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Live Prompting Telemetry Display -->
+                <div class="mt-8 border-t border-theme pt-6">
+                    <span class="font-mono text-[10px] uppercase opacity-50 block mb-2">SYSTEM PARAMETER STREAM</span>
+                    <div id="telemetry-stream" class="bg-black bg-opacity-90 text-[#39ff14] font-mono text-[10px] p-3 rounded-lg overflow-y-auto h-24 border border-neutral-800 space-y-1">
+                        <div>[SYSTEM] INITIALIZING LOG DECK...</div>
+                        <div>[SYSTEM] LISTENING ON PORT 8080...</div>
+                        <div>[AESTHETICS] READY FOR MUTATION INPUT.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EDITORIAL CREATIVE FEEDBACK SLIDER (DYNAMIC HIGHLIGHT CARD) -->
+        <section class="border-b border-theme py-20 px-6 md:px-12 lg:px-24">
+            <div class="max-w-4xl mx-auto flex flex-col justify-between items-start">
+                <span class="font-mono text-xs opacity-60 block mb-6">[ EDITORIAL CRITIQUE & SYSTEM FEEDBACK ]</span>
+                
+                <!-- Dynamic Quote Section -->
+                <div class="relative w-full">
+                    <span class="font-serif text-8xl absolute -top-10 -left-6 opacity-10 accent-text">“</span>
+                    <blockquote id="manifesto-quote" class="font-serif text-3xl md:text-4xl italic leading-relaxed relative z-10 text-neutral-800 dark:text-neutral-100 transition-all duration-500">
+                        The interface is a canvas of transitional spaces. Transition is not a state of emptiness; it is the absolute density of all possibilities existing simultaneously.
+                    </blockquote>
+                    <cite id="manifesto-author" class="block font-mono text-sm tracking-widest uppercase mt-8 accent-text font-bold">
+                        — ARCHIVE ESSAYS, v04 (2026)
+                    </cite>
+                </div>
+
+                <div class="flex items-center gap-2 mt-12 w-full border-t border-theme pt-8 justify-between">
+                    <span class="font-mono text-xs opacity-50">PAGE PRESET DYNAMICS</span>
+                    <div class="flex items-center gap-1">
+                        <button onclick="cycleQuote(-1)" class="p-2 border border-theme rounded-md hover:bg-neutral-950 hover:text-white transition-all text-xs font-mono">◄</button>
+                        <button onclick="cycleQuote(1)" class="p-2 border border-theme rounded-md hover:bg-neutral-950 hover:text-white transition-all text-xs font-mono">►</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEWSLETTER & RETRO BARCODE CTA SECTION -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 border-b border-theme">
+            
+            <!-- Left: High contrast editorial prompt (7 columns) -->
+            <div class="lg:col-span-7 p-6 md:p-12 lg:border-r border-theme flex flex-col justify-between">
+                <div>
+                    <span class="font-mono text-xs opacity-60 block mb-2">[ ARCHIVE INTAKE ]</span>
+                    <h2 class="font-display text-4xl md:text-5xl font-extrabold uppercase tracking-tight mb-4">
+                        SUBSCRIBE TO THE <span class="accent-text">MUTATION</span>
+                    </h2>
+                    <p class="text-sm opacity-80 mb-8 max-w-lg leading-relaxed">
+                        Become part of the generative universe. Subscribe for aesthetic design systems, interactive code templates, and high-fidelity music synthesis packages.
+                    </p>
+
+                    <!-- Elegant Newsletter Input -->
+                    <form onsubmit="handleForm(event)" class="flex flex-col md:flex-row gap-4 max-w-xl">
+                        <input type="email" required placeholder="ENTER EMAIL CODE // ARCHIVE_SYS" class="flex-grow bg-black bg-opacity-10 border border-theme rounded-xl px-4 py-3 font-mono text-xs uppercase focus:outline-none focus:ring-1 focus:ring-current placeholder-neutral-500">
+                        <button type="submit" class="group relative px-6 py-3 border border-theme font-mono text-xs uppercase overflow-hidden hover:text-white transition-all duration-300 rounded-xl">
+                            <span class="absolute inset-0 w-0 bg-current transition-all duration-300 ease-out group-hover:w-full -z-10"></span>
+                            AUTHENTICATE INTAKE
+                        </button>
+                    </form>
+                </div>
+
+                <p class="font-mono text-[9px] opacity-40 mt-12">
+                    BY SUBMITTING, YOU AGREE TO SYSTEM DEVIATION PROTOCOLS AND IMPLICIT CREATIVE BIASES.
+                </p>
+            </div>
+
+            <!-- Right: Beautiful dynamic retro barcode generation visual (5 columns) -->
+            <div class="lg:col-span-5 p-6 md:p-12 flex flex-col justify-between bg-black bg-opacity-5">
+                <span class="font-mono text-xs opacity-60 block mb-6">[ ENCODED SPECIFICATION BARCODE ]</span>
+                
+                <!-- Stylized Barcode Block -->
+                <div class="flex flex-col gap-2 my-auto">
+                    <div class="flex items-end justify-between h-20 w-full bg-current opacity-85 rounded-sm p-1 gap-[2px]">
+                        <!-- Dynamically generate custom barcode style blocks using divs -->
+                        <div class="bg-[var(--bg-color)] w-[4px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[1px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[2px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[6px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[1px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[3px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[2px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[5px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[1px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[4px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[2px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[6px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[1px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[3px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[2px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[5px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[1px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[4px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[2px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[6px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[1px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[3px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[2px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[5px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[1px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[4px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[2px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[6px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[1px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[3px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[2px] h-full"></div>
+                        <div class="bg-[var(--bg-color)] w-[5px] h-full"></div>
+                    </div>
+                    <div class="flex justify-between font-mono text-[9px] opacity-60">
+                        <span>40.7128° N, 74.0060° W</span>
+                        <span>002-LIMINAL-DISRUPT-ECHOES</span>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center mt-6">
+                    <span class="font-mono text-xs opacity-60">SYSTEM REVISION: XX // 24</span>
+                    <span class="w-2.5 h-2.5 accent-bg rounded-full"></span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="relative z-10 border-t border-theme py-12 px-6 md:px-12 bg-black bg-opacity-10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex flex-col items-center md:items-start text-center md:text-left gap-2">
+                <span class="font-display text-xl font-black uppercase tracking-tighter">
+                    ECHOES<span class="accent-text">™</span>
+                </span>
+                <span class="font-mono text-[10px] opacity-50">DESIGN SYSTEM GENESIS // DESIGN & EXPERIENCE LABORATORY</span>
+            </div>
+
+            <!-- Footer Links -->
+            <div class="flex flex-wrap justify-center gap-6 font-mono text-xs">
+                <a href="#hero" class="hover:underline opacity-80 hover:opacity-100">TOP</a>
+                <a href="#interactive-synth" class="hover:underline opacity-80 hover:opacity-100">SYNTH ENGINE</a>
+                <a href="#interactive-synth" class="hover:underline opacity-80 hover:opacity-100">SPATIAL CHANNELS</a>
+                <span class="opacity-30">|</span>
+                <span class="opacity-50 font-sans">© 2026 ECHOES STUDIO. ALL TRACES PRESERVED.</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE NOTIFICATION BOX (Anti-Alert Custom UI) -->
+    <div id="system-notification" class="fixed bottom-6 right-6 z-50 bg-neutral-900 border border-neutral-700 text-neutral-200 px-5 py-4 rounded-xl shadow-2xl font-mono text-xs flex flex-col gap-2 max-w-sm transform translate-y-24 opacity-0 transition-all duration-500">
+        <div class="flex items-center gap-2 font-bold text-white uppercase">
+            <span class="w-2.5 h-2.5 bg-[#e0532b] rounded-full animate-pulse"></span>
+            <span id="notif-title">AESTHETIC DEVIATION SYSTEM</span>
+        </div>
+        <p id="notif-desc" class="opacity-80">
+            Presets remapped to the spatial coordinates array.
+        </p>
+    </div>
+
+    <!-- SOUND SYNTHESIZER AND VISUAL INTERACTION SCRIPT -->
+    <script>
+        // Web Audio API Global Infrastructure
+        let audioCtx = null;
+        let pannerNode = null;
+        let isAudioEnabled = false;
+
+        function initAudio() {
+            if (audioCtx) return;
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            
+            // Build Spatial Audio Panner Configuration
+            pannerNode = audioCtx.createStereoPanner ? audioCtx.createStereoPanner() : null;
+            if (pannerNode) {
+                pannerNode.connect(audioCtx.destination);
+            }
+        }
+
+        // Handle Audio Master Toggle Activation
+        document.getElementById('audio-toggle').addEventListener('click', () => {
+            initAudio();
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            isAudioEnabled = !isAudioEnabled;
+            const indicator = document.getElementById('audio-indicator');
+            const buttonText = document.getElementById('audio-text');
+
+            if (isAudioEnabled) {
+                indicator.classList.remove('opacity-50');
+                indicator.classList.add('animate-ping');
+                buttonText.textContent = 'SYSTEM AUDIO: ACTIVE';
+                triggerNotification('AUDIO SIGNAL CONNECTED', 'Web Audio Synthesizer pipeline is online and responsive.');
+                // Play soft greeting tone
+                synthesizePulse('major');
+            } else {
+                indicator.classList.add('opacity-50');
+                indicator.classList.remove('animate-ping');
+                buttonText.textContent = 'SYSTEM AUDIO: OFF';
+                triggerNotification('AUDIO OFFLINE', 'Sound waves disabled. Canvas waves physics continue tracking.');
+            }
+        });
+
+        // Elite Interactive Synthesizer Tone Generation Engine
+        function synthesizePulse(mode = 'major') {
+            if (!isAudioEnabled) return;
+            initAudio();
+
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            // Frequency variables loaded directly from user physical UI sliders
+            const baseFreq = parseFloat(document.getElementById('synth-freq').value);
+            const distortion = parseFloat(document.getElementById('synth-distortion').value);
+            const decay = parseFloat(document.getElementById('synth-decay').value) / 10;
+
+            let freqMultiplier = 1;
+            if (mode === 'major') freqMultiplier = 1.25;
+            if (mode === 'minor') freqMultiplier = 1.2;
+            if (mode === 'space') freqMultiplier = 1.5;
+
+            osc.type = mode === 'minor' ? 'triangle' : 'sine';
+            osc.frequency.setValueAtTime(baseFreq * freqMultiplier, audioCtx.currentTime);
+
+            // Pitch modification swipe sweep
+            osc.frequency.exponentialRampToValueAtTime(baseFreq * 0.5, audioCtx.currentTime + decay);
+
+            // Connect dynamic spatial panner node if exists
+            if (pannerNode) {
+                osc.connect(gain);
+                gain.connect(pannerNode);
+            } else {
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+            }
+
+            // High-fidelity sound decay envelopes
+            gain.gain.setValueAtTime(0.4, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + decay);
+
+            osc.start();
+            osc.stop(audioCtx.currentTime + decay);
+        }
+
+        // Live Coordinate mouse tracker tracking client coordinates inside system
+        window.addEventListener('mousemove', (e) => {
+            const screenX = e.clientX;
+            const screenY = e.clientY;
+            
+            // Normalize Coordinates to reflect technical poster coordinates
+            const latVal = (40.7128 + (screenY / window.innerHeight) * 0.05).toFixed(4);
+            const lngVal = (-74.0060 - (screenX / window.innerWidth) * 0.05).toFixed(4);
+            
+            document.getElementById('live-coordinates').innerHTML = `${latVal}° N, ${Math.abs(lngVal)}° W`;
+        });
+
+        // Dynamic Theme Matrix Configuration (01 - 04 Presets matching inspiration image)
+        const themes = {
+            liminal: {
+                title: "LIMINAL",
+                tagLeft: "BETWEEN WHAT WAS",
+                tagRight: "AND WHAT'S NEXT",
+                subtitle: "A generative space of artistic transition. Synthesizing organic physics with brutal architectural digital frames.",
+                word: "/ˈlɪmɪnl/",
+                type: "adjective",
+                def: "relating to a transitional or initial stage of a process; occupying a position at, or on both sides of, a boundary or threshold.",
+                state: "01_ACTIVE_MUTATION"
+            },
+            disrupt: {
+                title: "DISRUPT",
+                tagLeft: "DISRUPTION IS",
+                tagRight: "FORM OF CREATION",
+                subtitle: "To interrupt the normal progress; to cause a radical, chaotic shift. Breaking existing frameworks to unveil latent structural beauty.",
+                word: "/dɪsˈrʌpt/",
+                type: "verb",
+                def: "drastically alter or destroy the structure of; cause radical and dynamic conceptual transformation through architectural fractures.",
+                state: "02_ENTROPY_GLITCH"
+            },
+            inbetween: {
+                title: "IN BETWEEN",
+                tagLeft: "THE BEAUTY OF",
+                tagRight: "BEYOND AND EVERYWHERE",
+                subtitle: "Liquid ink dynamics sliding through monochromatic spaces. Navigating structural dark matter and raw negative space balance.",
+                word: "/ˌɪnbɪˈtwiːn/",
+                type: "noun",
+                def: "the liquid void connecting separate dimensions of art; an elusive state beyond definition that flows between structural poles.",
+                state: "03_MONOCHROME_WAVE"
+            },
+            echoes: {
+                title: "ECHOES",
+                tagLeft: "WHAT REMAINS",
+                tagRight: "REMAINS US",
+                subtitle: "Every dynamic action leaves a trace. Vintage design weight combined with a heavy textured warm sienna color footprint.",
+                word: "/ˈekəʊz/",
+                type: "noun",
+                def: "a sound or series of visual impressions caused by the reflection of sound waves or light back from surfaces; a lingering trace of dynamic actions.",
+                state: "04_TRACE_DYNAMICS"
+            }
+        };
+
+        let currentThemeKey = 'liminal';
+
+        function switchTheme(themeKey) {
+            currentThemeKey = themeKey;
+            const data = themes[themeKey];
+            if (!data) return;
+
+            // Remove all themes classes from body
+            const body = document.body;
+            body.className = "font-sans relative overflow-x-hidden min-h-screen transition-all duration-700";
+            body.classList.add(`theme-${themeKey}`);
+
+            // Update UI Button Presets Active Styling
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                btn.classList.remove('bg-neutral-900', 'text-white', 'dark:bg-white', 'dark:text-black', 'font-bold');
+                if (btn.getAttribute('data-theme') === themeKey) {
+                    btn.classList.add('bg-neutral-900', 'text-white', 'dark:bg-white', 'dark:text-black', 'font-bold');
+                }
+            });
+
+            // Trigger smooth aesthetic remapping animations
+            const titleEl = document.getElementById('hero-title');
+            titleEl.style.opacity = '0';
+            titleEl.style.transform = 'translateY(10px)';
+
+            setTimeout(() => {
+                // Swap layout text dynamically
+                titleEl.textContent = data.title;
+                document.getElementById('hero-tag-left').textContent = `[ ${data.tagLeft} ]`;
+                document.getElementById('hero-tag-right').textContent = `[ ${data.tagRight} ]`;
+                document.getElementById('hero-subtitle').textContent = data.subtitle;
+                document.getElementById('dict-word').textContent = data.word;
+                document.getElementById('dict-type').textContent = data.type;
+                document.getElementById('dict-def').textContent = data.def;
+                document.getElementById('preset-state-label').textContent = data.state;
+
+                titleEl.style.opacity = '1';
+                titleEl.style.transform = 'translateY(0px)';
+            }, 300);
+
+            // Swap Visual Centerpiece Art Layers
+            document.querySelectorAll('.art-layer').forEach(layer => {
+                layer.classList.add('opacity-0', 'scale-90', 'pointer-events-none');
+                layer.classList.remove('opacity-100', 'scale-100');
+            });
+
+            const activeArt = document.getElementById(`art-${themeKey}`);
+            if (activeArt) {
+                activeArt.classList.remove('opacity-0', 'scale-90', 'pointer-events-none');
+                activeArt.classList.add('opacity-100', 'scale-100');
+            }
+
+            // Sync visual feedback notification
+            triggerNotification(`PRESET SHIFT: ${data.title}`, `Remapped active aesthetic tokens & dynamic palette variables.`);
+            
+            // Generate ambient synth pulse based on theme selection
+            if (themeKey === 'disrupt') synthesizePulse('minor');
+            else if (themeKey === 'inbetween') synthesizePulse('space');
+            else synthesizePulse('major');
+        }
+
+        // Set Default Preset Button Focus
+        document.querySelector('[data-theme="liminal"]').classList.add('bg-neutral-900', 'text-white');
+
+        // SYSTEM NOTIFICATION MANAGER
+        function triggerNotification(title, message) {
+            const notif = document.getElementById('system-notification');
+            document.getElementById('notif-title').textContent = title;
+            document.getElementById('notif-desc').textContent = message;
+
+            notif.classList.remove('translate-y-24', 'opacity-0');
+            
+            // Clean up and retract active panel
+            setTimeout(() => {
+                notif.classList.add('translate-y-24', 'opacity-0');
+            }, 4000);
+        }
+
+        // Live Dynamic Quotes Feed Matrix
+        const quotes = [
+            {
+                text: "The interface is a canvas of transitional spaces. Transition is not a state of emptiness; it is the absolute density of all possibilities existing simultaneously.",
+                author: "ARCHIVE ESSAYS, v04 (2026)"
+            },
+            {
+                text: "To disrupt is to reveal the structural layout hidden underneath common aesthetics. Beauty emerges from architectural fractures.",
+                author: "DISRUPT MANIFESTO, SECTION 8"
+            },
+            {
+                text: "Waves are the universal geometry of transition. They capture dynamic force and organic decay within perfect mathematical constraints.",
+                author: "ACOUSTIC INK STUDIES, PARIS"
+            }
+        ];
+
+        let activeQuoteIdx = 0;
+        function cycleQuote(dir) {
+            activeQuoteIdx = (activeQuoteIdx + dir + quotes.length) % quotes.length;
+            const quoteEl = document.getElementById('manifesto-quote');
+            const authorEl = document.getElementById('manifesto-author');
+
+            quoteEl.style.opacity = '0';
+            authorEl.style.opacity = '0';
+
+            setTimeout(() => {
+                quoteEl.textContent = quotes[activeQuoteIdx].text;
+                authorEl.textContent = `— ${quotes[activeQuoteIdx].author}`;
+                quoteEl.style.opacity = '1';
+                authorEl.style.opacity = '1';
+            }, 300);
+
+            synthesizePulse('minor');
+        }
+
+        // Real-time Canvas Liquid Wave physics simulation (Inspired by "In Between" Poster ink curves)
+        const canvas = document.getElementById('wave-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = canvas.offsetWidth;
+        let height = canvas.height = canvas.offsetHeight;
+
+        // Mouse pointer coordinates vector for distortion tracking
+        let mouse = { x: width / 2, y: height / 2, active: false };
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = canvas.offsetWidth;
+            height = canvas.height = canvas.offsetHeight;
+        });
+
+        // Local Canvas Listeners
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+            mouse.active = true;
+        });
+
+        canvas.addEventListener('mouseleave', () => {
+            mouse.active = false;
+        });
+
+        canvas.addEventListener('mousedown', () => {
+            synthesizePulse('space');
+        });
+
+        // Fluid Particle simulation array
+        let wavesCount = 5;
+        let angleSpeed = 0.02;
+
+        function animateWaves() {
+            ctx.clearRect(0, 0, width, height);
+
+            // Fetch Live Custom slider value variables directly
+            const baseFreq = parseFloat(document.getElementById('synth-freq').value);
+            const distortion = parseFloat(document.getElementById('synth-distortion').value);
+            const decay = parseFloat(document.getElementById('synth-decay').value);
+
+            // Style canvas wave according to theme variable colors
+            const activeColor = getComputedStyle(document.body).getPropertyValue('--accent-color').trim();
+            const textPrimaryColor = getComputedStyle(document.body).getPropertyValue('--text-primary').trim();
+
+            ctx.strokeStyle = activeColor;
+            ctx.lineWidth = 1.5;
+
+            // Render flowing wave strings (The organic liquid lines)
+            for (let w = 0; w < wavesCount; w++) {
+                ctx.beginPath();
+                
+                // Opacity cascade layers
+                ctx.strokeStyle = w === 0 ? activeColor : `rgba(${currentThemeKey === 'disrupt' || currentThemeKey === 'inbetween' ? '255,255,255' : '17,17,17'}, ${0.1 + (w * 0.1)})`;
+                ctx.lineWidth = w === 0 ? 3 : 1;
+
+                for (let x = 0; x < width; x += 10) {
+                    let relativeY = height * 0.5;
+
+                    // Compute clean sinusoidal frequency path
+                    let waveFactor = Math.sin((x * 0.005) + (Date.now() * 0.001 * (w + 1)) + (w * 2));
+                    let waveAmplitude = (60 + (distortion * 1.5)) * (1 / (w + 1));
+                    
+                    let y = relativeY + waveFactor * waveAmplitude;
+
+                    // Mouse Interaction Vector deformation
+                    if (mouse.active) {
+                        let dx = x - mouse.x;
+                        let dy = y - mouse.y;
+                        let dist = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (dist < 180) {
+                            // Pull physics vector towards mouse or repel according to slider
+                            let force = (180 - dist) / 180;
+                            y += Math.sin(force * Math.PI) * (distortion * 2.5) * (mouse.y > y ? 1 : -1);
+                        }
+                    }
+
+                    if (x === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                }
+                ctx.stroke();
+            }
+
+            requestAnimationFrame(animateWaves);
+        }
+
+        // Start real-time wave simulation on window load initialization
+        window.onload = function() {
+            animateWaves();
+            
+            // Set slider indicators value updates
+            document.getElementById('synth-freq').addEventListener('input', (e) => {
+                document.getElementById('val-freq').textContent = `${e.target.value} Hz`;
+                synthesizePulse('major');
+            });
+            document.getElementById('synth-distortion').addEventListener('input', (e) => {
+                document.getElementById('val-distortion').textContent = `${(e.target.value / 10).toFixed(1)}`;
+                synthesizePulse('minor');
+            });
+            document.getElementById('synth-decay').addEventListener('input', (e) => {
+                document.getElementById('val-decay').textContent = `${(e.target.value / 10).toFixed(1)}s`;
+                synthesizePulse('minor');
+            });
+        };
+
+        // Live Spatial Audio node Dragger Matrix
+        const pad = document.getElementById('spatial-pad');
+        const node = document.getElementById('spatial-node');
+        let isDraggingSpatial = false;
+
+        function updateSpatialPosition(clientX, clientY) {
+            const rect = pad.getBoundingClientRect();
+            let x = clientX - rect.left;
+            let y = clientY - rect.top;
+
+            // Force node boundaries constraints
+            x = Math.max(0, Math.min(x, rect.width));
+            y = Math.max(0, Math.min(y, rect.height));
+
+            // Position physical element
+            node.style.left = `${(x / rect.width) * 100}%`;
+            node.style.top = `${(y / rect.height) * 100}%`;
+
+            // Compute spatial stereo pan value (-1.0 Left to 1.0 Right)
+            const panVal = ((x / rect.width) * 2 - 1).toFixed(2);
+            // Compute relative frequency resonance scaling relative to node Y coordinate
+            const resVal = (1 - (y / rect.height)).toFixed(2);
+
+            document.getElementById('panner-coords').innerHTML = `PAN: ${panVal} | RESONANCE: ${resVal}`;
+
+            // Push active parameter directly to Spatial Audio Panner Node
+            if (pannerNode && isAudioEnabled) {
+                pannerNode.pan.setValueAtTime(panVal, audioCtx.currentTime);
+            }
+        }
+
+        pad.addEventListener('mousedown', (e) => {
+            isDraggingSpatial = true;
+            updateSpatialPosition(e.clientX, e.clientY);
+            synthesizePulse('space');
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (isDraggingSpatial) {
+                updateSpatialPosition(e.clientX, e.clientY);
+            }
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDraggingSpatial = false;
+        });
+
+        // Touch support for spatial mapping matrix
+        pad.addEventListener('touchstart', (e) => {
+            isDraggingSpatial = true;
+            if (e.touches.length > 0) {
+                updateSpatialPosition(e.touches[0].clientX, e.touches[0].clientY);
+                synthesizePulse('space');
+            }
+        });
+
+        pad.addEventListener('touchmove', (e) => {
+            if (isDraggingSpatial && e.touches.length > 0) {
+                updateSpatialPosition(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        });
+
+        pad.addEventListener('touchend', () => {
+            isDraggingSpatial = false;
+        });
+
+        // MOCK GENERATIVE PROMPT MUTATOR API INTERACTION
+        function applyPrompt(promptText) {
+            document.getElementById('mutation-prompt').value = promptText;
+        }
+
+        function triggerPromptGeneration() {
+            const promptVal = document.getElementById('mutation-prompt').value.trim();
+            if (!promptVal) {
+                triggerNotification('EMPTY PROMPT INGESTION', 'Please select or input custom prompt parameters.');
+                return;
+            }
+
+            const stream = document.getElementById('telemetry-stream');
+            
+            // Append terminal progress logs
+            const userLog = document.createElement('div');
+            userLog.textContent = `[USER_PROMPT] Ingesting: "${promptVal.toUpperCase()}"`;
+            userLog.className = "text-white";
+            stream.appendChild(userLog);
+
+            setTimeout(() => {
+                const sysLog = document.createElement('div');
+                sysLog.textContent = `[ENGINE] Recalculating wave weights and mapping matrix variables...`;
+                stream.appendChild(sysLog);
+                stream.scrollTop = stream.scrollHeight;
+            }, 600);
+
+            // Dynamically alter active preset according to prompt concept
+            setTimeout(() => {
+                const completedLog = document.createElement('div');
+                completedLog.className = "accent-text";
+                completedLog.textContent = `[SUCCESS] System state fully adapted. Preset generated.`;
+                stream.appendChild(completedLog);
+                stream.scrollTop = stream.scrollHeight;
+
+                // Simple intelligent remapping relative to prompt contents
+                if (promptVal.toLowerCase().includes('bust') || promptVal.toLowerCase().includes('cybernetic')) {
+                    switchTheme('disrupt');
+                } else if (promptVal.toLowerCase().includes('ink') || promptVal.toLowerCase().includes('dark')) {
+                    switchTheme('inbetween');
+                } else if (promptVal.toLowerCase().includes('moss') || promptVal.toLowerCase().includes('green')) {
+                    switchTheme('liminal');
+                } else {
+                    switchTheme('echoes');
+                }
+            }, 1400);
+        }
+
+        // Handle Newsletter authentication
+        function handleForm(e) {
+            e.preventDefault();
+            triggerNotification('SYS ACCREDITED INTAKE', 'Your credential stream was verified and saved.');
+            synthesizePulse('space');
+        }
+
+        // Live diagnostic FPS Counter simulator
+        let lastCalledTime;
+        let fps;
+        function renderFPS() {
+            if(!lastCalledTime) {
+                lastCalledTime = Date.now();
+                fps = 60;
+                requestAnimationFrame(renderFPS);
+                return;
+            }
+            let delta = (Date.now() - lastCalledTime)/1000;
+            lastCalledTime = Date.now();
+            fps = (1/delta).toFixed(2);
+            document.getElementById('live-fps').textContent = `${fps} Hz`;
+            requestAnimationFrame(renderFPS);
+        }
+        requestAnimationFrame(renderFPS);
+    </script>
+</body>
+</html>

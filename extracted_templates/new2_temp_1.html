@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOUJI • Winter Exploration & Alpine Stillness</title>
+    <!-- Google Fonts: Barlow Condensed (for heavy Swiss headings), Space Mono (for technical stats), Plus Jakarta Sans (for body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,900;1,900&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#f5f4f0',
+                        ink: '#101216',
+                        cobalt: '#0f4bcb',
+                    },
+                    fontFamily: {
+                        condensed: ['"Barlow Condensed"', 'sans-serif'],
+                        mono: ['"Space Mono"', 'monospace'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles to match the exact aesthetic of image_bbd380.jpg */
+        
+        /* Subtle paper noise texture overlay */
+        .paper-grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            opacity: 0.045;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3e%3cfilter id='noiseFilter'%3e%3cturbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3e%3c/filter%3e%3crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3e%3c/svg%3e");
+        }
+
+        /* Architectural graph paper grid background lines */
+        .graph-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(16, 18, 22, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(16, 18, 22, 0.03) 1px, transparent 1px);
+        }
+
+        /* Subtle halftones for elements */
+        .halftone {
+            background-image: radial-gradient(rgba(15, 75, 203, 0.15) 15%, transparent 16%);
+            background-size: 8px 8px;
+        }
+
+        /* Text stroke styles */
+        .text-stroke-ink {
+            -webkit-text-stroke: 1px #101216;
+            color: transparent;
+        }
+        
+        .text-stroke-cobalt {
+            -webkit-text-stroke: 1px #0f4bcb;
+            color: transparent;
+        }
+
+        /* Smooth custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f5f4f0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0f4bcb;
+        }
+
+        /* Blue photo overlay representing the deep cool mountain air tone */
+        .alpine-duotone {
+            filter: grayscale(100%) contrast(110%) brightness(95%);
+            mix-blend-mode: multiply;
+        }
+
+        /* Barcode generator styling */
+        .barcode-line {
+            display: inline-block;
+            height: 24px;
+            background-color: currentColor;
+        }
+    </style>
+</head>
+<body class="bg-cream text-ink font-sans selection:bg-cobalt selection:text-cream relative overflow-x-hidden graph-grid">
+
+    <!-- Paper Grain Overlay -->
+    <div class="paper-grain"></div>
+
+    <!-- Background Blueprint Grid Accents (Fixed) -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-20">
+        <div class="absolute left-10 top-24 w-[1px] h-full bg-ink/10"></div>
+        <div class="absolute right-10 top-24 w-[1px] h-full bg-ink/10"></div>
+        <div class="absolute top-[20%] left-0 w-full h-[1px] bg-ink/10"></div>
+        <div class="absolute top-[60%] left-0 w-full h-[1px] bg-ink/10"></div>
+    </div>
+
+    <!-- ==================== HEADER SECTION ==================== -->
+    <header class="border-b border-ink sticky top-0 bg-cream/90 backdrop-blur-md z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between relative">
+            
+            <!-- Branding / Logo -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <span class="font-condensed font-black text-3xl tracking-tighter text-ink transition-transform duration-300 group-hover:scale-105">
+                    TOUJI <span class="text-cobalt">冬季</span>
+                </span>
+                <span class="hidden md:inline-block font-mono text-[10px] bg-ink text-cream px-1.5 py-0.5 tracking-wider">MMXXVI</span>
+            </a>
+
+            <!-- Technical Navigation -->
+            <nav class="hidden md:flex items-center space-x-10 text-xs font-mono uppercase tracking-widest text-ink/70">
+                <a href="#expedition" class="hover:text-cobalt transition-colors duration-200 flex items-center space-x-1">
+                    <span>[ 01 ] EXPEDITION</span>
+                </a>
+                <a href="#gear" class="hover:text-cobalt transition-colors duration-200 flex items-center space-x-1">
+                    <span>[ 02 ] EQUIPMENT</span>
+                </a>
+                <a href="#telemetry" class="hover:text-cobalt transition-colors duration-200 flex items-center space-x-1">
+                    <span>[ 03 ] TELEMETRY</span>
+                </a>
+                <a href="#journal" class="hover:text-cobalt transition-colors duration-200 flex items-center space-x-1">
+                    <span>[ 04 ] FIELD LOGS</span>
+                </a>
+            </nav>
+
+            <!-- Custom Widget / Call to Action -->
+            <div class="flex items-center space-x-4">
+                <div class="hidden lg:flex flex-col items-end text-[10px] font-mono leading-none border-r border-ink/20 pr-4">
+                    <span class="text-cobalt font-bold">LIVE TELEMETRY</span>
+                    <span id="header-coords" class="text-ink/60 mt-1">45.5152° N / 122.6784° W</span>
+                </div>
+                <a href="#expedition" class="bg-cobalt text-cream px-5 py-2.5 font-mono text-xs font-bold hover:bg-ink hover:text-cream transition-all duration-300 shadow-[4px_4px_0px_0px_#101216] active:translate-x-1 active:translate-y-1 active:shadow-none uppercase">
+                    Equip Gear +
+                </a>
+            </div>
+
+            <!-- Technical Decorative Corner Crosses -->
+            <div class="absolute left-2 top-2 text-ink/30 font-mono text-xs select-none pointer-events-none">+</div>
+            <div class="absolute right-2 top-2 text-ink/30 font-mono text-xs select-none pointer-events-none">+</div>
+        </div>
+    </header>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <main class="relative z-10">
+        <section class="max-w-7xl mx-auto px-6 pt-12 md:pt-20 pb-20 relative border-b border-ink">
+            <!-- Background Giant Text Layout representing visual density of the image -->
+            <div class="absolute right-0 top-0 text-right select-none pointer-events-none z-0 opacity-10">
+                <h1 class="font-condensed font-black text-[220px] leading-[180px] tracking-tight uppercase">WIN<br>TER</h1>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start relative z-10">
+                
+                <!-- Left Column: Editorial Manifesto & Micro Technical Details -->
+                <div class="lg:col-span-4 flex flex-col justify-between h-full space-y-12">
+                    
+                    <!-- Core Editorial Badge -->
+                    <div class="border border-ink p-6 relative bg-cream/50 backdrop-blur-sm shadow-[6px_6px_0px_0px_rgba(15,75,203,0.15)]">
+                        <div class="absolute top-0 right-0 bg-cobalt text-cream text-[10px] font-mono px-2 py-0.5 tracking-widest uppercase">
+                            STATUS: ACTIVE
+                        </div>
+                        <p class="font-mono text-xs text-cobalt tracking-widest uppercase mb-3">// ARCHETYPAL LANDSCAPES</p>
+                        <h2 class="font-condensed font-black text-5xl tracking-tight leading-none text-ink uppercase mb-4">
+                            EMBRACE<br>THE SILENCE
+                        </h2>
+                        <div class="w-12 h-[2px] bg-cobalt my-4"></div>
+                        <p class="text-xs text-ink/70 leading-relaxed font-sans mb-4">
+                            Frozen air. White light. Quiet landscapes. TOUJI equipment is forged for the MMXXV-MMXXVI seasons of extreme stillness—where engineering meets deep solitude.
+                        </p>
+                        
+                        <!-- Mini Barcode visual block from inspiration -->
+                        <div class="flex items-center space-x-1 text-ink/80 mt-6" title="Product SKU Sequence">
+                            <span class="barcode-line w-[2px]"></span>
+                            <span class="barcode-line w-[4px]"></span>
+                            <span class="barcode-line w-[1px]"></span>
+                            <span class="barcode-line w-[1px]"></span>
+                            <span class="barcode-line w-[3px]"></span>
+                            <span class="barcode-line w-[6px]"></span>
+                            <span class="barcode-line w-[2px]"></span>
+                            <span class="barcode-line w-[4px]"></span>
+                            <span class="font-mono text-[9px] tracking-widest pl-2">TJ-995.MMXXV</span>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Soundscape Synthesizer Card (Fascinating Creative Addition) -->
+                    <div class="border-2 border-cobalt bg-ink text-cream p-6 relative shadow-[8px_8px_0px_0px_#0f4bcb]">
+                        <!-- Dynamic sound system details -->
+                        <div class="absolute -top-3 left-4 bg-cobalt text-cream text-[9px] font-mono px-2 py-0.5 tracking-wider uppercase">
+                            AMBER-GEN AUDIOSCAPE
+                        </div>
+                        
+                        <p class="font-mono text-[10px] text-cobalt tracking-wider uppercase mb-1">STILLNESS AUDIOSCAPE</p>
+                        <h3 class="font-condensed font-bold text-xl uppercase tracking-wider mb-2">ALPINE STORM SYNTHESIZER</h3>
+                        <p class="text-[11px] text-cream/60 leading-tight mb-4">
+                            Embrace real auditory isolation. Synthesize dynamic, low-frequency alpine wind using pure real-time HTML5 wave oscillation.
+                        </p>
+
+                        <!-- Controls -->
+                        <div class="flex flex-col space-y-3">
+                            <button id="synth-play-btn" class="w-full bg-cobalt hover:bg-cream hover:text-ink text-cream transition-colors duration-300 font-mono text-xs py-2.5 font-bold flex items-center justify-center space-x-2">
+                                <span id="synth-status-icon">▶</span>
+                                <span id="synth-status-text">LISTEN TO THE SILENCE</span>
+                            </button>
+                            
+                            <!-- Synth Stats Visualizer Bars -->
+                            <div class="flex items-end justify-between h-8 bg-cream/10 px-2 rounded overflow-hidden">
+                                <div id="v-bar-1" class="w-[3px] bg-cobalt h-[20%] transition-all duration-300"></div>
+                                <div id="v-bar-2" class="w-[3px] bg-cobalt h-[40%] transition-all duration-300"></div>
+                                <div id="v-bar-3" class="w-[3px] bg-cobalt h-[15%] transition-all duration-300"></div>
+                                <div id="v-bar-4" class="w-[3px] bg-cobalt h-[70%] transition-all duration-300"></div>
+                                <div id="v-bar-5" class="w-[3px] bg-cobalt h-[50%] transition-all duration-300"></div>
+                                <div id="v-bar-6" class="w-[3px] bg-cobalt h-[90%] transition-all duration-300"></div>
+                                <div id="v-bar-7" class="w-[3px] bg-cobalt h-[30%] transition-all duration-300"></div>
+                                <div id="v-bar-8" class="w-[3px] bg-cobalt h-[60%] transition-all duration-300"></div>
+                                <div id="v-bar-9" class="w-[3px] bg-cobalt h-[85%] transition-all duration-300"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Center Column: Key Dynamic Artwork Visualizer (Editorial Mountain Image) -->
+                <div class="lg:col-span-5 relative flex flex-col items-center">
+                    
+                    <!-- Swiss Graphics Label Header -->
+                    <div class="w-full flex justify-between items-end mb-4 font-mono text-[10px] text-ink/60 border-b border-ink/10 pb-2">
+                        <span>SYS.ID: TOUJI-MMXXV</span>
+                        <span>[ ELEV. SCANNER ACTIVE ]</span>
+                    </div>
+
+                    <!-- Main Alpine Image Container (With exact overlay and text styling of the inspiration) -->
+                    <div class="relative w-full border-2 border-ink bg-ink group overflow-hidden shadow-[12px_12px_0px_0px_#101216]">
+                        
+                        <!-- High Contrast Alpine Image with duotone overlay and halftone texture -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-transparent z-10 opacity-75"></div>
+                        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="High Altitude Peaks" class="w-full h-[450px] object-cover alpine-duotone transition-transform duration-700 group-hover:scale-105">
+                        
+                        <!-- Grid Overlay Pattern specifically over image -->
+                        <div class="absolute inset-0 halftone opacity-30 mix-blend-overlay pointer-events-none z-10"></div>
+
+                        <!-- Absolute Typography Elements Over Image (Exactly matching aesthetic layout of bbd380) -->
+                        <div class="absolute inset-x-0 bottom-0 p-8 z-20 flex flex-col justify-end h-full">
+                            
+                            <!-- Absolute Floating Coordinate Tag -->
+                            <div class="absolute top-4 right-4 bg-cobalt text-cream font-mono text-[9px] px-2 py-1 tracking-widest border border-cream/20">
+                                45.5152° N
+                            </div>
+
+                            <!-- "WINTER IS NOT A SEASON, IT'S A FEELING" overlay -->
+                            <p class="font-mono text-[10px] text-cobalt tracking-widest uppercase mb-2">SEASONAL MANIFESTO</p>
+                            <h3 class="font-condensed font-black text-4xl text-cream tracking-tight uppercase leading-none mb-4">
+                                COLD DAYS.<br>CLEAR MIND.<br>WARM SOUL.
+                            </h3>
+                            
+                            <div class="flex items-center justify-between border-t border-cream/20 pt-4 mt-2">
+                                <div class="text-left">
+                                    <span class="font-mono text-[9px] text-cream/60 block">ELEVATION PROFILE</span>
+                                    <span id="interactive-elev" class="font-mono text-sm text-cream font-bold">2,384 M</span>
+                                </div>
+                                <div class="text-right">
+                                    <span class="font-mono text-[9px] text-cream/60 block">ATMOSPHERIC RE-ID</span>
+                                    <span class="font-mono text-sm text-cobalt font-bold">STABLE // CL-01</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Decorative Technical HUD Markers -->
+                        <div class="absolute top-1/2 left-4 w-6 h-[1px] bg-cream/50 z-20"></div>
+                        <div class="absolute top-1/2 right-4 w-6 h-[1px] bg-cream/50 z-20"></div>
+                        <div class="absolute top-4 left-4 flex space-x-1 z-20">
+                            <span class="w-2 h-2 bg-cobalt rounded-full animate-ping"></span>
+                            <span class="w-2 h-2 bg-cobalt rounded-full"></span>
+                        </div>
+                    </div>
+
+                    <!-- Micro text labels under picture -->
+                    <div class="w-full flex justify-between items-start mt-4 font-mono text-[10px] text-ink/70">
+                        <div>
+                            <span>LATITUDE DEVIATION</span>
+                            <p id="lat-deviation" class="font-bold text-cobalt">+0.0034° SEC</p>
+                        </div>
+                        <div class="text-right">
+                            <span>SATELLITE SYNC</span>
+                            <p class="font-bold text-ink">SYS-ONLINE (GPS)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Premium Selector & Interactive Data Specs -->
+                <div class="lg:col-span-3 flex flex-col justify-between h-full space-y-8">
+                    
+                    <!-- Massive "25" Year Counter Visual Segment -->
+                    <div class="border-b-2 border-ink pb-6 relative">
+                        <span class="absolute right-0 top-0 font-mono text-xs text-cobalt">[ REF-25 ]</span>
+                        <h4 class="font-condensed font-black text-[120px] leading-none text-stroke-ink tracking-tighter">
+                            25
+                        </h4>
+                        <p class="font-mono text-[10px] text-ink/60 uppercase tracking-widest mt-2">
+                            PREMIUM EXPLORATION SYSTEMS // DEFIANT BY DESIGN
+                        </p>
+                    </div>
+
+                    <!-- Mini Map Tracker Widget (Interactive Canvas) -->
+                    <div class="border border-ink p-4 bg-cream/70 rounded-none relative">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="font-mono text-[9px] text-ink/80 font-bold uppercase tracking-wider">MICRO-GRID TELEMETRY</span>
+                            <span class="w-1.5 h-1.5 bg-cobalt rounded-full"></span>
+                        </div>
+                        
+                        <!-- Map Wireframe Canvas -->
+                        <div class="relative h-24 bg-ink flex items-center justify-center overflow-hidden border border-ink/20">
+                            <canvas id="telemetry-canvas" class="absolute inset-0 w-full h-full opacity-80"></canvas>
+                            <!-- Real-time HUD stats super-imposed on map -->
+                            <div class="absolute bottom-1 left-2 font-mono text-[8px] text-cream/70 leading-none">
+                                SCAN: PASS 09
+                            </div>
+                            <div class="absolute top-1 right-2 font-mono text-[8px] text-cobalt font-bold leading-none animate-pulse">
+                                GPS LIVE
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2 mt-3">
+                            <div class="bg-ink text-cream p-2 text-center">
+                                <span class="font-mono text-[8px] text-cream/55 block">BAROMETER</span>
+                                <span class="font-mono text-[10px] font-bold">1013.2 hPa</span>
+                            </div>
+                            <div class="bg-cobalt text-cream p-2 text-center">
+                                <span class="font-mono text-[8px] text-cream/85 block">WIND SPEED</span>
+                                <span id="wind-speed-val" class="font-mono text-[10px] font-bold">12.4 km/h</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Key Action Segment with Coordinates Form -->
+                    <div class="space-y-4">
+                        <h4 class="font-condensed font-bold text-2xl uppercase tracking-tight text-ink">
+                            CHOOSE YOUR STATION
+                        </h4>
+                        <p class="text-[11px] text-ink/70 leading-relaxed font-sans">
+                            Select an altitude zone below to synchronize telemetry sensors on your TOUJI intelligent technical outerwear.
+                        </p>
+                        
+                        <!-- Custom Select Buttons -->
+                        <div class="flex flex-col space-y-2">
+                            <button onclick="setElevation(1240, 'PORTLAND MT. HOOD', '+0.0012°')" class="elevation-btn w-full border border-ink text-left px-3 py-2 text-xs font-mono flex justify-between items-center bg-cream hover:bg-ink hover:text-cream transition-colors duration-200">
+                                <span>1,240M • MT. HOOD EXP</span>
+                                <span class="text-cobalt font-bold">ACTIVE</span>
+                            </button>
+                            <button onclick="setElevation(2384, 'OREGON BACKCOUNTRY', '+0.0034°')" class="elevation-btn w-full border-2 border-cobalt text-left px-3 py-2 text-xs font-mono flex justify-between items-center bg-cobalt text-cream transition-colors duration-200">
+                                <span>2,384M • TOUJI BASELINE</span>
+                                <span class="text-cream font-bold">DEFAULT</span>
+                            </button>
+                            <button onclick="setElevation(3940, 'ALASKA RIDGE-LINE', '+0.0125°')" class="elevation-btn w-full border border-ink text-left px-3 py-2 text-xs font-mono flex justify-between items-center bg-cream hover:bg-ink hover:text-cream transition-colors duration-200">
+                                <span>3,940M • EXTREME PEAK</span>
+                                <span class="text-ink hover:text-cream font-bold">UNLOCKED</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== BENTO FEATURES GRID ==================== -->
+        <section id="gear" class="max-w-7xl mx-auto px-6 py-20 border-b border-ink relative">
+            <div class="absolute left-6 top-6 select-none pointer-events-none opacity-5">
+                <span class="font-condensed font-black text-9xl">TECHNICAL</span>
+            </div>
+
+            <!-- Header Section of Grid -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 relative z-10">
+                <div>
+                    <span class="font-mono text-xs text-cobalt tracking-widest block mb-1">// MATERIAL ARCHEOLOGY</span>
+                    <h3 class="font-condensed font-black text-6xl uppercase tracking-tight leading-none text-ink">
+                        THE ART OF<br>HEAT SHIELDING
+                    </h3>
+                </div>
+                <div class="mt-6 md:mt-0 max-w-sm text-right flex flex-col items-end">
+                    <span class="font-mono text-xs text-ink/70 mb-2">PRODUCT SYSTEM: GEN-V / SERIES 09</span>
+                    <div class="w-16 h-[1px] bg-ink mb-3"></div>
+                    <p class="text-xs text-ink/60 leading-relaxed font-mono">
+                        Every thermal shell undergoes 240 hours of rigorous atmospheric simulation under extreme windchill values. Built for pure survival.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Bento Layout Elements with distinct creative focus & theme integrity -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 relative z-10">
+                
+                <!-- Card 1: Main Gear Customizer & Spec Selector -->
+                <div class="md:col-span-7 border-2 border-ink p-8 bg-cream flex flex-col justify-between relative shadow-[8px_8px_0px_0px_#101216] overflow-hidden group">
+                    <!-- Absolute watermarks -->
+                    <div class="absolute -right-20 -bottom-20 text-[200px] font-condensed font-black text-ink/5 pointer-events-none select-none uppercase transition-transform duration-500 group-hover:scale-105">
+                        CORE
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="bg-cobalt text-cream font-mono text-[9px] px-2 py-0.5 tracking-widest uppercase">INTERACTIVE CONFIGURATOR</span>
+                                <h4 class="font-condensed font-black text-4xl uppercase tracking-tight text-ink mt-2 mb-1">
+                                    TOUJI APEX SHELL - M1
+                                </h4>
+                                <p class="font-mono text-xs text-cobalt tracking-widest">LAYER CONFIGURATION: STORM-PRO 09</p>
+                            </div>
+                            <span class="font-mono text-xl text-ink/40 font-bold">[ 01 ]</span>
+                        </div>
+
+                        <!-- Render Visual Component of Shell Config -->
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 my-8 items-center">
+                            
+                            <!-- Interactive Visual SVG of jacket blueprint -->
+                            <div class="lg:col-span-5 flex justify-center py-4 bg-ink/5 border border-ink/10 relative">
+                                <div class="absolute top-2 left-2 font-mono text-[8px] text-ink/50">BLUEPRINT GRID</div>
+                                
+                                <svg id="jacket-svg" xmlns="http://www.w3.org/2000/svg" class="w-40 h-40 text-cobalt transition-all duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <!-- Dynamic jacket styled SVG path -->
+                                    <path d="M12 2l-6 3v2l4 2v6l-5 4v3h14v-3l-5-4v-6l4-2V5z" />
+                                    <path d="M12 2v20" />
+                                    <path d="M6 7l6 3 6-3" />
+                                    <circle cx="12" cy="11" r="2" fill="currentColor" class="opacity-80" />
+                                    <path d="M9 16h6" />
+                                </svg>
+                            </div>
+
+                            <!-- Interactive Selection Panel -->
+                            <div class="lg:col-span-7 space-y-4 font-mono">
+                                <div>
+                                    <span class="text-[10px] text-ink/60 block mb-1">ATMOSPHERIC RE-SHIELD WEIGHT</span>
+                                    <div class="flex space-x-2">
+                                        <button onclick="changeColor('cobalt', 'Cobalt Frost', '#0f4bcb', 'STORM-PROOF ULTRA')" class="px-3 py-1 bg-cobalt text-cream text-[10px] font-bold border border-cobalt select-color-btn uppercase">Cobalt Frost</button>
+                                        <button onclick="changeColor('ink', 'Stillness Ink', '#101216', 'NIGHT-PRO HYBRID')" class="px-3 py-1 bg-cream text-ink text-[10px] border border-ink/30 select-color-btn uppercase">Stillness Ink</button>
+                                        <button onclick="changeColor('cream', 'Oatmeal Ice', '#ebdcd0', 'LIGHTWEIGHT SHIELD')" class="px-3 py-1 bg-cream text-ink text-[10px] border border-ink/30 select-color-btn uppercase">Oatmeal Ice</button>
+                                    </div>
+                                </div>
+
+                                <div class="border-t border-ink/10 pt-4">
+                                    <span class="text-[10px] text-ink/60 block">INTELLIGENT FIBER WEIGHT</span>
+                                    <span id="config-fabric-weight" class="text-xs font-bold text-ink">STORM-PROOF ULTRA // TRIPLE WEAVE</span>
+                                </div>
+
+                                <div>
+                                    <span class="text-[10px] text-ink/60 block">MEMBRANE EFFICIENCY</span>
+                                    <div class="w-full bg-ink/10 h-1.5 mt-1 relative">
+                                        <div id="membrane-bar" class="bg-cobalt h-full w-[94%] transition-all duration-500"></div>
+                                    </div>
+                                    <span id="membrane-pct" class="text-[9px] text-cobalt block text-right font-bold mt-1">94% RETAINED RATING</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pt-4 border-t border-ink/10">
+                        <span class="font-mono text-xs text-ink/60">INTELLIGENT INTEGRATION AVAILABLE AT CHECKOUT</span>
+                        <a href="#expedition" class="mt-3 sm:mt-0 bg-ink hover:bg-cobalt text-cream font-mono text-[10px] py-2 px-4 transition-colors duration-200 uppercase">
+                            Secure Core Configuration
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 2: Brutalist Technical Highlight -->
+                <div class="md:col-span-5 bg-cobalt text-cream p-8 flex flex-col justify-between relative shadow-[8px_8px_0px_0px_#101216] overflow-hidden group">
+                    <div class="absolute -right-8 -top-8 w-32 h-32 bg-cream/10 rounded-full blur-2xl pointer-events-none"></div>
+                    
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <span class="border border-cream/30 text-cream font-mono text-[9px] px-2 py-0.5 tracking-widest uppercase">THERMOGRAPHY RECORD</span>
+                            <span class="font-mono text-xl text-cream/60 font-bold">[ 02 ]</span>
+                        </div>
+
+                        <h4 class="font-condensed font-black text-4xl uppercase tracking-tight leading-none mb-4">
+                            HYDRO-PHOBIC<br>NANO GRID
+                        </h4>
+                        
+                        <!-- Visual Graph Segment -->
+                        <div class="h-24 bg-cream/10 border border-cream/20 flex items-end justify-between p-2 font-mono text-[8px] my-6 relative">
+                            <div class="absolute top-1 left-2 text-cream/40">THERM SCAN / CELL-9</div>
+                            <div class="absolute top-1 right-2 text-cobalt font-bold">STABILITY: EXTREME</div>
+                            
+                            <!-- Static/Dynamic waveform SVG -->
+                            <svg class="absolute inset-0 w-full h-full text-cream/20" viewBox="0 0 100 30" preserveAspectRatio="none">
+                                <path d="M0,15 Q15,5 30,20 T60,10 T90,25 L100,15 L100,30 L0,30 Z" fill="currentColor"></path>
+                            </svg>
+                            <span class="relative z-10 text-cream/70">-40°C TESTING RANGE</span>
+                            <span class="relative z-10 font-bold text-cream">PASS LEVEL 12</span>
+                        </div>
+
+                        <p class="text-xs text-cream/80 leading-relaxed font-sans">
+                            Designed with state-of-the-art hydrophobic micro-channels that guide water away dynamically while locking in radiated micro-warmth. Zero moisture penetration guaranteed.
+                        </p>
+                    </div>
+
+                    <div class="border-t border-cream/20 pt-4 mt-6 flex justify-between items-center text-[10px] font-mono">
+                        <span>SYS.DEVIATION: ZERO</span>
+                        <span class="text-cream/75 font-bold underline cursor-pointer hover:text-white">ACCESS DATASHEET</span>
+                    </div>
+                </div>
+
+                <!-- Card 3: Coordinates Map Spec Card -->
+                <div class="md:col-span-4 border border-ink p-6 bg-cream flex flex-col justify-between relative">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="font-mono text-[10px] text-cobalt font-bold uppercase tracking-wider">// ARCTIC STRESS PROTOCOL</span>
+                        <span class="font-mono text-xs text-ink/40">[ 03 ]</span>
+                    </div>
+
+                    <div class="my-3">
+                        <h4 class="font-condensed font-black text-3xl uppercase tracking-tight text-ink leading-none mb-2">
+                            ZERO ACCIDENT POLICY
+                        </h4>
+                        <p class="text-xs text-ink/70 leading-relaxed font-sans">
+                            Features passive RECCO® reflectors and dual smart SOS communication channels embedded in collar linings. Secure by extreme design.
+                        </p>
+                    </div>
+
+                    <div class="bg-ink text-cream p-4 font-mono text-[10px] space-y-2 mt-4">
+                        <div class="flex justify-between border-b border-cream/15 pb-1">
+                            <span>SATELLITE REF:</span>
+                            <span class="text-cobalt font-bold">GPS-ELEVATOR-2A</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>BEACON SIGNAL:</span>
+                            <span class="text-green-400 font-bold">STABLE SYNC</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Asymmetric Big Visual block -->
+                <div class="md:col-span-8 border-2 border-ink bg-ink text-cream p-8 relative flex flex-col md:flex-row gap-6 items-center overflow-hidden shadow-[6px_6px_0px_0px_rgba(15,75,203,1)]">
+                    <!-- Duotone graphic overlay background -->
+                    <div class="absolute inset-0 bg-cover bg-center opacity-35 mix-blend-color-burn" style="background-image: url('https://images.unsplash.com/photo-1486915309851-b0cc1f8a0084?auto=format&fit=crop&w=800&q=80');"></div>
+                    
+                    <div class="relative z-10 md:w-1/2 flex flex-col justify-between h-full">
+                        <div>
+                            <span class="bg-cobalt text-cream font-mono text-[9px] px-2 py-0.5 tracking-widest uppercase">LAB FIELD NOTES</span>
+                            <h4 class="font-condensed font-black text-4xl uppercase tracking-tight text-cream mt-2 mb-3">
+                                CRUSH TESTED TO INTUITIVE LIMITS
+                            </h4>
+                            <p class="text-xs text-cream/70 leading-relaxed font-sans mb-4">
+                                Our exploration systems have been deployed across isolated Oregon backcountry and high-elevation Alaskan ridge-lines to prove structural windproof integrity.
+                            </p>
+                        </div>
+                        <div class="font-mono text-[10px] text-cobalt flex items-center space-x-2">
+                            <span>✓ CERTIFIED TOUJI PROVENANCE</span>
+                        </div>
+                    </div>
+
+                    <div class="relative z-10 md:w-1/2 border border-cream/20 bg-cream/5 backdrop-blur-md p-6 font-mono text-[11px] space-y-3 self-stretch flex flex-col justify-center">
+                        <div class="text-cobalt font-bold border-b border-cream/20 pb-1 uppercase tracking-widest">// DEPLOYMENT SUMMARY</div>
+                        <div class="flex justify-between">
+                            <span class="text-cream/65">ACCIDENTAL G-FORCE</span>
+                            <span class="font-bold">UP TO 4.2 G</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-cream/65">THERMAL RETENTION</span>
+                            <span class="font-bold">98.2% INTEGRITY</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-cream/65">DURABILITY RATING</span>
+                            <span class="font-bold text-cobalt">PRO-MIL 995</span>
+                        </div>
+                        <div class="w-full bg-cream/15 h-[1px] my-1"></div>
+                        <p class="text-[9px] text-cream/50 leading-tight">
+                            Tested by TOUJI extreme mountain guides under category-4 high-altitude snowstorms.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== TELEMETRY SENSOR LAB (SIMULATOR) ==================== -->
+        <section id="telemetry" class="max-w-7xl mx-auto px-6 py-20 border-b border-ink relative bg-ink text-cream">
+            <div class="absolute inset-0 halftone opacity-5 mix-blend-overlay pointer-events-none"></div>
+
+            <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="bg-cobalt text-cream font-mono text-[10px] px-2 py-0.5 tracking-widest uppercase">DYNAMIC DEPLOYMENT SIMULATION</span>
+                    <h2 class="font-condensed font-black text-6xl uppercase tracking-tight leading-none text-cream">
+                        ATMOSPHERIC<br><span class="text-cobalt">TELEMETRY</span>
+                    </h2>
+                    <p class="text-sm text-cream/70 leading-relaxed font-sans">
+                        Interact with the technical wind-tunnel environment of the mountain peaks. Track realtime aerodynamic pressure, micro-temperature drops, and structural fabric tension against our active model.
+                    </p>
+
+                    <!-- Dynamic Controls Panel -->
+                    <div class="border border-cream/20 p-6 space-y-4 bg-cream/5">
+                        <div class="font-mono text-xs text-cobalt font-bold mb-2">// CONTROL PANEL</div>
+                        
+                        <!-- Speed Slider -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between font-mono text-[10px] text-cream/70">
+                                <span>SIMULATED STORM INTENSITY</span>
+                                <span id="intensity-val" class="font-bold text-cobalt">MEDIUM GALE</span>
+                            </div>
+                            <input type="range" id="storm-range" min="1" max="5" value="3" class="w-full accent-cobalt bg-cream/20 h-1">
+                        </div>
+
+                        <!-- Temperature Metric -->
+                        <div class="grid grid-cols-2 gap-4 pt-3">
+                            <div class="border-l-2 border-cobalt pl-3">
+                                <span class="font-mono text-[9px] text-cream/50 block">AMBIENT WIND CHILL</span>
+                                <span id="wind-chill-stat" class="font-mono text-xl font-bold text-cream">-24°C</span>
+                            </div>
+                            <div class="border-l-2 border-cobalt pl-3">
+                                <span class="font-mono text-[9px] text-cream/50 block">SHELL INSULATION EXP</span>
+                                <span id="insulation-stat" class="font-mono text-xl font-bold text-cobalt">100% RETAINED</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Canvas Visualizer simulating flow over dynamic landscape -->
+                <div class="lg:col-span-7 border border-cream/20 bg-cream/5 p-6 relative">
+                    <div class="absolute top-2 left-4 font-mono text-[9px] text-cream/40">SIMULATED RE-ENTRY AIR DENSITY OVER GEAR LAYER</div>
+                    <div class="absolute top-2 right-4 flex items-center space-x-2">
+                        <span class="w-2 h-2 bg-green-400 rounded-full animate-ping"></span>
+                        <span class="font-mono text-[9px] text-green-400 font-bold">REAL-TIME RUNNING</span>
+                    </div>
+
+                    <div class="h-80 bg-ink relative border border-cream/15 overflow-hidden flex items-center justify-center mt-6">
+                        <canvas id="storm-canvas" class="absolute inset-0 w-full h-full"></canvas>
+                        
+                        <!-- Floating HUD readout -->
+                        <div class="absolute bottom-4 left-4 bg-ink/90 border border-cream/20 p-3 font-mono text-[10px] space-y-1 z-20">
+                            <div class="text-cobalt font-bold">TELEMETRY SYSTEM OVERLAY</div>
+                            <div class="flex justify-between space-x-6">
+                                <span class="text-cream/60">SYSTEM COMPRESSION:</span>
+                                <span id="telemetry-compression">STABLE // 1.02 G</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-cream/60">WIND FORCE APEX:</span>
+                                <span id="telemetry-wind" class="font-bold text-cobalt">54.2 KM/H</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== EXPEDITION ORDER / BOOKING CUSTOMIZER ==================== -->
+        <section id="expedition" class="max-w-7xl mx-auto px-6 py-20 border-b border-ink relative">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start relative z-10">
+                
+                <!-- Left Details: Brand Values & Design Philosophy -->
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="bg-cobalt text-cream font-mono text-[10px] px-2 py-0.5 tracking-widest uppercase">STATION RESERVATION SYSTEM</span>
+                    <h2 class="font-condensed font-black text-6xl uppercase tracking-tight leading-none text-ink">
+                        ACQUIRE EXTREME<br><span class="text-stroke-ink">STILLNESS ARCHITYPE</span>
+                    </h2>
+                    <p class="text-sm text-ink/70 leading-relaxed font-sans">
+                        Secure your specialized TOUJI equipment capsule or schedule a custom high-altitude fitting session in our minimal concrete field laboratory. Complete the telemetry registry parameters to reserve.
+                    </p>
+
+                    <div class="border border-ink/10 p-6 bg-cream/40 space-y-4">
+                        <div class="flex items-center space-x-3 text-ink/80">
+                            <span class="font-mono text-cobalt font-bold">[ 01 ]</span>
+                            <span class="text-xs font-mono tracking-wider uppercase">SHIPPED GLOBALLY FROM INTRINSIC OUTPOSTS</span>
+                        </div>
+                        <div class="flex items-center space-x-3 text-ink/80">
+                            <span class="font-mono text-cobalt font-bold">[ 02 ]</span>
+                            <span class="text-xs font-mono tracking-wider uppercase">2-YEAR FIELD-GUARANTEED REPLACEMENT INTEGRITY</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Details: High-Fidelity Interactive Form (Order Configurator) -->
+                <div class="lg:col-span-7 bg-cream border-2 border-ink p-8 shadow-[10px_10px_0px_0px_#101216] relative">
+                    <!-- Decorator Crosses -->
+                    <div class="absolute -top-3 left-6 bg-ink text-cream text-[10px] font-mono px-3 py-1 tracking-widest uppercase">
+                        TELEMETRY RE-ENTRY CAPSL REQ
+                    </div>
+
+                    <form id="expedition-form" class="space-y-6 pt-4" onsubmit="handleFormSubmit(event)">
+                        
+                        <!-- Personal Info Row -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="font-mono text-[11px] text-ink/70 uppercase block">EXPLORER CALL-SIGN / NAME</label>
+                                <input type="text" required placeholder="E.G., CADEN COOPER" class="w-full bg-cream border-b-2 border-ink focus:border-cobalt focus:outline-none py-2 font-mono text-xs uppercase placeholder:text-ink/30">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="font-mono text-[11px] text-ink/70 uppercase block">AUTHENTICATION DIGITAL SECURE EMAIL</label>
+                                <input type="email" required placeholder="EXPLORER@TOUJI.COM" class="w-full bg-cream border-b-2 border-ink focus:border-cobalt focus:outline-none py-2 font-mono text-xs uppercase placeholder:text-ink/30">
+                            </div>
+                        </div>
+
+                        <!-- Technical Parameter selections that dynamically change Receipt on side -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                            <div class="space-y-2">
+                                <label class="font-mono text-[11px] text-ink/70 uppercase block">GEAR MATRIX PACKAGE</label>
+                                <select id="capsule-tier" class="w-full bg-cream border-2 border-ink py-2 px-3 font-mono text-xs uppercase tracking-wider focus:outline-none focus:border-cobalt" onchange="updateFormReceipt()">
+                                    <option value="995">TOUJI CORE SHELL (M1) • $995</option>
+                                    <option value="1450">STORM-PRO COMPLETE SUITE • $1,450</option>
+                                    <option value="2500">EX-PEAK EXTREME CAPSULE • $2,500</option>
+                                </select>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="font-mono text-[11px] text-ink/70 uppercase block">FITTING LAB SELECTION</label>
+                                <select id="fitting-location" class="w-full bg-cream border-2 border-ink py-2 px-3 font-mono text-xs uppercase tracking-wider focus:outline-none focus:border-cobalt" onchange="updateFormReceipt()">
+                                    <option value="digital">DIGITAL BIO-METRIC FITTING • FREE</option>
+                                    <option value="portland">PORTLAND OUTPOST CONCRETE LAB • +$150</option>
+                                    <option value="alaska">ANCHORAGE MOUNTAIN BASE HANGAR • +$350</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Add-ons with Checkbox visual treatment -->
+                        <div class="space-y-3 pt-2">
+                            <label class="font-mono text-[11px] text-ink/70 uppercase block">EXPEDITION CORE INTEGRATION ACCENTS</label>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <label class="flex items-center space-x-3 border border-ink/20 p-3 hover:border-cobalt cursor-pointer bg-cream/40 transition-colors duration-200">
+                                    <input type="checkbox" id="addon-gps" class="accent-cobalt w-4 h-4" onchange="updateFormReceipt()">
+                                    <span class="font-mono text-[10px] leading-tight uppercase">SATELLITE BEACON SYNC ACCESS (+$120)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 border border-ink/20 p-3 hover:border-cobalt cursor-pointer bg-cream/40 transition-colors duration-200">
+                                    <input type="checkbox" id="addon-case" class="accent-cobalt w-4 h-4" onchange="updateFormReceipt()">
+                                    <span class="font-mono text-[10px] leading-tight uppercase">TOUJI DE-STRESS RUGGED CARRY CASE (+$85)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Real-time dynamic invoice calculation -->
+                        <div class="bg-ink text-cream p-6 font-mono text-xs space-y-2 relative border-l-4 border-cobalt">
+                            <div class="absolute top-2 right-4 text-[9px] text-cobalt font-bold">ESTIMATED MANIFEST CAPSL REQ</div>
+                            <div class="flex justify-between">
+                                <span class="text-cream/60">Selected Gear Tier:</span>
+                                <span id="r-gear-cost">$995.00</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-cream/60">Outpost Consultation Setup:</span>
+                                <span id="r-outpost-cost">$0.00</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-cream/60">Additive Accents Total:</span>
+                                <span id="r-addons-cost">$0.00</span>
+                            </div>
+                            <div class="w-full h-[1px] bg-cream/20 my-2"></div>
+                            <div class="flex justify-between font-bold text-sm">
+                                <span class="text-cobalt">TOTAL CAPSL ESTIMATE:</span>
+                                <span id="r-total-cost" class="text-cream">$995.00</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full bg-cobalt hover:bg-ink text-cream font-mono text-xs font-bold py-4 transition-all duration-300 shadow-[6px_6px_0px_0px_#101216] uppercase tracking-widest">
+                            TRANSMIT SYSTEM RESERVATION PROTOCOL
+                        </button>
+                    </form>
+
+                    <!-- Alert / Success Modals instead of standard Browser alert() -->
+                    <div id="success-modal" class="hidden absolute inset-0 bg-cream border-2 border-cobalt p-8 flex flex-col justify-center items-center text-center space-y-6 z-30">
+                        <span class="bg-cobalt text-cream font-mono text-xs px-3 py-1 tracking-widest uppercase">TRANSMISSION SECURE</span>
+                        <h3 class="font-condensed font-black text-4xl uppercase tracking-tight text-ink leading-none">
+                            YOUR CAPSULE IS RESERVED
+                        </h3>
+                        <p class="text-xs text-ink/70 leading-relaxed max-w-sm font-sans">
+                            System reservation parameters transmitted to TOUJI high-altitude base station. A secure verification packet will arrive in your digital secure inbox within 3 minutes.
+                        </p>
+                        <div class="font-mono text-[9px] text-cobalt bg-ink text-cream px-3 py-1 font-bold">TJ-CONF-ID: <span id="rand-conf-id">1289-482-SYS</span></div>
+                        <button onclick="closeSuccessModal()" class="border border-ink bg-cream hover:bg-ink hover:text-cream text-ink font-mono text-xs px-6 py-2 transition-colors duration-200 uppercase">
+                            Close Console
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== FIELD NOTES / TESTIMONIALS ==================== -->
+        <section id="journal" class="max-w-7xl mx-auto px-6 py-20 relative">
+            <div class="flex justify-between items-end mb-16 border-b border-ink/15 pb-4">
+                <div>
+                    <span class="font-mono text-xs text-cobalt tracking-widest block mb-1">// ANECDOTAL VERIFICATION</span>
+                    <h3 class="font-condensed font-black text-6xl uppercase tracking-tight leading-none text-ink">
+                        FIELD NOTES
+                    </h3>
+                </div>
+                <div class="font-mono text-[10px] text-ink/50">[ INDEXED HISTORIES ]</div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Log 1 -->
+                <div class="border border-ink/20 p-6 flex flex-col justify-between relative bg-cream/30 hover:border-cobalt transition-colors duration-300">
+                    <span class="absolute top-2 right-4 font-mono text-[10px] text-cobalt">REF-LOG #14</span>
+                    <div>
+                        <div class="font-mono text-[9px] text-ink/50 mb-3 block">DATE: 12.01.2025 // ELEV: 3,450 M</div>
+                        <p class="font-mono text-xs text-cobalt font-bold mb-2">"STILLNESS OF THE STORM"</p>
+                        <p class="text-xs text-ink/75 leading-relaxed font-sans italic">
+                            "The windchill fell to -31°C near Mt. Hood summit. The TOUJI M1 shell locked down completely. Absolute warmth within absolute isolation. Outstanding technical triumph."
+                        </p>
+                    </div>
+                    <div class="mt-6 border-t border-ink/10 pt-4 flex justify-between items-center">
+                        <span class="font-mono text-[10px] font-bold uppercase text-ink">A. SÖRENSEN</span>
+                        <span class="font-mono text-[9px] text-ink/40">ALPINE RESEARCHER</span>
+                    </div>
+                </div>
+
+                <!-- Log 2 -->
+                <div class="border border-ink/20 p-6 flex flex-col justify-between relative bg-cream/30 hover:border-cobalt transition-colors duration-300">
+                    <span class="absolute top-2 right-4 font-mono text-[10px] text-cobalt">REF-LOG #09</span>
+                    <div>
+                        <div class="font-mono text-[9px] text-ink/50 mb-3 block">DATE: 01.14.2026 // ELEV: 2,120 M</div>
+                        <p class="font-mono text-xs text-cobalt font-bold mb-2">"STATION INTEGRITY PROVEN"</p>
+                        <p class="text-xs text-ink/75 leading-relaxed font-sans italic">
+                            "The atmospheric system telemetry integrated perfectly with my wearable trackers. Never had a piece of equipment feel this advanced yet so deeply quiet."
+                        </p>
+                    </div>
+                    <div class="mt-6 border-t border-ink/10 pt-4 flex justify-between items-center">
+                        <span class="font-mono text-[10px] font-bold uppercase text-ink">DR. T. MARSHALL</span>
+                        <span class="font-mono text-[9px] text-ink/40">SENSORY SCIENTIST</span>
+                    </div>
+                </div>
+
+                <!-- Log 3 -->
+                <div class="border border-ink/20 p-6 flex flex-col justify-between relative bg-cream/30 hover:border-cobalt transition-colors duration-300">
+                    <span class="absolute top-2 right-4 font-mono text-[10px] text-cobalt">REF-LOG #33</span>
+                    <div>
+                        <div class="font-mono text-[9px] text-ink/50 mb-3 block">DATE: 02.25.2026 // ELEV: 4,110 M</div>
+                        <p class="font-mono text-xs text-cobalt font-bold mb-2">"ALASKA EX-PEAK CRUSH"</p>
+                        <p class="text-xs text-ink/75 leading-relaxed font-sans italic">
+                            "Survived a level-3 avalanche containment event. The passive RECCO beacon functioned flawlessly when tracking systems searched our location. Lifesaving engineering."
+                        </p>
+                    </div>
+                    <div class="mt-6 border-t border-ink/10 pt-4 flex justify-between items-center">
+                        <span class="font-mono text-[10px] font-bold uppercase text-ink">K. NAKAMURA</span>
+                        <span class="font-mono text-[9px] text-ink/40">EXPEDITION LEAD</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==================== FOOTER SECTION ==================== -->
+    <footer class="bg-ink text-cream relative border-t-2 border-cobalt overflow-hidden mt-20">
+        <div class="absolute inset-0 halftone opacity-5 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 py-16 relative z-10">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                
+                <!-- Large brutalist text branding -->
+                <div class="lg:col-span-5 space-y-6">
+                    <h2 class="font-condensed font-black text-7xl uppercase tracking-tighter text-cream leading-none">
+                        TOUJI <span class="text-cobalt">冬季</span>
+                    </h2>
+                    <p class="text-xs text-cream/60 leading-relaxed font-mono max-w-sm">
+                        STILLNESS SYSTEM COMPRESSION ARCHIVE • MMXXVI ALL RIGHTS RESERVED. GEOMETRIC INTEGRATION UNDER EXTREME HIGH-ALTITUDE PARAMETERS.
+                    </p>
+                    
+                    <div class="flex space-x-4 pt-2">
+                        <!-- Technical Icon links -->
+                        <a href="#" class="font-mono text-[10px] border border-cream/20 hover:border-cobalt px-3 py-1 bg-cream/5 transition-colors duration-200">[ INSTAGRAM ]</a>
+                        <a href="#" class="font-mono text-[10px] border border-cream/20 hover:border-cobalt px-3 py-1 bg-cream/5 transition-colors duration-200">[ TELEMETRY ]</a>
+                        <a href="#" class="font-mono text-[10px] border border-cream/20 hover:border-cobalt px-3 py-1 bg-cream/5 transition-colors duration-200">[ FIELD-NET ]</a>
+                    </div>
+                </div>
+
+                <!-- Footer Quick Links -->
+                <div class="lg:col-span-3 space-y-4">
+                    <span class="font-mono text-[10px] text-cobalt block font-bold uppercase tracking-wider">// EXPEDITION SITES</span>
+                    <ul class="font-mono text-xs space-y-2.5 text-cream/70">
+                        <li><a href="#" class="hover:text-cobalt transition-colors duration-150">• STATION 01: MT. HOOD LAB</a></li>
+                        <li><a href="#" class="hover:text-cobalt transition-colors duration-150">• STATION 02: OREGON BACKCOUNTRY</a></li>
+                        <li><a href="#" class="hover:text-cobalt transition-colors duration-150">• STATION 03: ALASKAN RIDGE-LINE</a></li>
+                        <li><a href="#" class="hover:text-cobalt transition-colors duration-150">• SYSTEM RETRIEVAL REGISTRY</a></li>
+                    </ul>
+                </div>
+
+                <!-- Footer Subscription Field with styled brutalist block inputs -->
+                <div class="lg:col-span-4 space-y-4">
+                    <span class="font-mono text-[10px] text-cobalt block font-bold uppercase tracking-wider">// RE-ENTRY NOTIFICATION FEED</span>
+                    <p class="text-xs text-cream/60 leading-relaxed font-sans">
+                        Subscribe to receive instant atmospheric warnings, product capsule launch coordinates, and direct telemetry updates.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-2 pt-2">
+                        <input type="email" placeholder="EMAIL ADDRESS" class="bg-cream/10 border border-cream/20 px-3 py-2 font-mono text-xs text-cream focus:outline-none focus:border-cobalt flex-grow uppercase">
+                        <button onclick="handleFooterSubscribe()" class="bg-cobalt hover:bg-cream hover:text-ink text-cream font-mono text-xs px-4 py-2 font-bold transition-all duration-300 shadow-[3px_3px_0px_0px_rgba(255,255,255,0.15)] uppercase">
+                            Connect +
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="border-t border-cream/10 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] font-mono text-cream/40">
+                <div>
+                    <span>DESIGN CLASSIFICATION: TOUJI-MMXXVI-V1</span>
+                </div>
+                <div class="mt-4 md:mt-0">
+                    <span>COORDINATES RE-ID: 45.5152° N / 122.6784° W • ELEV: 2,384 M</span>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+
+    <!-- ==================== INTERACTIVE EXPERIENCES SCRIPT ==================== -->
+    <script>
+        // Web Audio Dynamic Audio Wind/Stillness Synthesizer (Pure Synthesized Soundscape)
+        let audioContext = null;
+        let windNoiseNode = null;
+        let bandpassFilter = null;
+        let synthPlaying = false;
+        let vInterval = null;
+
+        const synthPlayBtn = document.getElementById('synth-play-btn');
+        const synthStatusIcon = document.getElementById('synth-status-icon');
+        const synthStatusText = document.getElementById('synth-status-text');
+
+        synthPlayBtn.addEventListener('click', () => {
+            if (!synthPlaying) {
+                startSynth();
+            } else {
+                stopSynth();
+            }
+        });
+
+        function startSynth() {
+            try {
+                // Initialize Audio Context
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // 1. Generate white noise buffer
+                const bufferSize = 2 * audioContext.sampleRate;
+                const noiseBuffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+                const output = noiseBuffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) {
+                    output[i] = Math.random() * 2 - 1;
+                }
+
+                // 2. Create buffer source
+                const noiseSource = audioContext.createBufferSource();
+                noiseSource.buffer = noiseBuffer;
+                noiseSource.loop = true;
+
+                // 3. Create bandpass filter for the "howling wind" effect
+                bandpassFilter = audioContext.createBiquadFilter();
+                bandpassFilter.type = 'bandpass';
+                bandpassFilter.frequency.value = 250; // Low howl
+                bandpassFilter.Q.value = 8.0;         // High resonance for whistling air
+
+                // 4. Create an LFO to sweep wind frequency slowly and realistically
+                const lfo = audioContext.createOscillator();
+                lfo.type = 'sine';
+                lfo.frequency.value = 0.08; // Very slow wind change (8 seconds/cycle)
+
+                const lfoGain = audioContext.createGain();
+                lfoGain.gain.value = 150; // Sweep range in Hz
+
+                // 5. Connect modules
+                lfo.connect(lfoGain);
+                lfoGain.connect(bandpassFilter.frequency);
+                
+                noiseSource.connect(bandpassFilter);
+
+                // Add main master gain to protect hearing and set quiet ambient volume
+                const masterGain = audioContext.createGain();
+                masterGain.gain.value = 0.12; // Low ambient sound
+                bandpassFilter.connect(masterGain);
+                masterGain.connect(audioContext.destination);
+
+                // Start audio
+                lfo.start();
+                noiseSource.start();
+                
+                // Cache node to shut down
+                windNoiseNode = noiseSource;
+
+                synthPlaying = true;
+                synthStatusIcon.textContent = '■';
+                synthStatusText.textContent = 'MUTE INTENSITY';
+                synthPlayBtn.classList.remove('bg-cobalt');
+                synthPlayBtn.classList.add('bg-cream', 'text-ink');
+
+                // Activate dynamic visualizer bars in UI
+                vInterval = setInterval(() => {
+                    for (let i = 1; i <= 9; i++) {
+                        const bar = document.getElementById(`v-bar-${i}`);
+                        const randH = Math.floor(Math.random() * 90) + 10;
+                        bar.style.height = `${randH}%`;
+                    }
+                }, 150);
+
+            } catch (err) {
+                console.error("Web Audio API not supported on this device/browser.", err);
+            }
+        }
+
+        function stopSynth() {
+            if (windNoiseNode) {
+                windNoiseNode.stop();
+                windNoiseNode.disconnect();
+            }
+            if (audioContext) {
+                audioContext.close();
+            }
+            clearInterval(vInterval);
+            synthPlaying = false;
+            synthStatusIcon.textContent = '▶';
+            synthStatusText.textContent = 'LISTEN TO THE SILENCE';
+            synthPlayBtn.classList.remove('bg-cream', 'text-ink');
+            synthPlayBtn.classList.add('bg-cobalt', 'text-cream');
+
+            // Reset visualizer bars
+            for (let i = 1; i <= 9; i++) {
+                document.getElementById(`v-bar-${i}`).style.height = `20%`;
+            }
+        }
+
+
+        // Coordinate Selector telemetry updates
+        function setElevation(elev, location, deviation) {
+            // Update elevation text elements
+            document.getElementById('interactive-elev').textContent = `${elev.toLocaleString()} M`;
+            document.getElementById('lat-deviation').textContent = `${deviation} SEC`;
+            
+            // Adjust visual telemetry speed parameters based on simulated altitude
+            let windVal = (elev * 0.015 + 18).toFixed(1);
+            document.getElementById('wind-speed-val').textContent = `${windVal} km/h`;
+            document.getElementById('telemetry-wind').textContent = `${windVal} KM/H`;
+
+            // Adjust compression readings slightly
+            let comp = (1.0 + (elev * 0.0001)).toFixed(2);
+            document.getElementById('telemetry-compression').textContent = `STABLE // ${comp} G`;
+
+            // Re-render visual buttons
+            const btns = document.querySelectorAll('.elevation-btn');
+            btns.forEach(btn => {
+                btn.className = "elevation-btn w-full border border-ink text-left px-3 py-2 text-xs font-mono flex justify-between items-center bg-cream hover:bg-ink hover:text-cream transition-colors duration-200";
+            });
+
+            // Target correct button event source style
+            event.currentTarget.className = "elevation-btn w-full border-2 border-cobalt text-left px-3 py-2 text-xs font-mono flex justify-between items-center bg-cobalt text-cream transition-colors duration-200";
+        }
+
+
+        // Configurator Action Color & Spec switches
+        function changeColor(theme, colorName, colorCode, techName) {
+            const svg = document.getElementById('jacket-svg');
+            const fabricWeight = document.getElementById('config-fabric-weight');
+            const membraneBar = document.getElementById('membrane-bar');
+            const membranePct = document.getElementById('membrane-pct');
+
+            // Reset configurator buttons active classes
+            const btns = document.querySelectorAll('.select-color-btn');
+            btns.forEach(btn => {
+                btn.className = "px-3 py-1 bg-cream text-ink text-[10px] border border-ink/30 select-color-btn uppercase";
+            });
+
+            // Update specific text descriptors
+            fabricWeight.textContent = `${techName} // PREMIUM SPEC`;
+            
+            if (theme === 'cobalt') {
+                svg.style.color = "#0f4bcb";
+                membraneBar.style.width = "94%";
+                membranePct.textContent = "94% RETAINED RATING";
+                event.currentTarget.className = "px-3 py-1 bg-cobalt text-cream text-[10px] font-bold border border-cobalt select-color-btn uppercase";
+            } else if (theme === 'ink') {
+                svg.style.color = "#101216";
+                membraneBar.style.width = "88%";
+                membranePct.textContent = "88% OPTIMAL HEAT INDEX";
+                event.currentTarget.className = "px-3 py-1 bg-ink text-cream text-[10px] font-bold border border-ink select-color-btn uppercase";
+            } else {
+                svg.style.color = "#131518"; // Oatmeal tone simulation
+                membraneBar.style.width = "82%";
+                membranePct.textContent = "82% ULTRALIGHT COMPACT";
+                event.currentTarget.className = "px-3 py-1 bg-ink text-cream text-[10px] font-bold border border-ink select-color-btn uppercase";
+            }
+        }
+
+
+        // Live Weather Telemetry Canvas Drawing (Abstract radar screen)
+        const canvas = document.getElementById('telemetry-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let angle = 0;
+
+            function drawRadar() {
+                if (!canvas) return;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                const cx = canvas.width / 2;
+                const cy = canvas.height / 2;
+                const radius = Math.min(cx, cy) - 5;
+
+                // Radar circular sweep lines
+                ctx.strokeStyle = "rgba(15, 75, 203, 0.25)";
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.arc(cx, cy, radius / 2, 0, Math.PI * 2);
+                ctx.stroke();
+
+                // Crosshairs
+                ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
+                ctx.beginPath();
+                ctx.moveTo(cx, 0);
+                ctx.lineTo(cx, canvas.height);
+                ctx.moveTo(0, cy);
+                ctx.lineTo(canvas.width, cy);
+                ctx.stroke();
+
+                // Sweep sweep lines
+                ctx.save();
+                ctx.translate(cx, cy);
+                ctx.rotate(angle);
+                
+                const grad = ctx.createRadialGradient(0, 0, 0, 0, 0, radius);
+                grad.addColorStop(0, "rgba(15, 75, 203, 0.5)");
+                grad.addColorStop(0.5, "rgba(15, 75, 203, 0.15)");
+                grad.addColorStop(1, "transparent");
+                
+                ctx.fillStyle = grad;
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.arc(0, 0, radius, 0, Math.PI / 4);
+                ctx.lineTo(0, 0);
+                ctx.fill();
+                ctx.restore();
+
+                // Abstract topographic contour lines representing mountains
+                ctx.strokeStyle = "rgba(15, 75, 203, 0.4)";
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(10, 45);
+                ctx.quadraticCurveTo(cx - 20, cy - 30, canvas.width - 20, 50);
+                ctx.stroke();
+
+                ctx.strokeStyle = "rgba(15, 75, 203, 0.2)";
+                ctx.beginPath();
+                ctx.moveTo(0, 60);
+                ctx.quadraticCurveTo(cx, cy - 10, canvas.width, 70);
+                ctx.stroke();
+
+                angle += 0.025;
+                requestAnimationFrame(drawRadar);
+            }
+
+            // Set size on initialization
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight || 100;
+            drawRadar();
+        }
+
+
+        // Interactive Storm Dynamic Wind Canvas Visualizer
+        const stormCanvas = document.getElementById('storm-canvas');
+        if (stormCanvas) {
+            const ctx = stormCanvas.getContext('2d');
+            let particles = [];
+            const particleCount = 65;
+            let speedMultiplier = 3.0;
+
+            // Generate particles
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: Math.random() * 600,
+                    y: Math.random() * 400,
+                    length: Math.random() * 30 + 10,
+                    speed: Math.random() * 4 + 2,
+                    opacity: Math.random() * 0.5 + 0.1
+                });
+            }
+
+            function drawStorm() {
+                if (!stormCanvas) return;
+                ctx.fillStyle = "#101216";
+                ctx.fillRect(0, 0, stormCanvas.width, stormCanvas.height);
+
+                // Draw abstract mountain ridge contour representing high-altitude testbed
+                ctx.strokeStyle = "rgba(15, 75, 203, 0.6)";
+                ctx.lineWidth = 2.5;
+                ctx.beginPath();
+                ctx.moveTo(0, 260);
+                ctx.lineTo(150, 220);
+                ctx.lineTo(350, 150);
+                ctx.lineTo(500, 280);
+                ctx.lineTo(800, 180);
+                ctx.stroke();
+
+                // Draw wind particles rushing over mountain contours
+                ctx.lineWidth = 1;
+                for (let i = 0; i < particleCount; i++) {
+                    const p = particles[i];
+                    ctx.strokeStyle = `rgba(15, 75, 203, ${p.opacity * (speedMultiplier / 2)})`;
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y);
+                    // Create subtle arc curves to represent wind draft
+                    ctx.lineTo(p.x + p.length, p.y + (p.y > 150 ? -2 : 2));
+                    ctx.stroke();
+
+                    // Advance particle x coordinate
+                    p.x += p.speed * speedMultiplier;
+                    
+                    // Reset coordinates if off-bounds
+                    if (p.x > stormCanvas.width) {
+                        p.x = -p.length;
+                        p.y = Math.random() * stormCanvas.height;
+                    }
+                }
+
+                requestAnimationFrame(drawStorm);
+            }
+
+            // Storm intensity adjusters
+            const stormRange = document.getElementById('storm-range');
+            const intensityVal = document.getElementById('intensity-val');
+            const windChillStat = document.getElementById('wind-chill-stat');
+
+            stormRange.addEventListener('input', (e) => {
+                const val = parseInt(e.target.value);
+                speedMultiplier = val * 1.2 + 0.5;
+
+                if (val === 1) {
+                    intensityVal.textContent = "STILL WIND BREEZE";
+                    windChillStat.textContent = "-5°C";
+                } else if (val === 2) {
+                    intensityVal.textContent = "LIGHT COLD DRAFT";
+                    windChillStat.textContent = "-14°C";
+                } else if (val === 3) {
+                    intensityVal.textContent = "MEDIUM GALE FORCE";
+                    windChillStat.textContent = "-24°C";
+                } else if (val === 4) {
+                    intensityVal.textContent = "SEVERE ICE CHILL";
+                    windChillStat.textContent = "-38°C";
+                } else {
+                    intensityVal.textContent = "ALASKAN BLIZZARD ACC";
+                    windChillStat.textContent = "-52°C";
+                }
+            });
+
+            // Handle responsive canvas sizes
+            function resizeStormCanvas() {
+                stormCanvas.width = stormCanvas.parentElement.clientWidth;
+                stormCanvas.height = stormCanvas.parentElement.clientHeight || 320;
+            }
+
+            window.addEventListener('resize', resizeStormCanvas);
+            resizeStormCanvas();
+            drawStorm();
+        }
+
+
+        // Real-Time Invoice Estimations
+        function updateFormReceipt() {
+            const capsuleTier = document.getElementById('capsule-tier');
+            const fittingLoc = document.getElementById('fitting-location');
+            const addGps = document.getElementById('addon-gps');
+            const addCase = document.getElementById('addon-case');
+
+            let gearCost = parseInt(capsuleTier.value);
+            let outpostCost = fittingLoc.value === 'digital' ? 0 : (fittingLoc.value === 'portland' ? 150 : 350);
+            let addonsCost = (addGps.checked ? 120 : 0) + (addCase.checked ? 85 : 0);
+            let totalCost = gearCost + outpostCost + addonsCost;
+
+            document.getElementById('r-gear-cost').textContent = `$${gearCost.toFixed(2)}`;
+            document.getElementById('r-outpost-cost').textContent = `$${outpostCost.toFixed(2)}`;
+            document.getElementById('r-addons-cost').textContent = `$${addonsCost.toFixed(2)}`;
+            document.getElementById('r-total-cost').textContent = `$${totalCost.toFixed(2)}`;
+        }
+
+
+        // Expedition Form handle
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            // Random secure hex registration sequence generator
+            const hex = Array.from({length: 8}, () => Math.floor(Math.random()*16).toString(16).toUpperCase()).join('');
+            document.getElementById('rand-conf-id').textContent = `${hex.substring(0,4)}-${hex.substring(4,8)}-TJ`;
+
+            // Display overlay success window
+            document.getElementById('success-modal').classList.remove('hidden');
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('success-modal').classList.add('hidden');
+            document.getElementById('expedition-form').reset();
+            updateFormReceipt();
+        }
+
+
+        // Footer Notification Handle
+        function handleFooterSubscribe() {
+            const div = document.createElement('div');
+            div.className = "fixed bottom-4 right-4 bg-cobalt text-cream border-2 border-ink p-4 font-mono text-xs z-50 shadow-[6px_6px_0px_0px_#101216] transition-opacity duration-300";
+            div.textContent = "SYSTEM DEPLOYMENT ALERT: SUBSCRIBED TO CORE CHANNELS";
+            document.body.appendChild(div);
+            
+            setTimeout(() => {
+                div.style.opacity = '0';
+                setTimeout(() => div.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
