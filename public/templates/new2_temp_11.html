@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AERIS — Guiding Every Breath, Easing Every Step</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Playfair Display for premium editorial serifs, Plus Jakarta Sans for ultra-clean tech typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for beautiful, crisp technical icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        clay: {
+                            50: '#FAF7F2',
+                            100: '#F5EFE6',
+                            200: '#EADFC9',
+                            300: '#D5C3A6',
+                            500: '#C2593F', // Terracotta Primary
+                            600: '#A94730', // Dark Terracotta
+                            700: '#8B3E2B',
+                            900: '#2A1C16', // Deep Warm Charcoal
+                        },
+                        ochre: {
+                            400: '#DF9F63',
+                            500: '#D4863B',
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'spin-slow': 'spin 12s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #FAF7F2;
+            color: #2A1C16;
+            overflow-x: hidden;
+        }
+        /* Custom scrollbar to match editorial system */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF7F2;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C2593F;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8B3E2B;
+        }
+        .grainy-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0.02;
+            pointer-events: none;
+            z-index: 999;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-clay-500 selection:text-white">
+    <div class="grainy-overlay"></div>
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-50 bg-[#FAF7F2]/90 backdrop-blur-md border-b border-clay-200 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center space-x-3 group">
+                <span class="font-serif text-3xl font-black tracking-widest text-clay-500 transition-colors group-hover:text-clay-700">AERIS</span>
+                <span class="w-[1px] h-6 bg-clay-300"></span>
+                <span class="text-xs uppercase tracking-[0.2em] font-medium text-clay-900/60 hidden sm:inline-block">The New Breath Standard</span>
+            </a>
+            
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold tracking-wider uppercase text-clay-900/80">
+                <a href="#simulator" class="hover:text-clay-500 transition-colors">Interactive Demo</a>
+                <a href="#how-it-works" class="hover:text-clay-500 transition-colors">How To Use</a>
+                <a href="#benefits" class="hover:text-clay-500 transition-colors">Why Aeris</a>
+                <a href="#dashboard" class="hover:text-clay-500 transition-colors">Ecosystem</a>
+                <a href="#insight" class="hover:text-clay-500 transition-colors flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-clay-500 animate-pulse"></span>
+                    Aeris Insight AI
+                </a>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                <a href="#simulator" class="hidden sm:inline-flex px-5 py-2.5 bg-clay-500 text-white font-semibold text-sm rounded-full shadow-lg shadow-clay-500/10 hover:bg-clay-600 transition-all hover:translate-y-[-1px] active:translate-y-[1px]">
+                    Experience Aeris
+                </a>
+                <button id="mobile-menu-btn" class="md:hidden text-clay-900 p-2 focus:outline-none" aria-label="Toggle Menu">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-clay-50 border-b border-clay-200 px-6 py-6 space-y-4">
+            <a href="#simulator" class="block text-sm font-semibold uppercase tracking-wider text-clay-900/80 hover:text-clay-500 transition-colors">Interactive Demo</a>
+            <a href="#how-it-works" class="block text-sm font-semibold uppercase tracking-wider text-clay-900/80 hover:text-clay-500 transition-colors">How To Use</a>
+            <a href="#benefits" class="block text-sm font-semibold uppercase tracking-wider text-clay-900/80 hover:text-clay-500 transition-colors">Why Aeris</a>
+            <a href="#dashboard" class="block text-sm font-semibold uppercase tracking-wider text-clay-900/80 hover:text-clay-500 transition-colors">Ecosystem</a>
+            <a href="#insight" class="block text-sm font-semibold uppercase tracking-wider text-clay-500 transition-colors">Aeris Insight AI</a>
+            <a href="#simulator" class="block w-full text-center px-5 py-3 bg-clay-500 text-white font-semibold text-sm rounded-full">Experience Aeris</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-10 pb-20 md:py-28 overflow-hidden">
+        <!-- Background Grid Decoration -->
+        <div class="absolute inset-0 pointer-events-none opacity-[0.03] grid grid-cols-12 gap-4 px-6 max-w-7xl mx-auto">
+            <div class="border-l border-clay-900 h-full"></div><div class="border-l border-clay-900 h-full"></div><div class="border-l border-clay-900 h-full"></div><div class="border-l border-clay-900 h-full"></div><div class="border-l border-clay-900 h-full"></div><div class="border-l border-clay-900 h-full"></div><div class="border-l border-clay-900 h-full"></div><div class="border-l border-clay-900 h-full"></div><div class="border-l border-clay-900 h-full"></div><div class="border-l border-clay-900 h-full"></div><div class="border-l border-clay-900 h-full"></div><div class="border-l border-clay-900 h-full"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                
+                <!-- Left Editorial Copy -->
+                <div class="lg:col-span-7 space-y-8">
+                    <div class="inline-flex items-center space-x-3 px-3 py-1.5 rounded-full bg-clay-100 border border-clay-200">
+                        <span class="w-2 h-2 rounded-full bg-clay-500"></span>
+                        <span class="text-xs font-bold uppercase tracking-widest text-clay-700">FDA Cleared Smart Respiratory System</span>
+                    </div>
+
+                    <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-clay-900 leading-[0.95] tracking-tight">
+                        AERIS
+                    </h1>
+                    <p class="font-serif text-2xl md:text-3xl text-clay-700 italic font-light leading-relaxed max-w-2xl">
+                        "Guiding every breath, <br class="hidden sm:inline" />
+                        <span class="text-clay-500 font-normal">easing every step."</span>
+                    </p>
+
+                    <p class="text-clay-900/70 text-base md:text-lg max-w-xl leading-relaxed">
+                        Traditional inhalers assume perfect technique. Aeris changes that. Built with real-time breathing guidance, custom vibration indicators, and automated digital tracking, Aeris guarantees that every dose gets exactly where it needs to go.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
+                        <a href="#simulator" class="px-8 py-4 bg-clay-500 text-white font-bold rounded-full text-center shadow-lg shadow-clay-500/20 hover:bg-clay-600 hover:shadow-xl hover:shadow-clay-500/30 transition-all hover:translate-y-[-2px]">
+                            Try Simulator Demo <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                        </a>
+                        <a href="#how-it-works" class="px-8 py-4 border border-clay-300 text-clay-900 font-bold rounded-full text-center bg-[#FAF7F2] hover:bg-clay-100 hover:border-clay-400 transition-all">
+                            See How it Works
+                        </a>
+                    </div>
+
+                    <!-- Editorial Metrics -->
+                    <div class="grid grid-cols-3 gap-6 pt-10 border-t border-clay-200">
+                        <div>
+                            <div class="text-2xl md:text-3xl font-serif font-bold text-clay-900">99.4%</div>
+                            <div class="text-[10px] uppercase tracking-wider text-clay-900/60 font-semibold mt-1">Dosage Accuracy</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl md:text-3xl font-serif font-bold text-clay-900">&lt; 3.2s</div>
+                            <div class="text-[10px] uppercase tracking-wider text-clay-900/60 font-semibold mt-1">Avg Attack Control</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl md:text-3xl font-serif font-bold text-clay-900">10k+</div>
+                            <div class="text-[10px] uppercase tracking-wider text-clay-900/60 font-semibold mt-1">Active Users</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Visual Showcase -->
+                <div class="lg:col-span-5 relative flex justify-center">
+                    <div class="relative w-full max-w-md">
+                        <!-- Decorative Shapes -->
+                        <div class="absolute -top-12 -left-12 w-64 h-64 bg-clay-200 rounded-full blur-3xl opacity-60 mix-blend-multiply"></div>
+                        <div class="absolute -bottom-12 -right-12 w-64 h-64 bg-ochre-400/20 rounded-full blur-3xl opacity-60 mix-blend-multiply"></div>
+                        
+                        <!-- Beautiful Editorial Frame -->
+                        <div class="relative bg-[#FAF7F2] border-4 border-clay-900 p-6 rounded-[2.5rem] shadow-2xl overflow-hidden group">
+                            <!-- Background Grid Overlay -->
+                            <div class="absolute inset-0 bg-[linear-gradient(to_right,#e5dfd3_1px,transparent_1px),linear-gradient(to_bottom,#e5dfd3_1px,transparent_1px)] bg-[size:24px_24px] opacity-20 pointer-events-none"></div>
+                            
+                            <!-- Premium Render Mockup with custom SVGs -->
+                            <div class="relative rounded-[2rem] bg-gradient-to-br from-clay-900 to-clay-700 text-clay-100 p-8 overflow-hidden aspect-[4/5] flex flex-col justify-between">
+                                <div class="flex justify-between items-start z-10">
+                                    <div class="space-y-1">
+                                        <p class="text-[10px] uppercase tracking-[0.2em] text-clay-300">Smart Inhaler Pro</p>
+                                        <h3 class="font-serif text-2xl font-bold tracking-tight text-white">Aeris Aero V1</h3>
+                                    </div>
+                                    <span class="px-2 py-1 bg-white/10 rounded text-[9px] font-mono tracking-wider text-clay-200">SYS_OK</span>
+                                </div>
+
+                                <!-- The Inhaler Object Render in high end SVG -->
+                                <div class="relative flex justify-center my-6 py-4">
+                                    <!-- Breath indicator ring -->
+                                    <div class="absolute inset-0 flex items-center justify-center animate-spin-slow">
+                                        <svg class="w-56 h-56 opacity-80" viewBox="0 0 100 100">
+                                            <circle cx="50" cy="50" r="44" stroke="#C2593F" stroke-width="1" fill="none" stroke-dasharray="4, 6" />
+                                            <circle cx="50" cy="50" r="40" stroke="#FAF7F2" stroke-width="0.5" fill="none" opacity="0.3" />
+                                        </svg>
+                                    </div>
+
+                                    <!-- Inhaler Body SVG -->
+                                    <svg class="w-40 h-40 relative z-10 drop-shadow-2xl animate-float" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <!-- Cap & Body -->
+                                        <rect x="42" y="10" width="36" height="74" rx="10" fill="url(#inhalerGrad)" />
+                                        <!-- Mouthpiece -->
+                                        <path d="M42 66 L22 74 C16 76 16 88 22 90 L42 96 Z" fill="url(#mouthGrad)" />
+                                        <rect x="42" y="62" width="36" height="38" rx="8" fill="#1C120E" />
+                                        <ellipse cx="24" cy="82" rx="4" ry="7" fill="#2E1D16" />
+                                        <!-- Glowing Feedback LED Ring -->
+                                        <circle cx="60" cy="30" r="10" fill="#FAF7F2" fill-opacity="0.1" stroke="#FAF7F2" stroke-width="2" class="animate-pulse" />
+                                        <circle cx="60" cy="30" r="4" fill="#C2593F" />
+                                        <!-- Metal canister trigger -->
+                                        <path d="M48 5 L72 5 L72 10 L48 10 Z" fill="#D5C3A6" />
+                                        <!-- Detail Lines -->
+                                        <line x1="48" y1="20" x2="72" y2="20" stroke="#FAF7F2" stroke-opacity="0.15" />
+                                        <line x1="48" y1="45" x2="72" y2="45" stroke="#FAF7F2" stroke-opacity="0.15" />
+                                        <!-- Gradients -->
+                                        <defs>
+                                            <linearGradient id="inhalerGrad" x1="42" y1="10" x2="78" y2="84" gradientUnits="userSpaceOnUse">
+                                                <stop offset="0%" stop-color="#C2593F" />
+                                                <stop offset="100%" stop-color="#3D261C" />
+                                            </linearGradient>
+                                            <linearGradient id="mouthGrad" x1="16" y1="74" x2="42" y2="96" gradientUnits="userSpaceOnUse">
+                                                <stop offset="0%" stop-color="#4E3326" />
+                                                <stop offset="100%" stop-color="#1C120E" />
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                </div>
+
+                                <div class="flex items-end justify-between z-10 pt-4 border-t border-white/10">
+                                    <div class="flex items-center space-x-2">
+                                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                        <span class="text-xs font-mono font-medium text-clay-300">FLOW_READY</span>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="text-[10px] uppercase tracking-wider text-clay-400 block">Battery</span>
+                                        <span class="text-sm font-semibold text-white">92%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Floating Badge -->
+                        <div class="absolute -right-8 bottom-8 bg-clay-500 text-white p-5 rounded-2xl shadow-xl max-w-[200px] border border-clay-600/30 transform hover:scale-105 transition-all">
+                            <i class="fa-solid fa-wind text-2xl mb-2 text-clay-200"></i>
+                            <h4 class="font-bold text-sm">Haptic Feedback</h4>
+                            <p class="text-xs text-clay-100/90 mt-1 leading-snug">Guides your inhale speed via targeted micro-vibrations.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: THE INTERACTIVE BREATH SIMULATOR -->
+    <section id="simulator" class="py-20 md:py-28 bg-[#F0EBE0] border-y border-clay-200">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="max-w-3xl mx-auto text-center space-y-4 mb-16">
+                <span class="text-xs uppercase tracking-[0.2em] text-clay-500 font-bold block">EXPERIENCE AERIS TECHNOLOGY</span>
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-clay-900 leading-tight">
+                    Interactive Inhalation Simulator
+                </h2>
+                <p class="text-clay-900/70 text-base">
+                    How you breathe determines how much medicine reaches your lungs. Use our virtual spacer/inhaler training system to master the perfect inhalation rhythm right now.
+                </p>
+            </div>
+
+            <!-- Simulator Hub Container -->
+            <div class="max-w-5xl mx-auto bg-clay-900 text-white rounded-[2.5rem] border border-clay-700/50 shadow-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-12">
+                
+                <!-- Left Control Panel (Interactive Interface) -->
+                <div class="lg:col-span-7 p-8 md:p-12 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-clay-800">
+                    <div class="space-y-6">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-clay-500 animate-pulse"></span>
+                                <span class="font-mono text-xs uppercase text-clay-400">SESSION STATUS: ACTIVE</span>
+                            </div>
+                            <button id="reset-sim" class="text-xs uppercase tracking-widest text-clay-400 hover:text-white transition-colors">
+                                <i class="fa-solid fa-arrow-rotate-left mr-1"></i> Reset Training
+                            </button>
+                        </div>
+
+                        <!-- Current Phase Display -->
+                        <div class="bg-clay-900/80 rounded-2xl p-6 border border-clay-800 space-y-3">
+                            <div class="flex items-center space-x-3">
+                                <div id="phase-badge" class="px-3 py-1 rounded bg-clay-500 text-white font-mono text-xs uppercase tracking-wider font-bold">
+                                    Step 1: Prep
+                                </div>
+                                <h3 id="phase-title" class="font-serif text-xl font-bold text-white">Prepare & Shake</h3>
+                            </div>
+                            <p id="phase-desc" class="text-sm text-clay-300">
+                                Grab the inhaler and shake vigorously to mix the active compounds evenly before inhalation.
+                            </p>
+                        </div>
+
+                        <!-- Interactive Area / Canvas -->
+                        <div class="relative bg-clay-950 rounded-2xl border border-clay-800/80 p-8 flex flex-col items-center justify-center min-h-[260px] overflow-hidden">
+                            <!-- Circular Gauge Display -->
+                            <div class="relative z-10 flex flex-col items-center">
+                                <div class="w-36 h-36 rounded-full border-4 border-clay-800 flex items-center justify-center relative transition-all" id="gauge-container">
+                                    
+                                    <!-- Inner Pulse visualizer -->
+                                    <div id="gauge-pulse" class="absolute inset-2 bg-clay-500/10 rounded-full transition-transform duration-300"></div>
+                                    
+                                    <!-- Central Metric -->
+                                    <div class="text-center z-10">
+                                        <div id="sim-metric" class="text-3xl font-bold font-mono text-white">READY</div>
+                                        <div id="sim-sub-metric" class="text-[10px] font-mono uppercase tracking-wider text-clay-400 mt-1">Ready to Shake</div>
+                                    </div>
+                                    
+                                    <!-- Dynamic Progress Ring (SVG Overlay) -->
+                                    <svg class="absolute inset-0 w-full h-full transform -rotate-90">
+                                        <circle cx="72" cy="72" r="66" stroke="#C2593F" stroke-width="4" fill="transparent" stroke-dasharray="414.6" stroke-dashoffset="414.6" class="transition-all duration-300" id="progress-circle" />
+                                    </svg>
+                                </div>
+
+                                <div class="mt-6 text-center max-w-sm">
+                                    <p id="feedback-toast" class="text-sm text-yellow-400 font-medium italic min-h-[20px]"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Trigger Button -->
+                    <div class="pt-8">
+                        <button id="sim-action-btn" class="w-full py-4 bg-clay-500 hover:bg-clay-600 active:translate-y-[1px] text-white font-bold text-lg rounded-xl shadow-lg transition-all flex items-center justify-center space-x-3">
+                            <i class="fa-solid fa-hand-pointer text-lg"></i>
+                            <span id="btn-text">SHAKE DEVICE (Click 5 times)</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Live Telemetry Panel -->
+                <div class="lg:col-span-5 p-8 md:p-12 bg-clay-950 flex flex-col justify-between">
+                    <div class="space-y-6">
+                        <h4 class="font-serif text-lg font-bold text-white border-b border-clay-800 pb-3">Real-Time Telemetry</h4>
+                        
+                        <div class="space-y-5">
+                            <!-- Inhalation Speed Metric -->
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="text-clay-400">Inhalation Speed (Flow Rate)</span>
+                                    <span id="flow-rate-val" class="font-mono text-white">0 L/min</span>
+                                </div>
+                                <div class="h-3 bg-clay-800 rounded-full overflow-hidden">
+                                    <div id="flow-rate-bar" class="h-full bg-clay-500 transition-all duration-300 w-0"></div>
+                                </div>
+                                <div class="flex justify-between text-[10px] text-clay-400 mt-1 font-mono">
+                                    <span>Too Slow</span>
+                                    <span class="text-emerald-400 font-bold">Optimal Zone (25-35 L/m)</span>
+                                    <span>Too Fast</span>
+                                </div>
+                            </div>
+
+                            <!-- Lung Saturation Simulation -->
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="text-clay-400">Medicine Infiltration Depth</span>
+                                    <span id="infiltration-val" class="font-mono text-white">0%</span>
+                                </div>
+                                <div class="h-3 bg-clay-800 rounded-full overflow-hidden">
+                                    <div id="infiltration-bar" class="h-full bg-ochre-400 transition-all duration-300 w-0"></div>
+                                </div>
+                                <span class="text-[10px] text-clay-500 italic block mt-1">Measures deeper bronchial penetration vs throat deposition.</span>
+                            </div>
+
+                            <!-- Sensor Status Indicators -->
+                            <div class="grid grid-cols-2 gap-3 pt-4">
+                                <div class="bg-clay-900 p-3 rounded-lg border border-clay-800 flex items-center space-x-2">
+                                    <span id="shake-status-led" class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+                                    <span class="text-xs font-mono text-clay-300">Shaken Thoroughly</span>
+                                </div>
+                                <div class="bg-clay-900 p-3 rounded-lg border border-clay-800 flex items-center space-x-2">
+                                    <span id="tilt-status-led" class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+                                    <span class="text-xs font-mono text-clay-300">Correct Tilt (90°)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Side-by-Side Comparison Feature -->
+                    <div class="bg-clay-900 border border-clay-800 p-4 rounded-xl mt-6">
+                        <div class="flex space-x-3">
+                            <i class="fa-solid fa-circle-exclamation text-xl text-clay-500 shrink-0"></i>
+                            <div>
+                                <h5 class="text-xs font-bold text-white uppercase">The Problem Aeris Prevents</h5>
+                                <p class="text-[11px] text-clay-400 mt-1 leading-relaxed">
+                                    Inhaling too fast dumps up to 80% of medicine on the back of the throat. Aeris guards you by signaling instantly when your inhalation exceeds the optimal rate.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: HOW TO USE / STEP-BY-STEP GUIDANCE -->
+    <section id="how-it-works" class="py-20 md:py-28 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                
+                <!-- Left Sticky Block -->
+                <div class="lg:col-span-4 lg:sticky lg:top-28 space-y-6">
+                    <span class="text-xs uppercase tracking-[0.2em] text-clay-500 font-bold block">FLAWLESS TECHNIQUE</span>
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold text-clay-900 leading-tight">
+                        How to Use Aeris
+                    </h2>
+                    <p class="text-clay-900/70 text-base leading-relaxed">
+                        Aeris simplifies inhalation down to intuitive sensory indicators. From the moment you pick it up, it leads you step-by-step to maximum therapeutic yield.
+                    </p>
+                    <div class="p-5 bg-clay-100 border border-clay-200 rounded-2xl flex items-start space-x-4">
+                        <div class="p-3 bg-white text-clay-500 rounded-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-volume-high text-lg"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm text-clay-900">Audio/Visual Guidance</h4>
+                            <p class="text-xs text-clay-900/70 mt-1">Optional voice prompts and rhythmic LED sweeps guide you in bright sunlight or total darkness.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Scrollable Guide Steps -->
+                <div class="lg:col-span-8 space-y-12 pl-0 lg:pl-10">
+                    
+                    <!-- Step 1 -->
+                    <div class="group relative flex flex-col sm:flex-row gap-6 p-8 bg-[#F5EFE6] border border-clay-200 rounded-3xl hover:border-clay-300 transition-all duration-300">
+                        <div class="w-12 h-12 bg-clay-900 text-white rounded-full flex items-center justify-center font-bold font-serif shrink-0 shadow-lg text-lg">01</div>
+                        <div class="space-y-3">
+                            <h3 class="font-serif text-2xl font-bold text-clay-900">Recognizing & Preparing</h3>
+                            <p class="text-clay-900/70 text-sm leading-relaxed">
+                                Lift the Aeris device. The device awakens instantly upon touch. Vibration cues confirm a locked-and-ready system. Shake the inhaler evenly to combine active compounds.
+                            </p>
+                            <span class="inline-flex items-center text-xs font-mono font-bold text-clay-500">
+                                <i class="fa-solid fa-circle-check mr-2"></i> LED PULSING AMBER
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="group relative flex flex-col sm:flex-row gap-6 p-8 bg-[#F5EFE6] border border-clay-200 rounded-3xl hover:border-clay-300 transition-all duration-300">
+                        <div class="w-12 h-12 bg-clay-900 text-white rounded-full flex items-center justify-center font-bold font-serif shrink-0 shadow-lg text-lg">02</div>
+                        <div class="space-y-3">
+                            <h3 class="font-serif text-2xl font-bold text-clay-900">Tilt Adjustment</h3>
+                            <p class="text-clay-900/70 text-sm leading-relaxed">
+                                Keep your head high and the device strictly vertical. Aeris' built-in dual gyroscope tracks device position. Correct posture expands your airway naturally for a clear path to the bronchi.
+                            </p>
+                            <span class="inline-flex items-center text-xs font-mono font-bold text-clay-500">
+                                <i class="fa-solid fa-circle-check mr-2"></i> GYRO LOCKED AT 90°
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="group relative flex flex-col sm:flex-row gap-6 p-8 bg-[#F5EFE6] border border-clay-200 rounded-3xl hover:border-clay-300 transition-all duration-300">
+                        <div class="w-12 h-12 bg-clay-900 text-white rounded-full flex items-center justify-center font-bold font-serif shrink-0 shadow-lg text-lg">03</div>
+                        <div class="space-y-3">
+                            <h3 class="font-serif text-2xl font-bold text-clay-900">Inhale Deeply (3, 2, 1)</h3>
+                            <p class="text-clay-900/70 text-sm leading-relaxed">
+                                Breathe in slowly. Aeris monitors your air current speed, gently vibrating in your palm to indicate optimal suction rate. Over-inhaling or rapid gasping creates resistance and drops dosage impact.
+                            </p>
+                            <span class="inline-flex items-center text-xs font-mono font-bold text-clay-500">
+                                <i class="fa-solid fa-circle-check mr-2"></i> RHYTHMIC COAXING FEEDBACK
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="group relative flex flex-col sm:flex-row gap-6 p-8 bg-[#F5EFE6] border border-clay-200 rounded-3xl hover:border-clay-300 transition-all duration-300">
+                        <div class="w-12 h-12 bg-clay-900 text-white rounded-full flex items-center justify-center font-bold font-serif shrink-0 shadow-lg text-lg">04</div>
+                        <div class="space-y-3">
+                            <h3 class="font-serif text-2xl font-bold text-clay-900">Breath Retention (Hold)</h3>
+                            <p class="text-clay-900/70 text-sm leading-relaxed">
+                                Hold your breath. A steady countdown triggers on the device's LED array, prompting you when to exhale. Retaining the micro-mist ensures target alveoli lock on to the medicine.
+                            </p>
+                            <span class="inline-flex items-center text-xs font-mono font-bold text-clay-500">
+                                <i class="fa-solid fa-circle-check mr-2"></i> 5-SECOND STEADY LED BAR
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: THE CRUCIAL METRICS / WHY EACH STEP COUNTS -->
+    <section id="benefits" class="py-20 md:py-28 bg-clay-900 text-white relative overflow-hidden">
+        <!-- SVG Lung Outline background -->
+        <div class="absolute inset-0 opacity-5 pointer-events-none flex items-center justify-center">
+            <svg class="w-full max-w-2xl h-auto" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 20 C25 20 15 35 15 65 C15 85 28 90 45 90 C48 90 48 85 50 85 C52 85 52 90 55 90 C72 90 85 85 85 65 C85 35 75 20 50 20 Z" stroke="white" stroke-width="2" stroke-dasharray="5 5" />
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="max-w-3xl mx-auto text-center space-y-4 mb-16">
+                <span class="text-xs uppercase tracking-[0.2em] text-clay-500 font-bold block">BEHAVIORAL CLINICAL PROOFS</span>
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-white leading-tight">
+                    Every Single Step Counts
+                </h2>
+                <p class="text-clay-300 text-base max-w-xl mx-auto">
+                    Why did we engineer these precise visual and tactile checkpoints? Because asthma management isn't just about dosage volume—it's about correct habits.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Benefit 1 -->
+                <div class="bg-clay-950 p-8 rounded-3xl border border-clay-800 space-y-4 flex flex-col justify-between hover:border-clay-700 transition-colors">
+                    <div class="space-y-4">
+                        <span class="text-xs font-mono text-clay-500 font-bold block">POINT 01</span>
+                        <h4 class="font-serif text-xl font-bold text-white">Eliminates Panic & Confusion</h4>
+                        <p class="text-sm text-clay-400 leading-relaxed">
+                            During sudden acute episodes, logic gives way to urgency. Aeris' physical pulsing prompts and high-visibility interfaces ground you immediately, establishing stable breathing paces even in stressful conditions.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-clay-800/80 text-[11px] uppercase tracking-wider text-clay-500 font-mono font-bold">
+                        Prevents hyperventilation
+                    </div>
+                </div>
+
+                <!-- Benefit 2 -->
+                <div class="bg-clay-950 p-8 rounded-3xl border border-clay-800 space-y-4 flex flex-col justify-between hover:border-clay-700 transition-colors">
+                    <div class="space-y-4">
+                        <span class="text-xs font-mono text-clay-500 font-bold block">POINT 02</span>
+                        <h4 class="font-serif text-xl font-bold text-white">Corrects Inhalation Speed</h4>
+                        <p class="text-sm text-clay-400 leading-relaxed">
+                            Gasping forcefully blocks passage. Aeris helps patients scale inhalation to exactly the optimal zone (25 to 35 Liters per minute), allowing dry powder/mist particles to bypass local throat blockages entirely.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-clay-800/80 text-[11px] uppercase tracking-wider text-clay-500 font-mono font-bold">
+                        Optimized Flow rate
+                    </div>
+                </div>
+
+                <!-- Benefit 3 -->
+                <div class="bg-clay-950 p-8 rounded-3xl border border-clay-800 space-y-4 flex flex-col justify-between hover:border-clay-700 transition-colors">
+                    <div class="space-y-4">
+                        <span class="text-xs font-mono text-clay-500 font-bold block">POINT 03</span>
+                        <h4 class="font-serif text-xl font-bold text-white">Automated Tracker Sync</h4>
+                        <p class="text-sm text-clay-400 leading-relaxed">
+                            Never query your memory during doctor consults again. Aeris tracks inhalation volume, trigger alerts, and clean storage history directly to your smartphone securely via local encrypted pipelines.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-clay-800/80 text-[11px] uppercase tracking-wider text-clay-500 font-mono font-bold">
+                        Instant Telemetry Syncing
+                    </div>
+                </div>
+
+                <!-- Benefit 4 -->
+                <div class="bg-clay-950 p-8 rounded-3xl border border-clay-800 space-y-4 flex flex-col justify-between hover:border-clay-700 transition-colors">
+                    <div class="space-y-4">
+                        <span class="text-xs font-mono text-clay-500 font-bold block">POINT 04</span>
+                        <h4 class="font-serif text-xl font-bold text-white">Encourages Proper Hygiene</h4>
+                        <p class="text-sm text-clay-400 leading-relaxed">
+                            Leftover residue from spacers causes bacterial propagation and bad flavor notes. Aeris detects usage patterns and notifies users on the app when a spacer/mouthpiece needs deep chemical cleaning.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-clay-800/80 text-[11px] uppercase tracking-wider text-clay-500 font-mono font-bold">
+                        Bacterial Prevention
+                    </div>
+                </div>
+
+                <!-- Benefit 5 -->
+                <div class="bg-clay-950 p-8 rounded-3xl border border-clay-800 space-y-4 flex flex-col justify-between hover:border-clay-700 transition-colors">
+                    <div class="space-y-4">
+                        <span class="text-xs font-mono text-clay-500 font-bold block">POINT 05</span>
+                        <h4 class="font-serif text-xl font-bold text-white">Adaptive Cloud Trigger Analysis</h4>
+                        <p class="text-sm text-clay-400 leading-relaxed">
+                            By correlating dosage timestamps with hyper-local environmental sensor hubs, the Aeris platform alerts you to spikes in humidity, pollen loads, and pollution indices before a symptom arises.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-clay-800/80 text-[11px] uppercase tracking-wider text-clay-500 font-mono font-bold">
+                        Hyper-local AI tracking
+                    </div>
+                </div>
+
+                <!-- Benefit 6 -->
+                <div class="bg-clay-950 p-8 rounded-3xl border border-clay-800 space-y-4 flex flex-col justify-between hover:border-clay-700 transition-colors">
+                    <div class="space-y-4">
+                        <span class="text-xs font-mono text-clay-500 font-bold block">POINT 06</span>
+                        <h4 class="font-serif text-xl font-bold text-white">Clear, Actionable Diagnosis</h4>
+                        <p class="text-sm text-clay-400 leading-relaxed">
+                            Generate an audited PDF log of your medical performance inside our patient-centric app dashboard. Provide accurate lung behavior logs directly to your respiratory physician during check-ups.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-clay-800/80 text-[11px] uppercase tracking-wider text-clay-500 font-mono font-bold">
+                        Physician-Ready exports
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: THE MOBILE DASHBOARD APP -->
+    <section id="dashboard" class="py-20 md:py-28 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Details / Copy -->
+                <div class="lg:col-span-5 space-y-8">
+                    <span class="text-xs uppercase tracking-[0.2em] text-clay-500 font-bold block">THE CONNECTED ECOSYSTEM</span>
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold text-clay-900 leading-tight">
+                        Your Air Dashboard, Always Live.
+                    </h2>
+                    <p class="text-clay-900/70 text-base leading-relaxed">
+                        The Aeris Companion App acts as your virtual medical coordinator. It seamlessly pulls telemetry records from your smart inhaler, tracks allergen exposure logs, and calculates lung performance.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <span class="p-1 bg-clay-500 text-white rounded-full text-[10px] w-5 h-5 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-check"></i>
+                            </span>
+                            <p class="text-sm text-clay-900/80"><strong>Instant Environmental Correlation:</strong> Syncs localized pollen counters, particulate data (PM2.5), and rapid humidity shifts.</p>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="p-1 bg-clay-500 text-white rounded-full text-[10px] w-5 h-5 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-check"></i>
+                            </span>
+                            <p class="text-sm text-clay-900/80"><strong>Family Sharing Circle:</strong> Allows immediate secure monitoring pipelines for pediatric or elderly care.</p>
+                        </div>
+                    </div>
+
+                    <!-- Trigger Control Demonstration Panel -->
+                    <div class="bg-clay-100 border border-clay-200 p-6 rounded-2xl">
+                        <h4 class="font-bold text-sm text-clay-900 mb-3">Live Risk Level Simulator</h4>
+                        <div class="grid grid-cols-3 gap-3">
+                            <button onclick="setDashboardRisk('low')" class="p-3 bg-white hover:bg-emerald-50 text-emerald-700 font-bold text-xs rounded-xl border border-emerald-200 transition-all text-center">
+                                Low Risk
+                            </button>
+                            <button onclick="setDashboardRisk('mod')" class="p-3 bg-white hover:bg-yellow-50 text-yellow-700 font-bold text-xs rounded-xl border border-yellow-200 transition-all text-center">
+                                Moderate
+                            </button>
+                            <button onclick="setDashboardRisk('high')" class="p-3 bg-white hover:bg-red-50 text-red-700 font-bold text-xs rounded-xl border border-red-200 transition-all text-center">
+                                Critical
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Interactive Mobile Mockup -->
+                <div class="lg:col-span-7 flex justify-center">
+                    <div class="bg-clay-900 p-4 rounded-[3rem] shadow-2xl border-4 border-clay-700/80 w-full max-w-md relative overflow-hidden">
+                        
+                        <!-- Internal Phone screen -->
+                        <div class="bg-clay-950 rounded-[2.5rem] p-6 text-white space-y-6 overflow-hidden relative">
+                            <!-- Notch -->
+                            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-clay-900 rounded-b-xl flex items-center justify-center">
+                                <span class="w-2 h-2 rounded-full bg-clay-850"></span>
+                            </div>
+
+                            <!-- Mobile Header -->
+                            <div class="flex justify-between items-center pt-2">
+                                <div>
+                                    <span class="text-[10px] text-clay-400 block font-mono">WELCOME BACK</span>
+                                    <span class="text-sm font-bold text-white">Evelyn Ross</span>
+                                </div>
+                                <span class="px-2.5 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full text-[10px] font-mono tracking-wider">
+                                    SYS_SAFE
+                                </span>
+                            </div>
+
+                            <!-- Environmental Risk Gauge -->
+                            <div id="risk-display-box" class="p-5 rounded-2xl border transition-all duration-300 bg-emerald-950/40 border-emerald-800/50">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <span class="text-[10px] uppercase tracking-wider text-clay-400 block font-mono">LOCAL AIR QUALITY</span>
+                                        <h3 id="risk-status-text" class="text-lg font-bold text-emerald-400 mt-1">Excellent (AQI 24)</h3>
+                                    </div>
+                                    <i id="risk-icon" class="fa-solid fa-face-smile text-2xl text-emerald-400"></i>
+                                </div>
+                                <p id="risk-advice" class="text-xs text-clay-300 mt-2 leading-relaxed">
+                                    Pollen counts are low and humidity is stable. Ideal conditions for outdoor training.
+                                </p>
+                            </div>
+
+                            <!-- Interactive Mini Graph -->
+                            <div class="bg-clay-900/60 p-5 rounded-2xl border border-clay-800 space-y-4">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-bold uppercase tracking-wider text-clay-300">Dose Frequency</span>
+                                    <span class="text-[10px] text-clay-400 font-mono">Last 7 Days</span>
+                                </div>
+                                
+                                <div class="h-28 flex items-end justify-between gap-2 pt-2">
+                                    <!-- Mon -->
+                                    <div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
+                                        <div class="w-full bg-clay-800 rounded-t-sm h-[30%]"></div>
+                                        <span class="text-[9px] text-clay-400 font-mono">M</span>
+                                    </div>
+                                    <!-- Tue -->
+                                    <div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
+                                        <div class="w-full bg-clay-500 rounded-t-sm h-[85%]"></div>
+                                        <span class="text-[9px] text-clay-400 font-mono">T</span>
+                                    </div>
+                                    <!-- Wed -->
+                                    <div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
+                                        <div class="w-full bg-clay-800 rounded-t-sm h-[20%]"></div>
+                                        <span class="text-[9px] text-clay-400 font-mono">W</span>
+                                    </div>
+                                    <!-- Thu -->
+                                    <div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
+                                        <div class="w-full bg-clay-800 rounded-t-sm h-[40%]"></div>
+                                        <span class="text-[9px] text-clay-400 font-mono">T</span>
+                                    </div>
+                                    <!-- Fri -->
+                                    <div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
+                                        <div class="w-full bg-clay-500 rounded-t-sm h-[95%]"></div>
+                                        <span class="text-[9px] text-clay-400 font-mono">F</span>
+                                    </div>
+                                    <!-- Sat -->
+                                    <div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
+                                        <div class="w-full bg-clay-800 rounded-t-sm h-[10%]"></div>
+                                        <span class="text-[9px] text-clay-400 font-mono">S</span>
+                                    </div>
+                                    <!-- Sun (Today) -->
+                                    <div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
+                                        <div class="w-full bg-emerald-500 rounded-t-sm h-[25%] transition-all" id="today-graph-bar"></div>
+                                        <span class="text-[9px] text-clay-300 font-mono font-bold">S</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sync telemetry button -->
+                            <button onclick="triggerSimulatedSync()" class="w-full py-3 bg-clay-500 hover:bg-clay-600 active:translate-y-[1px] text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center space-x-2">
+                                <i class="fa-solid fa-arrows-rotate animate-spin-slow"></i>
+                                <span>Sync Device Telemetry</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: AERIS INSIGHT - SMART AI MEDICAL COMPANION -->
+    <section id="insight" class="py-20 md:py-28 bg-[#F0EBE0] border-t border-clay-200">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="max-w-3xl mx-auto text-center space-y-4 mb-16">
+                <span class="text-xs uppercase tracking-[0.2em] text-clay-500 font-bold block">AERIS KNOWLEDGE HUB</span>
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-clay-900 leading-tight">
+                    AERIS Insight Support AI
+                </h2>
+                <p class="text-clay-900/70 text-base max-w-xl mx-auto">
+                    Have questions about proper inhaler techniques, asthma avoidance strategies, or spacer hygiene? Speak to our custom respiratory education model below.
+                </p>
+            </div>
+
+            <div class="max-w-4xl mx-auto bg-white rounded-3xl border border-clay-200 shadow-xl overflow-hidden grid grid-cols-1 md:grid-cols-12 min-h-[500px]">
+                
+                <!-- Left panel quick options -->
+                <div class="md:col-span-4 bg-clay-50 p-6 border-b md:border-b-0 md:border-r border-clay-200 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <span class="text-[10px] uppercase tracking-wider text-clay-500 font-bold block">Select Quick Prompt</span>
+                        
+                        <div class="space-y-2">
+                            <button onclick="setPrompt('How do I correctly shake my inhaler before inhalation?')" class="w-full text-left p-3 bg-white hover:bg-clay-100 rounded-xl border border-clay-200 text-xs font-medium text-clay-900 transition-colors">
+                                "How do I correctly shake my inhaler?"
+                            </button>
+                            <button onclick="setPrompt('Why is deep, slow breathing critical for dosage absorption?')" class="w-full text-left p-3 bg-white hover:bg-clay-100 rounded-xl border border-clay-200 text-xs font-medium text-clay-900 transition-colors">
+                                "Why is slow breathing critical?"
+                            </button>
+                            <button onclick="setPrompt('How do I properly wash and disinfect my spacer?')" class="w-full text-left p-3 bg-white hover:bg-clay-100 rounded-xl border border-clay-200 text-xs font-medium text-clay-900 transition-colors">
+                                "How do I clean my spacer?"
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 border-t border-clay-200/80">
+                        <div class="flex items-center space-x-2 text-[10px] text-clay-500 font-semibold tracking-wide">
+                            <i class="fa-solid fa-circle-info"></i>
+                            <span>AI responses are educational only.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Chat Interface -->
+                <div class="md:col-span-8 flex flex-col justify-between bg-white h-[500px]">
+                    
+                    <!-- Top Bar -->
+                    <div class="px-6 py-4 border-b border-clay-100 flex justify-between items-center">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
+                            <span class="text-sm font-bold text-clay-900">Aeris AI Assistant</span>
+                        </div>
+                        <span class="text-[10px] font-mono text-clay-500">POWERED BY GEMINI 2.5</span>
+                    </div>
+
+                    <!-- Chat Log -->
+                    <div id="chat-log" class="flex-1 p-6 overflow-y-auto space-y-4 text-sm scroll-smooth">
+                        <!-- Initial Greeting -->
+                        <div class="flex gap-3">
+                            <div class="w-8 h-8 rounded-full bg-clay-500 text-white flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-wind text-xs"></i>
+                            </div>
+                            <div class="bg-clay-50 p-4 rounded-2xl max-w-[85%] border border-clay-100 space-y-1">
+                                <p class="text-clay-900">Hello! I am your **Aeris Intelligent Assistant**. I can help explain clean breathing practices, dosage optimization, clean spacer hygiene, or help you troubleshoot our virtual training simulator. What would you like to know?</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Input Panel -->
+                    <div class="p-4 border-t border-clay-100 bg-clay-50">
+                        <form id="chat-form" class="flex items-center gap-3">
+                            <input type="text" id="chat-input" placeholder="Type your respiratory health or device question..." class="flex-1 px-4 py-3 bg-white border border-clay-200 rounded-xl text-sm text-clay-900 focus:outline-none focus:border-clay-500 focus:ring-1 focus:ring-clay-500" required />
+                            <button type="submit" class="px-5 py-3 bg-clay-500 hover:bg-clay-600 text-white rounded-xl transition-all shadow-md flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: QUALITY OF LIFE (THE IMPACT GRID) -->
+    <section class="py-20 md:py-28 relative bg-[#F9F5F0]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Graphic Editorial collage Left -->
+                <div class="lg:col-span-5 relative">
+                    <div class="border-2 border-clay-900 rounded-[2.5rem] overflow-hidden p-6 bg-white shadow-xl relative">
+                        <div class="absolute inset-0 bg-[linear-gradient(to_right,#e5dfd3_1px,transparent_1px),linear-gradient(to_bottom,#e5dfd3_1px,transparent_1px)] bg-[size:30px_30px] opacity-25 pointer-events-none"></div>
+                        
+                        <!-- Beautiful collage containing simple medical diagrams/sketches -->
+                        <div class="space-y-6 relative z-10">
+                            <div class="flex justify-between items-center border-b border-clay-200 pb-3">
+                                <span class="text-xs uppercase tracking-widest text-clay-500 font-bold font-mono">SYSTEM SPEC // VOL_01</span>
+                                <span class="text-[10px] font-mono text-clay-900">REV.2026</span>
+                            </div>
+                            
+                            <div class="aspect-[16/10] bg-[#FAF7F2] rounded-2xl border border-clay-200 flex items-center justify-center p-4 relative overflow-hidden">
+                                <svg class="w-full h-full opacity-70" viewBox="0 0 100 50">
+                                    <!-- Breath Waveform -->
+                                    <path d="M 0 25 Q 12 5 25 25 T 50 25 T 75 25 T 100 25" fill="none" stroke="#C2593F" stroke-width="1.5" stroke-dasharray="2, 1" />
+                                    <!-- Secondary smooth breath curve -->
+                                    <path d="M 0 25 Q 12 15 25 25 T 50 25 T 75 25 T 100 25" fill="none" stroke="#8B3E2B" stroke-width="1" />
+                                    <line x1="50" y1="0" x2="50" y2="50" stroke="#3D261C" stroke-width="0.5" stroke-dasharray="1, 4" />
+                                    <!-- Annotation -->
+                                    <text x="52" y="10" class="text-[3px] font-mono fill-clay-900" font-size="3">TARGET FLOW SLOPE</text>
+                                </svg>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-clay-100 p-4 rounded-xl border border-clay-200">
+                                    <span class="text-[10px] text-clay-500 uppercase tracking-wider block font-bold">LUNG RESISTANCE</span>
+                                    <span class="text-xl font-bold font-serif text-clay-900">DECREASED</span>
+                                </div>
+                                <div class="bg-clay-100 p-4 rounded-xl border border-clay-200">
+                                    <span class="text-[10px] text-clay-500 uppercase tracking-wider block font-bold">PATIENT ANXIETY</span>
+                                    <span class="text-xl font-bold font-serif text-clay-900">-40% REDUCTION</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Editorial Text -->
+                <div class="lg:col-span-7 space-y-8">
+                    <span class="text-xs uppercase tracking-[0.2em] text-clay-500 font-bold block">GLOBAL IMPACT VISION</span>
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold text-clay-900 leading-tight">
+                        A Universal Solution for Active Lifestyles.
+                    </h2>
+                    <p class="text-clay-900/70 text-base leading-relaxed">
+                        Asthma affects individuals globally. Aeris returns confidence to everyday lives by ensuring consistent, accurate dosage management. Focus on your career, sports, and families—we'll monitor your breath.
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6 border-t border-clay-200">
+                        <div class="space-y-2">
+                            <h4 class="font-serif text-lg font-bold text-clay-900">Reduced Absenteeism</h4>
+                            <p class="text-xs text-clay-900/60 leading-relaxed">
+                                Avoid missed school and work days with highly predictable preventative dose metrics tracked by the app.
+                            </p>
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="font-serif text-lg font-bold text-clay-900">Improved Daily Performance</h4>
+                            <p class="text-xs text-clay-900/60 leading-relaxed">
+                                Track peak flow fluctuations relative to sports levels so you are never caught unprepared.
+                            </p>
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="font-serif text-lg font-bold text-clay-900">Fewer Emergency Visits</h4>
+                            <p class="text-xs text-clay-900/60 leading-relaxed">
+                                Better inhaler posture feedback minimizes under-dosing and prevents severe escalation spikes.
+                            </p>
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="font-serif text-lg font-bold text-clay-900">Clear Physician Logs</h4>
+                            <p class="text-xs text-clay-900/60 leading-relaxed">
+                                Stop guessing usage rates. Export clean compliance sheets to share with specialists in seconds.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER / LEGAL CLEARANCE -->
+    <footer class="bg-clay-900 text-white border-t border-clay-800 py-16">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start mb-12">
+                
+                <div class="md:col-span-5 space-y-4">
+                    <span class="font-serif text-3xl font-bold tracking-widest text-clay-500">AERIS</span>
+                    <p class="text-xs text-clay-400 max-w-sm leading-relaxed">
+                        Aeris Smart Respiratory Systems are FDA-cleared and manufactured to rigorous medical standards. Always speak to your medical practitioner before adjusting prescription frequencies.
+                    </p>
+                </div>
+
+                <div class="md:col-span-4 space-y-4">
+                    <h5 class="text-xs font-bold uppercase tracking-widest text-white">Join the Breathing Revolution</h5>
+                    <p class="text-xs text-clay-400">Receive scientific updates, triggers warnings, and clinical feedback reports monthly.</p>
+                    <form onsubmit="event.preventDefault(); alert('Thank you for subscribing to Aeris updates!')" class="flex gap-2">
+                        <input type="email" placeholder="Your email address" class="px-4 py-2 bg-clay-950 border border-clay-800 rounded-lg text-xs text-white focus:outline-none focus:border-clay-500 flex-1" required />
+                        <button type="submit" class="px-4 py-2 bg-clay-500 hover:bg-clay-600 rounded-lg text-xs font-bold transition-colors">Subscribe</button>
+                    </form>
+                </div>
+
+                <div class="md:col-span-3 space-y-3">
+                    <h5 class="text-xs font-bold uppercase tracking-widest text-white">System Status</h5>
+                    <div class="flex items-center space-x-2 text-xs">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                        <span class="text-clay-300">All Cloud Pipelines Operational</span>
+                    </div>
+                    <p class="text-[10px] text-clay-500">Device Hardware: Version V1.4.2</p>
+                </div>
+
+            </div>
+
+            <!-- Disclaimer and Regulatory Footnotes -->
+            <div class="border-t border-clay-800/80 pt-8 flex flex-col sm:flex-row justify-between items-center text-[10px] text-clay-500 space-y-4 sm:space-y-0">
+                <p>&copy; 2026 Aeris Respiratory Medical Inc. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-clay-300">Privacy Protocols</a>
+                    <a href="#" class="hover:text-clay-300">Terms of Care</a>
+                    <a href="#" class="hover:text-clay-300">FDA Clearance Specs</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT SYSTEM -->
+    <script>
+        // Mobile Navigation Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // ------------------ SIMULATOR STATE ENGINE ------------------
+        let currentStep = 1; // 1: Prep, 2: Tilt, 3: Inhale, 4: Hold, 5: Complete
+        let shakeCount = 0;
+        let isCorrectTilt = false;
+        let flowRateInterval = null;
+        let flowRate = 0;
+        let holdingProgress = 0;
+        let infiltration = 0;
+
+        const phaseBadge = document.getElementById('phase-badge');
+        const phaseTitle = document.getElementById('phase-title');
+        const phaseDesc = document.getElementById('phase-desc');
+        const simMetric = document.getElementById('sim-metric');
+        const simSubMetric = document.getElementById('sim-sub-metric');
+        const simActionBtn = document.getElementById('sim-action-btn');
+        const btnText = document.getElementById('btn-text');
+        const progressCircle = document.getElementById('progress-circle');
+        const feedbackToast = document.getElementById('feedback-toast');
+        const gaugeContainer = document.getElementById('gauge-container');
+        const gaugePulse = document.getElementById('gauge-pulse');
+        
+        // Telemetry Elements
+        const flowRateVal = document.getElementById('flow-rate-val');
+        const flowRateBar = document.getElementById('flow-rate-bar');
+        const infiltrationVal = document.getElementById('infiltration-val');
+        const infiltrationBar = document.getElementById('infiltration-bar');
+        const shakeStatusLed = document.getElementById('shake-status-led');
+        const tiltStatusLed = document.getElementById('tilt-status-led');
+        const todayGraphBar = document.getElementById('today-graph-bar');
+
+        // Reset Simulator
+        document.getElementById('reset-sim').addEventListener('click', resetSimulation);
+
+        function resetSimulation() {
+            currentStep = 1;
+            shakeCount = 0;
+            isCorrectTilt = false;
+            flowRate = 0;
+            holdingProgress = 0;
+            infiltration = 0;
+            clearInterval(flowRateInterval);
+            
+            // UI Reset
+            phaseBadge.innerText = "Step 1: Prep";
+            phaseBadge.className = "px-3 py-1 rounded bg-clay-500 text-white font-mono text-xs uppercase tracking-wider font-bold";
+            phaseTitle.innerText = "Prepare & Shake";
+            phaseDesc.innerText = "Grab the virtual inhaler and shake vigorously to mix the active compounds evenly before inhalation.";
+            simMetric.innerText = "READY";
+            simSubMetric.innerText = "Ready to Shake";
+            btnText.innerText = "SHAKE DEVICE (Click 5 times)";
+            feedbackToast.innerText = "";
+            setProgress(0);
+            
+            flowRateVal.innerText = "0 L/min";
+            flowRateBar.style.width = "0%";
+            infiltrationVal.innerText = "0%";
+            infiltrationBar.style.width = "0%";
+            
+            shakeStatusLed.className = "w-2.5 h-2.5 rounded-full bg-red-500";
+            tiltStatusLed.className = "w-2.5 h-2.5 rounded-full bg-red-500";
+            gaugeContainer.className = "w-36 h-36 rounded-full border-4 border-clay-800 flex items-center justify-center relative transition-all";
+            gaugePulse.className = "absolute inset-2 bg-clay-500/10 rounded-full transition-all";
+        }
+
+        // Action button router
+        simActionBtn.addEventListener('click', () => {
+            if (currentStep === 1) {
+                // Shaking
+                shakeCount++;
+                setProgress((shakeCount / 5) * 100);
+                simMetric.innerText = `${shakeCount}/5`;
+                simSubMetric.innerText = "Shaking Device";
+                feedbackToast.innerText = "Vibrational mixture lock-in progress...";
+                
+                if (shakeCount >= 5) {
+                    shakeStatusLed.className = "w-2.5 h-2.5 rounded-full bg-emerald-500";
+                    feedbackToast.innerText = "Device adequately shaken! Ready for tilt check.";
+                    currentStep = 2;
+                    phaseBadge.innerText = "Step 2: Position";
+                    phaseTitle.innerText = "Adjust Pitch & Tilt";
+                    phaseDesc.innerText = "Hold the inhaler upright. A 90° angle is required for optimal airflow clearance.";
+                    simMetric.innerText = "TILTED?";
+                    simSubMetric.innerText = "Awaiting Position Lock";
+                    btnText.innerText = "ALIGN DEVICE (Adjust to 90°)";
+                }
+            } else if (currentStep === 2) {
+                // Position/Tilt setup
+                isCorrectTilt = true;
+                tiltStatusLed.className = "w-2.5 h-2.5 rounded-full bg-emerald-500";
+                feedbackToast.innerText = "Gyro Lock Confirmed at 90°! Position is Optimal.";
+                simMetric.innerText = "90° LOCK";
+                simSubMetric.innerText = "Posture Verified";
+                setProgress(100);
+                
+                setTimeout(() => {
+                    currentStep = 3;
+                    phaseBadge.innerText = "Step 3: Inhale";
+                    phaseTitle.innerText = "Steady Deep Inhale";
+                    phaseDesc.innerText = "Click and HOLD the action button to simulate inhaling. Release immediately if flow speed is warning red!";
+                    simMetric.innerText = "HOLD KEY";
+                    simSubMetric.innerText = "To Begin Flow";
+                    btnText.innerText = "CLICK & HOLD TO INHALE";
+                    setProgress(0);
+                    feedbackToast.innerText = "Inhale slowly. Target optimal speed (25 - 35 L/min)";
+                }, 1000);
+            }
+        });
+
+        // Click & Hold for inhalation simulation
+        let holdingInterval = null;
+        simActionBtn.addEventListener('mousedown', startInhalation);
+        simActionBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            startInhalation();
+        });
+
+        simActionBtn.addEventListener('mouseup', stopInhalation);
+        simActionBtn.addEventListener('touchend', stopInhalation);
+        simActionBtn.addEventListener('mouseleave', stopInhalation);
+
+        function startInhalation() {
+            if (currentStep !== 3) return;
+            
+            feedbackToast.innerText = "Inhaling...";
+            let currentFlow = 10;
+            
+            holdingInterval = setInterval(() => {
+                currentFlow += Math.floor(Math.random() * 8) + 2; // steady climb
+                if (currentFlow > 45) currentFlow = 45; // cap it
+                
+                flowRate = currentFlow;
+                flowRateVal.innerText = `${flowRate} L/min`;
+                
+                // Represent flow rate on telemetry bar
+                let barPercentage = (flowRate / 50) * 100;
+                flowRateBar.style.style = `width: ${barPercentage}%`;
+                flowRateBar.style.width = `${barPercentage}%`;
+                
+                // Color zones
+                if (flowRate >= 25 && flowRate <= 35) {
+                    flowRateBar.className = "h-full bg-emerald-500 transition-all duration-300";
+                    gaugeContainer.className = "w-36 h-36 rounded-full border-4 border-emerald-500 flex items-center justify-center relative transition-all";
+                    gaugePulse.className = "absolute inset-2 bg-emerald-500/20 rounded-full transition-all animate-ping";
+                    simMetric.innerText = "OPTIMAL";
+                    simSubMetric.innerText = `${flowRate} L/min`;
+                    infiltration += 5;
+                    if (infiltration > 100) infiltration = 100;
+                } else if (flowRate > 35) {
+                    flowRateBar.className = "h-full bg-red-500 transition-all duration-300";
+                    gaugeContainer.className = "w-36 h-36 rounded-full border-4 border-red-500 flex items-center justify-center relative transition-all";
+                    gaugePulse.className = "absolute inset-2 bg-red-500/20 rounded-full transition-all";
+                    simMetric.innerText = "TOO FAST!";
+                    simSubMetric.innerText = `${flowRate} L/min`;
+                    feedbackToast.innerText = "High flow rates deposit medicine in your mouth, not lungs! Slow down.";
+                    infiltration += 1; // poor depth
+                    if (infiltration > 100) infiltration = 100;
+                } else {
+                    flowRateBar.className = "h-full bg-yellow-500 transition-all duration-300";
+                    gaugeContainer.className = "w-36 h-36 rounded-full border-4 border-yellow-500 flex items-center justify-center relative transition-all";
+                    simMetric.innerText = "TOO SLOW";
+                    simSubMetric.innerText = `${flowRate} L/min`;
+                }
+
+                infiltrationVal.innerText = `${infiltration}%`;
+                infiltrationBar.style.width = `${infiltration}%`;
+                setProgress(infiltration);
+
+                if (infiltration >= 100) {
+                    stopInhalation();
+                    triggerHoldPhase();
+                }
+
+            }, 150);
+        }
+
+        function stopInhalation() {
+            if (holdingInterval) {
+                clearInterval(holdingInterval);
+                holdingInterval = null;
+            }
+            if (currentStep === 3) {
+                flowRate = 0;
+                flowRateVal.innerText = "0 L/min";
+                flowRateBar.style.width = "0%";
+                flowRateBar.className = "h-full bg-clay-500 transition-all duration-300";
+                gaugeContainer.className = "w-36 h-36 rounded-full border-4 border-clay-800 flex items-center justify-center relative transition-all";
+                gaugePulse.className = "absolute inset-2 bg-clay-500/10 rounded-full transition-all";
+                if (infiltration < 100) {
+                    simMetric.innerText = "RESUME";
+                    simSubMetric.innerText = "Hold Key to Inhale";
+                }
+            }
+        }
+
+        function triggerHoldPhase() {
+            currentStep = 4;
+            phaseBadge.innerText = "Step 4: Hold";
+            phaseTitle.innerText = "Retain & Absorb";
+            phaseDesc.innerText = "Hold your breath as the smart ledger schedules medication settle times. Do not inhale or exhale.";
+            simMetric.innerText = "5s";
+            simSubMetric.innerText = "Hold Breath";
+            btnText.innerText = "BREATH RETENTION COUNTDOWN";
+            setProgress(100);
+
+            let remainingSec = 5;
+            let countdown = setInterval(() => {
+                remainingSec--;
+                simMetric.innerText = `${remainingSec}s`;
+                setProgress((remainingSec / 5) * 100);
+
+                if (remainingSec <= 0) {
+                    clearInterval(countdown);
+                    triggerCompletePhase();
+                }
+            }, 1000);
+        }
+
+        function triggerCompletePhase() {
+            currentStep = 5;
+            phaseBadge.innerText = "Complete";
+            phaseBadge.className = "px-3 py-1 rounded bg-emerald-500 text-white font-mono text-xs uppercase tracking-wider font-bold";
+            phaseTitle.innerText = "Session Successful!";
+            phaseDesc.innerText = "Perfect inhalation strategy recorded. Telemetry synchronized directly into your personal compliance dashboard.";
+            simMetric.innerText = "SUCCESS";
+            simSubMetric.innerText = "100% Deposition";
+            btnText.innerText = "COMPLETED SUCCESSFULLY";
+            setProgress(100);
+            feedbackToast.innerText = "Congratulations! You completed perfect delivery.";
+            
+            // Instantly sync with mobile demo widget
+            const todayBar = document.getElementById('today-graph-bar');
+            todayBar.style.height = "95%";
+            todayBar.className = "w-full bg-emerald-500 rounded-t-sm h-[95%] transition-all";
+        }
+
+        function setProgress(percent) {
+            const circle = document.getElementById('progress-circle');
+            const radius = 66;
+            const circumference = 2 * Math.PI * radius;
+            const offset = circumference - (percent / 100) * circumference;
+            circle.style.strokeDashoffset = offset;
+        }
+
+        // ------------------ DASHBOARD AIR RISK SELECTOR ------------------
+        function setDashboardRisk(level) {
+            const riskBox = document.getElementById('risk-display-box');
+            const statusText = document.getElementById('risk-status-text');
+            const adviceText = document.getElementById('risk-advice');
+            const icon = document.getElementById('risk-icon');
+
+            if (level === 'low') {
+                riskBox.className = "p-5 rounded-2xl border transition-all duration-300 bg-emerald-950/40 border-emerald-800/50";
+                statusText.innerText = "Excellent (AQI 24)";
+                statusText.className = "text-lg font-bold text-emerald-400 mt-1";
+                adviceText.innerText = "Pollen counts are low and humidity is stable. Ideal conditions for outdoor training.";
+                icon.className = "fa-solid fa-face-smile text-2xl text-emerald-400";
+            } else if (level === 'mod') {
+                riskBox.className = "p-5 rounded-2xl border transition-all duration-300 bg-yellow-950/40 border-yellow-800/50";
+                statusText.innerText = "Moderate (AQI 84)";
+                statusText.className = "text-lg font-bold text-yellow-400 mt-1";
+                adviceText.innerText = "Elevated pollen particles detected near your locality. Maintain your emergency inhaler companion.";
+                icon.className = "fa-solid fa-face-meh text-2xl text-yellow-400";
+            } else if (level === 'high') {
+                riskBox.className = "p-5 rounded-2xl border transition-all duration-300 bg-red-950/40 border-red-800/50";
+                statusText.innerText = "Critical Warning (AQI 162)";
+                statusText.className = "text-lg font-bold text-red-400 mt-1";
+                adviceText.innerText = "Heavy airborne pollution and rapid cold weather shifts detected. Prevent heavy cardiovascular exercise outdoors.";
+                icon.className = "fa-solid fa-triangle-exclamation text-2xl text-red-400";
+            }
+        }
+
+        function triggerSimulatedSync() {
+            const syncBtn = document.querySelector('[onclick="triggerSimulatedSync()"]');
+            const syncIcon = syncBtn.querySelector('i');
+            syncIcon.classList.add('animate-spin');
+            
+            setTimeout(() => {
+                syncIcon.classList.remove('animate-spin');
+                alert("Aeris Inhaler telemetry successfully synchronized. 7-day reports have been recalculated.");
+            }, 1000);
+        }
+
+        // ------------------ GEMINI API SYSTEM (AERIS INSIGHT) ------------------
+        const apiKey = ""; // Let env handle key injection automatically
+        const chatForm = document.getElementById('chat-form');
+        const chatInput = document.getElementById('chat-input');
+        const chatLog = document.getElementById('chat-log');
+
+        function setPrompt(text) {
+            chatInput.value = text;
+            chatInput.focus();
+        }
+
+        // Custom backoff utility
+        async function fetchWithBackoff(url, payload, retries = 5, delay = 1000) {
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (response.ok) return await response.json();
+                } catch (err) {
+                    // Fail silently for backoff retries per system guidelines
+                }
+                await new Promise(res => setTimeout(res, delay));
+                delay *= 2; // exponential delay expansion
+            }
+            throw new Error("Unable to contact Aeris Insight servers. Check your connection.");
+        }
+
+        chatForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const text = chatInput.value.trim();
+            if (!text) return;
+
+            // Render User Prompt
+            appendMessage('user', text);
+            chatInput.value = "";
+
+            // Render Loader State
+            const loaderId = appendLoader();
+
+            // Setup prompt & system instruction payload
+            const systemPrompt = `You are the "Aeris Intelligent Respiratory Assistant"—a world-class clinical educator specializing in asthma guidance, breathing science, dry powder and MDI spacer posture, dosage depth, and device sanitation. Educate users with pristine clarity. Break down concepts structurally. Inform them about:
+            1. Why tilting the device 90 degrees expands the tracheal pathway.
+            2. The dangers of inhaling too fast (coughing triggers and mouth residue).
+            3. Best spacer hygiene policies (lukewarm soapy air dry, once per week).
+            Keep your formatting beautiful, engaging, and professional. Always include a short, comforting warning at the end reminding them that virtual AI guidance does not override personal emergency inhaler protocols.`;
+
+            const payload = {
+                contents: [{
+                    parts: [{ text: text }]
+                }],
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                }
+            };
+
+            const modelUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+
+            try {
+                const data = await fetchWithBackoff(modelUrl, payload);
+                const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                
+                removeLoader(loaderId);
+                
+                if (responseText) {
+                    appendMessage('ai', responseText);
+                } else {
+                    appendMessage('ai', "I apologize, but I could not parse a correct response. Please try another medical or training question.");
+                }
+            } catch (err) {
+                removeLoader(loaderId);
+                appendMessage('ai', "I'm having trouble connecting to the Aeris network. Please verify you are connected to the internet and try again.");
+            }
+        });
+
+        function appendMessage(sender, text) {
+            const container = document.createElement('div');
+            container.className = "flex gap-3 animate-fade-in";
+            
+            const isUser = sender === 'user';
+            
+            // Format some basic markdown stars for beautiful bold tags
+            let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            formattedText = formattedText.replace(/\n/g, '<br />');
+
+            container.innerHTML = `
+                <div class="w-8 h-8 rounded-full ${isUser ? 'bg-clay-100 text-clay-900 border border-clay-200' : 'bg-clay-500 text-white'} flex items-center justify-center shrink-0">
+                    <i class="fa-solid ${isUser ? 'fa-user' : 'fa-wind'} text-xs"></i>
+                </div>
+                <div class="${isUser ? 'bg-clay-100 border border-clay-200 text-clay-900' : 'bg-clay-50 border border-clay-100 text-clay-900'} p-4 rounded-2xl max-w-[85%] space-y-1">
+                    <p class="leading-relaxed text-sm">${formattedText}</p>
+                </div>
+            `;
+            chatLog.appendChild(container);
+            chatLog.scrollTop = chatLog.scrollHeight;
+        }
+
+        function appendLoader() {
+            const id = "loader-" + Date.now();
+            const container = document.createElement('div');
+            container.id = id;
+            container.className = "flex gap-3";
+            container.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-clay-500 text-white flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-wind text-xs animate-spin"></i>
+                </div>
+                <div class="bg-clay-50 p-4 rounded-2xl border border-clay-100 text-clay-500 flex items-center space-x-2">
+                    <span class="w-2 h-2 rounded-full bg-clay-400 animate-bounce"></span>
+                    <span class="w-2 h-2 rounded-full bg-clay-400 animate-bounce [animation-delay:0.2s]"></span>
+                    <span class="w-2 h-2 rounded-full bg-clay-400 animate-bounce [animation-delay:0.4s]"></span>
+                </div>
+            `;
+            chatLog.appendChild(container);
+            chatLog.scrollTop = chatLog.scrollHeight;
+            return id;
+        }
+
+        function removeLoader(id) {
+            const element = document.getElementById(id);
+            if (element) element.remove();
+        }
+    </script>
+</body>
+</html>

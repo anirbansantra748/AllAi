@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AETHERIS — Typographic Ambient Sculpture</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Instrument Serif, Instrument Sans, and JetBrains Mono for the exact editorial-technical mix -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Instrument Serif"', 'serif'],
+            sans: ['"Instrument Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          animation: {
+            'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float-slow': 'float 12s ease-in-out infinite',
+            'spin-slow': 'spin 20s linear infinite',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(1deg); }
+    }
+
+    /* Custom Theme Definitions mapping to the premium editorial feel */
+    :root {
+      --color-bg: #ced0d9;
+      --color-text-main: #2b2d42;
+      --color-text-muted: #5c5f73;
+      --color-card-bg: rgba(255, 255, 255, 0.42);
+      --color-card-border: rgba(255, 255, 255, 0.65);
+      --color-pill-overlay: rgba(255, 255, 255, 0.55);
+      --color-accent: #6b638c;
+      --shadow-premium: 0 20px 40px -15px rgba(43, 45, 66, 0.12);
+    }
+
+    .theme-charcoal {
+      --color-bg: #14151a;
+      --color-text-main: #f3f4f6;
+      --color-text-muted: #9ca3af;
+      --color-card-bg: rgba(26, 27, 35, 0.55);
+      --color-card-border: rgba(255, 255, 255, 0.12);
+      --color-pill-overlay: rgba(255, 255, 255, 0.08);
+      --color-accent: #9d8df2;
+      --shadow-premium: 0 20px 45px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    .theme-alabaster {
+      --color-bg: #eae6df;
+      --color-text-main: #3a3530;
+      --color-text-muted: #706860;
+      --color-card-bg: rgba(255, 255, 255, 0.38);
+      --color-card-border: rgba(255, 255, 255, 0.7);
+      --color-pill-overlay: rgba(255, 255, 255, 0.5);
+      --color-accent: #a38a70;
+      --shadow-premium: 0 20px 40px -15px rgba(58, 53, 48, 0.1);
+    }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text-main);
+      transition: background-color 0.8s cubic-bezier(0.25, 1, 0.5, 1), color 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .premium-card {
+      background: var(--color-card-bg);
+      border: 1px solid var(--color-card-border);
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow-premium);
+      transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .pill-overlay {
+      background: var(--color-pill-overlay);
+      border: 1px solid var(--color-card-border);
+      backdrop-filter: blur(24px);
+    }
+
+    /* Hide scrollbars but keep functionality */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Elegant custom inputs */
+    .custom-range {
+      -webkit-appearance: none;
+      appearance: none;
+      background: rgba(0, 0, 0, 0.1);
+      height: 2px;
+      border-radius: 9999px;
+      outline: none;
+      transition: background 0.3s;
+    }
+    .theme-charcoal .custom-range {
+      background: rgba(255, 255, 255, 0.15);
+    }
+    .custom-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--color-text-main);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .custom-range::-webkit-slider-thumb:hover {
+      transform: scale(1.3);
+    }
+  </style>
+</head>
+<body class="font-sans min-h-screen selection:bg-purple-200 selection:text-black">
+
+  <!-- NOTIFICATION TOAST -->
+  <div id="toast-notification" class="fixed top-6 right-6 z-50 transform translate-y-12 opacity-0 pointer-events-none transition-all duration-500 ease-out">
+    <div class="pill-overlay text-sm px-5 py-3 rounded-full flex items-center space-x-3 shadow-lg">
+      <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+      <span id="toast-message" class="font-mono text-xs tracking-tight">System ready</span>
+    </div>
+  </div>
+
+  <!-- FLOATING AUDIO BAR (Engaged state indicator) -->
+  <div id="floating-audio-bar" class="fixed bottom-6 right-6 z-50 opacity-0 pointer-events-none transition-all duration-500 transform translate-y-4">
+    <div class="pill-overlay rounded-full px-4 py-2 flex items-center space-x-3 shadow-lg">
+      <div class="flex items-center space-x-1">
+        <span class="w-1 h-3 bg-current animate-bounce" style="animation-delay: 0.1s"></span>
+        <span class="w-1 h-4 bg-current animate-bounce" style="animation-delay: 0.3s"></span>
+        <span class="w-1 h-2 bg-current animate-bounce" style="animation-delay: 0.5s"></span>
+      </div>
+      <span class="text-[10px] font-mono uppercase tracking-widest">Ambient Active</span>
+      <button onclick="toggleAmbientSound()" class="hover:opacity-70">
+        <i data-lucide="square" class="w-3.5 h-3.5"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- NAVIGATION HEADER -->
+  <header class="w-full py-8 px-6 md:px-12 flex justify-between items-center relative z-20">
+    <div class="flex items-center space-x-2">
+      <span class="font-mono text-xs tracking-widest uppercase opacity-80">AETHERIS</span>
+      <span class="text-[9px] font-mono px-2 py-0.5 rounded-full border border-current opacity-40">No_1</span>
+    </div>
+
+    <!-- Quick controls -->
+    <div class="flex items-center space-x-6">
+      <!-- Theme controller -->
+      <div class="flex items-center space-x-2 bg-white/20 dark:bg-black/10 rounded-full p-1 border border-white/30">
+        <button onclick="changeTheme('orchid')" class="w-6 h-6 rounded-full bg-[#ced0d9] border border-white/50 relative group" title="Orchid Mist Theme">
+          <span class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-black text-white text-[9px] font-mono px-2 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Orchid Mist</span>
+        </button>
+        <button onclick="changeTheme('charcoal')" class="w-6 h-6 rounded-full bg-[#14151a] border border-white/20 relative group" title="Charcoal Onyx Theme">
+          <span class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-black text-white text-[9px] font-mono px-2 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Charcoal Onyx</span>
+        </button>
+        <button onclick="changeTheme('alabaster')" class="w-6 h-6 rounded-full bg-[#eae6df] border border-white/50 relative group" title="Alabaster Dune Theme">
+          <span class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-black text-white text-[9px] font-mono px-2 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Alabaster Dune</span>
+        </button>
+      </div>
+
+      <a href="#configurator" class="hidden sm:inline-block font-mono text-xs tracking-widest uppercase hover:opacity-70 transition-opacity">Architect</a>
+      <a href="#synthesizer" class="hidden sm:inline-block font-mono text-xs tracking-widest uppercase hover:opacity-70 transition-opacity font-bold">Listen Live</a>
+      <a href="#reserve" class="px-5 py-2.5 rounded-full text-xs font-mono uppercase tracking-widest pill-overlay hover:scale-105 active:scale-95 transition-transform">Reserve</a>
+    </div>
+  </header>
+
+  <!-- HERO SECTION: Recreating and evolving the split layout -->
+  <main class="max-w-7xl mx-auto px-4 md:px-12 pt-4 pb-24 relative z-10">
+    
+    <!-- Top Editorial Header -->
+    <div class="text-center py-12 md:py-16">
+      <p class="font-mono text-xs uppercase tracking-[0.25em] opacity-60 mb-3">Typographical Ambient Archive</p>
+      <h1 class="font-serif text-6xl md:text-8xl tracking-tight leading-none mb-6">
+        An elegant dialogue between<br><span class="italic font-normal">sound, words, and space.</span>
+      </h1>
+      <p class="max-w-xl mx-auto text-sm md:text-base opacity-75 leading-relaxed font-sans font-light">
+        Aetheris No. 1 is an heirloom physical synthesizer and micro-epigraphy timepiece. It captures natural daylight, playing warm, generative analog chords while rendering customizable, context-aware aesthetic prose.
+      </p>
+    </div>
+
+    <!-- The Split-Aesthetic Block (Inspired by the Reference Image structure) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- LEFT COLUMN: The Interactive Botanical & Sculptural Display (Inspired by the flower card) -->
+      <div class="lg:col-span-7 space-y-6">
+        <div class="premium-card rounded-[40px] p-6 md:p-8 relative overflow-hidden h-[550px] md:h-[680px] flex flex-col justify-between group">
+          <!-- Background botanical/shadow overlay -->
+          <div class="absolute inset-0 z-0 opacity-40 mix-blend-multiply transition-transform duration-[10000ms] group-hover:scale-105 pointer-events-none" id="botanical-bg" style="background-image: url('https://images.unsplash.com/photo-1550950158-d0d960dff51b?auto=format&fit=crop&w=1200&q=80'); background-size: cover; background-position: center;"></div>
+          
+          <!-- Colored gradients reflecting Orchid/Charcoal/Alabaster -->
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/20 via-transparent to-transparent z-0"></div>
+
+          <!-- Glassmorphic organic shape connecting paths (Inspired by SVG paths and lines in reference) -->
+          <svg class="absolute inset-0 w-full h-full pointer-events-none z-10" xmlns="http://www.w3.org/2000/svg">
+            <path id="connection-line-1" d="M 120 150 Q 280 110, 480 180" fill="none" stroke="currentColor" stroke-width="0.75" stroke-dasharray="4 4" class="opacity-40" />
+            <circle cx="120" cy="150" r="5" fill="currentColor" class="opacity-60" />
+            <circle cx="480" cy="180" r="5" fill="currentColor" class="opacity-60" />
+          </svg>
+
+          <!-- Floating Info Cards mapped in space (Inspired by "Circle" labels and node layout) -->
+          <div class="absolute top-12 left-6 z-20 pointer-events-auto">
+            <div class="pill-overlay px-4 py-2 rounded-full flex items-center space-x-2 hover:scale-105 transition-transform cursor-help" onclick="showFeatureTip('optics')">
+              <span class="w-2 h-2 rounded-full bg-current opacity-80"></span>
+              <span class="text-[10px] font-mono tracking-widest uppercase">Optic Lux</span>
+            </div>
+          </div>
+
+          <div class="absolute top-28 right-8 z-20 pointer-events-auto">
+            <div class="pill-overlay px-4 py-2 rounded-full flex items-center space-x-2 hover:scale-105 transition-transform cursor-help" onclick="showFeatureTip('resonator')">
+              <span class="w-2 h-2 rounded-full bg-current opacity-80"></span>
+              <span class="text-[10px] font-mono tracking-widest uppercase">Resonator</span>
+            </div>
+          </div>
+
+          <!-- Center Pillar Overlay (Direct translation of the "MINIMALIST" pill in the image) -->
+          <div class="absolute inset-y-16 left-1/2 transform -translate-x-1/2 w-32 md:w-40 pill-overlay rounded-full flex flex-col items-center justify-between py-12 z-20 shadow-2xl overflow-hidden border border-white/40">
+            <!-- Glass glare -->
+            <div class="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent pointer-events-none"></div>
+            
+            <div class="text-center z-10">
+              <p class="text-[9px] font-mono tracking-widest opacity-60">AETHERIS</p>
+              <p class="text-[10px] font-mono tracking-widest font-bold opacity-80">2026</p>
+            </div>
+            
+            <!-- Rotating/vertical typography -->
+            <div class="transform -rotate-90 origin-center whitespace-nowrap z-10 tracking-[0.3em] font-light text-sm md:text-base opacity-90 font-sans uppercase">
+              MINIMALIST
+            </div>
+
+            <!-- Bottom tactile point -->
+            <div class="w-10 h-10 rounded-full bg-white/10 border border-white/30 flex items-center justify-center animate-pulse z-10 cursor-pointer hover:bg-white/30 transition-colors" onclick="triggerAmbientSound()">
+              <i data-lucide="play" class="w-3.5 h-3.5 text-current fill-current"></i>
+            </div>
+          </div>
+
+          <!-- Bottom Left Badge (Recreating the picture credit metadata block in the reference) -->
+          <div class="mt-auto relative z-20 flex justify-between items-end">
+            <div>
+              <div class="flex items-center space-x-2 mb-1">
+                <span class="font-serif italic text-2xl tracking-tight text-white mix-blend-difference">Aetheris OS v1.4</span>
+              </div>
+              <p class="text-[10px] font-mono opacity-60 tracking-widest">Designed by Creativestyle</p>
+            </div>
+            
+            <div class="text-right">
+              <p class="text-[9px] font-mono tracking-widest opacity-60 uppercase mb-1">Interactive Blueprint</p>
+              <p class="text-[10px] font-mono font-medium">Click components to inspect</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Interactive Tip Box (Revealed on node click) -->
+        <div id="blueprint-info" class="premium-card rounded-2xl p-4 flex items-center justify-between transition-all duration-500 opacity-100">
+          <div class="flex items-start space-x-3">
+            <i data-lucide="info" class="w-5 h-5 mt-0.5 opacity-70"></i>
+            <div>
+              <p id="blueprint-title" class="text-xs font-mono uppercase tracking-wider font-bold">Tactile Physical Interaction</p>
+              <p id="blueprint-desc" class="text-xs opacity-80 mt-1">Select any highlighted optic node above to inspect structural blueprint characteristics of Aetheris No. 1.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: The Typographic Prose & Sound Synthesis Engine -->
+      <div class="lg:col-span-5 space-y-8">
+        
+        <!-- Typographic Prose Card (Recreating the elegant typography card on the right of the reference) -->
+        <div class="premium-card rounded-[40px] p-8 relative overflow-hidden flex flex-col justify-between" id="prose-card">
+          <!-- Geometric Infinity/Decorative header -->
+          <div class="flex justify-between items-start mb-8 border-b border-current/10 pb-4">
+            <div class="flex items-center space-x-2">
+              <svg class="w-6 h-6 opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 12c-2-2.5-5-4-8-4a5 5 0 000 10c3 0 6-1.5 8-4zm0 0c2 2.5 5 4 8 4a5 5 0 000-10c-3 0-6 1.5-8 4z" />
+              </svg>
+              <span class="font-mono text-xs tracking-widest opacity-60">CHRONICLES</span>
+            </div>
+            <div class="text-right">
+              <h3 class="font-serif text-3xl leading-none">20<span class="text-lg align-super font-mono">26</span></h3>
+            </div>
+          </div>
+
+          <!-- Dynamic Editorial Poetry Block -->
+          <div class="space-y-6 text-sm font-light leading-relaxed tracking-wide opacity-90 relative">
+            <div id="poetry-content" class="space-y-4">
+              <!-- Default beautifully styled poetic prose (Translating the mood of the Indonesian original) -->
+              <p class="font-mono text-xs uppercase tracking-widest opacity-50 mb-2">Fragment I — Eternal Drift</p>
+              <p class="font-serif italic text-lg leading-relaxed mb-4 text-purple-950/80 dark:text-purple-200">
+                "Rindu memang tak kenal waktu. Seperti pagi ini aku sudah merindukanmu. Pagi yang kesekian kalinya, dan aku masih membungkus rinduku dalam bungkam."
+              </p>
+              <p class="opacity-75 leading-relaxed font-sans text-xs">
+                Time behaves like dynamic mist. We build elaborate constructs of memory in the quiet interval between the shadow and the light. In stillness, we listen.
+              </p>
+            </div>
+            
+            <!-- Gemini Response Indicator (Hidden by default) -->
+            <div id="ai-generating-loader" class="absolute inset-0 bg-white/40 dark:bg-black/40 backdrop-blur-sm flex flex-col items-center justify-center space-y-3 opacity-0 pointer-events-none transition-opacity duration-300 rounded-xl">
+              <div class="w-6 h-6 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
+              <p class="font-mono text-[10px] uppercase tracking-widest">Consulting the ether...</p>
+            </div>
+          </div>
+
+          <!-- Decorative Asterisk/Star icon & creator stamp -->
+          <div class="mt-8 pt-6 border-t border-current/10 flex justify-between items-center">
+            <div>
+              <p class="text-[9px] font-mono tracking-wider opacity-50">CURATION SOURCE</p>
+              <p class="text-xs font-medium tracking-tight">Archive by <span class="font-mono uppercase text-[10px] tracking-widest">Creativestyle</span></p>
+            </div>
+            
+            <!-- Beautiful Geometric Multi-point Star Icon (From reference) -->
+            <svg class="w-8 h-8 animate-spin-slow opacity-80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+              <path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19" />
+              <circle cx="12" cy="12" r="3" fill="none" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Dynamic AI Mood Prose Customizer Panel (Gemini Integration) -->
+        <div class="premium-card rounded-3xl p-6 space-y-4">
+          <div class="flex justify-between items-center">
+            <h4 class="font-mono text-xs uppercase tracking-wider font-bold">AI Prose Composer</h4>
+            <span class="text-[9px] font-mono bg-current/10 px-2 py-0.5 rounded-full uppercase">Gemini Powered</span>
+          </div>
+          
+          <p class="text-xs opacity-75">
+            Command the device’s typography screen. Enter your current coordinates, emotional atmosphere, or desired prompt to compose original, formatted micro-poetry.
+          </p>
+
+          <div class="space-y-3">
+            <textarea id="mood-input" placeholder="e.g., Nostalgic afternoon rain in Kyoto, coffee brewing..." class="w-full bg-white/30 dark:bg-black/20 border border-current/10 rounded-xl p-3 text-xs focus:ring-1 focus:ring-purple-400 focus:outline-none transition-all placeholder:opacity-50 text-current resize-none h-20" rows="2"></textarea>
+            
+            <button onclick="generateCustomProse()" class="w-full py-3 rounded-xl bg-slate-900 text-white dark:bg-white dark:text-black font-mono text-xs tracking-widest uppercase hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center space-x-2 shadow-md">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+              <span>Compose Custom Poetry</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- SOUNDSCAPE & VISUAL ENGINE SECTIONS -->
+    <section id="synthesizer" class="mt-20 pt-12 border-t border-current/10">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <p class="font-mono text-xs uppercase tracking-widest opacity-60 mb-2">Live Sensory Interface</p>
+        <h2 class="font-serif text-4xl md:text-5xl tracking-tight">The Generative Soundscape Engine</h2>
+        <p class="text-sm opacity-75 mt-3">
+          Our physical device synthesizes warm, analog drift chords dynamically influenced by space temperature and local light readings. Play with the live emulator below.
+        </p>
+      </div>
+
+      <!-- Live Synthesizer Interactive Deck -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+        <!-- Visualizer Canvas Panel -->
+        <div class="md:col-span-7 premium-card rounded-[32px] p-6 h-[340px] relative overflow-hidden flex flex-col justify-between">
+          <div class="absolute inset-0 z-0">
+            <canvas id="visualizer-canvas" class="w-full h-full block"></canvas>
+          </div>
+          
+          <div class="relative z-10 flex justify-between items-start">
+            <div>
+              <p class="font-mono text-xs uppercase tracking-widest opacity-60">Frequency Oscillography</p>
+              <p id="oscillator-state" class="text-[10px] font-mono opacity-80 mt-1">Status: Disengaged</p>
+            </div>
+            <span class="w-2.5 h-2.5 rounded-full bg-current opacity-40 animate-pulse"></span>
+          </div>
+
+          <div class="relative z-10 mt-auto flex justify-between items-end">
+            <div class="text-left">
+              <p class="text-[9px] font-mono tracking-widest opacity-60 uppercase">Interactive Canvas</p>
+              <p class="text-[10px] font-mono">Move cursor to modulate ambient filter cut-off</p>
+            </div>
+            <div class="pill-overlay px-3 py-1 rounded-full text-[9px] font-mono">
+              60.00 Hz Base
+            </div>
+          </div>
+        </div>
+
+        <!-- Synthesizer Controls -->
+        <div class="md:col-span-5 space-y-6">
+          <div class="premium-card rounded-[32px] p-8 space-y-6">
+            
+            <div class="flex justify-between items-center pb-4 border-b border-current/10">
+              <div>
+                <h3 class="font-mono text-xs uppercase tracking-widest font-bold">Synthesizer Controls</h3>
+                <p class="text-[10px] opacity-60 font-mono mt-1">Web Audio API / Custom DSP</p>
+              </div>
+              
+              <!-- Core Power Toggle Button -->
+              <button id="synth-power-btn" onclick="toggleAmbientSound()" class="w-12 h-12 rounded-full border border-current/20 flex items-center justify-center hover:scale-105 transition-all text-current">
+                <i data-lucide="play" id="power-icon" class="w-5 h-5 fill-current"></i>
+              </button>
+            </div>
+
+            <!-- Frequency Drift Control -->
+            <div class="space-y-2">
+              <div class="flex justify-between text-xs font-mono">
+                <span>Spectral Drift</span>
+                <span id="drift-val">0.25 Hz</span>
+              </div>
+              <input type="range" id="param-drift" min="0.05" max="1" step="0.01" value="0.25" oninput="updateSynthParams()" class="w-full custom-range">
+              <p class="text-[10px] opacity-60">Controls slow random variations in individual oscillators.</p>
+            </div>
+
+            <!-- Resonance / Color Control -->
+            <div class="space-y-2">
+              <div class="flex justify-between text-xs font-mono">
+                <span>Resonant Color</span>
+                <span id="color-val">Low Pass</span>
+              </div>
+              <input type="range" id="param-resonance" min="200" max="1200" step="10" value="450" oninput="updateSynthParams()" class="w-full custom-range">
+              <p class="text-[10px] opacity-60">Adjusts the warmth threshold simulating physical organic acoustic resonance.</p>
+            </div>
+
+            <!-- Nostalgia Filter slider (harmonic feedback) -->
+            <div class="space-y-2">
+              <div class="flex justify-between text-xs font-mono">
+                <span>Harmonic Feedback</span>
+                <span id="harmonic-val">Med</span>
+              </div>
+              <input type="range" id="param-harmony" min="1" max="5" step="1" value="3" oninput="updateSynthParams()" class="w-full custom-range">
+              <p class="text-[10px] opacity-60">Adds warm third and fifth-order harmonics directly to the signal path.</p>
+            </div>
+
+            <div class="flex space-x-2 pt-2">
+              <button onclick="setSynthPreset('warm')" class="flex-1 py-2 text-[10px] font-mono uppercase tracking-widest rounded-full border border-current/10 hover:bg-current/10 transition-colors">Warm Fog</button>
+              <button onclick="setSynthPreset('ethereal')" class="flex-1 py-2 text-[10px] font-mono uppercase tracking-widest rounded-full border border-current/10 hover:bg-current/10 transition-colors">Solar Flare</button>
+              <button onclick="setSynthPreset('abyss')" class="flex-1 py-2 text-[10px] font-mono uppercase tracking-widest rounded-full border border-current/10 hover:bg-current/10 transition-colors">Abyssal Deep</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ARCHITECTURAL BLUEPRINTS & PHYSICAL SPECIFICATIONS -->
+    <section id="configurator" class="mt-28">
+      <div class="text-center max-w-xl mx-auto mb-16">
+        <p class="font-mono text-xs uppercase tracking-widest opacity-60 mb-2">Material Archetype</p>
+        <h2 class="font-serif text-4xl md:text-5xl tracking-tight">Minimalist Form. Pure Precision.</h2>
+        <p class="text-sm opacity-75 mt-3">
+          Constructed from a single block of bead-blasted 6000-series aerospace aluminum and capped with an ultra-thin custom optical glass overlay.
+        </p>
+      </div>
+
+      <!-- Architectural Feature Grid (Inspired by the precise alignment of the reference image) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Feature Item 1 -->
+        <div class="premium-card rounded-[32px] p-8 space-y-4 hover:translate-y-[-4px] transition-transform">
+          <div class="w-12 h-12 rounded-2xl bg-current/5 border border-current/10 flex items-center justify-center mb-6">
+            <i data-lucide="sun" class="w-5 h-5"></i>
+          </div>
+          <p class="font-mono text-xs uppercase tracking-widest opacity-60">SPECIFICATION 01</p>
+          <h3 class="font-serif text-2xl tracking-tight font-medium">Bespoke e-Paper Panel</h3>
+          <p class="text-xs opacity-75 leading-relaxed">
+            Utilizes a custom 16-level grayscale, 120Hz refresh e-paper display. It behaves identical to natural physical print, reading beautifully at any angle with absolutely zero light emission or visual fatigue.
+          </p>
+        </div>
+
+        <!-- Feature Item 2 -->
+        <div class="premium-card rounded-[32px] p-8 space-y-4 hover:translate-y-[-4px] transition-transform">
+          <div class="w-12 h-12 rounded-2xl bg-current/5 border border-current/10 flex items-center justify-center mb-6">
+            <i data-lucide="cpu" class="w-5 h-5"></i>
+          </div>
+          <p class="font-mono text-xs uppercase tracking-widest opacity-60">SPECIFICATION 02</p>
+          <h3 class="font-serif text-2xl tracking-tight font-medium">ARM Cortex DSP Engine</h3>
+          <p class="text-xs opacity-75 leading-relaxed">
+            Equipped with a dual-core atmospheric audio processor which generates clean, warm, analog-sounding wave synthesis in real time based on complex localized environmental humidity indexes.
+          </p>
+        </div>
+
+        <!-- Feature Item 3 -->
+        <div class="premium-card rounded-[32px] p-8 space-y-4 hover:translate-y-[-4px] transition-transform">
+          <div class="w-12 h-12 rounded-2xl bg-current/5 border border-current/10 flex items-center justify-center mb-6">
+            <i data-lucide="infinity" class="w-5 h-5"></i>
+          </div>
+          <p class="font-mono text-xs uppercase tracking-widest opacity-60">SPECIFICATION 03</p>
+          <h3 class="font-serif text-2xl tracking-tight font-medium">Seamless Architectural Fit</h3>
+          <p class="text-xs opacity-75 leading-relaxed">
+            Rechargeable via magnetic high-touch brass base nodes. It lasts 45 days on a single charge when operating in ambient passive-display mode, presenting pristine visual and poetic typographic prose.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PREMIUM RESERVATION SECTION (Commercial Conversion) -->
+    <section id="reserve" class="mt-28">
+      <div class="premium-card rounded-[40px] p-8 md:p-16 relative overflow-hidden flex flex-col md:flex-row justify-between items-center gap-12">
+        <div class="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent pointer-events-none"></div>
+        
+        <div class="space-y-6 md:max-w-xl relative z-10">
+          <span class="text-xs font-mono tracking-widest uppercase bg-current/10 px-3 py-1 rounded-full">Limited Curation</span>
+          <h2 class="font-serif text-5xl md:text-6xl tracking-tight leading-none">Bring still, physical poetry into your habitat.</h2>
+          <p class="text-xs md:text-sm opacity-75 leading-relaxed">
+            Aetheris No. 1 is produced in highly restricted curated batches of 150 pieces per season. Every batch features a uniquely serialized solid brass authentication disk embedded under the optical glass.
+          </p>
+          <div class="flex items-center space-x-6 text-xs font-mono pt-4">
+            <div class="flex items-center space-x-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span>
+              <span>Batch 03 Available (42 units remaining)</span>
+            </div>
+            <div>|</div>
+            <div>Ships September 2026</div>
+          </div>
+        </div>
+
+        <div class="w-full md:w-auto min-w-[320px] space-y-4 relative z-10">
+          <div class="pill-overlay p-6 rounded-[24px] space-y-4">
+            <div class="flex justify-between items-baseline font-mono">
+              <span class="text-xs">Aetheris No. 1</span>
+              <span class="text-lg font-bold">$1,250 USD</span>
+            </div>
+            <div class="text-[10px] opacity-60">Includes magnetic brass base dock, premium USB-C leather braided cord, and continuous access to our Aesthetic OS cloud network.</div>
+            
+            <div class="space-y-2 pt-2">
+              <input type="email" id="reservation-email" placeholder="Enter your email coordinates..." class="w-full bg-white/40 dark:bg-black/20 border border-current/15 rounded-xl px-4 py-3 text-xs focus:ring-1 focus:ring-purple-400 focus:outline-none placeholder:opacity-50 text-current">
+              <button onclick="handleReservation()" class="w-full py-3.5 bg-slate-950 text-white dark:bg-white dark:text-black font-mono text-xs tracking-widest uppercase rounded-xl hover:opacity-90 active:scale-[0.98] transition-all">Submit Reservation Request</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- EDITORIAL FOOTER (With elegant alignment from reference bottom) -->
+  <footer class="w-full border-t border-current/10 py-12 px-6 md:px-12 text-center md:text-left relative z-20 mt-12 bg-white/5">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+      
+      <div class="flex items-center space-x-2">
+        <span class="font-mono text-xs tracking-widest uppercase opacity-80">AETHERIS ARCHIVE</span>
+        <span class="text-[10px] opacity-50 font-mono">© 2026</span>
+      </div>
+
+      <!-- Center text aligning with reference typography style -->
+      <div class="text-[10px] font-mono tracking-widest uppercase opacity-70">
+        • ARCHIVE BY CREATIVESTYLE •
+      </div>
+
+      <div class="flex space-x-6 text-[10px] font-mono tracking-widest uppercase">
+        <a href="#" class="hover:opacity-60 transition-opacity">Design Guidelines</a>
+        <a href="#" class="hover:opacity-60 transition-opacity">Technical Docs</a>
+        <a href="#" class="hover:opacity-60 transition-opacity">Ecosystem</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CORE SCRIPT IMPLEMENTATION -->
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Environment variables
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+    const apiKey = ""; // Left empty for dynamic execution injection
+
+    // Notification toast helper
+    function showToast(message) {
+      const toast = document.getElementById('toast-notification');
+      const msgSpan = document.getElementById('toast-message');
+      msgSpan.textContent = message;
+      toast.classList.remove('opacity-0', 'translate-y-12', 'pointer-events-none');
+      toast.classList.add('opacity-100', 'translate-y-0');
+      
+      setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', 'translate-y-12', 'pointer-events-none');
+      }, 4000);
+    }
+
+    // Theme Switcher Logic
+    function changeTheme(themeName) {
+      document.documentElement.className = ''; // Reset standard classes
+      if (themeName === 'charcoal') {
+        document.documentElement.classList.add('theme-charcoal');
+        showToast("Theme switched to Charcoal Onyx");
+        updateVisualizerTheme('#9d8df2', '#14151a');
+      } else if (themeName === 'alabaster') {
+        document.documentElement.classList.add('theme-alabaster');
+        showToast("Theme switched to Alabaster Dune");
+        updateVisualizerTheme('#a38a70', '#eae6df');
+      } else {
+        showToast("Theme switched to Orchid Mist");
+        updateVisualizerTheme('#6b638c', '#ced0d9');
+      }
+    }
+
+    // Interactive Blueprint inspectors
+    const blueprints = {
+      optics: {
+        title: "Optic Lux Ambient Sensor",
+        desc: "A highly sensitive ambient color-temperature phototransistor. It measures local natural light cycles to smoothly modulate the synthesizer's visual color warmth and dynamic frequency scale."
+      },
+      resonator: {
+        title: "Acoustic Resonator Grille",
+        desc: "Integrated with precision-milled wave-guide cavities that allow clean propagation of low-frequency sound waves directly from the high-density aluminum body."
+      }
+    };
+
+    function showFeatureTip(id) {
+      const tipElement = document.getElementById('blueprint-info');
+      const titleElement = document.getElementById('blueprint-title');
+      const descElement = document.getElementById('blueprint-desc');
+      
+      // Update data
+      titleElement.textContent = blueprints[id].title;
+      descElement.textContent = blueprints[id].desc;
+
+      // Pulse visual indication
+      tipElement.classList.add('scale-105', 'border-purple-400');
+      setTimeout(() => {
+        tipElement.classList.remove('scale-105', 'border-purple-400');
+      }, 5000);
+      
+      showToast(`Inspecting ${blueprints[id].title}`);
+    }
+
+    // WEB AUDIO GENERATIVE SOUND SYNTHESIZER
+    let audioCtx = null;
+    let oscillators = [];
+    let lfo = null;
+    let mainGain = null;
+    let filterNode = null;
+    let isSynthPlaying = false;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // Setup central low pass filter for warm analogue synthesis
+        filterNode = audioCtx.createBiquadFilter();
+        filterNode.type = 'lowpass';
+        filterNode.frequency.value = parseFloat(document.getElementById('param-resonance').value);
+        filterNode.Q.value = 1.0;
+
+        // Setup main output gain control
+        mainGain = audioCtx.createGain();
+        mainGain.gain.setValueAtTime(0, audioCtx.currentTime); // Start muted
+
+        // Connect everything
+        filterNode.connect(mainGain);
+        mainGain.connect(audioCtx.destination);
+
+        // Build continuous low frequency LFO to simulate gentle environmental "wave" drift
+        lfo = audioCtx.createOscillator();
+        lfo.type = 'sine';
+        lfo.frequency.value = 0.08; // Super slow sweep
+        const lfoGain = audioCtx.createGain();
+        lfoGain.gain.value = 150; // Sweeps up to 150hz around cut-off threshold
+        
+        lfo.connect(lfoGain);
+        lfoGain.connect(filterNode.frequency);
+        lfo.start();
+      }
+    }
+
+    function toggleAmbientSound() {
+      // Ensure audio context is ready
+      initAudio();
+
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+
+      if (!isSynthPlaying) {
+        // Build 4 warm, layered oscillators (AETHERIS signature harmonic progression)
+        // Root chord: C# minor 9th (C#, G#, B, D#) to match the dreamy aesthetic mood
+        const baseFrequencies = [69.30, 103.83, 123.47, 155.56]; // low, clean warm frequencies
+        const harmonyParam = parseInt(document.getElementById('param-harmony').value);
+
+        oscillators = baseFrequencies.map((freq, index) => {
+          const osc = audioCtx.createOscillator();
+          const oscGain = audioCtx.createGain();
+          
+          // Smooth blend types
+          osc.type = index % 2 === 0 ? 'sine' : 'triangle';
+          
+          // Apply custom harmonic adjustments based on feedback slider
+          const multiplier = 1 + (index * 0.002 * harmonyParam);
+          osc.frequency.setValueAtTime(freq * multiplier, audioCtx.currentTime);
+
+          // Add clean, very low gains to avoid distortion
+          oscGain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+
+          osc.connect(oscGain);
+          oscGain.connect(filterNode);
+          osc.start();
+          return { osc, gain: oscGain, baseFreq: freq };
+        });
+
+        // Dynamic fade in
+        mainGain.gain.transitionTo = function(target, duration) {
+          mainGain.gain.linearRampToValueAtTime(target, audioCtx.currentTime + duration);
+        };
+        mainGain.gain.linearRampToValueAtTime(0.35, audioCtx.currentTime + 1.5);
+
+        isSynthPlaying = true;
+        document.getElementById('synth-power-btn').classList.add('bg-current', 'text-white', 'dark:text-black');
+        document.getElementById('power-icon').setAttribute('data-lucide', 'square');
+        document.getElementById('oscillator-state').textContent = "Status: Operational (C#m9)";
+        document.getElementById('floating-audio-bar').classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+        showToast("Synthesizer engaged. Soundscape generated.");
+        
+        // Start continuous drift routine
+        applyDriftRoutine();
+      } else {
+        // Mute smoothly
+        mainGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.8);
+        
+        // Fully stop and disconnect after fade out is finished
+        setTimeout(() => {
+          if (!isSynthPlaying) {
+            oscillators.forEach(item => {
+              try { item.osc.stop(); } catch(e) {}
+              item.osc.disconnect();
+            });
+            oscillators = [];
+          }
+        }, 850);
+
+        isSynthPlaying = false;
+        document.getElementById('synth-power-btn').classList.remove('bg-current', 'text-white', 'dark:text-black');
+        document.getElementById('power-icon').setAttribute('data-lucide', 'play');
+        document.getElementById('oscillator-state').textContent = "Status: Disengaged";
+        document.getElementById('floating-audio-bar').classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+        showToast("Synthesizer disengaged.");
+      }
+      lucide.createIcons();
+    }
+
+    // Gentle random frequency drifts for analog authenticity
+    function applyDriftRoutine() {
+      if (!isSynthPlaying || oscillators.length === 0) return;
+
+      const driftScale = parseFloat(document.getElementById('param-drift').value);
+      
+      oscillators.forEach((item) => {
+        // Apply tiny random variation
+        const randomDrift = (Math.random() - 0.5) * driftScale;
+        const currentFreq = item.osc.frequency.value;
+        const targetFreq = item.baseFreq + randomDrift;
+        item.osc.frequency.linearRampToValueAtTime(targetFreq, audioCtx.currentTime + 1.0);
+      });
+
+      // Loop every 2 seconds
+      setTimeout(applyDriftRoutine, 2000);
+    }
+
+    // Track state of sliders and apply directly to sound engine
+    function updateSynthParams() {
+      if (filterNode) {
+        const resFreq = parseFloat(document.getElementById('param-resonance').value);
+        filterNode.frequency.linearRampToValueAtTime(resFreq, audioCtx.currentTime + 0.2);
+        
+        const formatRes = resFreq > 1000 ? `${(resFreq/1000).toFixed(1)} kHz` : `${resFreq} Hz`;
+        document.getElementById('color-val').textContent = formatRes;
+      }
+
+      const driftVal = parseFloat(document.getElementById('param-drift').value);
+      document.getElementById('drift-val').textContent = `${driftVal.toFixed(2)} Hz`;
+
+      const harmonyVal = parseInt(document.getElementById('param-harmony').value);
+      const harmonies = ["Muted", "Subtle", "Warm Med", "Rich High", "Absolute"];
+      document.getElementById('harmonic-val').textContent = harmonies[harmonyVal - 1];
+
+      if (isSynthPlaying) {
+        // Gently regenerate with new values
+        oscillators.forEach((item, index) => {
+          const multiplier = 1 + (index * 0.002 * harmonyVal);
+          item.osc.frequency.linearRampToValueAtTime(item.baseFreq * multiplier, audioCtx.currentTime + 0.5);
+        });
+      }
+    }
+
+    function setSynthPreset(presetName) {
+      if (presetName === 'warm') {
+        document.getElementById('param-drift').value = 0.15;
+        document.getElementById('param-resonance').value = 350;
+        document.getElementById('param-harmony').value = 4;
+      } else if (presetName === 'ethereal') {
+        document.getElementById('param-drift').value = 0.50;
+        document.getElementById('param-resonance').value = 900;
+        document.getElementById('param-harmony').value = 3;
+      } else if (presetName === 'abyss') {
+        document.getElementById('param-drift').value = 0.05;
+        document.getElementById('param-resonance').value = 220;
+        document.getElementById('param-harmony').value = 1;
+      }
+      updateSynthParams();
+      showToast(`Selected ${presetName.toUpperCase()} preset`);
+    }
+
+    // CANVAS-BASED INTERACTIVE VISUALIZER
+    const canvas = document.getElementById('visualizer-canvas');
+    const ctx = canvas.getContext('2d');
+    let animationFrameId;
+    let mouseX = 0, mouseY = 0;
+    let vizStrokeColor = '#6b638c';
+    let vizBgColor = '#ced0d9';
+
+    function updateVisualizerTheme(strokeHex, bgHex) {
+      vizStrokeColor = strokeHex;
+      vizBgColor = bgHex;
+    }
+
+    function resizeCanvas() {
+      const container = canvas.parentElement;
+      canvas.width = container.clientWidth * window.devicePixelRatio;
+      canvas.height = container.clientHeight * window.devicePixelRatio;
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    }
+    
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    // Track mouse position on canvas to affect wave distortion (Aesthetic interactivity)
+    canvas.addEventListener('mousemove', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      mouseX = e.clientX - rect.left;
+      mouseY = e.clientY - rect.top;
+
+      // Map mouseX relative displacement dynamically to audio filter
+      if (isSynthPlaying && filterNode) {
+        const ratio = mouseX / rect.width;
+        const targetRes = 200 + (ratio * 1200); // 200hz to 1400hz
+        document.getElementById('param-resonance').value = Math.round(targetRes);
+        updateSynthParams();
+      }
+    });
+
+    let time = 0;
+    function drawVisualizer() {
+      const w = canvas.width / window.devicePixelRatio;
+      const h = canvas.height / window.devicePixelRatio;
+      
+      ctx.clearRect(0, 0, w, h);
+
+      // Warm background glow
+      ctx.fillStyle = vizBgColor;
+      ctx.fillRect(0, 0, w, h);
+
+      ctx.strokeStyle = vizStrokeColor;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+
+      const lines = 4;
+      const points = 120;
+
+      // Draw multi-layered clean typographic sinusoidal waves
+      for (let j = 0; j < lines; j++) {
+        ctx.beginPath();
+        const amplitude = isSynthPlaying ? (15 + j * 12) : (5 + j * 3);
+        const speed = isSynthPlaying ? (0.015 + j * 0.005) : 0.003;
+        
+        for (let i = 0; i <= points; i++) {
+          const x = (w / points) * i;
+          // Apply subtle physics calculations
+          const mouseDisplacement = Math.exp(-Math.pow(x - mouseX, 2) / 10000) * 40;
+          const y = (h / 2) + Math.sin(i * 0.05 + time * speed + j) * amplitude + (mouseDisplacement * Math.sin(time * 0.04));
+          
+          if (i === 0) {
+            ctx.moveTo(x, y);
+          } else {
+            ctx.lineTo(x, y);
+          }
+        }
+        ctx.strokeStyle = `${vizStrokeColor}${j === 0 ? 'ff' : j === 1 ? '99' : j === 2 ? '55' : '22'}`;
+        ctx.stroke();
+      }
+
+      time += 1;
+      animationFrameId = requestAnimationFrame(drawVisualizer);
+    }
+    drawVisualizer();
+
+
+    // GEMINI PROSE GENERATION WITH EXTREME ROBUSTNESS & FALLBACK ENGINE
+    const fallbackPoems = [
+      {
+        fragment: "Fragment II — Silent Interval",
+        body: "Sore itu datang tanpa suara. Membiarkan jingga membakar langit sebelum gelap menelan segalanya. Hanya sunyi yang tersisa di sudut meja.",
+        english: "Nostalgia behaves like twilight. It colors everything beautifully before fading into complete stillness. True design speaks in that quiet transition."
+      },
+      {
+        fragment: "Fragment III — Alabaster Whispers",
+        body: "Dalam setiap sapuan angin malam, kurasakan sentuhan dingin yang akrab. Seperti memori yang terukir di atas marmer putih, tak lekang waktu.",
+        english: "A memory etched into stone does not erode. The light shifts across the textured surface, reminding us of the paths we chose to follow."
+      },
+      {
+        fragment: "Fragment IV — Nocturnal Resonance",
+        body: "Malam bukan akhir dari segalanya. Ia hanyalah jeda, ruang kosong untuk meresapi setiap detak waktu yang berlalu begitu cepat.",
+        english: "In complete silence, even the smallest resonance becomes monumental. Let the quiet frequencies realign your focus."
+      }
+    ];
+
+    async function generateCustomProse() {
+      const moodText = document.getElementById('mood-input').value.trim();
+      const loader = document.getElementById('ai-generating-loader');
+      const poetryContent = document.getElementById('poetry-content');
+
+      if (!moodText) {
+        showToast("Please enter a mood or prompt first.");
+        return;
+      }
+
+      // Enter loading state
+      loader.classList.remove('opacity-0', 'pointer-events-none');
+      loader.classList.add('opacity-100');
+
+      // Prepare Gemini API configuration & prompt instructions matching the design aesthetic
+      const systemPrompt = `
+        You are an elite bilingual poet and editorial copywriter.
+        Your task is to generate beautiful micro-poetry and prose in response to a user's mood.
+        Structure your output precisely as a valid JSON object matching these fields:
+        {
+          "fragmentName": "Fragment [Roman Numeral] — [Atmospheric Title]",
+          "proseIndo": "A beautiful, deeply reflective poetic sentence or fragment in Indonesian language, mirroring the style: 'Rindu memang tak kenal waktu. Seperti pagi ini aku sudah merindukanmu...'",
+          "proseEnglish": "A corresponding exquisite, highly minimalist translation or reflection in English, matching a premium, editorial design voice (clean, deep, and focused on space, stillness, or time)."
+        }
+        Do not output any markdown around the JSON object.
+      `;
+
+      const userQuery = `Write a poetic reflection inspired by this user mood: "${moodText}"`;
+
+      let success = false;
+      let resultText = "";
+
+      if (apiKey) {
+        // Attempt Gemini API call with proper exponential backoff as per prompt requirements
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+        const payload = {
+          contents: [{ parts: [{ text: userQuery }] }],
+          systemInstruction: { parts: [{ text: systemPrompt }] },
+          generationConfig: { responseMimeType: "application/json" }
+        };
+
+        let retries = 5;
+        let delay = 1000;
+
+        for (let i = 0; i < retries; i++) {
+          try {
+            const response = await fetch(url, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            });
+
+            if (response.ok) {
+              const data = await response.json();
+              resultText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+              if (resultText) {
+                success = true;
+                break;
+              }
+            }
+          } catch (e) {
+            // Log retries internally, exponential backoff
+          }
+          await new Promise(resolve => setTimeout(resolve, delay));
+          delay *= 2;
+        }
+      }
+
+      // Hide Loader
+      loader.classList.remove('opacity-100');
+      loader.classList.add('opacity-0', 'pointer-events-none');
+
+      if (success && resultText) {
+        try {
+          const parsedPoem = JSON.parse(resultText);
+          updatePoetryDisplay(parsedPoem.fragmentName, parsedPoem.proseIndo, parsedPoem.proseEnglish);
+          showToast("AI Prose Successfully Generated");
+        } catch (e) {
+          // If JSON parse fails, trigger beautiful local generation fallback gracefully
+          useFallbackPoem();
+        }
+      } else {
+        // Fallback gracefully to preset library so the user's interface remains outstandingly robust
+        useFallbackPoem();
+      }
+    }
+
+    function useFallbackPoem() {
+      const randomIndex = Math.floor(Math.random() * fallbackPoems.length);
+      const chosen = fallbackPoems[randomIndex];
+      updatePoetryDisplay(chosen.fragment, chosen.body, chosen.english);
+      showToast("Composed beautiful prose from Local Archives.");
+    }
+
+    function updatePoetryDisplay(fragment, indonesian, english) {
+      const poetryContent = document.getElementById('poetry-content');
+      
+      // Beautiful smooth transition of inner HTML
+      poetryContent.style.opacity = '0';
+      setTimeout(() => {
+        poetryContent.innerHTML = `
+          <p class="font-mono text-xs uppercase tracking-widest opacity-50 mb-2">${fragment}</p>
+          <p class="font-serif italic text-lg leading-relaxed mb-4 text-purple-950/85 dark:text-purple-200">
+            "${indonesian}"
+          </p>
+          <p class="opacity-75 leading-relaxed font-sans text-xs">
+            ${english}
+          </p>
+        `;
+        poetryContent.style.opacity = '1';
+      }, 300);
+    }
+
+    // Reservation Simulation (No alerts)
+    function handleReservation() {
+      const emailInput = document.getElementById('reservation-email');
+      const email = emailInput.value.trim();
+
+      if (!email || !email.includes('@')) {
+        showToast("Please enter a valid email address coordinates.");
+        return;
+      }
+
+      // Visual success simulation
+      emailInput.value = "";
+      showToast("Access coordinates accepted. Check your inbox.");
+    }
+
+  </script>
+</body>
+</html>

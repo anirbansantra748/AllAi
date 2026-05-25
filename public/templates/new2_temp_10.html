@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirPods Max — A Symphony of Purity & Design</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        lavender: {
+                            50: '#F5F3FA',
+                            100: '#EAE6F4',
+                            200: '#D5CDEB',
+                            300: '#B6A6DD',
+                            400: '#947ECC',
+                            500: '#7558BE',
+                            600: '#6042A2',
+                            900: '#262135',
+                        },
+                        velvet: {
+                            DEFAULT: '#191524',
+                            light: '#231D33',
+                            dark: '#0E0B14'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        premium: '0 25px 50px -12px rgba(117, 88, 190, 0.12)',
+                        glass: '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Keyframe Animations */
+        @keyframes pulse-gentle {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.03); opacity: 1; }
+        }
+        @keyframes float-gentle {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(1deg); }
+        }
+        @keyframes waveform {
+            0%, 100% { height: 8px; }
+            50% { height: 42px; }
+        }
+        .animate-pulse-gentle {
+            animation: pulse-gentle 4s ease-in-out infinite;
+        }
+        .animate-float {
+            animation: float-gentle 6s ease-in-out infinite;
+        }
+        .wave-bar {
+            animation: waveform 1.2s ease-in-out infinite;
+        }
+        .blur-gradient {
+            background: radial-gradient(circle, rgba(148,126,204,0.18) 0%, rgba(245,243,250,0) 70%);
+        }
+        .dark .blur-gradient {
+            background: radial-gradient(circle, rgba(117,88,190,0.15) 0%, rgba(25,21,36,0) 70%);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F5F3FA;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D5CDEB;
+            border-radius: 99px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #B6A6DD;
+        }
+        /* Glassmorphism utility */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .dark-glass-card {
+            background: rgba(35, 29, 51, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+    </style>
+</head>
+<body class="bg-lavender-50 text-lavender-900 overflow-x-hidden font-sans transition-colors duration-500 selection:bg-lavender-200">
+
+    <!-- Top Announcement Bar -->
+    <div class="w-full bg-lavender-900 text-lavender-100 py-2.5 px-4 text-center text-xs font-semibold tracking-wider uppercase flex items-center justify-center gap-2">
+        <span>Experience sound in another dimension. Enjoy complimentary fast delivery.</span>
+        <span class="hidden md:inline-block w-1.5 h-1.5 rounded-full bg-lavender-300"></span>
+        <button onclick="scrollToConfigurator()" class="hidden md:inline-block underline hover:text-white transition-all">Pre-order Lavender Special Edition</button>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="sticky top-0 z-50 w-full glass-card border-b border-lavender-100 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Brand Identity -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-lavender-400 to-lavender-600 flex items-center justify-center text-white font-black text-xl shadow-md transition-transform group-hover:scale-105">
+                    M
+                </div>
+                <div>
+                    <span class="text-lg font-extrabold tracking-tight text-lavender-900">MAXIMUS</span>
+                    <span class="block text-[9px] uppercase tracking-widest text-lavender-400 -mt-1 font-bold">Acoustic Precision</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <div class="hidden md:flex items-center gap-8 font-medium text-sm text-lavender-600">
+                <a href="#features" class="hover:text-lavender-900 transition-colors py-2 relative group">
+                    Design
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-lavender-500 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#audio-sim" class="hover:text-lavender-900 transition-colors py-2 relative group">
+                    Sound Space
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-lavender-500 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#schematic" class="hover:text-lavender-900 transition-colors py-2 relative group">
+                    Technology
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-lavender-500 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#specifications" class="hover:text-lavender-900 transition-colors py-2 relative group">
+                    Specifications
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-lavender-500 transition-all group-hover:w-full"></span>
+                </a>
+            </div>
+
+            <!-- CTAs & Action Buttons -->
+            <div class="flex items-center gap-4">
+                <button onclick="scrollToConfigurator()" class="px-6 py-2.5 bg-lavender-900 text-white rounded-full text-xs font-bold tracking-wide uppercase shadow-lg shadow-lavender-900/10 hover:bg-lavender-700 transition-all hover:-translate-y-0.5 active:translate-y-0">
+                    Buy Now
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-[90vh] flex items-center justify-center py-16 px-6 overflow-hidden">
+        <!-- Floating Soft Lavender Background Ambient Globs -->
+        <div class="absolute top-1/4 left-1/10 w-[40vw] h-[40vw] max-w-[500px] blur-gradient rounded-full pointer-events-none animate-pulse-gentle"></div>
+        <div class="absolute bottom-1/4 right-1/10 w-[45vw] h-[45vw] max-w-[550px] blur-gradient rounded-full pointer-events-none animate-pulse-gentle" style="animation-delay: 2s;"></div>
+
+        <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+            
+            <!-- Hero Typography Content -->
+            <div class="lg:col-span-5 text-center lg:text-left space-y-6">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-lavender-100 border border-lavender-200 text-lavender-600 text-xs font-bold tracking-wider uppercase">
+                    <span class="w-2 h-2 rounded-full bg-lavender-500 animate-ping"></span>
+                    Now in Lavender Mist
+                </div>
+                
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-lavender-900 leading-none">
+                    A Symphony <br class="hidden lg:inline">
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-lavender-500 to-lavender-700">of Pure Sound</span>
+                </h1>
+                
+                <p class="text-base sm:text-lg text-lavender-600 font-medium max-w-xl mx-auto lg:mx-0">
+                    Over-ear headphones completely reimagined. Designed for an uncompromising fit with acoustic harmony, wrapping you in an absolute bubble of sound.
+                </p>
+
+                <!-- Interactive Hero Bullet Points -->
+                <div class="pt-4 grid grid-cols-3 gap-4 max-w-md mx-auto lg:mx-0">
+                    <div class="p-4 bg-white/70 backdrop-blur border border-lavender-100 rounded-2xl text-center shadow-sm">
+                        <span class="block text-2xl font-black text-lavender-900">20H</span>
+                        <span class="text-[10px] text-lavender-500 font-bold uppercase tracking-wider">Active Playback</span>
+                    </div>
+                    <div class="p-4 bg-white/70 backdrop-blur border border-lavender-100 rounded-2xl text-center shadow-sm">
+                        <span class="block text-2xl font-black text-lavender-900">40dB</span>
+                        <span class="text-[10px] text-lavender-500 font-bold uppercase tracking-wider">Noise Reduction</span>
+                    </div>
+                    <div class="p-4 bg-white/70 backdrop-blur border border-lavender-100 rounded-2xl text-center shadow-sm">
+                        <span class="block text-2xl font-black text-lavender-900">5Mins</span>
+                        <span class="text-[10px] text-lavender-500 font-bold uppercase tracking-wider">Charge = 1.5H</span>
+                    </div>
+                </div>
+
+                <!-- Call to Action -->
+                <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                    <button onclick="scrollToConfigurator()" class="w-full sm:w-auto px-8 py-4 bg-lavender-900 hover:bg-lavender-700 text-white rounded-2xl font-bold tracking-wide shadow-xl shadow-lavender-900/15 transition-all hover:-translate-y-0.5 active:translate-y-0">
+                        Explore Color Editions
+                    </button>
+                    <a href="#audio-sim" class="w-full sm:w-auto px-8 py-4 bg-white hover:bg-lavender-100 border border-lavender-200 text-lavender-900 rounded-2xl font-bold tracking-wide transition-all text-center">
+                        Demo Sound Space
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hero Interactive 3D Mockup Container -->
+            <div class="lg:col-span-7 flex flex-col items-center justify-center relative">
+                <!-- Outer glow rings -->
+                <div class="absolute w-[400px] h-[400px] sm:w-[500px] sm:h-[500px] rounded-full border border-dashed border-lavender-200 animate-spin" style="animation-duration: 40s;"></div>
+                <div class="absolute w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] rounded-full border border-lavender-100/50 animate-reverse"></div>
+                
+                <!-- Main Product Illustration Container -->
+                <div class="relative w-full max-w-[450px] aspect-square flex items-center justify-center animate-float">
+                    
+                    <!-- SVG Lavender Headphone -->
+                    <svg id="hero-headphone" class="w-10/12 h-10/12 transition-all duration-700 filter drop-shadow-2xl" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Dynamic Color Gradients -->
+                        <defs>
+                            <radialGradient id="earcup-shading" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.3"/>
+                                <stop offset="100%" stop-color="#000000" stop-opacity="0.15"/>
+                            </radialGradient>
+                            <linearGradient id="band-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#EAE6F4" class="band-color-stop-1"/>
+                                <stop offset="50%" stop-color="#D5CDEB" class="band-color-stop-2"/>
+                                <stop offset="100%" stop-color="#EAE6F4" class="band-color-stop-3"/>
+                            </linearGradient>
+                            <linearGradient id="cup-grad-left" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#DFD8F3" class="cup-color-stop-1"/>
+                                <stop offset="100%" stop-color="#9C8CD0" class="cup-color-stop-2"/>
+                            </linearGradient>
+                            <linearGradient id="cup-grad-right" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#ECE7F7" class="cup-color-stop-1"/>
+                                <stop offset="100%" stop-color="#A596D8" class="cup-color-stop-2"/>
+                            </linearGradient>
+                            <linearGradient id="cushion-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#BEB5DF" class="cushion-color-stop-1"/>
+                                <stop offset="100%" stop-color="#7C6FA4" class="cushion-color-stop-2"/>
+                            </linearGradient>
+                        </defs>
+
+                        <!-- Canopy (Mesh Band) -->
+                        <path d="M120 180 C 120 60, 380 60, 380 180" stroke="url(#band-grad)" stroke-width="28" stroke-linecap="round" fill="none" />
+                        <path d="M140 170 C 140 80, 360 80, 360 170" stroke="#FFF" stroke-width="4" stroke-opacity="0.4" stroke-linecap="round" fill="none" />
+                        
+                        <!-- Premium Inner Steel Rods -->
+                        <path d="M126 175 L126 230" stroke="#E2E8F0" stroke-width="10" stroke-linecap="round"/>
+                        <path d="M374 175 L374 230" stroke="#E2E8F0" stroke-width="10" stroke-linecap="round"/>
+                        
+                        <!-- Left Telescoping Arm Adjuster -->
+                        <rect x="122" y="210" width="8" height="40" rx="4" fill="#CBD5E1" />
+                        <!-- Right Telescoping Arm Adjuster -->
+                        <rect x="370" y="210" width="8" height="40" rx="4" fill="#CBD5E1" />
+
+                        <!-- Left Ear Cup (Behind / Angled) -->
+                        <g transform="translate(-10, 0)">
+                            <!-- Cushion -->
+                            <rect x="130" y="240" width="45" height="150" rx="22" fill="url(#cushion-grad)" />
+                            <!-- Outer Aluminum Cup -->
+                            <rect x="95" y="235" width="40" height="160" rx="20" fill="url(#cup-grad-left)" />
+                            <!-- Aluminum Highlight -->
+                            <rect x="95" y="235" width="40" height="160" rx="20" fill="url(#earcup-shading)" />
+                            <rect x="100" y="240" width="8" height="150" rx="4" fill="#FFF" fill-opacity="0.25" />
+                        </g>
+
+                        <!-- Right Ear Cup (Foreground / Angled) -->
+                        <g transform="translate(10, 0)">
+                            <!-- Cushion -->
+                            <rect x="315" y="240" width="45" height="150" rx="22" fill="url(#cushion-grad)" />
+                            <!-- Outer Aluminum Cup -->
+                            <rect x="355" y="235" width="40" height="160" rx="20" fill="url(#cup-grad-right)" />
+                            <!-- Aluminum Highlight -->
+                            <rect x="355" y="235" width="40" height="160" rx="20" fill="url(#earcup-shading)" />
+                            <rect x="382" y="240" width="8" height="150" rx="4" fill="#FFF" fill-opacity="0.3" />
+                        </g>
+
+                        <!-- Digital Crown (Right Ear Cup top) -->
+                        <rect x="382" y="222" width="14" height="14" rx="3" fill="#D1D5DB" />
+                        <!-- Noise Control Button -->
+                        <rect x="360" y="226" width="16" height="6" rx="2" fill="#E2E8F0" />
+                    </svg>
+
+                    <!-- Interactive Floating Tags -->
+                    <div class="absolute -top-4 -left-4 glass-card px-4 py-2.5 rounded-2xl shadow-premium border border-white text-xs font-semibold flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                        <span>Lossless Audio Audio Chip</span>
+                    </div>
+
+                    <div class="absolute -bottom-2 -right-4 glass-card px-4 py-2.5 rounded-2xl shadow-premium border border-white text-xs font-semibold flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-indigo-500"></span>
+                        <span>Adaptive EQ Enabled</span>
+                    </div>
+                </div>
+
+                <!-- Color fast switcher for hero -->
+                <div class="mt-6 flex flex-col items-center gap-2 bg-white/60 backdrop-blur px-6 py-3.5 rounded-full border border-lavender-200/50 shadow-sm">
+                    <span class="text-[11px] font-bold tracking-widest text-lavender-500 uppercase">Touch to swap visual aesthetic</span>
+                    <div class="flex items-center gap-3">
+                        <button onclick="changeColor('lavender')" class="w-6 h-6 rounded-full bg-[#947ECC] ring-2 ring-offset-2 ring-[#947ECC] transition-all hover:scale-110" title="Lavender Mist"></button>
+                        <button onclick="changeColor('obsidian')" class="w-6 h-6 rounded-full bg-[#1F1F1F] ring-2 ring-offset-2 ring-transparent transition-all hover:scale-110" title="Obsidian Black"></button>
+                        <button onclick="changeColor('silver')" class="w-6 h-6 rounded-full bg-[#D1D5DB] ring-2 ring-offset-2 ring-transparent transition-all hover:scale-110" title="Silver Sheen"></button>
+                        <button onclick="changeColor('rose')" class="w-6 h-6 rounded-full bg-[#E5C7C2] ring-2 ring-offset-2 ring-transparent transition-all hover:scale-110" title="Rose Cream"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Advantages Infographic Grid (Direct design inspiration from layout format of reference) -->
+    <section id="features" class="py-24 px-6 bg-lavender-100/50 relative">
+        <div class="max-w-7xl mx-auto space-y-16">
+            
+            <div class="text-center max-w-3xl mx-auto space-y-4">
+                <span class="text-xs font-bold tracking-widest uppercase text-lavender-500">Artistry in Engineering</span>
+                <h2 class="text-3xl sm:text-5xl font-black text-lavender-900 tracking-tight">Pure Visual Comfort. Inside and Out.</h2>
+                <p class="text-lavender-600 font-medium">We design with meticulous purpose. Each element is crafted for visual balance, sonic integrity, and luxurious wear.</p>
+            </div>
+
+            <!-- Balanced Infographic Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Card 1: Headband Concept -->
+                <div class="group bg-white rounded-3xl border border-lavender-200/60 overflow-hidden shadow-sm hover:shadow-premium transition-all duration-300 flex flex-col justify-between">
+                    <div class="p-8 space-y-3">
+                        <span class="text-[11px] font-extrabold uppercase tracking-widest text-lavender-400">Ergonomic Structure</span>
+                        <h3 class="text-2xl font-bold text-lavender-900">Breathable Knit Canopy</h3>
+                        <p class="text-lavender-600 text-sm leading-relaxed">Made from a custom acoustically optimized mesh, distributing weight seamlessly across the head to reduce pressure points.</p>
+                    </div>
+                    <div class="bg-lavender-50/80 p-6 flex justify-center items-center h-52 relative overflow-hidden">
+                        <!-- Headband schematic representation -->
+                        <div class="absolute w-[80%] h-[30px] border-t-8 border-dashed border-lavender-300 rounded-t-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-70"></div>
+                        <div class="w-2/3 h-6 bg-white border border-lavender-200 rounded-full flex items-center justify-between px-4 shadow-sm z-10">
+                            <span class="w-2.5 h-2.5 rounded-full bg-lavender-400"></span>
+                            <span class="text-[9px] uppercase tracking-wider text-lavender-500 font-bold">Ultralight Steel Frame</span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-lavender-400"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Memory Foam Comfort -->
+                <div class="group bg-white rounded-3xl border border-lavender-200/60 overflow-hidden shadow-sm hover:shadow-premium transition-all duration-300 flex flex-col justify-between">
+                    <div class="p-8 space-y-3">
+                        <span class="text-[11px] font-extrabold uppercase tracking-widest text-lavender-400">Acoustic Shield</span>
+                        <h3 class="text-2xl font-bold text-lavender-900">Adaptive Ear Cushions</h3>
+                        <p class="text-lavender-600 text-sm leading-relaxed">Form-fitted acoustic memory foam wrapped in custom mesh textile delivers a robust, comfortable seal that remembers your form.</p>
+                    </div>
+                    <div class="bg-lavender-100 p-6 flex justify-center items-center h-52 relative overflow-hidden">
+                        <div class="w-28 h-36 border-4 border-white bg-lavender-200 rounded-3xl relative flex items-center justify-center shadow-lg transition-transform group-hover:scale-105">
+                            <div class="w-20 h-28 border-2 border-dashed border-white bg-lavender-300 rounded-2xl flex items-center justify-center text-xs font-bold text-white uppercase tracking-wider">
+                                Soft Seal
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Intuitive Controls -->
+                <div class="group bg-white rounded-3xl border border-lavender-200/60 overflow-hidden shadow-sm hover:shadow-premium transition-all duration-300 flex flex-col justify-between md:col-span-2 lg:col-span-1">
+                    <div class="p-8 space-y-3">
+                        <span class="text-[11px] font-extrabold uppercase tracking-widest text-lavender-400">Human Interface</span>
+                        <h3 class="text-2xl font-bold text-lavender-900">Tactile Precision</h3>
+                        <p class="text-lavender-600 text-sm leading-relaxed">A custom-machined dynamic dial gives precise volume adjustment, track skipping, and phone answer controls, keeping interactions simple.</p>
+                    </div>
+                    <div class="bg-lavender-900 p-6 flex justify-center items-center h-52 relative overflow-hidden">
+                        <!-- Custom visual rendering of the crown button -->
+                        <div class="relative w-28 h-28 rounded-full border border-lavender-700 flex items-center justify-center bg-gradient-to-tr from-lavender-900 to-lavender-800">
+                            <div class="w-20 h-20 rounded-full bg-gradient-to-b from-lavender-300 to-lavender-500 shadow-xl flex flex-col items-center justify-center text-white p-2">
+                                <span class="text-[9px] uppercase font-black tracking-widest">Rotate</span>
+                                <span class="text-xs">⟳</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Sound Simulator -->
+    <section id="audio-sim" class="py-24 px-6 bg-velvet text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-lavender-900/40 via-velvet to-velvet pointer-events-none"></div>
+        
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+            <!-- Information Text Column -->
+            <div class="lg:col-span-5 space-y-6">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-lavender-200 text-xs font-bold tracking-wider uppercase">
+                    Acoustic Simulator
+                </div>
+                <h2 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
+                    Active Noise Cancellation. <br>
+                    Pure Quietude.
+                </h2>
+                <p class="text-lavender-200 font-normal leading-relaxed text-sm sm:text-base">
+                    Equipped with eight microphones that constantly monitor your surroundings, our industry-leading active noise cancellation system nullifies ambient hums in real time, keeping your focus where it belongs.
+                </p>
+
+                <!-- Simulated Sound Controls -->
+                <div class="p-6 bg-white/5 border border-white/10 rounded-3xl space-y-4">
+                    <span class="block text-xs font-semibold tracking-wider text-lavender-300 uppercase">Interactive Filter Demo</span>
+                    
+                    <div class="grid grid-cols-3 gap-3">
+                        <button onclick="toggleSoundMode('anc')" id="btn-anc" class="py-3 px-2 text-center rounded-2xl bg-lavender-500 text-white font-extrabold text-xs uppercase tracking-wider shadow-lg transition-all border border-lavender-400">
+                            ANC On
+                        </button>
+                        <button onclick="toggleSoundMode('transparency')" id="btn-trans" class="py-3 px-2 text-center rounded-2xl bg-white/5 text-lavender-200 hover:bg-white/10 font-bold text-xs uppercase tracking-wider transition-all border border-transparent">
+                            Transparency
+                        </button>
+                        <button onclick="toggleSoundMode('off')" id="btn-off" class="py-3 px-2 text-center rounded-2xl bg-white/5 text-lavender-200 hover:bg-white/10 font-bold text-xs uppercase tracking-wider transition-all border border-transparent">
+                            Off
+                        </button>
+                    </div>
+
+                    <p id="sound-mode-desc" class="text-xs text-lavender-200 italic">
+                        "Active noise cancellation blocks the background frequencies entirely, isolating your focus."
+                    </p>
+                </div>
+            </div>
+
+            <!-- Waveform & Audio Stage Visualizer Column -->
+            <div class="lg:col-span-7 flex flex-col items-center justify-center p-8 bg-white/5 border border-white/10 rounded-3xl relative h-[450px]">
+                
+                <!-- Center Glowing Hologram of Headphone -->
+                <div id="visualizer-sphere" class="absolute w-[280px] h-[280px] rounded-full bg-lavender-500/20 filter blur-3xl transition-all duration-700 scale-100"></div>
+
+                <!-- Pure Acoustic Waves rendering -->
+                <div class="w-full flex items-center justify-center gap-1.5 h-36 px-4 z-10 transition-all duration-500" id="wave-container">
+                    <!-- Dynamic waves generated by JS -->
+                </div>
+
+                <!-- Simulated Sound Source Overlay label -->
+                <div class="mt-8 text-center z-10 space-y-1">
+                    <span class="block text-[11px] uppercase tracking-widest text-lavender-300 font-bold">Ambient Noise Isolation Status</span>
+                    <div class="inline-flex items-center gap-2">
+                        <span id="ambient-indicator-pulse" class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+                        <span id="ambient-mode-label" class="text-sm font-bold tracking-wider text-white">98% Isolated</span>
+                    </div>
+                </div>
+
+                <!-- Mini Speaker Simulation Controls -->
+                <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between px-4 py-2 bg-white/5 rounded-2xl text-xs text-lavender-300">
+                    <span>Simulated frequency range</span>
+                    <span class="font-mono">20Hz - 20,000Hz</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Spatial Audio Sandbox -->
+    <section class="py-24 px-6 bg-lavender-50 relative">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Spatial Audio Canvas Visual -->
+            <div class="lg:col-span-7 flex flex-col items-center justify-center p-6 bg-white border border-lavender-100 rounded-3xl relative h-[480px] shadow-sm">
+                <div class="absolute top-4 left-4 right-4 flex justify-between items-center text-xs text-lavender-500 font-bold uppercase tracking-wider">
+                    <span>Spatial Stage Setup</span>
+                    <span>Drag Dot to Orbit Sound</span>
+                </div>
+
+                <!-- Visual Orbit Canvas Container -->
+                <div class="relative w-72 h-72 sm:w-80 sm:h-80 rounded-full border border-dashed border-lavender-200 flex items-center justify-center" id="spatial-orbit-ring">
+                    <!-- Inner rings -->
+                    <div class="absolute w-52 h-52 rounded-full border border-lavender-100 flex items-center justify-center">
+                        <div class="absolute w-32 h-32 rounded-full border border-lavender-50 flex items-center justify-center"></div>
+                    </div>
+
+                    <!-- Listener representation in the center -->
+                    <div class="w-16 h-16 rounded-full bg-lavender-100 border border-lavender-200 flex items-center justify-center z-20 shadow-md">
+                        <svg class="w-8 h-8 text-lavender-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                    </div>
+
+                    <!-- Draggable Audio Node (The sound source) -->
+                    <div id="audio-node" class="absolute w-10 h-10 rounded-full bg-lavender-500 text-white flex items-center justify-center cursor-move shadow-lg shadow-lavender-500/50 hover:scale-110 active:scale-95 transition-all z-30" style="left: 80%; top: 20%;">
+                        <svg class="w-5 h-5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
+                        </svg>
+                    </div>
+
+                    <!-- Direction arrows indicating spatial audio vectors -->
+                    <div id="vector-line-left" class="absolute w-0.5 bg-gradient-to-t from-lavender-400 to-transparent origin-bottom" style="height: 0px; left: 50%;"></div>
+                </div>
+
+                <!-- Live coordinates and directional feedback labels -->
+                <div class="mt-6 flex gap-6 text-center text-xs font-bold text-lavender-500">
+                    <div>
+                        <span class="block text-lavender-300 uppercase text-[9px] tracking-wider">Spatial Orbit</span>
+                        <span id="orbit-angle" class="text-lavender-900">45° Right</span>
+                    </div>
+                    <div>
+                        <span class="block text-lavender-300 uppercase text-[9px] tracking-wider">Sound Density</span>
+                        <span id="orbit-distance" class="text-lavender-900">Adaptive Atmos</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Side Column -->
+            <div class="lg:col-span-5 space-y-6">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-lavender-100 border border-lavender-200 text-lavender-600 text-xs font-bold tracking-wider uppercase">
+                    Surround Geometry
+                </div>
+                <h2 class="text-3xl sm:text-5xl font-black text-lavender-900 tracking-tight leading-tight">
+                    Spatial Audio. <br>
+                    Fully Personal.
+                </h2>
+                <p class="text-lavender-600 font-medium text-base leading-relaxed">
+                    Personalized spatial audio tracks your subtle head movements using sophisticated built-in gyroscopes and accelerometers. The sound seems to stay anchored to the device you're looking at, giving a true room-filling theater experience.
+                </p>
+
+                <div class="space-y-4">
+                    <div class="flex items-start gap-4">
+                        <div class="w-8 h-8 rounded-full bg-lavender-100 flex items-center justify-center text-lavender-600 font-black text-xs shrink-0 mt-0.5">1</div>
+                        <div>
+                            <h4 class="font-bold text-lavender-900 text-sm">Dynamic Head Tracking</h4>
+                            <p class="text-xs text-lavender-500 mt-0.5">Senses rotation at 100 times per second to realign audio direction.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-8 h-8 rounded-full bg-lavender-100 flex items-center justify-center text-lavender-600 font-black text-xs shrink-0 mt-0.5">2</div>
+                        <div>
+                            <h4 class="font-bold text-lavender-900 text-sm">Adaptive Bass Modeling</h4>
+                            <p class="text-xs text-lavender-500 mt-0.5">Adjusts low frequencies on the fly based on the physical fit of your earcups.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Exploded Tech Schematic Interactive Spotspots -->
+    <section id="schematic" class="py-24 px-6 bg-lavender-900 text-white relative">
+        <div class="max-w-7xl mx-auto space-y-16">
+            
+            <div class="text-center max-w-2xl mx-auto space-y-4">
+                <span class="text-xs font-bold tracking-widest uppercase text-lavender-300">Engineering Showcase</span>
+                <h2 class="text-3xl sm:text-5xl font-black tracking-tight text-white">Anatomy of Acoustic Masterwork</h2>
+                <p class="text-lavender-200 font-normal">Click the interactive hotspots on the headset to reveal the exquisite architecture inside the shell.</p>
+            </div>
+
+            <!-- Central Schematic Graphic with interactive tabs/popups -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Schematic SVG & hotspot trigger zone (Columns 7) -->
+                <div class="lg:col-span-7 flex justify-center items-center relative py-8">
+                    <!-- Tech schematic background rings -->
+                    <div class="absolute w-[80%] aspect-square border border-white/5 rounded-full"></div>
+                    <div class="absolute w-[60%] aspect-square border border-white/10 rounded-full"></div>
+
+                    <!-- Main Schematic Display SVG -->
+                    <svg class="w-10/12 h-auto filter drop-shadow-3xl" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Headband Outline -->
+                        <path d="M120 180 C 120 60, 380 60, 380 180" stroke="#FFF" stroke-width="12" stroke-opacity="0.2" stroke-linecap="round" fill="none" />
+                        <path d="M120 180 C 120 60, 380 60, 380 180" stroke="#FFF" stroke-width="2" stroke-opacity="0.8" stroke-dasharray="4 4" stroke-linecap="round" fill="none" />
+                        
+                        <!-- Internal Wiring Guide path -->
+                        <path d="M150 120 L350 120" stroke="#818CF8" stroke-width="2" stroke-opacity="0.6"/>
+
+                        <!-- Left Steel Arm line -->
+                        <path d="M126 175 L126 240" stroke="#FFF" stroke-opacity="0.4" stroke-width="4" />
+                        <!-- Right Steel Arm line -->
+                        <path d="M374 175 L374 240" stroke="#FFF" stroke-opacity="0.4" stroke-width="4" />
+
+                        <!-- Simplified Exploded Cushion & Ring -->
+                        <rect x="290" y="240" width="35" height="150" rx="18" stroke="#FFF" stroke-opacity="0.3" stroke-width="2" fill="none" />
+                        <rect x="330" y="240" width="10" height="150" rx="5" stroke="#818CF8" stroke-opacity="0.6" stroke-width="2" fill="none" />
+                        <rect x="350" y="235" width="40" height="160" rx="20" stroke="#FFF" stroke-opacity="0.8" stroke-width="3" fill="none" />
+
+                        <rect x="175" y="240" width="35" height="150" rx="18" stroke="#FFF" stroke-opacity="0.3" stroke-width="2" fill="none" />
+                        <rect x="160" y="240" width="10" height="150" rx="5" stroke="#818CF8" stroke-opacity="0.6" stroke-width="2" fill="none" />
+                        <rect x="110" y="235" width="40" height="160" rx="20" stroke="#FFF" stroke-opacity="0.8" stroke-width="3" fill="none" />
+                    </svg>
+
+                    <!-- Interactive hotspot nodes positioned absolutely over coordinates -->
+                    <!-- Hotspot 1: Mesh Canopy -->
+                    <button onclick="revealSchematicDetails(1)" class="absolute top-[18%] left-[50%] -translate-x-1/2 w-8 h-8 rounded-full bg-lavender-500 border-4 border-white/40 flex items-center justify-center text-white font-bold text-xs shadow-lg hover:scale-110 active:scale-95 transition-all animate-bounce">
+                        1
+                    </button>
+
+                    <!-- Hotspot 2: Drivers & Sound Cup -->
+                    <button onclick="revealSchematicDetails(2)" class="absolute top-[55%] left-[23%] w-8 h-8 rounded-full bg-lavender-500 border-4 border-white/40 flex items-center justify-center text-white font-bold text-xs shadow-lg hover:scale-110 active:scale-95 transition-all">
+                        2
+                    </button>
+
+                    <!-- Hotspot 3: Control Mechanism -->
+                    <button onclick="revealSchematicDetails(3)" class="absolute top-[48%] right-[22%] w-8 h-8 rounded-full bg-lavender-500 border-4 border-white/40 flex items-center justify-center text-white font-bold text-xs shadow-lg hover:scale-110 active:scale-95 transition-all">
+                        3
+                    </button>
+
+                    <!-- Hotspot 4: Dual H1 Intelligent Chips -->
+                    <button onclick="revealSchematicDetails(4)" class="absolute bottom-[20%] left-[50%] -translate-x-1/2 w-8 h-8 rounded-full bg-lavender-500 border-4 border-white/40 flex items-center justify-center text-white font-bold text-xs shadow-lg hover:scale-110 active:scale-95 transition-all">
+                        4
+                    </button>
+                </div>
+
+                <!-- Explanation Panel Container (Column 5) -->
+                <div class="lg:col-span-5 flex flex-col justify-center">
+                    <div id="schematic-detail-card" class="p-8 bg-white/5 border border-white/10 rounded-3xl space-y-4 transition-all duration-300">
+                        <span id="detail-tag" class="text-xs font-bold tracking-widest text-lavender-400 uppercase">Engineered Part 1</span>
+                        <h3 id="detail-title" class="text-2xl font-bold text-white">Continuous Mesh Tension</h3>
+                        <p id="detail-desc" class="text-lavender-200 text-sm leading-relaxed">
+                            Formed with resilient steel wires and woven thread, the canopy provides balanced posture support. By distributing the vertical pressure, you forget you're wearing an advanced audio computer.
+                        </p>
+                        
+                        <!-- Mini progress representation of features -->
+                        <div class="pt-4 grid grid-cols-2 gap-4 border-t border-white/10 text-xs">
+                            <div>
+                                <span class="block text-lavender-400">Flexibility Index</span>
+                                <span id="detail-stat-1" class="font-bold text-white">99.4% Uniform</span>
+                            </div>
+                            <div>
+                                <span class="block text-lavender-400">Component Weight</span>
+                                <span id="detail-stat-2" class="font-bold text-white">Just 14 Grams</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Direct Quick Navigation dots for hotspots -->
+                    <div class="mt-6 flex justify-center lg:justify-start gap-2.5">
+                        <button onclick="revealSchematicDetails(1)" id="spec-dot-1" class="w-3 h-3 rounded-full bg-white transition-all"></button>
+                        <button onclick="revealSchematicDetails(2)" id="spec-dot-2" class="w-3 h-3 rounded-full bg-white/30 transition-all"></button>
+                        <button onclick="revealSchematicDetails(3)" id="spec-dot-3" class="w-3 h-3 rounded-full bg-white/30 transition-all"></button>
+                        <button onclick="revealSchematicDetails(4)" id="spec-dot-4" class="w-3 h-3 rounded-full bg-white/30 transition-all"></button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom Configurator / Personalized Order Zone -->
+    <section id="configurator" class="py-24 px-6 bg-white relative">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Left Side Interactive Dynamic Render Frame -->
+            <div class="lg:col-span-6 flex flex-col justify-center items-center bg-lavender-50/50 rounded-3xl p-8 border border-lavender-100 relative min-h-[480px]">
+                <div class="absolute top-4 left-4 inline-flex items-center gap-2 text-xs font-bold text-lavender-500 uppercase tracking-wider">
+                    <span class="w-2 h-2 rounded-full bg-lavender-400"></span>
+                    <span>Studio Color Preview</span>
+                </div>
+
+                <!-- Render Object -->
+                <div class="w-10/12 max-w-[380px] aspect-square flex items-center justify-center animate-pulse-gentle">
+                    <!-- SVG Configurator Object (Mirror of Hero but driven by color states) -->
+                    <svg id="config-headphone" class="w-full h-full transition-all duration-700 filter drop-shadow-xl" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Embedded defs duplicates with reactive variables -->
+                        <defs>
+                            <radialGradient id="config-earcup-shading" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.3"/>
+                                <stop offset="100%" stop-color="#000000" stop-opacity="0.15"/>
+                            </radialGradient>
+                            <linearGradient id="config-band-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#EAE6F4" class="config-band-color-stop-1"/>
+                                <stop offset="50%" stop-color="#D5CDEB" class="config-band-color-stop-2"/>
+                                <stop offset="100%" stop-color="#EAE6F4" class="config-band-color-stop-3"/>
+                            </linearGradient>
+                            <linearGradient id="config-cup-grad-left" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#DFD8F3" class="config-cup-color-stop-1"/>
+                                <stop offset="100%" stop-color="#9C8CD0" class="config-cup-color-stop-2"/>
+                            </linearGradient>
+                            <linearGradient id="config-cup-grad-right" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#ECE7F7" class="config-cup-color-stop-1"/>
+                                <stop offset="100%" stop-color="#A596D8" class="config-cup-color-stop-2"/>
+                            </linearGradient>
+                            <linearGradient id="config-cushion-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#BEB5DF" class="config-cushion-color-stop-1"/>
+                                <stop offset="100%" stop-color="#7C6FA4" class="config-cushion-color-stop-2"/>
+                            </linearGradient>
+                        </defs>
+
+                        <!-- Canopy -->
+                        <path d="M120 180 C 120 60, 380 60, 380 180" stroke="url(#config-band-grad)" stroke-width="28" stroke-linecap="round" fill="none" />
+                        <path d="M140 170 C 140 80, 360 80, 360 170" stroke="#FFF" stroke-width="4" stroke-opacity="0.4" stroke-linecap="round" fill="none" />
+                        
+                        <!-- Steel Rods -->
+                        <path d="M126 175 L126 230" stroke="#E2E8F0" stroke-width="10" stroke-linecap="round"/>
+                        <path d="M374 175 L374 230" stroke="#E2E8F0" stroke-width="10" stroke-linecap="round"/>
+                        
+                        <!-- Telescoping adjusters -->
+                        <rect x="122" y="210" width="8" height="40" rx="4" fill="#CBD5E1" />
+                        <rect x="370" y="210" width="8" height="40" rx="4" fill="#CBD5E1" />
+
+                        <!-- Left Cup -->
+                        <g transform="translate(-10, 0)">
+                            <rect x="130" y="240" width="45" height="150" rx="22" fill="url(#config-cushion-grad)" />
+                            <rect x="95" y="235" width="40" height="160" rx="20" fill="url(#config-cup-grad-left)" />
+                            <rect x="95" y="235" width="40" height="160" rx="20" fill="url(#config-earcup-shading)" />
+                            <rect x="100" y="240" width="8" height="150" rx="4" fill="#FFF" fill-opacity="0.25" />
+                        </g>
+
+                        <!-- Right Cup -->
+                        <g transform="translate(10, 0)">
+                            <rect x="315" y="240" width="45" height="150" rx="22" fill="url(#config-cushion-grad)" />
+                            <rect x="355" y="235" width="40" height="160" rx="20" fill="url(#config-cup-grad-right)" />
+                            <rect x="355" y="235" width="40" height="160" rx="20" fill="url(#config-earcup-shading)" />
+                            <rect x="382" y="240" width="8" height="150" rx="4" fill="#FFF" fill-opacity="0.3" />
+                        </g>
+
+                        <!-- Crown & Buttons -->
+                        <rect x="382" y="222" width="14" height="14" rx="3" fill="#D1D5DB" />
+                        <rect x="360" y="226" width="16" height="6" rx="2" fill="#E2E8F0" />
+                    </svg>
+                </div>
+
+                <!-- Ambient Glow Behind Model -->
+                <div id="config-color-glow" class="absolute w-56 h-56 rounded-full bg-lavender-300/20 blur-3xl pointer-events-none z-0 transition-colors duration-700"></div>
+            </div>
+
+            <!-- Right Side Selection Console (Column 6) -->
+            <div class="lg:col-span-6 space-y-8">
+                <div class="space-y-3">
+                    <span class="text-xs font-bold tracking-widest uppercase text-lavender-500">Bespoke Options</span>
+                    <h2 class="text-4xl font-black text-lavender-900 tracking-tight">Personalize Your Soundscape</h2>
+                    <p class="text-lavender-600 text-sm sm:text-base">
+                        Select a finish that matches your unique personal workspace. Every unit ships in a luxurious matte anodized coating with a color-matched Smart Case.
+                    </p>
+                </div>
+
+                <!-- Custom Interactive Selectors -->
+                <div class="space-y-6">
+                    <!-- Finish Selector Group -->
+                    <div class="space-y-3">
+                        <span class="block text-xs font-semibold uppercase tracking-wider text-lavender-400">1. Select Finish Color</span>
+                        <div class="grid grid-cols-2 gap-4">
+                            <!-- Option 1: Lavender Mist -->
+                            <button onclick="changeColor('lavender')" id="opt-lavender" class="flex items-center gap-3 p-4 rounded-2xl border-2 border-lavender-500 bg-lavender-50 text-left transition-all">
+                                <span class="w-6 h-6 rounded-full bg-[#947ECC] shrink-0"></span>
+                                <div>
+                                    <span class="block font-bold text-xs text-lavender-900">Lavender Mist</span>
+                                    <span class="block text-[10px] text-lavender-500">Inspired Edition</span>
+                                </div>
+                            </button>
+
+                            <!-- Option 2: Obsidian Black -->
+                            <button onclick="changeColor('obsidian')" id="opt-obsidian" class="flex items-center gap-3 p-4 rounded-2xl border-2 border-transparent bg-slate-50 text-left hover:bg-slate-100 transition-all">
+                                <span class="w-6 h-6 rounded-full bg-[#1F1F1F] shrink-0"></span>
+                                <div>
+                                    <span class="block font-bold text-xs text-slate-800">Obsidian Black</span>
+                                    <span class="block text-[10px] text-slate-500">Carbon Classic</span>
+                                </div>
+                            </button>
+
+                            <!-- Option 3: Silver Sheen -->
+                            <button onclick="changeColor('silver')" id="opt-silver" class="flex items-center gap-3 p-4 rounded-2xl border-2 border-transparent bg-slate-50 text-left hover:bg-slate-100 transition-all">
+                                <span class="w-6 h-6 rounded-full bg-[#D1D5DB] shrink-0"></span>
+                                <div>
+                                    <span class="block font-bold text-xs text-slate-800">Silver Sheen</span>
+                                    <span class="block text-[10px] text-slate-500">Pure Minimalist</span>
+                                </div>
+                            </button>
+
+                            <!-- Option 4: Rose Cream -->
+                            <button onclick="changeColor('rose')" id="opt-rose" class="flex items-center gap-3 p-4 rounded-2xl border-2 border-transparent bg-slate-50 text-left hover:bg-slate-100 transition-all">
+                                <span class="w-6 h-6 rounded-full bg-[#E5C7C2] shrink-0"></span>
+                                <div>
+                                    <span class="block font-bold text-xs text-slate-800">Rose Cream</span>
+                                    <span class="block text-[10px] text-slate-500">Warm Palette</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Custom Accessories add-on (Interactive checkmarks) -->
+                    <div class="space-y-3">
+                        <span class="block text-xs font-semibold uppercase tracking-wider text-lavender-400">2. Custom Additions</span>
+                        <div class="space-y-3">
+                            <label class="flex items-center justify-between p-4 rounded-2xl bg-slate-50/50 hover:bg-slate-50 border border-slate-100 cursor-pointer transition-all">
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" id="add-on-case" checked class="w-4 h-4 rounded text-lavender-600 focus:ring-lavender-500">
+                                    <div>
+                                        <span class="block text-xs font-bold text-lavender-900">Custom Smart Travel Case</span>
+                                        <span class="block text-[10px] text-lavender-500">Enters ultra-low-power mode when closed</span>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-extrabold text-lavender-600">Included</span>
+                            </label>
+
+                            <label class="flex items-center justify-between p-4 rounded-2xl bg-slate-50/50 hover:bg-slate-50 border border-slate-100 cursor-pointer transition-all">
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" id="add-on-engrave" class="w-4 h-4 rounded text-lavender-600 focus:ring-lavender-500" onchange="toggleEngraveOption()">
+                                    <div>
+                                        <span class="block text-xs font-bold text-lavender-900">Complimentary Engraving</span>
+                                        <span class="block text-[10px] text-lavender-500">Engrave your name, initials, or emoji</span>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-extrabold text-emerald-600">Free</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Live pricing box -->
+                    <div class="p-6 bg-lavender-50/70 border border-lavender-100 rounded-3xl flex justify-between items-center">
+                        <div>
+                            <span class="block text-[10px] font-bold text-lavender-400 uppercase tracking-widest">Pricing Estimate</span>
+                            <span class="text-3xl font-black text-lavender-900">$549</span>
+                            <span class="block text-[10px] text-lavender-500">or $45.75/mo. for 12 mo.</span>
+                        </div>
+                        <button onclick="triggerOrderSuccess()" class="px-8 py-4 bg-lavender-900 hover:bg-lavender-700 text-white rounded-2xl font-bold tracking-wide shadow-lg transition-all active:scale-95">
+                            Order Now
+                        </button>
+                    </div>
+
+                    <!-- Dynamic Notification Modal after order simulation -->
+                    <div id="order-success-modal" class="hidden p-4 rounded-2xl bg-emerald-50 border border-emerald-100 text-emerald-800 text-xs flex items-center justify-between animate-bounce">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                            <span>Awesome choice! Your personalized config has been secured in your bag.</span>
+                        </div>
+                        <button onclick="closeSuccess()" class="font-bold underline uppercase tracking-wider text-[10px]">Dismiss</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Detailed Tech Specifications Grid (Strictly inspired by Infographics grid from references) -->
+    <section id="specifications" class="py-24 px-6 bg-lavender-100/30">
+        <div class="max-w-7xl mx-auto space-y-16">
+            
+            <div class="text-center max-w-3xl mx-auto space-y-4">
+                <span class="text-xs font-bold tracking-widest uppercase text-lavender-500">Technical Data</span>
+                <h2 class="text-3xl sm:text-5xl font-black text-lavender-900 tracking-tight">Granular Acoustic Parameters</h2>
+                <p class="text-lavender-600 font-medium">For audiophiles demanding precise technical transparency, we lay bare the metrics of our hardware.</p>
+            </div>
+
+            <!-- Dynamic Tab Filter for Specs -->
+            <div class="flex justify-center gap-2 max-w-md mx-auto">
+                <button onclick="switchSpecTab('acoustic')" id="tab-acoustic" class="flex-1 py-2 text-center rounded-xl bg-lavender-900 text-white text-xs font-bold uppercase tracking-wider transition-all">Acoustic</button>
+                <button onclick="switchSpecTab('battery')" id="tab-battery" class="flex-1 py-2 text-center rounded-xl bg-white text-lavender-600 text-xs font-bold uppercase tracking-wider transition-all">Battery</button>
+                <button onclick="switchSpecTab('sensor')" id="tab-sensor" class="flex-1 py-2 text-center rounded-xl bg-white text-lavender-600 text-xs font-bold uppercase tracking-wider transition-all">Sensors</button>
+            </div>
+
+            <!-- Responsive Specs Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="specs-grid-container">
+                <!-- Dynamically populated via Javascript, starting with Acoustic state -->
+            </div>
+
+        </div>
+    </section>
+
+    <!-- High-Fidelity Interactive Customer Review Showcase -->
+    <section class="py-24 px-6 bg-lavender-900 text-white relative">
+        <div class="max-w-7xl mx-auto space-y-12">
+            
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6">
+                <div class="space-y-3">
+                    <span class="text-xs font-bold tracking-widest uppercase text-lavender-300">User Echoes</span>
+                    <h2 class="text-3xl sm:text-5xl font-black tracking-tight text-white">Loved by Creators worldwide</h2>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="slideReview(-1)" class="w-12 h-12 rounded-full border border-white/20 hover:bg-white/10 flex items-center justify-center text-xl transition-all">←</button>
+                    <button onclick="slideReview(1)" class="w-12 h-12 rounded-full border border-white/20 hover:bg-white/10 flex items-center justify-center text-xl transition-all">→</button>
+                </div>
+            </div>
+
+            <!-- Slides Panel -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="reviews-carousel">
+                <!-- Review Card 1 -->
+                <div class="p-8 bg-white/5 border border-white/10 rounded-3xl space-y-6 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <!-- Star rating -->
+                        <div class="flex text-amber-300 gap-1 text-sm">★★★★★</div>
+                        <p class="text-lavender-100 text-sm leading-relaxed italic">
+                            "The Lavender finish matches my minimalist workspace perfectly. The ANC is absolute sorcery—I work in a noisy coffee house and feel completely locked in my bubble."
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3 border-t border-white/10 pt-4">
+                        <div class="w-10 h-10 rounded-full bg-lavender-400 flex items-center justify-center text-xs font-bold text-white uppercase">
+                            EM
+                        </div>
+                        <div>
+                            <span class="block font-bold text-xs text-white">Emily Morton</span>
+                            <span class="block text-[10px] text-lavender-400">Creative Producer, NYC</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review Card 2 -->
+                <div class="p-8 bg-white/5 border border-white/10 rounded-3xl space-y-6 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex text-amber-300 gap-1 text-sm">★★★★★</div>
+                        <p class="text-lavender-100 text-sm leading-relaxed italic">
+                            "Spatial audio transforms standard movie watching on an iPad into an IMAX scale theater experience. Worth every single cent for the comfort and build quality."
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3 border-t border-white/10 pt-4">
+                        <div class="w-10 h-10 rounded-full bg-slate-500 flex items-center justify-center text-xs font-bold text-white uppercase">
+                            DK
+                        </div>
+                        <div>
+                            <span class="block font-bold text-xs text-white">Devon Kross</span>
+                            <span class="block text-[10px] text-lavender-400">Tech Lead & Cinephile</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review Card 3 -->
+                <div class="p-8 bg-white/5 border border-white/10 rounded-3xl space-y-6 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex text-amber-300 gap-1 text-sm">★★★★★</div>
+                        <p class="text-lavender-100 text-sm leading-relaxed italic">
+                            "The material design is simply stunning. The aluminum earcups have a smooth matte finish, and the digital crown feels extremely tactile. Exceptional piece of engineering."
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3 border-t border-white/10 pt-4">
+                        <div class="w-10 h-10 rounded-full bg-indigo-400 flex items-center justify-center text-xs font-bold text-white uppercase">
+                            AL
+                        </div>
+                        <div>
+                            <span class="block font-bold text-xs text-white">Aris Larsson</span>
+                            <span class="block text-[10px] text-lavender-400">Architect, Stockholm</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Direct Response FAQ Accordion Section -->
+    <section class="py-24 px-6 bg-lavender-50">
+        <div class="max-w-4xl mx-auto space-y-12">
+            
+            <div class="text-center space-y-3">
+                <span class="text-xs font-bold tracking-widest uppercase text-lavender-500">Common Enquiries</span>
+                <h2 class="text-3xl sm:text-5xl font-black text-lavender-900 tracking-tight">Got Questions? We Have Answers.</h2>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <div class="bg-white border border-lavender-100 rounded-2xl overflow-hidden transition-all duration-300">
+                    <button onclick="toggleFAQ(1)" class="w-full p-6 text-left flex justify-between items-center text-lavender-900 hover:bg-slate-50/50 transition-colors">
+                        <span class="font-bold text-sm sm:text-base">What device compatibility can I expect?</span>
+                        <span id="faq-icon-1" class="text-xl transition-transform duration-300">+</span>
+                    </button>
+                    <div id="faq-content-1" class="hidden px-6 pb-6 text-xs sm:text-sm text-lavender-600 leading-relaxed">
+                        Maximus headphones pair instantly with all modern smartphones, tablets, and computers over Bluetooth 5.0. Advanced smart integrations like personalized Spatial Audio and multi-point audio switching work seamlessly across the ecosystem.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="bg-white border border-lavender-100 rounded-2xl overflow-hidden transition-all duration-300">
+                    <button onclick="toggleFAQ(2)" class="w-full p-6 text-left flex justify-between items-center text-lavender-900 hover:bg-slate-50/50 transition-colors">
+                        <span class="font-bold text-sm sm:text-base">How does the 20-hour battery handle fast charging?</span>
+                        <span id="faq-icon-2" class="text-xl transition-transform duration-300">+</span>
+                    </button>
+                    <div id="faq-content-2" class="hidden px-6 pb-6 text-xs sm:text-sm text-lavender-600 leading-relaxed">
+                        A quick 5-minute charge over USB-C or Lightning provides up to 1.5 hours of complete active listening with both Active Noise Cancellation and spatial audio active. It supports dual charging configurations securely.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="bg-white border border-lavender-100 rounded-2xl overflow-hidden transition-all duration-300">
+                    <button onclick="toggleFAQ(3)" class="w-full p-6 text-left flex justify-between items-center text-lavender-900 hover:bg-slate-50/50 transition-colors">
+                        <span class="font-bold text-sm sm:text-base">Can I clean the custom fabric mesh headband and cups?</span>
+                        <span id="faq-icon-3" class="text-xl transition-transform duration-300">+</span>
+                    </button>
+                    <div id="faq-content-3" class="hidden px-6 pb-6 text-xs sm:text-sm text-lavender-600 leading-relaxed">
+                        Yes. Both the memory foam ear cushion modules and the outer flexible mesh canopy can be lightly wiped with a damp microfiber cloth. The cushions are magnetically attached, making them easy to swap or clean separately.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- High-Fidelity Modern Footer -->
+    <footer class="bg-velvet-dark text-white border-t border-white/5 py-16 px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+            
+            <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-lavender-400 to-lavender-600 flex items-center justify-center text-white font-black text-xl">
+                        M
+                    </div>
+                    <div>
+                        <span class="text-lg font-extrabold tracking-tight">MAXIMUS</span>
+                        <span class="block text-[9px] uppercase tracking-widest text-lavender-400 -mt-1 font-bold">Acoustic Precision</span>
+                    </div>
+                </div>
+                <p class="text-xs text-lavender-300 leading-relaxed">
+                    Bringing together professional acoustic purity and stunning structural aesthetics for individuals who live and create in sound.
+                </p>
+                <div class="pt-2 text-[10px] text-lavender-400">
+                    Designed in harmony. Launch 2026.
+                </div>
+            </div>
+
+            <div class="space-y-4 text-xs">
+                <h4 class="font-bold uppercase tracking-wider text-white">Experience</h4>
+                <ul class="space-y-2.5 text-lavender-300">
+                    <li><a href="#features" class="hover:text-white transition-colors">Design & Comfort</a></li>
+                    <li><a href="#audio-sim" class="hover:text-white transition-colors">Active Noise Cancellation</a></li>
+                    <li><a href="#schematic" class="hover:text-white transition-colors">Internal Anatomy</a></li>
+                    <li><a href="#configurator" class="hover:text-white transition-colors">Custom Color Configurator</a></li>
+                </ul>
+            </div>
+
+            <div class="space-y-4 text-xs">
+                <h4 class="font-bold uppercase tracking-wider text-white">Support</h4>
+                <ul class="space-y-2.5 text-lavender-300">
+                    <li><a href="#" class="hover:text-white transition-colors">Quick Setup Guide</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Replacement Cushions</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Authorized Retailers</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Warranty & Service</a></li>
+                </ul>
+            </div>
+
+            <div class="space-y-4 text-xs">
+                <h4 class="font-bold uppercase tracking-wider text-white">Newsletter</h4>
+                <p class="text-lavender-300 leading-relaxed">Get the latest acoustic firmware updates, custom presets, and exclusive color release announcements direct to your inbox.</p>
+                <div class="flex gap-2">
+                    <input type="email" placeholder="you@example.com" class="bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs w-full focus:outline-none focus:border-lavender-400 text-white">
+                    <button onclick="triggerNewsletterSuccess()" class="bg-lavender-500 hover:bg-lavender-400 px-4 py-2 rounded-xl text-white font-bold transition-all">Join</button>
+                </div>
+                <span id="newsletter-status" class="hidden text-[10px] text-emerald-400 font-bold block">✓ Successfully Subscribed!</span>
+            </div>
+
+        </div>
+
+        <div class="max-w-7xl mx-auto mt-16 pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-6 text-xs text-lavender-400">
+            <span>&copy; 2026 Maximus Audio. All Rights Reserved. inspired by Apple Design guidelines.</span>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-white">Privacy Policy</a>
+                <a href="#" class="hover:text-white">Terms of Sale</a>
+                <a href="#" class="hover:text-white">Cookie Settings</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Comprehensive Dynamic Controller Script -->
+    <script>
+        // Setup state variables
+        let currentColor = 'lavender';
+        let currentSoundMode = 'anc';
+        let currentSpecTab = 'acoustic';
+        let isDraggingAudioNode = false;
+
+        // Custom Color Stop Definitions for Interactive SVG swap
+        const colorDefinitions = {
+            lavender: {
+                bandStop1: '#EAE6F4', bandStop2: '#D5CDEB', bandStop3: '#EAE6F4',
+                cupStop1: '#DFD8F3', cupStop2: '#947ECC',
+                cushionStop1: '#BEB5DF', cushionStop2: '#7C6FA4',
+                glow: 'rgba(148, 126, 204, 0.2)'
+            },
+            obsidian: {
+                bandStop1: '#262626', bandStop2: '#1F1F1F', bandStop3: '#262626',
+                cupStop1: '#3F3F3F', cupStop2: '#1A1A1A',
+                cushionStop1: '#404040', cushionStop2: '#1E1E1E',
+                glow: 'rgba(31, 31, 31, 0.2)'
+            },
+            silver: {
+                bandStop1: '#F3F4F6', bandStop2: '#D1D5DB', bandStop3: '#F3F4F6',
+                cupStop1: '#E5E7EB', cupStop2: '#9CA3AF',
+                cushionStop1: '#D1D5DB', cushionStop2: '#6B7280',
+                glow: 'rgba(156, 163, 175, 0.2)'
+            },
+            rose: {
+                bandStop1: '#FDF2F0', bandStop2: '#E5C7C2', bandStop3: '#FDF2F0',
+                cupStop1: '#F9DED9', cupStop2: '#C99E97',
+                cushionStop1: '#DBB7B1', cushionStop2: '#9A706A',
+                glow: 'rgba(229, 199, 194, 0.2)'
+            }
+        };
+
+        // Technical Specifications Data Repository
+        const specsData = {
+            acoustic: [
+                { title: "Dynamic Driver Size", val: "40 mm", desc: "Custom designed titanium composite dynamic driver designed to capture crisp details.", stat: "High Fidelity" },
+                { title: "Total Harmonic Distortion", val: "<0.08%", desc: "Extremely low distortion across the entire audio spectrum, even at high volume.", stat: "Ultra Pure" },
+                { title: "Driver Architecture", val: "Dual Neodymium Ring", desc: "Dual neodymium ring magnet motor mimics professional floor-standing speakers.", stat: "No Distort" }
+            ],
+            battery: [
+                { title: "ANC Active Playback", val: "Up to 20 Hours", desc: "Listen comfortably with high-fidelity sound, Active Noise Cancellation, and Spatial Audio.", stat: "20 Hrs" },
+                { title: "Fast Charging Speed", val: "5 Mins = 1.5 Hrs", desc: "Get substantial charge in minutes over lightning or fast-charging type-c port.", stat: "Super Fast" },
+                { title: "Standby Battery Save", val: "Up to 200 Hours", desc: "Enters an ultra-low energy mode when stored within the provided slim smart case.", stat: "Smart Save" }
+            ],
+            sensor: [
+                { title: "Gyroscope System", val: "9-Axis Array", desc: "Calculates spatial sound dynamic orientation instantly as you tilt or turn your head.", stat: "Gyros Active" },
+                { title: "Optical Sensors", val: "Dual Wear Detect", desc: "Pauses playback automatically whenever you lift an earcup or slide them off.", stat: "Auto Pause" },
+                { title: "Case Detection Sensor", val: "Hall Effect", desc: "Instructs your headphones to sleep when securely snapped into its travel jacket.", stat: "Smart Sleep" }
+            ]
+        };
+
+        // Initialize elements on load
+        window.onload = function() {
+            generateAudioWaves();
+            switchSpecTab('acoustic');
+            setupSpatialAudioDrag();
+        }
+
+        // Color Swapping Functionality
+        function changeColor(colorName) {
+            currentColor = colorName;
+            const defs = colorDefinitions[colorName];
+            if (!defs) return;
+
+            // Apply to Hero Headphone
+            applyColorToSvg('hero-headphone', defs);
+            // Apply to Configurator Headphone
+            applyColorToSvg('config-headphone', defs);
+
+            // Update Glow Behind Configurator
+            const glowEl = document.getElementById('config-color-glow');
+            if (glowEl) {
+                glowEl.style.backgroundColor = defs.glow;
+            }
+
+            // Update selector borders/active states in configurator
+            const colors = ['lavender', 'obsidian', 'silver', 'rose'];
+            colors.forEach(col => {
+                const button = document.getElementById(`opt-${col}`);
+                if (button) {
+                    if (col === colorName) {
+                        button.classList.add('border-lavender-500', 'bg-lavender-50');
+                        button.classList.remove('border-transparent', 'bg-slate-50');
+                    } else {
+                        button.classList.remove('border-lavender-500', 'bg-lavender-50');
+                        button.classList.add('border-transparent', 'bg-slate-50');
+                    }
+                }
+            });
+        }
+
+        // Apply visual definitions to specific SVG paths
+        function applyColorToSvg(svgId, defs) {
+            const svg = document.getElementById(svgId);
+            if (!svg) return;
+
+            // Select and change classes inside gradient definitions
+            const stops = {
+                band1: svg.querySelectorAll('.band-color-stop-1, .config-band-color-stop-1'),
+                band2: svg.querySelectorAll('.band-color-stop-2, .config-band-color-stop-2'),
+                band3: svg.querySelectorAll('.band-color-stop-3, .config-band-color-stop-3'),
+                cupL1: svg.querySelectorAll('.cup-color-stop-1, .config-cup-color-stop-1'),
+                cupL2: svg.querySelectorAll('.cup-color-stop-2, .config-cup-color-stop-2'),
+                cushion1: svg.querySelectorAll('.cushion-color-stop-1, .config-cushion-color-stop-1'),
+                cushion2: svg.querySelectorAll('.cushion-color-stop-2, .config-cushion-color-stop-2')
+            };
+
+            stops.band1.forEach(el => el.setAttribute('stop-color', defs.bandStop1));
+            stops.band2.forEach(el => el.setAttribute('stop-color', defs.bandStop2));
+            stops.band3.forEach(el => el.setAttribute('stop-color', defs.bandStop3));
+            stops.cupL1.forEach(el => el.setAttribute('stop-color', defs.cupStop1));
+            stops.cupL2.forEach(el => el.setAttribute('stop-color', defs.cupStop2));
+            stops.cushion1.forEach(el => el.setAttribute('stop-color', defs.cushionStop1));
+            stops.cushion2.forEach(el => el.setAttribute('stop-color', defs.cushionStop2));
+        }
+
+        // Active Noise Cancellation Visualizer Simulator
+        function generateAudioWaves() {
+            const container = document.getElementById('wave-container');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const barCount = window.innerWidth < 640 ? 25 : 55;
+            for (let i = 0; i < barCount; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'w-1 sm:w-1.5 rounded-full bg-lavender-400/80 transition-all duration-300 wave-bar';
+                // Random delay and height
+                const height = Math.floor(Math.random() * 80) + 10;
+                bar.style.height = `${height}px`;
+                bar.style.animationDelay = `${i * 0.03}s`;
+                container.appendChild(bar);
+            }
+        }
+
+        function toggleSoundMode(mode) {
+            currentSoundMode = mode;
+            const container = document.getElementById('wave-container');
+            const sphere = document.getElementById('visualizer-sphere');
+            const label = document.getElementById('ambient-mode-label');
+            const indicator = document.getElementById('ambient-indicator-pulse');
+            const desc = document.getElementById('sound-mode-desc');
+
+            const btnAnc = document.getElementById('btn-anc');
+            const btnTrans = document.getElementById('btn-trans');
+            const btnOff = document.getElementById('btn-off');
+
+            // Reset classes
+            [btnAnc, btnTrans, btnOff].forEach(btn => {
+                btn.className = 'py-3 px-2 text-center rounded-2xl bg-white/5 text-lavender-200 hover:bg-white/10 font-bold text-xs uppercase tracking-wider transition-all border border-transparent';
+            });
+
+            if (mode === 'anc') {
+                btnAnc.className = 'py-3 px-2 text-center rounded-2xl bg-lavender-500 text-white font-extrabold text-xs uppercase tracking-wider shadow-lg transition-all border border-lavender-400';
+                label.innerText = '98% Isolated';
+                indicator.className = 'w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping';
+                desc.innerText = '"Active noise cancellation blocks the background frequencies entirely, isolating your focus."';
+                
+                // Flat/very low gentle waves
+                Array.from(container.children).forEach(bar => {
+                    bar.style.animation = 'none';
+                    bar.style.height = '6px';
+                    bar.style.backgroundColor = '#947ECC';
+                });
+                sphere.className = 'absolute w-[280px] h-[280px] rounded-full bg-lavender-500/20 filter blur-3xl scale-110 duration-700';
+
+            } else if (mode === 'transparency') {
+                btnTrans.className = 'py-3 px-2 text-center rounded-2xl bg-indigo-500 text-white font-extrabold text-xs uppercase tracking-wider shadow-lg transition-all border border-indigo-400';
+                label.innerText = 'Natural Pass-through';
+                indicator.className = 'w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse';
+                desc.innerText = '"Microphones filter sound naturally so you hear your own voice and environment completely."';
+                
+                // Medium active waves
+                Array.from(container.children).forEach((bar, index) => {
+                    bar.style.animation = 'waveform 1.5s ease-in-out infinite';
+                    bar.style.animationDelay = `${index * 0.02}s`;
+                    bar.style.backgroundColor = '#818CF8';
+                });
+                sphere.className = 'absolute w-[280px] h-[280px] rounded-full bg-indigo-500/10 filter blur-3xl scale-100 duration-700';
+
+            } else if (mode === 'off') {
+                btnOff.className = 'py-3 px-2 text-center rounded-2xl bg-slate-600 text-white font-extrabold text-xs uppercase tracking-wider shadow-lg transition-all border border-slate-500';
+                label.innerText = 'Passive Isolation Only';
+                indicator.className = 'w-2.5 h-2.5 rounded-full bg-red-400';
+                desc.innerText = '"No computational isolation is active. Passive isolation is achieved physically."';
+                
+                // Erratic jagged loud waves
+                Array.from(container.children).forEach((bar, index) => {
+                    bar.style.animation = 'waveform 0.8s ease-in-out infinite';
+                    bar.style.animationDelay = `${index * 0.01}s`;
+                    bar.style.backgroundColor = '#94A3B8';
+                });
+                sphere.className = 'absolute w-[280px] h-[280px] rounded-full bg-slate-600/10 filter blur-3xl scale-75 duration-700';
+            }
+        }
+
+        // Spatial Audio Orbit Sandbox controls
+        function setupSpatialAudioDrag() {
+            const orbitRing = document.getElementById('spatial-orbit-ring');
+            const audioNode = document.getElementById('audio-node');
+            if (!orbitRing || !audioNode) return;
+
+            const updateSoundCoordinates = (clientX, clientY) => {
+                const rect = orbitRing.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                
+                let dx = clientX - centerX;
+                let dy = clientY - centerY;
+                
+                // Calculate angle and radius
+                let angleRad = Math.atan2(dy, dx);
+                let angleDeg = Math.round(angleRad * (180 / Math.PI));
+                if (angleDeg < 0) angleDeg += 360;
+
+                // Restrict distance to orbit boundary
+                const radius = rect.width / 2 - 20; // Padding inside orbit
+                const newX = radius * Math.cos(angleRad);
+                const newY = radius * Math.sin(angleRad);
+
+                // Apply style repositioning
+                audioNode.style.left = `calc(50% + ${newX}px - 20px)`;
+                audioNode.style.top = `calc(50% + ${newY}px - 20px)`;
+
+                // Update visual directional feedbacks
+                const relativeAngle = (angleDeg - 90 + 360) % 360;
+                let directionText = `${relativeAngle}° Surround`;
+                if (relativeAngle > 340 || relativeAngle < 20) directionText += ' (Front)';
+                else if (relativeAngle >= 20 && relativeAngle <= 160) directionText += ' (Right Channel)';
+                else if (relativeAngle > 160 && relativeAngle < 200) directionText += ' (Rear Center)';
+                else directionText += ' (Left Channel)';
+
+                document.getElementById('orbit-angle').innerText = directionText;
+                document.getElementById('orbit-distance').innerText = 'Dolby Atmos Live';
+            };
+
+            // Touch support
+            audioNode.addEventListener('touchstart', (e) => {
+                isDraggingAudioNode = true;
+                e.preventDefault();
+            }, { passive: false });
+
+            window.addEventListener('touchmove', (e) => {
+                if (!isDraggingAudioNode) return;
+                const touch = e.touches[0];
+                updateSoundCoordinates(touch.clientX, touch.clientY);
+            }, { passive: false });
+
+            window.addEventListener('touchend', () => {
+                isDraggingAudioNode = false;
+            });
+
+            // Mouse support
+            audioNode.addEventListener('mousedown', (e) => {
+                isDraggingAudioNode = true;
+                e.preventDefault();
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (!isDraggingAudioNode) return;
+                updateSoundCoordinates(e.clientX, e.clientY);
+            });
+
+            window.addEventListener('mouseup', () => {
+                isDraggingAudioNode = false;
+            });
+        }
+
+        // Exploded tech schematic details dynamic swap
+        const schematicDetails = {
+            1: {
+                tag: "Engineered Part 1",
+                title: "Resilient Mesh Canopy",
+                desc: "Woven meticulously with durable fibers, the canopy provides superb balanced head weight support. This mesh ensures uniform posture comfort across the crown, making the headphone feel virtually featherlight.",
+                stat1: "99.4% Tension Rate",
+                stat2: "14 Gram Canopy"
+            },
+            2: {
+                tag: "Engineered Part 2",
+                title: "Custom 40mm Composite Drivers",
+                desc: "An advanced dual neodymium ring magnet motor structure reduces sound distortion inside. It mimics high-end floor standing hi-fi speakers, translating every single note accurately to your eardrums.",
+                stat1: "THD <0.08% Pure",
+                stat2: "Dual Motor Array"
+            },
+            3: {
+                tag: "Engineered Part 3",
+                title: "Anodized Digital Crown Control",
+                desc: "A custom-machined metal knob that gives complete fine physical volume control. Press to answer calls, skip tracks, and adjust options without checking your smartphone screen.",
+                stat1: "Tactile Feedbacks",
+                stat2: "Premium Aluminum"
+            },
+            4: {
+                tag: "Engineered Part 4",
+                title: "H1 Computation Brains",
+                desc: "Fitted with two independent master audio processors. Using custom audio algorithms, the H1 chips coordinate noise cancellation, personalized sound acoustics, and wear sensors instantly.",
+                stat1: "10-Core Engines",
+                stat2: "9 Billion Calcs"
+            }
+        };
+
+        function revealSchematicDetails(index) {
+            const details = schematicDetails[index];
+            if (!details) return;
+
+            // Apply detail updates to container
+            document.getElementById('detail-tag').innerText = details.tag;
+            document.getElementById('detail-title').innerText = details.title;
+            document.getElementById('detail-desc').innerText = details.desc;
+            document.getElementById('detail-stat-1').innerText = details.stat1;
+            document.getElementById('detail-stat-2').innerText = details.stat2;
+
+            // Highlight the dots appropriately
+            for (let i = 1; i <= 4; i++) {
+                const dot = document.getElementById(`spec-dot-${i}`);
+                if (dot) {
+                    if (i === index) {
+                        dot.className = "w-3.5 h-3.5 rounded-full bg-lavender-400 ring-2 ring-offset-2 ring-white transition-all";
+                    } else {
+                        dot.className = "w-3 h-3 rounded-full bg-white/30 transition-all";
+                    }
+                }
+            }
+        }
+
+        // Technical specifications table tab switches
+        function switchSpecTab(tabId) {
+            currentSpecTab = tabId;
+            const container = document.getElementById('specs-grid-container');
+            if (!container) return;
+
+            // Reset tab highlights
+            const tabs = ['acoustic', 'battery', 'sensor'];
+            tabs.forEach(t => {
+                const tabBtn = document.getElementById(`tab-${t}`);
+                if (tabBtn) {
+                    if (t === tabId) {
+                        tabBtn.className = "flex-1 py-2 text-center rounded-xl bg-lavender-900 text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md";
+                    } else {
+                        tabBtn.className = "flex-1 py-2 text-center rounded-xl bg-white text-lavender-600 hover:text-lavender-900 text-xs font-bold uppercase tracking-wider transition-all";
+                    }
+                }
+            });
+
+            // Load and paint dynamic cards
+            const specs = specsData[tabId];
+            container.innerHTML = '';
+            specs.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = "p-8 bg-white border border-lavender-100 rounded-3xl space-y-6 flex flex-col justify-between shadow-sm transition-all hover:shadow-premium duration-300 transform translate-y-2 opacity-0";
+                
+                card.innerHTML = `
+                    <div class="space-y-3">
+                        <span class="text-[10px] font-extrabold uppercase tracking-widest text-lavender-400">Spec Detail ${index + 1}</span>
+                        <h4 class="text-xl font-bold text-lavender-900">${item.title}</h4>
+                        <p class="text-xs sm:text-sm text-lavender-500 leading-relaxed">${item.desc}</p>
+                    </div>
+                    <div class="pt-4 border-t border-lavender-50 flex justify-between items-center">
+                        <span class="text-xl font-black text-lavender-600">${item.val}</span>
+                        <span class="px-2.5 py-1 rounded-full bg-lavender-50 text-lavender-500 font-bold uppercase text-[9px] tracking-wider">${item.stat}</span>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+                
+                // Animate entrance nicely
+                setTimeout(() => {
+                    card.classList.remove('translate-y-2', 'opacity-0');
+                }, index * 100);
+            });
+        }
+
+        // Accordion drawer FAQ toggles
+        function toggleFAQ(index) {
+            const content = document.getElementById(`faq-content-${index}`);
+            const icon = document.getElementById(`faq-icon-${index}`);
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.innerText = '−';
+                icon.classList.add('rotate-45');
+            } else {
+                content.classList.add('hidden');
+                icon.innerText = '+';
+                icon.classList.remove('rotate-45');
+            }
+        }
+
+        // Newsletter sign up simulation
+        function triggerNewsletterSuccess() {
+            const status = document.getElementById('newsletter-status');
+            status.classList.remove('hidden');
+            setTimeout(() => {
+                status.classList.add('hidden');
+            }, 5000);
+        }
+
+        // Purchase order triggers
+        function triggerOrderSuccess() {
+            const modal = document.getElementById('order-success-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        }
+
+        function closeSuccess() {
+            const modal = document.getElementById('order-success-modal');
+            modal.classList.add('hidden');
+        }
+
+        function scrollToConfigurator() {
+            const target = document.getElementById('configurator');
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+</html>

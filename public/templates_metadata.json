@@ -1409,10 +1409,58 @@
     "block_index": 7,
     "type": "react",
     "filename": "new2_temp_7.jsx",
-    "title": "React App 7 from NEW2",
+    "title": "Audio Premium - Stratos Headphones Configurator",
     "theme": "dark",
     "style": "glassmorphism",
     "category": "Landing Page",
-    "lines": 5393
+    "lines": 1656
+  },
+  {
+    "id": 119,
+    "source_file": "new2.txt",
+    "block_index": 8,
+    "type": "html",
+    "filename": "new2_temp_8.html",
+    "title": "STRATOS CONQUEROR - Near-Space Exploration",
+    "theme": "dark",
+    "style": "glassmorphism",
+    "category": "Landing Page",
+    "lines": 1103
+  },
+  {
+    "id": 120,
+    "source_file": "new2.txt",
+    "block_index": 9,
+    "type": "html",
+    "filename": "new2_temp_9.html",
+    "title": "Premium HTML Template 9 from NEW2",
+    "theme": "dark",
+    "style": "glassmorphism",
+    "category": "Landing Page",
+    "lines": 1046
+  },
+  {
+    "id": 121,
+    "source_file": "new2.txt",
+    "block_index": 10,
+    "type": "html",
+    "filename": "new2_temp_10.html",
+    "title": "Premium HTML Template 10 from NEW2",
+    "theme": "dark",
+    "style": "glassmorphism",
+    "category": "Landing Page",
+    "lines": 1453
+  },
+  {
+    "id": 122,
+    "source_file": "new2.txt",
+    "block_index": 11,
+    "type": "html",
+    "filename": "new2_temp_11.html",
+    "title": "Premium HTML Template 11 from NEW2",
+    "theme": "dark",
+    "style": "glassmorphism",
+    "category": "Landing Page",
+    "lines": 1388
   }
 ]
